@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/edit"
+        android:orderInCategory="0"
+        android:title="编辑"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/raise_close"
+        android:orderInCategory="0"
+        android:title="提升为熟识圈好友"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/del_friend"
+        android:orderInCategory="0"
+        android:title="解除好友关系"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/report"
+        android:orderInCategory="0"
+        android:title="举报"
+        app:showAsAction="never" />
+</menu>

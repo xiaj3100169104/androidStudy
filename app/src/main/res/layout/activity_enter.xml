@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout_normal" />
+
+    <Button
+        android:id="@+id/btn_RX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RX_test " />
+
+    <Button
+        android:id="@+id/btn_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="album" />
+
+    <Button
+        android:id="@+id/btn_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="address" />
+
+    <Button
+    android:id="@+id/btn_event_bus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="eventbus" />
+    <Button
+        android:id="@+id/btn_eventbus_net"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="network" />
+</LinearLayout>

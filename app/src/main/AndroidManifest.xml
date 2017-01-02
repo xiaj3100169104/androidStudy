@@ -14,14 +14,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="test.activity.TestNet2Activity"/>
+        <activity android:name="test.activity.MyRadioGroupActivity"/>
         <activity android:name="com.style.album.AlbumActivity"/>
         <activity android:name="com.style.album.SelectLocalPictureActivity"/>
         <activity android:name="com.style.address.AddressActivity"/>
         <activity android:name="test.activity.MainActivity"/>
         <activity android:name="test.activity.SecondActivity"/>
-        <activity android:name="test.activity.StickyModeActivity"/>
-        <activity android:name="test.activity.TestNetActivity"/>
+        <activity android:name="test.activity.UserAgreeActivity"/>
+        <activity android:name="test.activity.WheelActivity"/>
 
     </application>
 

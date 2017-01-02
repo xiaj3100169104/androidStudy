@@ -1,6 +1,5 @@
 package com.style.base;
 
-import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,8 +54,4 @@ public abstract class BaseToolBarActivity extends BaseActivity {
         setText(tvTitleBase, resId);
     }
 
-    protected void skip(Class<?> cls) {
-        if (cls != null)
-            startActivity(new Intent(mContext, cls));
-    }
 }

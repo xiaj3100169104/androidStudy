@@ -16,16 +16,7 @@ import butterknife.OnClick;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class EnterActivity extends BaseToolBarActivity implements View.OnClickListener {
-
-    @Bind(R.id.btn_album)
-    Button btnAlbum;
-    @Bind(R.id.btn_address)
-    Button btnAddress;
-    @Bind(R.id.btn_RX)
-    Button btnRX;
-    @Bind(R.id.btn_event_bus)
-    Button btnEventBus;
+public class EnterActivity extends BaseToolBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,35 +26,27 @@ public class EnterActivity extends BaseToolBarActivity implements View.OnClickLi
 
     @Override
     public void initData() {
-        btnRX.setOnClickListener(this);
-        btnAlbum.setOnClickListener(this);
-        btnAddress.setOnClickListener(this);
-        btnEventBus.setOnClickListener(this);
+
     }
 
-    @OnClick(R.id.btn_eventbus_net)
-    public void onClickbufferknife() {
-        skip(TestNetActivity.class);
+    @OnClick(R.id.btn_album)
+    public void skip1() {
+        skip(SelectLocalPictureActivity.class);
     }
-    @Override
-    public void onClick(View v) {
-        Class<?> cls = null;
-        switch (v.getId()) {
-            case R.id.btn_RX:
-                cls = TestNet2Activity.class;
-                break;
-            case R.id.btn_album:
-                cls = SelectLocalPictureActivity.class;
-                break;
-            case R.id.btn_address:
-                cls = AddressActivity.class;
-                break;
-            case R.id.btn_event_bus:
-                cls = MainActivity.class;
-                break;
-        }
-        if (cls != null)
-            startActivity(new Intent(EnterActivity.this, cls));
-
+    @OnClick(R.id.btn_address)
+    public void skip2() {
+        skip(AddressActivity.class);
+    }
+    @OnClick(R.id.btn_radio)
+    public void skip3() {
+        skip(MyRadioGroupActivity.class);
+    }
+    @OnClick(R.id.btn_wheel)
+    public void skip4() {
+        skip(WheelActivity.class);
+    }
+    @OnClick(R.id.btn_user_agree)
+    public void skip5() {
+        skip(UserAgreeActivity.class);
     }
 }

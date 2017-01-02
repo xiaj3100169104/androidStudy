@@ -200,4 +200,5 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected int px2dip(float pxValue) {
         return CommonUtil.px2dip(mContext, pxValue);
     }
+
 }

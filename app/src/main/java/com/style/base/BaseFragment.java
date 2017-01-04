@@ -2,6 +2,7 @@ package com.style.base;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -190,4 +191,8 @@ public abstract class BaseFragment extends Fragment {
     protected int px2dip(float pxValue) {
         return CommonUtil.px2dip(context, pxValue);
     }
+    protected void skip(Class<?> cls) {
+        startActivity(new Intent(context, cls));
+    }
+
 }

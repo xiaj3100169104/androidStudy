@@ -1,16 +1,16 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- toolbar（actionbar）颜色 -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--按钮选中或者点击获得焦点后的颜色-->
-        <item name="colorAccent">@color/black_light</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!--返回键颜色-->
         <item name="android:textColorPrimary">@color/black_light</item>
         <!--Button按钮正常状态颜色-->
-        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@color/button_color_normal</item>
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@color/black_light</item>
         <!-- 布局还没加载出来前的窗口背景颜色 -->
@@ -19,32 +19,17 @@
         <!-- SearchView -->
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <!-- toolbar的主题-->
-        <item name="toolbarStyle">@style/ClubToolbar</item>
     </style>
 
-    <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
-        <!-- 设置该属性解决空白部分-->
-        <item name="contentInsetStart">0dp</item>
-        <item name="contentInsetEnd">0dp</item>
-    </style>
-
-    <style name="AppTheme" parent="BaseTheme">
+    <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:windowAnimationStyle">@style/Anim_main</item>
     </style>
-
-    <style name="AppTheme.splash_bg" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/ic_launcher</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
         <!-- 菜单是否覆盖在ToolBar上-->
         <item name="overlapAnchor">false</item>
         <item name="android:dropDownWidth">wrap_content</item>
         <item name="android:popupBackground">@color/black_light</item>
     </style>
-
     <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
         <!--
     Background for the search query section (e.g. EditText)
@@ -70,10 +55,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="AppTheme.Toolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/bar_color</item>
         <item name="actionMenuTextColor">@color/white</item>
         <item name="actionMenuTextAppearance">@style/TextAppearance.AppCompat.Medium</item>
-        <item name="contentInsetStart">0dp</item>
-        <item name="contentInsetEnd">0dp</item>
     </style>
 </resources>

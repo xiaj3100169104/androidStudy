@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/title_layout_normal" />
+    <include layout="@layout/comm_toolbar" />
 
 
     <Button

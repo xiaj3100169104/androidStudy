@@ -14,9 +14,8 @@
 
     <dimen name="corners_normal_size">5dp</dimen>
     <dimen name="corners_big_size">10dp</dimen>
-    <!-- 图片大小 -->
+
     <!-- 字体大小 -->
-    <!-- font size -->
     <dimen name="text_size_11sp">11sp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_13sp">13sp</dimen>
@@ -25,4 +24,19 @@
     <dimen name="text_size_16sp">16sp</dimen>
     <dimen name="text_size_17sp">17sp</dimen>
     <dimen name="text_size_18sp">18sp</dimen>
+    <!-- 分隔线厚度大小 -->
+    <dimen name="divider_1px_width">1px</dimen>
+    <!-- text行间距大小 -->
+    <dimen name="line_Spacing_Extra">3dp</dimen>
+    <!-- image size -->
+    <dimen name="image_17dp_size">17dp</dimen>
+    <dimen name="image_20dp_size">20dp</dimen>
+    <dimen name="image_min_size">25dp</dimen>
+    <dimen name="image_small_size">30dp</dimen>
+    <dimen name="image_size_35dp">35dp</dimen>
+    <dimen name="image_normal_size">40dp</dimen>
+    <dimen name="image_big_size">50dp</dimen>
+    <dimen name="image_biger_size">60dp</dimen>
+    <dimen name="image_75dp_size">75dp</dimen>
+    <dimen name="image_80dp_size">80dp</dimen>
 </resources>

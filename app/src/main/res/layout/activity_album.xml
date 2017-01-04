@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/title_layout_normal" />
+        <include layout="@layout/comm_toolbar" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcv_image"

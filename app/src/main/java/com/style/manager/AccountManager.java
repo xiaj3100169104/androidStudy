@@ -106,4 +106,8 @@ public class AccountManager {
         String value = getUserInfo(account).getString(PASSWORD, "");
         return value;
     }
+
+    public String getToken() {
+        return null;
+    }
 }

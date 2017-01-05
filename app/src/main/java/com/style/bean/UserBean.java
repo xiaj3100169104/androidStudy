@@ -3,10 +3,14 @@ package com.style.bean;
 import android.text.TextUtils;
 
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+
 import java.io.Serializable;
 import java.util.Date;
 
-//@Table(name = UserTable.TABLE_NAME, onCreated = UserTable.CREATE_INDEX)
+@Entity
 public class UserBean implements Serializable {
 	public static final String ID = "id";
     public static final String USER_ID = "userId";
@@ -23,33 +27,21 @@ public class UserBean implements Serializable {
     public static final String CREATE_DATE = "createDate";
     public static final String MODIFY_DATE = "modifyDate";
 
-    //@Column(name = ID, isId = true)
+    @Id(autoincrement = true)
     public int id;//
-    //@Column(name = USER_ID)
     public int userId;// 用户id
-    //@Column(name = USERNAME)
     public String userName;// 用户名
-    //@Column(name = NICKNAME)
     public String nickName; //昵称
-    //@Column(name = PASSWORD)
     public String passWord;// 头像保存路径
-    //@Column(name = TELEPHONE)
     public String telephone;// 手机号
-    //@Column(name = HEADURL)
     public String headUrl;// 头像保存路径
-    //@Column(name = SIGNATURE)
     public String signature;// 个性签名
-    //@Column(name = SEX)
     public String sex;// 性别: M男士，W女士
-    //@Column(name = LOCATION)
     public String location;// 位置信息
-    //@Column(name = BIRTHDAY)
     public String birthday;// 生日
-    //@Column(name = TYPE)
     public String type;// N-正常用户，P-公众账号
-    //@Column(name = CREATE_DATE)
+    @Transient
     public Date createDate;
-    //@Column(name = MODIFY_DATE)
     public long modifyDate;
 
     public UserBean(){

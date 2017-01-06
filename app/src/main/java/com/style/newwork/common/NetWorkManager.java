@@ -8,6 +8,8 @@ import com.zhy.http.okhttp.callback.Callback;
  * Created by xiajun on 2016/12/22.
  */
 public class NetWorkManager {
+    protected String TAG = getClass().getSimpleName();
+
     private static NetWorkManager instance;
 
     public synchronized static NetWorkManager getInstance() {

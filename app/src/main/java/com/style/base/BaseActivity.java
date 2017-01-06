@@ -33,7 +33,9 @@ public abstract class BaseActivity extends BaseRxActivity {
     private AlertDialog dlgPrompt;
 
     public abstract void initData();
-
+    public <T extends View> T getView(int id) {
+        return (T) findViewById(id);
+    }
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);

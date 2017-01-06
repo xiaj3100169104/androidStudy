@@ -22,6 +22,7 @@
         <activity android:name="test.activity.SecondActivity"/>
         <activity android:name="test.activity.UserAgreeActivity"/>
         <activity android:name="test.activity.WheelActivity"/>
+        <activity android:name="com.style.db.custom.TestCustomDBActivity"/>
 
     </application>
 

@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
+import com.style.db.custom.TestCustomDBActivity;
 import com.style.framework.R;
+
+import butterknife.OnClick;
+import test.activity.EnterActivity;
 
 
 public class HomeFragment4 extends BaseFragment {
@@ -26,5 +30,13 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void onLazyLoad() {
 
+    }
+    @OnClick(R.id.layout_item_47)
+    public void skip47() {
+        skip(TestCustomDBActivity.class);
+    }
+    @OnClick(R.id.layout_item_48)
+    public void skip48() {
+        skip(EnterActivity.class);
     }
 }

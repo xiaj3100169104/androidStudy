@@ -1,4 +1,4 @@
-package com.style.db;
+package com.style.db.base;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,24 +10,24 @@ import java.util.List;
 
 import test.bean.User;
 
-public class DBManager {
+public class CommonDBManager {
     private static final String TAG = "DBManager";
 
-    private UserDBHelper dbHelper;
-    private static DBManager dbManager;
+    private CommonSQLOpenHelper dbHelper;
+    private static CommonDBManager commonDBManager;
     private SQLiteDatabase db;
     private Context mContext;
 
-    public static DBManager getInstance() {
-        if (dbManager == null) {
-            dbManager = new DBManager();
+    public synchronized static CommonDBManager getInstance() {
+        if (commonDBManager == null) {
+            commonDBManager = new CommonDBManager();
         }
-        return dbManager;
+        return commonDBManager;
     }
 
     public void init(Context context) {
         mContext = context;
-        dbHelper = new UserDBHelper(context);
+        dbHelper = new CommonSQLOpenHelper(context);
         db = dbHelper.getWritableDatabase();
     }
 
@@ -49,6 +49,33 @@ public class DBManager {
         return db.insert(UserTable.TABLE_NAME, null, cv);
     }
 
+    public void updateUser(String userId, String avatarPath) {
+        String sql = "UPDATE " + UserTable.TABLE_NAME + " SET "
+                + UserTable.COL_AVATAR + "=?"+" WHERE " + UserTable.COL_USERID + "=?";
+        String[] params = new String[]{userId, avatarPath};
+        db.execSQL(sql, params);
+    }
+
+    public void deleteUser(String userId, String phone) {
+        String sql = "DELETE FROM " + UserTable.TABLE_NAME + " WHERE " + UserTable.COL_USERID + "=? AND " + UserTable.COL_TELEPHONE + "=?";
+        String[] params = new String[]{userId, phone};
+        db.execSQL(sql, params);
+    }
+
+    public List<User> queryCustomerInAll(String userId) {
+        String sql = "SELECT * FROM " + UserTable.TABLE_NAME + " WHERE " + UserTable.COL_USERID + "=?";
+        String[] params = new String[]{userId};
+        Cursor c = db.rawQuery(sql, params);
+        List<User> result = new ArrayList<>();
+        while (c.moveToNext()) {
+            User customer = new User();
+            customer.setAccount(c.getString(c.getColumnIndex(UserTable.COL_ACCOUNT)));
+            customer.setUserId(c.getLong(c.getColumnIndex(UserTable.COL_USERID)));
+            result.add(customer);
+        }
+        c.close();
+        return result;
+    }
     public void addCustomer(User customer) {
         db.beginTransaction();  //开始事务
         try {
@@ -78,7 +105,7 @@ public class DBManager {
         List<User> result = new ArrayList<>();
         while (c.moveToNext()) {
             User msg = new User();
-            msg.setUserId(c.getString(c.getColumnIndex(UserTable.COL_USERID)));
+            msg.setUserId(c.getLong(c.getColumnIndex(UserTable.COL_USERID)));
             msg.setAccount(c.getString(c.getColumnIndex(UserTable.COL_ACCOUNT)));
             result.add(msg);
         }
@@ -99,34 +126,6 @@ public class DBManager {
         sqlBuf.append(",");
         sqlBuf.append(count);
         return sqlBuf.toString();
-    }
-
-    public void updateUser(String userId, String avatarPath) {
-        String sql = "UPDATE " + UserTable.TABLE_NAME + " SET "
-                + UserTable.COL_AVATAR + "=?"+" WHERE " + UserTable.COL_USERID + "=?";
-        String[] params = new String[]{userId, avatarPath};
-        db.execSQL(sql, params);
-    }
-
-    public void deleteUser(String userId, String phone) {
-        String sql = "DELETE FROM " + UserTable.TABLE_NAME + " WHERE " + UserTable.COL_USERID + "=? AND " + UserTable.COL_TELEPHONE + "=?";
-        String[] params = new String[]{userId, phone};
-        db.execSQL(sql, params);
-    }
-
-    public List<User> queryCustomerInAll(String userId) {
-        String sql = "SELECT * FROM " + UserTable.TABLE_NAME + " WHERE " + UserTable.COL_USERID + "=?";
-        String[] params = new String[]{userId};
-        Cursor c = db.rawQuery(sql, params);
-        List<User> result = new ArrayList<>();
-        while (c.moveToNext()) {
-            User customer = new User();
-            customer.setAccount(c.getString(c.getColumnIndex(UserTable.COL_ACCOUNT)));
-            customer.setUserId(c.getString(c.getColumnIndex(UserTable.COL_USERID)));
-            result.add(customer);
-        }
-        c.close();
-        return result;
     }
 
     /**

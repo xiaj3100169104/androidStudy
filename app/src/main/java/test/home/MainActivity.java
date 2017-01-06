@@ -49,7 +49,6 @@ public class MainActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         mLayoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

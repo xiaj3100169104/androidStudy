@@ -1,14 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/windows_color"
     android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/send"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="4"/>
+        android:layout_marginTop="20dp"
+        android:divider="@drawable/divider_common"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
+        <RelativeLayout
+            android:id="@+id/layout_item_41"
+            style="@style/Layouts.normal_RelativeLayout"
+            android:layout_height="80dp">
 
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                style="@style/text_black_16sp"
+                android:layout_centerVertical="true"
+                android:text="头像" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_42"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="菜单1" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_43"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="菜单2" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_44"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="菜单3" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_45"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="菜单4" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:divider="@drawable/divider_common"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:id="@+id/layout_item_46"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <TextView
+                style="@style/text_black_16sp"
+                android:layout_centerVertical="true"
+                android:text="性别" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_47"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <TextView
+                style="@style/text_black_16sp"
+                android:layout_centerVertical="true"
+                android:text="testCustomDB" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_item_48"
+            style="@style/Layouts.normal_RelativeLayout">
+
+            <TextView
+                style="@style/text_black_16sp"
+                android:layout_centerVertical="true"
+                android:text="enterActivity" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

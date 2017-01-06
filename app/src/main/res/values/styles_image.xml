@@ -1,63 +1,13 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 普通水平布局元素左边图片尺寸风格 -->
+    <style name="layout_item_right_image">
+        <item name="android:layout_width">@dimen/image_size_25dp</item>
+        <item name="android:layout_height">@dimen/image_size_25dp</item>
+    </style>
 
-    <!-- 17dp图片尺寸风格 -->
-    <style name="image_17dp_size">
-        <item name="android:layout_width">@dimen/image_17dp_size</item>
-        <item name="android:layout_height">@dimen/image_17dp_size</item>
-    </style>
-    <!-- 20dp图片尺寸风格 -->
-    <style name="image_20dp_size">
-        <item name="android:layout_width">@dimen/image_20dp_size</item>
-        <item name="android:layout_height">@dimen/image_20dp_size</item>
-    </style>
-    <!-- 25dp图片尺寸风格 -->
-    <style name="image_min_size">
-        <item name="android:layout_width">@dimen/image_min_size</item>
-        <item name="android:layout_height">@dimen/image_min_size</item>
-    </style>
-    <!-- 30dp图片尺寸风格 -->
-    <style name="image_small_size">
-        <item name="android:layout_width">@dimen/image_small_size</item>
-        <item name="android:layout_height">@dimen/image_small_size</item>
-    </style>
-    <!-- 35dp图片尺寸风格 -->
-    <style name="image_size_35dp">
-        <item name="android:layout_width">@dimen/image_size_35dp</item>
-        <item name="android:layout_height">@dimen/image_size_35dp</item>
-    </style>
-    <!-- 40dp图片尺寸风格 -->
-    <style name="image_normal_size">
-        <item name="android:layout_width">@dimen/image_normal_size</item>
-        <item name="android:layout_height">@dimen/image_normal_size</item>
-    </style>
-    <!-- 50dp图片尺寸风格 -->
-    <style name="image_big_size">
-        <item name="android:layout_width">@dimen/image_big_size</item>
-        <item name="android:layout_height">@dimen/image_big_size</item>
-    </style>
-    <!-- 60dp图片尺寸风格 -->
-    <style name="image_biger_size">
-        <item name="android:layout_width">@dimen/image_biger_size</item>
-        <item name="android:layout_height">@dimen/image_biger_size</item>
-    </style>
-    <!-- 底部导航栏图片 45dp图片尺寸风格 -->
+    <!-- 主页底部导航栏图片尺寸风格 -->
     <style name="image_main_tap_size">
         <item name="android:layout_width">40dp</item>
         <item name="android:layout_height">40dp</item>
-    </style>
-    <!-- 底部导航栏图片 45dp图片尺寸风格 -->
-    <style name="image_main_tap_size_match">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
-    <!-- 75dp图片尺寸风格 -->
-    <style name="image_75dp_size">
-        <item name="android:layout_width">@dimen/image_75dp_size</item>
-        <item name="android:layout_height">@dimen/image_75dp_size</item>
-    </style>
-    <!-- 80dp图片尺寸风格 -->
-    <style name="image_80dp_size">
-        <item name="android:layout_width">@dimen/image_80dp_size</item>
-        <item name="android:layout_height">@dimen/image_80dp_size</item>
     </style>
 </resources>

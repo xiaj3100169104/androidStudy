@@ -14,7 +14,7 @@ import okhttp3.Response;
 
 
 public class NetDataBeanCallback<T> extends StringCallback {
-    protected String TAG = "NetDataBeanCallback";
+    protected String TAG = getClass().getSimpleName();
     protected Class<T> clazz;
     protected TypeReference<T> type;
 

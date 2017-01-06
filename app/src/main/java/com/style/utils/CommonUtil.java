@@ -52,7 +52,7 @@ import java.util.List;
 import test.app.MyApp;
 
 public class CommonUtil {
-    private static final String TAG = "CommonUtil";
+    protected String TAG = getClass().getSimpleName();
 
     public static String md5(final String c) {
         MessageDigest md = null;

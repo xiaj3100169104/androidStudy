@@ -12,7 +12,7 @@ import java.util.List;
  * Created by xiajun on 2016/12/22.
  */
 public class HttpAction {
-    protected String TAG = "HttpAction";
+    protected String TAG = getClass().getSimpleName();
     private static String URL_BASE = ConfigUtil.REAL_API_URL;
     private static String URL_REGISTER_USER = URL_BASE + "/addUser";
     private static String URL_LOGIN_USER = URL_BASE + "/login";
@@ -28,6 +28,8 @@ public class HttpAction {
 
     private static String URL_ADD_DYNAMIC = URL_BASE + "/addDynamic";
     private static String URL_GET_DYNAMICS_FRIEND_CIRCLE = URL_BASE + "/getDynamicsByPage";
+
+    //http://sw.bos.baidu.com/sw-search-sp/software/13d93a08a2990/ChromeStandalone_55.0.2883.87_Setup.exe
 
     private static String userId;
     private static String token;

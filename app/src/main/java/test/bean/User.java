@@ -4,7 +4,8 @@ package test.bean;
 import java.io.Serializable;
 public class User implements Serializable {
 
-	private String userId;
+	private long id;
+	private long userId;
 	private String telPhone;
 	private String account; // 帐号
 	private String password; // 密码
@@ -12,24 +13,30 @@ public class User implements Serializable {
 	private String sex;
 	private String signKey;
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId='" + userId + '\'' +
-				", telPhone='" + telPhone + '\'' +
-				", account='" + account + '\'' +
-				", password='" + password + '\'' +
-				", userName='" + userName + '\'' +
-				", sex='" + sex + '\'' +
-				", signKey='" + signKey + '\'' +
-				'}';
+	public User() {
 	}
 
-	public String getUserId() {
+	public User(long userId, String account, String password, String userName, String signKey) {
+		this.userId = userId;
+		this.account = account;
+		this.password = password;
+		this.userName = userName;
+		this.signKey = signKey;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
@@ -80,4 +87,20 @@ public class User implements Serializable {
 	public void setSignKey(String signKey) {
 		this.signKey = signKey;
 	}
+
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", userId=" + userId +
+				", telPhone='" + telPhone + '\'' +
+				", account='" + account + '\'' +
+				", password='" + password + '\'' +
+				", userName='" + userName + '\'' +
+				", sex='" + sex + '\'' +
+				", signKey='" + signKey + '\'' +
+				'}';
+	}
+
 }

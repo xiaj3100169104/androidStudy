@@ -21,7 +21,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#ff9a9b9c</color>
 
-    <color name="divider_color">@color/gray</color>
+    <color name="divider_color">#c8c8c8</color>
     <!-- 粉色 -->
     <color name="pink">#ff88b7</color>
     <!-- 主题红色 -->

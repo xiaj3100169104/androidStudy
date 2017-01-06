@@ -1,20 +1,20 @@
-package com.style.db;
+package com.style.db.base;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class UserDBHelper extends SQLiteOpenHelper {
-	private static final String TAG = "UserDBHelper";
+public class CommonSQLOpenHelper extends SQLiteOpenHelper {
+	protected String TAG = getClass().getSimpleName();
 	// 数据库名
-	public static final String DATABASE_NAME = "user.db";
+	public static final String DATABASE_NAME = "style.db";
 	// 数据库版本号
-	public static final int DATABASE_VERSION = 10;
+	public static final int DATABASE_VERSION = 1;//从1开始
 
-	public UserDBHelper(Context context) {
+	public CommonSQLOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		Log.d(TAG, "UserDBHelper Constructor");
+		Log.d(TAG, "Constructor");
 		// 数据库实际被创建是在getWritableDatabase()或getReadableDatabase()方法调用时
 		// CursorFactory设置为null,使用系统默认的工厂类
 	}
@@ -33,6 +33,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
 		sBuffer.append(UserTable.COL_USERNAME).append(" VARCHAR(32),");
 		sBuffer.append(UserTable.COL_USERID).append(" LONG)");
 		// 执行创建表的SQL语句
+		//String createUserTable = sBuffer.toString();
+		String createUserTable = sBuffer.toString();
 		db.execSQL(sBuffer.toString());
 		// 即便程序修改重新运行，只要数据库已经创建过，就不会再进入这个onCreate方法
 

@@ -6,7 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 
 
 public class NetBeanCallback<T> extends NetStringCallback {
-    protected String TAG = "NetBeanCallback";
+    protected String TAG = getClass().getSimpleName();
     protected Class<T> clazz;
     protected TypeReference<T> type;
 

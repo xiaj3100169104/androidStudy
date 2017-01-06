@@ -7,7 +7,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
 
 public class NetStringCallback extends StringCallback {
-    protected String TAG = "NetStringCallback";
+    protected String TAG = getClass().getSimpleName();
 
 
     @Override

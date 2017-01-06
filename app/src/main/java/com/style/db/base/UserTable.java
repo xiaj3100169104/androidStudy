@@ -1,4 +1,4 @@
-package com.style.db;
+package com.style.db.base;
 
 /**
  * 联系人表 - 列

@@ -2,32 +2,11 @@ package com.style.bean;
 
 import android.text.TextUtils;
 
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Transient;
-
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
 public class UserBean implements Serializable {
-	public static final String ID = "id";
-    public static final String USER_ID = "userId";
-    public static final String USERNAME = "userName";
-    public static final String NICKNAME = "nickName";
-	public static final String PASSWORD = "passWord";
-	public static final String HEADURL = "headUrl";
-	public static final String SIGNATURE = "signature";
-	public static final String SEX = "sex";
-	public static final String LOCATION = "location";
-	public static final String BIRTHDAY = "birthday";
-	public static final String TYPE ="type";
-	public static final String TELEPHONE = "telephone";
-    public static final String CREATE_DATE = "createDate";
-    public static final String MODIFY_DATE = "modifyDate";
 
-    @Id(autoincrement = true)
     public int id;//
     public int userId;// 用户id
     public String userName;// 用户名
@@ -40,7 +19,6 @@ public class UserBean implements Serializable {
     public String location;// 位置信息
     public String birthday;// 生日
     public String type;// N-正常用户，P-公众账号
-    @Transient
     public Date createDate;
     public long modifyDate;
 

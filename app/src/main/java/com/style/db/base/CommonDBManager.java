@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import test.bean.User;
+import com.style.bean.User;
 
 public class CommonDBManager {
     private static final String TAG = "DBManager";
@@ -49,9 +49,14 @@ public class CommonDBManager {
         return db.insert(UserTable.TABLE_NAME, null, cv);
     }
 
+    public void insertUser(User bean) {
+        //这样同样可以使用execSQL方法来执行一条“插入”的SQL语句，代码如下：
+        String  INSERT_DATA = "INSERT INTO table1 (_id, num, data) values (1, 1, '通过SQL语句插入')" ;
+        db.execSQL(INSERT_DATA);
+    }
+
     public void updateUser(String userId, String avatarPath) {
-        String sql = "UPDATE " + UserTable.TABLE_NAME + " SET "
-                + UserTable.COL_AVATAR + "=?"+" WHERE " + UserTable.COL_USERID + "=?";
+        String sql = "UPDATE " + UserTable.TABLE_NAME + " SET " + UserTable.COL_AVATAR + "=?"+" WHERE " + UserTable.COL_USERID + "=?";
         String[] params = new String[]{userId, avatarPath};
         db.execSQL(sql, params);
     }

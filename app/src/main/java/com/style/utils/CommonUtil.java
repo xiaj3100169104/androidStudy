@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-import com.style.constant.FileDirectory;
 import com.style.manager.ToastManager;
 import com.style.framework.R;
 

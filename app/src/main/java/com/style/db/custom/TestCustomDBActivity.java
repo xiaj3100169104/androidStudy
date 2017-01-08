@@ -1,32 +1,27 @@
 package com.style.db.custom;
 
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseToolBarActivity;
+import com.style.bean.Friend;
 import com.style.framework.R;
 
 import java.util.List;
 
 import butterknife.Bind;
-import test.bean.User;
+import butterknife.OnClick;
+
+import com.style.bean.User;
 
 public class TestCustomDBActivity extends BaseActivity {
-    @Bind(R.id.tv_query_by_id)
-    EditText tvQueryById;
-    @Bind(R.id.tv_update_by_id)
-    EditText tvUpdateById;
-    @Bind(R.id.tv_new_password)
-    EditText tvNewPassword;
-    @Bind(R.id.tv_del_by_id)
-    EditText tvDelById;
+
     private String TAG = getClass().getSimpleName();
 
-    private DBManager dbManager;
+    private UserDBManager myTableManager;
+    private User curUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,56 +31,88 @@ public class TestCustomDBActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        dbManager = DBManager.getInstance();
+        myTableManager = UserDBManager.getInstance();
+        login();
+        List<Friend> list = myTableManager.queryAllFriend();
+        if (list != null && list.size() > 0)
+            return;
+      new Thread(new Runnable() {
+          @Override
+          public void run() {
+              for (int i = 9; i < 150; i++) {
+                  User user = new User(i, "phone" + i, "123456", "用户" + i, null);
+                  myTableManager.insertUser(user);
+
+
+              }
+          }
+      }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 9; i < 150; i++) {
+                    Friend bean = new Friend();
+                    bean.setFriendId(i);
+                    if (i < 12)
+                        bean.setOwnerId(8);
+                    else
+                        bean.setOwnerId(4);
+                    myTableManager.insertFriendUser(bean);
+                }
+            }
+        }).start();
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbManager.closeDataBase();
+        myTableManager.closeDB();
     }
 
-    public void insert(View view) {
-        long index = 1;
-        List<User> list = queryAll();
-        if (list != null && list.size() > 0) {
-            index = list.get(list.size() - 1).getId();
+    @OnClick(R.id.view_get_all_user)
+    public void get_all_user() {
+        myTableManager.queryAllUser();
+    }
+
+    @OnClick(R.id.view_get_all_friend)
+    public void get_all_ufriend() {
+        myTableManager.queryAllFriend();
+    }
+
+    @OnClick(R.id.view_delete_current_user)
+    public void delete() {
+        myTableManager.deleteUser(curUser.getUserId());
+        curUser = null;
+    }
+
+    @OnClick(R.id.view_login)
+    public void login() {
+        curUser = myTableManager.queryUser(8);
+        if (curUser == null) {
+            curUser = new User(8, "18202823096", "123456", "夏军", null);
+            myTableManager.insertOrUpdateUser(curUser);
         }
-        User person = new User(index, "account" + index, "password" + index, "userName" + index, null);
-        long id = dbManager.insert(person);
-        Log.e(TAG, "insert=id=" + id);
     }
 
-    public void update(View view) {
-        ContentValues values = new ContentValues();
-        values.put("password", tvNewPassword.getText().toString());
-        dbManager.updateById(User.class, values, Long.valueOf(tvUpdateById.getText().toString()));
-    }
-
-    public void delete(View view) {
-        dbManager.deleteById(User.class, Long.valueOf(tvDelById.getText().toString()));
-    }
-
-    public void findAll2(View v) {
-        queryAll();
-    }
-
-    public void findRecord(View v) {
-        query(Long.valueOf(tvQueryById.getText().toString()));
-    }
-
-    public void query(long id) {
-        User user = dbManager.findById(User.class, (int) id);
-        if (user != null)
-            Log.e(TAG, "findById==" + user.toString());
-        else
-            Log.e(TAG, "findById==null");
+    @OnClick(R.id.view_getFriend)
+    public void getFriend() {
+        myTableManager.queryAllFriend(curUser.getUserId());
 
     }
 
+    @OnClick(R.id.view_getFriendUser)
+    public void getFriendUser() {
+        myTableManager.queryAllFriendUser(curUser.getUserId());
+    }
+
+    @OnClick(R.id.view_updateSex)
+    public void updateUserSex() {
+        myTableManager.updateUserSex(curUser.getUserId(), "w");
+    }
+/*
     public List<User> queryAll() {
-        List<User> list = dbManager.findAll(User.class);
+        List<User> list = myTableManager.findAll(User.class);
         if (list != null) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0, size = list.size(); i < size; i++) {
@@ -96,5 +123,5 @@ public class TestCustomDBActivity extends BaseActivity {
             Log.e(TAG, "queryAll==null");
         }
         return list;
-    }
+    }*/
 }

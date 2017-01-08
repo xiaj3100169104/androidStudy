@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import test.bean.User;
+import com.style.bean.User;
 
 public class AccountManager {
     protected String TAG = getClass().getSimpleName();
@@ -17,7 +17,7 @@ public class AccountManager {
     private User currentUser;
 
     private static AccountManager mInstance;
-
+    //避免同时获取多个实例
     public synchronized static AccountManager getInstance() {
         if (mInstance == null) {
             mInstance = new AccountManager();

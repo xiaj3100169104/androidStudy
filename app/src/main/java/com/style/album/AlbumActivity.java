@@ -1,7 +1,6 @@
 package com.style.album;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,7 +19,8 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.rxAndroid.RXOtherCallBack;
+import com.style.rxAndroid.RXAsynTaskManager;
+import com.style.rxAndroid.RXNormalCallBack;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -179,11 +179,11 @@ public class AlbumActivity extends BaseToolBarActivity {
 
     private void getData() {
         showProgressDialog();
-        runTask(new RXOtherCallBack() {
+        RXAsynTaskManager.getInstance().runTask(TAG,new RXNormalCallBack() {
             @Override
             public Object doInBackground() {
                 Log.e(AlbumActivity.this.TAG, "doInBackground");
-                List<PicBucket> list = LocalImagesHelper.getPicBuckets(AlbumActivity.this);
+                List<PicBucket> list = LocalImagesHelper.getPicBuckets(getContext());
                 return list;
             }
 

@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,16 @@ import com.style.dialog.MaterialProgressDialog;
 import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
-import com.style.rxAndroid.BaseRxActivity;
+import com.style.rxAndroid.RXAsynTaskManager;
 import com.style.utils.CommonUtil;
 
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity extends BaseRxActivity {
-    protected Context mContext;
+public abstract class BaseActivity extends AppCompatActivity {
+    protected String TAG = getClass().getSimpleName();
+
+    protected Context context;
     protected LayoutInflater mInflater;
     protected Integer mLayoutResID;
     protected View mContentView;
@@ -33,14 +36,16 @@ public abstract class BaseActivity extends BaseRxActivity {
     private AlertDialog dlgPrompt;
 
     public abstract void initData();
+
     public <T extends View> T getView(int id) {
         return (T) findViewById(id);
     }
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
-        mContext = this;
-        mInflater = LayoutInflater.from(mContext);
+        context = this;
+        mInflater = LayoutInflater.from(context);
         if (mLayoutResID != null)
             mContentView = mInflater.inflate(mLayoutResID, null);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
@@ -104,29 +109,34 @@ public abstract class BaseActivity extends BaseRxActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RXAsynTaskManager.getInstance().unsubscribeAll(TAG);
         ButterKnife.unbind(this);
         dismissProgressDialog();
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     protected void skip(Class<?> cls) {
-        startActivity(new Intent(mContext, cls));
+        startActivity(new Intent(getContext(), cls));
     }
 
     public void showToast(String str) {
-        ToastManager.showToast(mContext, str);
+        ToastManager.showToast(getContext(), str);
     }
 
     public void showToast(int resId) {
-        ToastManager.showToast(mContext, resId);
+        ToastManager.showToast(getContext(), resId);
     }
 
 
     public void showToastLong(String msg) {
-        ToastManager.showToastLong(mContext, msg);
+        ToastManager.showToastLong(getContext(), msg);
     }
 
     public void showToastLong(int msgId) {
-        ToastManager.showToastLong(mContext, msgId);
+        ToastManager.showToastLong(getContext(), msgId);
     }
 
     public void showProgressDialog() {
@@ -139,7 +149,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     public void showProgressDialog(String msg) {
         if (progressDialog == null)
-            progressDialog = new MaterialProgressDialog(mContext, R.style.Dialog_NoTitle);
+            progressDialog = new MaterialProgressDialog(getContext(), R.style.Dialog_NoTitle);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage(msg);
         progressDialog.show();
@@ -184,7 +194,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     }
 
     protected void setText(TextView textView, int strId) {
-        setText(textView, mContext.getString(strId));
+        setText(textView, getContext().getString(strId));
     }
 
     protected void setText(TextView textView, String str) {
@@ -196,11 +206,11 @@ public abstract class BaseActivity extends BaseRxActivity {
     }
 
     protected int dip2px(float dpValue) {
-        return CommonUtil.dip2px(mContext, dpValue);
+        return CommonUtil.dip2px(getContext(), dpValue);
     }
 
     protected int px2dip(float pxValue) {
-        return CommonUtil.px2dip(mContext, pxValue);
+        return CommonUtil.px2dip(getContext(), pxValue);
     }
 
 }

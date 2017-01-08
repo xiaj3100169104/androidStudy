@@ -1,13 +1,13 @@
 package com.style.newwork.response;
 
 
-import com.style.bean.UserBean;
+import com.style.bean.Friend;
 
 import java.io.Serializable;
 
 public class LoginBean implements Serializable {
     public String token;
-    public UserBean userBean;
+    public Friend friend;
 
     public String getToken() {
         return token;
@@ -17,11 +17,11 @@ public class LoginBean implements Serializable {
         this.token = token;
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public Friend getFriend() {
+        return friend;
     }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+    public void setFriend(Friend friend) {
+        this.friend = friend;
     }
 }

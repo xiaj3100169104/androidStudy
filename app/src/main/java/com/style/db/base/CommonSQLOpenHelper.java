@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.style.db.custom.UserDBManager;
+
 public class CommonSQLOpenHelper extends SQLiteOpenHelper {
 	protected String TAG = getClass().getSimpleName();
 	// 数据库名
@@ -27,7 +29,7 @@ public class CommonSQLOpenHelper extends SQLiteOpenHelper {
 		Log.d(TAG, "onCreate");
 		// 构建创建表的SQL语句（可以从SQLite Expert工具的DDL粘贴过来加进StringBuffer中）
 		StringBuffer sBuffer = new StringBuffer();
-		sBuffer.append("CREATE TABLE " + UserTable.TABLE_NAME + " (");
+		sBuffer.append("CREATE TABLE " + UserDBManager.TABLE_NAME_USER + " (");
 		sBuffer.append(UserTable.COL_ID).append(" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,");
 		sBuffer.append(UserTable.COL_ACCOUNT).append(" VARCHAR(32),");
 		sBuffer.append(UserTable.COL_USERNAME).append(" VARCHAR(32),");
@@ -48,7 +50,7 @@ public class CommonSQLOpenHelper extends SQLiteOpenHelper {
 		// 这样就可以把一个数据库从旧的模型转变到新的模型
 		// 这个方法中主要完成更改数据库版本的操作
 
-		db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + UserDBManager.TABLE_NAME_USER);
         onCreate(db);
 		// 上述做法简单来说就是，通过检查常量值来决定如何，升级时删除旧表，然后调用onCreate来创建新表
 		// 一般在实际项目中是不能这么做的，正确的做法是在更新数据表结构时，还要考虑用户存放于数据库中的数据不丢失

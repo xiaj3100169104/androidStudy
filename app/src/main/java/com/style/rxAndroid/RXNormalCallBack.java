@@ -7,7 +7,7 @@ import com.style.rxAndroid.BaseRXTaskCallBack;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public  class RXOtherCallBack extends BaseRXTaskCallBack {
+public  class RXNormalCallBack extends BaseRXTaskCallBack {
     protected String TAG = "RXOtherCallBack";
 
     public Object doInBackground(){

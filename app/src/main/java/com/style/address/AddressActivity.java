@@ -9,7 +9,8 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.rxAndroid.RXOtherCallBack;
+import com.style.rxAndroid.RXAsynTaskManager;
+import com.style.rxAndroid.RXNormalCallBack;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
@@ -74,10 +75,10 @@ public class AddressActivity extends BaseToolBarActivity {
 
     private void getData() {
         showProgressDialog();
-        runTask(new RXOtherCallBack() {
+        RXAsynTaskManager.getInstance().runTask(TAG,new RXNormalCallBack() {
             @Override
             public Object doInBackground() {
-                List<UploadPhone> list = ContactHelper.getContacts(AddressActivity.this);
+                List<UploadPhone> list = ContactHelper.getContacts(getContext());
                 if (null != list) {
                     int size = list.size();
                     for (int i = 0; i < size; i++) {

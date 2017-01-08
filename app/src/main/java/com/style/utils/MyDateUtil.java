@@ -12,6 +12,14 @@ import java.util.Locale;
 
 @SuppressLint("SimpleDateFormat")
 public class MyDateUtil {
+   /* public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat dateFormat11 = new SimpleDateFormat("yyyy年MM月dd");
+    public static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    public static SimpleDateFormat dateFormat3 = new SimpleDateFormat("MM-dd");
+    public static SimpleDateFormat dateFormat4 = new SimpleDateFormat("HH:mm");
+    public static SimpleDateFormat dateFormat5 = new SimpleDateFormat("yyyyMM");*/
+    public static SimpleDateFormat dateFormat6=  new SimpleDateFormat("HH小时mm分ss秒");
     public final static String FORMAT_yyyy = "yyyy";
     public final static String FORMAT_DATE = "yyyy-MM-dd";
     public final static String FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
@@ -27,6 +35,11 @@ public class MyDateUtil {
     public final static String FORMAT_DATE_TIME_SECOND_NUMBER = "yyyyMMddHHmmss";
     private static SimpleDateFormat sdf = new SimpleDateFormat();
 
+    public static String getDateStringAccurateToYearHour(Long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        return dateFormat6.format(calendar.getTime());
+    }
     //单位：秒 返回：00:00
     public static String formatMiss(long miss) {
         String hh = miss / 3600 > 9 ? miss / 3600 + "" : "0" + miss / 3600;
@@ -346,6 +359,30 @@ public class MyDateUtil {
         public void setEndTime(long var1) {
             this.endTime = var1;
         }
+    }
+
+    //计算倒计时的时间
+    public static String endData(Long time) {
+        long second = time / 1000;
+        if (second < 60) {
+            return "0:0:" + second;
+        }
+        long minute = second / 60;
+        if (minute < 60) {
+            second = second - 60 * minute;
+            return "0:" + minute + ":" + second;
+        }
+        long hour = minute / 60;
+        if (hour < 24) {
+            second = second - 60 * minute;
+            minute = minute - 60 * hour;
+            return hour + ":" + minute + ":" + second;
+        }
+        long day = hour / 24;
+        second = second - 60 * minute;
+        minute = minute - 60 * hour;
+        hour = hour - 24 * day;
+        return day + "天" + " " + hour + ":" + minute + ":" + second;
     }
 
 }

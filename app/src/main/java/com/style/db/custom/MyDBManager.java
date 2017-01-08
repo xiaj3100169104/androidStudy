@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.style.constant.ConfigUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,44 +14,55 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import test.bean.User;
-
 /**
  * Created by xj on 2016/1/19.
+ * 我们需要确保在没有任何一个人在使用数据库时，才去关闭它。
+ *在StackOverflow上推荐的做法是永远不要关闭数据库。
+ *Android会尊重你这种做法，但会给你如下的提示。所以我一点也不推荐这种做法。
+ * 当然频繁操作数据库不推荐频繁close数据库
  */
-public class DBManager {
-    private static final String TAG = "DBManager";
-    private static final String DB_NAME = "demo.db";
-    private static final int DB_VERSION = 2;
-    private SQLiteDatabase db = null;
-    private MySQLiteHelper mHelper;
-    private Context mContext;
-    private String db_name;
-    private static DBManager mInstance;
+public class MyDBManager {
+    private static final String TAG = "MyDBManager";
+    public static final String DB_NAME_USER_RELATIVE = "userRelative.db";
+    public static final int DB_VERSION_USER_RELATIVE = 2;
+    public static final String TABLE_NAME_USER = "user";
+    public static final String[] TABLE_USER_IGNORE = {"id", "password", "signKey"};
 
-    public synchronized static DBManager getInstance() {
+    private UserRelativeSQLiteHelper mHelper;
+    private SQLiteDatabase db = null;
+    private Context mContext;
+    private static MyDBManager mInstance;
+
+    //确保只有一个数据库连接存在，我们可以使用单例模式
+    public synchronized static MyDBManager getInstance() {
         if (mInstance == null) {
-            mInstance = new DBManager();
+            mInstance = new MyDBManager();
         }
         return mInstance;
     }
 
-    public void init(Context context) {
+    public void initialize(Context context) {
         this.mContext = context;
-        this.db_name = DB_NAME;
-        mHelper = new MySQLiteHelper(getContext(), db_name, DB_VERSION, new TableParam(User.class, "password"));
+        mHelper = new UserRelativeSQLiteHelper(context, DB_NAME_USER_RELATIVE, DB_VERSION_USER_RELATIVE);
         db = mHelper.getWritableDatabase();
+        /*SQLiteOpenHelper的子类被实例化的时候，并不会马上创建数据库，只有当用户调用上面两个方法的时候，系统才会去创建数据库。
+        首次执行上述两个函数的时候，会回调SQLiteOpenHelper的onCreate(), onUpgrade(), onOpen()三个函数。*/
     }
 
     public Context getContext() {
         return mContext;
     }
 
+    public SQLiteDatabase getUserRelativeDB() {
+        return db;
+    }
+
     /**
      * 关闭数据库
+     * 个人觉得没必要每次操作玩都关闭db，有点消耗性能，不如弄个全局的DB，等application 结束时再关闭。
      */
     public void closeDataBase() {
-        db.close();
+        getUserRelativeDB().close();
         mHelper = null;
         db = null;
     }
@@ -59,8 +72,8 @@ public class DBManager {
      *
      * @return 成功返回true，否则返回false
      */
-    public boolean deleteDataBase() {
-        return mContext.deleteDatabase(db_name);
+    public boolean deleteUserRelativeDataBase() {
+        return mContext.deleteDatabase(DB_NAME_USER_RELATIVE);
     }
 
     /**
@@ -70,7 +83,7 @@ public class DBManager {
      * @return 返回-1代表插入数据库失败，否则成功
      * @throws IllegalAccessException
      */
-    public long insert(Object obj) {
+    public long insert(SQLiteDatabase db,Object obj, String[] ignore) {
         Class<?> modeClass = obj.getClass();
         Field[] fields = modeClass.getDeclaredFields();
         ContentValues values = new ContentValues();
@@ -78,13 +91,31 @@ public class DBManager {
         for (Field fd : fields) {
             fd.setAccessible(true);
             String fieldName = fd.getName();
-            //剔除主键id值得保存，由于框架默认设置id为主键自动增长
-            if (fieldName.equalsIgnoreCase("id") || fieldName.equalsIgnoreCase("_id")) {
-                continue;
+            //剔除忽略列
+            boolean isIgnore = false;
+            for (String columnName : ignore) {
+                if (fieldName.equalsIgnoreCase(columnName)) {
+                    isIgnore = true;
+                    break;
+                }
             }
+            if (isIgnore)
+                continue;
             putValues(values, fd, obj);
         }
+        //不管第三个参数是否包含数据，执行Insert()方法必然会添加一条记录，如果第三个参数为空，会添加一条除主键之外其他字段值为Null的记录。
         return db.insert(DBUtils.getTableName(modeClass), null, values);
+    }
+
+    /**
+     * 更新一条记录
+     *
+     * @param clazz  类
+     * @param values 更新对象
+     * @param id     更新id索引
+     */
+    public void updateById(Class<?> clazz, ContentValues values, long id) {
+        getUserRelativeDB().update(clazz.getSimpleName(), values, "id=" + id, null);
     }
 
     /**
@@ -99,7 +130,7 @@ public class DBManager {
      * @throws InvocationTargetException
      */
     public <T> List<T> findAll(Class<T> clazz) {
-        Cursor cursor = db.query(clazz.getSimpleName(), null, null, null, null, null, null);
+        Cursor cursor = getUserRelativeDB().query(clazz.getSimpleName(), null, null, null, null, null, null);
         return getEntity(cursor, clazz);
     }
 
@@ -112,7 +143,7 @@ public class DBManager {
      * @return 返回满足条件的对象
      */
     public <T> T findById(Class<T> clazz, int id) {
-        Cursor cursor = db.query(clazz.getSimpleName(), null, "id=" + id, null, null, null, null);
+        Cursor cursor = getUserRelativeDB().query(clazz.getSimpleName(), null, "id=" + id, null, null, null, null);
         List<T> list = getEntity(cursor, clazz);
         if (list != null && list.size() > 0)
             return list.get(0);
@@ -130,7 +161,7 @@ public class DBManager {
      * @return 返回满足条件的list集合
      */
     public <T> List<T> findByArgs(Class<T> clazz, String select, String[] selectArgs) {
-        Cursor cursor = db.query(clazz.getSimpleName(), null, select, selectArgs, null, null, null);
+        Cursor cursor = getUserRelativeDB().query(clazz.getSimpleName(), null, select, selectArgs, null, null, null);
         return getEntity(cursor, clazz);
     }
 
@@ -141,7 +172,7 @@ public class DBManager {
      * @param id    需要删除的 id索引
      */
     public void deleteById(Class<?> clazz, long id) {
-        db.delete(DBUtils.getTableName(clazz), "id=" + id, null);
+        getUserRelativeDB().delete(DBUtils.getTableName(clazz), "id=" + id, null);
     }
 
     /**
@@ -150,20 +181,8 @@ public class DBManager {
      * @param clazz
      */
     public void deleteTable(Class<?> clazz) {
-        db.execSQL("DROP TABLE IF EXISTS" + DBUtils.getTableName(clazz));
+        getUserRelativeDB().execSQL("DROP TABLE IF EXISTS" + DBUtils.getTableName(clazz));
     }
-
-    /**
-     * 更新一条记录
-     *
-     * @param clazz  类
-     * @param values 更新对象
-     * @param id     更新id索引
-     */
-    public void updateById(Class<?> clazz, ContentValues values, long id) {
-        db.update(clazz.getSimpleName(), values, "id=" + id, null);
-    }
-
 
     /**
      * put value to ContentValues for Database

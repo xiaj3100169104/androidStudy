@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.style.base.BaseApp;
+import com.style.db.base.MsgDBManager;
 import com.style.db.custom.MyDBManager;
 import com.style.db.custom.UserDBManager;
 import com.style.manager.AccountManager;
@@ -21,6 +22,7 @@ public class MyApp extends BaseApp {
         AppManager.getInstance().init(getInstance());
         AccountManager.getInstance().init(getInstance());
         UserDBManager.getInstance().initialize(getInstance());
+        MsgDBManager.getInstance().init(getInstance());
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）

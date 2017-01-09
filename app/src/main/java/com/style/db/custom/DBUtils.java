@@ -43,7 +43,22 @@ public class DBUtils {
     /**
      * 得到建表语句
      *
+     * @param clazz  指定默认类名小写作为表名
+     * @param ignore 忽略列数组
+     * @return sql语句
+     */
+    public static String getCreateTableSql(Class<?> clazz, String[] ignore) {
+        String tabName = getTableName(clazz);
+        String sql = getCreateTableSql(tabName, clazz, ignore);
+        Log.d(TAG, "getCreateTableSql== " + sql);
+        return sql;
+    }
+
+    /**
+     * 得到建表语句
+     *
      * @param tabName 指定表名
+     * @param clazz   指定类
      * @param ignore  忽略列数组
      * @return sql语句
      */
@@ -69,6 +84,64 @@ public class DBUtils {
 
     /**
      * 得到插入数据表语句
+     *
+     * @param db     数据库操作实例
+     * @param obj    插入对象，指定默认类名小写作为表名
+     * @param ignore 忽略列数组
+     * @return sql语句
+     */
+    public static void execInsert(SQLiteDatabase db, Object obj, String[] ignore) {
+        StringBuilder sb = new StringBuilder();
+        String tabName = getTableName(obj.getClass());
+        sb.append("INSERT INTO ").append(tabName).append(" ");
+        StringBuilder sbColumns = new StringBuilder();//代替(_id, num, data)
+        StringBuilder sbValues = new StringBuilder();//代替(?, ?, ?)
+        sbColumns.append("(");
+        sbValues.append("(");
+
+        Field[] fields = obj.getClass().getDeclaredFields();
+        int paramsLength = fields.length - ignore.length;
+        Object[] bindArgs = new Object[paramsLength];
+
+        int bindArgsIndex = 0;
+        for (int i = 0, len = fields.length; i < len; i++) {
+            String fieldName = fields[i].getName();
+            //剔除忽略列
+            boolean isIgnore = isIgnoreColumnName(ignore, fieldName);
+            if (isIgnore)
+                continue;
+            sbColumns.append(fieldName).append(", ");
+            sbValues.append("?").append(", ");
+            //获取成员变量值对象
+            try {
+                // 获取原来的访问控制权限
+                boolean accessFlag = fields[i].isAccessible();
+                // 修改访问控制权限
+                fields[i].setAccessible(true);
+                // 获取在对象f中属性fields[i]对应的对象中的变量
+                Object fieldObj = fields[i].get(obj);
+                bindArgs[bindArgsIndex] = fieldObj == null ? "" : fieldObj;
+                // 恢复访问控制权限
+                fields[i].setAccessible(accessFlag);
+            } catch (IllegalArgumentException ex) {
+                ex.printStackTrace();
+            } catch (IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+            bindArgsIndex++;
+        }
+        int sbColumnsLen = sbColumns.length();
+        sbColumns.replace(sbColumnsLen - 2, sbColumnsLen, ")");
+        int sbValuesLen = sbValues.length();
+        sbValues.replace(sbValuesLen - 2, sbValuesLen, ")");
+        String sql = sb.append(sbColumns.toString()).append(" values ").append(sbValues.toString()).toString();
+        Log.e(TAG, "execInsertSQL == " + sql);
+        db.execSQL(sql, bindArgs);//execSQL为解决特殊字符插入异常，为升级版
+    }
+
+    /**
+     * 得到插入数据表语句
+     * -----------------------容易出现顺序不对应问题
      *
      * @param tabName 指定表名
      * @param clazz   指定类
@@ -112,9 +185,9 @@ public class DBUtils {
     public static Object[] getInsertParams(Object obj, String[] ignore) {
         Field[] fields = obj.getClass().getDeclaredFields();
         int paramsLength = fields.length - ignore.length;
-        Object[] params = new Object[paramsLength];
+        Object[] bindArgs = new Object[paramsLength];
 
-        List<Object> objectList = new ArrayList<>();
+        int bindArgsIndex = 0;
         for (int i = 0, len = fields.length; i < len; i++) {
             String fieldName = fields[i].getName();
             //剔除忽略列
@@ -129,7 +202,7 @@ public class DBUtils {
                 fields[i].setAccessible(true);
                 // 获取在对象f中属性fields[i]对应的对象中的变量
                 Object fieldObj = fields[i].get(obj);
-                objectList.add(fieldObj);
+                bindArgs[bindArgsIndex] = fieldObj;
                 // 恢复访问控制权限
                 fields[i].setAccessible(accessFlag);
             } catch (IllegalArgumentException ex) {
@@ -137,18 +210,15 @@ public class DBUtils {
             } catch (IllegalAccessException ex) {
                 ex.printStackTrace();
             }
-
+            bindArgsIndex++;
         }
-        for (int i = 0; i < objectList.size(); i++) {
-            params[i] = objectList.get(i);
-        }
-        Log.e(TAG, "getInsertParams == " + params.toString());
-        return params;
+        return bindArgs;
     }
 
     /**
      * 通过id查找制定数据
      *
+     * @param db    数据库操作实例
      * @param clazz 指定类
      * @param <T>   类型
      * @return 返回满足条件的对象
@@ -157,6 +227,10 @@ public class DBUtils {
         Cursor c = db.rawQuery(sql, selectionArgs);
         List<T> result = getEntity(c, clazz, ignore);
         return result;
+    }
+
+    public static String getDropTableSql(Class<?> clazz) {
+        return getDropTableSql(getTableName(clazz));
     }
 
     public static String getDropTableSql(String tabName) {
@@ -214,26 +288,32 @@ public class DBUtils {
                         T modeClass = clazz.newInstance();
                         for (Field field : fields) {
                             String fieldName = field.getName();
-                            if (!fieldName.equalsIgnoreCase("id")){//需要
-                                //剔除忽略列,跳出本次循环
-                                boolean isIgnore = isIgnoreColumnName(ignore, fieldName);
-                                if (isIgnore)
-                                    continue;
+                            Class<?> type = field.getType();
+                            String typeName = type.getName();
+                            boolean isIgnore = isIgnoreColumnName(ignore, fieldName);
+
+                            if (fieldName.equalsIgnoreCase("id")) {//需要
+                                isIgnore = false;
                             }
                             Class<?> cursorClass = cursor.getClass();
-                            String columnMethodName = getColumnMethodName(field.getType());
+                            String columnMethodName = getColumnMethodName(type);
                             Method cursorMethod = cursorClass.getMethod(columnMethodName, int.class);
-                            Object value = cursorMethod.invoke(cursor, cursor.getColumnIndex(fieldName));
+                            Object value = null;
+                            if (!isIgnore)
+                                value = cursorMethod.invoke(cursor, cursor.getColumnIndex(fieldName));
 
-                            if (field.getType() == boolean.class || field.getType() == Boolean.class) {
+                            if (type == boolean.class || type == Boolean.class) {
                                 if ("0".equals(String.valueOf(value))) {
                                     value = false;
                                 } else if ("1".equals(String.valueOf(value))) {
                                     value = true;
                                 }
-                            } else if (field.getType() == char.class || field.getType() == Character.class) {
-                                value = ((String) value).charAt(0);
-                            } else if (field.getType() == Date.class) {
+                            } else if (type == char.class || type == Character.class || type == String.class) {
+                                if (isIgnore)
+                                    value = "";//如果是忽略的字符类型默认值为:""
+                                /*else
+                                    value = ((String) value).charAt(0);*/
+                            } else if (type == Date.class) {
                                 long date = (Long) value;
                                 if (date <= 0) {
                                     value = null;
@@ -241,11 +321,11 @@ public class DBUtils {
                                     value = new Date(date);
                                 }
                             }
-                            String methodName = makeSetterMethodName(field);
-                            Method method = clazz.getDeclaredMethod(methodName, field.getType());
-                            method.invoke(modeClass, value);
+                            String methodName = makeSetterMethodName(field);//获取set方法名
+                            Method method = clazz.getDeclaredMethod(methodName, type);//根据方法名和参数列表获取方法对象
+                            method.invoke(modeClass, value);//方法赋值，并赋给对象
                         }
-                        Log.e(TAG, "getEntity=" + modeClass.getClass().getSimpleName() + "==" + modeClass.toString());
+                        Log.e(TAG, "getEntity=" + modeClass.toString());
                         list.add(modeClass);
                     } while (cursor.moveToNext());
                 }

@@ -43,7 +43,7 @@ public class MyDBManager {
 
     public void initialize(Context context) {
         this.mContext = context;
-        mHelper = new UserRelativeSQLiteHelper(context, DB_NAME_USER_RELATIVE, DB_VERSION_USER_RELATIVE);
+        mHelper = new UserRelativeSQLiteHelper(context, DB_NAME_USER_RELATIVE, DB_VERSION_USER_RELATIVE,null);
         db = mHelper.getWritableDatabase();
         /*SQLiteOpenHelper的子类被实例化的时候，并不会马上创建数据库，只有当用户调用上面两个方法的时候，系统才会去创建数据库。
         首次执行上述两个函数的时候，会回调SQLiteOpenHelper的onCreate(), onUpgrade(), onOpen()三个函数。*/

@@ -33,23 +33,24 @@ public class AccountManager {
         return context;
     }
 
-    public void putCurrentUser(User user) {
-        if (user != null) {
+    public void setCurrentUser(User user) {
+        currentUser = user;
+        /*if (user != null) {
             String account = user.getAccount();
             clearUser(account);
             AppManager.getInstance().putCurrentAccount(user.getAccount());
             putPassword(account, user.getPassword());
             putSignKey(account, user.getSignKey());
             currentUser = getUser(account);
-        }
+        }*/
     }
 
 
     public User getCurrentUser() {
-        if (currentUser == null) {
+       /* if (currentUser == null) {
             String account = AppManager.getInstance().getCurrentAccount();
             currentUser = getUser(account);
-        }
+        }*/
         return currentUser;
     }
 

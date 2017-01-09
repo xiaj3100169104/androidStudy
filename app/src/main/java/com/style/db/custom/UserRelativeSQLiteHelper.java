@@ -5,10 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.style.bean.Friend;
-import com.style.bean.User;
-import com.style.constant.ConfigUtil;
-
 /**
  * Created by xiajun on 2017/1/7.
  * 用户相关数据库帮助类
@@ -27,20 +23,21 @@ import com.style.constant.ConfigUtil;
  */
 
 public class UserRelativeSQLiteHelper extends SQLiteOpenHelper {
-    private static final String TAG = "MySQLiteHelper";
-    private int tagChange;//数据库升级时决定怎么数据库表
-    private static final String createUserTableSql = DBUtils.getCreateTableSql(UserDBManager.TABLE_NAME_USER, User.class, UserDBManager.TABLE_IGNORE_USER);
-    private static final String createFriendTableSql = DBUtils.getCreateTableSql(UserDBManager.TABLE_NAME_FRIEND, Friend.class, UserDBManager.TABLE_IGNORE_FRIEND);
-    private static final String dropUserTableSql = DBUtils.getDropTableSql(UserDBManager.TABLE_NAME_USER);
-    private static final String dropFriendTableSql = DBUtils.getDropTableSql(UserDBManager.TABLE_NAME_FRIEND);
+    private static final String TAG = "UserSQLiteHelper";
+    private SQLiteHelperListener helperListener;
 
-    public UserRelativeSQLiteHelper(Context context, String name, int version) {
+    private int tagChange;//数据库升级时决定怎么数据库表
+
+    public UserRelativeSQLiteHelper(Context context, String name, int version, SQLiteHelperListener helperListener) {
         this(context, name, null, version);
+        this.helperListener = helperListener;
+
     }
 
     public UserRelativeSQLiteHelper(Context context, String name, int version, int tagChange) {
         this(context, name, null, version);
         this.tagChange = tagChange;
+
     }
 
     public UserRelativeSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -50,8 +47,7 @@ public class UserRelativeSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.e(TAG, "onCreate");
-        db.execSQL(createFriendTableSql);
-        db.execSQL(createUserTableSql);
+        helperListener.onCreate(db);
     }
 
     @Override
@@ -60,10 +56,6 @@ public class UserRelativeSQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE restaurants ADD phone TEXT;");
         }*/
         Log.e(TAG, "onUpgrade");
-        db.execSQL(dropUserTableSql);
-        db.execSQL(dropFriendTableSql);
-        db.execSQL(createFriendTableSql);
-        db.execSQL(createUserTableSql);
-
+        helperListener.onUpgrade(db, oldVersion, newVersion);
     }
 }

@@ -1,6 +1,8 @@
 package test.home;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,7 +11,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
+import com.style.bean.Friend;
+import com.style.bean.IMsg;
+import com.style.bean.User;
+import com.style.db.base.MsgDBManager;
+import com.style.db.custom.UserDBManager;
 import com.style.framework.R;
+import com.style.manager.AccountManager;
+import com.style.utils.MyDateUtil;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 
@@ -43,8 +56,10 @@ public class MainActivity extends BaseToolBarActivity {
     private FragmentManager fm;
     private FragmentTransaction bt;
     private TextView[] mTabs;
-    public int currentTabIndex = 1;
+    public int currentTabIndex = 0;
     public Fragment[] fragments;
+    private User curUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayoutResID = R.layout.activity_main;
@@ -53,6 +68,7 @@ public class MainActivity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
+        login();
 
         mTabs = new TextView[5];
         mTabs[0] = viewHomeTap1;
@@ -130,5 +146,67 @@ public class MainActivity extends BaseToolBarActivity {
         currentTabIndex = index;
         showSelectedTab();
     }
+    public void login() {
+        curUser = UserDBManager.getInstance().queryUser(8);
+        if (curUser == null) {
+            curUser = new User(8, "18202823096", "123456", "夏军", null);
+            UserDBManager.getInstance().insertOrUpdateUser(curUser);
+        }
+        AccountManager.getInstance().setCurrentUser(curUser);
+        synData();
+    }
 
+
+    public void synData(){
+        List<Friend> list = UserDBManager.getInstance().queryAllFriend();
+        if (list != null && list.size() > 0)
+            return;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 9; i < 15; i++) {
+                    User user = new User(i, "phone" + i, "123456", "用户" + i, null);
+                    UserDBManager.getInstance().insertUser(user);
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 9; i < 15; i++) {
+                    Friend bean = new Friend();
+                    bean.setFriendId(i);
+                    if (i < 12)
+                        bean.setOwnerId(8);
+                    else
+                        bean.setOwnerId(4);
+                    UserDBManager.getInstance().insertFriend(bean);
+                }
+            }
+        }).start();
+
+    }
+    //login("18202823096","123456");
+    /* private void login(String userName, final String password) {
+
+        showProgressDialog("正在登录。。。");
+        //UserRequest.login(userName, password, loginCallBack);
+        HttpAction.login(userName, password, new NetDataBeanCallback<LoginBean>(LoginBean.class) {
+            @Override
+            protected void onCodeSuccess(LoginBean data) {
+                dismissProgressDialog();
+                *//*AccountManager.getInstance().setUser(data.userBean);
+                AccountManager.getInstance().setToken(data.token);
+                AccountManager.getInstance().setUserPassWord(password);
+                skip(MainActivity.class);
+                finish();*//*
+            }
+
+            @Override
+            protected void onCodeFailure(String msg) {
+                //dismissProgressDialog();
+                showToast(msg);
+            }
+        });
+    }*/
 }

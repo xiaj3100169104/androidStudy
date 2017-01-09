@@ -1,5 +1,6 @@
 package test.home;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
+import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.framework.R;
 
 import butterknife.Bind;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseToolBarActivity {
     private TextView[] mTabs;
     public int currentTabIndex = 1;
     public Fragment[] fragments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayoutResID = R.layout.activity_main;
@@ -95,6 +98,7 @@ public class MainActivity extends BaseToolBarActivity {
         });*/
         showSelectedTab();
     }
+
     private void showSelectedTab() {
         bt = fm.beginTransaction();
         for (int i = 0; i < fragments.length; i++) {
@@ -108,7 +112,7 @@ public class MainActivity extends BaseToolBarActivity {
             }
         }
         bt.commitAllowingStateLoss();
-         setToolbarTitle(titles[currentTabIndex]);
+        setToolbarTitle(titles[currentTabIndex]);
     }
 
     public void onTabClicked(View view) {
@@ -130,5 +134,7 @@ public class MainActivity extends BaseToolBarActivity {
         currentTabIndex = index;
         showSelectedTab();
     }
+
+
 
 }

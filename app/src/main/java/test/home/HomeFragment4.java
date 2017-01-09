@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
-import com.style.db.custom.TestCustomDBActivity;
+import com.style.db.custom.ChatTestActivity;
 import com.style.framework.R;
 
 import butterknife.OnClick;
@@ -33,7 +33,7 @@ public class HomeFragment4 extends BaseFragment {
     }
     @OnClick(R.id.layout_item_47)
     public void skip47() {
-        skip(TestCustomDBActivity.class);
+        skip(ChatTestActivity.class);
     }
     @OnClick(R.id.layout_item_48)
     public void skip48() {

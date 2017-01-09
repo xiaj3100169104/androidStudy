@@ -5,7 +5,10 @@ import android.text.Spanned;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 格式验证工具类
+ * Created by xiajun on 2017/1/9.
+ */
 public class FormatUtil {
     /**
      * 产生随机数，首位不为0

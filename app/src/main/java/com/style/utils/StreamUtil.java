@@ -19,13 +19,4 @@ public class StreamUtil {
         return out.toByteArray();
     }
 
-    public static String getAssetsText(Context context, String fileName) throws IOException {
-        InputStream is = context.getAssets().open(fileName);
-        int size = is.available();
-        byte[] buffer = new byte[size];
-        is.read(buffer);
-        is.close();
-        String text = new String(buffer, "utf-8");
-        return text;
-    }
 }

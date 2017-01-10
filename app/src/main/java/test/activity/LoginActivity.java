@@ -44,13 +44,15 @@ public class LoginActivity extends BaseActivity {
     public void synData() {
 
         List<User> friends = UserDBManager.getInstance().queryAllMyFriend(curUser.getUserId());
-        if (friends != null && friends.size() > 0) {
+        /*if (friends != null && friends.size() > 0) {
             skip(MainActivity.class);
             finish();
         } else {
             for (int i = 1; i < 10; i++) {
-                User user = new User(i, "phone" + i, "123456", "用户" + i, null);
-                UserDBManager.getInstance().insertUser(user);
+                if (i != 8) {
+                    User user = new User(i, "phone" + i, "123456", "用户" + i, null);
+                    UserDBManager.getInstance().insertUser(user);
+                }
             }
 
             for (int i = 1; i < 10; i++) {
@@ -65,7 +67,7 @@ public class LoginActivity extends BaseActivity {
 
             skip(MainActivity.class);
             finish();
-        }
+        }*/
 
     }
 }

@@ -73,7 +73,8 @@ public class AccountManager {
             setCurrentAccount(user.getUserId());
             setPassword(account, user.getPassword());
             setSignKey(account, user.getSignKey());
-            UserDBManager.getInstance().insertOrUpdateUser(user);
+            UserDBManager.getInstance().insertUser(user);
+            currentUser = getCurrentUser();
         }
     }
 
@@ -81,10 +82,8 @@ public class AccountManager {
     public User getCurrentUser() {
         if (currentUser == null) {
             long account = getCurrentAccount();
-            if (account == 0)
-                account = 8;
-            currentUser = getUser(account);
-            setCurrentUser(currentUser);
+            if (account != 0)
+                currentUser = getUser(account);
         }
         return currentUser;
     }

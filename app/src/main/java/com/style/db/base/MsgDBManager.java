@@ -15,7 +15,7 @@ import com.style.db.custom.SQLiteHelperListener;
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
     public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 16;////最低为1，降版本会报错
+    public static final int DB_VERSION_MSG_RELATIVE = 3;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;

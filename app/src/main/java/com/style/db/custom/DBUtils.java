@@ -282,52 +282,50 @@ public class DBUtils {
         try {
             if (cursor != null && cursor.getCount() > 0) {
                 list = new ArrayList<>();
-                if (cursor.moveToFirst()) {
-                    do {
-                        Field[] fields = clazz.getDeclaredFields();
-                        T modeClass = clazz.newInstance();
-                        for (Field field : fields) {
-                            String fieldName = field.getName();
-                            Class<?> type = field.getType();
-                            String typeName = type.getName();
-                            boolean isIgnore = isIgnoreColumnName(ignore, fieldName);
+                while (cursor.moveToNext()) {
+                    Field[] fields = clazz.getDeclaredFields();
+                    T modeClass = clazz.newInstance();
+                    for (Field field : fields) {
+                        String fieldName = field.getName();
+                        Class<?> type = field.getType();
+                        String typeName = type.getName();
+                        boolean isIgnore = isIgnoreColumnName(ignore, fieldName);
 
-                            if (fieldName.equalsIgnoreCase("id")) {//需要
-                                isIgnore = false;
+                        if (fieldName.equalsIgnoreCase("id")) {//需要
+                            isIgnore = false;
+                        }
+                        Class<?> cursorClass = cursor.getClass();
+                        String columnMethodName = getColumnMethodName(type);
+                        Method cursorMethod = cursorClass.getMethod(columnMethodName, int.class);
+                        Object value = null;
+                        if (!isIgnore)
+                            value = cursorMethod.invoke(cursor, cursor.getColumnIndex(fieldName));
+
+                        if (type == boolean.class || type == Boolean.class) {
+                            if ("0".equals(String.valueOf(value))) {
+                                value = false;
+                            } else if ("1".equals(String.valueOf(value))) {
+                                value = true;
                             }
-                            Class<?> cursorClass = cursor.getClass();
-                            String columnMethodName = getColumnMethodName(type);
-                            Method cursorMethod = cursorClass.getMethod(columnMethodName, int.class);
-                            Object value = null;
-                            if (!isIgnore)
-                                value = cursorMethod.invoke(cursor, cursor.getColumnIndex(fieldName));
-
-                            if (type == boolean.class || type == Boolean.class) {
-                                if ("0".equals(String.valueOf(value))) {
-                                    value = false;
-                                } else if ("1".equals(String.valueOf(value))) {
-                                    value = true;
-                                }
-                            } else if (type == char.class || type == Character.class || type == String.class) {
-                                if (isIgnore)
-                                    value = "";//如果是忽略的字符类型默认值为:""
+                        } else if (type == char.class || type == Character.class || type == String.class) {
+                            if (isIgnore)
+                                value = "";//如果是忽略的字符类型默认值为:""
                                 /*else
                                     value = ((String) value).charAt(0);*/
-                            } else if (type == Date.class) {
-                                long date = (Long) value;
-                                if (date <= 0) {
-                                    value = null;
-                                } else {
-                                    value = new Date(date);
-                                }
+                        } else if (type == Date.class) {
+                            long date = (Long) value;
+                            if (date <= 0) {
+                                value = null;
+                            } else {
+                                value = new Date(date);
                             }
-                            String methodName = makeSetterMethodName(field);//获取set方法名
-                            Method method = clazz.getDeclaredMethod(methodName, type);//根据方法名和参数列表获取方法对象
-                            method.invoke(modeClass, value);//方法赋值，并赋给对象
                         }
-                        Log.e(TAG, "getEntity=" + modeClass.toString());
-                        list.add(modeClass);
-                    } while (cursor.moveToNext());
+                        String methodName = makeSetterMethodName(field);//获取set方法名
+                        Method method = clazz.getDeclaredMethod(methodName, type);//根据方法名和参数列表获取方法对象
+                        method.invoke(modeClass, value);//方法赋值，并赋给对象
+                    }
+                    Log.e(TAG, "getEntity=" + modeClass.toString());
+                    list.add(modeClass);
                 }
             }
         } catch (Exception e) {

@@ -15,7 +15,7 @@ import com.style.db.custom.SQLiteHelperListener;
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
     public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 3;//降版本会报错
+    public static final int DB_VERSION_MSG_RELATIVE = 2;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;
@@ -40,7 +40,6 @@ public class MsgDBManager {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS msg");
-
             db.execSQL(getCreateTableMsgSql());
         }
 

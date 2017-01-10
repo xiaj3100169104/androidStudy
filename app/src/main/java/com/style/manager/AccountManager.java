@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.style.bean.User;
+import com.style.db.custom.UserDBManager;
 
 public class AccountManager {
     protected String TAG = getClass().getSimpleName();
@@ -47,10 +48,12 @@ public class AccountManager {
 
 
     public User getCurrentUser() {
-       /* if (currentUser == null) {
+        if (currentUser == null) {
+            User user = new User(8, "18202823096", "123456", "夏军", null);
+            UserDBManager.getInstance().insertOrUpdateUser(user);
             String account = AppManager.getInstance().getCurrentAccount();
             currentUser = getUser(account);
-        }*/
+        }
         return currentUser;
     }
 

@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="test.home.MainActivity">
+        <activity android:name="test.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +23,7 @@
         <activity android:name="test.activity.UserAgreeActivity"/>
         <activity android:name="test.activity.WheelActivity"/>
         <activity android:name="com.style.db.custom.TestCustomDBActivity"/>
+        <activity android:name="test.home.MainActivity"/>
 
     </application>
 

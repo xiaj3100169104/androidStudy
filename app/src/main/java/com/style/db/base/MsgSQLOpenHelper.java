@@ -10,14 +10,10 @@ import com.style.db.custom.UserDBManager;
 
 public class MsgSQLOpenHelper extends SQLiteOpenHelper {
     protected String TAG = getClass().getSimpleName();
-    // 数据库名
-    public static final String DATABASE_NAME = "message.db";
-    // 数据库版本号
-    public static final int DATABASE_VERSION = 1;//从1开始
     private SQLiteHelperListener helperListener;
 
     public MsgSQLOpenHelper(Context context, String name, int version, SQLiteHelperListener helperListener) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, name, null, version);
         this.helperListener = helperListener;
         // 数据库实际被创建是在getWritableDatabase()或getReadableDatabase()方法调用时
         // CursorFactory设置为null,使用系统默认的工厂类

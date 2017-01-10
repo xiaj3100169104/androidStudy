@@ -14,7 +14,10 @@ import com.style.manager.ToastManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
+/**
+ * 文件相关工具类
+ * Created by xiajun on 2017/1/9.
+ */
 public class FileUtil {
 	public static File create(String dirPath, String fileName) {
 		File dir = new File(dirPath);

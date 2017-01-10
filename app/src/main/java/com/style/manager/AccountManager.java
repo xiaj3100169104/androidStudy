@@ -7,8 +7,15 @@ import android.text.TextUtils;
 import com.style.bean.User;
 import com.style.db.custom.UserDBManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AccountManager {
     protected String TAG = getClass().getSimpleName();
+
+    private static final String LOGIN_INFO = "loginInfo";
+    private static final String CURRENT_ACCOUNT = "currentAccount";
+    private static final String ACCOUNT_All = "accountAll";
 
     private static final String IS_AUTO_LOGIN = "is_auto_login";
     private static final String PASSWORD = "password";
@@ -18,6 +25,7 @@ public class AccountManager {
     private User currentUser;
 
     private static AccountManager mInstance;
+
     //避免同时获取多个实例
     public synchronized static AccountManager getInstance() {
         if (mInstance == null) {
@@ -34,16 +42,40 @@ public class AccountManager {
         return context;
     }
 
+    //当前登录账号和登录过的所有账号
+    protected SharedPreferences getLoginSharedPreferences() {
+        SharedPreferences sp = getContext().getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
+        return sp;
+    }
+
+    //登录账户的其他信息
+    protected SharedPreferences getUserSharedPreferences(String account) {
+        SharedPreferences sp = getContext().getSharedPreferences(account, Context.MODE_PRIVATE);
+        return sp;
+    }
+
+    public void setCurrentAccount(String account) {
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
+        editor.putString(CURRENT_ACCOUNT, account).apply();// 异步真正提交到硬件磁盘,
+        // 而commit是同步的提交到硬件磁盘
+        addAccount(account);
+    }
+
+    public String getCurrentAccount() {
+        String value = getLoginSharedPreferences().getString(CURRENT_ACCOUNT, "");
+        return value;
+    }
+
+
     public void setCurrentUser(User user) {
-        currentUser = user;
-        /*if (user != null) {
+        if (user != null) {
             String account = user.getAccount();
             clearUser(account);
-            AppManager.getInstance().putCurrentAccount(user.getAccount());
-            putPassword(account, user.getPassword());
-            putSignKey(account, user.getSignKey());
+            setCurrentAccount(user.getAccount());
+            setPassword(account, user.getPassword());
+            setSignKey(account, user.getSignKey());
             currentUser = getUser(account);
-        }*/
+        }
     }
 
 
@@ -69,49 +101,58 @@ public class AccountManager {
     }
 
     public void clearUser(String account) {
-        putPassword(account, "");
-        putSignKey(account, "");
+        setPassword(account, "");
+        setSignKey(account, "");
     }
 
-    protected SharedPreferences getUserInfo(String account) {
-        SharedPreferences sp = getContext().getSharedPreferences(account, Context.MODE_PRIVATE);
-        return sp;
-    }
-
-    public void putIsAutoLogin(String account, boolean value) {
-        SharedPreferences.Editor editor = getUserInfo(account).edit();
+    public void setIsAutoLogin(String account, boolean value) {
+        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
         editor.putBoolean(IS_AUTO_LOGIN, value).apply();
     }
 
     public boolean getIsAutoLogin(String account) {
-        boolean value = getUserInfo(account).getBoolean(IS_AUTO_LOGIN, true);
+        boolean value = getUserSharedPreferences(account).getBoolean(IS_AUTO_LOGIN, true);
         return value;
     }
 
-    public void putSignKey(String account, String signKey) {
-        SharedPreferences.Editor editor = getUserInfo(account).edit();
+    public void setSignKey(String account, String signKey) {
+        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
         editor.putString(SIGN_KEY, signKey).apply();
     }
 
     public String getSignKey(String account) {
-        String value = getUserInfo(account).getString(SIGN_KEY, "");
+        String value = getUserSharedPreferences(account).getString(SIGN_KEY, "");
         return value;
 
     }
 
-    public void putPassword(String account, String password) {
+    public void setPassword(String account, String password) {
         if (!TextUtils.isEmpty(account)) {
-            SharedPreferences.Editor editor = getUserInfo(account).edit();
+            SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
             editor.putString(PASSWORD, password).apply();
         }
     }
 
     public String getPassword(String account) {
-        String value = getUserInfo(account).getString(PASSWORD, "");
+        String value = getUserSharedPreferences(account).getString(PASSWORD, "");
         return value;
     }
 
     public String getToken() {
         return null;
+    }
+
+
+    public void addAccount(String account) {
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
+        Set<String> set = getAllAccounts();
+        if (set == null)
+            set = new HashSet<>();
+        set.add(account);
+        editor.putStringSet(ACCOUNT_All, set).apply();
+    }
+
+    public Set<String> getAllAccounts() {
+        return getLoginSharedPreferences().getStringSet(ACCOUNT_All, null);
     }
 }

@@ -9,7 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
+/**
+ * 时间格式处理工具类
+ * Created by xiajun on 2017/1/9.
+ */
 @SuppressLint("SimpleDateFormat")
 public class MyDateUtil {
    /* public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

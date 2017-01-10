@@ -1,9 +1,11 @@
 package test.app;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
 
 import com.style.base.BaseApp;
+import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.db.base.MsgDBManager;
 import com.style.db.custom.MyDBManager;
 import com.style.db.custom.UserDBManager;
@@ -23,6 +25,8 @@ public class MyApp extends BaseApp {
         AccountManager.getInstance().init(getInstance());
         UserDBManager.getInstance().initialize(getInstance());
         MsgDBManager.getInstance().init(getInstance());
+        initReceiver();
+
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）
@@ -34,5 +38,12 @@ public class MyApp extends BaseApp {
 
     public static MyApp getInstance() {
         return myApp;
+    }
+
+    //      监听广播
+    private void initReceiver() {
+
+        IntentFilter filter = new IntentFilter(NetWorkChangeBroadcastReceiver.NET_CHANGE);
+        registerReceiver(new NetWorkChangeBroadcastReceiver(), filter);
     }
 }

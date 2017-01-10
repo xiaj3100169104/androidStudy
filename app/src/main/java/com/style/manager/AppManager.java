@@ -21,8 +21,7 @@ public class AppManager {
 
     private static final String APP_INFO = "appInfo";
     private static final String IS_FIRST_LOGIN = "isFirstLogin";
-    private static final String CURRENT_ACCOUNT = "currentAccount";
-    private static final String ACCOUNT_All = "accountAll";
+
     protected static Context context;
     public static Typeface TEXT_TYPE;
     private static AppManager mInstance;
@@ -42,44 +41,19 @@ public class AppManager {
         return context;
     }
 
-    public SharedPreferences getAppInfo() {
+    public SharedPreferences getAppSharedPreferences() {
         SharedPreferences sp = context.getSharedPreferences(APP_INFO, Context.MODE_PRIVATE);
         return sp;
     }
 
     public void putFirstOpen(boolean isFirstLogin) {
-        SharedPreferences.Editor editor = getAppInfo().edit();
+        SharedPreferences.Editor editor = getAppSharedPreferences().edit();
         editor.putBoolean(IS_FIRST_LOGIN, isFirstLogin).apply();
     }
 
     public boolean isFirstOpen() {
-        boolean value = getAppInfo().getBoolean(IS_FIRST_LOGIN, true);
+        boolean value = getAppSharedPreferences().getBoolean(IS_FIRST_LOGIN, true);
         return value;
-    }
-
-    public void putCurrentAccount(String account) {
-        SharedPreferences.Editor editor = getAppInfo().edit();
-        editor.putString(CURRENT_ACCOUNT, account).apply();// 异步真正提交到硬件磁盘,
-        // 而commit是同步的提交到硬件磁盘
-        addAccount(account);
-    }
-
-    public String getCurrentAccount() {
-        String value = getAppInfo().getString(CURRENT_ACCOUNT, "");
-        return value;
-    }
-
-    public void addAccount(String account) {
-        SharedPreferences.Editor editor = getAppInfo().edit();
-        Set<String> set = getAllAccounts();
-        if (set == null)
-            set = new HashSet<>();
-        set.add(account);
-        editor.putStringSet(ACCOUNT_All, set).apply();
-    }
-
-    public Set<String> getAllAccounts() {
-        return getAppInfo().getStringSet(ACCOUNT_All, null);
     }
 
     /**

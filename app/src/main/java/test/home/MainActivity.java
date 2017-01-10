@@ -1,5 +1,6 @@
 package test.home;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,18 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
-import com.style.bean.Friend;
-import com.style.bean.IMsg;
-import com.style.bean.User;
-import com.style.db.base.MsgDBManager;
-import com.style.db.custom.UserDBManager;
+import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.framework.R;
-import com.style.manager.AccountManager;
-import com.style.utils.MyDateUtil;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.Bind;
 
@@ -110,6 +101,7 @@ public class MainActivity extends BaseToolBarActivity {
         });*/
         showSelectedTab();
     }
+
     private void showSelectedTab() {
         bt = fm.beginTransaction();
         for (int i = 0; i < fragments.length; i++) {
@@ -123,7 +115,7 @@ public class MainActivity extends BaseToolBarActivity {
             }
         }
         bt.commitAllowingStateLoss();
-         setToolbarTitle(titles[currentTabIndex]);
+        setToolbarTitle(titles[currentTabIndex]);
     }
 
     public void onTabClicked(View view) {

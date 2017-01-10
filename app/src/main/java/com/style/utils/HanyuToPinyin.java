@@ -7,7 +7,10 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-
+/**
+ * 汉子拼音处理工具类
+ * Created by xiajun on 2017/1/9.
+ */
 public class HanyuToPinyin {
 	private final static String TAG = "HanyuToPinyin";
 	private static HanyuPinyinOutputFormat mDefaultFormat = new HanyuPinyinOutputFormat();

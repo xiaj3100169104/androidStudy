@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
+import com.style.utils.DeviceInfoUtil;
 
 import org.json.JSONObject;
 
@@ -176,10 +177,10 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     protected int dip2px(float dpValue) {
-        return CommonUtil.dip2px(mContext, dpValue);
+        return DeviceInfoUtil.dip2px(mContext, dpValue);
     }
 
     protected int px2dip(float pxValue) {
-        return CommonUtil.px2dip(mContext, pxValue);
+        return DeviceInfoUtil.px2dip(mContext, pxValue);
     }
 }

@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.utils.AssetsUtil;
 import com.style.utils.StreamUtil;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class UserAgreeActivity extends BaseToolBarActivity {
     public void readData() {
         try {
 
-            tv_agree.setText(StreamUtil.getAssetsText(this, "useragree.txt"));
+            tv_agree.setText(AssetsUtil.getAssetsText(this, "useragree.txt"));
         } catch (IOException e) {
 
         }

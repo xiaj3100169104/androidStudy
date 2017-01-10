@@ -13,6 +13,7 @@ import com.style.constant.Skip;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.utils.CommonUtil;
+import com.style.utils.DeviceInfoUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
                     break;
                 case Skip.CODE_TAKE_CAMERA:
                     if (photoFile.exists()) {
-                        CommonUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
+                        DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
                         String filePath = photoFile.getAbsolutePath();// 获取相片的保存路径
                         int size = paths.size();
                         if (size >= 10) {

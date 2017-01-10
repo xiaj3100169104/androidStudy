@@ -16,6 +16,7 @@ import com.style.dialog.MaterialProgressDialog;
 import com.style.framework.R;
 import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
+import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,11 +186,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected int dip2px(float dpValue) {
-        return CommonUtil.dip2px(context, dpValue);
+        return DeviceInfoUtil.dip2px(context, dpValue);
     }
 
     protected int px2dip(float pxValue) {
-        return CommonUtil.px2dip(context, pxValue);
+        return DeviceInfoUtil.px2dip(context, pxValue);
     }
     protected void skip(Class<?> cls) {
         startActivity(new Intent(context, cls));

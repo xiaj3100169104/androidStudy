@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
-import com.style.db.custom.ChatTestActivity;
+import test.im.ChatTestActivity;
 import com.style.framework.R;
 
 import butterknife.OnClick;

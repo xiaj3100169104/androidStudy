@@ -18,10 +18,15 @@
         android:id="@+id/view_get_all_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="获取所以消息" />
+        android:text="获取所有消息" />
     <Button
         android:id="@+id/view_get_friend_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="获取朋友消息" />
+    <Button
+        android:id="@+id/view_skip_to_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="跳到聊天界面" />
 </LinearLayout>

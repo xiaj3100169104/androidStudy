@@ -19,12 +19,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.OnClick;
+import test.im.ChatTestActivity;
 
 
 public class HomeFragment1 extends BaseFragment {
 
 
     private User curUser;
+    int index = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,8 +61,12 @@ public class HomeFragment1 extends BaseFragment {
 
     @OnClick(R.id.view_get_friend_msg)
     public void view_get_friend_msg() {
-        MsgDBManager.getInstance().queryOneFriendMsg(curUser.getUserId(),4);
+        MsgDBManager.getInstance().queryOneFriendMsg(curUser.getUserId(), 1);
 
+    }
+    @OnClick(R.id.view_skip_to_chat)
+    public void view_skip_to_chat() {
+        skip(ChatTestActivity.class);
     }
 
     protected Timer timer;
@@ -97,15 +103,16 @@ public class HomeFragment1 extends BaseFragment {
             handler.sendMessage(message);*/
             IMsg o = new IMsg();
             o.setMsgId(System.currentTimeMillis());
-            o.setSenderId(curUser.getUserId());
-            if (System.currentTimeMillis() / 2 == 0)
-                o.setReceiverId(4);
+            o.setSenderId(1);
+            if (index % 2 == 0)//发送给我的消息
+                o.setReceiverId(8);
             else
-                o.setReceiverId(5);
+                o.setReceiverId(4);
             o.setState(0);
             o.setCreateTime(System.currentTimeMillis());
             o.setContent(MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
             MsgDBManager.getInstance().insertMsg(o);
+            index++;
         }
     }
 }

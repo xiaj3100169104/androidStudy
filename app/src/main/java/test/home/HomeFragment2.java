@@ -9,6 +9,7 @@ import com.style.base.BaseFragment;
 import com.style.bean.User;
 import com.style.db.custom.UserDBManager;
 import com.style.framework.R;
+import com.style.manager.AccountManager;
 
 import butterknife.OnClick;
 
@@ -26,6 +27,8 @@ public class HomeFragment2 extends BaseFragment {
 
     @Override
     protected void initData() {
+        curUser = AccountManager.getInstance().getCurrentUser();
+
         myTableManager = UserDBManager.getInstance();
 
     }

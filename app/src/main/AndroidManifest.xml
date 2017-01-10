@@ -22,7 +22,7 @@
         <activity android:name="test.activity.SecondActivity"/>
         <activity android:name="test.activity.UserAgreeActivity"/>
         <activity android:name="test.activity.WheelActivity"/>
-        <activity android:name="com.style.db.custom.ChatTestActivity"/>
+        <activity android:name="test.im.ChatTestActivity"/>
         <activity android:name="test.home.MainActivity"/>
 
         <receiver android:name="com.style.broadcast.NetWorkChangeBroadcastReceiver">

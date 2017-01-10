@@ -24,7 +24,7 @@ public class MsgSQLOpenHelper extends SQLiteOpenHelper {
         // 调用时间：数据库第一次创建时onCreate()方法会被调用
         // onCreate方法有一个 SQLiteDatabase对象作为参数，根据需要对这个对象填充表和初始化数据
         // 这个方法中主要完成创建数据库后对数据库的操作
-        Log.d(TAG, "onCreate");
+        Log.e(TAG, "onCreate");
         this.helperListener.onCreate(db);
         // 构建创建表的SQL语句（可以从SQLite Expert工具的DDL粘贴过来加进StringBuffer中）
 
@@ -34,7 +34,7 @@ public class MsgSQLOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, " onUpgrade");
+        Log.e(TAG, " onUpgrade");
         this.helperListener.onUpgrade(db, oldVersion, newVersion);
         // 调用时间：如果DATABASE_VERSION值被改为别的数,系统发现现有数据库版本不同,即会调用onUpgrade
         // onUpgrade方法的三个参数，一个 SQLiteDatabase对象，一个旧的版本号和一个新的版本号

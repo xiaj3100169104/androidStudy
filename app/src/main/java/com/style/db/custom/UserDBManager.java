@@ -6,12 +6,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.style.bean.Friend;
 import com.style.bean.User;
+
 import java.util.List;
 
 public class UserDBManager {
     private static final String TAG = "UserDBManager";
     public static final String DB_NAME_USER_RELATIVE = "userRelative.db";
-    public static final int DB_VERSION_USER_RELATIVE = 13;//降版本会报错
+    public static final int DB_VERSION_USER_RELATIVE = 26;//降版本会报错
 
     public static final String[] TABLE_IGNORE_USER = {"id", "password", "signKey"};
     public static final String[] TABLE_IGNORE_FRIEND = {"id"};
@@ -126,9 +127,13 @@ public class UserDBManager {
         String sql = "SELECT * FROM user WHERE userId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, User.class, TABLE_IGNORE_USER);
-        if (result != null && result.size() > 0)
+        if (result != null && result.size() > 0) {
+            /*for (int i = 0; i < result.size(); i++) {
+                if (i > 0)
+                    deleteUser(result.get(i).getUserId());
+            }*/
             return result.get(0);
-        else
+        } else
             return null;
     }
 
@@ -140,7 +145,7 @@ public class UserDBManager {
     }
 
     public List<User> queryAllMyFriend(long userId) {
-        String sql = "SELECT * FROM user left outer join friend on user.userId=friend.ownerId where user.userId=?";// + UserTable.COL_USERID + "=?";
+        String sql = "SELECT * FROM user left outer join friend on user.userId=friend.ownerId where user.userId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, User.class, TABLE_IGNORE_USER);
         return result;

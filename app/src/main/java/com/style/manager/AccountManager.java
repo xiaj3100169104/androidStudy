@@ -49,110 +49,93 @@ public class AccountManager {
     }
 
     //登录账户的其他信息
-    protected SharedPreferences getUserSharedPreferences(String account) {
-        SharedPreferences sp = getContext().getSharedPreferences(account, Context.MODE_PRIVATE);
+    protected SharedPreferences getUserSharedPreferences(long account) {
+        SharedPreferences sp = getContext().getSharedPreferences(String.valueOf(account), Context.MODE_PRIVATE);
         return sp;
     }
 
-    public void setCurrentAccount(String account) {
+    public void setCurrentAccount(long account) {
         SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
-        editor.putString(CURRENT_ACCOUNT, account).apply();// 异步真正提交到硬件磁盘,
+        editor.putLong(CURRENT_ACCOUNT, account).apply();// 异步真正提交到硬件磁盘,
         // 而commit是同步的提交到硬件磁盘
-        addAccount(account);
+        //addAccount(account);
     }
 
-    public String getCurrentAccount() {
-        String value = getLoginSharedPreferences().getString(CURRENT_ACCOUNT, "");
+    public long getCurrentAccount() {
+        long value = getLoginSharedPreferences().getLong(CURRENT_ACCOUNT, 0);
         return value;
     }
 
 
     public void setCurrentUser(User user) {
         if (user != null) {
-            String account = user.getAccount();
-            clearUser(account);
-            setCurrentAccount(user.getAccount());
+            long account = user.getUserId();
+            setCurrentAccount(user.getUserId());
             setPassword(account, user.getPassword());
             setSignKey(account, user.getSignKey());
-            currentUser = getUser(account);
+            UserDBManager.getInstance().insertOrUpdateUser(user);
         }
     }
 
 
     public User getCurrentUser() {
         if (currentUser == null) {
-            User user = new User(8, "18202823096", "123456", "夏军", null);
-            UserDBManager.getInstance().insertOrUpdateUser(user);
-            String account = AppManager.getInstance().getCurrentAccount();
+            long account = getCurrentAccount();
+            if (account == 0)
+                account = 8;
             currentUser = getUser(account);
+            setCurrentUser(currentUser);
         }
         return currentUser;
     }
 
-    public User getUser(String account) {
-        User user = null;
-        if (!TextUtils.isEmpty(account)) {
-            user = new User();
-            user.setAccount(account);
+    public User getUser(long account) {
+        User user = UserDBManager.getInstance().queryUser(account);
+        if (user != null) {
             user.setPassword(getPassword(account));
             user.setSignKey(getSignKey(account));
         }
         return user;
     }
 
-    public void clearUser(String account) {
+    public void clearUser(long account) {
+        currentUser = null;
         setPassword(account, "");
         setSignKey(account, "");
     }
 
-    public void setIsAutoLogin(String account, boolean value) {
+    public void setIsAutoLogin(long account, boolean value) {
         SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
         editor.putBoolean(IS_AUTO_LOGIN, value).apply();
     }
 
-    public boolean getIsAutoLogin(String account) {
+    public boolean getIsAutoLogin(long account) {
         boolean value = getUserSharedPreferences(account).getBoolean(IS_AUTO_LOGIN, true);
         return value;
     }
 
-    public void setSignKey(String account, String signKey) {
+    public void setSignKey(long account, String signKey) {
         SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
         editor.putString(SIGN_KEY, signKey).apply();
     }
 
-    public String getSignKey(String account) {
+    public String getSignKey(long account) {
         String value = getUserSharedPreferences(account).getString(SIGN_KEY, "");
         return value;
 
     }
 
-    public void setPassword(String account, String password) {
-        if (!TextUtils.isEmpty(account)) {
-            SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
-            editor.putString(PASSWORD, password).apply();
-        }
+    public void setPassword(long account, String password) {
+        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
+        editor.putString(PASSWORD, password).apply();
     }
 
-    public String getPassword(String account) {
+    public String getPassword(long account) {
         String value = getUserSharedPreferences(account).getString(PASSWORD, "");
         return value;
     }
 
     public String getToken() {
         return null;
-    }
-
-
-    public void addAccount(String account) {
-        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
-        Set<String> set = getAllAccounts();
-        if (set == null)
-            set = new HashSet<>();
-        set.add(account);
-        editor.putStringSet(ACCOUNT_All, set).apply();
-    }
-
-    public Set<String> getAllAccounts() {
-        return getLoginSharedPreferences().getStringSet(ACCOUNT_All, null);
     }
 }

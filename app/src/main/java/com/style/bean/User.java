@@ -11,9 +11,8 @@ package com.style.bean;
 public class User implements Serializable {
 
 	private long id;
-	private long userId;
+	private long userId;// 帐号
 	private String telPhone;
-	private String account; // 帐号
 	private String password; // 密码
 	private String userName;
 	private String sex;
@@ -22,9 +21,9 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(long userId, String account, String password, String userName, String signKey) {
+	public User(long userId, String telPhone, String password, String userName, String signKey) {
 		this.userId = userId;
-		this.account = account;
+		this.telPhone = telPhone;
 		this.password = password;
 		this.userName = userName;
 		this.signKey = signKey;
@@ -52,14 +51,6 @@ public class User implements Serializable {
 
 	public void setTelPhone(String telPhone) {
 		this.telPhone = telPhone;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
 	}
 
 	public String getPassword() {
@@ -101,7 +92,6 @@ public class User implements Serializable {
 				"id=" + id +
 				", userId=" + userId +
 				", telPhone='" + telPhone + '\'' +
-				", account='" + account + '\'' +
 				", password='" + password + '\'' +
 				", userName='" + userName + '\'' +
 				", sex='" + sex + '\'' +

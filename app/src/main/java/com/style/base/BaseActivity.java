@@ -21,6 +21,7 @@ import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
 import com.style.rxAndroid.RXAsynTaskManager;
 import com.style.utils.CommonUtil;
+import com.style.utils.DeviceInfoUtil;
 
 import butterknife.ButterKnife;
 
@@ -206,11 +207,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected int dip2px(float dpValue) {
-        return CommonUtil.dip2px(getContext(), dpValue);
+        return DeviceInfoUtil.dip2px(getContext(), dpValue);
     }
 
     protected int px2dip(float pxValue) {
-        return CommonUtil.px2dip(getContext(), pxValue);
+        return DeviceInfoUtil.px2dip(getContext(), pxValue);
     }
 
 }

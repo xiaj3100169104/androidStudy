@@ -15,7 +15,7 @@ import com.style.db.custom.SQLiteHelperListener;
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
     public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 2;////最低为1，降版本会报错
+    public static final int DB_VERSION_MSG_RELATIVE = 16;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;
@@ -102,7 +102,7 @@ public class MsgDBManager {
     public void deleteOneFriendMsg(long senderId, long receiverId) {
         //注意包括我发送的我接收的
         String sql = "DELETE FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
-        Object[] bindArgs = new Object[]{senderId, receiverId, receiverId, senderId};
+        Long[] bindArgs = new Long[]{senderId, receiverId, receiverId, senderId};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
+import com.style.bean.User;
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.framework.R;
 

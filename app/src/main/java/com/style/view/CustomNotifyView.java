@@ -117,25 +117,25 @@ public class CustomNotifyView extends View {
 
     public void setNotifyText(String s) {
         mTitleText = s;
-        postInvalidate();
+        invalidate();
     }
 
     public void setNotifyTextSize(int spSize) {
         mTitleTextSize = (int) sp2px(spSize);
         mTextPaint.setTextSize(mTitleTextSize);
-        postInvalidate();
+        invalidate();
     }
 
     public void setNotifyTextColor(int color) {
         mTitleTextColor = color;
         mTextPaint.setColor(mTitleTextColor);
-        postInvalidate();
+        invalidate();
     }
 
     public void setNotifyBackgroundColor(int color) {
         mBackgroundColor = color;
         mCirclePaint.setColor(mBackgroundColor);
-        postInvalidate();
+        invalidate();
     }
 
     @Override

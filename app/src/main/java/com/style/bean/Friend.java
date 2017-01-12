@@ -13,7 +13,7 @@ public class Friend implements Serializable {
     public String mark; //备注
 
     public long modifyDate;
-
+    public User user;//好友用户
     public Friend() {
     }
 
@@ -55,6 +55,14 @@ public class Friend implements Serializable {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

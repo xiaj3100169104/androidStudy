@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
-import test.im.ChatTestActivity;
 import com.style.framework.R;
 
 import butterknife.OnClick;
@@ -30,10 +29,6 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void onLazyLoad() {
 
-    }
-    @OnClick(R.id.layout_item_47)
-    public void skip47() {
-        skip(ChatTestActivity.class);
     }
     @OnClick(R.id.layout_item_48)
     public void skip48() {

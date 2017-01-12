@@ -12,10 +12,12 @@ import com.style.bean.IMsg;
 import com.style.bean.User;
 import com.style.db.custom.SQLiteHelperListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
     public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 3;////最低为1，降版本会报错
+    public static final int DB_VERSION_MSG_RELATIVE = 4;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;
@@ -85,28 +87,59 @@ public class MsgDBManager {
         Object[] bindArgs = new Object[]{o.getMsgId(), o.getSenderId(), o.getReceiverId(), o.getContent(), o.getCreateTime(), o.getState()};
         getWritableDatabase().execSQL(sql, bindArgs);
         Log.e(TAG, o.toString());
+        IMsg newIMsg = getMsg(o.getMsgId());
+        EventBus.getDefault().post(newIMsg);
+        if (newIMsg != null)
+            Log.e(TAG, newIMsg.toString());
     }
 
-    public void updateMsgState2Readed(IMsg o) {
+    public void update2Readed(IMsg o) {
         String sql = "UPDATE msg SET state=? WHERE id=?";
         Object[] bindArgs = new Object[]{o.getState(), o.getId()};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 
-    public List<IMsg> queryAllMsg() {
+    public void updateReaded2User(long senderId, long receiverId) {
+        String sql = "UPDATE msg SET state=? WHERE senderId=? and receiverId=?";
+        Object[] bindArgs = new Object[]{1, senderId, receiverId};
+        getWritableDatabase().execSQL(sql, bindArgs);
+    }
+
+    public IMsg getMsg(long msgId) {
+        String sql = "SELECT * FROM msg where msgId=?";
+        String[] selectionArgs = new String[]{String.valueOf(msgId)};
+        List<IMsg> result = queryMsg(sql, selectionArgs);
+        if (result != null && result.size() > 0) {
+            return result.get(0);
+        } else
+            return null;
+    }
+
+    public List<IMsg> getAllMsg() {
         String sql = "SELECT * FROM msg";
         List<IMsg> result = queryMsg(sql, null);
         return result;
     }
 
-    public void deleteOneFriendMsg(long senderId, long receiverId) {
+    public void deleteMsg(long senderId, long receiverId) {
         //注意包括我发送的我接收的
         String sql = "DELETE FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
         Long[] bindArgs = new Long[]{senderId, receiverId, receiverId, senderId};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 
-    public List<IMsg> queryOneFriendMsg(long userId, long friendId) {
+    public int getUnreadCount(long userId, long friendId) {
+        int count = 0;
+        String sql = "SELECT count(1) as count FROM msg WHERE receiverId=? and senderId=? AND state=?";
+        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), "0"};
+        Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
+        if (cursor.moveToNext()) {
+            count = cursor.getInt(cursor.getColumnIndex("count"));
+        }
+        return count;
+    }
+
+    public List<IMsg> getMsg(long userId, long friendId) {
         String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
         String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId)};
         List<IMsg> result = queryMsg(sql, selectionArgs);
@@ -117,16 +150,27 @@ public class MsgDBManager {
      * 查询聊天记录 分页
      * PageInfo pageInfo = new PageInfo((page-1)*rows, rows);
      *
+     * @param startIndex //不知道为什么穿数据源的长度就可以正确查出结果
      * @param friendId
      * @param startIndex
      * @return
      */
-    public List<IMsg> queryFriendMsgByPage(long userId, String friendId, int startIndex, int count) {
-        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC";
-        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId)};
-        sql = prepareSql(sql, startIndex, count);
+    public List<IMsg> getMsgByPage(long userId, long friendId, int startIndex, int count) {
+        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
+        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId), startIndex + "", count + ""};
+        //sql = prepareSql(sql, startIndex, count);
         List<IMsg> result = queryMsg(sql, selectionArgs);
         return result;
+    }
+
+    public IMsg getLastMessageWithEveryFriend(long userId, long friendId) {
+        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
+        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId), "0", "1"};
+        List<IMsg> result = queryMsg(sql, selectionArgs);
+        if (result != null && result.size() > 0) {
+            return result.get(0);
+        } else
+            return null;
     }
 
     private List<IMsg> queryMsg(String sql, String[] selectionArgs) {

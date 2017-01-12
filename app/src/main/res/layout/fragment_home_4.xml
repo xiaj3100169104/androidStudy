@@ -141,16 +141,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/layout_item_47"
-            style="@style/Layouts.normal_RelativeLayout">
-
-            <TextView
-                style="@style/text_black_16sp"
-                android:layout_centerVertical="true"
-                android:text="testCustomDB" />
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/layout_item_48"
             style="@style/Layouts.normal_RelativeLayout">
 

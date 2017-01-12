@@ -2,29 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include layout="@layout/comm_toolbar" />
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
-        <Button
-            android:id="@+id/view_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="清空消息" />
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/layout_bottom" />
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
         <Button
             android:id="@+id/view_page_load"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="分页加载" />
+            android:text="加载更多" />
         <Button
             android:id="@+id/view_send"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="发送" />
-
 
     </LinearLayout>
 </RelativeLayout>

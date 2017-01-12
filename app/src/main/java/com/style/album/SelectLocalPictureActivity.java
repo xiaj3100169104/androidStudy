@@ -49,8 +49,8 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
         paths = null;
         paths = new ArrayList<>();
         paths.add(TAG_ADD);
-        adapter = new DynamicPublishImageAdapter(this, paths);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        adapter = new DynamicPublishImageAdapter(getContext(), paths);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -121,7 +121,7 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
         int count = adapter.getItemCount();
         if (position == count - 1) {
             if (dialog == null) {
-                dialog = new SelAvatarDialog(this, R.style.Dialog_NoTitle);
+                dialog = new SelAvatarDialog(getContext(), R.style.Dialog_NoTitle);
                 dialog.setOnItemClickListener(new SelAvatarDialog.OnItemClickListener() {
                     @Override
                     public void OnClickCamera() {

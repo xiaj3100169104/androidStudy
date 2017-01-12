@@ -47,10 +47,13 @@
         </LinearLayout>
     </com.style.view.MyRadioGroup>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/rl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"></RelativeLayout>
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+    </FrameLayout>
 
 </LinearLayout>

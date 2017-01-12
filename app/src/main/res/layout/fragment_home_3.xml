@@ -1,14 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/send"
+    <Button
+        android:id="@+id/view_start_listener_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3"/>
-
+        android:text="开始消息监听" />
+    <Button
+        android:id="@+id/view_end_listener_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止消息监听" />
+    <Button
+        android:id="@+id/view_get_all_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取所有消息" />
+    <Button
+        android:id="@+id/view_get_friend_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取朋友消息" />
 
 </LinearLayout>

@@ -294,12 +294,13 @@ public class DBUtils {
                         if (fieldName.equalsIgnoreCase("id")) {//需要
                             isIgnore = false;
                         }
-                        Class<?> cursorClass = cursor.getClass();
-                        String columnMethodName = getColumnMethodName(type);
-                        Method cursorMethod = cursorClass.getMethod(columnMethodName, int.class);
-                        Object value = null;
-                        if (!isIgnore)
+                       Object value = null;
+                        if (!isIgnore){//不是忽略字段再去取值，不然会报错
+                            Class<?> cursorClass = cursor.getClass();
+                            String columnMethodName = getColumnMethodName(type);
+                            Method cursorMethod = cursorClass.getMethod(columnMethodName, int.class);//取列名对应的游标索引方法
                             value = cursorMethod.invoke(cursor, cursor.getColumnIndex(fieldName));
+                        }
 
                         if (type == boolean.class || type == Boolean.class) {
                             if ("0".equals(String.valueOf(value))) {

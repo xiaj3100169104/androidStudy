@@ -1,20 +1,39 @@
 package test.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.style.address.UploadPhone;
+import com.style.address.UploadPhoneAdapter;
 import com.style.base.BaseFragment;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.bean.Friend;
 import com.style.bean.User;
 import com.style.db.custom.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
+import com.style.view.DividerItemDecoration;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import test.im.ChatTestActivity;
 
 
 public class HomeFragment2 extends BaseFragment {
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
+    private List<Friend> dataList;
+    private LinearLayoutManager layoutManager;
+    private FriendAdapter adapter;
 
     private UserDBManager myTableManager;
     private User curUser;
@@ -28,8 +47,33 @@ public class HomeFragment2 extends BaseFragment {
     @Override
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
-
         myTableManager = UserDBManager.getInstance();
+
+        dataList = new ArrayList<>();
+        adapter = new FriendAdapter(getContext(), dataList);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object data) {
+                Friend f = (Friend) data;
+                Intent i = new Intent(getContext(), ChatTestActivity.class);
+                startActivity(i.putExtra("friend", f));
+            }
+        });
+        getData();
+    }
+
+    private void getData() {
+        List<Friend> list = myTableManager.queryAllFriend(curUser.getUserId());
+        if (list != null) {
+            dataList.clear();
+            dataList.addAll(list);
+            adapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -38,57 +82,10 @@ public class HomeFragment2 extends BaseFragment {
 
     }
 
-
-    @OnClick(R.id.view_get_all_user)
-    public void get_all_user() {
-        myTableManager.queryAllUser();
-    }
-
-    @OnClick(R.id.view_get_all_friend)
-    public void get_all_ufriend() {
-        myTableManager.queryAllFriend();
-    }
-
-    @OnClick(R.id.view_delete_friend)
-    public void delete() {
-        //myTableManager.deleteUser(curUser.getUserId());
-        //curUser = null;
-    }
-
-    @OnClick(R.id.view_getFriend)
-    public void getFriend() {
-        myTableManager.queryAllFriend(curUser.getUserId());
-
-    }
-
-    @OnClick(R.id.view_getFriendUser)
-    public void getFriendUser() {
-        myTableManager.queryAllMyFriend(curUser.getUserId());
-    }
-
-    @OnClick(R.id.view_updateSex)
-    public void updateUserSex() {
-        myTableManager.updateUserSex(curUser.getUserId(), "w");
-    }
-/*
-    public List<User> queryAll() {
-        List<User> list = myTableManager.findAll(User.class);
-        if (list != null) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0, size = list.size(); i < size; i++) {
-                sb.append(list.get(i).toString()).append("\n");
-            }
-            Log.e(TAG, "queryAll==" + sb.toString());
-        } else {
-            Log.e(TAG, "queryAll==null");
-        }
-        return list;
-    }*/
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         myTableManager.closeDB();
+        ButterKnife.unbind(this);
     }
-
 }

@@ -69,16 +69,16 @@ public class AlbumActivity extends BaseToolBarActivity {
             paths = new ArrayList<>();
         maxNum = getIntent().getIntExtra("maxNum", 9);
         buckets = new ArrayList<>();
-        folderAdapter = new ImageFolderAdapter(this, buckets);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        folderAdapter = new ImageFolderAdapter(getContext(), buckets);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rcvFolder.setLayoutManager(linearLayoutManager);
-        rcvFolder.addItemDecoration(new DividerItemDecoration(this));
+        rcvFolder.addItemDecoration(new DividerItemDecoration(getContext()));
         rcvFolder.setAdapter(folderAdapter);
 
         list = new ArrayList<>();
-        imageAdapter = new ImageItemAdapter(this, list);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        imageAdapter = new ImageItemAdapter(getContext(), list);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         rcvImage.setLayoutManager(gridLayoutManager);
         rcvImage.setAdapter(imageAdapter);

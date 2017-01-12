@@ -19,10 +19,11 @@
             <include layout="@layout/comm_toolbar" />
 
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
             <!-- <android.support.v4.view.ViewPager
                  android:id="@+id/pager"
                  android:layout_width="match_parent"
@@ -40,7 +41,7 @@
 
         <LinearLayout
             android:id="@+id/lila_title"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"

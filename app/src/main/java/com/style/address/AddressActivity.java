@@ -45,10 +45,10 @@ public class AddressActivity extends BaseToolBarActivity {
 
         sidebar.setTextView(tvDialog);
         dataList = new ArrayList<>();
-        adapter = new UploadPhoneAdapter(this, dataList);
-        layoutManager = new LinearLayoutManager(this);
+        adapter = new UploadPhoneAdapter(getContext(), dataList);
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {

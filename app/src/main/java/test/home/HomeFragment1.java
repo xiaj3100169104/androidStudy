@@ -1,118 +1,131 @@
 package test.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.bean.Friend;
 import com.style.bean.IMsg;
 import com.style.bean.User;
 import com.style.db.base.MsgDBManager;
+import com.style.db.custom.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.utils.MyDateUtil;
+import com.style.view.DividerItemDecoration;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 import test.im.ChatTestActivity;
+import test.im.MsgItem;
 
 
 public class HomeFragment1 extends BaseFragment {
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-
+    private UserDBManager myTableManager;
     private User curUser;
-    int index = 1;
+    private List<MsgItem> dataList;
+    private LinearLayoutManager layoutManager;
+    private MsgListAdapter adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLayoutResID = R.layout.fragment_home_1;
+        EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
+        myTableManager = UserDBManager.getInstance();
+
+        dataList = new ArrayList<>();
+        adapter = new MsgListAdapter(getContext(), dataList);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object data) {
+                MsgItem item = (MsgItem) data;
+                Intent i = new Intent(getContext(), ChatTestActivity.class);
+                startActivity(i.putExtra("friend", item.getFriend()));
+            }
+        });
+        getData();
+    }
+
+    private void getData() {
+        List<Friend> list = myTableManager.queryAllFriend(curUser.getUserId());
+        if (list != null && list.size() > 0) {
+            List<MsgItem> msgItems = new ArrayList<>();
+            for (Friend f : list) {
+                IMsg last = MsgDBManager.getInstance().getLastMessageWithEveryFriend(f.getOwnerId(), f.getFriendId());
+                if (last != null) {
+                    MsgItem msgItem = new MsgItem();
+                    msgItem.setFriend(f);
+                    msgItem.setMsg(last);
+                    msgItem.setUnreadCount(MsgDBManager.getInstance().getUnreadCount(f.getOwnerId(), f.getFriendId()));
+                    msgItems.add(msgItem);
+                }
+            }
+            if (msgItems != null && msgItems.size() > 0) {
+                dataList.clear();
+                dataList.addAll(msgItems);
+                adapter.notifyDataSetChanged();
+            }
+        }
 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    //在UI线程中执行
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewMsg(IMsg iMsg) {
+        Log.e(TAG, "onNewMsg");
+        if (iMsg!=null) {
+            getData();
+            //dataList.add(iMsg);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //取消事件注册
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected void onLazyLoad() {
-    }
-
-    @OnClick(R.id.view_start_listener_msg)
-    public void view_start_listener_msg() {
-        startListener();
-    }
-
-    @OnClick(R.id.view_end_listener_msg)
-    public void view_end_listener_msg() {
-        stopListener();
-    }
-
-    @OnClick(R.id.view_get_all_msg)
-    public void view_get_all_msg() {
-        MsgDBManager.getInstance().queryAllMsg();
-    }
-
-    @OnClick(R.id.view_get_friend_msg)
-    public void view_get_friend_msg() {
-        MsgDBManager.getInstance().queryOneFriendMsg(curUser.getUserId(), 1);
-
-    }
-    @OnClick(R.id.view_skip_to_chat)
-    public void view_skip_to_chat() {
-        skip(ChatTestActivity.class);
-    }
-
-    protected Timer timer;
-    private MyTimerTask task;
-    public static final long DELAY_TIME = 1000;
-
-    private void startListener() {
-        task = new MyTimerTask();
-        timer = new Timer(true);
-        timer.schedule(task, 0, DELAY_TIME); //延时0ms后执行，1000ms执行一次
-    }
-
-    private void stopListener() {
-        timer.cancel();
-        task = null;
-        timer = null;
-    }
-
-    public Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-           /* if (msg.what == UPDATE) {
-                updateCallingTime();
-            }*/
-            //timer.purge();
-        }
-    };
-
-    class MyTimerTask extends TimerTask {
-        @Override
-        public void run() {
-            /*Message message = new Message();
-            message.what = UPDATE;
-            handler.sendMessage(message);*/
-            IMsg o = new IMsg();
-            o.setMsgId(System.currentTimeMillis());
-            o.setSenderId(1);
-            if (index % 2 == 0)//发送给我的消息
-                o.setReceiverId(8);
-            else
-                o.setReceiverId(4);
-            o.setState(0);
-            o.setCreateTime(System.currentTimeMillis());
-            o.setContent(MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
-            MsgDBManager.getInstance().insertMsg(o);
-            index++;
-        }
     }
 }

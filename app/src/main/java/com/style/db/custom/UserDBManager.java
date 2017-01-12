@@ -13,10 +13,10 @@ import java.util.List;
 public class UserDBManager {
     private static final String TAG = "UserDBManager";
     public static final String DB_NAME_USER_RELATIVE = "userRelative.db";
-    public static final int DB_VERSION_USER_RELATIVE = 3;//降版本会报错
+    public static final int DB_VERSION_USER_RELATIVE = 4;//降版本会报错
 
     public static final String[] TABLE_IGNORE_USER = {"id", "password", "signKey"};
-    public static final String[] TABLE_IGNORE_FRIEND = {"id"};
+    public static final String[] TABLE_IGNORE_FRIEND = {"user", "id"};
     private static final String SQL_CREATE_TABLE_USER = DBUtils.getCreateTableSql(User.class, TABLE_IGNORE_USER);
     private static final String SQL_CREATE_TABLE_FRIEND = DBUtils.getCreateTableSql(Friend.class, TABLE_IGNORE_FRIEND);
     private static final String SQL_DROP_TABLE_USER = DBUtils.getDropTableSql(User.class);
@@ -142,11 +142,18 @@ public class UserDBManager {
         String sql = "SELECT * FROM friend WHERE ownerId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<Friend> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, Friend.class, TABLE_IGNORE_FRIEND);
+        if (result != null && result.size() > 0) {
+            for (Friend f : result) {
+                f.setUser(queryUser(f.getFriendId()));
+                Log.e(TAG, f.toString());
+                Log.e(TAG, f.getUser().toString());
+            }
+        }
         return result;
     }
 
     public List<User> queryAllMyFriend(long userId) {
-        String sql = "SELECT * FROM user left join friend on user.userId=friend.ownerId where friend.ownerId=?";
+        String sql = "select * from user left join friend on friend.friendId=user.userId where friend.ownerId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, User.class, TABLE_IGNORE_USER);
         return result;

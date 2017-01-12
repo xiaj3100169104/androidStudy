@@ -44,13 +44,13 @@ public class LoginActivity extends BaseActivity {
     public void synData() {
 
         List<User> friends = UserDBManager.getInstance().queryAllMyFriend(curUser.getUserId());
-        /*if (friends != null && friends.size() > 0) {
+        if (friends != null && friends.size() > 0) {
             skip(MainActivity.class);
             finish();
         } else {
             for (int i = 1; i < 10; i++) {
                 if (i != 8) {
-                    User user = new User(i, "phone" + i, "123456", "用户" + i, null);
+                    User user = new User(i, "182028200" + i, "123456", "用户" + i, null);
                     UserDBManager.getInstance().insertUser(user);
                 }
             }
@@ -58,16 +58,17 @@ public class LoginActivity extends BaseActivity {
             for (int i = 1; i < 10; i++) {
                 Friend bean = new Friend();
                 bean.setFriendId(i);
-                if (i < 5)
+                if (i < 5) {
                     bean.setOwnerId(8);
-                else
+                    bean.setMark("朋友" + i);
+                } else
                     bean.setOwnerId(4);
                 UserDBManager.getInstance().insertFriend(bean);
             }
 
             skip(MainActivity.class);
             finish();
-        }*/
+        }
 
     }
 }

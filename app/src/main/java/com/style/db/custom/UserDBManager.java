@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDBManager {
     private static final String TAG = "UserDBManager";
     public static final String DB_NAME_USER_RELATIVE = "userRelative.db";
-    public static final int DB_VERSION_USER_RELATIVE = 4;//降版本会报错
+    public static final int DB_VERSION_USER_RELATIVE = 5;//降版本会报错
 
     public static final String[] TABLE_IGNORE_USER = {"id", "password", "signKey"};
     public static final String[] TABLE_IGNORE_FRIEND = {"user", "id"};
@@ -112,19 +112,19 @@ public class UserDBManager {
         getWritableDatabase().execSQL(sql, params);
     }
 
-    public List<User> queryAllUser() {
+    public List<User> getAllUser() {
         String sql = "SELECT * FROM user";
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, null, User.class, TABLE_IGNORE_USER);
         return result;
     }
 
-    public List<Friend> queryAllFriend() {
+    public List<Friend> getAllFriend() {
         String sql = "SELECT * FROM friend";
         List<Friend> result = DBUtils.rawQuery(getWritableDatabase(), sql, null, Friend.class, TABLE_IGNORE_FRIEND);
         return result;
     }
 
-    public User queryUser(long userId) {
+    public User getUser(long userId) {
         String sql = "SELECT * FROM user WHERE userId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, User.class, TABLE_IGNORE_USER);
@@ -138,13 +138,13 @@ public class UserDBManager {
             return null;
     }
 
-    public List<Friend> queryAllFriend(long userId) {
+    public List<Friend> getAllFriend(long userId) {
         String sql = "SELECT * FROM friend WHERE ownerId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<Friend> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, Friend.class, TABLE_IGNORE_FRIEND);
         if (result != null && result.size() > 0) {
             for (Friend f : result) {
-                f.setUser(queryUser(f.getFriendId()));
+                f.setUser(getUser(f.getFriendId()));
                 Log.e(TAG, f.toString());
                 Log.e(TAG, f.getUser().toString());
             }
@@ -152,7 +152,7 @@ public class UserDBManager {
         return result;
     }
 
-    public List<User> queryAllMyFriend(long userId) {
+    public List<User> getAllMyFriend(long userId) {
         String sql = "select * from user left join friend on friend.friendId=user.userId where friend.ownerId=?";
         String[] params = new String[]{String.valueOf(userId)};
         List<User> result = DBUtils.rawQuery(getWritableDatabase(), sql, params, User.class, TABLE_IGNORE_USER);

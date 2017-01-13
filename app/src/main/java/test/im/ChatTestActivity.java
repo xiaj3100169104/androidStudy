@@ -51,6 +51,7 @@ public class ChatTestActivity extends BaseToolBarActivity {
         curUser = AccountManager.getInstance().getCurrentUser();
         friend = (Friend) getIntent().getSerializableExtra("friend");
         setToolbarTitle(friend.getMark());
+
         MsgDBManager.getInstance().updateReaded2User(friend.getFriendId(), friend.getOwnerId());
         dataList = new ArrayList<>();
         adapter = new ChatAdapter(getContext(), dataList);
@@ -100,6 +101,9 @@ public class ChatTestActivity extends BaseToolBarActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNewMsg(IMsg iMsg) {
         Log.e("MainThread", Thread.currentThread().getName());
+        //不是我发送的消息状态置为已读
+        if (iMsg.getSenderId() != curUser.getUserId())
+            MsgDBManager.getInstance().updateReaded2Msg(curUser.getUserId());
         dataList.add(iMsg);
         adapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(dataList.size());

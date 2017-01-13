@@ -89,7 +89,7 @@ public class AccountManager {
     }
 
     public User getUser(long account) {
-        User user = UserDBManager.getInstance().queryUser(account);
+        User user = UserDBManager.getInstance().getUser(account);
         if (user != null) {
             user.setPassword(getPassword(account));
             user.setSignKey(getSignKey(account));

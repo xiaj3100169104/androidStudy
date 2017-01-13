@@ -80,7 +80,7 @@ public class HomeFragment1 extends BaseFragment {
     }
 
     private void getData() {
-        List<Friend> list = myTableManager.queryAllFriend(curUser.getUserId());
+        List<Friend> list = myTableManager.getAllFriend(curUser.getUserId());
         if (list != null && list.size() > 0) {
             List<MsgItem> msgItems = new ArrayList<>();
             for (Friend f : list) {
@@ -112,7 +112,8 @@ public class HomeFragment1 extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNewMsg(IMsg iMsg) {
         Log.e(TAG, "onNewMsg");
-        if (iMsg!=null) {
+        if (iMsg != null) {
+
             getData();
             //dataList.add(iMsg);
         }

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -115,6 +116,33 @@ public class CustomNotifyView extends View {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
 
+    /**
+     * 显示数字，默认超过99显示"..."
+     *
+     * @param count
+     */
+    public void setNotifyCount(int count) {
+        setNotifyCount(count, "...");
+    }
+
+    /**
+     * 显示数字
+     * @param count
+     * @param s     超过99显示的字符
+     */
+    public void setNotifyCount(int count, String s) {
+        if (count <= 0)
+            this.setVisibility(View.GONE);
+        else {
+            this.setVisibility(View.VISIBLE);
+            if (count > 99)
+                mTitleText = s;
+            else
+                mTitleText = String.valueOf(count);
+        }
+        invalidate();
+    }
+
     public void setNotifyText(String s) {
         mTitleText = s;
         invalidate();
@@ -161,6 +189,22 @@ public class CustomNotifyView extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        onTextChanged();
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredHeight() / 2, mCirclePaint);
+        if (!TextUtils.isEmpty(mTitleText))
+            canvas.drawText(mTitleText, textLeft, textTop, mTextPaint);
+    }
+
+    /**
+     * 文本改变重新计算文本位置
+     */
+    private void onTextChanged(){
         if (!TextUtils.isEmpty(mTitleText)) {
             int height = getHeight();
             int width = getWidth();
@@ -171,14 +215,5 @@ public class CustomNotifyView extends View {
                 textTop = (int) (height / 2 + Math.abs(fm.ascent + fm.descent / 2) / 2);
             }
         }
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredHeight() / 2, mCirclePaint);
-        if (!TextUtils.isEmpty(mTitleText))
-            canvas.drawText(mTitleText, textLeft, textTop, mTextPaint);
-
     }
 }

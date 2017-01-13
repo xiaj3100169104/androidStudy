@@ -36,18 +36,8 @@ public class MsgListAdapter extends BaseRecyclerViewAdapter {
         setText(holder.viewMark, item.getFriend().getMark());
         setText(holder.viewTime, MyDateUtil.getTimeConversationString(item.getMsg().getCreateTime()));
         setText(holder.viewContent, item.getMsg().getContent());
-        String unread;
         int count = item.getUnreadCount();
-        if (count<=0)
-            holder.viewUnread.setVisibility(View.GONE);
-        else {
-            holder.viewUnread.setVisibility(View.VISIBLE);
-            if (count > 99)
-                unread = "...";
-            else
-                unread = String.valueOf(count);
-            holder.viewUnread.setNotifyText(unread);
-        }
+        holder.viewUnread.setNotifyCount(count);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

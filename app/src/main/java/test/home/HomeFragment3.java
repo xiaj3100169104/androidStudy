@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
+import com.style.bean.Friend;
 import com.style.bean.IMsg;
 import com.style.bean.User;
 import com.style.db.base.MsgDBManager;
+import com.style.db.custom.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.utils.MyDateUtil;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,8 +27,7 @@ import test.im.ChatTestActivity;
 
 public class HomeFragment3 extends BaseFragment {
     private User curUser;
-
-    int index = 1;
+    private List<Friend> friends;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class HomeFragment3 extends BaseFragment {
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
 
+        friends = UserDBManager.getInstance().getAllFriend(curUser.getUserId());
     }
 
     @Override
@@ -97,20 +100,16 @@ public class HomeFragment3 extends BaseFragment {
             /*Message message = new Message();
             message.what = UPDATE;
             handler.sendMessage(message);*/
-            for (int i = 1; i < 5; i++) {
+            for (Friend f : friends) {
                 IMsg o = new IMsg();
                 o.setMsgId(System.currentTimeMillis());
-                o.setSenderId(i);
-                if (index % 2 == 0)//发送给我的消息
-                    o.setReceiverId(8);
-                else
-                    o.setReceiverId(4);
+                o.setSenderId(f.getFriendId());
+                o.setReceiverId(f.getOwnerId());
                 o.setState(0);
                 o.setCreateTime(System.currentTimeMillis());
-                o.setContent(MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
+                o.setContent("来自" + f.getFriendId() + "的消息");
                 MsgDBManager.getInstance().insertMsg(o);
             }
-            index++;
         }
     }
 }

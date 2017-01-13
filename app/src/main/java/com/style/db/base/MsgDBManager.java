@@ -17,7 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
     public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 4;////最低为1，降版本会报错
+    public static final int DB_VERSION_MSG_RELATIVE = 5;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;
@@ -104,7 +104,11 @@ public class MsgDBManager {
         Object[] bindArgs = new Object[]{1, senderId, receiverId};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
-
+    public void updateReaded2Msg(long msgId) {
+        String sql = "UPDATE msg SET state=? WHERE msgId=?";
+        Object[] bindArgs = new Object[]{1, msgId};
+        getWritableDatabase().execSQL(sql, bindArgs);
+    }
     public IMsg getMsg(long msgId) {
         String sql = "SELECT * FROM msg where msgId=?";
         String[] selectionArgs = new String[]{String.valueOf(msgId)};
@@ -128,17 +132,26 @@ public class MsgDBManager {
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 
-    public int getUnreadCount(long userId, long friendId) {
+    public int getUnreadCount(long myselfId, long senderId) {
         int count = 0;
         String sql = "SELECT count(1) as count FROM msg WHERE receiverId=? and senderId=? AND state=?";
-        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), "0"};
+        String[] selectionArgs = new String[]{String.valueOf(myselfId), String.valueOf(senderId), "0"};
         Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
             count = cursor.getInt(cursor.getColumnIndex("count"));
         }
         return count;
     }
-
+    public int getUnreadAllCount(long myselfId) {
+        int count = 0;
+        String sql = "SELECT count(1) as count FROM msg WHERE receiverId=? AND state=?";
+        String[] selectionArgs = new String[]{String.valueOf(myselfId), "0"};
+        Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
+        if (cursor.moveToNext()) {
+            count = cursor.getInt(cursor.getColumnIndex("count"));
+        }
+        return count;
+    }
     public List<IMsg> getMsg(long userId, long friendId) {
         String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
         String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId)};

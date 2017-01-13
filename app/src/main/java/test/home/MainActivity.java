@@ -1,21 +1,26 @@
 package test.home;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
+import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.broadcast.NetWorkChangeBroadcastReceiver;
+import com.style.db.base.MsgDBManager;
 import com.style.framework.R;
+import com.style.manager.AccountManager;
+import com.style.view.CustomNotifyView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
 
@@ -41,6 +46,8 @@ public class MainActivity extends BaseToolBarActivity {
     RelativeLayout layoutHomeTap4;
     protected static final String[] fragTags = {"tag1", "tag2", "tag3", "tag4", "tag5"};
     protected static final String[] titles = {"沟通", "首页", "工单", "通讯录", "客户"};
+    @Bind(R.id.view_notify_msg)
+    CustomNotifyView viewNotifyMsg;
 
     private HomeFragment1 homeFragment1;
     private HomeFragment2 homeFragment2;
@@ -55,24 +62,50 @@ public class MainActivity extends BaseToolBarActivity {
 
     /**
      * 解决方案为以下两种：
-     方法1：在fragmentActivity里oncreate方法判断savedInstanceState==null才生成新Fragment，否则不做处理。
-     方法2：在fragmentActivity里重写onSaveInstanceState方法，但不做实现，也就是将super.onSaveInstanceState(outState)注释掉。
+     * 方法1：在fragmentActivity里oncreate方法判断savedInstanceState==null才生成新Fragment，否则不做处理。
+     * 方法2：在fragmentActivity里重写onSaveInstanceState方法，但不做实现，也就是将super.onSaveInstanceState(outState)注释掉。
+     *
      * @param outState
      * @param outPersistentState
      */
-    @Override
+   /* @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        //super.onSaveInstanceState(outState, outPersistentState);
+        super.onSaveInstanceState(outState, outPersistentState);
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUnreadMsg();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //取消事件注册
+        EventBus.getDefault().unregister(this);
+    }
+    //在UI线程中执行
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewMsg(IMsg iMsg) {
+        Log.e(TAG, "onNewMsg");
+        updateUnreadMsg();
+    }
+
+    private void updateUnreadMsg() {
+        int count = MsgDBManager.getInstance().getUnreadAllCount(curUser.getUserId());
+        viewNotifyMsg.setNotifyCount(count);
     }
 
     @Override
     public void initData() {
+        curUser = AccountManager.getInstance().getCurrentUser();
 
         mTabs = new TextView[5];
         mTabs[0] = viewHomeTap1;

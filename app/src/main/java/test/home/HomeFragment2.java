@@ -68,7 +68,7 @@ public class HomeFragment2 extends BaseFragment {
     }
 
     private void getData() {
-        List<Friend> list = myTableManager.queryAllFriend(curUser.getUserId());
+        List<Friend> list = myTableManager.getAllFriend(curUser.getUserId());
         if (list != null) {
             dataList.clear();
             dataList.addAll(list);

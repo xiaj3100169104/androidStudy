@@ -1,12 +1,11 @@
-package com.style.db.base;
+package com.style.db.msg;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.style.db.custom.SQLiteHelperListener;
-import com.style.db.custom.UserDBManager;
+import com.style.db.user.SQLiteHelperListener;
 
 public class MsgSQLOpenHelper extends SQLiteOpenHelper {
     protected String TAG = getClass().getSimpleName();

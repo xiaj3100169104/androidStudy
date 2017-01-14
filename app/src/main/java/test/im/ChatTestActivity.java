@@ -5,11 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.style.base.BaseActivity;
 import com.style.base.BaseToolBarActivity;
 import com.style.bean.Friend;
 import com.style.bean.IMsg;
-import com.style.db.base.MsgDBManager;
+import com.style.db.msg.MsgDBManager;
 import com.style.framework.R;
 
 import java.util.ArrayList;
@@ -17,9 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import test.event.MessageEvent;
 import test.home.ChatAdapter;
-import test.home.MsgListAdapter;
 
 import com.style.bean.User;
 import com.style.manager.AccountManager;
@@ -92,7 +89,7 @@ public class ChatTestActivity extends BaseToolBarActivity {
         o.setReceiverId(friend.friendId);
         o.setState(1);
         o.setCreateTime(System.currentTimeMillis());
-        o.setContent(MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
+        o.setContent(curUser.getUserName() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
         MsgDBManager.getInstance().insertMsg(o);
 
     }
@@ -102,11 +99,27 @@ public class ChatTestActivity extends BaseToolBarActivity {
     public void onNewMsg(IMsg iMsg) {
         Log.e("MainThread", Thread.currentThread().getName());
         //不是我发送的消息状态置为已读
-        if (iMsg.getSenderId() != curUser.getUserId())
-            MsgDBManager.getInstance().updateReaded2Msg(curUser.getUserId());
-        dataList.add(iMsg);
-        adapter.notifyDataSetChanged();
-        recyclerView.smoothScrollToPosition(dataList.size());
+        if (isFriendSend(iMsg) || isMyselfSend(iMsg)) {
+            if (isFriendSend(iMsg))
+                MsgDBManager.getInstance().updateReaded2Msg(curUser.getUserId());
+            dataList.add(iMsg);
+            adapter.notifyDataSetChanged();
+            recyclerView.smoothScrollToPosition(dataList.size());
+        }
+
+    }
+
+    private boolean isFriendSend(IMsg iMsg) {
+        //先判断消息是否和当前联系人有关，可以提高效率
+        if (iMsg.getSenderId() == friend.getFriendId() && iMsg.getReceiverId() == curUser.getUserId())
+            return true;
+        return false;
+    }
+
+    private boolean isMyselfSend(IMsg iMsg) {
+        if (iMsg.getReceiverId() == friend.getFriendId() && iMsg.getSenderId() == curUser.getUserId())
+            return true;
+        return false;
     }
 
     @Override

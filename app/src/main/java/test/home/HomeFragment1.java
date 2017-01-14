@@ -2,8 +2,6 @@ package test.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,11 +14,10 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.Friend;
 import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.base.MsgDBManager;
-import com.style.db.custom.UserDBManager;
+import com.style.db.msg.MsgDBManager;
+import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
-import com.style.utils.MyDateUtil;
 import com.style.view.DividerItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,11 +26,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import test.im.ChatTestActivity;
 import test.im.MsgItem;
 
@@ -79,6 +73,12 @@ public class HomeFragment1 extends BaseFragment {
         getData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
     private void getData() {
         List<Friend> list = myTableManager.getAllFriend(curUser.getUserId());
         if (list != null && list.size() > 0) {
@@ -102,20 +102,19 @@ public class HomeFragment1 extends BaseFragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getData();
-    }
-
     //在UI线程中执行
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNewMsg(IMsg iMsg) {
         Log.e(TAG, "onNewMsg");
         if (iMsg != null) {
-
-            getData();
-            //dataList.add(iMsg);
+            for (MsgItem msgItem : dataList) {
+                Friend f = msgItem.getFriend();
+                if (iMsg.getSenderId() == f.getFriendId() && iMsg.getReceiverId() == f.getOwnerId()){
+                    msgItem.setUnreadCount(MsgDBManager.getInstance().getUnreadCount(f.getOwnerId(), f.getFriendId()));
+                    adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
         }
     }
 

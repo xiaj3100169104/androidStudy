@@ -1,7 +1,6 @@
 package test.home;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import com.style.base.BaseToolBarActivity;
 import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.base.MsgDBManager;
+import com.style.db.msg.MsgDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.view.CustomNotifyView;

@@ -8,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.style.address.UploadPhone;
-import com.style.address.UploadPhoneAdapter;
 import com.style.base.BaseFragment;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.Friend;
 import com.style.bean.User;
-import com.style.db.custom.UserDBManager;
+import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.view.DividerItemDecoration;
@@ -24,7 +22,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import test.im.ChatTestActivity;
 
 

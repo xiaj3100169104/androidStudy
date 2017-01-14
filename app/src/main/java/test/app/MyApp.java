@@ -6,8 +6,8 @@ import android.support.multidex.MultiDex;
 
 import com.style.base.BaseApp;
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
-import com.style.db.base.MsgDBManager;
-import com.style.db.custom.UserDBManager;
+import com.style.db.msg.MsgDBManager;
+import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 

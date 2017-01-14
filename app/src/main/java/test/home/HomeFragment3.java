@@ -11,8 +11,8 @@ import com.style.base.BaseFragment;
 import com.style.bean.Friend;
 import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.base.MsgDBManager;
-import com.style.db.custom.UserDBManager;
+import com.style.db.msg.MsgDBManager;
+import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.utils.MyDateUtil;
@@ -22,7 +22,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.OnClick;
-import test.im.ChatTestActivity;
 
 
 public class HomeFragment3 extends BaseFragment {
@@ -70,7 +69,7 @@ public class HomeFragment3 extends BaseFragment {
 
     protected Timer timer;
     private MyTimerTask task;
-    public static final long DELAY_TIME = 2000;
+    public static final long DELAY_TIME = 5000;
 
     private void startListener() {
         task = new MyTimerTask();
@@ -107,7 +106,7 @@ public class HomeFragment3 extends BaseFragment {
                 o.setReceiverId(f.getOwnerId());
                 o.setState(0);
                 o.setCreateTime(System.currentTimeMillis());
-                o.setContent("来自" + f.getFriendId() + "的消息");
+                o.setContent(f.getMark() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
                 MsgDBManager.getInstance().insertMsg(o);
             }
         }

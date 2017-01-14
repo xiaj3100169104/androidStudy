@@ -1,4 +1,4 @@
-package com.style.db.custom;
+package com.style.db.user;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

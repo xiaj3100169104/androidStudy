@@ -1,4 +1,4 @@
-package com.style.db.custom;
+package com.style.db.user;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDBManager {
     private static final String TAG = "UserDBManager";
     public static final String DB_NAME_USER_RELATIVE = "userRelative.db";
-    public static final int DB_VERSION_USER_RELATIVE = 5;//降版本会报错
+    public static final int DB_VERSION_USER_RELATIVE = 7;//降版本会报错
 
     public static final String[] TABLE_IGNORE_USER = {"id", "password", "signKey"};
     public static final String[] TABLE_IGNORE_FRIEND = {"user", "id"};

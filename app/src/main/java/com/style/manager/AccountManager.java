@@ -2,13 +2,9 @@ package com.style.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.style.bean.User;
-import com.style.db.custom.UserDBManager;
-
-import java.util.HashSet;
-import java.util.Set;
+import com.style.db.user.UserDBManager;
 
 public class AccountManager {
     protected String TAG = getClass().getSimpleName();

@@ -1,4 +1,4 @@
-package com.style.db.custom;
+package com.style.db.user;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

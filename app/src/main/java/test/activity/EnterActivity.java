@@ -26,7 +26,7 @@ public class EnterActivity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
-
+        setToolbarTitle("测试用例");
     }
 
     @OnClick(R.id.btn_album)
@@ -52,5 +52,9 @@ public class EnterActivity extends BaseToolBarActivity {
     @OnClick(R.id.btn_web_view)
     public void skip6() {
         skip(WebViewActivity.class);
+    }
+    @OnClick(R.id.btn_file_down)
+    public void skip7() {
+        skip(FileDownActivity.class);
     }
 }

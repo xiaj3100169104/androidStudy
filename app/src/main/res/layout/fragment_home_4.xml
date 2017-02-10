@@ -147,7 +147,7 @@
             <TextView
                 style="@style/text_black_16sp"
                 android:layout_centerVertical="true"
-                android:text="enterActivity" />
+                android:text="测试用例" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

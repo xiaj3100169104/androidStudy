@@ -21,6 +21,10 @@ public class ConfigUtil {
      */
     public static final String DIR_APP_IMAGE_CAMERA = DIR_APP + "/image";
     /**
+     * 文件保存目录
+     */
+    public static final String DIR_APP_FILE = DIR_APP + "/file";
+    /**
      * 文件缓存目录
      */
     public static final String DIR_APP_IMAGE_CACHE = DIR_APP + "/cache";

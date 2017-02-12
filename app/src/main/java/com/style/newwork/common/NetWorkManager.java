@@ -20,14 +20,11 @@ public class NetWorkManager {
     }
 
     public void post(RequestParams params, Callback callback) {
-
-        OkHttpUtils.post().url(params.url)
-                .params(params.getParams())
-                //.addParams("password", "123")
-                .build()
-                .execute(callback);
+        OkHttpUtils.post().url(params.url).params(params.getParams()).build().execute(callback);
     }
 
-
+    public void down(String url, Callback callback) {
+        OkHttpUtils.get().url(url).build().execute(callback);
+    }
 }
 

@@ -1,37 +1,43 @@
 package test.activity;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.view.ViewConfigurationCompat;
+import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
-import com.style.utils.FileUtil;
+import com.style.newwork.common.NetWorkManager;
+import com.style.newwork.moultithreaddown.MultiThreadDownloadTask;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import butterknife.Bind;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import okhttp3.Call;
 
 public class FileDownActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.bt_option)
-    Button btOption;
-    private String path = "http://sw.bos.baidu.com/sw-search-sp/software/13d93a08a2990/ChromeStandalone_55.0.2883.87_Setup.exe";
-    private MaterialProgressBar progressBar;
+    @Bind(R.id.bt_http_down)
+    Button btHttpDown;
+    @Bind(R.id.bt_multi_thread_down)
+    Button btMultiThreadDown;
+    @Bind(R.id.bt_multi_file_down)
+    Button btMultiFileDown;
+    @Bind(R.id.progressBar)
+    MaterialProgressBar progressBar;
+    @Bind(R.id.progressBar2)
+    MaterialProgressBar progressBar2;
+    @Bind(R.id.progressBar3)
+    MaterialProgressBar progressBar3;
+
+    private String url = "http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.exe";
+    private String url2 = "http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_4_0_4.exe";
+    private String url3 = "http://www.igniterealtime.org/downloadServlet?filename=spark/spark_2_8_2.exe";
+
+    private String targetPath = ConfigUtil.DIR_APP_FILE + "/apache-tomcat-8.0.24.exe";
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -43,121 +49,74 @@ public class FileDownActivity extends BaseToolBarActivity {
     public void initData() {
         setToolbarTitle("文件下载");
 
-        progressBar = (MaterialProgressBar) findViewById(R.id.MaterialProgressBar);
         progressBar.setMax(100);
         progressBar.setIndeterminate(false);
-
-        btOption.setOnClickListener(new View.OnClickListener() {
+        progressBar2.setMax(100);
+        progressBar2.setIndeterminate(false);
+        progressBar3.setMax(100);
+        progressBar3.setIndeterminate(false);
+        btHttpDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        option(5, path, ConfigUtil.DIR_APP_FILE, "测试文件.exe");
+                down();
+            }
+        });
+        btMultiThreadDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                down2();
+            }
+        });
+        btMultiFileDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                down3();
+            }
+        });
+    }
 
-                    }
-                }).start();
+    private void down() {
+        NetWorkManager.getInstance().down(url, new FileCallBack(ConfigUtil.DIR_APP_FILE, "http. exe") {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.e(TAG, "onError :" + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(File file, int id) {
+                Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) {
+                progressBar.setProgress((int) (100 * progress));
             }
         });
     }
 
 
-    private void option(int threadCount, String remotePath, String dir, String fileName) {
-
-        URL url = null;
-        try {
-            url = new URL(path);
-            HttpURLConnection conn = null;
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("connection", "keep-alive");
-            conn.setRequestProperty("accept", "*/*");
-            int code = conn.getResponseCode();
-            if (code == 200) {
-                //服务器返回的数据的长度，实际上就是文件的长度
-                int length = conn.getContentLength();
-                System.out.println("文件总长度:" + length);
-
-                //在客户端本地
-                //假设3个线程去下载资源
-                //平均每一个线程下载的文件的大小。
-                int blockSize = length / threadCount;
-
-                for (int threadId = 1; threadId <= threadCount; ++threadId) {
-                    //第一个线程下载的开始位置
-                    int startIndex = (threadId - 1) * blockSize;
-                    int endIndex = blockSize - 1;
-                    if (threadId == threadCount) {
-                        //最后一个线程下载的长度稍微长一点
-                        endIndex = length;
-                    }
-                    System.out.println("线程:" + threadId + "下载:--" + startIndex + "-->" + endIndex);
-                    new DownLoadThread(threadId, startIndex, endIndex, remotePath, dir, fileName).start();
-                }
-            } else {
-                System.out.println("访问错误");
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void down2() {
+        MultiThreadDownloadTask task = new MultiThreadDownloadTask(url, 5, targetPath);
+        task.start();
     }
 
-    /**
-     * 下载文件的子线程，每个线程下载对应的文件
-     */
-    public static class DownLoadThread extends Thread {
-        private int threadId;
-        private int startIndex;
-        private int endIndex;
-        private String remotePath;
-        private String dir;
-        private String fileName;
 
-        public DownLoadThread(int threadId, int startIndex, int endIndex, String remotePath, String dir, String fileName) {
-            this.threadId = threadId;
-            this.startIndex = startIndex;
-            this.endIndex = endIndex;
-            this.remotePath = remotePath;
-            this.dir = dir;
-            this.fileName = dir;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL url = new URL(remotePath);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                //很重要：请求服务器下载部分的文件的指定的位置：
-                conn.setRequestProperty("Range", "bytes=" + startIndex + "-" + endIndex);
-                conn.setConnectTimeout(5000);
-                conn.setRequestProperty("connection", "keep-alive");
-                conn.setRequestProperty("accept", "*/*");
-                int code = conn.getResponseCode();//从服务器请求全部资源 200ok ,如果请求部分资源 206 ok
-                System.out.println("code=" + code);
-
-                InputStream is = conn.getInputStream();//返回资源
-                File file = FileUtil.create(dir, fileName);
-                RandomAccessFile raf = new RandomAccessFile(file, "rwd");
-                //随机写文件的时候从哪个位置开始写
-                raf.seek(startIndex);//定位文件
-
-                int len = 0;
-                byte[] buffer = new byte[1024];
-                while ((len = is.read(buffer)) != -1) {
-                    raf.write(buffer, 0, len);
-                }
-                is.close();
-                raf.close();
-                System.out.println("线程" + threadId + "下载完毕");
-
-            } catch (Exception e) {
-                e.printStackTrace();
+    private void down3() {
+        NetWorkManager.getInstance().down(url2, new FileCallBack(ConfigUtil.DIR_APP_FILE, "file1. exe") {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.e(TAG, "onError :" + e.getMessage());
             }
-        }
 
+            @Override
+            public void onResponse(File file, int id) {
+                Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+            }
+
+            @Override
+            public void inProgress(float progress, long total, int id) {
+                progressBar2.setProgress((int) (100 * progress));
+            }
+        });
     }
 }

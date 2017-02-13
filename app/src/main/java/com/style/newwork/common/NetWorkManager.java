@@ -24,7 +24,10 @@ public class NetWorkManager {
     }
 
     public void down(String url, Callback callback) {
-        OkHttpUtils.get().url(url).build().execute(callback);
+        OkHttpUtils.get().url(url).tag(url).build().execute(callback);
+    }
+    public void cancel(Object tag) {
+        OkHttpUtils.getInstance().cancelTag(tag);
     }
 }
 

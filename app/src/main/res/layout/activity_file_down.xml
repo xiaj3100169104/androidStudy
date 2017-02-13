@@ -28,6 +28,17 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="http下载" />
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progressBar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:indeterminate="false"
+        app:mpb_progressStyle="horizontal"
+        app:mpb_useIntrinsicPadding="false"
+        app:mpb_showTrack="true"
+        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+
     <Button
         android:id="@+id/bt_multi_thread_down"
         style="@style/text_white_15sp"

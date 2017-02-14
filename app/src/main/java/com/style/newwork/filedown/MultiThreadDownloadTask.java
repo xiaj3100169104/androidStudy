@@ -119,7 +119,6 @@ public class MultiThreadDownloadTask extends Thread {
                 msg2.getData().putInt("currentDownSize", downloadedAllSize);
                 msg2.getData().putInt("fileSize", fileSize);
                 msg2.getData().putFloat("progress", downloadedAllSize * 1.0f / fileSize);
-
                 mHandler.sendMessage(msg2);
                 //Log.e(TAG, "current downloadSize:" + downloadedAllSize);
                 //Thread.sleep(1000);// 休息1秒后再读取下载进度

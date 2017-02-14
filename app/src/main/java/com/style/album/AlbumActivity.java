@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.rxAndroid.RXAsynTaskManager;
-import com.style.rxAndroid.RXNormalCallBack;
+import com.style.threadpool.CachedThreadPoolManager;
+import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -179,7 +179,7 @@ public class AlbumActivity extends BaseToolBarActivity {
 
     private void getData() {
         showProgressDialog();
-        RXAsynTaskManager.getInstance().runTask(TAG,new RXNormalCallBack() {
+        CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
             @Override
             public Object doInBackground() {
                 Log.e(AlbumActivity.this.TAG, "doInBackground");

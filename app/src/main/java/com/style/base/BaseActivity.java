@@ -19,7 +19,6 @@ import com.style.dialog.MaterialProgressDialog;
 import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
-import com.style.rxAndroid.RXAsynTaskManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
@@ -110,7 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RXAsynTaskManager.getInstance().unsubscribeAll(TAG);
         ButterKnife.unbind(this);
         dismissProgressDialog();
     }

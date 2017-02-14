@@ -1,14 +1,13 @@
-package com.style.rxAndroid;
+package com.style.threadpool.callback;
 
 import android.util.Log;
 
-import com.style.rxAndroid.BaseRXTaskCallBack;
 
 /**
  * Created by xiajun on 2016/10/8.
  */
-public  class RXNormalCallBack extends BaseRXTaskCallBack {
-    protected String TAG = "RXOtherCallBack";
+public  class MyTaskCallBack extends CustomFutureTask {
+    protected String TAG = "MyTaskCallBack";
 
     public Object doInBackground(){
         Log.e(TAG, "doInBackground");
@@ -16,10 +15,9 @@ public  class RXNormalCallBack extends BaseRXTaskCallBack {
     }
 
     @Override
-    public void onNextOnUIThread(Object object) {
-        onSuccess(object);
-    }
+    public void onStart() {
 
+    }
 
     @Override
     public void onSuccess(Object object) {

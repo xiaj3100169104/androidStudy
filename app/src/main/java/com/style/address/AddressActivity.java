@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.rxAndroid.RXAsynTaskManager;
-import com.style.rxAndroid.RXNormalCallBack;
+import com.style.threadpool.CachedThreadPoolManager;
+import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
@@ -75,7 +75,7 @@ public class AddressActivity extends BaseToolBarActivity {
 
     private void getData() {
         showProgressDialog();
-        RXAsynTaskManager.getInstance().runTask(TAG,new RXNormalCallBack() {
+        CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
             @Override
             public Object doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());
@@ -105,6 +105,7 @@ public class AddressActivity extends BaseToolBarActivity {
 
             @Override
             public void onFailed(String message) {
+                dismissProgressDialog();
 
             }
         });

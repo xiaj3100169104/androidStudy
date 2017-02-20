@@ -5,22 +5,18 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
     android:orientation="vertical">
-    <include layout="@layout/comm_toolbar" />
 
-    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        android:id="@+id/MaterialProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="false"
-        app:mpb_progressStyle="horizontal"
-        app:mpb_useIntrinsicPadding="false"
-        app:mpb_showTrack="true"
-        style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal.NoPadding" />
+    <include layout="@layout/comm_toolbar" />
 
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="300dp"></WebView>
 
+    <Button
+        android:id="@+id/btn_java_to_js"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="java调js" />
 </LinearLayout>
 

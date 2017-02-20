@@ -34,13 +34,18 @@
         android:layout_height="wrap_content"
         android:text="用户协议" />
     <Button
+        android:id="@+id/btn_file_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文件下载" />
+    <Button
         android:id="@+id/btn_web_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="加载网页" />
     <Button
-        android:id="@+id/btn_file_down"
+        android:id="@+id/btn_web_view_js"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="文件下载" />
+        android:text="与js交互" />
 </LinearLayout>

@@ -49,12 +49,16 @@ public class EnterActivity extends BaseToolBarActivity {
     public void skip5() {
         skip(UserAgreeActivity.class);
     }
-    @OnClick(R.id.btn_web_view)
+    @OnClick(R.id.btn_file_down)
     public void skip6() {
+        skip(FileDownActivity.class);
+    }
+    @OnClick(R.id.btn_web_view)
+    public void skip7() {
         skip(WebViewActivity.class);
     }
-    @OnClick(R.id.btn_file_down)
-    public void skip7() {
-        skip(FileDownActivity.class);
+    @OnClick(R.id.btn_web_view_js)
+    public void skip8() {
+        skip(WebViewAndJSActivity.class);
     }
 }

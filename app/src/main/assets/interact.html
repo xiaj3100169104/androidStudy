@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <script type="text/javascript">
+        function javascriptCallJava(toast) {
+            javascript:control.show(toast);
+        }
+        function javaCallJavascript(arg){
+          log(arg);
+        }
+        function log(msg){
+            console.log(msg);
+        }
+
+    </script>
+
+</head>
+
+<body>
+<h1 id="g">javascript调java</h1>
+<input type="button" value="toast"
+       onClick="javascriptCallJava('Hello world')"/>
+<h3 id="h">处理弹出框</h3>
+<button onclick="confirm('傻叉')">confirm</button>
+<button onclick="alert('傻叉')">alert</button>
+<button onclick="prompt('傻叉')">prompt</button>
+</body>
+</html>

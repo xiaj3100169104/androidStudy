@@ -23,16 +23,14 @@ public class ImageItemAdapter extends BaseRecyclerViewAdapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
-        View v = mInflater.inflate(R.layout.adapter_album_image_item, parent, false);
-        ViewHolder holder = new ViewHolder(v);
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(mInflater.inflate(R.layout.adapter_album_image_item, parent, false));
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final ViewHolder holder = (ViewHolder) viewHolder;
-        ImageItem item = (ImageItem) data;
+        ImageItem item = (ImageItem) getData(position);
         String path = item.getImagePath();
         ImageLoadManager.loadNormalPicture(mContext, ((ViewHolder) viewHolder).image, path);
 
@@ -41,6 +39,8 @@ public class ImageItemAdapter extends BaseRecyclerViewAdapter {
         } else {
             holder.isselected.setVisibility(View.INVISIBLE);
         }
+        super.setOnItemClickListener(holder, position);
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

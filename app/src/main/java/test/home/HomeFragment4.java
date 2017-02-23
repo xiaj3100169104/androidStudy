@@ -10,6 +10,7 @@ import com.style.framework.R;
 
 import butterknife.OnClick;
 import test.activity.EnterActivity;
+import test.activity.MultiTypeActivity;
 
 
 public class HomeFragment4 extends BaseFragment {
@@ -29,6 +30,10 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void onLazyLoad() {
 
+    }
+    @OnClick(R.id.layout_item_42)
+    public void skip42() {
+        skip(MultiTypeActivity.class);
     }
     @OnClick(R.id.layout_item_48)
     public void skip48() {

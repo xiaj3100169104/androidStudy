@@ -1,0 +1,110 @@
+package test.activity;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.TextView;
+
+import com.style.address.ContactHelper;
+import com.style.address.SideBar;
+import com.style.address.UploadPhone;
+import com.style.address.UploadPhoneAdapter;
+import com.style.address.UploadPhoneComparator;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.base.BaseToolBarActivity;
+import com.style.base.MultiTypeRecyclerViewAdapter;
+import com.style.framework.R;
+import com.style.threadpool.CachedThreadPoolManager;
+import com.style.threadpool.callback.MyTaskCallBack;
+import com.style.utils.HanyuToPinyin;
+import com.style.view.DividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import butterknife.Bind;
+
+
+public class MultiTypeActivity extends BaseToolBarActivity {
+
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private String banner = "banner";
+    private String address = "address";
+    private String header = "header";
+    private List dataList;
+    private LinearLayoutManager layoutManager;
+    private MultiTypeRecyclerViewAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle arg0) {
+        mLayoutResID = R.layout.activity_multi_type;
+        super.onCreate(arg0);
+    }
+
+    @Override
+    public void initData() {
+        setToolbarTitle("复杂布局");
+
+        dataList = new ArrayList<>();
+        dataList.add(banner);
+        dataList.add(address);
+        dataList.add(header);
+        adapter = new MultiTypeRecyclerViewAdapter(getContext(), dataList);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object data) {
+                UploadPhone up = (UploadPhone) data;
+                //AppDataHelper.openEditSms(PhoneActivity.this, up.getTelephone());
+            }
+        });
+
+        getData();
+    }
+
+    private void getData() {
+        showProgressDialog();
+        CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
+            @Override
+            public Object doInBackground() {
+                List<UploadPhone> list = ContactHelper.getContacts(getContext());
+                if (null != list) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
+                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
+                        list.get(i).setSortLetters(sortLetter);
+                    }
+                }
+                // 根据a-z进行排序源数据
+                Collections.sort(list, new UploadPhoneComparator());
+                return list;
+            }
+
+            @Override
+            public void onSuccess(Object data) {
+                Log.e(MultiTypeActivity.this.TAG, "OnSuccess");
+                dismissProgressDialog();
+                if (data != null) {
+                    List<UploadPhone> response = (List<UploadPhone>) data;
+                    Log.e(MultiTypeActivity.this.TAG, response.toString());
+                    dataList.addAll(response);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailed(String message) {
+                dismissProgressDialog();
+
+            }
+        });
+    }
+}

@@ -18,32 +18,35 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class FriendAdapter extends BaseRecyclerViewAdapter {
-	public FriendAdapter(Context context, List list) {
-		super(context, list);
-	}
+    public FriendAdapter(Context context, List list) {
+        super(context, list);
+    }
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mInflater.inflate(R.layout.adapter_friend, parent, false));
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-		Friend f = (Friend) data;
-		setText(holder.tv_mark, f.getMark());
-		setText(holder.tv_name, f.getUser().getUserName());
-	}
+        Friend f = (Friend) getData(position);
+        setText(holder.tv_mark, f.getMark());
+        setText(holder.tv_name, f.getUser().getUserName());
+        super.setOnItemClickListener(holder, position);
+
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-		@Bind(R.id.view_mark)
-		TextView tv_mark;
-		@Bind(R.id.view_nick)
-		TextView tv_name;
-		ViewHolder(View view) {
+        @Bind(R.id.view_mark)
+        TextView tv_mark;
+        @Bind(R.id.view_nick)
+        TextView tv_name;
+
+        ViewHolder(View view) {
             super(view);
-			ButterKnife.bind(this, view);
-		}
-	}
+            ButterKnife.bind(this, view);
+        }
+    }
 }

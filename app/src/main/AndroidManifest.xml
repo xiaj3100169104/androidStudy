@@ -25,6 +25,7 @@
         <activity android:name="test.activity.FileDownActivity"/>
         <activity android:name="test.activity.WebViewActivity"/>
         <activity android:name="test.activity.WebViewAndJSActivity"/>
+        <activity android:name="test.activity.MultiTypeActivity"/>
 
         <activity android:name="test.im.ChatTestActivity"/>
         <activity android:name="test.home.MainActivity"/>

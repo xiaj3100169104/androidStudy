@@ -12,8 +12,6 @@ import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
-import org.json.JSONObject;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +24,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public Context mContext;
     public LayoutInflater mInflater;
     public List<T> list;
-    private OnItemClickListener mListener;
+    private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
-
-    public abstract RecyclerView.ViewHolder onCreateItem(ViewGroup parent, final int viewType);
-
-    public abstract void onBindItem(RecyclerView.ViewHolder viewHolder, int position, T data);
 
     public BaseRecyclerViewAdapter(Context context, List<T> dataList) {
         this.list = dataList;
@@ -43,7 +37,9 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public int getItemCount() {
         return list.size();
     }
-
+    public Context getContext() {
+        return mContext;
+    }
     public List<T> getList() {
         return list;
     }
@@ -99,39 +95,25 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         notifyDataSetChanged();
     }
 
-    public boolean isSetOnItemClickListener(int position, int itemViewType) {
-        return true;
-    }
-
-    public boolean isSetOnItemLongClickListener() {
-        return false;
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return onCreateItem(parent, viewType);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final int index = position;
-        T data = list.get(index);
-        onBindItem(holder, index, data);
-        if (isSetOnItemClickListener(index, getItemViewType(index))) {
+    public void setOnItemClickListener(RecyclerView.ViewHolder holder, final int position) {
+        if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null)
-                        mListener.onItemClick(index, list.get(index));
+                    if (onItemClickListener != null)
+                        onItemClickListener.onItemClick(position, getData(position));
                 }
             });
         }
-        if (isSetOnItemLongClickListener()) {
+    }
+
+    public void setOnItemLongClickListener(RecyclerView.ViewHolder holder, final int position) {
+        if (onItemLongClickListener != null) {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
                     if (onItemLongClickListener != null)
-                        onItemLongClickListener.onItemLongClick(v, index, list.get(index));
+                        onItemLongClickListener.onItemLongClick(v, position, getData(position));
                     return true;
                 }
             });
@@ -140,7 +122,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     public void setOnItemClickListener(OnItemClickListener mListener) {
         if (mListener != null)
-            this.mListener = mListener;
+            this.onItemClickListener = mListener;
     }
 
     public interface OnItemClickListener<T> {

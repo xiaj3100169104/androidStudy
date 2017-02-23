@@ -18,7 +18,6 @@ public class WebViewActivity extends BaseToolBarActivity {
 
     private WebView webView;
     private String url = "http://www.baidu.com";
-    ViewConfigurationCompat ee;
     private MaterialProgressBar progressBar;
 
     @Override

@@ -41,7 +41,7 @@ public class ChatAdapter extends BaseRecyclerViewAdapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == MSG_TYPE_TEXT_LEFT)
             return new ViewHolderTextLeft(mInflater.inflate(R.layout.adapter_msg_text_left, parent, false));
         else
@@ -49,14 +49,18 @@ public class ChatAdapter extends BaseRecyclerViewAdapter {
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
-        IMsg msg = (IMsg) data;
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        IMsg msg = (IMsg) getData(position);
         if (getItemViewType(position) == MSG_TYPE_TEXT_LEFT) {
             ViewHolderTextLeft holder = (ViewHolderTextLeft) viewHolder;
             setText(holder.viewContent, msg.getContent());
+            super.setOnItemClickListener(holder, position);
+
         }else {
             ViewHolderTextRight holder = (ViewHolderTextRight) viewHolder;
             setText(holder.viewContent, msg.getContent());
+            super.setOnItemClickListener(holder, position);
+
         }
 
     }

@@ -25,19 +25,21 @@ public class MsgListAdapter extends BaseRecyclerViewAdapter {
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mInflater.inflate(R.layout.adapter_msg, parent, false));
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        MsgItem item = (MsgItem) data;
+        MsgItem item = (MsgItem) getData(position);
         setText(holder.viewMark, item.getFriend().getMark());
         setText(holder.viewTime, MyDateUtil.getTimeConversationString(item.getMsg().getCreateTime()));
         setText(holder.viewContent, item.getMsg().getContent());
         int count = item.getUnreadCount();
         holder.viewUnread.setNotifyCount(count);
+        super.setOnItemClickListener(holder, position);
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -50,7 +50,7 @@
                     style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="菜单1" />
+                    android:text="复杂适配器" />
             </LinearLayout>
         </RelativeLayout>
 

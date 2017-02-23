@@ -22,14 +22,14 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter implements Secti
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mInflater.inflate(R.layout.adapter_address, parent, false));
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
+	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-		UploadPhone up = (UploadPhone) data;
+		UploadPhone up = (UploadPhone) getData(position);
 		logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
 		String name = up.getName();
 		setText(holder.tv_first_name, name.substring(name.length() - 1, name.length()));
@@ -43,6 +43,8 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter implements Secti
 		} else {
 			holder.tvLetter.setVisibility(View.GONE);
 		}
+		super.setOnItemClickListener(holder, position);
+
 	}
 
 	/**

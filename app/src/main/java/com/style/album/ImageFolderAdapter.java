@@ -18,23 +18,19 @@ import com.style.manager.ImageLoadManager;
 
 public class ImageFolderAdapter extends BaseRecyclerViewAdapter {
 
-
-
     public ImageFolderAdapter(Context context, List list) {
         super(context, list);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateItem(ViewGroup parent, int viewType) {
-        View v = mInflater.inflate(R.layout.adapter_album_image_bucket, parent, false);
-        ViewHolder holder = new ViewHolder(v);
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(mInflater.inflate(R.layout.adapter_album_image_bucket, parent, false));
     }
 
     @Override
-    public void onBindItem(RecyclerView.ViewHolder viewHolder, int position, Object data) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final ViewHolder holder = (ViewHolder) viewHolder;
-        PicBucket item = (PicBucket) data;
+        PicBucket item = (PicBucket) getData(position);
         List<ImageItem> items = item.getImages();
         int num = 0;
         for (int i = 0; i < items.size(); i++) {
@@ -46,6 +42,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter {
         ImageLoadManager.loadNormalPicture(mContext, holder.image, path);
         setText(holder.tvName, item.getBucketName());
         setText(holder.tvCount, " (" + num + "/" + item.getImages().size() + ")");
+        super.setOnItemClickListener(holder, position);
 
     }
 

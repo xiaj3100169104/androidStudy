@@ -15,8 +15,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class UploadPhoneAdapter extends BaseRecyclerViewAdapter implements SectionIndexer {
-	public UploadPhoneAdapter(Context context, List list) {
+public class UploadPhoneAdapter extends BaseRecyclerViewAdapter<UploadPhone> implements SectionIndexer {
+	public UploadPhoneAdapter(Context context, List<UploadPhone> list) {
 		super(context, list);
 	}
 
@@ -29,7 +29,7 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter implements Secti
     @Override
 	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-		UploadPhone up = (UploadPhone) getData(position);
+		UploadPhone up = getData(position);
 		logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
 		String name = up.getName();
 		setText(holder.tv_first_name, name.substring(name.length() - 1, name.length()));
@@ -44,14 +44,13 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter implements Secti
 			holder.tvLetter.setVisibility(View.GONE);
 		}
 		super.setOnItemClickListener(holder, position);
-
 	}
 
 	/**
 	 * 根据ListView的当前位置获取分类的首字母的Char ascii值
 	 */
 	public int getSectionForPosition(int position) {
-		return ((UploadPhone) list.get(position)).getSortLetters().charAt(0);
+		return list.get(position).getSortLetters().charAt(0);
 	}
 
     @Override

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.rxAndroid.RXTaskManager;
+import com.style.rxAndroid.callback.RXTaskCallBack;
 import com.style.threadpool.CachedThreadPoolManager;
 import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
@@ -29,7 +31,7 @@ public class AddressActivity extends BaseToolBarActivity {
     TextView tvDialog;
     @Bind(R.id.sidebar)
     SideBar sidebar;
-    private List<UploadPhone> dataList;
+    private List dataList;
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
 
@@ -75,6 +77,44 @@ public class AddressActivity extends BaseToolBarActivity {
 
     private void getData() {
         showProgressDialog();
+        //custom();
+        RXTaskManager.getInstance().runTask(TAG, new RXTaskCallBack<List<UploadPhone>>(){
+            @Override
+            public List<UploadPhone> doInBackground() {
+                List<UploadPhone> list = ContactHelper.getContacts(getContext());
+                if (null != list) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
+                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
+                        list.get(i).setSortLetters(sortLetter);
+                    }
+                }
+                // 根据a-z进行排序源数据
+                Collections.sort(list, new UploadPhoneComparator());
+                return list;
+            }
+
+            @Override
+            public void onSuccess(List<UploadPhone> data) {
+                Log.e(AddressActivity.this.TAG, "OnSuccess");
+                dismissProgressDialog();
+                if (data != null) {
+                    //List<UploadPhone> response = (List<UploadPhone>) data;
+                    Log.e(AddressActivity.this.TAG, data.toString());
+                    dataList.addAll(data);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RXTaskManager.getInstance().removeTask(TAG);
+    }
+
+    private void custom() {
         CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
             @Override
             public Object doInBackground() {

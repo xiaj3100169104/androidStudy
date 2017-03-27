@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -27,16 +28,14 @@ public class NetRequest {
 
     public void init(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.baidu.com/")
-                //.addConverterFactory(GsonConverterFactory.create())
-                .build();
-
+                .baseUrl("http://www.wangzongwen.cn/wechat_server/")
+                .addConverterFactory(ScalarsConverterFactory.create()).build();
         service = retrofit.create(APIService.class);
     }
 
     public interface APIService {
 
-        @POST("?tn=99671753_s_hao_pg")
+        @POST("newToken")
         Call<String> test();
 
     }
@@ -47,7 +46,7 @@ public class NetRequest {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("test", response.body());
+                Log.e("token", response.body());
             }
 
             @Override

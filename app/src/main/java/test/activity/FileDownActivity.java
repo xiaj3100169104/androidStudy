@@ -8,12 +8,8 @@ import android.widget.Button;
 import com.style.base.BaseToolBarActivity;
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
-import com.style.newwork.common.NetWorkManager;
-import com.style.newwork.filedown.FileDownCallback;
-import com.style.newwork.filedown.MultiThreadDownManager;
-import com.style.newwork.filedown.MultiThreadDownloadTask;
-import com.zhy.http.okhttp.callback.FileCallBack;
-
+import com.style.net.file.FileCallback;
+import com.style.net.file.MultiThreadDownloadManager;
 import java.io.File;
 
 import butterknife.Bind;
@@ -81,27 +77,12 @@ public class FileDownActivity extends BaseToolBarActivity {
     }
 
     private void down() {
-        NetWorkManager.getInstance().down(url, new FileCallBack(ConfigUtil.DIR_APP_FILE, "apache-tomcat-8.0.24_http.exe") {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                Log.e(TAG, "onError :" + e.getMessage());
-            }
 
-            @Override
-            public void onResponse(File file, int id) {
-                Log.e(TAG, "onResponse :" + file.getAbsolutePath());
-            }
-
-            @Override
-            public void inProgress(float progress, long total, int id) {
-                progressBar.setProgress((int) (100 * progress));
-            }
-        });
     }
 
 
     private void down2() {
-        MultiThreadDownManager.getInstance().down(TAG, url, targetPath, new FileDownCallback() {
+        MultiThreadDownloadManager.getInstance().down(TAG, url, targetPath, new FileCallback() {
             @Override
             public void start(int fileSize) {
                 logE(TAG, "下载开始，文件大小==" + fileSize);
@@ -121,44 +102,12 @@ public class FileDownActivity extends BaseToolBarActivity {
 
 
     private void down3() {
-        NetWorkManager.getInstance().down(url2, new FileCallBack(ConfigUtil.DIR_APP_FILE, "file1.exe") {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                Log.e(TAG, "onError :" + e.getMessage());
-            }
 
-            @Override
-            public void onResponse(File file, int id) {
-                Log.e(TAG, "onResponse :" + file.getAbsolutePath());
-            }
-
-            @Override
-            public void inProgress(float progress, long total, int id) {
-                progressBar2.setProgress((int) (100 * progress));
-            }
-        });
-        NetWorkManager.getInstance().down(url3, new FileCallBack(ConfigUtil.DIR_APP_FILE, "file2.exe") {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                Log.e(TAG, "onError :" + e.getMessage());
-            }
-
-            @Override
-            public void onResponse(File file, int id) {
-                Log.e(TAG, "onResponse :" + file.getAbsolutePath());
-            }
-
-            @Override
-            public void inProgress(float progress, long total, int id) {
-                progressBar3.setProgress((int) (100 * progress));
-            }
-        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NetWorkManager.getInstance().cancel(url);
-        MultiThreadDownManager.getInstance().cancelCallback(TAG);
+        MultiThreadDownloadManager.getInstance().cancelCallback(TAG);
     }
 }

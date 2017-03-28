@@ -1,4 +1,4 @@
-package com.style.newwork.response;
+package test.newwork.response;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.style.newwork.filedown;
+package com.style.net.file;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,20 +6,20 @@ import java.util.Map;
 /**
  * Created by xiajun on 2016/12/22.
  */
-public class MultiThreadDownManager {
+public class MultiThreadDownloadManager {
     protected String TAG = getClass().getSimpleName();
 
     private Map<Object, MultiThreadDownloadTask> taskMap = new HashMap<>();
-    private static MultiThreadDownManager instance;
+    private static MultiThreadDownloadManager instance;
 
-    public synchronized static MultiThreadDownManager getInstance() {
+    public synchronized static MultiThreadDownloadManager getInstance() {
         if (instance == null) {
-            instance = new MultiThreadDownManager();
+            instance = new MultiThreadDownloadManager();
         }
         return instance;
     }
 
-    public void down(Object tag, String url, String targetPath, FileDownCallback callback) {
+    public void down(Object tag, String url, String targetPath, FileCallback callback) {
         MultiThreadDownloadTask task = taskMap.get(tag);
         if (task == null) {
             task = new MultiThreadDownloadTask(tag, url, 5, targetPath, callback);

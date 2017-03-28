@@ -1,4 +1,4 @@
-package com.style.newwork.filedown;
+package com.style.net.file;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +23,7 @@ public class MultiThreadDownloadTask extends Thread {
 
     private static final String TAG = MultiThreadDownloadTask.class.getSimpleName();
     private Object tag;//界面标志
-    private FileDownCallback fileDownCallback;
+    private FileCallback fileDownCallback;
     private boolean canCallback = true;//是否需要执行回调,默认true
 
     private String downloadUrl;// 下载链接地址
@@ -62,7 +62,7 @@ public class MultiThreadDownloadTask extends Thread {
         }
     };
 
-    public MultiThreadDownloadTask(Object tag, String downloadUrl, int threadNum, String filePath, FileDownCallback fileDownCallback) {
+    public MultiThreadDownloadTask(Object tag, String downloadUrl, int threadNum, String filePath, FileCallback fileDownCallback) {
         this.tag = tag;
         this.downloadUrl = downloadUrl;
         this.threadNum = threadNum;
@@ -144,7 +144,7 @@ public class MultiThreadDownloadTask extends Thread {
         return false;
     }
 
-    public void setCallback(FileDownCallback callback) {
+    public void setCallback(FileCallback callback) {
         this.fileDownCallback = callback;
     }
 }

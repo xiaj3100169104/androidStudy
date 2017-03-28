@@ -1,10 +1,10 @@
-package com.style.newwork.filedown;
+package com.style.net.file;
 
 /**
  * Created by xiajun on 2017/2/13.
  */
 
-public class FileDownCallback {
+public class FileCallback {
 
     public void start(int fileSize) {
 

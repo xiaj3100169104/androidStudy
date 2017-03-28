@@ -1,20 +1,19 @@
-package com.style.newwork.common;
+package com.style.net.core;
 
 import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.style.manager.AccountManager;
-import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.style.manager.ToastManager;
 
-import okhttp3.Call;
-import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import test.app.MyApp;
 
-
-public class NetDataBeanCallback<T> extends StringCallback {
-    protected String TAG = getClass().getSimpleName();
+public class NetDataBeanCallback<T> implements Callback<String> {
+    protected String TAG = "NetDataBeanCallback";
     protected Class<T> clazz;
     protected TypeReference<T> type;
 
@@ -31,13 +30,9 @@ public class NetDataBeanCallback<T> extends StringCallback {
     }
 
     @Override
-    public void onError(Call call, Exception e, int id) {
-
-    }
-    @Override
-    public void onResponse(String response, int id) {
-        Log.e(TAG, "result==" + response);
-        NetDataBean netDataBean = JSON.parseObject(response, NetDataBean.class);
+    public void onResponse(Call<String> call, Response<String> response) {
+        Log.e(TAG, "response.body==" + response.body());
+        NetDataBean netDataBean = JSON.parseObject(response.body(), NetDataBean.class);
         int code = netDataBean.code;
         String jsonData = netDataBean.data;
         String msg = netDataBean.msg;
@@ -57,13 +52,19 @@ public class NetDataBeanCallback<T> extends StringCallback {
             onCodeFailure(code, msg);
             onCodeFailure(code, data);
             if (code == NetDataBean.SERVER_ERROR) {
-                //ToastUtil.showToast("服务器出错了", Toast.LENGTH_SHORT);
+                ToastManager.showToast(MyApp.getInstance(), "服务器出错了");
             } else if (code == NetDataBean.TOKEN_EXPIRED || code == NetDataBean.TOKEN_INVALID) {
                 handleTokenError();
             }
         }
     }
 
+    @Override
+    public void onFailure(Call<String> call, Throwable t) {
+        t.printStackTrace();
+        ToastManager.showToast(MyApp.getInstance(),"请求错误");
+        onCodeFailure("请求错误");
+    }
     protected void onCodeSuccess() {
 
     }
@@ -86,6 +87,7 @@ public class NetDataBeanCallback<T> extends StringCallback {
 
     }
     private void handleTokenError() {
-       // AccountManager.getInstance().logOut();
+        //AccountManager.getInstance().logOut();
     }
+
 }

@@ -1,4 +1,4 @@
-package com.style.newwork.response;
+package test.newwork.response;
 
 
 import com.style.bean.Friend;

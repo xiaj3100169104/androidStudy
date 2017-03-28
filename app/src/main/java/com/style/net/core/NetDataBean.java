@@ -1,4 +1,4 @@
-package com.style.newwork.common;
+package com.style.net.core;
 
 public class NetDataBean {
     public static final int SUCCESS = 0;

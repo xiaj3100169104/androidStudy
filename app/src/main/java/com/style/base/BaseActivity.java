@@ -27,13 +27,11 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
-
     protected Context context;
     protected LayoutInflater mInflater;
     protected Integer mLayoutResID;
     protected View mContentView;
     private MaterialProgressDialog progressDialog;
-    private AlertDialog dlgPrompt;
 
     public abstract void initData();
 
@@ -164,34 +162,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogManager.logE(tag, msg);
     }
 
-    protected void showGiveUpEditDialog(final com.style.base.BaseActivity.OnGiveUpEditDialogListener listener) {
-        if (dlgPrompt == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("放弃编辑");
-            builder.setMessage("确定要放弃此次编辑吗？");
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    listener.onPositiveButton();
-                }
-            });
-            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    listener.onNegativeButton();
-                }
-            });
-            dlgPrompt = builder.create();
-        }
-        dlgPrompt.show();
-    }
-
-    public interface OnGiveUpEditDialogListener {
-        void onPositiveButton();
-
-        void onNegativeButton();
-    }
-
     protected void setText(TextView textView, int strId) {
         setText(textView, getContext().getString(strId));
     }
@@ -200,7 +170,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         CommonUtil.setText(textView, getNotNullText(str));
     }
 
-    protected static String getNotNullText(String str) {
+    protected CharSequence getNotNullText(String str) {
         return CommonUtil.getNotNullText(str);
     }
 

@@ -3,7 +3,7 @@
 
 # Screenshots
   -------------
-<img src="screenshots/Screenshot_2017-01-14-13-37-28.png" height="400" alt="Screenshot"/>
+<img src="screenshots/Screenshot_1.png" height="400" alt="Screenshot"/>
 
 #layout
 
@@ -35,7 +35,7 @@
 
 # Screenshots
   -------------
-<img src="screenshots/Screenshot_20170331-180522_副本.png" height="400" alt="Screenshot"/>
+<img src="screenshots/Screenshot_2.png" height="400" alt="Screenshot"/>
 
 #layout
 
@@ -65,7 +65,7 @@
 
 # Screenshots
   -------------
-<img src="screenshots/Screenshot_dsfs.png" height="400" alt="Screenshot"/>
+<img src="screenshots/Screenshot_3.png" height="400" alt="Screenshot"/>
 #layout
 
 ```xml

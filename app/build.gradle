@@ -39,7 +39,10 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     //compile 'me.zhanghai.android.materialprogressbar:library:1.3.0'
     compile project(':MaterialProgressBar')
-    compile project(':ptr-lib')
+    compile project(':LibVideoRecord')
+    //compile project(':LRecyclerview_library')
+    compile project(':LibVoiceRecord')
+
     compile files('libs/pinyin4j-2.5.0.jar')
     //compile 'com.belerweb:pinyin4j:2.5.1'
 }

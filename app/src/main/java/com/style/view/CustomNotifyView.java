@@ -13,12 +13,11 @@ import android.view.View;
 
 import com.style.framework.R;
 
-
 /**
  * 自定义通知提醒view(小圆点)
  */
 public class CustomNotifyView extends View {
-
+    private static final String TAG = "CustomNotifyView";
     /**
      * 背景颜色
      */
@@ -66,19 +65,17 @@ public class CustomNotifyView extends View {
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
-            switch (attr) {
-                case R.styleable.CustomNotifyView_notifyBackgroundColor:
-                    mBackgroundColor = a.getColor(attr, mBackgroundColor);
-                    break;
-                case R.styleable.CustomNotifyView_notifyText:
-                    mTitleText = a.getString(attr);
-                    break;
-                case R.styleable.CustomNotifyView_notifyTextColor:
-                    mTitleTextColor = a.getColor(attr, mTitleTextColor);
-                    break;
-                case R.styleable.CustomNotifyView_notifyTextSize:
-                    mTitleTextSize = a.getDimensionPixelSize(attr, mTitleTextSize);
-                    break;
+            if (attr == R.styleable.CustomNotifyView_notifyBackgroundColor) {
+                mBackgroundColor = a.getColor(attr, mBackgroundColor);
+
+            } else if (attr == R.styleable.CustomNotifyView_notifyText) {
+                mTitleText = a.getString(attr);
+
+            } else if (attr == R.styleable.CustomNotifyView_notifyTextColor) {
+                mTitleTextColor = a.getColor(attr, mTitleTextColor);
+
+            } else if (attr == R.styleable.CustomNotifyView_notifyTextSize) {
+                mTitleTextSize = a.getDimensionPixelSize(attr, mTitleTextSize);
 
             }
 
@@ -127,6 +124,7 @@ public class CustomNotifyView extends View {
 
     /**
      * 显示数字
+     *
      * @param count
      * @param s     超过99显示的字符
      */
@@ -169,6 +167,7 @@ public class CustomNotifyView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.e(TAG, "onMeasure");
         /*int width = 0;
         int height = 0;
         int specMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -189,12 +188,14 @@ public class CustomNotifyView extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
+        Log.e(TAG, "onLayout");
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Log.e(TAG, "onDraw");
         onTextChanged();
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredHeight() / 2, mCirclePaint);
         if (!TextUtils.isEmpty(mTitleText))

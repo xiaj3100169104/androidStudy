@@ -74,15 +74,10 @@ public class HomeFragment2 extends BaseFragment {
 
     }
 
-    @Override
-    protected void onLazyLoad() {
-
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         myTableManager.closeDB();
-        ButterKnife.unbind(this);
     }
 }

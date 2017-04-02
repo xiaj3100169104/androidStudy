@@ -64,7 +64,6 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (!isPrepare) {
-            context = getActivity();
             initData();
             isPrepare = true;
             if (isVisible && !isInit) {

@@ -11,7 +11,6 @@ import com.style.framework.R;
 import com.style.newwork.common.NetWorkManager;
 import com.style.newwork.filedown.FileDownCallback;
 import com.style.newwork.filedown.MultiThreadDownManager;
-import com.style.newwork.filedown.MultiThreadDownloadTask;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;

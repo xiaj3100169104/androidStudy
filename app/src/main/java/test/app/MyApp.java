@@ -10,7 +10,7 @@ import com.style.db.msg.MsgDBManager;
 import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
-import com.style.netrequest.NetRequest;
+import com.style.net.NetRequest;
 
 
 public class MyApp extends BaseApp {

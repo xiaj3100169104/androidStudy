@@ -164,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogManager.logE(tag, msg);
     }
 
-    protected void showGiveUpEditDialog(final com.style.base.BaseActivity.OnGiveUpEditDialogListener listener) {
+    protected void showGiveUpEditDialog(final OnGiveUpEditDialogListener listener) {
         if (dlgPrompt == null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("放弃编辑");

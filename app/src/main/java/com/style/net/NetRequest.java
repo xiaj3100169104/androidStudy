@@ -1,4 +1,4 @@
-package com.style.netrequest;
+package com.style.net;
 
 import android.util.Log;
 
@@ -6,7 +6,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.GET;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
@@ -27,8 +29,8 @@ public class NetRequest {
 
     public void init(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.baidu.com/")
-                //.addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://www.wangzongwen.cn/wechat_server/")
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
         service = retrofit.create(APIService.class);
@@ -36,14 +38,14 @@ public class NetRequest {
 
     public interface APIService {
 
-        @POST("?tn=99671753_s_hao_pg")
-        Call<String> test();
+        @POST("login") @FormUrlEncoded
+        Call<String> test(@Field("userName")  String userName, @Field("passWord") String password);
 
     }
 
     public void test() {
 
-        Call<String> call = service.test();
+        Call<String> call = service.test("18202823096", "123456");
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -52,7 +54,7 @@ public class NetRequest {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }

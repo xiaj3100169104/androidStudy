@@ -26,6 +26,11 @@
         <activity android:name="test.activity.WebViewActivity"/>
         <activity android:name="test.activity.WebViewAndJSActivity"/>
         <activity android:name="test.activity.MultiTypeActivity"/>
+        <activity android:name="test.activity.TestNotifyViewActivity"/>
+        <activity android:name="test.activity.TestProgressActivity"/>
+        <activity android:name="test.activity.CircleProgressBarActivity"/>
+        <activity android:name="test.activity.VideoTestActivity"/>
+        <activity android:name="test.activity.AudioRecordActivity"/>
 
         <activity android:name="test.im.ChatTestActivity"/>
         <activity android:name="test.home.MainActivity"/>

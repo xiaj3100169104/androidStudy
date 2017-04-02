@@ -10,7 +10,6 @@ import com.style.db.msg.MsgDBManager;
 import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
-import com.style.net.NetRequest;
 
 
 public class MyApp extends BaseApp {
@@ -26,8 +25,6 @@ public class MyApp extends BaseApp {
         UserDBManager.getInstance().initialize(getInstance());
         MsgDBManager.getInstance().init(getInstance());
         initReceiver();
-        NetRequest.getInstance().init();
-        NetRequest.getInstance().test();
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）

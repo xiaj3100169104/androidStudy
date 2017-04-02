@@ -41,11 +41,6 @@ public class HomeFragment3 extends BaseFragment {
         friends = UserDBManager.getInstance().getAllFriend(curUser.getUserId());
     }
 
-    @Override
-    protected void onLazyLoad() {
-
-    }
-
     @OnClick(R.id.view_start_listener_msg)
     public void view_start_listener_msg() {
         startListener();

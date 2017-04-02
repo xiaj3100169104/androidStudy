@@ -23,11 +23,6 @@ public class EmotionDataFrag extends BaseFragment {
 
     }
 
-    @Override
-    protected void onLazyLoad() {
-
-    }
-
     protected void initListener() {
     }
 

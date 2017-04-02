@@ -125,7 +125,4 @@ public class HomeFragment1 extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    protected void onLazyLoad() {
-    }
 }

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <com.style.view.progressbar.CirclePercentView
+            android:id="@+id/circleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            custom:centerTextSize="25sp"
+            custom:percent="15"
+            custom:radius="50dp"
+            custom:stripeWidth="10dp" />
+
+        <com.style.view.progressbar.CirclePercentView
+            android:id="@+id/circleView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            custom:centerTextSize="35sp"
+            custom:percent="75"
+            custom:radius="60dp"
+            custom:stripeWidth="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.style.view.progressbar.ArcProgress
+            android:id="@+id/arc_progress"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            android:background="#214193"
+            custom:arc_bottom_text="MEMORY"
+            custom:arc_progress="10" />
+
+        <com.style.view.progressbar.ArcProgress
+            android:id="@+id/arc_progress2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="50dp"
+            android:background="#214193"
+            custom:arc_bottom_text="STORAGE"
+            custom:arc_finished_color="#ff0000"
+            custom:arc_progress="30"
+            custom:arc_suffix_text="#"
+            custom:arc_text_color="#ffffff"
+            custom:arc_unfinished_color="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.style.view.progressbar.CircleProgress
+            android:id="@+id/circle_progress"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            custom:circle_progress="10" />
+
+        <com.style.view.progressbar.CircleProgress
+            android:id="@+id/circle_progress2"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="50dp"
+            custom:circle_finished_color="#ff0000"
+            custom:circle_progress="25"
+            custom:circle_suffix_text="$"
+            custom:circle_text_color="#ffffff"
+            custom:circle_text_size="16sp"
+            custom:circle_unfinished_color="#00ff00" />
+    </LinearLayout>
+</LinearLayout>

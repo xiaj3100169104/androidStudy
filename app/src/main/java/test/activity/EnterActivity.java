@@ -29,36 +29,4 @@ public class EnterActivity extends BaseToolBarActivity {
         setToolbarTitle("测试用例");
     }
 
-    @OnClick(R.id.btn_album)
-    public void skip1() {
-        skip(SelectLocalPictureActivity.class);
-    }
-    @OnClick(R.id.btn_address)
-    public void skip2() {
-        skip(AddressActivity.class);
-    }
-    @OnClick(R.id.btn_radio)
-    public void skip3() {
-        skip(MyRadioGroupActivity.class);
-    }
-    @OnClick(R.id.btn_wheel)
-    public void skip4() {
-        skip(WheelActivity.class);
-    }
-    @OnClick(R.id.btn_user_agree)
-    public void skip5() {
-        skip(UserAgreeActivity.class);
-    }
-    @OnClick(R.id.btn_file_down)
-    public void skip6() {
-        skip(FileDownActivity.class);
-    }
-    @OnClick(R.id.btn_web_view)
-    public void skip7() {
-        skip(WebViewActivity.class);
-    }
-    @OnClick(R.id.btn_web_view_js)
-    public void skip8() {
-        skip(WebViewAndJSActivity.class);
-    }
 }

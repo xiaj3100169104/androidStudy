@@ -17,7 +17,7 @@ import java.io.IOException;
 public class VoicePlayManager {
     private static final int streamType = AudioManager.STREAM_MUSIC;//
     private static final int sampleRateInHz = 44100;//Hz，采样频率
-    private static final int channelConfig = AudioFormat.CHANNEL_IN_MONO;
+    private static final int channelConfig = AudioFormat.CHANNEL_OUT_MONO;
     private static final int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
     private static final int mode = AudioTrack.MODE_STREAM;
     private AudioTrack audioTrack;
@@ -31,19 +31,21 @@ public class VoicePlayManager {
         return instance;
     }
 
+    public void init(){
+
+    }
     public void play(String fileName) {
         File file = new File(VoiceRecordManager.FILE_DIR, fileName);
         //定义输入流，将音频写入到AudioTrack类中，实现播放
         DataInputStream dis = null;
-        AudioTrack track = null;
         try {
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
             int minBufferSize = AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
             short[] buffer = new short[minBufferSize / 4];
             //实例AudioTrack
-            track = new AudioTrack(streamType, sampleRateInHz, channelConfig, audioFormat, minBufferSize, mode);
+            audioTrack = new AudioTrack(streamType, sampleRateInHz, channelConfig, audioFormat, minBufferSize, mode);
             //开始播放
-            track.play();
+            audioTrack.play();
             //由于AudioTrack播放的是流，所以，我们需要一边播放一边读取
             while (dis.available() > 0) {
                 int i = 0;
@@ -52,10 +54,10 @@ public class VoicePlayManager {
                     i++;
                 }
                 //然后将数据写入到AudioTrack中
-                track.write(buffer, 0, buffer.length);
+                audioTrack.write(buffer, 0, buffer.length);
             }
             //播放结束
-            track.stop();
+            audioTrack.stop();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -67,8 +69,7 @@ public class VoicePlayManager {
                 }
             }
             //在这里release
-            if (track != null)
-                track.release();
+            audioTrack.release();
         }
     }
 

@@ -32,5 +32,10 @@
         android:layout_height="wrap_content"
         android:text="stop_play" />
 
+    <Button
+        android:id="@+id/btn_record_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="record_play" />
 
 </LinearLayout>

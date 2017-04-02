@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:gravity="bottom"
-    android:orientation="vertical"
-    tools:context="com.lzx.demo.MainActivity">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/bt_disconnect"

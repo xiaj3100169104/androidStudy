@@ -154,14 +154,21 @@
                     android:layout_centerVertical="true"
                     android:text="VoiceRecord" />
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_item_49"
+                style="@style/Layouts.normal_RelativeLayout">
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:text="SocketTest" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <include layout="@layout/comm_toolbar" />
 
             <Button
                 android:id="@+id/btn_album"

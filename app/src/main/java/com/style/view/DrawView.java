@@ -13,7 +13,8 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.style.drawviewtest.R;
+import com.style.framework.R;
+
 
 /**
  * Created by xiajun on 2016/12/30.

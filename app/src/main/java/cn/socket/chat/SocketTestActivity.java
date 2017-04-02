@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.style.framework.R;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -27,7 +29,7 @@ public class SocketTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_socket_test);
         ButterKnife.bind(this);
         btConnect.setOnClickListener(new View.OnClickListener() {
             @Override

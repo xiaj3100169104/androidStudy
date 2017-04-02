@@ -11,6 +11,7 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 
 import butterknife.OnClick;
+import cn.socket.chat.SocketTestActivity;
 import test.activity.AudioRecordActivity;
 import test.activity.CircleProgressBarActivity;
 import test.activity.EnterActivity;
@@ -68,6 +69,11 @@ public class HomeFragment4 extends BaseFragment {
     @OnClick(R.id.layout_item_48)
     public void skip48() {
         skip(AudioRecordActivity.class);
+    }
+
+    @OnClick(R.id.layout_item_49)
+    public void skip49() {
+        skip(SocketTestActivity.class);
     }
 
 

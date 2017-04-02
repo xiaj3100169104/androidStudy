@@ -95,7 +95,8 @@ public class VoiceRecordManager {
                     }
                 }
                 //在这里release
-                mAudioRecord.release();
+                if (mAudioRecord != null)
+                    mAudioRecord.release();
                 mAudioRecord = null;
             }
         }
@@ -103,7 +104,8 @@ public class VoiceRecordManager {
 
     //在这里stop的时候先不要release
     public void stopRecording() {
-        mAudioRecord.stop();
+        if (mAudioRecord != null)
+            mAudioRecord.stop();
     }
 
     //对录音文件进行分析

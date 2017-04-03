@@ -1,4 +1,4 @@
-package com.style.lib.media.audio;
+package cn.style.media.audio;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
@@ -95,19 +95,20 @@ public class VoiceRecordManager {
                     }
                 }
                 //在这里release
-                if (mAudioRecord != null)
-                    mAudioRecord.release();
-                mAudioRecord = null;
+                release();
             }
         }
     }
 
-    //在这里stop的时候先不要release
     public void stopRecording() {
         if (mAudioRecord != null)
             mAudioRecord.stop();
     }
-
+    public void release() {
+        if (mAudioRecord != null)
+            mAudioRecord.release();
+        mAudioRecord = null;
+    }
     //对录音文件进行分析
     private void frequencyAnalyse() {
         if (mSampleFile == null) {

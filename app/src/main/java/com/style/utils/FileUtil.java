@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
  * Created by xiajun on 2017/1/9.
  */
 public class FileUtil {
+
 	public static File create(String dirPath, String fileName) {
 		File dir = new File(dirPath);
 		return createFile(dir, fileName);

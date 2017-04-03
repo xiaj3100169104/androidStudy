@@ -9,12 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_record"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="开启微信小视频" />
+
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="match_parent"
@@ -27,10 +22,27 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="下载微信小视频" />
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="开启微信小视频" />
     <Button
         android:id="@+id/btn_play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="播放微信小视频" />
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="保存" />
+    <ImageView
+        android:id="@+id/iv_video_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

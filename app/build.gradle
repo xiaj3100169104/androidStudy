@@ -41,7 +41,7 @@ dependencies {
     compile project(':MaterialProgressBar')
     compile project(':LibVideoRecord')
     //compile project(':LRecyclerview_library')
-    compile project(':LibVoiceRecord')
+    //compile project(':LibVoiceRecord')
 
     compile files('libs/pinyin4j-2.5.0.jar')
     //compile 'com.belerweb:pinyin4j:2.5.1'

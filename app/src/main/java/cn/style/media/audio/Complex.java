@@ -1,4 +1,4 @@
-package com.style.lib.media.audio;
+package cn.style.media.audio;
 
 /**
  * Created by xiajun on 2017/3/19.

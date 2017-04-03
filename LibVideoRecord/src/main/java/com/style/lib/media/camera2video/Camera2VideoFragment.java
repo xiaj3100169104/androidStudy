@@ -67,12 +67,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class Camera2VideoFragment extends Fragment
         implements  FragmentCompat.OnRequestPermissionsResultCallback {
-    public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/aaaStyle/video";
+    public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/aaaaStyle/video";
 
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
@@ -131,14 +132,12 @@ public class Camera2VideoFragment extends Fragment
             = new TextureView.SurfaceTextureListener() {
 
         @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture,
-                                              int width, int height) {
+        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
             openCamera(width, height);
         }
 
         @Override
-        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
-                                                int width, int height) {
+        public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture, int width, int height) {
             configureTransform(width, height);
         }
 
@@ -371,8 +370,7 @@ public class Camera2VideoFragment extends Fragment
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult");
         if (requestCode == REQUEST_VIDEO_PERMISSIONS) {
             if (grantResults.length == VIDEO_PERMISSIONS.length) {
@@ -592,7 +590,7 @@ public class Camera2VideoFragment extends Fragment
     }
 
     private String getVideoFilePath(Context context) {
-        String path =  FILE_DIR + "/" + System.currentTimeMillis() + ".mp4";
+        String path =  FILE_DIR + "/" + UUID.randomUUID().toString() + ".videoCache";
         File f = new File(path);
         if(!f.getParentFile().exists()){
             f.getParentFile().mkdirs();

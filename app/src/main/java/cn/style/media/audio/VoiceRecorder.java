@@ -1,4 +1,4 @@
-package com.style.lib.media.audio;
+package cn.style.media.audio;
 
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -55,34 +55,38 @@ public class VoiceRecorder {
         @Override
         public void run() {
 
-                //定义缓冲
-                short[] buffer = new short[minBufferSize / 4];
-                short[] buffer2 = new short[minBufferSize2 / 4];
+            //定义缓冲
+            short[] buffer = new short[minBufferSize / 4];
+            short[] buffer2 = new short[minBufferSize2 / 4];
 
-                int readSize;
-                while (mAudioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
-                    readSize = mAudioRecord.read(buffer, 0, buffer.length);
-                    if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {
-                        //然后将数据写入到AudioTrack中
-                        audioTrack.write(buffer, 0, buffer.length);
+            int readSize;
+            while (mAudioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+                readSize = mAudioRecord.read(buffer, 0, buffer.length);
+                if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {
+                    //然后将数据写入到AudioTrack中
+                    audioTrack.write(buffer, 0, buffer.length);
 
-                    }
                 }
-               //在这里release
-            if (mAudioRecord!=null)
-                mAudioRecord.release();
-                mAudioRecord = null;
-            if (audioTrack!=null)
-                audioTrack.release();
-
+            }
+            //在这里release
+            release();
         }
+    }
+
+    public void release() {
+        if (mAudioRecord != null)
+            mAudioRecord.release();
+        mAudioRecord = null;
+        if (audioTrack != null)
+            audioTrack.release();
+        audioTrack = null;
     }
 
     //在这里stop的时候先不要release
     public void stopRecording() {
-        if (mAudioRecord!=null)
+        if (mAudioRecord != null)
             mAudioRecord.stop();
-        if (audioTrack!=null)
+        if (audioTrack != null)
             audioTrack.stop();
 
     }

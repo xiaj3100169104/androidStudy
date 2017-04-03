@@ -12,30 +12,29 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="start" />
-    <Button
-        android:id="@+id/btn_stop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="stop_record" />
+        android:text="record" />
     <Button
         android:id="@+id/btn_play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="play" />
     <Button
-        android:id="@+id/btn_stop_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="stop_play" />
-
-    <Button
-        android:id="@+id/btn_record_play"
+        android:id="@+id/btn_record_and_play"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="record_play" />
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stop" />
+    <Button
+        android:id="@+id/btn_release"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stop_release" />
 
 </LinearLayout>

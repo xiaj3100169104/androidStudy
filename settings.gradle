@@ -1,5 +1,4 @@
 include ':app'
 include ':LibVideoRecord'
 include ':MaterialProgressBar'
-include ':LibVoiceRecord'
 

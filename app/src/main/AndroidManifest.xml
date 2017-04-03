@@ -29,9 +29,9 @@
         <activity android:name="test.activity.TestNotifyViewActivity"/>
         <activity android:name="test.activity.TestProgressActivity"/>
         <activity android:name="test.activity.CircleProgressBarActivity"/>
-        <activity android:name="test.activity.VideoTestActivity"/>
-        <activity android:name="test.activity.AudioRecordActivity"/>
-        <activity android:name="cn.socket.chat.SocketTestActivity"/>
+        <activity android:name="cn.style.media.VideoTestActivity"/>
+        <activity android:name="cn.style.media.AudioRecordActivity"/>
+        <activity android:name="cn.style.socket.chat.SocketTestActivity"/>
 
         <activity android:name="test.im.ChatTestActivity"/>
         <activity android:name="test.home.MainActivity"/>

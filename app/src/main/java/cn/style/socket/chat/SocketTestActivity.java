@@ -1,4 +1,4 @@
-package cn.socket.chat;
+package cn.style.socket.chat;
 
 
 import android.os.Bundle;

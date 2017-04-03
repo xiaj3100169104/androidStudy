@@ -1,39 +1,37 @@
-package test.activity;
+package cn.style.media;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import cn.style.media.audio.VoicePlayManager;
+import cn.style.media.audio.VoiceRecordManager;
+import cn.style.media.audio.VoiceRecorder;
 import com.style.framework.R;
-import com.style.lib.media.audio.VoicePlayManager;
-import com.style.lib.media.audio.VoiceRecordManager;
-import com.style.lib.media.audio.VoiceRecorder;
 
 public class AudioRecordActivity extends AppCompatActivity {
-    private VoiceRecordManager instance;
 
     private Button btnStart;
     private Button btnStop;
     private Button btnPlay;
-    private Button btnStopPlay;
-    private Button btnRecordPlay;
+    private Button btnRelease;
+    private Button btnRecordAndPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_record);
-        btnStart = (Button) findViewById(R.id.btn_start);
+        btnStart = (Button) findViewById(R.id.btn_record);
         btnStop = (Button) findViewById(R.id.btn_stop);
         btnPlay = (Button) findViewById(R.id.btn_play);
-        btnStopPlay = (Button) findViewById(R.id.btn_stop_play);
-        btnRecordPlay = (Button) findViewById(R.id.btn_record_play);
+        btnRelease = (Button) findViewById(R.id.btn_release);
+        btnRecordAndPlay = (Button) findViewById(R.id.btn_record_and_play);
 
-        instance = VoiceRecordManager.getInstance();
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start();
+                startRecord();
             }
         });
         btnStop.setOnClickListener(new View.OnClickListener() {
@@ -48,14 +46,14 @@ public class AudioRecordActivity extends AppCompatActivity {
                 play();
             }
         });
-        btnStopPlay.setOnClickListener(new View.OnClickListener() {
+        btnRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopPlay();
+                release();
             }
         });
 
-        btnRecordPlay.setOnClickListener(new View.OnClickListener() {
+        btnRecordAndPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recordAndPlay();
@@ -64,24 +62,27 @@ public class AudioRecordActivity extends AppCompatActivity {
 
     }
 
-    private void stopPlay() {
-        VoicePlayManager.getInstance().stop();
-    }
-
     private void play() {
         VoicePlayManager.getInstance().play("audio.pcm");
     }
 
     private void stop() {
-        instance.stopRecording();
+        VoiceRecordManager.getInstance().stopRecording();
+        VoicePlayManager.getInstance().stop();
+        VoiceRecorder.getInstance().stopRecording();
     }
 
-    private void start() {
-        instance.startRecord();
+    private void startRecord() {
+        VoiceRecordManager.getInstance().startRecord();
     }
 
     private void recordAndPlay() {
         VoiceRecorder.getInstance().startRecord();
     }
+
+    private void release() {
+        VoiceRecordManager.getInstance().release();
+        VoicePlayManager.getInstance().release();
+        VoiceRecorder.getInstance().release();    }
 
 }

@@ -58,7 +58,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.style.lib.media.video.R;
-import com.style.view.HorizontalProgressBar;
 
 import java.io.File;
 import java.io.IOException;
@@ -567,16 +566,19 @@ public class Camera2VideoFragment extends Fragment
         }
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
-        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         if (mNextVideoAbsolutePath == null || mNextVideoAbsolutePath.isEmpty()) {
             mNextVideoAbsolutePath = getVideoFilePath(getActivity());
         }
         mMediaRecorder.setOutputFile(mNextVideoAbsolutePath);
-        mMediaRecorder.setVideoEncodingBitRate(10000000);
-        mMediaRecorder.setVideoFrameRate(30);
+        //设置编码比特率,不设置会使视频图像模糊
+        mMediaRecorder.setVideoEncodingBitRate(1*1024*1024);  //清晰     512*1024(不清楚)
+        //mMediaRecorder.setVideoEncodingBitRate(900*1024); //较为清晰，且文件大小为3.26M(30秒)
+        //必须在setVideoSource，setOutFormat之后，prepare()之前调用
+        mMediaRecorder.setVideoFrameRate(30);//
         mMediaRecorder.setVideoSize(mVideoSize.getWidth(), mVideoSize.getHeight());
-        mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);//H263的貌似有点不清晰
+        mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         switch (mSensorOrientation) {
             case SENSOR_ORIENTATION_DEFAULT_DEGREES:

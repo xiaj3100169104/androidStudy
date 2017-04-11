@@ -50,13 +50,13 @@ public class SocketTestActivity extends AppCompatActivity {
             }
         });
         //SocketChatManager.getInstance().init();
-         chatSocketClient = new ChatSocketClient();
+         //chatSocketClient = new ChatSocketClient();
     }
 
     private void send() {
         String msg = etMsg.getText().toString();
-        //SocketUtil.sendMsg(msg);
-        chatSocketClient.sendMsg(msg);
+        SocketUtil.sendMsg(msg);
+        //chatSocketClient.sendMsg(msg);
     }
 
     private void sendFile() {

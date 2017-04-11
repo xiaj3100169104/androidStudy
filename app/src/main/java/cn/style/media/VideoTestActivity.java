@@ -90,7 +90,6 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
 
     private void setImageResource() {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-
         retriever.setDataSource(path);
         Bitmap bitmap = retriever.getFrameAtTime(1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST);
         ivVideoPreview.setImageBitmap(bitmap);

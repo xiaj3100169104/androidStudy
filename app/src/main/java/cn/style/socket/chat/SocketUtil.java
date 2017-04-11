@@ -37,7 +37,7 @@ public class SocketUtil {
      *
      * @param body
      */
-    public static void sendMsg(final String body) {
+    public static void  sendMsg(final String body) {
         if (TextUtils.isEmpty(body)) {
             Log.e(TAG, "message not be empty!");
             return;
@@ -76,11 +76,10 @@ public class SocketUtil {
                    // read result
                    byte[] resultBytes = new byte[resultLength];
                    dataInputStream.read(resultBytes, 0, resultLength);
-                   socket.shutdownInput();
-                   socket.close();
                    String result = new String(resultBytes);
                    Log.e(TAG, "result：" + result);
-
+                   socket.shutdownInput();
+                   socket.close();
                } catch (IOException e) {
                    e.printStackTrace();
                } finally {

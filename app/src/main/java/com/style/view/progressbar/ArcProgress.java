@@ -16,7 +16,7 @@ import android.view.View;
 import com.style.framework.R;
 
 /**
- * Created by bruce on 11/6/14.
+ * 类似仪表盘百分比进度 View
  */
 public class ArcProgress extends View {
     private Paint paint;

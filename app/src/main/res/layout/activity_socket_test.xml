@@ -38,4 +38,10 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="发送" />
+    <Button
+        android:id="@+id/bt_send_udp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="发送udp" />
 </LinearLayout>

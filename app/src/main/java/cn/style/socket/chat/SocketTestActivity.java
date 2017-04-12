@@ -11,6 +11,10 @@ import android.widget.EditText;
 
 import com.style.framework.R;
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -24,6 +28,8 @@ public class SocketTestActivity extends AppCompatActivity {
     EditText etMsg;
     @Bind(R.id.bt_send)
     Button btSend;
+    @Bind(R.id.bt_send_udp)
+    Button btSendUdp;
     private ChatSocketClient chatSocketClient;
 
     @Override
@@ -49,8 +55,20 @@ public class SocketTestActivity extends AppCompatActivity {
                 send();
             }
         });
+        btSendUdp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendUdp();
+            }
+        });
         //SocketChatManager.getInstance().init();
-         //chatSocketClient = new ChatSocketClient();
+        //chatSocketClient = new ChatSocketClient();
+        UDPChat.init();
+    }
+
+    private void sendUdp() {
+
+        UDPChat.send(etMsg.getText().toString());
     }
 
     private void send() {

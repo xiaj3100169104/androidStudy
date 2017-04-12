@@ -16,7 +16,7 @@ import android.view.View;
 import com.style.framework.R;
 
 /**
- * Created by bruce on 11/4/14.
+ * 球形液体百分比进度 View
  */
 public class CircleProgress extends View {
     private Paint textPaint;

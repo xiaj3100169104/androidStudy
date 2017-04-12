@@ -11,9 +11,7 @@ import android.view.View;
 import com.style.framework.R;
 
 /**
- * 一个圆形百分比进度 View
- * 用于展示简易的图标
- * Created by Administrator on 2015/12/16.
+ * 百分比圆环形进度 View
  */
 public class CirclePercentView extends View {
     private final static int UPDATE_PROGRESS = 2;
@@ -33,8 +31,8 @@ public class CirclePercentView extends View {
     //圆心坐标
     private float x;
     private float y;
-    //要画的弧度
-    private int mEndAngle;
+    //要画的弧度跨度
+    private int mSweepAngle;
     //小圆的颜色
     private int mSmallColor;
     //大圆颜色
@@ -95,7 +93,7 @@ public class CirclePercentView extends View {
     protected void onDraw(Canvas canvas) {
 
 
-        mEndAngle = (int) (getCurPercent() * 3.6);
+        mSweepAngle = (int) (getCurPercent() * 3.6);
         //绘制大圆
         Paint bigCirclePaint = new Paint();
         bigCirclePaint.setAntiAlias(true);
@@ -108,7 +106,7 @@ public class CirclePercentView extends View {
         sectorPaint.setColor(mfinishColor);
         sectorPaint.setAntiAlias(true);
         RectF rect = new RectF(0, 0, mWidth, mHeight);
-        canvas.drawArc(rect, 270, mEndAngle, true, sectorPaint);
+        canvas.drawArc(rect, 270, mSweepAngle, true, sectorPaint);
 
 
         //绘制小圆,颜色透明

@@ -59,6 +59,7 @@ public class AudioRecordActivity extends AppCompatActivity {
                 recordAndPlay();
             }
         });
+        VoiceRecorder.getInstance().init();
 
     }
 

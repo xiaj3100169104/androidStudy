@@ -5,12 +5,22 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.util.Log;
+
+import com.style.db.msg.ThreadPoolUtil;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 
 /**
  * Created by xiajun on 2017/3/19.
  */
 
 public class VoiceRecorder {
+    private final static String TAG = "VoiceRecorder";
+
     private static final int audioSource = MediaRecorder.AudioSource.MIC;//
     private static final int sampleRateInHz = 44100;//Hz，采样频率
     private static final int channelConfig_in = AudioFormat.CHANNEL_IN_MONO;
@@ -55,16 +65,34 @@ public class VoiceRecorder {
         @Override
         public void run() {
 
+            //init();
             //定义缓冲
-            short[] buffer = new short[minBufferSize / 4];
+            byte[] buffer = new byte[minBufferSize / 4];
             short[] buffer2 = new short[minBufferSize2 / 4];
 
             int readSize;
             while (mAudioRecord.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
                 readSize = mAudioRecord.read(buffer, 0, buffer.length);
                 if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {
+                    //发送
+                    try {
+                    InetAddress serverAddress = InetAddress.getByName(HOST_TARGET);
+                    //String str = "hello";
+                    byte[] data = buffer;//str.getBytes();
+                    // 创建一个DatagramPacket对象，并指定要讲这个数据包发送到网络当中的哪个地址，以及端口号
+                    DatagramPacket packet = new DatagramPacket(data, data.length, serverAddress, PORT_TARGET);
+                    // 调用socket对象的send方法，发送数据
+                    sender.send(packet);
+                    //socket.setReuseAddress()
+                    //close();
+                    //socket.disconnect();
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                     //然后将数据写入到AudioTrack中
-                    audioTrack.write(buffer, 0, buffer.length);
+                    //audioTrack.write(buffer, 0, buffer.length);
 
                 }
             }
@@ -90,5 +118,48 @@ public class VoiceRecorder {
             audioTrack.stop();
 
     }
+    public void init() {
+        try {
+            sender = new DatagramSocket();
+            startListen();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+    private static int PORT_LISTEN = 7654;
+    private static int PORT_TARGET = 4567;
+    private static String HOST_TARGET = "192.168.0.101";
+    private static DatagramSocket sender;
 
+    public void startListen() {
+        ThreadPoolUtil.execute(new Runnable() {
+            @Override
+            public void run() {
+                DatagramSocket socket = null;
+                try {
+                    socket = new DatagramSocket(PORT_LISTEN);
+                    while (true) {
+                        byte data[] = new byte[1024];
+                        DatagramPacket packet = new DatagramPacket(data, data.length);
+                        socket.receive(packet);//阻塞
+                        byte[] buffer = packet.getData();
+                        //String result = new String(packet.getData(), packet.getOffset(), packet.getLength());
+                        String hostAddress = packet.getAddress().getHostAddress();
+                        int port = packet.getPort();
+                        //Log.d(TAG, hostAddress + ":" + port + "--->" + result);
+                        //send(socket.getInetAddress().getHostAddress(), socket.getPort(), result);
+                        audioTrack.write(buffer, 0, buffer.length);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    close();
+                }
+            }
+
+            private void close() {
+                if (sender != null && !sender.isClosed())
+                    sender.close();
+            }
+        });
+    }
 }

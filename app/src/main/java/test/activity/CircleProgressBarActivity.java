@@ -22,6 +22,7 @@ public class CircleProgressBarActivity extends ActionBarActivity {
     private CirclePercentView mCirclePercentView2;
     private CircleProgress circleProgress2;
     private ArcProgress arcProgress2;
+    private CirclePercentView mCirclePercentView3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class CircleProgressBarActivity extends ActionBarActivity {
         setContentView(R.layout.activity_circle_progress);
         mCirclePercentView = (CirclePercentView) findViewById(R.id.circleView);
         mCirclePercentView2 = (CirclePercentView) findViewById(R.id.circleView2);
+        mCirclePercentView3 = (CirclePercentView) findViewById(R.id.circleView3);
 
         circleProgress = (CircleProgress) findViewById(R.id.circle_progress);
         arcProgress = (ArcProgress) findViewById(R.id.arc_progress);
@@ -50,6 +52,8 @@ public class CircleProgressBarActivity extends ActionBarActivity {
                 circleProgress2.setPercentWithAnimation(n);
             }
         });
+
+        mCirclePercentView3.startAnimation();
     }
 
 }

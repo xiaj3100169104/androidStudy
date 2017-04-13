@@ -64,6 +64,7 @@ public class DrawView extends View {
         p.setColor(Color.RED);
         p.setAntiAlias(true);// 设置画笔的锯齿效果。 true是去除，大家一看效果就明白了
         canvas.drawCircle(120, 170, 40, p);
+        //圆环
         p.setStyle(Paint.Style.STROKE);//设置空心
         p.setStrokeWidth(5);
         canvas.drawCircle(250, 170, 40, p);

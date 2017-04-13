@@ -30,6 +30,7 @@
         <attr name="finishColor" format="color" />     <!--进度完成颜色-->
         <attr name="textColor" format="color" />       <!--中心百分比文字颜色-->
         <attr name="centerTextSize" format="dimension" />     <!--中心百分比字体大小-->
+        <attr name="indeterminate" format="boolean" />     <!--不确定进度-->
     </declare-styleable>
 
     <declare-styleable name="CircleProgress">

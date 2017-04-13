@@ -6,11 +6,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="change" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,17 +20,30 @@
             custom:centerTextSize="25sp"
             custom:percent="15"
             custom:radius="50dp"
-            custom:stripeWidth="10dp" />
+            custom:stripeWidth="10dp"
+            custom:indeterminate="false"/>
 
         <com.style.view.progressbar.CirclePercentView
             android:id="@+id/circleView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             custom:centerTextSize="35sp"
             custom:percent="75"
             custom:radius="60dp"
-            custom:stripeWidth="10dp" />
+            custom:stripeWidth="10dp"
+            custom:indeterminate="false"/>
+
+        <com.style.view.progressbar.CirclePercentView
+            android:id="@+id/circleView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            custom:centerTextSize="15sp"
+            custom:percent="75"
+            custom:radius="30dp"
+            custom:stripeWidth="8dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -91,4 +99,10 @@
             custom:circle_text_size="16sp"
             custom:circle_unfinished_color="#00ff00" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change" />
 </LinearLayout>

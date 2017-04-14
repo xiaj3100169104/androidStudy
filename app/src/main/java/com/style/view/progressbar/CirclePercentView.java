@@ -17,35 +17,52 @@ import com.style.framework.R;
  * 百分比圆环形进度 View
  */
 public class CirclePercentView extends View {
-    private final static int UPDATE_PROGRESS = 2;
+    private final static String DEFAULT_PERCENT_TAG = "%";
 
     //总体大小
     private int mHeight;
     private int mWidth;
     //圆的半径
-    private float mRadius;
+    private int mRadius;
     //圆心坐标
     private float x;
     private float y;
     //不确定进度
-    private boolean mIndeterminate;
+    private boolean mIndeterminate = true;
     //大圆颜色
-    private int mBigColor;
+    private int mBigColor = 0xffE5E5E5;
     //扇形进度颜色
-    private int mfinishColor;
-    //中心文本颜色
-    private int mtextColor;
+    private int mFinishColor = 0xff00BFFF;
     //进度条宽度
-    private float mStripeWidth;
-    //动画位置百分比进度
-    private int mCurPercent;
+    private int mStripeWidth;
+    //进度
+    private int mCurPercent = 0;
+    //进度开始角度
+    private int mStartAngle = 270;
     //要画的弧度跨度
     private int mSweepAngle;
     //小圆的颜色
-    private int mSmallColor;
-
-    //中心百分比文字大小
+    private int mSmallColor = 0xffffffff;
+    //中心文本颜色
+    private int mTextColor = 0xff333333;
+    //中心文本字体大小
     private float mCenterTextSize;
+    //百分比后缀
+    private String percentTag = DEFAULT_PERCENT_TAG;
+    //中心文本
+    private String centerText = "";
+    //是否显示中心文本
+    private boolean showText = false;
+    //旋转速度:1-10,默认5
+    private int speed = 5;
+    //外圆画笔
+    private Paint bigCirclePaint;
+    //扇形进度画笔
+    private Paint sectorPaint;
+    //内圆画笔
+    private Paint smallCirclePaint;
+    //中心文本画笔
+    private Paint textPaint;
 
     public CirclePercentView(Context context) {
         this(context, null);
@@ -58,16 +75,39 @@ public class CirclePercentView extends View {
     public CirclePercentView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CirclePercentView, defStyleAttr, 0);
-        mStripeWidth = a.getDimension(R.styleable.CirclePercentView_stripeWidth, Utils.dpToPx(30, context));
-        mCurPercent = a.getInteger(R.styleable.CirclePercentView_percent, 0);
-        mBigColor = a.getColor(R.styleable.CirclePercentView_bigColor, 0xffE5E5E5);
-        mfinishColor = a.getColor(R.styleable.CirclePercentView_finishColor, 0xff00BFFF);
-        mSmallColor = a.getColor(R.styleable.CirclePercentView_smallColor, 0xffffffff);
-        mtextColor = a.getColor(R.styleable.CirclePercentView_textColor, 0xff333333);
-        mCenterTextSize = a.getDimensionPixelSize(R.styleable.CirclePercentView_centerTextSize, Utils.spToPx(20, context));
-        mRadius = a.getDimensionPixelSize(R.styleable.CirclePercentView_radius, Utils.dpToPx(50, context));
-        mIndeterminate = a.getBoolean(R.styleable.CirclePercentView_indeterminate, true);
+        mStripeWidth = a.getDimensionPixelSize(R.styleable.CirclePercentView_stripeWidth, Utils.dp2px(context, 8));
+        mCurPercent = a.getInteger(R.styleable.CirclePercentView_percent, mCurPercent);
+        mBigColor = a.getColor(R.styleable.CirclePercentView_bigColor, mBigColor);
+        mFinishColor = a.getColor(R.styleable.CirclePercentView_finishColor, mFinishColor);
+        mSmallColor = a.getColor(R.styleable.CirclePercentView_smallColor, mSmallColor);
+        mTextColor = a.getColor(R.styleable.CirclePercentView_textColor, mTextColor);
+        mCenterTextSize = a.getDimension(R.styleable.CirclePercentView_centerTextSize, Utils.sp2px(context, 20));
+        mRadius = a.getDimensionPixelSize(R.styleable.CirclePercentView_radius, Utils.dp2px(context, 50));
+        mIndeterminate = a.getBoolean(R.styleable.CirclePercentView_indeterminate, mIndeterminate);
 
+        //如果是确定进度，默认显示中心文本
+        if (!mIndeterminate)
+            showText = true;
+        initPaint();
+    }
+
+    private void initPaint() {
+        bigCirclePaint = new Paint();
+        bigCirclePaint.setAntiAlias(true);
+        bigCirclePaint.setColor(mBigColor);
+
+        sectorPaint = new Paint();
+        sectorPaint.setColor(mFinishColor);
+        sectorPaint.setAntiAlias(true);
+
+        smallCirclePaint = new Paint();
+        smallCirclePaint.setAntiAlias(true);
+        smallCirclePaint.setColor(mSmallColor);
+
+        textPaint = new Paint();
+        textPaint.setAntiAlias(true);
+        textPaint.setColor(mTextColor);
+        textPaint.setTextSize(mCenterTextSize);
     }
 
     @Override
@@ -88,8 +128,8 @@ public class CirclePercentView extends View {
         }
 
         if (widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST) {
-            mWidth = (int) (mRadius * 2);
-            mHeight = (int) (mRadius * 2);
+            mWidth = (mRadius * 2);
+            mHeight = (mRadius * 2);
             x = mRadius;
             y = mRadius;
 
@@ -100,52 +140,67 @@ public class CirclePercentView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mIndeterminate)//不确定进度，加旋转动画
-            setCurPercent(15);
-        mSweepAngle = (int) (getCurPercent() * 3.6);
-        //绘制大圆
-        Paint bigCirclePaint = new Paint();
-        bigCirclePaint.setAntiAlias(true);
-        bigCirclePaint.setColor(mBigColor);
+        if (mIndeterminate)//设置不确定角度跨度
+            mSweepAngle = 90;
+        else
+            mSweepAngle = (int) (getCurPercent() * 3.6);
+        //绘制外圆
         canvas.drawCircle(x, y, mRadius, bigCirclePaint);
 
         //饼状图
-        Paint sectorPaint = new Paint();
-        sectorPaint.setColor(mfinishColor);
-        sectorPaint.setAntiAlias(true);
         RectF rect = new RectF(0, 0, mWidth, mHeight);
-        canvas.drawArc(rect, 270, mSweepAngle, true, sectorPaint);
+        canvas.drawArc(rect, mStartAngle, mSweepAngle, true, sectorPaint);
 
-        //绘制小圆,颜色透明
-        Paint smallCirclePaint = new Paint();
-        smallCirclePaint.setAntiAlias(true);
-        smallCirclePaint.setColor(mSmallColor);
+        //绘制内圆
         canvas.drawCircle(x, y, mRadius - mStripeWidth, smallCirclePaint);
 
         //绘制文本
-        Paint textPaint = new Paint();
-        String text = mCurPercent + "%";
-        textPaint.setColor(mtextColor);
-        textPaint.setTextSize(mCenterTextSize);
-        float textLength = textPaint.measureText(text);
-        float textHeight = textPaint.descent();// + textPaint.ascent();
-        canvas.drawText(text, x - textLength / 2, y + textHeight, textPaint);
-
-
+        if (showText) {
+            setCenterText(mCurPercent + getPercentTag());
+            String text = getCenterText();
+            float textLength = textPaint.measureText(text);
+            float textHeight = textPaint.descent();// + textPaint.ascent();
+            canvas.drawText(text, x - textLength / 2, y + textHeight, textPaint);
+        }
+        if (mIndeterminate) {//不确定进度，不断改变起始角度mSweepAngle
+            mStartAngle += speed;
+            if (mStartAngle > 359)//超过最大角度置0
+                mStartAngle = 0;
+            invalidate();
+        }
     }
 
 
     public void startAnimation() {
-        if (mIndeterminate){
-            RotateAnimation animation =new RotateAnimation(0f,360f,Animation.RELATIVE_TO_SELF,
-                    0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+        if (mIndeterminate) {
+            RotateAnimation animation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF,
+                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setDuration(500);//设置动画持续时间
-/** 常用方法 */
             animation.setRepeatCount(5);//设置重复次数
             setAnimation(animation);
             super.startAnimation(animation);
 
         }
+    }
+
+    public String getPercentTag() {
+        return percentTag;
+    }
+
+    public void setPercentTag(String percentTag) {
+        this.percentTag = percentTag;
+    }
+
+    public String getCenterText() {
+        return centerText;
+    }
+
+    public void setCenterText(String centerText) {
+        this.centerText = centerText;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     //设置进度并立即刷新

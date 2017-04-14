@@ -158,11 +158,8 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         setText(textView, mContext.getString(strId));
     }
 
-    protected int dip2px(float dpValue) {
-        return DeviceInfoUtil.dip2px(mContext, dpValue);
+    protected int dp2px(float dpValue) {
+        return DeviceInfoUtil.dp2px(mContext, dpValue);
     }
 
-    protected int px2dip(float pxValue) {
-        return DeviceInfoUtil.px2dip(mContext, pxValue);
-    }
 }

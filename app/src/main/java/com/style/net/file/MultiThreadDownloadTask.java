@@ -17,11 +17,12 @@ import java.net.URLConnection;
  * Created by xiajun on 2017/2/12.
  */
 public class MultiThreadDownloadTask extends Thread {
+    private static final String TAG = MultiThreadDownloadTask.class.getSimpleName();
+
     private static final int DOWN_START = 2;
     private static final int DOWN_PROGRESS = 3;
     private static final int DOWN_COMPLETE = 4;
 
-    private static final String TAG = MultiThreadDownloadTask.class.getSimpleName();
     private Object tag;//界面标志
     private FileCallback fileDownCallback;
     private boolean canCallback = true;//是否需要执行回调,默认true
@@ -85,7 +86,7 @@ public class MultiThreadDownloadTask extends Thread {
             // 读取下载文件总大小
             fileSize = conn.getContentLength();
             if (fileSize <= 0) {
-                System.out.println("读取文件失败");
+                Log.e(TAG, "读取文件失败");
                 return;
             }
             // 计算每条线程下载的数据长度
@@ -93,6 +94,8 @@ public class MultiThreadDownloadTask extends Thread {
             Log.d(TAG, "fileSize:" + fileSize + "  blockSize:" + blockSize);
 
             file = new File(filePath);
+            if (!file.getParentFile().exists())
+                file.getParentFile().mkdirs();
             for (int i = 0; i < threads.length; i++) {
                 // 启动线程，分别下载每个线程需要下载的部分
                 int startPos = blockSize * (i);//开始位置
@@ -120,18 +123,18 @@ public class MultiThreadDownloadTask extends Thread {
                 msg2.getData().putInt("fileSize", fileSize);
                 msg2.getData().putFloat("progress", downloadedAllSize * 1.0f / fileSize);
                 mHandler.sendMessage(msg2);
-                //Log.e(TAG, "current downloadSize:" + downloadedAllSize);
-                //Thread.sleep(1000);// 休息1秒后再读取下载进度
+                Log.e(TAG, "current downloadSize:" + downloadedAllSize);
+                try {
+                    Thread.sleep(1000);// 休息1秒后再读取下载进度
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            Log.d(TAG, " all of downloadSize:" + downloadedAllSize);
+            Log.e(TAG, " all of downloadSize:" + downloadedAllSize);
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } /* catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        }
     }
 
     public void setCanCallback(boolean canCallback) {

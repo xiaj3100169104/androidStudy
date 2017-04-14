@@ -53,7 +53,7 @@ public class CircleProgressBarActivity extends ActionBarActivity {
             }
         });
 
-        mCirclePercentView3.startAnimation();
+        //mCirclePercentView3.startAnimation();
     }
 
 }

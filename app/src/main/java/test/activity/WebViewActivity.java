@@ -11,14 +11,14 @@ import android.widget.Toast;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.view.progressbar.HorizontalProgressBar;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class WebViewActivity extends BaseToolBarActivity {
 
     private WebView webView;
     private String url = "http://www.baidu.com";
-    private MaterialProgressBar progressBar;
+    private HorizontalProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -30,10 +30,7 @@ public class WebViewActivity extends BaseToolBarActivity {
     public void initData() {
         setToolbarTitle("网页测试");
 
-        progressBar = (MaterialProgressBar) findViewById(R.id.MaterialProgressBar);
-        progressBar.setMax(100);
-        progressBar.setIndeterminate(false);
-
+        progressBar = (HorizontalProgressBar) findViewById(R.id.MaterialProgressBar);
 
         webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);

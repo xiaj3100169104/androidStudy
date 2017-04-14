@@ -21,7 +21,7 @@ public class VoiceSet {
 				// MyApp.context.getResources().getAssets().openFd(msg.m3);
 				mp.reset();
 				// mp.setDataSource(assetFileDescriptor.getFileDescriptor());
-				mp.setDataSource(MyApp.getInstance(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+				mp.setDataSource(MyApp.getAppContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 				mp.prepare();
 				mp.start();
 			} catch (Exception e) {
@@ -35,7 +35,7 @@ public class VoiceSet {
 
 	// 产生震动
 	public static void playVibator(long timelong) {
-		Vibrator vib = (Vibrator) MyApp.getInstance().getSystemService(Service.VIBRATOR_SERVICE);
+		Vibrator vib = (Vibrator) MyApp.getAppContext().getSystemService(Service.VIBRATOR_SERVICE);
 		vib.vibrate(timelong);
 	}
 

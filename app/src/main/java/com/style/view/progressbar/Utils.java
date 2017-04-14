@@ -9,20 +9,11 @@ import android.util.TypedValue;
  */
 public class Utils {
 
-    public static int dpToPx(int dp, Context context) {
+    public static int dp2px(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
-    public static int spToPx(int sp,Context context) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
-    }
-    public static float dp2px(Resources resources, float dp) {
-        final float scale = resources.getDisplayMetrics().density;
-        return  dp * scale + 0.5f;
-    }
-
-    public static float sp2px(Resources resources, float sp){
-        final float scale = resources.getDisplayMetrics().scaledDensity;
-        return sp * scale;
+    public static float sp2px(Context context, int sp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 }

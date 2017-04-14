@@ -18,7 +18,7 @@ public class NetStringCallback implements Callback<String> {
 
     @Override
     public void onFailure(Call<String> call, Throwable t) {
-        ToastManager.showToast(MyApp.getInstance(),"请求错误");
+        ToastManager.showToast(MyApp.getAppContext(),"请求错误");
     }
 
 

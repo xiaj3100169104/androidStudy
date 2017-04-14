@@ -52,7 +52,7 @@ public class NetDataBeanCallback<T> implements Callback<String> {
             onCodeFailure(code, msg);
             onCodeFailure(code, data);
             if (code == NetDataBean.SERVER_ERROR) {
-                ToastManager.showToast(MyApp.getInstance(), "服务器出错了");
+                ToastManager.showToast(MyApp.getAppContext(), "服务器出错了");
             } else if (code == NetDataBean.TOKEN_EXPIRED || code == NetDataBean.TOKEN_INVALID) {
                 handleTokenError();
             }
@@ -62,7 +62,7 @@ public class NetDataBeanCallback<T> implements Callback<String> {
     @Override
     public void onFailure(Call<String> call, Throwable t) {
         t.printStackTrace();
-        ToastManager.showToast(MyApp.getInstance(),"请求错误");
+        ToastManager.showToast(MyApp.getAppContext(),"请求错误");
         onCodeFailure("请求错误");
     }
     protected void onCodeSuccess() {

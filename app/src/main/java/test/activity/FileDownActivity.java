@@ -10,11 +10,12 @@ import com.style.constant.ConfigUtil;
 import com.style.framework.R;
 import com.style.net.file.FileCallback;
 import com.style.net.file.MultiThreadDownloadManager;
+import com.style.view.progressbar.HorizontalProgressBar;
+
 import java.io.File;
 
 import butterknife.Bind;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import okhttp3.Call;
+
 
 public class FileDownActivity extends BaseToolBarActivity {
 
@@ -25,13 +26,13 @@ public class FileDownActivity extends BaseToolBarActivity {
     @Bind(R.id.bt_multi_file_down)
     Button btMultiFileDown;
     @Bind(R.id.progressBar)
-    MaterialProgressBar progressBar;
+    HorizontalProgressBar progressBar;
     @Bind(R.id.progressBar2)
-    MaterialProgressBar progressBar2;
+    HorizontalProgressBar progressBar2;
     @Bind(R.id.progressBar3)
-    MaterialProgressBar progressBar3;
+    HorizontalProgressBar progressBar3;
     @Bind(R.id.progressBar4)
-    MaterialProgressBar progressBar4;
+    HorizontalProgressBar progressBar4;
     private String url = "http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.exe";
     private String url2 = "http://sw.bos.baidu.com/sw-search-sp/software/13d93a08a2990/ChromeStandalone_55.0.2883.87_Setup.exe";
     private String url3 = "http://wdl1.cache.wps.cn/wps/download/W.P.S.50.391.exe";
@@ -48,14 +49,6 @@ public class FileDownActivity extends BaseToolBarActivity {
     public void initData() {
         setToolbarTitle("文件下载");
 
-        progressBar.setMax(100);
-        progressBar.setIndeterminate(false);
-        progressBar2.setMax(100);
-        progressBar2.setIndeterminate(false);
-        progressBar3.setMax(100);
-        progressBar3.setIndeterminate(false);
-        progressBar4.setMax(100);
-        progressBar4.setIndeterminate(false);
         btHttpDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

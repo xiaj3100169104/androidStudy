@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import com.style.framework.R;
 
-public class MaterialProgressDialog extends Dialog {
+public class LoadingDialog extends Dialog {
 
-    public MaterialProgressDialog(Context context) {
+    public LoadingDialog(Context context) {
         super(context);
         init();
     }
 
-    public MaterialProgressDialog(Context context, int theme) {
+    public LoadingDialog(Context context, int theme) {
         super(context, theme);
         init();
     }

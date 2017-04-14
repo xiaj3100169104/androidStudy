@@ -14,16 +14,16 @@ import com.style.manager.AppManager;
 
 public class MyApp extends BaseApp {
 
-    protected static MyApp myApp;
+    protected static MyApp appContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        myApp = this;
-        AppManager.getInstance().init(getInstance());
-        AccountManager.getInstance().init(getInstance());
-        UserDBManager.getInstance().initialize(getInstance());
-        MsgDBManager.getInstance().init(getInstance());
+        appContext = this;
+        AppManager.getInstance().init(appContext);
+        AccountManager.getInstance().init(appContext);
+        UserDBManager.getInstance().initialize(appContext);
+        MsgDBManager.getInstance().init(appContext);
         initReceiver();
     }
 
@@ -31,11 +31,11 @@ public class MyApp extends BaseApp {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(getInstance());
+        MultiDex.install(appContext);
     }
 
-    public static MyApp getInstance() {
-        return myApp;
+    public static MyApp getAppContext() {
+        return appContext;
     }
 
     //      监听广播

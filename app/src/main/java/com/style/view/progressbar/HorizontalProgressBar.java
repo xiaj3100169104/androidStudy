@@ -81,7 +81,6 @@ public class HorizontalProgressBar extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e(TAG, "onMeasure");
         invalidate();
 
     }
@@ -89,15 +88,12 @@ public class HorizontalProgressBar extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        Log.e(TAG, "onLayout");
         invalidate();
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.e(TAG, "onDraw");
 
         int progressRight = getRight() * progress / 100;
         //注意：坐标值始终是相对自己的位置

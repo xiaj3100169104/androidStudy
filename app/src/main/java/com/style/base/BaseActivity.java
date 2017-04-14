@@ -1,21 +1,18 @@
 package com.style.base;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.style.dialog.MaterialProgressDialog;
+import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
@@ -31,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected LayoutInflater mInflater;
     protected Integer mLayoutResID;
     protected View mContentView;
-    private MaterialProgressDialog progressDialog;
+    private LoadingDialog progressDialog;
 
     public abstract void initData();
 
@@ -146,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showProgressDialog(String msg) {
         if (progressDialog == null)
-            progressDialog = new MaterialProgressDialog(getContext(), R.style.Dialog_NoTitle);
+            progressDialog = new LoadingDialog(getContext(), R.style.Dialog_NoTitle);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage(msg);
         progressDialog.show();
@@ -174,12 +171,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return CommonUtil.getNotNullText(str);
     }
 
-    protected int dip2px(float dpValue) {
-        return DeviceInfoUtil.dip2px(getContext(), dpValue);
-    }
-
-    protected int px2dip(float pxValue) {
-        return DeviceInfoUtil.px2dip(getContext(), pxValue);
+    protected int dp2px(float dpValue) {
+        return DeviceInfoUtil.dp2px(getContext(), dpValue);
     }
 
 }

@@ -46,7 +46,7 @@ public class FileDownloadThread extends Thread {
             conn.setRequestProperty("Charset", "UTF-8");
 
             //设置当前线程下载的起点、终点
-            System.out.println(Thread.currentThread().getName() + "  bytes=" + startPos + "-" + endPos);
+            Log.e(TAG, Thread.currentThread().getName() + "  bytes=" + startPos + "-" + endPos);
             conn.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
 
             byte[] buffer = new byte[1024];
@@ -60,7 +60,7 @@ public class FileDownloadThread extends Thread {
                 downloadLength += len;
             }
             isCompleted = true;
-            Log.d(TAG, getName()+" is finished,all size:" + downloadLength);
+            Log.e(TAG, getName()+" is finished,all size:" + downloadLength);
 
         } catch (IOException e) {
             e.printStackTrace();

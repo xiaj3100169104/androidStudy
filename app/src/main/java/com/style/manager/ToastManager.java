@@ -28,11 +28,11 @@ public class ToastManager {
     }
 
     public static void showToastOnApplication(int resId) {
-        showToast(MyApp.getInstance(), resId);
+        showToast(MyApp.getAppContext(), resId);
     }
 
     public static void showToastOnApplication(String str) {
-        showToast(MyApp.getInstance(), str);
+        showToast(MyApp.getAppContext(), str);
     }
 
     public static void showToastonFailureOnApp() {

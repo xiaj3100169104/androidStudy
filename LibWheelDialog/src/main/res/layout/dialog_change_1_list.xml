@@ -4,7 +4,7 @@
     android:id="@+id/ly_myinfo_changeaddress"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
+    android:background="#000"
     android:gravity="center"
     android:orientation="vertical" >
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dip"
         android:layout_marginRight="27dip"
-        android:background="@color/white"
+        android:background="#fff"
         android:orientation="vertical" >
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_marginLeft="18dip"
             android:layout_marginTop="18dip"
             android:gravity="center_vertical"
-            android:text="选择地区"
+            android:text="单条列表选择对话框"
             android:textColor="#000000"
             android:textSize="18sp" />
 		<LinearLayout 
@@ -35,21 +35,14 @@
 	        android:layout_marginLeft="20dip"
 	        android:layout_marginRight="20dip"
 	        android:gravity="center_vertical">
-			<com.style.dialog.wheel.views.WheelView
+	        <com.style.dialog.wheel.views.WheelView
 	            android:id="@+id/wv_address_province"
 	            android:layout_width="0dip"
 	            android:layout_weight="1"
 	            android:layout_height="match_parent"
 	            android:layout_gravity="center_vertical"
 	            />
-			<com.style.dialog.wheel.views.WheelView
-	            android:id="@+id/wv_address_city"
-	            android:layout_width="0dip"
-	            android:layout_weight="1"
-	            android:layout_height="match_parent"
-	            android:layout_gravity="center_vertical"
-	            />
-	    </LinearLayout>
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

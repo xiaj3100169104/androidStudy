@@ -11,7 +11,7 @@ import com.style.dialog.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.dialog.wheel.views.OnWheelChangedListener;
 import com.style.dialog.wheel.views.OnWheelScrollListener;
 import com.style.dialog.wheel.views.WheelView;
-import com.style.framework.R;
+import com.style.lib.wheel.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +83,7 @@ public class ChangeAddressDialog extends Dialog implements View.OnClickListener 
         wvProvince.setViewAdapter(provinceAdapter);
         wvProvince.setCurrentItem(getProvinceItem(strProvince));
 
-        initCitys(mCitisDatasMap.get(strProvince));
+        initCities(mCitisDatasMap.get(strProvince));
         cityAdapter = new AddressTextAdapter(context, arrCitys, getCityItem(strCity), maxsize, minsize);
         wvCitys.setVisibleItems(5);
         wvCitys.setViewAdapter(cityAdapter);
@@ -98,7 +98,7 @@ public class ChangeAddressDialog extends Dialog implements View.OnClickListener 
                 strProvince = currentText;
                 setTextviewSize(currentText, provinceAdapter);
                 String[] citys = mCitisDatasMap.get(currentText);
-                initCitys(citys);
+                initCities(citys);
                 cityAdapter = new AddressTextAdapter(context, arrCitys, 0, maxsize, minsize);
                 wvCitys.setVisibleItems(5);
                 wvCitys.setViewAdapter(cityAdapter);
@@ -317,7 +317,7 @@ public class ChangeAddressDialog extends Dialog implements View.OnClickListener 
      *
      * @param citys
      */
-    public void initCitys(String[] citys) {
+    public void initCities(String[] citys) {
         if (citys != null) {
             arrCitys.clear();
             int length = citys.length;

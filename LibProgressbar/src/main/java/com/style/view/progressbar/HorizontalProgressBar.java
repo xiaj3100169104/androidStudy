@@ -6,11 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.style.framework.R;
+import com.style.view.libprogressbar.R;
 
 /**
  * 自定义通知提醒view(小圆点)

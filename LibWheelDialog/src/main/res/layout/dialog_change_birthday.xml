@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="27dip"
         android:layout_marginRight="27dip"
-        android:background="@color/white"
+        android:background="#fff"
         android:orientation="vertical" >
 
         <TextView

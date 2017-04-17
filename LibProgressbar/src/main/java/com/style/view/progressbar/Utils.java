@@ -1,7 +1,6 @@
 package com.style.view.progressbar;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.TypedValue;
 
 /**

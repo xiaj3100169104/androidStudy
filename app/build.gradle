@@ -38,8 +38,8 @@ dependencies {
 
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':LibVideoRecord')
-    //compile project(':LRecyclerview_library')
-    //compile project(':LibVoiceRecord')
+    compile project(':LibWheelDialog')
+    compile project(':LibProgressbar')
 
     compile files('libs/pinyin4j-2.5.0.jar')
     //compile 'com.belerweb:pinyin4j:2.5.1'

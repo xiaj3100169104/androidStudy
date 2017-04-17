@@ -32,9 +32,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
-
 import com.style.dialog.wheel.adapters.WheelViewAdapter;
-import com.style.framework.R;
+import com.style.lib.wheel.R;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -471,7 +470,7 @@ public class WheelView extends View {
 			bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
 		}
 
-		setBackgroundResource(R.drawable.wheel_bg);
+		//setBackgroundResource(R.drawable.wheel_bg);
 	}
 
 	/**

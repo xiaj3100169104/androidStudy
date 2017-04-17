@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.style.dialog.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.dialog.wheel.views.OnWheelChangedListener;
 import com.style.dialog.wheel.views.OnWheelScrollListener;
 import com.style.dialog.wheel.views.WheelView;
-import com.style.framework.R;
+import com.style.lib.wheel.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -360,8 +359,6 @@ public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener
 
 	/**
 	 * 设置月份
-	 * 
-	 * @param year
 	 * @param month
 	 * @return
 	 */
@@ -380,9 +377,8 @@ public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener
 
 	/**
 	 * 计算每月多少天
-	 * 
 	 * @param month
-	 * @param leayyear
+	 * @param year
 	 */
 	public void calDays(int year, int month) {
 		boolean leayyear = false;

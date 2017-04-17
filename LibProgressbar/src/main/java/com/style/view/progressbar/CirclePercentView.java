@@ -6,12 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.TimeUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
-import com.style.framework.R;
+import com.style.view.libprogressbar.R;
 
 /**
  * 百分比圆环形进度 View

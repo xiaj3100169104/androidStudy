@@ -13,7 +13,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.style.framework.R;
+import com.style.view.libprogressbar.R;
 
 /**
  * 类似仪表盘百分比进度 View

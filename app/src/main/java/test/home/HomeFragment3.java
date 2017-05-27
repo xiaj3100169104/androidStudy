@@ -101,7 +101,7 @@ public class HomeFragment3 extends BaseFragment {
                 o.setReceiverId(f.getOwnerId());
                 o.setState(0);
                 o.setCreateTime(System.currentTimeMillis());
-                o.setContent(f.getMark() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
+                //o.setContent(f.getMark() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
                 MsgDBManager.getInstance().insertMsg(o);
             }
         }

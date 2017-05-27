@@ -3,7 +3,9 @@ package test.app;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.style.AndroidJniUtils;
 import com.style.base.BaseApp;
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.db.msg.MsgDBManager;
@@ -25,6 +27,8 @@ public class MyApp extends BaseApp {
         UserDBManager.getInstance().initialize(appContext);
         MsgDBManager.getInstance().init(appContext);
         initReceiver();
+        AndroidJniUtils androidJniUtils = new AndroidJniUtils();
+        Log.e(TAG, androidJniUtils.sayHello());
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）

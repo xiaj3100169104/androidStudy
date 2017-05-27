@@ -89,7 +89,7 @@ public class ChatTestActivity extends BaseToolBarActivity {
         o.setReceiverId(friend.friendId);
         o.setState(1);
         o.setCreateTime(System.currentTimeMillis());
-        o.setContent(curUser.getUserName() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
+        //o.setContent(curUser.getUserName() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
         MsgDBManager.getInstance().insertMsg(o);
 
     }

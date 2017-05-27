@@ -2,6 +2,7 @@ package test.activity;
 
 import android.os.Bundle;
 
+import com.style.AndroidJniUtils;
 import com.style.base.BaseActivity;
 import com.style.bean.Friend;
 import com.style.bean.User;
@@ -26,7 +27,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
         login();
+
     }
 
     public void login() {

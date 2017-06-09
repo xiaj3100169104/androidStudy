@@ -6,8 +6,6 @@ import android.widget.TextView;
 
 import com.style.manager.AppManager;
 
-import test.app.MyApp;
-
 public class MyFrontTextView extends TextView {
 
 	public MyFrontTextView(Context context) {

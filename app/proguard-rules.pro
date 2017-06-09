@@ -1,20 +1,3 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in D:\Android\sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
 -dontskipnonpubliclibraryclasses # 不忽略非公共的库类
 -optimizationpasses 5            # 指定代码的压缩级别
 -dontusemixedcaseclassnames      # 是否使用大小写混合
@@ -49,17 +32,29 @@
 -keep class * extends android.support.v7.**{*;}
 
 -keep class **$$ViewBinder { *; } #butterknife 7.x即之后的版本生成的类
+-dontwarn butterknife.*
 -keep class **$$ViewInjector { *; } #butterknife 7.x 版之前生成的类
+-keepnames class * { @butterknife.InjectView *;}
+
+
+#保持eventbus
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
 #混淆第三方jar包，其中xxx为jar包名
--libraryjars libs/xxx.jar
--keep class com.xxx.**{*;}       #不混淆某个包内的所有文件
--dontwarn com.xxx**              #忽略某个包的警告
+#-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
+-keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件
+-keep class xiajun.example.ndk.JniTest
+
+#-dontwarn com.xxx**              #忽略某个包的警告
 -keepattributes Signature        #不混淆泛型
 -keepnames class * implements java.io.Serializable #不混淆Serializable
 
 #不混淆资源类
 -keepclassmembers class **.R$* {
-　　public static <fields>;
+    public static <fields>;
 }
 -keepclasseswithmembernames class * {  # 保持 native 方法不被混淆
     native <methods>;

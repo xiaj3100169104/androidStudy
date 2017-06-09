@@ -1,7 +1,6 @@
 package com.style.net.core;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -10,7 +9,7 @@ import com.style.manager.ToastManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import test.app.MyApp;
+import example.app.MyApp;
 
 public class NetDataBeanCallback<T> implements Callback<String> {
     protected String TAG = "NetDataBeanCallback";

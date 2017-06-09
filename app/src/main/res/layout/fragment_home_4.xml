@@ -217,6 +217,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="与js交互" />
+
+            <Button
+                android:id="@+id/btn_jni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jni测试" />
         </LinearLayout>
 
     </LinearLayout>

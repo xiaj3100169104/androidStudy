@@ -11,10 +11,15 @@ android {
         versionCode Integer.parseInt(project.VERSION_CODE)
         versionName project.VERSION_NAME
 
-        ndk {
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
+      /*  ndk {
             moduleName "helloNDK"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-        }
+        }*/
     }
     buildTypes {
         release {
@@ -30,11 +35,17 @@ android {
         }
     }
 
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
     //testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:' + project.ANDROID_SUPPORT_VERSION
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:cardview-v7:' + project.ANDROID_SUPPORT_VERSION
     compile 'com.android.support:design:' + project.ANDROID_SUPPORT_VERSION
     compile 'com.android.support:recyclerview-v7:' + project.ANDROID_SUPPORT_VERSION

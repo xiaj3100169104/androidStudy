@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Vibrator;
 
-import test.app.MyApp;
+import example.app.MyApp;
 
 public class VoiceSet {
 	public static MediaPlayer mp = new MediaPlayer();

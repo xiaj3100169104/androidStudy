@@ -1,155 +1,91 @@
 package com.style.utils;
 
-import android.annotation.SuppressLint;
 import android.text.format.DateUtils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 /**
  * 时间格式处理工具类
  * Created by xiajun on 2017/1/9.
  */
-@SuppressLint("SimpleDateFormat")
 public class MyDateUtil {
-   /* public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-    public static SimpleDateFormat dateFormat11 = new SimpleDateFormat("yyyy年MM月dd");
-    public static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    public static SimpleDateFormat dateFormat3 = new SimpleDateFormat("MM-dd");
-    public static SimpleDateFormat dateFormat4 = new SimpleDateFormat("HH:mm");
-    public static SimpleDateFormat dateFormat5 = new SimpleDateFormat("yyyyMM");*/
-    public static SimpleDateFormat dateFormat6=  new SimpleDateFormat("HH小时mm分ss秒");
-    public final static String FORMAT_yyyy = "yyyy";
-    public final static String FORMAT_DATE = "yyyy-MM-dd";
-    public final static String FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
-    public final static String FORMAT_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-    public final static String FORMAT_MONTH_DAY = "MM月dd日";
-    public final static String FORMAT_MM_dd = "MM-dd";
-    public final static String FORMAT_HH_mm = "HH:mm";
-    public final static String FORMAT_HH_mm_ss = "HH:mm:ss";
-    public final static String FORMAT_MM_dd_HH_mm_CHINA = "MM月dd日  HH:mm";
-    public final static String FORMAT_MM_dd_HH_mm = "MM-dd HH:mm";
-    public final static String FORMAT_DATE1_TIME = "yyyy/MM/dd HH:mm";
-    public final static String FORMAT_DATE_TIME_SECOND = "yyyy/MM/dd HH:mm:ss";
-    public final static String FORMAT_DATE_TIME_SECOND_NUMBER = "yyyyMMddHHmmss";
-    private static SimpleDateFormat sdf = new SimpleDateFormat();
-
-    public static String getDateStringAccurateToYearHour(Long time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
-        return dateFormat6.format(calendar.getTime());
-    }
-    //单位：秒 返回：00:00
-    public static String formatMiss(long miss) {
-        String hh = miss / 3600 > 9 ? miss / 3600 + "" : "0" + miss / 3600;
-        String mm = (miss % 3600) / 60 > 9 ? (miss % 3600) / 60 + "" : "0" + (miss % 3600) / 60;
-        String ss = (miss % 3600) % 60 > 9 ? (miss % 3600) % 60 + "" : "0" + (miss % 3600) % 60;
-        if ((miss * 1000) < DateUtils.HOUR_IN_MILLIS)
-            return mm + ":" + ss;
-        else
-            return hh + ":" + mm;
-    }
-
-    //单位：秒 返回：00:00:00
-    public static String formatHHMMSS(long miss) {
-        String hh = miss / 3600 > 9 ? miss / 3600 + "" : "0" + miss / 3600;
-        String mm = (miss % 3600) / 60 > 9 ? (miss % 3600) / 60 + "" : "0" + (miss % 3600) / 60;
-        String ss = (miss % 3600) % 60 > 9 ? (miss % 3600) % 60 + "" : "0" + (miss % 3600) % 60;
-        return hh + ":" + mm + ":" + ss;
-    }
-
-    /*
-     * 判断strTime是否是指定格式formatType的日期字符串
-     */
-    public static boolean strTimeIsTheCorrectFormatType(String strTime, String formatType) {
-        try {
-            DateFormat formatter = new SimpleDateFormat(strTime);
-            Date date = (Date) formatter.parse(strTime);
-            return strTime.equals(formatter.format(date));
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    public final static String pattern = "yyyy-MM-dd HH:mm:ss E";
 
     public static String getTimeConversationString(long millions) {
-        String format = null;
+        String pattern;
         if (isBelongToThisYear(millions)) {
             if (isTheDayBefore(millions, 0)) {
-                format = "HH:mm";
+                pattern = "HH:mm";
             } else if (isTheDayBefore(millions, -1)) {
-                format = "昨天 HH:mm";
+                pattern = "昨天 HH:mm";
             } else if (isTheDayBefore(millions, -2)) {
-                format = "前天 HH:mm";
-            } else {
-                format = FORMAT_MM_dd;
+                pattern = "前天 HH:mm";
+            }else if (isTheDayBefore(millions, -3)) {
+                pattern = "E";
+            } else if (isTheDayBefore(millions, -4)) {
+                pattern = "E";
+            }  else {
+                pattern = "MM-dd";
             }
         } else
-            format = FORMAT_DATE;
-        return new SimpleDateFormat(format, Locale.CHINA).format(new Date(millions));
+            pattern = "yyyy-MM-dd";
+        return new SimpleDateFormat(pattern, Locale.CHINA).format(new Date(millions));
     }
 
-    /*
-     * @param 返回描述性时间，"今天 HH:mm"，"昨天 HH:mm"，"前天 HH:mm",yyyy-MM-dd HH:mm
+    /**
+     * @param
+     * @return 返回描述性时间，"今天 HH:mm"，"昨天 HH:mm"，"前天 HH:mm",yyyy-MM-dd HH:mm
      */
-    public static String getTimeDynamicString(String strTime, String formatType) {
-        if (!strTimeIsTheCorrectFormatType(strTime, formatType)) {
-            return null;
-        }
-        Date date = stringToDate(strTime, formatType);
-        if (null == date) {
-            return null;
-        }
-        long speMillis = stringToLong(strTime, formatType);
-        String format = null;
-        if (isBelongToThisYear(speMillis)) {
-            if (isTheDayBefore(speMillis, 0)) {
-                format = "今天 HH:mm";
-            } else if (isTheDayBefore(speMillis, -1)) {
-                format = "昨天 HH:mm";
-            } else if (isTheDayBefore(speMillis, -2)) {
-                format = "前天 HH:mm";
+    public static String getTimeDynamicString(String strTime, String formatType) throws ParseException{
+        SimpleDateFormat format = new SimpleDateFormat(formatType);
+        Date date = format.parse(strTime);
+        long millions = date.getTime();
+        String pattern;
+        if (isBelongToThisYear(millions)) {
+            if (isTheDayBefore(millions, 0)) {
+                pattern = "今天 HH:mm";
+            } else if (isTheDayBefore(millions, -1)) {
+                pattern = "昨天 HH:mm";
+            } else if (isTheDayBefore(millions, -2)) {
+                pattern = "前天 HH:mm";
             } else {
-                format = FORMAT_MM_dd_HH_mm_CHINA;
+                pattern = "MM月dd日  HH:mm";
             }
         } else {
-            format = FORMAT_yyyy_MM_dd_HH_mm;
+            pattern = "yyyy-MM-dd HH:mm";
         }
-        return new SimpleDateFormat(format, Locale.CHINA).format(date);
+        return new SimpleDateFormat(pattern, Locale.CHINA).format(date);
     }
 
-    /*
-         * @param 返回描述性时间，"今天 HH:mm"，"昨天 HH:mm"，"前天 HH:mm",yyyy-MM-dd HH:mm
-         */
-    public static String getTimeFromNow(String strTime, String formatType) {
-        if (!strTimeIsTheCorrectFormatType(strTime, formatType)) {
-            return null;
-        }
-        Date date = stringToDate(strTime, formatType);
-        if (null == date) {
-            return null;
-        }
-        long speMillis = stringToLong(strTime, formatType);
+    /**
+     * @param
+     * @return 返回描述性时间
+     */
+    public static String getTimeFromNow(String strTime, String formatType) throws ParseException{
+        SimpleDateFormat format = new SimpleDateFormat(formatType);
+        Date date  = format.parse(strTime);
+        long speMillis = date.getTime();
         long currentMillis = System.currentTimeMillis();
         long value = currentMillis - speMillis;
-        String discribleTime = null;
+        String describeTime = null;
         if (value > DateUtils.DAY_IN_MILLIS) {
             int num = (int) (value / DateUtils.DAY_IN_MILLIS);
-            discribleTime = num + "天前";
+            describeTime = num + "天前";
         } else if (value > DateUtils.HOUR_IN_MILLIS) {
             int num = (int) (value / DateUtils.HOUR_IN_MILLIS);
-            discribleTime = num + "小时前";
+            describeTime = num + "小时前";
         } else if (value > DateUtils.MINUTE_IN_MILLIS) {
             int num = (int) (value / DateUtils.MINUTE_IN_MILLIS);
-            discribleTime = num + "分钟前";
+            describeTime = num + "分钟前";
         } else if (value > DateUtils.SECOND_IN_MILLIS) {
             int num = (int) (value / DateUtils.SECOND_IN_MILLIS);
-            discribleTime = num + "秒前";
+            describeTime = num + "秒前";
         }
-        return discribleTime;
+        return describeTime;
     }
 
     /**
@@ -159,9 +95,12 @@ public class MyDateUtil {
      * @return true 属于，false不属于
      */
     private static boolean isBelongToThisYear(long inputTime) {
-        String year = longToString(inputTime, FORMAT_yyyy);
-        String curYear = longToString(System.currentTimeMillis(), FORMAT_yyyy);
-        if (year.equals(curYear))
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(inputTime);
+        int year = calendar.get(Calendar.YEAR);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int curYear = calendar.get(Calendar.YEAR);
+        if (year == curYear)
             return true;
         return false;
     }
@@ -215,129 +154,23 @@ public class MyDateUtil {
         return info;
     }
 
-    public static Date getCurrentTimeForDate(String df) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat(df);// 设置日期格式
-        System.out.println(sdf.format(date));// new Date()为获取当前系统时间
-        return date;
-    }
-
-    public static String getCurrentTimeForString(String df) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat(df);// 设置日期格式
-        String d = sdf.format(date);
-        return d;
-    }
-
     /**
-     * 获取当前日期的指定格式的字符串
+     * 判断输入时间是星期几
      *
-     * @param format 指定的日期时间格式，若为null或""则使用指定的格式"yyyy-MM-dd HH:MM"
-     * @return
-     */
-    public static String getCurrentTime(String format) {
-        if (format == null || format.trim().equals("")) {
-            sdf.applyPattern(FORMAT_yyyy_MM_dd_HH_mm);
-        } else {
-            sdf.applyPattern(format);
-        }
-        return sdf.format(new Date());
-    }
-
-    // date类型转换为String类型
-    // formatType格式为yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒
-    // data Date类型的时间
-    public static String dateToString(Date data, String formatType) {
-        return new SimpleDateFormat(formatType).format(data);
-    }
-
-    /*
-     * string类型转换为date类型 strTime要转换的string类型的时间， formatType要转换的格式 HH时mm分ss秒，
-     * strTime的时间格式必须要与formatType的时间格式相同
-     */
-    public static Date stringToDate(String strTime, String formatType) {
-        if (!strTimeIsTheCorrectFormatType(strTime, formatType)) {
-            return null;
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
-        Date date = null;
-        try {
-            date = formatter.parse(strTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    // string类型转换为long类型
-    // strTime要转换的String类型的时间
-    // formatType时间格式
-    // strTime的时间格式和formatType的时间格式必须相同
-    public static long stringToLong(String strTime, String formatType) {
-        Date date = stringToDate(strTime, formatType); // String类型转成date类型
-        if (date == null) {
-            return 0;
-        } else {
-            long currentTime = date.getTime(); // date类型转成long类型
-            return currentTime;
-        }
-    }
-    // 时间戳：long类型转换为String类型
-    // currentTime要转换的long类型的时间
-    // formatType要转换的string类型的时间格式
-    public static String longToString(long time, String formatType) {
-        SimpleDateFormat format = new SimpleDateFormat(formatType);
-        return format.format(new Date(time));
-    }
-
-    /**
-     * 判断当前日期是星期几
-     *
-     * @param pTime 修要判断的时间
+     * @param date 要判断的时间
      * @return dayForWeek 判断结果
      * @Exception 发生异常
      */
-    public static int dayForWeek(String pTime) throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    public static String DateToWeek(Date date) throws Exception {
         Calendar c = Calendar.getInstance();
-        c.setTime(format.parse(pTime));
-        int dayForWeek;
-        if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-            dayForWeek = 7;
-        } else {
-            dayForWeek = c.get(Calendar.DAY_OF_WEEK) - 1;
-        }
-        return dayForWeek;
+        c.setTime(date);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        String week[] = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        return week[dayOfWeek - 1];
     }
 
-    /**
-     * 判断当前日期是星期几
-     *
-     * @param millis 修要判断的时间
-     * @return dayForWeek 判断结果
-     * @Exception 发生异常
-     */
-    public static String longToWeek(long millis) {
-        String format = longToString(millis, FORMAT_DATE);
-        int index = 0;
-        try {
-            index = dayForWeek(format);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String week[] = {"星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日",};
-        return week[index];
-    }
-
-
-    public static String getAge(String birthday) {
-        String age = null;
-        if (null != birthday && birthday.length() > 4) {
-            int year1 = Calendar.getInstance().get(Calendar.YEAR);
-            int year2 = Integer.valueOf(new StringBuffer(birthday).substring(0, 4));
-            age = String.valueOf(year1 - year2);
-        }
-        return age;
+    public static int getAge(Date birth) {
+        return (int) ((System.currentTimeMillis() - birth.getTime())/DateUtils.YEAR_IN_MILLIS);
     }
 
     public static class TimeInfo {

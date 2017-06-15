@@ -51,10 +51,11 @@ public class VoiceRecorder {
         //为了方便，这里只录制单声道
         //如果是双声道，得到的数据是一左一右，注意数据的保存和处理
         minBufferSize = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig_in, audioFormat);
+        //音频数据录制实例
         mAudioRecord = new AudioRecord(audioSource, sampleRateInHz, channelConfig_in, audioFormat, minBufferSize);
         mAudioRecord.startRecording();
         minBufferSize2 = AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig_out, audioFormat);
-        //实例AudioTrack
+        //音频数据播放实例
         audioTrack = new AudioTrack(streamType, sampleRateInHz, channelConfig_out, audioFormat, minBufferSize2, mode);
         //开始播放
         audioTrack.play();

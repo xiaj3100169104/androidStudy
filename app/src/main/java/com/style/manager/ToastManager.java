@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.style.framework.R;
 
-import test.app.MyApp;
+import example.app.MyApp;
 
 
 public class ToastManager {

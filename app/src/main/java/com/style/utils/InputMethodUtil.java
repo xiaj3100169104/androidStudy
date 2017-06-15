@@ -7,7 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 /**
- * 乱键盘处理工具类
+ * 键盘处理工具类
  * Created by xiajun on 2017/1/9.
  */
 

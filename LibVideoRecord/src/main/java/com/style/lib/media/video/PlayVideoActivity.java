@@ -3,13 +3,17 @@ package com.style.lib.media.video;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.util.HashMap;
+
 
 public class PlayVideoActivity extends AppCompatActivity {
+    private String TAG = getClass().getSimpleName();
 
     private String path;
 
@@ -66,5 +70,31 @@ public class PlayVideoActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void getVideoDuration(String path){
+        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
+
+        try {
+            if (path != null) {
+                HashMap<String, String> headers = null;
+                if (headers == null) {
+                    headers = new HashMap<String, String>();
+                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
+                }
+                mmr.setDataSource(path, headers);
+            } else {
+                //mmr.setDataSource(mFD, mOffset, mLength);
+            }
+
+            String duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+            String width = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+            String height = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+
+        } catch (Exception ex) {
+            Log.e(TAG, "MediaMetadataRetriever exception " + ex);
+        } finally {
+            mmr.release();
+        }
     }
 }

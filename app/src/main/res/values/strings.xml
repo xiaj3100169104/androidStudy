@@ -75,7 +75,7 @@
     <string name="in_love">热恋中</string>
     <string name="secrecy">保密</string>
     <!-- 举报理由-->
-     <string name="sexy_obscene">色情淫秽</string>
+    <string name="sexy_obscene">色情淫秽</string>
     <string name="Illegal_crime">违法犯罪</string>
     <string name="cheat_money">欺诈骗钱</string>
     <string name="politics">政治</string>

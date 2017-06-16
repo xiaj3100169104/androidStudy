@@ -33,11 +33,16 @@ public class MQTTService extends Service {
     private MqttConnectOptions conOpt;
 
     // private String host = "tcp://10.0.2.2:61613";
-    private String host = "tcp://192.168.1.103:61613";
-    private String userName = "admin";
-    private String passWord = "password";
+    private String host = "tcp://192.168.1.109:61613";
+    private String userName = "18202823096";
+    private String passWord = "123456";
     private static String myTopic = "topic";
     private String clientId = "test";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -110,7 +115,7 @@ public class MQTTService extends Service {
 
     /** 连接MQTT服务器 */
     private void doClientConnection() {
-        if (!client.isConnected() && isConnectIsNomarl()) {
+        if (!client.isConnected() && isConnectIsNomal()) {
             try {
                 client.connect(conOpt, null, iMqttActionListener);
             } catch (MqttException e) {
@@ -166,7 +171,7 @@ public class MQTTService extends Service {
     };
 
     /** 判断网络是否连接 */
-    private boolean isConnectIsNomarl() {
+    private boolean isConnectIsNomal() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {

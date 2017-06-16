@@ -1,5 +1,7 @@
 package example.activity;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.style.base.BaseActivity;
@@ -12,6 +14,8 @@ import com.style.manager.AccountManager;
 import java.util.List;
 
 import example.home.MainActivity;
+import xj.mqtt.service.MQTTService;
+import xj.mqtt.service.MyService;
 
 public class LoginActivity extends BaseActivity {
 
@@ -26,7 +30,13 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+       /* Intent it = new Intent();
+        it.setComponent(new ComponentName("com.style.framework",
+                "xj.mqtt.service.MyService"));
+        startService(it);*/
+       Intent i = new Intent(this, MQTTService.class);
+        ComponentName componentName0 = startService(i);
+        componentName0.getClassName();
         login();
 
     }

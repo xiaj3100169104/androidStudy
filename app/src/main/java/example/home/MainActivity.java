@@ -1,5 +1,7 @@
 package example.home;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,11 +19,14 @@ import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.view.CustomNotifyView;
 
+import org.eclipse.paho.android.service.MqttService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.Bind;
+import xj.mqtt.service.MQTTService;
+import xj.mqtt.service.MyService;
 
 public class MainActivity extends BaseToolBarActivity {
 
@@ -77,6 +82,7 @@ public class MainActivity extends BaseToolBarActivity {
         mLayoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -146,6 +152,9 @@ public class MainActivity extends BaseToolBarActivity {
             }
         });*/
         showSelectedTab();
+
+        /*ComponentName componentName = startService(new Intent(this, MQTTService.class));
+        componentName.getClassName();*/
     }
 
     private void showSelectedTab() {

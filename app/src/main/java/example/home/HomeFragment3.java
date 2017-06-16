@@ -22,6 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.OnClick;
+import xj.mqtt.service.MQTTService;
 
 
 public class HomeFragment3 extends BaseFragment {
@@ -43,7 +44,8 @@ public class HomeFragment3 extends BaseFragment {
 
     @OnClick(R.id.view_start_listener_msg)
     public void view_start_listener_msg() {
-        startListener();
+        //startListener();
+        MQTTService.publish("恍恍惚惚好");
     }
 
     @OnClick(R.id.view_end_listener_msg)

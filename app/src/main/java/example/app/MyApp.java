@@ -1,6 +1,8 @@
 package example.app;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
 import com.style.base.BaseApp;
@@ -10,6 +12,8 @@ import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 
+import xj.mqtt.service.MyService;
+
 
 public class MyApp extends BaseApp {
 
@@ -18,6 +22,7 @@ public class MyApp extends BaseApp {
     @Override
     public void onCreate() {
         super.onCreate();
+
         appContext = this;
         AppManager.getInstance().init(appContext);
         AccountManager.getInstance().init(appContext);

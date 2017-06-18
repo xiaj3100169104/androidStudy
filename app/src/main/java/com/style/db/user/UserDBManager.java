@@ -145,8 +145,8 @@ public class UserDBManager {
         if (result != null && result.size() > 0) {
             for (Friend f : result) {
                 f.setUser(getUser(f.getFriendId()));
-                Log.e(TAG, f.toString());
-                Log.e(TAG, f.getUser().toString());
+                //Log.e(TAG, f.toString());
+                //Log.e(TAG, f.getUser().toString());
             }
         }
         return result;

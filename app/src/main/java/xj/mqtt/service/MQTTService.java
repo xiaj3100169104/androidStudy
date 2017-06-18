@@ -32,8 +32,7 @@ public class MQTTService extends Service {
     private static MqttAndroidClient client;
     private MqttConnectOptions conOpt;
 
-    // private String host = "tcp://10.0.2.2:61613";
-    private String host = "tcp://192.168.1.109:61613";
+    private String host = "tcp://192.168.0.103:61613";
     private String userName = "18202823096";
     private String passWord = "123456";
     private static String myTopic = "topic";
@@ -55,6 +54,7 @@ public class MQTTService extends Service {
         Integer qos = 0;
         Boolean retained = false;
         try {
+            if (client.isConnected())
             client.publish(topic, msg.getBytes(), qos.intValue(), retained.booleanValue());
         } catch (MqttException e) {
             e.printStackTrace();
@@ -80,6 +80,7 @@ public class MQTTService extends Service {
         // 密码
         conOpt.setPassword(passWord.toCharArray());
 
+
         // last will message
         boolean doConnect = true;
         String message = "{\"terminal_uid\":\"" + clientId + "\"}";
@@ -88,13 +89,8 @@ public class MQTTService extends Service {
         Boolean retained = false;
         if ((!message.equals("")) || (!topic.equals(""))) {
             // 最后的遗嘱
-            try {
+
                 conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
-            } catch (Exception e) {
-                Log.i(TAG, "Exception Occured", e);
-                doConnect = false;
-                iMqttActionListener.onFailure(null, e);
-            }
         }
 
         if (doConnect) {

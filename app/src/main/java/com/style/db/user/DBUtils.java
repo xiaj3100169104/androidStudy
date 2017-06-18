@@ -50,7 +50,7 @@ public class DBUtils {
     public static String getCreateTableSql(Class<?> clazz, String[] ignore) {
         String tabName = getTableName(clazz);
         String sql = getCreateTableSql(tabName, clazz, ignore);
-        Log.d(TAG, "getCreateTableSql== " + sql);
+        //Log.d(TAG, "getCreateTableSql== " + sql);
         return sql;
     }
 
@@ -78,7 +78,7 @@ public class DBUtils {
         }
         int len = sb.length();
         String sql = sb.replace(len - 2, len, ")").toString();
-        Log.d(TAG, "getCreateTableSql== " + sql);
+        //Log.d(TAG, "getCreateTableSql== " + sql);
         return sb.toString();
     }
 
@@ -135,7 +135,7 @@ public class DBUtils {
         int sbValuesLen = sbValues.length();
         sbValues.replace(sbValuesLen - 2, sbValuesLen, ")");
         String sql = sb.append(sbColumns.toString()).append(" values ").append(sbValues.toString()).toString();
-        Log.e(TAG, "execInsertSQL == " + sql);
+        //Log.e(TAG, "execInsertSQL == " + sql);
         db.execSQL(sql, bindArgs);//execSQL为解决特殊字符插入异常，为升级版
     }
 
@@ -171,7 +171,7 @@ public class DBUtils {
         int sbValuesLen = sbValues.length();
         sbValues.replace(sbValuesLen - 2, sbValuesLen, ")");
         String sql = sb.append(sbColumns.toString()).append(" values ").append(sbValues.toString()).toString();
-        Log.e(TAG, "getInsertSql == " + sql);
+        //Log.e(TAG, "getInsertSql == " + sql);
         return sql;
     }
 
@@ -325,7 +325,7 @@ public class DBUtils {
                         Method method = clazz.getDeclaredMethod(methodName, type);//根据方法名和参数列表获取方法对象
                         method.invoke(modeClass, value);//方法赋值，并赋给对象
                     }
-                    Log.e(TAG, "getEntity=" + modeClass.toString());
+                    //Log.e(TAG, "getEntity=" + modeClass.toString());
                     list.add(modeClass);
                 }
             }

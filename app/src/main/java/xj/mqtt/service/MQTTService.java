@@ -19,6 +19,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.greenrobot.eventbus.EventBus;
 
+import xj.mqtt.listener.IMMessageListener;
+
 /**
  * MQTT长连接服务
  *
@@ -31,11 +33,10 @@ public class MQTTService extends Service {
 
     private static MqttAndroidClient client;
     private MqttConnectOptions conOpt;
-
-    private String host = "tcp://192.168.0.103:61613";
+    private IMMessageListener messageListener;
+    private String host = "tcp://192.168.1.101:61613";
     private String userName = "18202823096";
-    private String passWord = "123456";
-    private static String myTopic = "topic";
+    private String passWord = "123457";
     private String clientId = "test";
 
     @Override
@@ -49,13 +50,13 @@ public class MQTTService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public static void publish(String msg){
-        String topic = myTopic;
+    public static void publish(String msg) {
+        String topic = "18202823097";
         Integer qos = 0;
         Boolean retained = false;
         try {
             if (client.isConnected())
-            client.publish(topic, msg.getBytes(), qos.intValue(), retained.booleanValue());
+                client.publish(topic, msg.getBytes(), qos.intValue(), retained.booleanValue());
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -64,13 +65,14 @@ public class MQTTService extends Service {
     private void init() {
         // 服务器地址（协议+地址+端口号）
         String uri = host;
-        client = new MqttAndroidClient(this, uri, clientId);
+        client = new MqttAndroidClient(this, uri, userName);
         // 设置MQTT监听并且接受消息
-        client.setCallback(mqttCallback);
+        messageListener = new IMMessageListener();
+        client.setCallback(messageListener);
 
         conOpt = new MqttConnectOptions();
-        // 清除缓存
-        conOpt.setCleanSession(true);
+        // 清除缓存,cleansession=false的情况下会保存离线消息
+        conOpt.setCleanSession(false);
         // 设置超时时间，单位：秒
         conOpt.setConnectionTimeout(10);
         // 心跳包发送间隔，单位：秒
@@ -80,17 +82,23 @@ public class MQTTService extends Service {
         // 密码
         conOpt.setPassword(passWord.toCharArray());
 
-
+        //加密socket
+        /*InputStream caInput = getResources().getAssets().open("keystore.bks");
+        if(caInput!=null){
+            Log.d(TAG,"do setSocketFactory");
+            SSLSocketFactory sslSocketFactory = mMqttAndroidClient.getSSLSocketFactory(caInput,"password");
+            options.setSocketFactory(sslSocketFactory);
+        }*/
         // last will message
         boolean doConnect = true;
         String message = "{\"terminal_uid\":\"" + clientId + "\"}";
-        String topic = myTopic;
+        String topic = userName;
         Integer qos = 0;
         Boolean retained = false;
         if ((!message.equals("")) || (!topic.equals(""))) {
             // 最后的遗嘱
 
-                conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
+            conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
         }
 
         if (doConnect) {
@@ -109,9 +117,11 @@ public class MQTTService extends Service {
         super.onDestroy();
     }
 
-    /** 连接MQTT服务器 */
+    /**
+     * 连接MQTT服务器
+     */
     private void doClientConnection() {
-        if (!client.isConnected() && isConnectIsNomal()) {
+        if (!client.isConnected() && isNetworkAvailable()) {
             try {
                 client.connect(conOpt, null, iMqttActionListener);
             } catch (MqttException e) {
@@ -129,7 +139,7 @@ public class MQTTService extends Service {
             Log.i(TAG, "连接成功 ");
             try {
                 // 订阅myTopic话题
-                client.subscribe(myTopic,1);
+                client.subscribe(userName, 1);
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -142,32 +152,10 @@ public class MQTTService extends Service {
         }
     };
 
-    // MQTT监听并且接受消息
-    private MqttCallback mqttCallback = new MqttCallback() {
-
-        @Override
-        public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-            String str1 = new String(message.getPayload());
-            //EventBus.getDefault().post(msg);
-            String str2 = topic + ";qos:" + message.getQos() + ";retained:" + message.isRetained();
-            Log.e(TAG, "messageArrived:" + str1);
-            Log.i(TAG, str2);
-        }
-
-        @Override
-        public void deliveryComplete(IMqttDeliveryToken arg0) {
-
-        }
-
-        @Override
-        public void connectionLost(Throwable arg0) {
-            // 失去连接，重连
-        }
-    };
-
-    /** 判断网络是否连接 */
-    private boolean isConnectIsNomal() {
+    /**
+     * 判断网络是否连接
+     */
+    private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
         if (info != null && info.isAvailable()) {

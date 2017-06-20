@@ -7,166 +7,60 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.greenrobot.eventbus.EventBus;
 
+import xj.mqtt.MQTTConfig;
 import xj.mqtt.listener.IMMessageListener;
+import xj.mqtt.manager.IMManagerImpl;
 
 /**
  * MQTT长连接服务
- *
- * @author 一口仨馍 联系方式 : yikousamo@gmail.com
- * @version 创建时间：2016/9/16 22:06
  */
 public class MQTTService extends Service {
 
     public static final String TAG = MQTTService.class.getSimpleName();
 
-    private static MqttAndroidClient client;
-    private MqttConnectOptions conOpt;
-    private IMMessageListener messageListener;
-    private String host = "tcp://192.168.1.101:61613";
-    private String userName = "18202823096";
-    private String passWord = "123457";
-    private String clientId = "test";
+    public static final String ACTION_LOGIN = "login";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        IMManagerImpl.getInstance().init(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        init();
-        return super.onStartCommand(intent, flags, startId);
+        handleAction(intent);
+        return START_STICKY;
     }
 
-    public static void publish(String msg) {
-        String topic = "18202823097";
-        Integer qos = 0;
-        Boolean retained = false;
-        try {
-            if (client.isConnected())
-                client.publish(topic, msg.getBytes(), qos.intValue(), retained.booleanValue());
-        } catch (MqttException e) {
-            e.printStackTrace();
+    /**
+     * 处理各种action
+     *
+     * @param intent
+     */
+    private void handleAction(Intent intent) {
+        if (intent == null) return;
+        String action = intent.getAction();
+        if (TextUtils.isEmpty(action)) return;
+        if (ACTION_LOGIN.equals(action)) {
+            IMManagerImpl.getInstance().connect();
         }
-    }
-
-    private void init() {
-        // 服务器地址（协议+地址+端口号）
-        String uri = host;
-        client = new MqttAndroidClient(this, uri, userName);
-        // 设置MQTT监听并且接受消息
-        messageListener = new IMMessageListener();
-        client.setCallback(messageListener);
-
-        conOpt = new MqttConnectOptions();
-        // 清除缓存,cleansession=false的情况下会保存离线消息
-        conOpt.setCleanSession(false);
-        // 设置超时时间，单位：秒
-        conOpt.setConnectionTimeout(10);
-        // 心跳包发送间隔，单位：秒
-        conOpt.setKeepAliveInterval(20);
-        // 用户名
-        conOpt.setUserName(userName);
-        // 密码
-        conOpt.setPassword(passWord.toCharArray());
-
-        //加密socket
-        /*InputStream caInput = getResources().getAssets().open("keystore.bks");
-        if(caInput!=null){
-            Log.d(TAG,"do setSocketFactory");
-            SSLSocketFactory sslSocketFactory = mMqttAndroidClient.getSSLSocketFactory(caInput,"password");
-            options.setSocketFactory(sslSocketFactory);
-        }*/
-        // last will message
-        boolean doConnect = true;
-        String message = "{\"terminal_uid\":\"" + clientId + "\"}";
-        String topic = userName;
-        Integer qos = 0;
-        Boolean retained = false;
-        if ((!message.equals("")) || (!topic.equals(""))) {
-            // 最后的遗嘱
-
-            conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
-        }
-
-        if (doConnect) {
-            doClientConnection();
-        }
-
     }
 
     @Override
     public void onDestroy() {
-        try {
-            client.disconnect();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
+        IMManagerImpl.getInstance().disConnect();
         super.onDestroy();
     }
 
-    /**
-     * 连接MQTT服务器
-     */
-    private void doClientConnection() {
-        if (!client.isConnected() && isNetworkAvailable()) {
-            try {
-                client.connect(conOpt, null, iMqttActionListener);
-            } catch (MqttException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    // MQTT是否连接成功
-    private IMqttActionListener iMqttActionListener = new IMqttActionListener() {
-
-        @Override
-        public void onSuccess(IMqttToken arg0) {
-            Log.i(TAG, "连接成功 ");
-            try {
-                // 订阅myTopic话题
-                client.subscribe(userName, 1);
-            } catch (MqttException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onFailure(IMqttToken arg0, Throwable arg1) {
-            arg1.printStackTrace();
-            // 连接失败，重连
-        }
-    };
-
-    /**
-     * 判断网络是否连接
-     */
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) this.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info != null && info.isAvailable()) {
-            String name = info.getTypeName();
-            Log.i(TAG, "MQTT当前网络名称：" + name);
-            return true;
-        } else {
-            Log.i(TAG, "MQTT 没有可用网络");
-            return false;
-        }
-    }
 
     @Nullable
     @Override

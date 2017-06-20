@@ -40,7 +40,11 @@ public class IMMessageListener implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable arg0) {
-        // 失去连接，重连
-        Log.e(TAG, "connectionLost" + arg0.getMessage());
+        //直接关闭网络开关
+        if (arg0 == null)
+            Log.e(TAG, "connectionLost=直接关闭网络开关");
+            // 失去连接，重连
+        else
+            Log.e(TAG, "connectionLost" + arg0.getMessage());
     }
 }

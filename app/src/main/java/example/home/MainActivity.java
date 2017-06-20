@@ -83,6 +83,10 @@ public class MainActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
 
+        Intent i = new Intent(this, MQTTService.class);
+        i.setAction(MQTTService.ACTION_LOGIN);
+        ComponentName componentName0 = startService(i);
+        componentName0.getClassName();
     }
 
     @Override

@@ -34,10 +34,7 @@ public class LoginActivity extends BaseActivity {
         it.setComponent(new ComponentName("com.style.framework",
                 "xj.mqtt.service.MyService"));
         startService(it);*/
-       Intent i = new Intent(this, MQTTService.class);
-        ComponentName componentName0 = startService(i);
-        componentName0.getClassName();
-        login();
+      login();
 
     }
 

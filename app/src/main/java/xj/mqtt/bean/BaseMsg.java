@@ -1,7 +1,6 @@
 package xj.mqtt.bean;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.parser.Feature;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +8,7 @@ import org.json.JSONObject;
 /**
  * Created by 王者 on 2016/8/3.
  */
-public abstract class Msg {
+public abstract class BaseMsg {
 
     public String toJson(){
         return JSON.toJSONString(this);
@@ -17,8 +16,8 @@ public abstract class Msg {
 
     public abstract JSONObject toSendJsonObject()  throws JSONException;
 
-    public static Msg fromJson(String json, int type){
-        Msg msg = null;
+    public static BaseMsg fromJson(String json, int type){
+        BaseMsg msg = null;
         switch (type){
             case MsgType.MSG_TYPE_TEXT:
                 msg = parseObject(json, TextMsg.class);
@@ -50,7 +49,7 @@ public abstract class Msg {
         return JSON.parseObject(text, clazz);
     }
 
-    public static String getTypeDesc(int type, Msg msgObj){
+    public static String getTypeDesc(int type, BaseMsg msgObj){
         String msg = null;
         switch (type){
             case MsgType.MSG_TYPE_TEXT:

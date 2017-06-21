@@ -6,7 +6,7 @@ import org.json.JSONObject;
 /**
  * Created by 王者 on 2016/8/19.
  */
-public class PictureMsg extends Msg {
+public class PictureMsg extends BaseMsg {
     public static final String IMG_NAME = "imgName";
     public static final String PROGRESS = "progress";
     public static final String WIDTH =  "width";

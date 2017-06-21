@@ -4,7 +4,7 @@ package xj.mqtt.bean;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LocationMsg extends Msg{
+public class LocationMsg extends BaseMsg {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";

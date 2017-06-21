@@ -1,7 +1,7 @@
 package com.style.bean;
 
 
-		import java.io.Serializable;
+import java.io.Serializable;
 /**
  *一个类 被实例化 也就是被new的时候 最先执行的是 构造函数，如果你有留心。你会发现很多类里面根本没有写构造函数。
  在java类中，如果不显示声明构造函数，JVM 会给该类一个默认的构造函数。一个类 可以有多个构造函数。
@@ -11,7 +11,7 @@ package com.style.bean;
 public class User implements Serializable {
 
 	private long id;
-	private long userId;// 帐号
+	private String userId;// 帐号
 	private String telPhone;
 	private String password; // 密码
 	private String userName;
@@ -21,7 +21,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(long userId, String telPhone, String password, String userName, String signKey) {
+	public User(String userId, String telPhone, String password, String userName, String signKey) {
 		this.userId = userId;
 		this.telPhone = telPhone;
 		this.password = password;
@@ -37,11 +37,11 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

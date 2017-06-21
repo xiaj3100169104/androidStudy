@@ -1,4 +1,4 @@
-package com.style.db.msg;
+package cn.style;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

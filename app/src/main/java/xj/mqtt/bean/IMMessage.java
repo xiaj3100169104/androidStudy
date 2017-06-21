@@ -10,25 +10,30 @@ import org.json.JSONObject;
 
 public class IMMessage {
 
-    private int id; //主键，子增长
-    private String messageId; //每一条消息在网络上发送时都表现为一个消息包，这个packetId与每条消息的消息Id是一致的
-    private String toUserId; //自己;
-    private String fromUserId; //对方;
-    private String msg; //对应表中msg字段
+    private long id; //主键，子增长
+    private String msgId; //为了更新自己发送的消息，因为插入数据库时取不到id
     private int type; //消息类型
-    private long date; //发送消息时间
-    private int direction; // 发出去还是收到了消息
+    private String senderId; //发送方;
+    private String receiverId; //接收方;
+    private String body; //对应表中msg字段
     private int state; //判断消息是否已发送或者已读
-    private Msg msgObj; //msg字段对应的对象
+    private long createTime; //创建时间
+
+    private BaseMsg bodyObj; //msg字段对应的对象
 
     public IMMessage() {
     }
 
-
     public String toSendJson() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg", getMsgObj().toSendJsonObject());
+        jsonObject.put("msgId", msgId);
         jsonObject.put("type", type);
+        jsonObject.put("senderId", senderId);
+        jsonObject.put("receiverId", receiverId);
+
+        jsonObject.put("state", state);
+        jsonObject.put("body", getBodyObj().toSendJsonObject());
+        jsonObject.put("createTime", createTime);
         return jsonObject.toString();
     }
 
@@ -42,64 +47,25 @@ public class IMMessage {
         }
     }
 
-    public enum Direction {
-        INCOMING(0), OUTGOING(1);
-        public int value;
-
-        Direction(int value) {
-            this.value = value;
-        }
-    }
-
     @Override
     public String toString() {
         return "[id: " + id + "]";
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getMessageId() {
-        return messageId;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
-    }
-
-    public String getToUserId() {
-        return toUserId;
-    }
-
-    public void setToUserId(String toUserId) {
-        this.toUserId = toUserId;
-    }
-
-    public String getFromUserId() {
-        return fromUserId;
-    }
-
-    public void setFromUserId(String fromUserId) {
-        this.fromUserId = fromUserId;
-    }
-
-    public void setMsgObj(Msg msgObj) {
-        this.msgObj = msgObj;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    //应先设置消息类型，不然会有强制类型转换报错，除非不加类型转换
-    public void setMsg(String msg) {
-        this.msg = msg;
-        //msgObj = Msg.fromJson(msg, type);
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
     }
 
     public int getType() {
@@ -110,20 +76,28 @@ public class IMMessage {
         this.type = type;
     }
 
-    public long getDate() {
-        return date;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public int getDirection() {
-        return direction;
+    public String getReceiverId() {
+        return receiverId;
     }
 
-    public void setDirection(int direction) {
-        this.direction = direction;
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
     }
 
     public int getState() {
@@ -134,14 +108,26 @@ public class IMMessage {
         this.state = state;
     }
 
-    public String getTypeDesc() {
-        return Msg.getTypeDesc(type, getMsgObj());
+    public String getBody() {
+        return body;
     }
 
-    public Msg getMsgObj() {
-        if (msgObj == null) {
-            msgObj = Msg.fromJson(msg, type);
-        }
-        return msgObj;
+    public void setBody(String body) {
+        this.body = body;
     }
+
+    public BaseMsg getBodyObj() {
+        if (bodyObj == null) {
+            bodyObj = BaseMsg.fromJson(body, type);
+        }
+        return bodyObj;    }
+
+    public void setBodyObj(BaseMsg bodyObj) {
+        this.bodyObj = bodyObj;
+    }
+
+    public String getTypeDesc() {
+        return BaseMsg.getTypeDesc(type, getBodyObj());
+    }
+
 }

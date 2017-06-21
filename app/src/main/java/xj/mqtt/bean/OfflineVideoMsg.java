@@ -3,7 +3,7 @@ package xj.mqtt.bean;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class OfflineVideoMsg extends Msg {
+public class OfflineVideoMsg extends BaseMsg {
     public static final String FILE_NAME = "fileName";
     public static final String PROGRESS = "progress";
     public static final String WIDTH =  "width";

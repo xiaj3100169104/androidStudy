@@ -1,12 +1,9 @@
-package com.style.db.msg;
+package xj.mqtt.db;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.style.bean.IMsg;
 import com.style.bean.User;
@@ -14,10 +11,16 @@ import com.style.db.user.SQLiteHelperListener;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import xj.mqtt.bean.IMMessage;
+import xj.mqtt.util.ThreadPoolUtil;
+
 public class MsgDBManager {
     private static final String TAG = "MsgDBManager";
-    public static final String DB_NAME_MSG_RELATIVE = "message.db";
-    public static final int DB_VERSION_MSG_RELATIVE = 7;////最低为1，降版本会报错
+    public static final String DB_NAME_MSG_RELATIVE = "im.db";
+    public static final int DB_VERSION_MSG_RELATIVE = 8;////最低为1，降版本会报错
 
     private MsgDBHelperListener helperListener;
     private MsgSQLOpenHelper dbHelper;
@@ -41,20 +44,21 @@ public class MsgDBManager {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS msg");
+            db.execSQL("DROP TABLE IF EXISTS message");
             db.execSQL(getCreateTableMsgSql());
         }
 
         private String getCreateTableMsgSql() {
             StringBuffer sBuffer = new StringBuffer();
-            sBuffer.append("CREATE TABLE msg (");
+            sBuffer.append("CREATE TABLE message (");
             sBuffer.append("id").append(" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,");
-            sBuffer.append("msgId").append(" LONG,");
-            sBuffer.append("senderId").append(" LONG,");
-            sBuffer.append("receiverId").append(" LONG,");
-            sBuffer.append("content").append(" text,");
-            sBuffer.append("createTime").append(" LONG,");
+            sBuffer.append("msgId").append(" STRING,");
+            sBuffer.append("type").append(" int)");
+            sBuffer.append("senderId").append(" STRING,");
+            sBuffer.append("receiverId").append(" STRING,");
+            sBuffer.append("body").append(" text,");
             sBuffer.append("state").append(" int)");
+            sBuffer.append("createTime").append(" LONG,");
             String sql = sBuffer.toString();
             return sql;
         }
@@ -79,75 +83,74 @@ public class MsgDBManager {
         return isExistCustomer;
     }
 
-    public void insertMsg(final IMsg o) {
+    public void insert(final IMMessage o) {
         ThreadPoolUtil.execute(new Runnable() {
             @Override
             public void run() {
                 //设置创建时间
                 o.setCreateTime(System.currentTimeMillis());
                 //这样同样可以使用execSQL方法来执行一条“插入”的SQL语句，代码如下：
-                String sql = "INSERT INTO msg (msgId, senderId, receiverId, content, createTime, state) values (?, ?, ?, ?, ?, ?)";
-                Object[] bindArgs = new Object[]{o.getMsgId(), o.getSenderId(), o.getReceiverId(), o.getContent(), o.getCreateTime(), o.getState()};
+                String sql = "INSERT INTO message (msgId, senderId, receiverId, type, body, createTime, state) values (?, ?, ?, ?, ?, ?, ?)";
+                Object[] bindArgs = new Object[]{o.getMsgId(), o.getSenderId(), o.getReceiverId(), o.getType(), o.getBody(), o.getCreateTime(), o.getState()};
                 getWritableDatabase().execSQL(sql, bindArgs);
                 Log.e(TAG, o.toString());
-                IMsg newIMsg = getMsg(o.getMsgId());
-                EventBus.getDefault().post(newIMsg);
-                if (newIMsg != null)
-                    Log.e(TAG, newIMsg.toString());
+
+                EventBus.getDefault().post(o);
             }
         });
     }
 
-    public void update2Readed(IMsg o) {
-        String sql = "UPDATE msg SET state=? WHERE id=?";
-        Object[] bindArgs = new Object[]{o.getState(), o.getId()};
+    public void update2Readed(String msgId) {
+        String sql = "UPDATE message SET state=? WHERE msgId=?";
+        Object[] bindArgs = new Object[]{IMMessage.State.READ.value, msgId};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 
-    public void updateReaded2User(final long senderId, final long receiverId) {
+    public void updateReaded2User(final String senderId, final String receiverId) {
         ThreadPoolUtil.execute(new Runnable() {
             @Override
             public void run() {
-                String sql = "UPDATE msg SET state=? WHERE senderId=? and receiverId=?";
-                Object[] bindArgs = new Object[]{1, senderId, receiverId};
+                String sql = "UPDATE message SET state=? WHERE senderId=? and receiverId=?";
+                Object[] bindArgs = new Object[]{IMMessage.State.READ.value, senderId, receiverId};
                 getWritableDatabase().execSQL(sql, bindArgs);
             }
         });
     }
 
-    public void updateReaded2Msg(long msgId) {
-        String sql = "UPDATE msg SET state=? WHERE msgId=?";
-        Object[] bindArgs = new Object[]{1, msgId};
+    public void update2SendFailed(String msgId) {
+        String sql = "UPDATE message SET state=? WHERE msgId=?";
+        Object[] bindArgs = new Object[]{IMMessage.State.SEND_FAILED.value, msgId};
         getWritableDatabase().execSQL(sql, bindArgs);
+
     }
 
-    public IMsg getMsg(long msgId) {
-        String sql = "SELECT * FROM msg where msgId=?";
-        String[] selectionArgs = new String[]{String.valueOf(msgId)};
-        List<IMsg> result = queryMsg(sql, selectionArgs);
+    public IMMessage getMsg(String msgId) {
+        String sql = "SELECT * FROM message where msgId=?";
+        String[] selectionArgs = new String[]{msgId};
+        List<IMMessage> result = queryMsg(sql, selectionArgs);
         if (result != null && result.size() > 0) {
             return result.get(0);
         } else
             return null;
     }
 
-    public List<IMsg> getAllMsg() {
-        String sql = "SELECT * FROM msg";
-        List<IMsg> result = queryMsg(sql, null);
+    public List<IMMessage> getAllMsg() {
+        String sql = "SELECT * FROM message";
+        List<IMMessage> result = queryMsg(sql, null);
         return result;
     }
 
-    public void deleteMsg(long senderId, long receiverId) {
+    public void deleteMsg(String senderId, String receiverId) {
         //注意包括我发送的我接收的
-        String sql = "DELETE FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
-        Long[] bindArgs = new Long[]{senderId, receiverId, receiverId, senderId};
+        String sql = "DELETE FROM message WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
+        String[] bindArgs = new String[]{senderId, receiverId, receiverId, senderId};
         getWritableDatabase().execSQL(sql, bindArgs);
     }
 
-    public int getUnreadCount(long myselfId, long senderId) {
+    public int getUnreadCount(String myselfId, String senderId) {
         int count = 0;
-        String sql = "SELECT count(1) as count FROM msg WHERE receiverId=? and senderId=? AND state=?";
-        String[] selectionArgs = new String[]{String.valueOf(myselfId), String.valueOf(senderId), "0"};
+        String sql = "SELECT count(1) as count FROM message WHERE receiverId=? and senderId=? AND state=?";
+        String[] selectionArgs = new String[]{myselfId, senderId, String.valueOf(IMMessage.State.NEW)};
         Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
             count = cursor.getInt(cursor.getColumnIndex("count"));
@@ -155,10 +158,10 @@ public class MsgDBManager {
         return count;
     }
 
-    public int getUnreadAllCount(long myselfId) {
+    public int getMyUnreadAllCount(String myselfId) {
         int count = 0;
-        String sql = "SELECT count(1) as count FROM msg WHERE receiverId=? AND state=?";
-        String[] selectionArgs = new String[]{String.valueOf(myselfId), "0"};
+        String sql = "SELECT count(1) as count FROM message WHERE receiverId=? AND state=?";
+        String[] selectionArgs = new String[]{myselfId, String.valueOf(IMMessage.State.NEW.value)};
         Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
             count = cursor.getInt(cursor.getColumnIndex("count"));
@@ -166,10 +169,10 @@ public class MsgDBManager {
         return count;
     }
 
-    public List<IMsg> getMsg(long userId, long friendId) {
-        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
-        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId)};
-        List<IMsg> result = queryMsg(sql, selectionArgs);
+    public List<IMMessage> getMsgOfFriend(String myselfId, String friendId) {
+        String sql = "SELECT * FROM message WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?)";
+        String[] selectionArgs = new String[]{myselfId, friendId, friendId, myselfId};
+        List<IMMessage> result = queryMsg(sql, selectionArgs);
         return result;
     }
 
@@ -177,36 +180,36 @@ public class MsgDBManager {
      * 查询聊天记录 分页
      * PageInfo pageInfo = new PageInfo((page-1)*rows, rows);
      *
-     * @param startIndex //不知道为什么穿数据源的长度就可以正确查出结果
+     * @param startIndex //不知道为什么传数据源的长度就可以正确查出结果
      * @param friendId
      * @param startIndex
      * @return
      */
-    public List<IMsg> getMsgByPage(long userId, long friendId, int startIndex, int count) {
-        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
-        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId), startIndex + "", count + ""};
+    public List<IMMessage> getMsgByPage(String myselfId, String friendId, int startIndex, int count) {
+        String sql = "SELECT * FROM message WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
+        String[] selectionArgs = new String[]{myselfId, friendId, friendId, myselfId, startIndex + "", count + ""};
         //sql = prepareSql(sql, startIndex, count);
-        List<IMsg> result = queryMsg(sql, selectionArgs);
+        List<IMMessage> result = queryMsg(sql, selectionArgs);
         return result;
     }
 
-    public IMsg getLastMessageWithEveryFriend(long userId, long friendId) {
-        String sql = "SELECT * FROM msg WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
-        String[] selectionArgs = new String[]{String.valueOf(userId), String.valueOf(friendId), String.valueOf(friendId), String.valueOf(userId), "0", "1"};
-        List<IMsg> result = queryMsg(sql, selectionArgs);
+    public IMMessage getLastMessageOfFriend(String myselfId, String friendId) {
+        String sql = "SELECT * FROM message WHERE (senderId=? AND receiverId=?) OR (senderId=? AND receiverId=?) ORDER BY createTime DESC limit ?,?";
+        String[] selectionArgs = new String[]{myselfId, friendId, friendId, myselfId, "0", "1"};
+        List<IMMessage> result = queryMsg(sql, selectionArgs);
         if (result != null && result.size() > 0) {
             return result.get(0);
         } else
             return null;
     }
 
-    private List<IMsg> queryMsg(String sql, String[] selectionArgs) {
-        List<IMsg> result = null;
+    private List<IMMessage> queryMsg(String sql, String[] selectionArgs) {
+        List<IMMessage> result = null;
         Cursor c = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (c != null && c.getCount() > 0) {
             result = new ArrayList<>();
             while (c.moveToNext()) {
-                IMsg msg = getMsgFromCursor(c);
+                IMMessage msg = getMsgFromCursor(c);
                 Log.e(TAG, msg.toString());
                 result.add(msg);
             }
@@ -215,13 +218,14 @@ public class MsgDBManager {
         return result;
     }
 
-    private IMsg getMsgFromCursor(Cursor c) {
-        IMsg o = new IMsg();
+    private IMMessage getMsgFromCursor(Cursor c) {
+        IMMessage o = new IMMessage();
         o.setId(c.getLong(c.getColumnIndex("id")));
-        o.setMsgId(c.getLong(c.getColumnIndex("msgId")));
-        o.setSenderId(c.getLong(c.getColumnIndex("senderId")));
-        o.setReceiverId(c.getLong(c.getColumnIndex("receiverId")));
-        o.setContent(c.getString(c.getColumnIndex("content")));
+        o.setMsgId(c.getString(c.getColumnIndex("msgId")));
+        o.setSenderId(c.getString(c.getColumnIndex("senderId")));
+        o.setReceiverId(c.getString(c.getColumnIndex("receiverId")));
+        o.setType(c.getInt(c.getColumnIndex("type")));
+        o.setBody(c.getString(c.getColumnIndex("body")));
         o.setState(c.getInt(c.getColumnIndex("state")));
         o.setCreateTime(c.getLong(c.getColumnIndex("createTime")));
         return o;
@@ -244,7 +248,7 @@ public class MsgDBManager {
         return sqlBuf.toString();
     }
 
-    public void addCustomer(User customer) {
+    public void addCustomer(IMMessage customer) {
         db.beginTransaction();  //开始事务
         try {
             //转账

@@ -71,6 +71,8 @@ public class IMManagerImpl implements IMManager {
         conOpt.setConnectionTimeout(MQTTConfig.CONN_TIME_OUT);
         // 心跳包发送间隔，单位：秒
         conOpt.setKeepAliveInterval(MQTTConfig.KEEP_ALIVE_INTERVAL);
+        //设置为自动重连
+        conOpt.setAutomaticReconnect(true);
         // 用户名
         conOpt.setUserName(userName);
         // 密码
@@ -105,8 +107,7 @@ public class IMManagerImpl implements IMManager {
     public boolean connect() {
         if (!client.isConnected() && IMNetUtil.isNetworkAvailable(this.context)) {
             try {
-                //连接前设置为自动重连
-                conOpt.setAutomaticReconnect(true);
+
                 client.connect(conOpt, null, iMqttActionListener);
             } catch (MqttException e) {
                 e.printStackTrace();
@@ -123,6 +124,7 @@ public class IMManagerImpl implements IMManager {
             //主动断开连接，取消自动重连
             conOpt.setAutomaticReconnect(false);
             client.disconnect();
+            client.close();
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -135,7 +137,6 @@ public class IMManagerImpl implements IMManager {
 
     @Override
     public boolean sendMessage(IMMessage messageBean) {
-        messageBean.setMessageId(MessageIdUtil.newMessageId());
         MqttMessage mqttMessage = new MqttMessage();
         mqttMessage.setQos(0);
         mqttMessage.setRetained(false);

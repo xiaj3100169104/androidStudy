@@ -48,14 +48,7 @@ public class HomeFragment3 extends BaseFragment {
     @OnClick(R.id.view_start_listener_msg)
     public void view_start_listener_msg() {
         //startListener();
-        IMMessage message = new IMMessage();
-        message.setDirection(IMMessage.Direction.OUTGOING.value);
-        message.setFromUserId(String.valueOf(curUser.getUserId()));
-        message.setDate(System.currentTimeMillis());
-        TextMsg textMsg = new TextMsg();
-        textMsg.content = "恍恍惚惚好";
-        message.setMsgObj(textMsg);
-        IMManagerImpl.getInstance().sendMessage(message);
+
     }
 
     @OnClick(R.id.view_end_listener_msg)

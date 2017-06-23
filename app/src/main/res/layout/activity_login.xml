@@ -35,7 +35,7 @@
                 >
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/et_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="账号"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="密码"
@@ -64,7 +64,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/bt_sign_in"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

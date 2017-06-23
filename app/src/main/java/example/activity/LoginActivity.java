@@ -1,8 +1,10 @@
 package example.activity;
 
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.style.base.BaseActivity;
 import com.style.bean.Friend;
@@ -13,12 +15,20 @@ import com.style.manager.AccountManager;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import example.home.MainActivity;
-import xj.mqtt.service.MQTTService;
-import xj.mqtt.service.MyService;
 
 public class LoginActivity extends BaseActivity {
 
+    @Bind(R.id.login_progress)
+    ProgressBar loginProgress;
+    @Bind(R.id.et_account)
+    AutoCompleteTextView etAccount;
+    @Bind(R.id.et_password)
+    EditText etPassword;
+    @Bind(R.id.bt_sign_in)
+    Button btSignIn;
     private long userId = 18;
     private User curUser;
 
@@ -34,37 +44,43 @@ public class LoginActivity extends BaseActivity {
         it.setComponent(new ComponentName("com.style.framework",
                 "xj.mqtt.service.MyService"));
         startService(it);*/
-      login();
+
+        curUser = AccountManager.getInstance().getCurrentUser();
+        if (curUser != null) {
+            skip(MainActivity.class);
+            finish();
+            return;
+
+        }
+
 
     }
 
+    @OnClick(R.id.bt_sign_in)
     public void login() {
-
-        curUser = AccountManager.getInstance().getCurrentUser();
-        if (curUser == null) {
-            User user = new User(userId, "18202823096", "123456", "夏军", "1234567890");
-            AccountManager.getInstance().setCurrentUser(user);
-        }
-        curUser = AccountManager.getInstance().getCurrentUser();
-
+        String userId = etAccount.getText().toString();
+        String password = etPassword.getText().toString();
+        User user = new User(userId, password);
+        AccountManager.getInstance().setCurrentUser(user);
         synData();
     }
 
     public void synData() {
+        curUser = AccountManager.getInstance().getCurrentUser();
 
         List<User> friends = UserDBManager.getInstance().getAllMyFriend(curUser.getUserId());
         if (friends != null && friends.size() > 0) {
             skip(MainActivity.class);
             finish();
         } else {
-            for (int i = 1; i < userId; i++) {
-                User user = new User(i, "182028200" + i, "123456", "用户" + i, null);
+            for (int i = 2; i < 10; i++) {
+                User user = new User(i + "", "123456");
                 UserDBManager.getInstance().insertUser(user);
             }
 
-            for (int i = 1; i < 18; i++) {
+            for (int i = 2; i < 5; i++) {
                 Friend bean = new Friend();
-                bean.setFriendId(i);
+                bean.setFriendId(i + "");
                 bean.setOwnerId(curUser.getUserId());
                 bean.setMark("朋友" + i);
                 UserDBManager.getInstance().insertFriend(bean);
@@ -75,4 +91,6 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
+
+
 }

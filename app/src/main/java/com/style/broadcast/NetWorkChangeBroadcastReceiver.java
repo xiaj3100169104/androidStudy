@@ -10,6 +10,8 @@ import android.util.Log;
 import com.style.manager.ToastManager;
 import com.style.utils.NetWorkUtil;
 
+import xj.mqtt.manager.IMManagerImpl;
+
 /**
  * Created by xiajun on 2017/1/9.
  * getNetworkInfo(int) was deprecated in 23.
@@ -25,5 +27,7 @@ public class NetWorkChangeBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (!NetWorkUtil.isNetWorkActive(context))
             ToastManager.showToast(context, "网络不可用");
+        else
+            IMManagerImpl.getInstance().connect();
     }
 }

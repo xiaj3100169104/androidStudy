@@ -10,6 +10,7 @@ public class MQTTConfig {
     public static final int CONN_TIME_OUT = 10;
     public static final int KEEP_ALIVE_INTERVAL = 20;
 
+    //单聊话题上级话题
     public static final String CHAT_SINGLE_PRE = "1";
 
     public static String getClientId(String userName) {

@@ -8,8 +8,8 @@ import java.util.Date;
 public class Friend implements Serializable {
 
     public long id;//
-    public long ownerId;// 主人id
-    public long friendId;// 朋友id
+    public String ownerId;// 主人id
+    public String friendId;// 朋友id
     public String mark; //备注
 
     public long modifyDate;
@@ -33,19 +33,19 @@ public class Friend implements Serializable {
         this.id = id;
     }
 
-    public long getOwnerId() {
+    public String getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(long ownerId) {
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
-    public long getFriendId() {
+    public String getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(long friendId) {
+    public void setFriendId(String friendId) {
         this.friendId = friendId;
     }
 

@@ -12,17 +12,14 @@ import android.view.ViewGroup;
 import com.style.base.BaseFragment;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.Friend;
-import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.msg.MsgDBManager;
 import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.view.DividerItemDecoration;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,9 @@ import java.util.List;
 import butterknife.Bind;
 import example.im.MsgItem;
 import example.im.ChatTestActivity;
+import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.MsgAction;
+import xj.mqtt.db.MsgDBManager;
 
 
 public class HomeFragment1 extends BaseFragment {
@@ -84,12 +84,12 @@ public class HomeFragment1 extends BaseFragment {
         if (list != null && list.size() > 0) {
             List<MsgItem> msgItems = new ArrayList<>();
             for (Friend f : list) {
-                IMsg last = MsgDBManager.getInstance().getLastMessageWithEveryFriend(f.getOwnerId(), f.getFriendId());
+                IMMessage last = MsgDBManager.getInstance().getLastMessageOfFriend(f.getOwnerId(), f.getFriendId());
                 if (last != null) {
                     MsgItem msgItem = new MsgItem();
                     msgItem.setFriend(f);
                     msgItem.setMsg(last);
-                    msgItem.setUnreadCount(MsgDBManager.getInstance().getUnreadCount(f.getOwnerId(), f.getFriendId()));
+                    msgItem.setUnreadCount(getUnread(f));
                     msgItems.add(msgItem);
                 }
             }
@@ -99,23 +99,26 @@ public class HomeFragment1 extends BaseFragment {
                 adapter.notifyDataSetChanged();
             }
         }
-
     }
 
     //在UI线程中执行
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNewMsg(IMsg iMsg) {
+    @Subscriber(tag= MsgAction.MSG_NEW)
+    public void onNewMsg(IMMessage iMsg) {
         Log.e(TAG, "onNewMsg");
         if (iMsg != null) {
             for (MsgItem msgItem : dataList) {
                 Friend f = msgItem.getFriend();
                 if (iMsg.getSenderId() == f.getFriendId() && iMsg.getReceiverId() == f.getOwnerId()){
-                    msgItem.setUnreadCount(MsgDBManager.getInstance().getUnreadCount(f.getOwnerId(), f.getFriendId()));
+                    msgItem.setUnreadCount(getUnread(f));
                     adapter.notifyDataSetChanged();
                     break;
                 }
             }
         }
+    }
+
+    private int getUnread(Friend f) {
+        return MsgDBManager.getInstance().getUnreadCount(f.getOwnerId(), f.getFriendId());
     }
 
     @Override

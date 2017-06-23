@@ -1,20 +1,18 @@
 package xj.mqtt.db;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.style.bean.IMsg;
-import com.style.bean.User;
 import com.style.db.user.SQLiteHelperListener;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.MsgAction;
 import xj.mqtt.util.ThreadPoolUtil;
 
 public class MsgDBManager {
@@ -53,12 +51,12 @@ public class MsgDBManager {
             sBuffer.append("CREATE TABLE message (");
             sBuffer.append("id").append(" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,");
             sBuffer.append("msgId").append(" STRING,");
-            sBuffer.append("type").append(" int)");
+            sBuffer.append("type").append(" int,");
             sBuffer.append("senderId").append(" STRING,");
             sBuffer.append("receiverId").append(" STRING,");
             sBuffer.append("body").append(" text,");
-            sBuffer.append("state").append(" int)");
-            sBuffer.append("createTime").append(" LONG,");
+            sBuffer.append("state").append(" int,");
+            sBuffer.append("createTime").append(" LONG)");
             String sql = sBuffer.toString();
             return sql;
         }
@@ -77,12 +75,6 @@ public class MsgDBManager {
         return db;
     }
 
-    public boolean isUserExist(String userId) {
-
-        boolean isExistCustomer = true;
-        return isExistCustomer;
-    }
-
     public void insert(final IMMessage o) {
         ThreadPoolUtil.execute(new Runnable() {
             @Override
@@ -94,10 +86,20 @@ public class MsgDBManager {
                 Object[] bindArgs = new Object[]{o.getMsgId(), o.getSenderId(), o.getReceiverId(), o.getType(), o.getBody(), o.getCreateTime(), o.getState()};
                 getWritableDatabase().execSQL(sql, bindArgs);
                 Log.e(TAG, o.toString());
-
-                EventBus.getDefault().post(o);
+                //发送新消息广播
+                mContext.sendBroadcast(new Intent(MsgAction.MSG_NEW).putExtra("msg", o));
             }
         });
+    }
+
+    public void update2SendFailed(String msgId) {
+        String sql = "UPDATE message SET state=? WHERE msgId=?";
+        Object[] bindArgs = new Object[]{IMMessage.State.SEND_FAILED.value, msgId};
+        getWritableDatabase().execSQL(sql, bindArgs);
+        //发送消息更新广播
+        IMMessage msg = getMsg(msgId);
+        mContext.sendBroadcast(new Intent(MsgAction.MSG_UPDATE).putExtra("msg", msg));
+
     }
 
     public void update2Readed(String msgId) {
@@ -115,13 +117,6 @@ public class MsgDBManager {
                 getWritableDatabase().execSQL(sql, bindArgs);
             }
         });
-    }
-
-    public void update2SendFailed(String msgId) {
-        String sql = "UPDATE message SET state=? WHERE msgId=?";
-        Object[] bindArgs = new Object[]{IMMessage.State.SEND_FAILED.value, msgId};
-        getWritableDatabase().execSQL(sql, bindArgs);
-
     }
 
     public IMMessage getMsg(String msgId) {
@@ -150,7 +145,7 @@ public class MsgDBManager {
     public int getUnreadCount(String myselfId, String senderId) {
         int count = 0;
         String sql = "SELECT count(1) as count FROM message WHERE receiverId=? and senderId=? AND state=?";
-        String[] selectionArgs = new String[]{myselfId, senderId, String.valueOf(IMMessage.State.NEW)};
+        String[] selectionArgs = new String[]{myselfId, senderId, String.valueOf(IMMessage.State.UNREAD.value)};
         Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
             count = cursor.getInt(cursor.getColumnIndex("count"));
@@ -161,7 +156,7 @@ public class MsgDBManager {
     public int getMyUnreadAllCount(String myselfId) {
         int count = 0;
         String sql = "SELECT count(1) as count FROM message WHERE receiverId=? AND state=?";
-        String[] selectionArgs = new String[]{myselfId, String.valueOf(IMMessage.State.NEW.value)};
+        String[] selectionArgs = new String[]{myselfId, String.valueOf(IMMessage.State.UNREAD.value)};
         Cursor cursor = getWritableDatabase().rawQuery(sql, selectionArgs);
         if (cursor.moveToNext()) {
             count = cursor.getInt(cursor.getColumnIndex("count"));
@@ -180,7 +175,7 @@ public class MsgDBManager {
      * 查询聊天记录 分页
      * PageInfo pageInfo = new PageInfo((page-1)*rows, rows);
      *
-     * @param startIndex //不知道为什么传数据源的长度就可以正确查出结果
+     * @param startIndex //注意这个索引是针对条件过滤后的结果中索引
      * @param friendId
      * @param startIndex
      * @return

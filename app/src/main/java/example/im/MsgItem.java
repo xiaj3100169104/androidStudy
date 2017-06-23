@@ -1,9 +1,10 @@
 package example.im;
 
 import com.style.bean.Friend;
-import com.style.bean.IMsg;
 
 import java.io.Serializable;
+
+import xj.mqtt.bean.IMMessage;
 
 /**
  * Created by xiajun on 2017/1/12.
@@ -11,7 +12,7 @@ import java.io.Serializable;
 
 public class MsgItem implements Serializable{
     private Friend friend;
-    private IMsg msg;
+    private IMMessage msg;
     private int unreadCount;
 
     public Friend getFriend() {
@@ -22,11 +23,11 @@ public class MsgItem implements Serializable{
         this.friend = friend;
     }
 
-    public IMsg getMsg() {
+    public IMMessage getMsg() {
         return msg;
     }
 
-    public void setMsg(IMsg msg) {
+    public void setMsg(IMMessage msg) {
         this.msg = msg;
     }
 

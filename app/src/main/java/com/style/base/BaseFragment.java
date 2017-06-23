@@ -14,8 +14,7 @@ import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
 
-
-import org.greenrobot.eventbus.EventBus;
+import org.simple.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 

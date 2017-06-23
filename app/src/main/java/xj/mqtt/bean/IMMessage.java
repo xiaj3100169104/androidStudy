@@ -1,44 +1,30 @@
 package xj.mqtt.bean;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.Serializable;
 
 
 /*******************************************************
  * Created by 夏军 on 2017/6/20
  *******************************************************/
 
-public class IMMessage {
+public class IMMessage implements Serializable{
 
-    private long id; //主键，子增长
-    private String msgId; //为了更新自己发送的消息，因为插入数据库时取不到id
-    private int type; //消息类型
-    private String senderId; //发送方;
-    private String receiverId; //接收方;
-    private String body; //对应表中msg字段
-    private int state; //判断消息是否已发送或者已读
-    private long createTime; //创建时间
+    public long id; //主键，子增长
+    public String msgId; //为了更新自己发送的消息，因为插入数据库时取不到id
+    public int type; //消息类型
+    public String senderId; //发送方;
+    public String receiverId; //接收方;
+    public String body; //对应表中msg字段
+    public int state; //判断消息是否已发送或者已读
+    public long createTime; //创建时间
 
     private BaseMsg bodyObj; //msg字段对应的对象
 
     public IMMessage() {
     }
 
-    public String toSendJson() throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msgId", msgId);
-        jsonObject.put("type", type);
-        jsonObject.put("senderId", senderId);
-        jsonObject.put("receiverId", receiverId);
-
-        jsonObject.put("state", state);
-        jsonObject.put("body", getBodyObj().toSendJsonObject());
-        jsonObject.put("createTime", createTime);
-        return jsonObject.toString();
-    }
-
     public enum State {
-        NEW(0), SEND_SUCCESS(1), SEND_FAILED(2), READ(3);
+        SEND_ING(0), SEND_SUCCESS(1), SEND_FAILED(2), READ(3), UNREAD(4);
 
         public int value;
 
@@ -122,12 +108,10 @@ public class IMMessage {
         }
         return bodyObj;    }
 
-    public void setBodyObj(BaseMsg bodyObj) {
-        this.bodyObj = bodyObj;
-    }
 
     public String getTypeDesc() {
         return BaseMsg.getTypeDesc(type, getBodyObj());
     }
+
 
 }

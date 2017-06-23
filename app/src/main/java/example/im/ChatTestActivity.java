@@ -3,13 +3,18 @@ package example.im;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
+import android.widget.EditText;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.bean.Friend;
-import com.style.bean.IMsg;
-import com.style.db.msg.MsgDBManager;
+import com.style.bean.User;
 import com.style.framework.R;
+import com.style.manager.AccountManager;
+import com.style.view.DividerItemDecoration;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +22,20 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import example.home.ChatAdapter;
+import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.MsgAction;
+import xj.mqtt.db.MsgDBManager;
+import xj.mqtt.manager.IMSend;
 
-import com.style.bean.User;
-import com.style.manager.AccountManager;
-import com.style.view.DividerItemDecoration;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class ChatTestActivity extends BaseToolBarActivity {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+    @Bind(R.id.et_content)
+    EditText etContent;
     private User curUser;
     private Friend friend;
-    private List<IMsg> dataList;
+    private List<IMMessage> dataList;
     private LinearLayoutManager layoutManager;
     private ChatAdapter adapter;
 
@@ -71,9 +75,7 @@ public class ChatTestActivity extends BaseToolBarActivity {
     @OnClick(R.id.view_page_load)
     public void getPageLoad() {
         int startIndex = dataList.size();//100;
-       /* if (dataList.size() > 0)
-            startIndex = (int) dataList.get(dataList.size() - 1).getId();*/
-        List<IMsg> list = MsgDBManager.getInstance().getMsgByPage(curUser.getUserId(), friend.getFriendId(), startIndex, 20);
+        List<IMMessage> list = MsgDBManager.getInstance().getMsgByPage(curUser.getUserId(), friend.getFriendId(), startIndex, 20);
         if (list != null) {
             dataList.addAll(0, list);
             adapter.notifyDataSetChanged();
@@ -82,25 +84,18 @@ public class ChatTestActivity extends BaseToolBarActivity {
 
     @OnClick(R.id.view_send)
     public void send() {
-        IMsg o = new IMsg();
-        o.setMsgId(System.currentTimeMillis());
-        o.setSenderId(curUser.getUserId());
-        o.setReceiverId(friend.friendId);
-        o.setState(1);
-        o.setCreateTime(System.currentTimeMillis());
-        //o.setContent(curUser.getUserName() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
-        MsgDBManager.getInstance().insertMsg(o);
-
+        String content = etContent.getText().toString();
+        if (!TextUtils.isEmpty(content))
+            IMSend.sendText(friend.friendId, content);
     }
 
     //在UI线程中执行
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNewMsg(IMsg iMsg) {
-        Log.e("MainThread", Thread.currentThread().getName());
+    @Subscriber(tag = MsgAction.MSG_NEW)
+    public void onNewMsg(IMMessage iMsg) {
         //不是我发送的消息状态置为已读
         if (isFriendSend(iMsg) || isMyselfSend(iMsg)) {
             if (isFriendSend(iMsg))
-                MsgDBManager.getInstance().updateReaded2Msg(curUser.getUserId());
+                MsgDBManager.getInstance().update2Readed(iMsg.getMsgId());
             dataList.add(iMsg);
             adapter.notifyDataSetChanged();
             recyclerView.smoothScrollToPosition(dataList.size());
@@ -108,14 +103,14 @@ public class ChatTestActivity extends BaseToolBarActivity {
 
     }
 
-    private boolean isFriendSend(IMsg iMsg) {
+    private boolean isFriendSend(IMMessage iMsg) {
         //先判断消息是否和当前联系人有关，可以提高效率
         if (iMsg.getSenderId() == friend.getFriendId() && iMsg.getReceiverId() == curUser.getUserId())
             return true;
         return false;
     }
 
-    private boolean isMyselfSend(IMsg iMsg) {
+    private boolean isMyselfSend(IMMessage iMsg) {
         if (iMsg.getReceiverId() == friend.getFriendId() && iMsg.getSenderId() == curUser.getUserId())
             return true;
         return false;

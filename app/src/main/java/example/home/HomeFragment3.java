@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
 import com.style.bean.Friend;
-import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.msg.MsgDBManager;
 import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
@@ -24,13 +22,13 @@ import java.util.TimerTask;
 import butterknife.OnClick;
 import xj.mqtt.bean.IMMessage;
 import xj.mqtt.bean.TextMsg;
+import xj.mqtt.db.MsgDBManager;
 import xj.mqtt.manager.IMManagerImpl;
 import xj.mqtt.service.MQTTService;
 
 
 public class HomeFragment3 extends BaseFragment {
     private User curUser;
-    private List<Friend> friends;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,29 +39,11 @@ public class HomeFragment3 extends BaseFragment {
     @Override
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
-
-        friends = UserDBManager.getInstance().getAllFriend(curUser.getUserId());
     }
 
-    @OnClick(R.id.view_start_listener_msg)
-    public void view_start_listener_msg() {
+    @OnClick(R.id.view_1)
+    public void exit() {
         //startListener();
-
-    }
-
-    @OnClick(R.id.view_end_listener_msg)
-    public void view_end_listener_msg() {
-        stopListener();
-    }
-
-    @OnClick(R.id.view_get_all_msg)
-    public void view_get_all_msg() {
-        MsgDBManager.getInstance().getAllMsg();
-    }
-
-    @OnClick(R.id.view_get_friend_msg)
-    public void view_get_friend_msg() {
-        MsgDBManager.getInstance().getMsg(curUser.getUserId(), 1);
 
     }
 
@@ -99,16 +79,7 @@ public class HomeFragment3 extends BaseFragment {
             /*Message message = new Message();
             message.what = UPDATE;
             handler.sendMessage(message);*/
-            for (Friend f : friends) {
-                IMsg o = new IMsg();
-                o.setMsgId(System.currentTimeMillis());
-                o.setSenderId(f.getFriendId());
-                o.setReceiverId(f.getOwnerId());
-                o.setState(0);
-                o.setCreateTime(System.currentTimeMillis());
-                //o.setContent(f.getMark() + ":" + MyDateUtil.longToString(System.currentTimeMillis(), MyDateUtil.FORMAT_yyyy_MM_dd_HH_mm_ss));
-                MsgDBManager.getInstance().insertMsg(o);
-            }
+
         }
     }
 }

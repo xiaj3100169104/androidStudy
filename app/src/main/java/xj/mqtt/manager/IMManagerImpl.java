@@ -3,7 +3,6 @@ package xj.mqtt.manager;
 import android.content.Context;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.style.manager.AccountManager;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -18,7 +17,7 @@ import xj.mqtt.MQTTConfig;
 import xj.mqtt.bean.IMMessage;
 import xj.mqtt.listener.IMMessageListener;
 import xj.mqtt.util.IMNetUtil;
-import xj.mqtt.util.MessageIdUtil;
+import xj.mqtt.util.MessageUtil;
 
 /**
  * Created by xiajun on 2017/6/20.
@@ -60,9 +59,12 @@ public class IMManagerImpl implements IMManager {
         topicSingleChat = MQTTConfig.getChatSingleTopic(userName);
 
         client = new MqttAndroidClient(this.context, serverURI, clientId);
+        //初始化消息处理器
+        HandleMessageManager.getInstance().init(this.context);
         // 设置MQTT监听并且接受消息
         messageListener = new IMMessageListener();
         client.setCallback(messageListener);
+
 
         conOpt = new MqttConnectOptions();
         // 清除缓存,cleansession=false的情况下会保存离线消息
@@ -105,9 +107,9 @@ public class IMManagerImpl implements IMManager {
 
     @Override
     public boolean connect() {
+        //网络不可用时不用连接，监听网络可用时再连接
         if (!client.isConnected() && IMNetUtil.isNetworkAvailable(this.context)) {
             try {
-
                 client.connect(conOpt, null, iMqttActionListener);
             } catch (MqttException e) {
                 e.printStackTrace();
@@ -136,19 +138,18 @@ public class IMManagerImpl implements IMManager {
     }
 
     @Override
-    public boolean sendMessage(IMMessage messageBean) {
+    public boolean sendMessage(IMMessage m) {
         MqttMessage mqttMessage = new MqttMessage();
         mqttMessage.setQos(0);
         mqttMessage.setRetained(false);
         try {
-            mqttMessage.setPayload(messageBean.toSendJson().getBytes());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            mqttMessage.setPayload(MessageUtil.toJson(m).getBytes());
 
-        try {
             if (client.isConnected())
                 client.publish(topicSingleChat, mqttMessage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         } catch (MqttException e) {
             e.printStackTrace();
             return false;
@@ -174,8 +175,9 @@ public class IMManagerImpl implements IMManager {
         @Override
         public void onFailure(IMqttToken arg0, Throwable arg1) {
             arg1.printStackTrace();
-            Log.e(TAG, "onFailure");
+            Log.e(TAG, "连接失败");
             // 连接失败，重连
+            connect();
         }
     };
 

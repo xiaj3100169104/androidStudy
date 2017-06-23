@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.bean.Friend;
-import com.style.bean.IMsg;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
@@ -18,6 +16,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.TextMsg;
 
 public class ChatAdapter extends BaseRecyclerViewAdapter {
     private static final int MSG_TYPE_TEXT_LEFT = 0;
@@ -33,7 +33,7 @@ public class ChatAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        IMsg msg = (IMsg) list.get(position);
+        IMMessage msg = (IMMessage) list.get(position);
         if (msg.getSenderId() == curUser.getUserId())
             return MSG_TYPE_TEXT_RIGHT;
         else
@@ -50,15 +50,17 @@ public class ChatAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        IMsg msg = (IMsg) getData(position);
+        IMMessage msg = (IMMessage) getData(position);
         if (getItemViewType(position) == MSG_TYPE_TEXT_LEFT) {
             ViewHolderTextLeft holder = (ViewHolderTextLeft) viewHolder;
-            setText(holder.viewContent, msg.getContent());
+            TextMsg textMsg = (TextMsg) msg.getBodyObj();
+            setText(holder.viewContent, textMsg.content);
             super.setOnItemClickListener(holder, position);
 
         }else {
             ViewHolderTextRight holder = (ViewHolderTextRight) viewHolder;
-            setText(holder.viewContent, msg.getContent());
+            TextMsg textMsg = (TextMsg) msg.getBodyObj();
+            setText(holder.viewContent, textMsg.content);
             super.setOnItemClickListener(holder, position);
 
         }

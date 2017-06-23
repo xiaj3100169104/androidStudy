@@ -35,7 +35,7 @@ public class MsgListAdapter extends BaseRecyclerViewAdapter {
         MsgItem item = (MsgItem) getData(position);
         setText(holder.viewMark, item.getFriend().getMark());
         setText(holder.viewTime, MyDateUtil.getTimeConversationString(item.getMsg().getCreateTime()));
-        setText(holder.viewContent, item.getMsg().getContent());
+        setText(holder.viewContent, item.getMsg().getTypeDesc());
         int count = item.getUnreadCount();
         holder.viewUnread.setNotifyCount(count);
         super.setOnItemClickListener(holder, position);

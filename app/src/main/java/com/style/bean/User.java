@@ -21,12 +21,9 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(String userId, String telPhone, String password, String userName, String signKey) {
+	public User(String userId, String password) {
 		this.userId = userId;
-		this.telPhone = telPhone;
 		this.password = password;
-		this.userName = userName;
-		this.signKey = signKey;
 	}
 
 	public long getId() {

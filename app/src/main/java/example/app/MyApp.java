@@ -7,12 +7,12 @@ import android.content.IntentFilter;
 import android.support.multidex.MultiDex;
 import com.style.base.BaseApp;
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
-import com.style.db.msg.MsgDBManager;
 import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 
-import xj.mqtt.service.MyService;
+import xj.mqtt.db.MsgDBManager;
+
 
 
 public class MyApp extends BaseApp {

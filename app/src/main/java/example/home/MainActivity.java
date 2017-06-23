@@ -12,19 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
-import com.style.bean.IMsg;
 import com.style.bean.User;
-import com.style.db.msg.MsgDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.view.CustomNotifyView;
 
-import org.eclipse.paho.android.service.MqttService;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import butterknife.Bind;
+import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.MsgAction;
+import xj.mqtt.db.MsgDBManager;
 import xj.mqtt.service.MQTTService;
 import xj.mqtt.service.MyService;
 
@@ -68,9 +67,6 @@ public class MainActivity extends BaseToolBarActivity {
      * 解决方案为以下两种：
      * 方法1：在fragmentActivity里oncreate方法判断savedInstanceState==null才生成新Fragment，否则不做处理。
      * 方法2：在fragmentActivity里重写onSaveInstanceState方法，但不做实现，也就是将super.onSaveInstanceState(outState)注释掉。
-     *
-     * @param outState
-     * @param outPersistentState
      */
    /* @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
@@ -100,15 +96,15 @@ public class MainActivity extends BaseToolBarActivity {
         //取消事件注册
         EventBus.getDefault().unregister(this);
     }
-    //在UI线程中执行
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNewMsg(IMsg iMsg) {
+
+    @Subscriber(tag= MsgAction.MSG_NEW)
+    public void onNewMsg(IMMessage msg) {
         Log.e(TAG, "onNewMsg");
         updateUnreadMsg();
     }
 
     private void updateUnreadMsg() {
-        int count = MsgDBManager.getInstance().getUnreadAllCount(curUser.getUserId());
+        int count = MsgDBManager.getInstance().getMyUnreadAllCount(curUser.getUserId());
         viewNotifyMsg.setNotifyCount(count);
     }
 
@@ -197,27 +193,4 @@ public class MainActivity extends BaseToolBarActivity {
         showSelectedTab();
     }
 
-    //login("18202823096","123456");
-    /* private void login(String userName, final String password) {
-
-        showProgressDialog("正在登录。。。");
-        //UserRequest.login(userName, password, loginCallBack);
-        HttpAction.login(userName, password, new NetDataBeanCallback<LoginBean>(LoginBean.class) {
-            @Override
-            protected void onCodeSuccess(LoginBean data) {
-                dismissProgressDialog();
-                *//*AccountManager.getInstance().setUser(data.userBean);
-                AccountManager.getInstance().setToken(data.token);
-                AccountManager.getInstance().setUserPassWord(password);
-                skip(MainActivity.class);
-                finish();*//*
-            }
-
-            @Override
-            protected void onCodeFailure(String msg) {
-                //dismissProgressDialog();
-                showToast(msg);
-            }
-        });
-    }*/
 }

@@ -22,6 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="加载更多" />
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新消息1" />
         <Button
             android:id="@+id/view_send"
             android:layout_width="match_parent"

@@ -73,8 +73,6 @@ public class IMManagerImpl implements IMManager {
         conOpt.setConnectionTimeout(MQTTConfig.CONN_TIME_OUT);
         // 心跳包发送间隔，单位：秒
         conOpt.setKeepAliveInterval(MQTTConfig.KEEP_ALIVE_INTERVAL);
-        //设置为自动重连
-        conOpt.setAutomaticReconnect(true);
         // 用户名
         conOpt.setUserName(userName);
         // 密码
@@ -107,6 +105,8 @@ public class IMManagerImpl implements IMManager {
 
     @Override
     public boolean connect() {
+        //只要发起连接就设置为自动重连
+        conOpt.setAutomaticReconnect(true);
         //网络不可用时不用连接，监听网络可用时再连接
         if (!client.isConnected() && IMNetUtil.isNetworkAvailable(this.context)) {
             try {
@@ -118,6 +118,12 @@ public class IMManagerImpl implements IMManager {
             }
         }
         return false;
+    }
+
+    public void reConnect() {
+        //自动重连时才进行连接
+        if (conOpt.isAutomaticReconnect())
+            connect();
     }
 
     @Override
@@ -177,8 +183,9 @@ public class IMManagerImpl implements IMManager {
             arg1.printStackTrace();
             Log.e(TAG, "连接失败");
             // 连接失败，重连
-            connect();
+            reConnect();
         }
     };
+
 
 }

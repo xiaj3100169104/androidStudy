@@ -20,6 +20,9 @@ import com.style.utils.BitmapUtil;
 import java.io.File;
 import java.io.IOException;
 
+import cn.style.media.video.LocalVideoActivity;
+import cn.style.media.video.VideoRecorderActivity;
+
 
 public class VideoTestActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,6 +34,7 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
     private String path = "/storage/emulated/0/FussenVideo/video1489041516574/1489041516574.mp4";
     private ImageView ivVideoPreview;
     private Button btnSave;
+    private Button btnLocalVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
         downVideo = (Button) findViewById(R.id.btn_down);
         playVideo = (Button) findViewById(R.id.btn_play);
         btnSave = (Button) findViewById(R.id.btn_save);
+        btnLocalVideo = (Button) findViewById(R.id.btn_local_video);
 
         ivVideoPreview = (ImageView) findViewById(R.id.iv_video_preview);
 
@@ -54,11 +59,15 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
         downVideo.setOnClickListener(this);
         playVideo.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        btnLocalVideo.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
+        if (view == uploadVideo){
+            startActivity(new Intent(this, VideoRecorderActivity.class));
+        }
         if (view == recordVideo) {
             startActivityForResult(new Intent(this, CameraActivity.class), REQUEST_CODE_RECORD_VIDEO);
         }
@@ -72,6 +81,9 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
         }
         if (view == btnSave) {
             save();
+        }
+        if (view == btnLocalVideo) {
+            startActivity(new Intent(this, LocalVideoActivity.class));
         }
     }
 
@@ -94,7 +106,7 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
         Bitmap bitmap = retriever.getFrameAtTime(1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST);
         ivVideoPreview.setImageBitmap(bitmap);
         try {
-            BitmapUtil.saveBitmap(ConfigUtil.DIR_CACHE+"/test.video.preview", bitmap, 100);
+            BitmapUtil.saveBitmap(ConfigUtil.DIR_CACHE + "/.thumbnail", bitmap, 100);
         } catch (IOException e) {
             e.printStackTrace();
         }

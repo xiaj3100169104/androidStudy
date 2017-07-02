@@ -28,6 +28,6 @@ public class NetWorkChangeBroadcastReceiver extends BroadcastReceiver {
         if (!NetWorkUtil.isNetWorkActive(context))
             ToastManager.showToast(context, "网络不可用");
         else
-            IMManagerImpl.getInstance().connect();
+            IMManagerImpl.getInstance().reConnect();
     }
 }

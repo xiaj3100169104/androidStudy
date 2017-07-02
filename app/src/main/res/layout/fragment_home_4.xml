@@ -223,6 +223,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="jni测试" />
+            <Button
+                android:id="@+id/btn_aidl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="aidl测试" />
         </LinearLayout>
 
     </LinearLayout>

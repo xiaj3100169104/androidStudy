@@ -109,11 +109,13 @@
         <activity android:name="example.im.ChatTestActivity" />
         <activity android:name="example.home.MainActivity" />
         <activity android:name="xiajun.example.ndk.JniTestActivity" />
+        <activity android:name="cn.style.media.video.LocalVideoActivity" />
+        <activity android:name="cn.style.media.video.VideoRecorderActivity" />
 
         <service
             android:name="xj.mqtt.service.MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <receiver android:name="com.style.broadcast.NetWorkChangeBroadcastReceiver">
             <intent-filter>
@@ -121,11 +123,14 @@
             </intent-filter>
         </receiver>
         <!-- Mqtt Service -->
-         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
         <service
             android:name="xj.mqtt.service.MQTTService"
             android:exported="true" />
-
+        <service
+            android:name="example.aidl.AidlService"
+            android:exported="false"
+            android:process="com.offline.message"/>
     </application>
 
 </manifest>

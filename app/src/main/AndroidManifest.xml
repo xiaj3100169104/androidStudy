@@ -113,7 +113,7 @@
         <service
             android:name="xj.mqtt.service.MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <receiver android:name="com.style.broadcast.NetWorkChangeBroadcastReceiver">
             <intent-filter>
@@ -121,11 +121,12 @@
             </intent-filter>
         </receiver>
         <!-- Mqtt Service -->
-         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
         <service
             android:name="xj.mqtt.service.MQTTService"
             android:exported="true" />
 
+        <activity android:name="example.queue.QueueTestActivity"></activity>
     </application>
 
 </manifest>

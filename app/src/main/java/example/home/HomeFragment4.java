@@ -17,6 +17,7 @@ import example.activity.CircleProgressBarActivity;
 import example.activity.FileDownActivity;
 import example.activity.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
+import example.queue.QueueTestActivity;
 import example.activity.TestNotifyViewActivity;
 import example.activity.TestProgressActivity;
 import example.activity.UserAgreeActivity;
@@ -74,6 +75,10 @@ public class HomeFragment4 extends BaseFragment {
     @OnClick(R.id.layout_item_49)
     public void skip49() {
         skip(SocketTestActivity.class);
+    }
+    @OnClick(R.id.layout_item_491)
+    public void skip491() {
+        skip(QueueTestActivity.class);
     }
 
 

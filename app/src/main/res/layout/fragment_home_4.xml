@@ -163,6 +163,15 @@
                     android:layout_centerVertical="true"
                     android:text="SocketTest" />
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_item_491"
+                style="@style/Layouts.normal_RelativeLayout">
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:text="队列测试" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

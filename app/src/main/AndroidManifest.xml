@@ -109,6 +109,8 @@
         <activity android:name="example.im.ChatTestActivity" />
         <activity android:name="example.home.MainActivity" />
         <activity android:name="xiajun.example.ndk.JniTestActivity" />
+        <activity android:name="cn.style.media.video.LocalVideoActivity" />
+        <activity android:name="cn.style.media.video.VideoRecorderActivity" />
 
         <service
             android:name="xj.mqtt.service.MyService"
@@ -125,6 +127,10 @@
         <service
             android:name="xj.mqtt.service.MQTTService"
             android:exported="true" />
+        <service
+            android:name="example.aidl.AidlService"
+            android:exported="false"
+            android:process="com.offline.message"/>
 
         <activity android:name="example.queue.QueueTestActivity"></activity>
     </application>

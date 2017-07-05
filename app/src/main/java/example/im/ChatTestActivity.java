@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.style.base.BaseToolBarActivity;
@@ -17,12 +18,15 @@ import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import example.home.ChatAdapter;
 import xj.mqtt.bean.IMMessage;
+import xj.mqtt.bean.IMMessageComparator;
 import xj.mqtt.bean.MsgAction;
 import xj.mqtt.db.MsgDBManager;
 import xj.mqtt.manager.IMSend;
@@ -75,8 +79,9 @@ public class ChatTestActivity extends BaseToolBarActivity {
     @OnClick(R.id.view_page_load)
     public void getPageLoad() {
         int startIndex = dataList.size();//100;
-        List<IMMessage> list = MsgDBManager.getInstance().getMsgByPage(curUser.getUserId(), friend.getFriendId(), startIndex, 20);
+        List<IMMessage> list = MsgDBManager.getInstance().getMsgByPage(curUser.getUserId(), friend.getFriendId(), startIndex, 5);
         if (list != null) {
+            Collections.sort(list, new IMMessageComparator());
             dataList.addAll(0, list);
             adapter.notifyDataSetChanged();
         }
@@ -92,6 +97,7 @@ public class ChatTestActivity extends BaseToolBarActivity {
     //在UI线程中执行
     @Subscriber(tag = MsgAction.MSG_NEW)
     public void onNewMsg(IMMessage iMsg) {
+        Log.e(TAG, "onNewMsg");
         //不是我发送的消息状态置为已读
         if (isFriendSend(iMsg) || isMyselfSend(iMsg)) {
             if (isFriendSend(iMsg))

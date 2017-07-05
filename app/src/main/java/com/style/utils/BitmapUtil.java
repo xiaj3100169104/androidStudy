@@ -105,36 +105,40 @@ public class BitmapUtil {
         }
     }
 
-    public static Bitmap revitionImageSize(String path, int reqWidth, int reqHeight, int maxResolution) throws IOException {
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(path)));
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(in, null, options);
-        in.close();
-        // int i = 0;
-        Bitmap bitmap = null;
-        // Log.e("options.outWidth", String.valueOf(options.outWidth));
-        // Log.e("options.outHeight", String.valueOf(options.outHeight));
-        in = new BufferedInputStream(new FileInputStream(new File(path)));
-        // 计算 inSampleSize 的值
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-        // Log.e("options.inSampleSize", String.valueOf(options.inSampleSize));
+    public static Bitmap revitionImageSize(String path, int reqWidth, int reqHeight, int maxResolution) {
+        try {
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(path)));
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(in, null, options);
+            in.close();
+            // int i = 0;
+            Bitmap bitmap = null;
+            // Log.e("options.outWidth", String.valueOf(options.outWidth));
+            // Log.e("options.outHeight", String.valueOf(options.outHeight));
+            in = new BufferedInputStream(new FileInputStream(new File(path)));
+            // 计算 inSampleSize 的值
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+            // Log.e("options.inSampleSize", String.valueOf(options.inSampleSize));
         /*
          * ALPHA_8：每个像素占用1byte内存 ARGB_4444：每个像素占用2byte内存 ARGB_8888：每个像素占用4byte内存
 		 * （默认） RGB_565：每个像素占用2byte内存
 		 */
-        // options.inPreferredConfig = Bitmap.Config.RGB_565;
-        options.inPreferredConfig = null; /* 设置让解码器以最佳方式解码 */
-        options.inJustDecodeBounds = false;// 是否只读取边界
-        options.inDither = false; /* 不进行图片抖动处理 */
-		/* 下面两个字段需要组合使用 */
-        options.inPurgeable = true;
-        options.inInputShareable = true;
-        bitmap = BitmapFactory.decodeStream(in, null, options);
-        // Log.e("options.outWidth", String.valueOf(bitmap.getWidth()));
-        // Log.e("options.outWidth", String.valueOf(bitmap.getHeight()));
-        Bitmap newBmp = BitmapUtil.changeResolution(bitmap, maxResolution);
-        return newBmp;
+            // options.inPreferredConfig = Bitmap.Config.RGB_565;
+            options.inPreferredConfig = null; /* 设置让解码器以最佳方式解码 */
+            options.inJustDecodeBounds = false;// 是否只读取边界
+            options.inDither = false; /* 不进行图片抖动处理 */
+        /* 下面两个字段需要组合使用 */
+            options.inPurgeable = true;
+            options.inInputShareable = true;
+            bitmap = BitmapFactory.decodeStream(in, null, options);
+            // Log.e("options.outWidth", String.valueOf(bitmap.getWidth()));
+            // Log.e("options.outWidth", String.valueOf(bitmap.getHeight()));
+            Bitmap newBmp = BitmapUtil.changeResolution(bitmap, maxResolution);
+            return newBmp;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public static Bitmap changeResolution(Bitmap oldBmp, int maxResolution) {

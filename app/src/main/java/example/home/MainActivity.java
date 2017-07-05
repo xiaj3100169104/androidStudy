@@ -88,7 +88,7 @@ public class MainActivity extends BaseToolBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateUnreadMsg();
+        //updateUnreadMsg();
     }
     @Override
     protected void onDestroy() {
@@ -102,7 +102,11 @@ public class MainActivity extends BaseToolBarActivity {
         Log.e(TAG, "onNewMsg");
         updateUnreadMsg();
     }
-
+    @Subscriber(tag= MsgAction.MSG_UPDATE)
+    public void onMsguodate(IMMessage msg) {
+        Log.e(TAG, "onMsguodate");
+        updateUnreadMsg();
+    }
     private void updateUnreadMsg() {
         int count = MsgDBManager.getInstance().getMyUnreadAllCount(curUser.getUserId());
         viewNotifyMsg.setNotifyCount(count);

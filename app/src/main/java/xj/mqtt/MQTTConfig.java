@@ -5,7 +5,7 @@ package xj.mqtt;
  */
 
 public class MQTTConfig {
-    public static final String SERVICE_URI = "tcp://192.168.1.104:61613";
+    public static final String SERVICE_URI = "tcp://192.168.0.103:61613";
     public static final boolean CLEAN_SESSION = false;
     public static final int CONN_TIME_OUT = 10;
     public static final int KEEP_ALIVE_INTERVAL = 20;

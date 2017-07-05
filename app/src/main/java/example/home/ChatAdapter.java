@@ -19,22 +19,22 @@ import butterknife.ButterKnife;
 import xj.mqtt.bean.IMMessage;
 import xj.mqtt.bean.TextMsg;
 
-public class ChatAdapter extends BaseRecyclerViewAdapter {
+public class ChatAdapter extends BaseRecyclerViewAdapter<IMMessage> {
     private static final int MSG_TYPE_TEXT_LEFT = 0;
     private static final int MSG_TYPE_TEXT_RIGHT = 1;
 
 
     private User curUser;
 
-    public ChatAdapter(Context context, List list) {
+    public ChatAdapter(Context context, List<IMMessage> list) {
         super(context, list);
         curUser = AccountManager.getInstance().getCurrentUser();
     }
 
     @Override
     public int getItemViewType(int position) {
-        IMMessage msg = (IMMessage) list.get(position);
-        if (msg.getSenderId() == curUser.getUserId())
+        IMMessage msg = getData(position);
+        if (msg.getSenderId().equals(curUser.getUserId()))
             return MSG_TYPE_TEXT_RIGHT;
         else
             return MSG_TYPE_TEXT_LEFT;
@@ -50,7 +50,7 @@ public class ChatAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        IMMessage msg = (IMMessage) getData(position);
+        IMMessage msg = getData(position);
         if (getItemViewType(position) == MSG_TYPE_TEXT_LEFT) {
             ViewHolderTextLeft holder = (ViewHolderTextLeft) viewHolder;
             TextMsg textMsg = (TextMsg) msg.getBodyObj();

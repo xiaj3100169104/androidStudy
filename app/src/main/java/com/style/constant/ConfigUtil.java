@@ -28,5 +28,9 @@ public class ConfigUtil {
      * 文件缓存目录
      */
     public static final String DIR_CACHE = DIR_APP + "/cache";
+    /**
+     * 视频录制保存目录
+     */
+    public static final String DIR_VIDEO = DIR_APP + "/video";
 
 }

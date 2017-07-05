@@ -76,7 +76,7 @@ public class HomeFragment1 extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getData();
+        //getData();
     }
 
     private void getData() {

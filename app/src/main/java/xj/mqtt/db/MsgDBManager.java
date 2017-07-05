@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.style.db.user.SQLiteHelperListener;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,9 +87,10 @@ public class MsgDBManager {
                 String sql = "INSERT INTO message (msgId, senderId, receiverId, type, body, createTime, state) values (?, ?, ?, ?, ?, ?, ?)";
                 Object[] bindArgs = new Object[]{o.getMsgId(), o.getSenderId(), o.getReceiverId(), o.getType(), o.getBody(), o.getCreateTime(), o.getState()};
                 getWritableDatabase().execSQL(sql, bindArgs);
-                Log.e(TAG, o.toString());
+                Log.e(TAG, "insert" + o.toString());
+                EventBus.getDefault().post(o, MsgAction.MSG_NEW);
                 //发送新消息广播
-                mContext.sendBroadcast(new Intent(MsgAction.MSG_NEW).putExtra("msg", o));
+                //mContext.sendBroadcast(new Intent(MsgAction.MSG_NEW).putExtra("msg", o));
             }
         });
     }
@@ -98,14 +101,18 @@ public class MsgDBManager {
         getWritableDatabase().execSQL(sql, bindArgs);
         //发送消息更新广播
         IMMessage msg = getMsg(msgId);
-        mContext.sendBroadcast(new Intent(MsgAction.MSG_UPDATE).putExtra("msg", msg));
-
+        //mContext.sendBroadcast(new Intent(MsgAction.MSG_UPDATE).putExtra("msg", msg));
+        EventBus.getDefault().post(msg, MsgAction.MSG_UPDATE);
     }
 
     public void update2Readed(String msgId) {
         String sql = "UPDATE message SET state=? WHERE msgId=?";
         Object[] bindArgs = new Object[]{IMMessage.State.READ.value, msgId};
         getWritableDatabase().execSQL(sql, bindArgs);
+        //发送消息更新广播
+        IMMessage msg = getMsg(msgId);
+        //mContext.sendBroadcast(new Intent(MsgAction.MSG_UPDATE).putExtra("msg", msg));
+        EventBus.getDefault().post(msg, MsgAction.MSG_UPDATE);
     }
 
     public void updateReaded2User(final String senderId, final String receiverId) {
@@ -205,7 +212,7 @@ public class MsgDBManager {
             result = new ArrayList<>();
             while (c.moveToNext()) {
                 IMMessage msg = getMsgFromCursor(c);
-                Log.e(TAG, msg.toString());
+                Log.e(TAG, "queryMsg" + msg.toString());
                 result.add(msg);
             }
         }

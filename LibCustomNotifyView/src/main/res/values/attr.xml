@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <attr name="notifyBackgroundColor" format="color" />
+    <attr name="notifyText" format="string" />
+    <attr name="notifyTextColor" format="color" />
+    <attr name="notifyTextSize" format="dimension" />
+
+    <declare-styleable name="CustomNotifyView">
+        <attr name="notifyBackgroundColor" />
+        <attr name="notifyText" />
+        <attr name="notifyTextColor" />
+        <attr name="notifyTextSize" />
+    </declare-styleable>
+
+</resources>

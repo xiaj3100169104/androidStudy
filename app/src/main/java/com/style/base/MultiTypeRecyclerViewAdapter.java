@@ -1,16 +1,14 @@
 package com.style.base;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.style.address.UploadPhone;
-import com.style.address.UploadPhoneAdapter;
+import cn.style.address.UploadPhone;
+import cn.style.address.UploadPhoneAdapter;
 import com.style.framework.R;
 import com.style.view.DividerItemDecoration;
 

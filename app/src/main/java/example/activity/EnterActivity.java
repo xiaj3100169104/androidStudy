@@ -1,17 +1,9 @@
 package example.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import com.style.address.AddressActivity;
-import com.style.album.SelectLocalPictureActivity;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by xiajun on 2016/10/8.

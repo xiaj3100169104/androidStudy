@@ -8,7 +8,7 @@ using namespace std;
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_xiajun_example_ndk_JniTest_stringFromJNI(JNIEnv *env, jobject /* this */)
+Java_example_ndk_JniTest_stringFromJNI(JNIEnv *env, jobject /* this */)
 {
     string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
@@ -16,7 +16,7 @@ Java_xiajun_example_ndk_JniTest_stringFromJNI(JNIEnv *env, jobject /* this */)
 
 extern "C"//使用c的方式命名接口，必须加这个，不然报错找不到实现方法
 JNIEXPORT void JNICALL
-Java_xiajun_example_ndk_JniTest_testShort(JNIEnv *env, jobject,
+Java_example_ndk_JniTest_testShort(JNIEnv *env, jobject,
                                           jshort s) {
     //printf("s=%hd", s);
     __android_log_print(ANDROID_LOG_ERROR, TAG, "s=%hd", s);
@@ -26,7 +26,7 @@ Java_xiajun_example_ndk_JniTest_testShort(JNIEnv *env, jobject,
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_xiajun_example_ndk_JniTest_testBasicDataType(JNIEnv *env, jobject ,
+Java_example_ndk_JniTest_testBasicDataType(JNIEnv *env, jobject ,
                                                   jshort s, jint i, jlong l, jfloat f, jdouble d, jchar c, jboolean z, jbyte b)
 {
     //printf("s=%hd, i=%d, l=%ld, f=%f, d=%lf, c=%c, z=%c, b=%d", s, i, l, f, d, c, z, b);
@@ -35,7 +35,7 @@ Java_xiajun_example_ndk_JniTest_testBasicDataType(JNIEnv *env, jobject ,
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_xiajun_example_ndk_JniTest_testJString(JNIEnv *env, jobject ,
+Java_example_ndk_JniTest_testJString(JNIEnv *env, jobject ,
                                             jstring j_str, jobject jobj1, jobject job2, jintArray j_int_arr)
 {
     __android_log_print(ANDROID_LOG_ERROR, TAG, "j_str: %s\n", j_str);

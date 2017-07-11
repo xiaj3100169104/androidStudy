@@ -52,7 +52,7 @@ dependencies {
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
 
-
+    compile project(':LibCustomNotifyView')
     compile project(':LibVideoRecord')
     compile project(':LibWheelDialog')
     compile project(':LibProgressbar')

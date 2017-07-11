@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.style.address.AddressActivity;
-import com.style.album.SelectLocalPictureActivity;
+import cn.style.address.AddressActivity;
+import cn.style.album.SelectLocalPictureActivity;
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 
 import aidl.IRemoteService;
 import butterknife.OnClick;
-import cn.style.socket.chat.SocketTestActivity;
+import cn.style.media.socket.chat.SocketTestActivity;
 import cn.style.media.AudioRecordActivity;
 import example.activity.CircleProgressBarActivity;
 import example.activity.FileDownActivity;
@@ -33,7 +33,7 @@ import example.activity.WebViewActivity;
 import example.activity.WebViewAndJSActivity;
 import example.activity.WheelActivity;
 
-import xiajun.example.ndk.JniTestActivity;
+import example.ndk.JniTestActivity;
 
 
 public class HomeFragment4 extends BaseFragment {

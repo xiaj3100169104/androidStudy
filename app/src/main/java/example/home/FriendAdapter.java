@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.style.address.UploadPhone;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.Friend;
 import com.style.framework.R;

@@ -89,9 +89,9 @@
             </intent-filter>
         </activity>
         <activity android:name="example.activity.MyRadioGroupActivity" />
-        <activity android:name="com.style.album.AlbumActivity" />
-        <activity android:name="com.style.album.SelectLocalPictureActivity" />
-        <activity android:name="com.style.address.AddressActivity" />
+        <activity android:name="cn.style.album.AlbumActivity" />
+        <activity android:name="cn.style.album.SelectLocalPictureActivity" />
+        <activity android:name="cn.style.address.AddressActivity" />
         <activity android:name="example.activity.EnterActivity" />
         <activity android:name="example.activity.SecondActivity" />
         <activity android:name="example.activity.UserAgreeActivity" />
@@ -105,10 +105,10 @@
         <activity android:name="example.activity.CircleProgressBarActivity" />
         <activity android:name="cn.style.media.VideoTestActivity" />
         <activity android:name="cn.style.media.AudioRecordActivity" />
-        <activity android:name="cn.style.socket.chat.SocketTestActivity" />
+        <activity android:name="cn.style.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.im.ChatTestActivity" />
         <activity android:name="example.home.MainActivity" />
-        <activity android:name="xiajun.example.ndk.JniTestActivity" />
+        <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="cn.style.media.video.LocalVideoActivity" />
         <activity android:name="cn.style.media.video.VideoRecorderActivity" />
 

@@ -46,7 +46,7 @@
 #混淆第三方jar包，其中xxx为jar包名
 #-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
 -keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件
--keep class xiajun.example.ndk.JniTest
+-keep class JniTest
 
 #-dontwarn com.xxx**              #忽略某个包的警告
 -keepattributes Signature        #不混淆泛型

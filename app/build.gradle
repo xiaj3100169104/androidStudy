@@ -52,10 +52,10 @@ dependencies {
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
 
-    compile project(':LibCustomNotifyView')
-    compile project(':LibVideoRecord')
-    compile project(':LibWheelDialog')
-    compile project(':LibProgressbar')
+    compile project(':libCustomNotifyView')
+    compile project(':libVideoRecord')
+    compile project(':libWheelDialog')
+    compile project(':libProgressbar')
 
     compile files('libs/pinyin4j-2.5.0.jar')
     //compile 'com.belerweb:pinyin4j:2.5.1'

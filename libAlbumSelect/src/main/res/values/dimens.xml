@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="status_bar_height">25dp</dimen>
+    <dimen name="height_top_bar">48dp</dimen>
+    <dimen name="toolbar_and_statusbar">73dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="height_normal">48dp</dimen>
+
+    <!-- 间距大小 -->
+    <dimen name="paddingRight_normal">12dp</dimen>
+    <dimen name="paddingLeft_normal">12dp</dimen>
+    <dimen name="paddingTop_normal">7dp</dimen>
+    <dimen name="paddingBottom_normal">7dp</dimen>
+
+    <dimen name="corners_normal_size">5dp</dimen>
+    <dimen name="corners_big_size">10dp</dimen>
+
+</resources>

@@ -68,11 +68,12 @@ public class MainActivity extends BaseToolBarActivity {
      * 方法1：在fragmentActivity里oncreate方法判断savedInstanceState==null才生成新Fragment，否则不做处理。
      * 方法2：在fragmentActivity里重写onSaveInstanceState方法，但不做实现，也就是将super.onSaveInstanceState(outState)注释掉。
      */
-   /* @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        //super.onSaveInstanceState(outState);//将super调用取消即可，表明当意外(比如系统内存吃紧将应用杀死)发生我不需要保存Fragment状态和数据等,当activity销毁时不保存其内部的view的状态
     }
-*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mLayoutResID = R.layout.activity_main;

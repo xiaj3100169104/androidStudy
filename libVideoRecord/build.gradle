@@ -10,8 +10,6 @@ android {
     }
 
     dependencies {
-        compile 'com.android.support:support-v13:'+project.ANDROID_SUPPORT_VERSION
-        compile 'com.android.support:support-v4:'+project.ANDROID_SUPPORT_VERSION
         compile 'com.android.support:appcompat-v7:'+project.ANDROID_SUPPORT_VERSION
     }
 }

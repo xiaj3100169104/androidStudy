@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
-import com.style.lib.media.camera2video.CameraActivity;
+import com.style.lib.media.camera2video.Camera2Activity;
 import com.style.lib.media.video.PlayVideoActivity;
 import com.style.utils.BitmapUtil;
 
@@ -69,7 +69,7 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
             startActivity(new Intent(this, VideoRecorderActivity.class));
         }
         if (view == recordVideo) {
-            startActivityForResult(new Intent(this, CameraActivity.class), REQUEST_CODE_RECORD_VIDEO);
+            startActivityForResult(new Intent(this, Camera2Activity.class), REQUEST_CODE_RECORD_VIDEO);
         }
 
         if (view == playVideo) {

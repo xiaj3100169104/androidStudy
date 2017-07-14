@@ -1,4 +1,4 @@
-package cn.style.album;
+package example.album;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.style.constant.ConfigUtil;
 import com.style.constant.Skip;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
+import com.style.lib.album.AlbumActivity;
 import com.style.utils.DeviceInfoUtil;
 
 import java.io.File;

@@ -12,7 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.style.address.AddressActivity;
-import cn.style.album.SelectLocalPictureActivity;
+import example.album.SelectLocalPictureActivity;
+
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 
@@ -84,6 +85,7 @@ public class HomeFragment4 extends BaseFragment {
     public void skip49() {
         skip(SocketTestActivity.class);
     }
+
     @OnClick(R.id.layout_item_491)
     public void skip491() {
         skip(QueueTestActivity.class);
@@ -94,38 +96,47 @@ public class HomeFragment4 extends BaseFragment {
     public void skip1() {
         skip(SelectLocalPictureActivity.class);
     }
+
     @OnClick(R.id.btn_address)
     public void skip2() {
         skip(AddressActivity.class);
     }
+
     @OnClick(R.id.btn_radio)
     public void skip3() {
         skip(MyRadioGroupActivity.class);
     }
+
     @OnClick(R.id.btn_wheel)
     public void skip4() {
         skip(WheelActivity.class);
     }
+
     @OnClick(R.id.btn_user_agree)
     public void skip5() {
         skip(UserAgreeActivity.class);
     }
+
     @OnClick(R.id.btn_file_down)
     public void skip6() {
         skip(FileDownActivity.class);
     }
+
     @OnClick(R.id.btn_web_view)
     public void skip7() {
         skip(WebViewActivity.class);
     }
+
     @OnClick(R.id.btn_web_view_js)
     public void skip8() {
         skip(WebViewAndJSActivity.class);
     }
+
     @OnClick(R.id.btn_jni)
     public void skip9() {
         skip(JniTestActivity.class);
     }
+
     @OnClick(R.id.btn_aidl)
     public void skip10() {
         //skip(JniTestActivity.class);
@@ -139,6 +150,7 @@ public class HomeFragment4 extends BaseFragment {
         intent.setPackage("com.xiajun.voicephone");
         getActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
+
     private IRemoteService remoteService;
 
     ServiceConnection conn = new ServiceConnection() {
@@ -153,7 +165,7 @@ public class HomeFragment4 extends BaseFragment {
             try {
                 int pid = remoteService.getPid();
                 int currentPid = android.os.Process.myPid();
-                System.out.println("currentPID: " + currentPid +"  remotePID: " + pid);
+                System.out.println("currentPID: " + currentPid + "  remotePID: " + pid);
                 remoteService.basicTypes(12, 1223, true, 12.2f, 12.3, "我们的爱，我明白");
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -165,6 +177,8 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unbindService(conn);
+        //如果没有进行过绑定操作，解绑会报错
+        if (remoteService != null)
+            getActivity().unbindService(conn);
     }
 }

@@ -44,8 +44,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
-import android.support.v13.app.FragmentCompat;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -70,8 +70,8 @@ import java.util.UUID;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Camera2VideoFragment extends Fragment
-        implements  FragmentCompat.OnRequestPermissionsResultCallback {
+public class Camera2Activity extends AppCompatActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
     public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/aaaaStyle/video";
 
     private static final int SENSOR_ORIENTATION_DEFAULT_DEGREES = 90;
@@ -213,10 +213,8 @@ public class Camera2VideoFragment extends Fragment
             mCameraOpenCloseLock.release();
             cameraDevice.close();
             mCameraDevice = null;
-            Activity activity = getActivity();
-            if (null != activity) {
-                activity.finish();
-            }
+
+            finish();
         }
 
     };
@@ -225,8 +223,8 @@ public class Camera2VideoFragment extends Fragment
     private CaptureRequest.Builder mPreviewBuilder;
     private Surface mRecorderSurface;
 
-    public static Camera2VideoFragment newInstance() {
-        return new Camera2VideoFragment();
+    public static Camera2Activity newInstance() {
+        return new Camera2Activity();
     }
 
     /**
@@ -279,15 +277,12 @@ public class Camera2VideoFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_camera2_video, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_camera);
+        mTextureView = (AutoFitTextureView) findViewById(R.id.texture);
 
-    @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
-        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-
-        mButtonVideo = (Button) view.findViewById(R.id.video);
+        mButtonVideo = (Button) findViewById(R.id.video);
         mButtonVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -350,7 +345,7 @@ public class Camera2VideoFragment extends Fragment
      */
     private boolean shouldShowRequestPermissionRationale(String[] permissions) {
         for (String permission : permissions) {
-            if (FragmentCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
                 return true;
             }
         }
@@ -362,9 +357,9 @@ public class Camera2VideoFragment extends Fragment
      */
     private void requestVideoPermissions() {
         if (shouldShowRequestPermissionRationale(VIDEO_PERMISSIONS)) {
-            new ConfirmationDialog().show(getChildFragmentManager(), FRAGMENT_DIALOG);
+            showConfirmationDialog();
         } else {
-            FragmentCompat.requestPermissions(this, VIDEO_PERMISSIONS, REQUEST_VIDEO_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, VIDEO_PERMISSIONS, REQUEST_VIDEO_PERMISSIONS);
         }
     }
 
@@ -375,14 +370,12 @@ public class Camera2VideoFragment extends Fragment
             if (grantResults.length == VIDEO_PERMISSIONS.length) {
                 for (int result : grantResults) {
                     if (result != PackageManager.PERMISSION_GRANTED) {
-                        ErrorDialog.newInstance(getString(R.string.permission_request))
-                                .show(getChildFragmentManager(), FRAGMENT_DIALOG);
+                        showErrorDialog(getString(R.string.permission_request));
                         break;
                     }
                 }
             } else {
-                ErrorDialog.newInstance(getString(R.string.permission_request))
-                        .show(getChildFragmentManager(), FRAGMENT_DIALOG);
+                showErrorDialog(getString(R.string.permission_request));
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -391,7 +384,7 @@ public class Camera2VideoFragment extends Fragment
 
     private boolean hasPermissionsGranted(String[] permissions) {
         for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(getActivity(), permission)
+            if (ActivityCompat.checkSelfPermission(this, permission)
                     != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -407,11 +400,8 @@ public class Camera2VideoFragment extends Fragment
             requestVideoPermissions();
             return;
         }
-        final Activity activity = getActivity();
-        if (null == activity || activity.isFinishing()) {
-            return;
-        }
-        CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
+
+        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             Log.d(TAG, "tryAcquire");
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
@@ -438,13 +428,12 @@ public class Camera2VideoFragment extends Fragment
             mMediaRecorder = new MediaRecorder();
             manager.openCamera(cameraId, mStateCallback, null);
         } catch (CameraAccessException e) {
-            Toast.makeText(activity, "Cannot access the camera.", Toast.LENGTH_SHORT).show();
-            activity.finish();
+            Toast.makeText(Camera2Activity.this, "Cannot access the camera.", Toast.LENGTH_SHORT).show();
+            finish();
         } catch (NullPointerException e) {
             // Currently an NPE is thrown when the Camera2API is used but not supported on the
             // device this code runs.
-            ErrorDialog.newInstance(getString(R.string.camera_error))
-                    .show(getChildFragmentManager(), FRAGMENT_DIALOG);
+            showErrorDialog(getString(R.string.camera_error));
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while trying to lock camera opening.");
         }
@@ -496,10 +485,9 @@ public class Camera2VideoFragment extends Fragment
 
                 @Override
                 public void onConfigureFailed(CameraCaptureSession cameraCaptureSession) {
-                    Activity activity = getActivity();
-                    if (null != activity) {
-                        Toast.makeText(activity, "Failed", Toast.LENGTH_SHORT).show();
-                    }
+
+                    Toast.makeText(Camera2Activity.this, "Failed", Toast.LENGTH_SHORT).show();
+
                 }
             }, mBackgroundHandler);
         } catch (CameraAccessException e) {
@@ -537,11 +525,10 @@ public class Camera2VideoFragment extends Fragment
      * @param viewHeight The height of `mTextureView`
      */
     private void configureTransform(int viewWidth, int viewHeight) {
-        Activity activity = getActivity();
-        if (null == mTextureView || null == mPreviewSize || null == activity) {
+        if (null == mTextureView || null == mPreviewSize) {
             return;
         }
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
         Matrix matrix = new Matrix();
         RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
         RectF bufferRect = new RectF(0, 0, mPreviewSize.getHeight(), mPreviewSize.getWidth());
@@ -560,26 +547,23 @@ public class Camera2VideoFragment extends Fragment
     }
 
     private void setUpMediaRecorder() throws IOException {
-        final Activity activity = getActivity();
-        if (null == activity) {
-            return;
-        }
+
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         if (mNextVideoAbsolutePath == null || mNextVideoAbsolutePath.isEmpty()) {
-            mNextVideoAbsolutePath = getVideoFilePath(getActivity());
+            mNextVideoAbsolutePath = getVideoFilePath(this);
         }
         mMediaRecorder.setOutputFile(mNextVideoAbsolutePath);
         //设置编码比特率,不设置会使视频图像模糊
-        mMediaRecorder.setVideoEncodingBitRate(1*1024*1024);  //清晰     512*1024(不清楚)
+        mMediaRecorder.setVideoEncodingBitRate(1 * 1024 * 1024);  //清晰     512*1024(不清楚)
         //mMediaRecorder.setVideoEncodingBitRate(900*1024); //较为清晰，且文件大小为3.26M(30秒)
         //必须在setVideoSource，setOutFormat之后，prepare()之前调用
         mMediaRecorder.setVideoFrameRate(30);//
         mMediaRecorder.setVideoSize(mVideoSize.getWidth(), mVideoSize.getHeight());
         mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);//H263的貌似有点不清晰
         mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
         switch (mSensorOrientation) {
             case SENSOR_ORIENTATION_DEFAULT_DEGREES:
                 mMediaRecorder.setOrientationHint(DEFAULT_ORIENTATIONS.get(rotation));
@@ -592,9 +576,9 @@ public class Camera2VideoFragment extends Fragment
     }
 
     private String getVideoFilePath(Context context) {
-        String path =  FILE_DIR + "/" + UUID.randomUUID().toString() + ".videoCache";
+        String path = FILE_DIR + "/" + UUID.randomUUID().toString() + ".videoCache";
         File f = new File(path);
-        if(!f.getParentFile().exists()){
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
         }
         return path;
@@ -631,7 +615,7 @@ public class Camera2VideoFragment extends Fragment
                 public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
                     mPreviewSession = cameraCaptureSession;
                     updatePreview();
-                    getActivity().runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // UI
@@ -646,10 +630,8 @@ public class Camera2VideoFragment extends Fragment
 
                 @Override
                 public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
-                    Activity activity = getActivity();
-                    if (null != activity) {
-                        Toast.makeText(activity, "Failed", Toast.LENGTH_SHORT).show();
-                    }
+
+                    Toast.makeText(Camera2Activity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             }, mBackgroundHandler);
         } catch (CameraAccessException e) {
@@ -675,12 +657,9 @@ public class Camera2VideoFragment extends Fragment
         mMediaRecorder.stop();
         mMediaRecorder.reset();
 
-        Activity activity = getActivity();
-        if (null != activity) {
-            Log.d(TAG, "Video saved: " + mNextVideoAbsolutePath);
-            activity.setResult(Activity.RESULT_OK, new Intent().putExtra("videoPath", mNextVideoAbsolutePath));
-            activity.finish();
-        }
+        Log.d(TAG, "Video saved: " + mNextVideoAbsolutePath);
+        setResult(Activity.RESULT_OK, new Intent().putExtra("videoPath", mNextVideoAbsolutePath));
+        finish();
         mNextVideoAbsolutePath = null;
         //startPreview();
     }
@@ -699,58 +678,36 @@ public class Camera2VideoFragment extends Fragment
 
     }
 
-    public static class ErrorDialog extends DialogFragment {
-
-        private static final String ARG_MESSAGE = "message";
-
-        public static ErrorDialog newInstance(String message) {
-            ErrorDialog dialog = new ErrorDialog();
-            Bundle args = new Bundle();
-            args.putString(ARG_MESSAGE, message);
-            dialog.setArguments(args);
-            return dialog;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Activity activity = getActivity();
-            return new AlertDialog.Builder(activity)
-                    .setMessage(getArguments().getString(ARG_MESSAGE))
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            activity.finish();
-                        }
-                    })
-                    .create();
-        }
+    public void showErrorDialog(String s) {
+        new AlertDialog.Builder(this)
+                .setMessage(s)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .create();
 
     }
 
-    public static class ConfirmationDialog extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Fragment parent = getParentFragment();
-            return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.permission_request)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            FragmentCompat.requestPermissions(parent, VIDEO_PERMISSIONS,
-                                    REQUEST_VIDEO_PERMISSIONS);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    parent.getActivity().finish();
-                                }
-                            })
-                    .create();
-        }
-
+    public void showConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.permission_request)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(Camera2Activity.this, VIDEO_PERMISSIONS,
+                                REQUEST_VIDEO_PERMISSIONS);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create();
     }
 
 }

@@ -89,8 +89,7 @@
             </intent-filter>
         </activity>
         <activity android:name="example.activity.MyRadioGroupActivity" />
-        <activity android:name="cn.style.album.AlbumActivity" />
-        <activity android:name="cn.style.album.SelectLocalPictureActivity" />
+        <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="cn.style.address.AddressActivity" />
         <activity android:name="example.activity.EnterActivity" />
         <activity android:name="example.activity.SecondActivity" />

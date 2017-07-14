@@ -2,6 +2,8 @@ package com.style.lib.album;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,9 +19,9 @@ import android.widget.TextView;
 
 import com.xiajun.libalbumselect.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 
 public class AlbumActivity extends BaseToolBarActivity {
@@ -33,6 +35,7 @@ public class AlbumActivity extends BaseToolBarActivity {
     private ArrayList<String> paths;
     private int maxNum;
     private List<ImageItem> list;
+    private static final int EVENT_GET_PICTURE = 1;
 
     @Override
     protected void customWindowKitkat(Window window) {
@@ -126,22 +129,10 @@ public class AlbumActivity extends BaseToolBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_text_only:
+        if (item.getItemId()==R.id.item_text_only||item.getItemId()==android.R.id.home){
                 setResult();
-                break;
-            case android.R.id.home:
-                setResult();
-                break;
         }
         return true;
-    }
-
-    public void changeData(PicBucket picBucket) {
-        setToolbarTitle(picBucket.getBucketName());
-        list.clear();
-        list.addAll(picBucket.getImages());
-        imageAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -154,6 +145,7 @@ public class AlbumActivity extends BaseToolBarActivity {
     }
 
     public void setResult() {
+        handler.removeMessages(EVENT_GET_PICTURE);
         setResult(RESULT_OK, new Intent().putStringArrayListExtra("paths", paths));
         finish();
     }
@@ -175,34 +167,48 @@ public class AlbumActivity extends BaseToolBarActivity {
     }
 
 
-    private Handler
+    private void refreshData(List<PicBucket> list) {
+       if (list.size()>0){
+           initStatus(list, paths);
+           buckets.clear();
+           buckets.addAll(list);
+           folderAdapter.notifyDataSetChanged();
+           changeData(buckets.get(0));
+       }
+    }
+
+    public void changeData(PicBucket picBucket) {
+        setToolbarTitle(picBucket.getBucketName());
+        list.clear();
+        list.addAll(picBucket.getImages());
+        imageAdapter.notifyDataSetChanged();
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case EVENT_GET_PICTURE:
+                    List<PicBucket> list = (List<PicBucket>) msg.getData().getSerializable("pictureList");
+                    refreshData(list);
+                    break;
+            }
+        }
+    };
 
     private void getData() {
-        CachedThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
+        new Thread(new Runnable() {
             @Override
-            public Object doInBackground() {
-                Log.e(AlbumActivity.this.TAG, "doInBackground");
+            public void run() {
                 List<PicBucket> list = LocalImagesHelper.getPicBuckets(getContext());
-                return list;
+                Message m = handler.obtainMessage(EVENT_GET_PICTURE);
+                Bundle b = new Bundle();
+                b.putSerializable("pictureList", (Serializable) list);
+                m.setData(b);
+                handler.sendMessage(m);
             }
+        }).start();
 
-            @Override
-            public void onSuccess(Object object) {
-                Log.e(AlbumActivity.this.TAG, "OnSuccess");
-                if (object != null) {
-                    List<PicBucket> list = (List<PicBucket>) object;
-                    initStatus(list, paths);
-                    buckets.clear();
-                    buckets.addAll(list);
-                    folderAdapter.notifyDataSetChanged();
-                    changeData(buckets.get(0));
-                }
-            }
-
-            @Override
-            public void onFailed(String message) {
-                super.onFailed(message);
-            }
-        });
     }
 }

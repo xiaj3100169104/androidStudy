@@ -28,7 +28,7 @@
             android:textSize="30.0dip"
             android:visibility="invisible" />
 
-        <cn.style.address.SideBar
+        <example.address.SideBar
             android:id="@+id/sidebar"
             android:layout_width="31.0dip"
             android:layout_height="fill_parent"

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import cn.style.address.UploadPhone;
-import cn.style.address.UploadPhoneAdapter;
+import example.address.UploadPhone;
+import example.address.UploadPhoneAdapter;
 import com.style.framework.R;
 import com.style.view.DividerItemDecoration;
 

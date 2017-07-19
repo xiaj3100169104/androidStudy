@@ -7,6 +7,13 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        android:text="sdsds"
+        android:textSize="25sp"/>
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
@@ -17,5 +24,5 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试队列" />
+        android:text="发送事件" />
 </LinearLayout>

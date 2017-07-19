@@ -170,7 +170,7 @@
                 <TextView
                     style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
-                    android:text="队列测试" />
+                    android:text="事件管理器" />
             </RelativeLayout>
         </LinearLayout>
 

@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +20,7 @@ import java.util.Map;
 public class EventManager {
     private static final String TAG = "EventManager";
     private static EventManager instance;
-    private Map<Object, List<Integer>> subscriberMap = new HashMap<>();
+    private HashMap<Object, LinkedHashSet<Integer>> subscriberMap = new HashMap<>();
 
     /**
      * ui handler
@@ -37,11 +39,11 @@ public class EventManager {
         if (subscriber == null)
             return;
         if (subscriberMap.containsKey(subscriber)){
-            List<Integer> list = subscriberMap.get(subscriber);
+            LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
 
         }
         if (!subscriberMap.containsKey(subscriber))
-            subscriberMap.put(subscriber, new ArrayList<Integer>());
+            subscriberMap.put(subscriber, new LinkedHashSet<Integer>());
         subscriberMap.get(subscriber).add(code);
     }
 
@@ -53,7 +55,7 @@ public class EventManager {
 
     public void post(int code, Object data) {
         for (Object subscriber : subscriberMap.keySet()) {
-            List<Integer> list = subscriberMap.get(subscriber);
+            LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
             for (Integer eventCode : list) {
                 if (eventCode.hashCode() == code) {
                     EventElement event = new EventElement(subscriber.hashCode(), eventCode, data);

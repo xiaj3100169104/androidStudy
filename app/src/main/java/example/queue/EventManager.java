@@ -38,7 +38,7 @@ public class EventManager {
     public void register(Object subscriber, int code) {
         if (subscriber == null)
             return;
-        if (subscriberMap.containsKey(subscriber)){
+        if (subscriberMap.containsKey(subscriber.getClass())){
             LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
 
         }
@@ -53,17 +53,22 @@ public class EventManager {
         }
     }
 
-    public void post(int code, Object data) {
-        for (Object subscriber : subscriberMap.keySet()) {
-            LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
-            for (Integer eventCode : list) {
-                if (eventCode.hashCode() == code) {
-                    EventElement event = new EventElement(subscriber.hashCode(), eventCode, data);
-                    dispatchEvent(event);
-                    break;
+    public void post(final int code, final Object data) {
+        ThreadPoolUtil.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (Object subscriber : subscriberMap.keySet()) {
+                    LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
+                    for (Integer eventCode : list) {
+                        if (eventCode.hashCode() == code) {
+                            EventElement event = new EventElement(subscriber.hashCode(), eventCode, data);
+                            dispatchEvent(event);
+                            break;
+                        }
+                    }
                 }
             }
-        }
+        });
     }
 
     private void dispatchEvent(EventElement event) {

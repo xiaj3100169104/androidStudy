@@ -37,13 +37,7 @@ public class QueueTestActivity extends AppCompatActivity implements View.OnClick
     private void testQueue() {
         for (int i = 0; i < 500; i++) {
             final int k = i;
-            ThreadPoolUtil.execute(new Runnable() {
-                @Override
-                public void run() {
-                    EventManager.getInstance().post(1, k);
-
-                }
-            });
+            EventManager.getInstance().post(1, k);
         }
 
     }
@@ -67,5 +61,11 @@ public class QueueTestActivity extends AppCompatActivity implements View.OnClick
             Log.e("data==", data + "");
             textView.setText(data + "");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventManager.getInstance().unRegister(this);
     }
 }

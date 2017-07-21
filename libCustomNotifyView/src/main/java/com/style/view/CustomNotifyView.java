@@ -167,7 +167,7 @@ public class CustomNotifyView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e(TAG, "onMeasure");
+        //Log.e(TAG, "onMeasure");
         /*int width = 0;
         int height = 0;
         int specMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -188,14 +188,14 @@ public class CustomNotifyView extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        Log.e(TAG, "onLayout");
+        //Log.e(TAG, "onLayout");
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.e(TAG, "onDraw");
+        //Log.e(TAG, "onDraw");
         onTextChanged();
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredHeight() / 2, mCirclePaint);
         if (!TextUtils.isEmpty(mTitleText))

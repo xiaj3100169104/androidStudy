@@ -20,11 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.OnClick;
-import xj.mqtt.bean.IMMessage;
-import xj.mqtt.bean.TextMsg;
-import xj.mqtt.db.MsgDBManager;
-import xj.mqtt.manager.IMManagerImpl;
-import xj.mqtt.service.MQTTService;
 
 
 public class HomeFragment3 extends BaseFragment {

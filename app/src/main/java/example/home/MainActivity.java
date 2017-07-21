@@ -21,11 +21,6 @@ import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import butterknife.Bind;
-import xj.mqtt.bean.IMMessage;
-import xj.mqtt.bean.MsgAction;
-import xj.mqtt.db.MsgDBManager;
-import xj.mqtt.service.MQTTService;
-import xj.mqtt.service.MyService;
 
 public class MainActivity extends BaseToolBarActivity {
 
@@ -96,21 +91,6 @@ public class MainActivity extends BaseToolBarActivity {
         super.onDestroy();
         //取消事件注册
         EventBus.getDefault().unregister(this);
-    }
-
-    @Subscriber(tag= MsgAction.MSG_NEW)
-    public void onNewMsg(IMMessage msg) {
-        Log.e(TAG, "onNewMsg");
-        updateUnreadMsg();
-    }
-    @Subscriber(tag= MsgAction.MSG_UPDATE)
-    public void onMsguodate(IMMessage msg) {
-        Log.e(TAG, "onMsguodate");
-        updateUnreadMsg();
-    }
-    private void updateUnreadMsg() {
-        int count = MsgDBManager.getInstance().getMyUnreadAllCount(curUser.getUserId());
-        viewNotifyMsg.setNotifyCount(count);
     }
 
     @Override

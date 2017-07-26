@@ -31,7 +31,7 @@
 ```
 
 # HorizontalProgressBar
-水平条形进度条，个人认为条形和环形是两种很大不同的view，应该分开
+水平条形进度条
 
 # Screenshots
   -------------

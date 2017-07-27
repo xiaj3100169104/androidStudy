@@ -99,9 +99,6 @@
         <activity android:name="example.activity.WebViewActivity" />
         <activity android:name="example.activity.WebViewAndJSActivity" />
         <activity android:name="example.activity.MultiTypeActivity" />
-        <activity android:name="example.activity.TestNotifyViewActivity" />
-        <activity android:name="example.activity.TestProgressActivity" />
-        <activity android:name="example.activity.CircleProgressBarActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />

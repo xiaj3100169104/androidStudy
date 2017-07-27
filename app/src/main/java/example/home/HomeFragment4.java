@@ -21,13 +21,10 @@ import aidl.IRemoteService;
 import butterknife.OnClick;
 import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
-import example.activity.CircleProgressBarActivity;
 import example.activity.FileDownActivity;
 import example.activity.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
 import example.queue.QueueTestActivity;
-import example.activity.TestNotifyViewActivity;
-import example.activity.TestProgressActivity;
 import example.activity.UserAgreeActivity;
 import example.media.VideoTestActivity;
 import example.activity.WebViewActivity;
@@ -54,21 +51,6 @@ public class HomeFragment4 extends BaseFragment {
     @OnClick(R.id.layout_item_42)
     public void skip42() {
         skip(MultiTypeActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_43)
-    public void skip43() {
-        skip(TestNotifyViewActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_44)
-    public void skip44() {
-        skip(TestProgressActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_45)
-    public void skip45() {
-        skip(CircleProgressBarActivity.class);
     }
 
     @OnClick(R.id.layout_item_46)

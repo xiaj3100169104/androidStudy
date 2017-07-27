@@ -1,6 +1,4 @@
 include ':app'
 include ':libAlbumSelect'
-include ':libCustomNotifyView'
-include ':libProgressbar'
 include ':libVideoRecord'
 include ':libWheelDialog'

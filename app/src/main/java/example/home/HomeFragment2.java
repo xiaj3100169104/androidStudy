@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import example.im.ChatTestActivity;
 
 
 public class HomeFragment2 extends BaseFragment {
@@ -55,9 +54,7 @@ public class HomeFragment2 extends BaseFragment {
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Object data) {
-                Friend f = (Friend) data;
-                Intent i = new Intent(getContext(), ChatTestActivity.class);
-                startActivity(i.putExtra("friend", f));
+
             }
         });
         getData();

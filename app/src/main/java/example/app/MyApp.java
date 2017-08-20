@@ -11,10 +11,6 @@ import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 
-import xj.mqtt.db.MsgDBManager;
-
-
-
 public class MyApp extends BaseApp {
 
     protected static MyApp appContext;
@@ -27,7 +23,6 @@ public class MyApp extends BaseApp {
         AppManager.getInstance().init(appContext);
         AccountManager.getInstance().init(appContext);
         UserDBManager.getInstance().initialize(appContext);
-        MsgDBManager.getInstance().init(appContext);
         initReceiver();
     }
 

@@ -325,7 +325,7 @@ public class DBUtils {
                         Method method = clazz.getDeclaredMethod(methodName, type);//根据方法名和参数列表获取方法对象
                         method.invoke(modeClass, value);//方法赋值，并赋给对象
                     }
-                    //Log.e(TAG, "getEntity=" + modeClass.toString());
+                    Log.e(TAG, "getEntity=" + modeClass.toString());
                     list.add(modeClass);
                 }
             }

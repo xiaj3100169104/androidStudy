@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.bt_sign_in)
     public void login() {
+
         String userId = etAccount.getText().toString();
         String password = etPassword.getText().toString();
         User user = new User(userId, password);
@@ -86,10 +87,14 @@ public class LoginActivity extends BaseActivity {
                 UserDBManager.getInstance().insertFriend(bean);
             }
 
-            skip(MainActivity.class);
-            finish();
+            skip2main();
         }
 
+    }
+
+    private void skip2main() {
+        skip(MainActivity.class);
+        finish();
     }
 
 

@@ -129,9 +129,11 @@
         <service
             android:name="example.aidl.AidlService"
             android:exported="false"
-            android:process="com.offline.message"/>
+            android:process="com.offline.message" />
 
-        <activity android:name="example.queue.QueueTestActivity"></activity>
+        <activity android:name="example.queue.QueueTestActivity" />
+        <activity android:name="example.activity.DataBindingActivity" />
+        <activity android:name="example.activity.TestDBActivity"></activity>
     </application>
 
 </manifest>

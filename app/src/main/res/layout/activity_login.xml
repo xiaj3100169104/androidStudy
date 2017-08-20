@@ -41,7 +41,7 @@
                     android:hint="账号"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:text="18202823096" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,7 +59,7 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:text="123456" />
 
             </android.support.design.widget.TextInputLayout>
 

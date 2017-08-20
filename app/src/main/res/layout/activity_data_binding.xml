@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?><!--布局以layout作为根布局-->
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!--绑定基本数据类型及String-->
+        <!--name:   和java代码中的对象是类似的，名字自定义-->
+        <!--type:   和java代码中的类型是一致的-->
+        <variable
+            name="content"
+            type="String" />
+
+        <variable
+            name="enabled"
+            type="boolean" />
+        <!--绑定Model数据2中形式，一中是导入该类型的，一种指定类型的全称，和java一样-->
+        <!--  方式一 -->
+        <variable
+            name="user"
+            type="com.style.bean.User" />
+        <!--  方式二 -->
+        <!--<import type="www.zhang.com.databinding.User" />-->
+        <!--<variable-->
+        <!--name="user"-->
+        <!--type="User" />-->
+        <variable
+            name="event"
+            type="example.activity.EventListener" />
+
+        <variable
+            name="title1"
+            type="String" />
+
+        <variable
+            name="title2"
+            type="String" />
+
+        <variable
+            name="title3"
+            type="String" />
+
+        <variable
+            name="title4"
+            type="String" />
+
+    </data>
+    <!--我们需要展示的布局-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/main_tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="@{enabled}"
+            android:text="@{content}" />
+
+        <Button
+            android:id="@+id/main_btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.userId}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{event.click1}"
+            android:text="@{title1}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{event::click2}"
+            android:text="@{title2}" />
+        <!--android:onClick="@{event::click2}"  编译报错没关系，可以运行的-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->event.click3(title4)}"
+            android:text="@{title3}" />
+
+    </LinearLayout>
+</layout>

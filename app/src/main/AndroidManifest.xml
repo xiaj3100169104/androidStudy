@@ -99,21 +99,41 @@
         <activity android:name="example.activity.WebViewActivity" />
         <activity android:name="example.activity.WebViewAndJSActivity" />
         <activity android:name="example.activity.MultiTypeActivity" />
+        <activity android:name="example.activity.TestNotifyViewActivity" />
+        <activity android:name="example.activity.TestProgressActivity" />
+        <activity android:name="example.activity.CircleProgressBarActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
+        <activity android:name="example.im.ChatTestActivity" />
         <activity android:name="example.home.MainActivity" />
         <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
+
+        <service
+            android:name="xj.mqtt.service.MyService"
+            android:enabled="true"
+            android:exported="true" />
 
         <receiver android:name="com.style.broadcast.NetWorkChangeBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <!-- Mqtt Service -->
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service
+            android:name="xj.mqtt.service.MQTTService"
+            android:exported="true" />
+        <service
+            android:name="example.aidl.AidlService"
+            android:exported="false"
+            android:process="com.offline.message" />
 
-        <activity android:name="example.queue.QueueTestActivity"></activity>
+        <activity android:name="example.queue.QueueTestActivity" />
+        <activity android:name="example.activity.DataBindingActivity" />
+        <activity android:name="example.activity.TestDBActivity"></activity>
     </application>
 
 </manifest>

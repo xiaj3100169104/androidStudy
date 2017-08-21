@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import example.activity.DataBindingActivity;
+import example.activity.TestDBActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
 
@@ -46,6 +48,16 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void initData() {
 
+    }
+
+    @OnClick(R.id.layout_item_418)
+    public void skip418() {
+        skip(TestDBActivity.class);
+    }
+
+    @OnClick(R.id.layout_item_419)
+    public void skip419() {
+        skip(DataBindingActivity.class);
     }
 
     @OnClick(R.id.layout_item_42)

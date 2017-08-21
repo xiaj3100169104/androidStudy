@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--自定义通知小圆点-->
+    <declare-styleable name="CustomNotifyView">
+        <attr name="notifyBackgroundColor" format="color" />
+        <attr name="notifyText" format="string" />
+        <attr name="notifyTextColor" format="color" />
+        <attr name="notifyTextSize" format="dimension" />
+    </declare-styleable>
+    <!--水平条形进度条-->
+    <attr name="horizontalProgressColor" format="color" />
+    <attr name="horizontalProgress" format="integer" />
 
+    <declare-styleable name="HorizontalProgressBar">
+        <attr name="horizontalProgressColor" />
+        <attr name="horizontalProgress" />
+    </declare-styleable>
 
+    <declare-styleable name="CirclePercentView">
+        <attr name="circleProgress_radius" format="dimension" />      <!--最大半径-->
+        <attr name="circleProgress_stripeWidth" format="dimension" /> <!--色带宽度-->
+        <attr name="circleProgress_percent" format="integer" />       <!--百分比 最大值为100-->
+        <attr name="circleProgress_smallColor" format="color" />      <!--内圈颜色-->
+        <attr name="circleProgress_bigColor" format="color" />        <!--外圈颜色-->
+        <attr name="circleProgress_finishColor" format="color" />     <!--进度完成颜色-->
+        <attr name="circleProgress_textColor" format="color" />       <!--中心百分比文字颜色-->
+        <attr name="circleProgress_centerTextSize" format="dimension" />     <!--中心百分比字体大小-->
+        <attr name="circleProgress_indeterminate" format="boolean" />     <!--不确定进度-->
+    </declare-styleable>
 </resources>

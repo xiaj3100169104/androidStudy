@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        custom:centerTextSize="15sp"
-        custom:percent="75"
-        custom:radius="20dp"
-        custom:stripeWidth="6dp"
+        custom:circleProgress_centerTextSize="15sp"
+        custom:circleProgress_percent="75"
+        custom:circleProgress_radius="20dp"
+        custom:circleProgress_stripeWidth="6dp"
         />
 
     <TextView

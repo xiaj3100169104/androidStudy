@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import example.activity.DataBindingActivity;
 import example.activity.TestDBActivity;
+import example.activity.TestRealmActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
 
@@ -48,6 +49,10 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void initData() {
 
+    }
+    @OnClick(R.id.layout_item_417)
+    public void skip417() {
+        skip(TestRealmActivity.class);
     }
 
     @OnClick(R.id.layout_item_418)

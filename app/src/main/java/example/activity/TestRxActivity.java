@@ -43,7 +43,7 @@ public class TestRxActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.btn_just)
+    @OnClick(R.id.btn_map)
     public void skip2() {
         Flowable.just("hello RxJava 2")
                 .map(new Function<String, String>() {

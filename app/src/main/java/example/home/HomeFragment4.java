@@ -15,6 +15,7 @@ import example.activity.DataBindingActivity;
 import example.activity.GreenDaoActivity;
 import example.activity.TestDBActivity;
 import example.activity.TestRealmActivity;
+import example.activity.TestRxActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
 
@@ -51,6 +52,11 @@ public class HomeFragment4 extends BaseFragment {
     protected void initData() {
 
     }
+    @OnClick(R.id.layout_item_415)
+    public void skip415() {
+        skip(TestRxActivity.class);
+    }
+
     @OnClick(R.id.layout_item_416)
     public void skip416() {
         skip(GreenDaoActivity.class);

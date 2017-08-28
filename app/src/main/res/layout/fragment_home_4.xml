@@ -37,6 +37,27 @@
                     android:text="头像" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/layout_item_416"
+                style="@style/Layouts.normal_RelativeLayout">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        style="@style/layout_item_right_image"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        style="@style/text_black_16sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="GreenDao测试" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/layout_item_417"
                 style="@style/Layouts.normal_RelativeLayout">
 
@@ -75,7 +96,7 @@
                         style="@style/text_black_16sp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:text="数据库升级" />
+                        android:text="原生数据库api" />
                 </LinearLayout>
             </RelativeLayout>
             <RelativeLayout

@@ -121,7 +121,9 @@
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.activity.DataBindingActivity" />
         <activity android:name="example.activity.TestDBActivity" />
-        <activity android:name="example.activity.TestRealmActivity"></activity>
+        <activity android:name="example.activity.TestRealmActivity" />
+        <activity android:name="example.activity.GreenDaoActivity" />
+        <activity android:name="example.activity.TestRxActivity"></activity>
     </application>
 
 </manifest>

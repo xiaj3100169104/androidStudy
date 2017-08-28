@@ -12,6 +12,7 @@ import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 
 import example.db.RealmDBManager;
+import example.greendao.dao.GreenDaoManager;
 
 public class MyApp extends BaseApp {
 
@@ -26,7 +27,8 @@ public class MyApp extends BaseApp {
         AccountManager.getInstance().init(appContext);
         UserDBManager.getInstance().initialize(appContext);
         initReceiver();
-        RealmDBManager.getInstance().initialize(this);
+        RealmDBManager.getInstance().initialize(appContext);
+        GreenDaoManager.getInstance().initialize(appContext);
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）

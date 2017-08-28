@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.activity.DataBindingActivity;
+import example.activity.GreenDaoActivity;
 import example.activity.TestDBActivity;
 import example.activity.TestRealmActivity;
 import example.address.AddressActivity;
@@ -49,6 +50,10 @@ public class HomeFragment4 extends BaseFragment {
     @Override
     protected void initData() {
 
+    }
+    @OnClick(R.id.layout_item_416)
+    public void skip416() {
+        skip(GreenDaoActivity.class);
     }
     @OnClick(R.id.layout_item_417)
     public void skip417() {

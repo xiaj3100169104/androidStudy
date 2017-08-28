@@ -19,10 +19,47 @@
         android:text="清空表数据" />
 
     <Button
+        android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update" />
+
+    <Button
         android:id="@+id/btn_query_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="查询所有" />
+
+    <Button
+        android:id="@+id/btn_query_asc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="升序查询" />
+
+    <Button
+        android:id="@+id/btn_query_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="降序查询" />
+
+    <Button
+        android:id="@+id/btn_query_and"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="and查询" />
+
+    <Button
+        android:id="@+id/btn_query_or"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="or查询" />
+
+    <Button
+        android:id="@+id/btn_query_between"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="between查询" />
+
 
     <Button
         android:id="@+id/btn_insert_new_db"

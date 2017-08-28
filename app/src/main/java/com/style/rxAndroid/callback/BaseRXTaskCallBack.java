@@ -13,10 +13,11 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public abstract class BaseRXTaskCallBack{
+public abstract class BaseRXTaskCallBack {
     protected String TAG = "BaseRXTaskCallBack";
 
     public Disposable run() {
+        //被观察者
         Observable<Object> mObservable = Observable.fromCallable(new Callable<Object>() {
             @Override
             public Object call() {
@@ -32,6 +33,7 @@ public abstract class BaseRXTaskCallBack{
                 e.onNext(1);
             }
         });*/
+        //消费者
         Consumer<Object> observer = new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
@@ -39,6 +41,7 @@ public abstract class BaseRXTaskCallBack{
                 onNextOnUIThread(o);
             }
         };
+        //一次性用品，可以连接或断开Observer(观察者)与Observable(被观察者)
         Disposable disposable = mObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

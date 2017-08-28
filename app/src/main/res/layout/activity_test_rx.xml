@@ -7,16 +7,16 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_insert_list"
+        android:id="@+id/btn_just"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="插入数据" />
+        android:text="just" />
 
     <Button
-        android:id="@+id/btn_clear_table"
+        android:id="@+id/btn_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="清空表数据" />
+        android:text="map" />
 
     <Button
         android:id="@+id/btn_query_all"
@@ -31,3 +31,4 @@
         android:text="插入新数据库" />
 
 </LinearLayout>
+

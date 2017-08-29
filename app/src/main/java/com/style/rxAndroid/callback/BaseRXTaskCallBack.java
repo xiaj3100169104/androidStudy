@@ -25,6 +25,8 @@ public abstract class BaseRXTaskCallBack {
                 return doInBackground();
             }
         });
+        //定义生产事件线程
+        mObservable.subscribeOn(Schedulers.io());
       /*  Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
@@ -33,6 +35,8 @@ public abstract class BaseRXTaskCallBack {
                 e.onNext(1);
             }
         });*/
+        //定义消费事件线程
+        mObservable.observeOn(AndroidSchedulers.mainThread());
         //消费者
         Consumer<Object> observer = new Consumer<Object>() {
             @Override
@@ -42,9 +46,7 @@ public abstract class BaseRXTaskCallBack {
             }
         };
         //一次性用品，可以连接或断开Observer(观察者)与Observable(被观察者)
-        Disposable disposable = mObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+        Disposable disposable = mObservable.subscribe(observer);
         return disposable;
     }
 

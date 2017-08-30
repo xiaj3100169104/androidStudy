@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.style.lib.album.loader.ImageLoader;
 import com.xiajun.libalbumselect.R;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ImageItemAdapter extends BaseRecyclerViewAdapter<ImageItem> {
         final ViewHolder holder = (ViewHolder) viewHolder;
         ImageItem item = getData(position);
         String path = item.getImagePath();
-        ImageLoadManager.loadNormalPicture(mContext, ((ViewHolder) viewHolder).image, path);
+        ImageLoader.normal(mContext, ((ViewHolder) viewHolder).image, path);
 
         if (item.isSelected()) {
             holder.isselected.setVisibility(View.VISIBLE);

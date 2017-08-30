@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.style.lib.album.loader.ImageLoader;
 import com.xiajun.libalbumselect.R;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ImageFolderAdapter extends BaseRecyclerViewAdapter<PicBucket> {
             }
         }
         String path = item.getImages().get(0).getImagePath();
-        ImageLoadManager.loadNormalPicture(mContext, holder.image, path);
+        ImageLoader.normal(mContext, holder.image, path);
         holder.tvName.setText(item.getBucketName());
         holder.tvCount.setText(" (" + num + "/" + item.getImages().size() + ")");
         super.setOnItemClickListener(holder, position);

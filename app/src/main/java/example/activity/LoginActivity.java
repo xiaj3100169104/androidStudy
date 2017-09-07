@@ -15,11 +15,16 @@ import com.style.manager.AccountManager;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import example.home.MainActivity;
+import example.login.presenter.ILoginPresenter;
+import example.login.presenter.LoginPresenterImpl;
+import example.login.view.ILoginView;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Bind(R.id.login_progress)
     ProgressBar loginProgress;
@@ -30,7 +35,9 @@ public class LoginActivity extends BaseActivity {
     @Bind(R.id.bt_sign_in)
     Button btSignIn;
     private long userId = 18;
-    private User curUser;
+
+    //@Inject
+    ILoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +52,9 @@ public class LoginActivity extends BaseActivity {
                 "xj.mqtt.service.MyService"));
         startService(it);*/
 
-        curUser = AccountManager.getInstance().getCurrentUser();
-        if (curUser != null) {
-            skip(MainActivity.class);
-            finish();
-            return;
 
-        }
-
+        presenter = new LoginPresenterImpl(this);
+        presenter.onActivityCreate();
 
     }
 
@@ -61,41 +63,38 @@ public class LoginActivity extends BaseActivity {
 
         String userId = etAccount.getText().toString();
         String password = etPassword.getText().toString();
-        User user = new User(userId, password);
-        AccountManager.getInstance().setCurrentUser(user);
-        synData();
+        presenter.login(userId, password);
     }
 
-    public void synData() {
-        curUser = AccountManager.getInstance().getCurrentUser();
-
-        List<User> friends = UserDBManager.getInstance().getAllMyFriend(curUser.getUserId());
-        if (friends != null && friends.size() > 0) {
-            skip(MainActivity.class);
-            finish();
-        } else {
-            for (int i = 2; i < 10; i++) {
-                User user = new User(i + "", "123456");
-                UserDBManager.getInstance().insertUser(user);
-            }
-
-            for (int i = 2; i < 5; i++) {
-                Friend bean = new Friend();
-                bean.setFriendId(i + "");
-                bean.setOwnerId(curUser.getUserId());
-                bean.setMark("朋友" + i);
-                UserDBManager.getInstance().insertFriend(bean);
-            }
-
-            skip2main();
-        }
-
+    @Override
+    public void setUserName(String userName) {
+        setText(etAccount, userName);
     }
 
-    private void skip2main() {
+    @Override
+    public void setPassword(String password) {
+        setText(etPassword, password);
+    }
+
+    @Override
+    public void skip2Main() {
         skip(MainActivity.class);
         finish();
     }
 
+    @Override
+    public void loginSuccess() {
+        skip2Main();
+    }
 
+    @Override
+    public void loginFailed() {
+        showToast("登录失败");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onActivityDestroy();
+    }
 }

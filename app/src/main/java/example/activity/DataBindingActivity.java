@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.bean.User;
-import com.style.framework.BR;
+//import com.style.framework.BR;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityDataBindingBinding;
+//import com.style.framework.databinding.ActivityDataBindingBinding;
 
 public class DataBindingActivity extends AppCompatActivity {
 
-    private ActivityDataBindingBinding binding;
+    //private ActivityDataBindingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
+       /* binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
         //2.绑定基本数据类型及String
         binding.setContent("对String类型数据的绑定");//setContent就是给布局文件text属性绑定的content设置值
         binding.setEnabled(false);//设置enabled值为false
@@ -32,6 +32,7 @@ public class DataBindingActivity extends AppCompatActivity {
         //3.绑定model对象数据
         User user = new User("绑定Model数据类型","sdsd");
         binding.setUser(user);
+
         binding.setVariable(BR.enabled, true);
 
         binding.setTitle1("事件绑定1");
@@ -57,6 +58,6 @@ public class DataBindingActivity extends AppCompatActivity {
                 binding.setTitle3(s);
 
             }
-        });
+        });*/
     }
 }

@@ -15,12 +15,22 @@ import com.style.base.BaseToolBarActivity;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
+import com.style.net.core.HttpActionManager;
+import com.style.net.core.NetDataBeanCallback;
+import com.style.net.core.NetStringCallback;
 import com.style.view.CustomNotifyView;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import butterknife.Bind;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseToolBarActivity {
 
@@ -86,6 +96,7 @@ public class MainActivity extends BaseToolBarActivity {
         super.onResume();
         //updateUnreadMsg();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -156,6 +167,10 @@ public class MainActivity extends BaseToolBarActivity {
         }
         bt.commitAllowingStateLoss();
         setToolbarTitle(titles[currentTabIndex]);
+
+        HttpActionManager.getInstance().login(TAG, "18202823096", new NetStringCallback());
+        HttpActionManager.getInstance().getWeather(TAG, "1117", new NetStringCallback());
+
     }
 
     public void onTabClicked(View view) {

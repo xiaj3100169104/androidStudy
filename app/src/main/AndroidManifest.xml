@@ -123,7 +123,7 @@
         <activity android:name="example.activity.TestDBActivity" />
         <activity android:name="example.activity.TestRealmActivity" />
         <activity android:name="example.activity.GreenDaoActivity" />
-        <activity android:name="example.activity.TestRxActivity"></activity>
+        <activity android:name="example.activity.TestRxActivity" />
     </application>
 
 </manifest>

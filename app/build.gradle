@@ -69,7 +69,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + project.ANDROID_SUPPORT_VERSION
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile project(':libAlbumSelect')
+    compile project(':mediapicker')
     compile project(':libVideoRecord')
     compile project(':libWheelDialog')
 

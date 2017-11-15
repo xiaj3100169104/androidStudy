@@ -20,8 +20,8 @@ public class ImageLoadManager {
         if (!TextUtils.isEmpty(url)) {
             RequestOptions options = new RequestOptions()
                     .centerCrop()
-                    .placeholder(com.xiajun.libalbumselect.R.mipmap.empty_photo)
-                    .error(com.xiajun.libalbumselect.R.mipmap.image_fail)
+                    .placeholder(R.mipmap.empty_photo)
+                    .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);
             Glide.with(context).load(url).apply(options).into(imageView);
         }   }

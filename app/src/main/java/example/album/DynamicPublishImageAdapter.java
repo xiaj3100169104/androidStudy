@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 
@@ -15,11 +16,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.style.manager.ImageLoadManager;
 
-public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter {
+public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter<Media> {
 
     private OnDeleteClickListener listener;
 
-    public DynamicPublishImageAdapter(Context context, List list) {
+    public DynamicPublishImageAdapter(Context context, List<Media> list) {
         super(context, list);
     }
 
@@ -32,10 +33,10 @@ public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         final int index = position;
         ViewHolder holder = (ViewHolder) viewHolder;
-        String path = (String) getData(position);
+        Media media = getData(position);
         if (position != getItemCount() - 1) {
             holder.ivDelete.setVisibility(View.VISIBLE);
-            ImageLoadManager.loadNormalPicture(mContext, holder.ivActiveImages, path);
+            ImageLoadManager.loadNormalPicture(mContext, holder.ivActiveImages, media.path);
 
         } else {
             holder.ivDelete.setVisibility(View.GONE);

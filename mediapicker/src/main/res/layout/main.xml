@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#161c1e"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/top"
+        layout="@layout/picker_actionbar" />
+
+    <RelativeLayout
+        android:clickable="true"
+        android:id="@+id/footer"
+        android:background="#21282C"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+
+        <Button
+            android:visibility="visible"
+            android:id="@+id/preview"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:minHeight="1dp"
+            android:text="@string/preview"
+            android:minWidth="1dp"
+            android:background="@null"
+            android:textColor="@color/default_text_color"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/category_btn"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/default_text_color"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:text="@string/all_dir_name"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/text_indicator"
+            android:drawablePadding="5dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>

@@ -7,10 +7,28 @@
     <include layout="@layout/comm_toolbar" />
 
     <Button
-        android:id="@+id/btn_PropertyAnimation"
+        android:id="@+id/btn_value_animator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="属性动画" />
+        android:text="value_animator" />
+
+    <Button
+        android:id="@+id/btn_object_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="object_animator" />
+
+    <Button
+        android:id="@+id/btn_animator_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="animator_set" />
+
+    <Button
+        android:id="@+id/btn_animator_xml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="animator_xml" />
 
     <ImageView
         android:id="@+id/iv_property"

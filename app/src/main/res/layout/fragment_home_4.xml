@@ -36,6 +36,29 @@
                     android:layout_centerVertical="true"
                     android:text="头像" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_item_414"
+                style="@style/Layouts.normal_RelativeLayout">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        style="@style/layout_item_right_image"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        style="@style/text_black_16sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="动画分类" />
+                </LinearLayout>
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_415"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -57,6 +80,7 @@
                         android:text="rx测试" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_416"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -78,6 +102,7 @@
                         android:text="GreenDao测试" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_417"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -99,6 +124,7 @@
                         android:text="realm数据库" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_418"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -120,6 +146,7 @@
                         android:text="原生数据库api" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_419"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -141,6 +168,7 @@
                         android:text="DataDinding" />
                 </LinearLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_42"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -162,9 +190,6 @@
                         android:text="复杂适配器" />
                 </LinearLayout>
             </RelativeLayout>
-
-
-
 
 
         </LinearLayout>
@@ -197,6 +222,7 @@
                     android:layout_centerVertical="true"
                     android:text="VoiceRecord" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_49"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -206,6 +232,7 @@
                     android:layout_centerVertical="true"
                     android:text="SocketTest" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_item_491"
                 style="@style/Layouts.normal_RelativeLayout">
@@ -275,6 +302,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="jni测试" />
+
             <Button
                 android:id="@+id/btn_aidl"
                 android:layout_width="wrap_content"

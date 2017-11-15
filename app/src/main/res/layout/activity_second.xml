@@ -1,25 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/comm_toolbar" />
 
-    <EditText
-        android:id="@+id/messageET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入要发送的信息"/>
-
     <Button
-        android:id="@+id/send"
+        android:id="@+id/btn_PropertyAnimation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发送消息"/>
+        android:text="属性动画" />
 
-    <Button
-        android:id="@+id/send_broadcast"
+    <ImageView
+        android:id="@+id/iv_property"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="发送广播消息"/>
+        android:src="@mipmap/ic_launcher" />
 
 </LinearLayout>

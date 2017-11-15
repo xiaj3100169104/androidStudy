@@ -48,6 +48,17 @@ android {
     dataBinding {
         enabled = true
     }
+
+    productFlavors {
+        xiaomi {}
+        _360 {}
+        baidu {}
+        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
 }
 
 dependencies {

@@ -92,7 +92,7 @@
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
         <activity android:name="example.activity.EnterActivity" />
-        <activity android:name="example.activity.SecondActivity" />
+        <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.UserAgreeActivity" />
         <activity android:name="example.activity.WheelActivity" />
         <activity android:name="example.activity.FileDownActivity" />
@@ -124,6 +124,11 @@
         <activity android:name="example.activity.TestRealmActivity" />
         <activity android:name="example.activity.GreenDaoActivity" />
         <activity android:name="example.activity.TestRxActivity" />
+
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

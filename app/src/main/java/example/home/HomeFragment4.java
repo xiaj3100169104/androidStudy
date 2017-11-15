@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
 import example.activity.GreenDaoActivity;
 import example.activity.TestDBActivity;
@@ -52,6 +53,12 @@ public class HomeFragment4 extends BaseFragment {
     protected void initData() {
 
     }
+
+    @OnClick(R.id.layout_item_414)
+    public void skip414() {
+        skip(AnimatorActivity.class);
+    }
+
     @OnClick(R.id.layout_item_415)
     public void skip415() {
         skip(TestRxActivity.class);
@@ -61,6 +68,7 @@ public class HomeFragment4 extends BaseFragment {
     public void skip416() {
         skip(GreenDaoActivity.class);
     }
+
     @OnClick(R.id.layout_item_417)
     public void skip417() {
         skip(TestRealmActivity.class);

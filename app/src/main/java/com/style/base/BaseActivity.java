@@ -30,7 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected View mContentView;
     private LoadingDialog progressDialog;
 
-    public abstract void initData();
 
     public <T extends View> T getView(int id) {
         return (T) findViewById(id);
@@ -52,6 +51,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initData();
     }
+
+    public abstract void initData();
 
     //自定义窗口属性
     protected void customWindowOptions(Window window) {

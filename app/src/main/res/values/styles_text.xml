@@ -164,4 +164,13 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/sel_titlebar_right_text_white</item>
     </style>
+
+    <!-- 标题栏右边文本风格 -->
+    <style name="text_home_item" parent="text_black_16sp">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">16dp</item>
+
+    </style>
 </resources>

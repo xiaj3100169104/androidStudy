@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LocalVideoActivity extends AppCompatActivity {
     LocalVideoAdapter adapter;
-    List<File> videoList;
+    ArrayList<File> videoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

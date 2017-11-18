@@ -21,13 +21,13 @@ import butterknife.ButterKnife;
 /**
  * Created by XiaJun on 2015/7/2.
  */
-public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter {
+public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter<UploadPhone> {
     public static final int TYPE_BANNER = 0;
     public static final int TYPE_HEADER = 1;
     public static final int TYPE_CONTACT = 2;
     public static final int TYPE_ADDRESS = 3;
 
-    public MultiTypeRecyclerViewAdapter(Context context, List dataList) {
+    public MultiTypeRecyclerViewAdapter(Context context, ArrayList<UploadPhone> dataList) {
         super(context, dataList);
     }
 
@@ -61,9 +61,9 @@ public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter {
                 break;
             case TYPE_ADDRESS:
                 AddressViewHolder holder2 = (AddressViewHolder) viewHolder;
-                List list2 = new ArrayList();
+                ArrayList<UploadPhone> list2 = new ArrayList();
                 if (list.size() > 4)
-                    list2 = getList().subList(3, getItemCount() - 3);
+                    list2 = (ArrayList<UploadPhone>) getList().subList(3, getItemCount() - 3);
                 UploadPhoneAdapter adapter = new UploadPhoneAdapter(getContext(), list2);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -75,7 +75,7 @@ public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter {
                 break;
             case TYPE_CONTACT:
                 ContactViewHolder holder = (ContactViewHolder) viewHolder;
-                UploadPhone up = (UploadPhone) getData(position);
+                UploadPhone up = getData(position);
                 logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
                 String name = up.getName();
                 setText(holder.tv_first_name, name.substring(name.length() - 1, name.length()));

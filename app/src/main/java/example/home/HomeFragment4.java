@@ -54,11 +54,6 @@ public class HomeFragment4 extends BaseFragment {
 
     }
 
-    @OnClick(R.id.layout_item_414)
-    public void skip414() {
-        skip(AnimatorActivity.class);
-    }
-
     @OnClick(R.id.layout_item_415)
     public void skip415() {
         skip(TestRxActivity.class);
@@ -72,21 +67,6 @@ public class HomeFragment4 extends BaseFragment {
     @OnClick(R.id.layout_item_417)
     public void skip417() {
         skip(TestRealmActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_418)
-    public void skip418() {
-        skip(TestDBActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_419)
-    public void skip419() {
-        skip(DataBindingActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_42)
-    public void skip42() {
-        skip(MultiTypeActivity.class);
     }
 
     @OnClick(R.id.layout_item_46)
@@ -110,93 +90,5 @@ public class HomeFragment4 extends BaseFragment {
     }
 
 
-    @OnClick(R.id.btn_album)
-    public void skip1() {
-        skip(SelectLocalPictureActivity.class);
-    }
 
-    @OnClick(R.id.btn_address)
-    public void skip2() {
-        skip(AddressActivity.class);
-    }
-
-    @OnClick(R.id.btn_radio)
-    public void skip3() {
-        skip(MyRadioGroupActivity.class);
-    }
-
-    @OnClick(R.id.btn_wheel)
-    public void skip4() {
-        skip(WheelActivity.class);
-    }
-
-    @OnClick(R.id.btn_user_agree)
-    public void skip5() {
-        skip(UserAgreeActivity.class);
-    }
-
-    @OnClick(R.id.btn_file_down)
-    public void skip6() {
-        skip(FileDownActivity.class);
-    }
-
-    @OnClick(R.id.btn_web_view)
-    public void skip7() {
-        skip(WebViewActivity.class);
-    }
-
-    @OnClick(R.id.btn_web_view_js)
-    public void skip8() {
-        skip(WebViewAndJSActivity.class);
-    }
-
-    @OnClick(R.id.btn_jni)
-    public void skip9() {
-        skip(JniTestActivity.class);
-    }
-
-    @OnClick(R.id.btn_aidl)
-    public void skip10() {
-        //skip(JniTestActivity.class);
-        //getActivity().startService(new Intent(getContext(), AidlService.class));
-        testAidl();
-    }
-
-    private void testAidl() {
-        System.out.println("begin bindService");
-        Intent intent = new Intent("duanqing.test.aidl");
-        intent.setPackage("com.xiajun.voicephone");
-        getActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
-    }
-
-    private IRemoteService remoteService;
-
-    ServiceConnection conn = new ServiceConnection() {
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            remoteService = IRemoteService.Stub.asInterface(service);
-            try {
-                int pid = remoteService.getPid();
-                int currentPid = android.os.Process.myPid();
-                System.out.println("currentPID: " + currentPid + "  remotePID: " + pid);
-                remoteService.basicTypes(12, 1223, true, 12.2f, 12.3, "我们的爱，我明白");
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-            System.out.println("bind success! " + remoteService.toString());
-        }
-    };
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //如果没有进行过绑定操作，解绑会报错
-        if (remoteService != null)
-            getActivity().unbindService(conn);
-    }
 }

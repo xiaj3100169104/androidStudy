@@ -12,6 +12,8 @@ import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,11 +25,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
 
     public Context mContext;
     public LayoutInflater mInflater;
-    public List<T> list;
+    public ArrayList<T> list;
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public BaseRecyclerViewAdapter(Context context, List<T> dataList) {
+    public BaseRecyclerViewAdapter(Context context, ArrayList<T> dataList) {
         this.list = dataList;
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -40,11 +42,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public Context getContext() {
         return mContext;
     }
-    public List<T> getList() {
+    public ArrayList<T> getList() {
         return list;
     }
 
-    public void setData(List<T> list) {
+    public void setData(ArrayList<T> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -54,19 +56,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         notifyDataSetChanged();
     }
 
-    public void setData(T[] data) {
-        if (data != null) {
-            setData(Arrays.asList(data));
-        }
-    }
-
-    public void addData(T[] data) {
-        if (data != null && data.length > 0) {
-            addData(Arrays.asList(data));
-        }
-    }
-
-    public void addData(List<T> list) {
+    public void addData(ArrayList<T> list) {
         this.list.addAll(list);
         notifyDataSetChanged();
     }

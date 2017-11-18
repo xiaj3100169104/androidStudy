@@ -10,13 +10,14 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class UploadPhoneAdapter extends BaseRecyclerViewAdapter<UploadPhone> implements SectionIndexer {
-	public UploadPhoneAdapter(Context context, List<UploadPhone> list) {
+	public UploadPhoneAdapter(Context context, ArrayList<UploadPhone> list) {
 		super(context, list);
 	}
 

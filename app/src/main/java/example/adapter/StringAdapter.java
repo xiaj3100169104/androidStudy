@@ -1,4 +1,4 @@
-package example.home;
+package example.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +10,14 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.Friend;
 import com.style.framework.R;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FriendAdapter extends BaseRecyclerViewAdapter {
-    public FriendAdapter(Context context, ArrayList list) {
+public class StringAdapter extends BaseRecyclerViewAdapter<String> {
+    public StringAdapter(Context context, ArrayList<String> list) {
         super(context, list);
     }
 
@@ -31,9 +30,8 @@ public class FriendAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        Friend f = (Friend) getData(position);
-        setText(holder.tv_mark, f.getMark());
-        setText(holder.tv_name, f.getUser().getUserName());
+        String f = getData(position);
+        setText(holder.tv_mark, f);
         super.setOnItemClickListener(holder, position);
 
     }

@@ -1,15 +1,50 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/windows_color">
 
-    <Button
-        android:id="@+id/view_1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red_normal"
-        android:text="退出"
-        android:textColor="@color/white"/>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:divider="@drawable/divider_common"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/layout_item_418"
+            style="@style/text_home_item"
+            android:text="原生数据库操作" />
+
+        <TextView
+            android:id="@+id/layout_item_414"
+            style="@style/text_home_item"
+            android:text="动画分类" />
+
+        <TextView
+            android:id="@+id/layout_item_419"
+            style="@style/text_home_item"
+            android:text="DataDinding" />
+
+        <TextView
+            android:id="@+id/btn_web_view"
+            style="@style/text_home_item"
+            android:text="加载网页" />
+
+        <TextView
+            android:id="@+id/btn_web_view_js"
+            style="@style/text_home_item"
+            android:text="与js交互" />
+
+        <TextView
+            android:id="@+id/btn_jni"
+            style="@style/text_home_item"
+            android:text="jni测试" />
+
+        <TextView
+            android:id="@+id/btn_aidl"
+            style="@style/text_home_item"
+            android:text="aidl测试" />
+    </LinearLayout>
+</ScrollView>

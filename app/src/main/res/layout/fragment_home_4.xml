@@ -18,179 +18,50 @@
             android:orientation="vertical"
             android:showDividers="middle">
 
-            <RelativeLayout
-                android:id="@+id/layout_item_41"
-                style="@style/Layouts.normal_RelativeLayout"
-                android:layout_height="80dp">
+            <LinearLayout
+                android:id="@+id/layout_item_415"
+                style="@style/Layouts.normal_LinearLayout">
 
                 <ImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    style="@style/layout_item_right_image"
                     android:src="@mipmap/ic_launcher" />
 
                 <TextView
                     style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
-                    android:text="头像" />
-            </RelativeLayout>
+                    android:layout_marginLeft="10dp"
+                    android:text="rx测试" />
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/layout_item_414"
-                style="@style/Layouts.normal_RelativeLayout">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="动画分类" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_item_415"
-                style="@style/Layouts.normal_RelativeLayout">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="rx测试" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layout_item_416"
-                style="@style/Layouts.normal_RelativeLayout">
+                style="@style/Layouts.normal_LinearLayout">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
+                    android:layout_marginLeft="10dp"
+                    android:text="GreenDao测试" />
+            </LinearLayout>
 
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="GreenDao测试" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layout_item_417"
-                style="@style/Layouts.normal_RelativeLayout">
+                style="@style/Layouts.normal_LinearLayout">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="realm数据库" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_item_418"
-                style="@style/Layouts.normal_RelativeLayout">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="原生数据库api" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_item_419"
-                style="@style/Layouts.normal_RelativeLayout">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="DataDinding" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layout_item_42"
-                style="@style/Layouts.normal_RelativeLayout">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="复杂适配器" />
-                </LinearLayout>
-            </RelativeLayout>
-
+                    android:layout_marginLeft="10dp"
+                    android:text="realm数据库" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -242,72 +113,6 @@
                     android:layout_centerVertical="true"
                     android:text="事件管理器" />
             </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btn_album"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="album" />
-
-            <Button
-                android:id="@+id/btn_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="address" />
-
-            <Button
-                android:id="@+id/btn_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="radiogroup" />
-
-            <Button
-                android:id="@+id/btn_wheel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="wheel" />
-
-            <Button
-                android:id="@+id/btn_user_agree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户协议" />
-
-            <Button
-                android:id="@+id/btn_file_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="文件下载" />
-
-            <Button
-                android:id="@+id/btn_web_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加载网页" />
-
-            <Button
-                android:id="@+id/btn_web_view_js"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="与js交互" />
-
-            <Button
-                android:id="@+id/btn_jni"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="jni测试" />
-
-            <Button
-                android:id="@+id/btn_aidl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="aidl测试" />
         </LinearLayout>
 
     </LinearLayout>

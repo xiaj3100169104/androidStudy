@@ -10,6 +10,7 @@ import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -20,7 +21,7 @@ public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter<Media> {
 
     private OnDeleteClickListener listener;
 
-    public DynamicPublishImageAdapter(Context context, List<Media> list) {
+    public DynamicPublishImageAdapter(Context context, ArrayList<Media> list) {
         super(context, list);
     }
 

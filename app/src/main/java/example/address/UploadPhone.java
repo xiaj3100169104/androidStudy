@@ -24,6 +24,10 @@ public class UploadPhone implements Serializable {
 	public UploadPhone() {
 	}
 
+	public UploadPhone(String banner) {
+
+	}
+
 	public boolean isUploaded() {
 		return isUploaded;
 	}

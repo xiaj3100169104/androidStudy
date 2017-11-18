@@ -32,7 +32,7 @@ public class MultiTypeActivity extends BaseToolBarActivity {
     private String banner = "banner";
     private String address = "address";
     private String header = "header";
-    private List dataList;
+    private ArrayList<UploadPhone> dataList;
     private LinearLayoutManager layoutManager;
     private MultiTypeRecyclerViewAdapter adapter;
 
@@ -47,9 +47,9 @@ public class MultiTypeActivity extends BaseToolBarActivity {
         setToolbarTitle("复杂布局");
 
         dataList = new ArrayList<>();
-        dataList.add(banner);
-        dataList.add(address);
-        dataList.add(header);
+        dataList.add(new UploadPhone(banner));
+        dataList.add(new UploadPhone(address));
+        dataList.add(new UploadPhone(header));
         adapter = new MultiTypeRecyclerViewAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

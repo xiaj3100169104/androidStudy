@@ -16,13 +16,14 @@ import com.style.utils.BitmapUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
-    public LocalVideoAdapter(Context context, List<File> list) {
+    public LocalVideoAdapter(Context context, ArrayList<File> list) {
         super(context, list);
     }
 

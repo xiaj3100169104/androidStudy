@@ -31,7 +31,7 @@ public class AddressActivity extends BaseToolBarActivity {
     TextView tvDialog;
     @Bind(R.id.sidebar)
     SideBar sidebar;
-    private List dataList;
+    private ArrayList dataList;
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
 

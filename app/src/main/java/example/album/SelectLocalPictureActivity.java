@@ -33,7 +33,7 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
     private Media TAG_ADD;
 
     private DynamicPublishImageAdapter adapter;
-    private List<Media> paths;
+    private ArrayList<Media> paths;
     protected File photoFile;
     private SelAvatarDialog dialog;
 
@@ -144,10 +144,9 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
                                 cacheList.add(paths.get(i));
                             }
                         }
-                        //intent.putStringArrayListExtra("paths", cacheList);
 
                         Intent intent = new Intent(SelectLocalPictureActivity.this, PickerActivity.class);
-                        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE_VIDEO);//default image and video (Optional)
+                        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
                         long maxSize = 188743680L;//long long long
                         intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
                         intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)

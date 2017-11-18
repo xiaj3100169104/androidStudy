@@ -24,7 +24,8 @@ public class ImageLoadManager {
                     .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);
             Glide.with(context).load(url).apply(options).into(imageView);
-        }   }
+        }
+    }
 
     public static void loadBigPicture(Context context, ImageView imageView, String url) {
         if (!TextUtils.isEmpty(url)) {

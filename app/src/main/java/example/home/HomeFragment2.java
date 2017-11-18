@@ -26,7 +26,7 @@ import butterknife.Bind;
 public class HomeFragment2 extends BaseFragment {
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
-    private List<Friend> dataList;
+    private ArrayList<Friend> dataList;
     private LinearLayoutManager layoutManager;
     private FriendAdapter adapter;
 

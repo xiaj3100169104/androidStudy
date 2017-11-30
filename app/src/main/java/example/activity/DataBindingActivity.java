@@ -6,23 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.bean.User;
-//import com.style.framework.BR;
+import com.style.framework.BR;
 import com.style.framework.R;
-//import com.style.framework.databinding.ActivityDataBindingBinding;
+import com.style.framework.databinding.ActivityDataBindingBinding;
 
 public class DataBindingActivity extends AppCompatActivity {
 
-    //private ActivityDataBindingBinding binding;
+
+    //根据你绑定的布局文件的名称去掉下划线后加上Binding，由系统自动生成。
+    private ActivityDataBindingBinding binding;
+    //不适合在复杂的界面和逻辑上使用,且出现错误不好定位
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
+       binding = DataBindingUtil.setContentView(this, R.layout.activity_data_binding);
         //2.绑定基本数据类型及String
         binding.setContent("对String类型数据的绑定");//setContent就是给布局文件text属性绑定的content设置值
-        binding.setEnabled(false);//设置enabled值为false
-        //给控件设置点击事件，发现其实点击无效，因为在布局文件中给cilckable属性绑定了enabled,在代码中设置enabled值为false，所以点击事件无效
-
+        binding.setEnabled2(false);//设置enabled值为false
         binding.mainTv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,23 +34,23 @@ public class DataBindingActivity extends AppCompatActivity {
         User user = new User("绑定Model数据类型","sdsd");
         binding.setUser(user);
 
-        binding.setVariable(BR.enabled, true);
+        binding.setVariable(BR.enabled2, true);
 
-        binding.setTitle1("事件绑定1");
-        binding.setTitle2("事件绑定2");
-        binding.setTitle3("事件绑定3");
-        binding.setTitle4("change ok");
+        binding.setTitle1("click1");
+        binding.setTitle2("click2");
+        binding.setTitle3("click3");
+        binding.setTitle4("title4传给click3");
 
         binding.setEvent(new EventListener() {
             @Override
             public void click1(View v) {
-                binding.setTitle1("事件1方法调用");
+                binding.setTitle1("title1改变");
 
             }
 
             @Override
             public void click2(View v) {
-                binding.setTitle2("事件2方法调用");
+                binding.setTitle2("title2改变");
 
             }
 
@@ -58,6 +59,6 @@ public class DataBindingActivity extends AppCompatActivity {
                 binding.setTitle3(s);
 
             }
-        });*/
+        });
     }
 }

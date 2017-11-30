@@ -10,13 +10,13 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-	private long id;
-	private String userId;// 帐号
-	private String telPhone;
-	private String password; // 密码
-	private String userName;
-	private String sex;
-	private String signKey;
+	public long id;
+	public String userId;// 帐号
+	public String telPhone;
+	public String password; // 密码
+	public String userName;
+	public String sex;
+	public String signKey;
 
 	public User() {
 	}

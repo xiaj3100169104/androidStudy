@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/comm_toolbar" />
+
+    <AutoCompleteTextView
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="电话号码"
+        android:inputType="number"
+        android:text="18202823096" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询归属地" />
+
+    <AutoCompleteTextView
+        android:id="@+id/et_city_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="城市ID"
+        android:inputType="number"
+        android:text="1117" />
+
+    <Button
+        android:id="@+id/btn_search_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询天气情况" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="查询结果" />
+
+</LinearLayout>

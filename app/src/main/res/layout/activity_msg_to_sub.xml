@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/comm_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_send"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="给子线程发消息"
+        android:gravity="center"
+        android:background="#f00"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="视图2"
+        android:background="#0f0"/>
+
+</LinearLayout>

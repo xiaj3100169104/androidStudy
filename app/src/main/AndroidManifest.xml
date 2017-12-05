@@ -103,7 +103,6 @@
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.home.MainActivity" />
-        <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
 
@@ -120,6 +119,11 @@
 
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.activity.DataBindingActivity" />
+        <activity android:name="example.activity.MsgToSubActivity" />
+        <activity android:name="example.ndk.JniTestActivity" />
+        <activity android:name="example.activity.AidlActivity" />
+        <activity android:name="example.activity.WebServiceActivity" />
+
         <activity android:name="example.activity.TestDBActivity" />
         <activity android:name="example.activity.TestRealmActivity" />
         <activity android:name="example.activity.GreenDaoActivity" />

@@ -97,7 +97,7 @@ public class HttpActionManager {
 
         return client.build();
     }
-    public void login(String tag, String phone, Callback callback) {
+    public void getPhoneInfo(String tag, String phone, Callback callback) {
 
         Call<String> call = service.login(phone, "");
         runTask(tag, call, callback);

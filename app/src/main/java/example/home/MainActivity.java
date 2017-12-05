@@ -168,9 +168,6 @@ public class MainActivity extends BaseToolBarActivity {
         bt.commitAllowingStateLoss();
         setToolbarTitle(titles[currentTabIndex]);
 
-        HttpActionManager.getInstance().login(TAG, "18202823096", new NetStringCallback());
-        HttpActionManager.getInstance().getWeather(TAG, "1117", new NetStringCallback());
-
     }
 
     public void onTabClicked(View view) {

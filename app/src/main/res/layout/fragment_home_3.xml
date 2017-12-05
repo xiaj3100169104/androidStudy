@@ -13,6 +13,11 @@
         android:showDividers="middle">
 
         <TextView
+            android:id="@+id/layout_item_417"
+            style="@style/text_home_item"
+            android:text="主线程给子线程发消息" />
+
+        <TextView
             android:id="@+id/layout_item_418"
             style="@style/text_home_item"
             android:text="原生数据库操作" />
@@ -46,5 +51,9 @@
             android:id="@+id/btn_aidl"
             style="@style/text_home_item"
             android:text="aidl测试" />
+        <TextView
+            android:id="@+id/btn_webservice"
+            style="@style/text_home_item"
+            android:text="webservice测试" />
     </LinearLayout>
 </ScrollView>

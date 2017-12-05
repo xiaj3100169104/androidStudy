@@ -47,11 +47,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void initData() {
-       /* Intent it = new Intent();
-        it.setComponent(new ComponentName("com.style.framework",
-                "xj.mqtt.service.MyService"));
-        startService(it);*/
-
 
         presenter = new LoginPresenterImpl(this);
         presenter.onActivityCreate();

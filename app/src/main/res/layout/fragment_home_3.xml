@@ -35,12 +35,19 @@
         <TextView
             android:id="@+id/btn_web_view"
             style="@style/text_home_item"
-            android:text="加载网页" />
-
+            android:text="远程网页" />
+        <TextView
+            android:id="@+id/btn_web_view2"
+            style="@style/text_home_item"
+            android:text="本地网页" />
         <TextView
             android:id="@+id/btn_web_view_js"
             style="@style/text_home_item"
             android:text="与js交互" />
+        <TextView
+            android:id="@+id/btn_feedback"
+            style="@style/text_home_item"
+            android:text="用户反馈" />
 
         <TextView
             android:id="@+id/btn_jni"

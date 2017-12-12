@@ -21,13 +21,13 @@ public class WebViewActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle arg0) {
-        mLayoutResID = R.layout.activity_web_view;
+        mLayoutResID = R.layout.activity_h5_remote;
         super.onCreate(arg0);
     }
 
     @Override
     public void initData() {
-        setToolbarTitle("网页测试");
+        setToolbarTitle("");
 
         progressBar = (HorizontalProgressBar) findViewById(R.id.MaterialProgressBar);
 
@@ -45,7 +45,7 @@ public class WebViewActivity extends BaseToolBarActivity {
 
             public void onPageFinished(WebView view, String url) {
                 Toast.makeText(WebViewActivity.this, "load finish", Toast.LENGTH_SHORT).show();
-                super.onPageFinished(view, url);
+                setToolbarTitle(view.getTitle());
             }
 
             public void onPageStarted(WebView view, String url, Bitmap favicon) {

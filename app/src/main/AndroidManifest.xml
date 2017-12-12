@@ -93,10 +93,13 @@
         <activity android:name="example.address.AddressActivity" />
         <activity android:name="example.activity.EnterActivity" />
         <activity android:name="example.activity.AnimatorActivity" />
-        <activity android:name="example.activity.UserAgreeActivity" />
+        <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.activity.WheelActivity" />
         <activity android:name="example.activity.FileDownActivity" />
         <activity android:name="example.activity.WebViewActivity" />
+        <activity android:name="example.activity.UserAgreeActivity" />
+        <activity android:name="example.activity.WebViewFeedbackActivity" />
+
         <activity android:name="example.activity.WebViewAndJSActivity" />
         <activity android:name="example.activity.MultiTypeActivity" />
         <activity android:name="example.media.VideoTestActivity" />

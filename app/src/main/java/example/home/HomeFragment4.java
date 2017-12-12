@@ -1,43 +1,22 @@
 package example.home;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import example.activity.AnimatorActivity;
-import example.activity.DataBindingActivity;
 import example.activity.GreenDaoActivity;
-import example.activity.TestDBActivity;
 import example.activity.TestRealmActivity;
 import example.activity.TestRxActivity;
-import example.address.AddressActivity;
-import example.album.SelectLocalPictureActivity;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 
-import aidl.IRemoteService;
 import butterknife.OnClick;
 import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
-import example.activity.FileDownActivity;
-import example.activity.MultiTypeActivity;
-import example.activity.MyRadioGroupActivity;
 import example.queue.QueueTestActivity;
-import example.activity.UserAgreeActivity;
 import example.media.VideoTestActivity;
-import example.activity.WebViewActivity;
-import example.activity.WebViewAndJSActivity;
-import example.activity.WheelActivity;
-
-import example.ndk.JniTestActivity;
 
 
 public class HomeFragment4 extends BaseFragment {

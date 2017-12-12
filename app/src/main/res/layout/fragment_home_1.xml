@@ -40,7 +40,7 @@
         <TextView
             android:id="@+id/btn_user_agree"
             style="@style/text_home_item"
-            android:text="用户协议" />
+            android:text="读取assets文本文件" />
 
         <TextView
             android:id="@+id/btn_file_down"

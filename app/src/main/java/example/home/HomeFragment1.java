@@ -15,7 +15,7 @@ import example.activity.MyRadioGroupActivity;
 import example.activity.SoftMode1Activity;
 import example.activity.SoftMode2Activity;
 import example.activity.SoftMode3Activity;
-import example.activity.UserAgreeActivity;
+import example.activity.ReadAssetsActivity;
 import example.activity.WheelActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
@@ -60,7 +60,7 @@ public class HomeFragment1 extends BaseFragment {
 
     @OnClick(R.id.btn_user_agree)
     public void skip5() {
-        skip(UserAgreeActivity.class);
+        skip(ReadAssetsActivity.class);
     }
 
     @OnClick(R.id.btn_file_down)

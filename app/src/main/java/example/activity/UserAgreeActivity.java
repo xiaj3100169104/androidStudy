@@ -1,40 +1,74 @@
 package example.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.utils.AssetsUtil;
-import com.style.utils.StreamUtil;
+import com.style.view.progressbar.HorizontalProgressBar;
 
-import java.io.IOException;
-import java.io.InputStream;
 
 public class UserAgreeActivity extends BaseToolBarActivity {
 
-    private TextView tv_agree;
+    private WebView webView;
+    private String url = "file:///android_asset/useragree.html";
+    private HorizontalProgressBar progressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_user_agree;
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle arg0) {
+        mLayoutResID = R.layout.activity_h5_remote;
+        super.onCreate(arg0);
     }
 
     @Override
     public void initData() {
-        setToolbarTitle("用户协议");
+        setToolbarTitle("");
 
-        tv_agree = (TextView) findViewById(R.id.tv_useragree);
-        readData();
+        progressBar = (HorizontalProgressBar) findViewById(R.id.MaterialProgressBar);
+
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                // Activity和Webview根据加载程度决定进度条的进度大小
+                setWebViewProgress(progress);
+
+            }
+        });
+        //设置WebViewClient
+        webView.setWebViewClient(new WebViewClient() {
+
+            public void onPageFinished(WebView view, String url) {
+                Toast.makeText(UserAgreeActivity.this, "load finish", Toast.LENGTH_SHORT).show();
+                setToolbarTitle(view.getTitle());
+            }
+
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                Toast.makeText(UserAgreeActivity.this, "start load", Toast.LENGTH_SHORT).show();
+                super.onPageStarted(view, url, favicon);
+            }
+        });
+        webView.loadUrl(url);
     }
 
-    public void readData() {
-        try {
-
-            tv_agree.setText(AssetsUtil.getAssetsText(this, "useragree.txt"));
-        } catch (IOException e) {
-
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+            return;
         }
+        super.onBackPressed();
+    }
+
+    public void setWebViewProgress(int progress) {
+        progressBar.setProgress(progress);
+        // 当加载到100%的时候 进度条自动消失
+        if (progress == 100)
+            progressBar.setVisibility(View.GONE);
     }
 }

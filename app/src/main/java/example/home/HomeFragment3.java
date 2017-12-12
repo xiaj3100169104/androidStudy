@@ -14,11 +14,13 @@ import butterknife.OnClick;
 import example.activity.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
+import example.activity.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
 import example.activity.TestDBActivity;
 import example.activity.WebServiceActivity;
 import example.activity.WebViewActivity;
 import example.activity.WebViewAndJSActivity;
+import example.activity.WebViewFeedbackActivity;
 import example.ndk.JniTestActivity;
 
 
@@ -61,10 +63,18 @@ public class HomeFragment3 extends BaseFragment {
     public void skip7() {
         skip(WebViewActivity.class);
     }
+    @OnClick(R.id.btn_web_view2)
+    public void skip71() {
+        skip(UserAgreeActivity.class);
+    }
 
     @OnClick(R.id.btn_web_view_js)
     public void skip8() {
         skip(WebViewAndJSActivity.class);
+    }
+    @OnClick(R.id.btn_feedback)
+    public void skip81() {
+        skip(WebViewFeedbackActivity.class);
     }
 
     @OnClick(R.id.btn_jni)

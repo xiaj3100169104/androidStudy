@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户反馈</title>
+
+    <script type="text/javascript">
+
+        function commitFeedback(arg){
+            javascript:control.JavaCommitFeedback(document.getElementById("feed").value);
+        }
+
+    </script>
+
+</head>
+<body>
+<input type="text" value="" id="feed"/>
+<br><input type="button" value="提交反馈"
+       onClick="commitFeedback('Hello world')"/>
+</body>
+</html>

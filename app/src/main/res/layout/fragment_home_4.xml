@@ -62,6 +62,22 @@
                     android:layout_marginLeft="10dp"
                     android:text="realm数据库" />
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_item_418"
+                style="@style/Layouts.normal_LinearLayout">
+
+                <ImageView
+                    style="@style/layout_item_right_image"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_black_16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="模拟app崩溃" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

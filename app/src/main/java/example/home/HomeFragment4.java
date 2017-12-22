@@ -51,6 +51,13 @@ public class HomeFragment4 extends BaseFragment {
         skip(TestRealmActivity.class);
     }
 
+    @OnClick(R.id.layout_item_418)
+    public void skip418() {
+        String test = null;
+        logE(TAG, test.toString());
+    }
+
+
     @OnClick(R.id.layout_item_46)
     public void skip46() {
         skip(VideoTestActivity.class);

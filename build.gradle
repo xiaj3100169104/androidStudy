@@ -19,8 +19,11 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        //解决appcompat：27错误
+        //解决a Failed to resolve: com.android.support:appcompat-v7:27.+
         maven { url "https://maven.google.com" }
 
     }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

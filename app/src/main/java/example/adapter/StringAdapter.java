@@ -31,7 +31,7 @@ public class StringAdapter extends BaseRecyclerViewAdapter<String> {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         String f = getData(position);
-        setText(holder.tv_mark, f);
+        holder.tv_mark.setText(f);
         super.setOnItemClickListener(holder, position);
 
     }

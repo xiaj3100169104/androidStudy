@@ -19,5 +19,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        //解决appcompat：27错误
+        maven { url "https://maven.google.com" }
+
     }
 }

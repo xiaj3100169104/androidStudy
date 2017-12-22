@@ -46,12 +46,12 @@ public abstract class BaseToolBarActivity extends BaseActivity {
         toolbar.setNavigationIcon(getResources().getDrawable(resId));
     }
 
-    protected void setToolbarTitle(String text) {
-        setText(tvTitleBase, text);
+    protected void setToolbarTitle(String title) {
+        tvTitleBase.setText(getNotNullText(title));
     }
 
     protected void setToolbarTitle(int resId) {
-        setText(tvTitleBase, resId);
+        tvTitleBase.setText(getContext().getString(resId));
     }
 
 }

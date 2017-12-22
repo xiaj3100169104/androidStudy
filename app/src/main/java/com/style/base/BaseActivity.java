@@ -16,6 +16,8 @@ import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
+import com.style.net.core2.RetrofitManager;
+import com.style.rxAndroid.RXTaskManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
@@ -105,6 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitManager.getInstance().removeTask(TAG);
+        RXTaskManager.getInstance().removeTask(TAG);
         ButterKnife.unbind(this);
         dismissProgressDialog();
     }
@@ -158,14 +162,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void logE(String tag, String msg) {
         LogManager.logE(tag, msg);
-    }
-
-    protected void setText(TextView textView, int strId) {
-        setText(textView, getContext().getString(strId));
-    }
-
-    protected void setText(TextView textView, String str) {
-        CommonUtil.setText(textView, getNotNullText(str));
     }
 
     protected CharSequence getNotNullText(String str) {

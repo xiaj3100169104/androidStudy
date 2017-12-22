@@ -78,8 +78,8 @@ public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter<Upload
                 UploadPhone up = getData(position);
                 logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
                 String name = up.getName();
-                setText(holder.tv_first_name, name.substring(name.length() - 1, name.length()));
-                setText(holder.tv_name, up.getName());
+                holder.tv_first_name.setText(name.substring(name.length() - 1, name.length()));
+                holder.tv_name.setText(up.getName());
                 break;
         }
 

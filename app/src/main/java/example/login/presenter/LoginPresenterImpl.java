@@ -1,5 +1,7 @@
 package example.login.presenter;
 
+import android.content.Context;
+
 import com.style.bean.Friend;
 import com.style.bean.User;
 import com.style.db.user.UserDBManager;
@@ -7,6 +9,7 @@ import com.style.manager.AccountManager;
 
 import java.util.List;
 
+import example.activity.LoginActivity;
 import example.login.model.ILoginModel;
 import example.login.model.LoginModelImpl;
 import example.login.view.ILoginView;
@@ -20,10 +23,12 @@ public class LoginPresenterImpl implements ILoginPresenter {
     ILoginModel loginModel;
     private User curUser;
 
-    public LoginPresenterImpl(ILoginView loginView) {
+    public LoginPresenterImpl(String tag, ILoginView loginView) {
         this.loginView = loginView;
-        this.loginModel = new LoginModelImpl();
+        this.loginModel = new LoginModelImpl(tag);
     }
+
+
 
     @Override
     public void onActivityCreate() {
@@ -33,8 +38,7 @@ public class LoginPresenterImpl implements ILoginPresenter {
                 loginView.skip2Main();
                 return;
             }
-            loginView.setUserName(curUser.getUserId() + "");
-            loginView.setPassword(curUser.getPassword());
+            loginView.setUserView(curUser);
 
         }
     }
@@ -44,12 +48,13 @@ public class LoginPresenterImpl implements ILoginPresenter {
         loginModel.login(userName, password, new LoginModelImpl.LoginListener() {
             @Override
             public void success() {
-                loginView.loginSuccess();
+                loginView.dismissProgressDialog();
+                loginView.skip2Main();
             }
 
             @Override
             public void failed() {
-                loginView.loginFailed();
+                loginView.dismissProgressDialog();
             }
         });
 

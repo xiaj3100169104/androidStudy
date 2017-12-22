@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void initData() {
 
-        presenter = new LoginPresenterImpl(this);
+        presenter = new LoginPresenterImpl(TAG, this);
         presenter.onActivityCreate();
 
     }
@@ -62,29 +62,15 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void setUserName(String userName) {
-        setText(etAccount, userName);
-    }
-
-    @Override
-    public void setPassword(String password) {
-        setText(etPassword, password);
+    public void setUserView(User user) {
+        etAccount.setText(user.userName);
+        etPassword.setText(user.password);
     }
 
     @Override
     public void skip2Main() {
         skip(MainActivity.class);
         finish();
-    }
-
-    @Override
-    public void loginSuccess() {
-        skip2Main();
-    }
-
-    @Override
-    public void loginFailed() {
-        showToast("登录失败");
     }
 
     @Override

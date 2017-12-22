@@ -33,8 +33,8 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter<UploadPhone> imp
 		UploadPhone up = getData(position);
 		logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
 		String name = up.getName();
-		setText(holder.tv_first_name, name.substring(name.length() - 1, name.length()));
-		setText(holder.tv_name, up.getName());
+		holder.tv_first_name.setText(name.substring(name.length() - 1, name.length()));
+		holder.tv_name.setText(up.getName());
 		// 根据position获取分类的首字母的Char ascii值
 		int section = getSectionForPosition(position);
 		// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现

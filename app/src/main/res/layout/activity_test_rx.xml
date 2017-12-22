@@ -30,5 +30,16 @@
         android:layout_height="wrap_content"
         android:text="插入新数据库" />
 
+    <Button
+        android:id="@+id/btn_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网络请求解析bean" />
+
+    <Button
+        android:id="@+id/btn_request_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网络请求解析string" />
 </LinearLayout>
 

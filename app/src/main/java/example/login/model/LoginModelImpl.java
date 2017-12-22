@@ -4,15 +4,24 @@ import com.style.bean.Friend;
 import com.style.bean.User;
 import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
+import com.style.net.core2.BaseObserver;
+import com.style.net.core2.RetrofitImpl;
 
 import java.util.List;
+
+import example.newwork.response.LoginBean;
 
 /**
  * Created by xiajun on 2017/9/7.
  */
 
 public class LoginModelImpl implements ILoginModel {
+    private final String tag;
     private User curUser;
+
+    public LoginModelImpl(String tag) {
+        this.tag = tag;
+    }
 
     @Override
     public User getCurrentUser() {
@@ -26,15 +35,28 @@ public class LoginModelImpl implements ILoginModel {
     }
 
     @Override
-    public void login(String userName, String password, LoginListener listener) {
+    public void login(String userName, String password, final LoginListener listener) {
         User user = new User(userName, password);
         AccountManager.getInstance().setCurrentUser(user);
         synData(listener);
+        RetrofitImpl.getInstance().login(userName, password, new BaseObserver<LoginBean>(tag){
+            @Override
+            public void onSuccess(LoginBean object) {
+                //to do保存数据再通知主持者
+                listener.success();
+            }
 
+            @Override
+            public void onFailed(String message) {
+                super.onFailed(message);
+                listener.failed();
+            }
+        });
     }
 
     public void synData(LoginListener listener) {
         curUser = AccountManager.getInstance().getCurrentUser();
+
 
         List<User> friends = UserDBManager.getInstance().getAllMyFriend(curUser.getUserId());
         if (friends != null && friends.size() > 0) {

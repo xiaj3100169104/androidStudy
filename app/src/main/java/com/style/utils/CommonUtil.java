@@ -12,11 +12,6 @@ public class CommonUtil {
        return new String(UUID.getBytes(), Charset.forName("UTF-8"));
     }
 
-    public static void setText(TextView textView, CharSequence str) {
-        if (textView != null)
-            textView.setText(getNotNullText(str));
-    }
-
     public static CharSequence getNotNullText(CharSequence str) {
         if (TextUtils.isEmpty(str))
             return "";

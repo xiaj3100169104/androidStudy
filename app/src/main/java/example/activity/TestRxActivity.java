@@ -2,17 +2,24 @@ package example.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.style.base.BaseActivity;
 import com.style.framework.R;
+import com.style.net.core2.BaseObserver;
+import com.style.net.core2.KuaiDiModel;
+import com.style.net.core2.RetrofitImpl;
+import com.style.net.core2.StringObserver;
 
 import org.reactivestreams.Publisher;
 
 import butterknife.OnClick;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -37,12 +44,30 @@ public class TestRxActivity extends BaseActivity {
         Observable.fromArray(str)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
+                .subscribe(new Observer<String>() {
                     @Override
-                    public void accept(String s) throws Exception {
-                        System.out.println(s);
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull String s) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
+        //Flowable是RxJava2.x中新增的，专门用于应对背压（Backpressure）问题。所谓背压，即生产者的速度大于消费者的速度带来的问题，
+        // 比如在Android中常见的点击事件，点击过快则经常会造成点击两次的效果。其中，Flowable默认队列大小为128.
+
         Flowable.just("hello1", "hello2", "hello3", "hello4", "hello5", "hello6")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,6 +75,19 @@ public class TestRxActivity extends BaseActivity {
                     @Override
                     public void accept(String s) throws Exception {
                         System.out.println(s);
+                    }
+                }, new Consumer<Throwable>() {//错误处理消费者
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        /**
+                         * Consumer是简易版的Observer，他有多重重载，可以自定义你需要处理的信息，我这里调用的是只接受onNext消息的方法，
+                         * 他只提供一个回调接口accept，由于没有onError和onCompete，无法再 接受到onError或者onCompete之后，实现函数回调。
+                         * 无法回调，并不代表不接收，他还是会接收到onCompete和onError之后做出默认操作，也就是监听者（Consumer）不在接收
+                         * Observable发送的消息，下方的代码测试了该效果。
+                         */
+                        //do something when error!
+                        //code B
+                        //注意：当mDisposable.isCanceled()时抛出的异常，这里不会补货，因为已经取消了订阅
                     }
                 });
     }
@@ -95,6 +133,7 @@ public class TestRxActivity extends BaseActivity {
         }
         Observable.fromArray(students)
                 .subscribeOn(Schedulers.io())
+                //自动循环二维数组
                 .flatMap(new Function<Student, Observable<Course>>() {
                     @Override
                     public Observable<Course> apply(@NonNull Student s) throws Exception {
@@ -120,4 +159,34 @@ public class TestRxActivity extends BaseActivity {
         String name;
     }
 
+    @OnClick(R.id.btn_request)
+    public void skip418() {
+        RetrofitImpl.getInstance().getKuaiDi("", "", new BaseObserver<KuaiDiModel>(TAG) {
+            @Override
+            public void onSuccess(KuaiDiModel object) {
+                logE(TAG, object.message);
+            }
+
+            @Override
+            public void onFailed(String message) {
+                super.onFailed(message);
+            }
+        });
+    }
+
+    @OnClick(R.id.btn_request_2)
+    public void skip419() {
+        RetrofitImpl.getInstance().getKuaiDi2("", "", new StringObserver(TAG) {
+            @Override
+            public void onSuccess(String object) {
+                logE(TAG, object);
+                ((Button) findViewById(R.id.btn_request_2)).setText(object);
+            }
+
+            @Override
+            public void onFailed(String message) {
+                super.onFailed(message);
+            }
+        });
+    }
 }

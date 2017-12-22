@@ -62,7 +62,6 @@
                     android:layout_marginLeft="10dp"
                     android:text="realm数据库" />
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout

@@ -36,7 +36,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         File f = getData(position);
-        setText(holder.tv_name, f.getName());
+        holder.tv_name.setText(f.getName());
 
         setImageResource(f, holder.ivVideoPreview);
         super.setOnItemClickListener(holder, position);

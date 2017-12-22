@@ -32,8 +32,8 @@ public class FriendAdapter extends BaseRecyclerViewAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         Friend f = (Friend) getData(position);
-        setText(holder.tv_mark, f.getMark());
-        setText(holder.tv_name, f.getUser().getUserName());
+        holder.tv_mark.setText(f.getMark());
+        holder.tv_name.setText(f.getUser().getUserName());
         super.setOnItemClickListener(holder, position);
 
     }

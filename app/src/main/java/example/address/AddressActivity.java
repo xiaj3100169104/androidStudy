@@ -108,12 +108,6 @@ public class AddressActivity extends BaseToolBarActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RXTaskManager.getInstance().removeTask(TAG);
-    }
-
     private void custom() {
         CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
             @Override

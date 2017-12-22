@@ -11,6 +11,9 @@ import example.activity.TestRxActivity;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;
+import com.style.net.core2.BaseObserver;
+import com.style.net.core2.KuaiDiModel;
+import com.style.net.core2.RetrofitImpl;
 
 import butterknife.OnClick;
 import example.media.socket.chat.SocketTestActivity;
@@ -67,7 +70,6 @@ public class HomeFragment4 extends BaseFragment {
     public void skip491() {
         skip(QueueTestActivity.class);
     }
-
 
 
 }

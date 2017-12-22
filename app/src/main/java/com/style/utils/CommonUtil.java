@@ -13,8 +13,6 @@ public class CommonUtil {
     }
 
     public static CharSequence getNotNullText(CharSequence str) {
-        if (TextUtils.isEmpty(str))
-            return "";
-        return str;
+        return str == null ? "" : str;
     }
 }

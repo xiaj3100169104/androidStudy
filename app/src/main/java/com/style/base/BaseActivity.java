@@ -164,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogManager.logE(tag, msg);
     }
 
-    protected CharSequence getNotNullText(String str) {
+    protected CharSequence getNotNullText(CharSequence str) {
         return CommonUtil.getNotNullText(str);
     }
 

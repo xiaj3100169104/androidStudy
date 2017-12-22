@@ -126,7 +126,7 @@ public abstract class BaseFragment extends Fragment {
         ToastManager.showToastLong(mContext, msgId);
     }
 
-    protected CharSequence getNotNullText(String str) {
+    protected CharSequence getNotNullText(CharSequence str) {
         return CommonUtil.getNotNullText(str);
     }
 

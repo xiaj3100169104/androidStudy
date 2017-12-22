@@ -140,7 +140,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         LogManager.logE(tag, msg);
     }
 
-    protected CharSequence getNotNullText(String str) {
+    protected CharSequence getNotNullText(CharSequence str) {
         return CommonUtil.getNotNullText(str);
     }
 

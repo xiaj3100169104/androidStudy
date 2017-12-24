@@ -1,5 +1,6 @@
 package example.app;
 
+import android.os.Process;
 import android.util.Log;
 
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
         ex.printStackTrace(printWriter);
         String errorReport = result.toString();
         Log.e(TAG, errorReport);
-        android.os.Process.killProcess(android.os.Process.myPid());
+        Process.killProcess(Process.myPid());
 
     }
 }

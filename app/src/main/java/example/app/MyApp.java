@@ -10,7 +10,6 @@ import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 import com.style.net.core.HttpActionManager;
 
-import example.db.RealmDBManager;
 import example.greendao.dao.GreenDaoManager;
 
 public class MyApp extends BaseApp {
@@ -26,7 +25,6 @@ public class MyApp extends BaseApp {
         AccountManager.getInstance().init(appContext);
         UserDBManager.getInstance().initialize(appContext);
         initReceiver();
-        RealmDBManager.getInstance().initialize(appContext);
         GreenDaoManager.getInstance().initialize(appContext);
         HttpActionManager.getInstance().init();
 

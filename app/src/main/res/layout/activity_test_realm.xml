@@ -4,30 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <Button
-        android:id="@+id/btn_insert_list"
+        android:id="@+id/btn_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="插入数据" />
+        android:text="处理圆形" />
 
     <Button
-        android:id="@+id/btn_clear_table"
+        android:id="@+id/btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="清空表数据" />
+        android:text="处理圆角" />
 
     <Button
-        android:id="@+id/btn_query_all"
+        android:id="@+id/btn_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="查询所有" />
+        android:text="处理矩形边框" />
 
-    <Button
-        android:id="@+id/btn_insert_new_db"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="插入新数据库" />
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/image_fail" />
 
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_add_photo" />
+
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/empty_photo" />
 </LinearLayout>

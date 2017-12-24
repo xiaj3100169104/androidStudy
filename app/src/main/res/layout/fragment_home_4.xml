@@ -60,7 +60,7 @@
                     style="@style/text_black_16sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="realm数据库" />
+                    android:text="Glide特殊处理" />
             </LinearLayout>
 
 

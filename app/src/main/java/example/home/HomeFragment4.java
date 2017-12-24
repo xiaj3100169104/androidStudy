@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.activity.GreenDaoActivity;
-import example.activity.TestRealmActivity;
+import example.activity.GlideDealActivity;
 import example.activity.TestRxActivity;
 
 import com.style.base.BaseFragment;
@@ -48,7 +48,7 @@ public class HomeFragment4 extends BaseFragment {
 
     @OnClick(R.id.layout_item_417)
     public void skip417() {
-        skip(TestRealmActivity.class);
+        skip(GlideDealActivity.class);
     }
 
     @OnClick(R.id.layout_item_418)

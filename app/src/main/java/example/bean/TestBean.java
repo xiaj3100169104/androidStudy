@@ -1,13 +1,9 @@
 package example.bean;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class TestBean extends RealmObject {
-    @PrimaryKey
+public class TestBean {
     private String id;
     private String name;
     private String phone;

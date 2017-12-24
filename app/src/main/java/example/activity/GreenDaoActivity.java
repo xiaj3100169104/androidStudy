@@ -8,7 +8,6 @@ import com.style.framework.R;
 import butterknife.OnClick;
 import example.bean.TestBean;
 import example.bean.TestGreenBean;
-import example.db.RealmDBManager;
 import example.greendao.dao.GreenDaoManager;
 
 public class GreenDaoActivity extends BaseActivity {

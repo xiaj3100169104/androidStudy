@@ -4,42 +4,39 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
+import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityAidlBinding;
 
 import aidl.IRemoteService;
-import butterknife.Bind;
-import butterknife.OnClick;
 
 public class AidlActivity extends BaseToolBarActivity {
 
-
-    @Bind(R.id.tv_send)
-    TextView tvSend;
-    @Bind(R.id.tv_launch)
-    TextView tvLaunch;
-
     private IRemoteService remoteService;
+    private ActivityAidlBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_aidl;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_aidl);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
         conn();
     }
 
-    @OnClick(R.id.tv_launch)
-    public void launch() {
+    public void launch(View v) {
         //没有这个app没有任何反应
         /*Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -49,8 +46,7 @@ public class AidlActivity extends BaseToolBarActivity {
         context.startActivity(intent);
     }
 
-    @OnClick(R.id.tv_send)
-    public void send() {
+    public void send(View v) {
         try {
             remoteService.basicTypes(12, 1223, true, 12.2f, 12.3, "来自其他应用的消息");
         } catch (RemoteException e) {

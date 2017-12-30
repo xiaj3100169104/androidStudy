@@ -1,26 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/comm_toolbar" />
-    <ScrollView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/rl_0"
+        <include layout="@layout/comm_toolbar" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="5dp" >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_useragree"
-                style="@style/text_black"
+            <RelativeLayout
+                android:id="@+id/rl_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="false"/>
-        </RelativeLayout>
-    </ScrollView>
+                android:background="@android:color/white"
+                android:padding="5dp">
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tv_useragree"
+                    style="@style/text_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="false" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

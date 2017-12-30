@@ -1,5 +1,6 @@
 package example.home;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,9 @@ import android.view.ViewGroup;
 import com.style.base.BaseFragment;
 import com.style.bean.User;
 import com.style.framework.R;
+import com.style.framework.databinding.FragmentHome3Binding;
 import com.style.manager.AccountManager;
 
-import butterknife.OnClick;
 import example.activity.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
@@ -25,71 +26,66 @@ import example.ndk.JniTestActivity;
 
 
 public class HomeFragment3 extends BaseFragment {
+    FragmentHome3Binding bd;
     private User curUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mLayoutResID = R.layout.fragment_home_3;
-        return super.onCreateView(inflater, container, savedInstanceState);
+        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_3, container, false);
+        return bd.getRoot();
     }
 
     @Override
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
+        bd.setOnItemClickListener(new OnItemClickListener());
     }
 
-    @OnClick(R.id.layout_item_417)
-    public void skip417() {
-        skip(MsgToSubActivity.class);
-    }
+    public class OnItemClickListener {
+        public void skip417(View v) {
+            skip(MsgToSubActivity.class);
+        }
 
-    @OnClick(R.id.layout_item_418)
-    public void skip418() {
-        skip(TestDBActivity.class);
-    }
+        public void skip418(View v) {
+            skip(TestDBActivity.class);
+        }
 
-    @OnClick(R.id.layout_item_419)
-    public void skip419() {
-        skip(DataBindingActivity.class);
-    }
+        public void skip419(View v) {
+            skip(DataBindingActivity.class);
+        }
 
 
-    @OnClick(R.id.layout_item_414)
-    public void skip414() {
-        skip(AnimatorActivity.class);
-    }
+        public void skip414(View v) {
+            skip(AnimatorActivity.class);
+        }
 
-    @OnClick(R.id.btn_web_view)
-    public void skip7() {
-        skip(WebViewActivity.class);
-    }
-    @OnClick(R.id.btn_web_view2)
-    public void skip71() {
-        skip(UserAgreeActivity.class);
-    }
+        public void skip7(View v) {
+            skip(WebViewActivity.class);
+        }
 
-    @OnClick(R.id.btn_web_view_js)
-    public void skip8() {
-        skip(WebViewAndJSActivity.class);
-    }
-    @OnClick(R.id.btn_feedback)
-    public void skip81() {
-        skip(WebViewFeedbackActivity.class);
-    }
+        public void skip71(View v) {
+            skip(UserAgreeActivity.class);
+        }
 
-    @OnClick(R.id.btn_jni)
-    public void skip9() {
-        skip(JniTestActivity.class);
-    }
+        public void skip8(View v) {
+            skip(WebViewAndJSActivity.class);
+        }
 
-    @OnClick(R.id.btn_aidl)
-    public void skip10() {
-        skip(AidlActivity.class);
-    }
+        public void skip81(View v) {
+            skip(WebViewFeedbackActivity.class);
+        }
 
-    @OnClick(R.id.btn_webservice)
-    public void skip11() {
-        skip(WebServiceActivity.class);
-    }
+        public void skip9(View v) {
+            skip(JniTestActivity.class);
+        }
 
+        public void skip10(View v) {
+            skip(AidlActivity.class);
+        }
+
+        public void skip11(View v) {
+            skip(WebServiceActivity.class);
+        }
+
+    }
 }

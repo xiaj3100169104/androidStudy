@@ -1,5 +1,6 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.base.MultiTypeRecyclerViewAdapter;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityMultiTypeBinding;
 import com.style.threadpool.CachedThreadPoolManager;
 import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
@@ -21,13 +23,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
-
 
 public class MultiTypeActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    ActivityMultiTypeBinding bd;
 
     private String banner = "banner";
     private String address = "address";
@@ -38,12 +37,15 @@ public class MultiTypeActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle arg0) {
-        mLayoutResID = R.layout.activity_multi_type;
         super.onCreate(arg0);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_multi_type);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
+
         setToolbarTitle("复杂布局");
 
         dataList = new ArrayList<>();
@@ -52,9 +54,9 @@ public class MultiTypeActivity extends BaseToolBarActivity {
         dataList.add(new UploadPhone(header));
         adapter = new MultiTypeRecyclerViewAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setAdapter(adapter);
+        bd.recyclerView.setLayoutManager(layoutManager);
+        bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        bd.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override

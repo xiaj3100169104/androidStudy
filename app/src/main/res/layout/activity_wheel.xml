@@ -1,73 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/comm_toolbar" />
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/ll_occupation"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/view_occupation"
-            style="@style/text_gray"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="left"
-            android:text="@string/occupation" />
+        <include layout="@layout/comm_toolbar" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_occupation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:onClick="selOccupation">
+
+            <TextView
+                android:id="@+id/view_occupation"
+                style="@style/text_gray"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/occupation" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_fc_age"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:onClick="selFcAge">
+
+            <TextView
+                android:id="@+id/view_age"
+                style="@style/text_gray"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/age" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:onClick="selBirthday">
+
+            <TextView
+                android:id="@+id/view_birthday"
+                style="@style/text_gray"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/birthday" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_hometown"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:onClick="selHometown">
+
+            <TextView
+                android:id="@+id/view_hometown"
+                style="@style/text_gray"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:text="@string/hometown" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_fc_age"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/view_age"
-            style="@style/text_gray"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="left"
-            android:text="@string/age" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_birthday"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/view_birthday"
-            style="@style/text_gray"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="left"
-            android:text="@string/birthday" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_hometown"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/view_hometown"
-            style="@style/text_gray"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="left"
-            android:text="@string/hometown" />
-    </LinearLayout>
-</LinearLayout>
+</layout>

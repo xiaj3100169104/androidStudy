@@ -1,17 +1,20 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.style.base.BaseActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityTestDbBinding;
 
-import butterknife.OnClick;
 import example.bean.TestBean;
 import example.db.TestDBManager;
 
 public class TestDBActivity extends BaseActivity {
 
+    ActivityTestDbBinding bd;
     @Override
     public void initData() {
 
@@ -20,13 +23,12 @@ public class TestDBActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_test_db;
         super.onCreate(savedInstanceState);
-
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_db);
+        initData();
     }
 
-    @OnClick(R.id.btn_insert_list)
-    public void skip418() {
+    public void skip418(View v) {
         for (int i = 0; i < 10; i++) {
             TestBean bean = new TestBean();
             bean.setName("name=" + i);
@@ -35,18 +37,15 @@ public class TestDBActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.btn_query_all)
-    public void skip419() {
+    public void skip419(View v) {
         TestDBManager.getInstance().queryAll();
     }
 
-    @OnClick(R.id.btn_clear_table)
-    public void skip42() {
+    public void skip42(View v) {
         TestDBManager.getInstance().clearTable();
     }
 
-    @OnClick(R.id.btn_insert_new_db)
-    public void skip43() {
+    public void skip43(View v) {
         for (int i = 0; i < 10; i++) {
             TestBean bean = new TestBean();
             bean.setName("name=" + i);

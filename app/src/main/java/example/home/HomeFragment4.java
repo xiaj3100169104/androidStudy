@@ -1,5 +1,6 @@
 package example.home;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,9 @@ import example.activity.TestRxActivity;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;
-import com.style.net.core2.BaseObserver;
-import com.style.net.core2.KuaiDiModel;
-import com.style.net.core2.RetrofitImpl;
+import com.style.framework.databinding.FragmentHome4Binding;
 
-import butterknife.OnClick;
+
 import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
 import example.queue.QueueTestActivity;
@@ -24,59 +23,55 @@ import example.media.VideoTestActivity;
 
 public class HomeFragment4 extends BaseFragment {
 
+    FragmentHome4Binding bd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mLayoutResID = R.layout.fragment_home_4;
-        return super.onCreateView(inflater, container, savedInstanceState);
+        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_4, container, false);
+        return bd.getRoot();
+
     }
 
     @Override
     protected void initData() {
-
+        bd.setEvent(new EventListener());
+        logE(TAG, "initData");
     }
 
-    @OnClick(R.id.layout_item_415)
-    public void skip415() {
-        skip(TestRxActivity.class);
+    public class EventListener {
+
+        public void skip415(View v) {
+            skip(TestRxActivity.class);
+        }
+
+        public void skip416(View v) {
+            skip(GreenDaoActivity.class);
+        }
+
+        public void skip417(View v) {
+            skip(GlideDealActivity.class);
+        }
+
+        public void skip418(View v) {
+            String test = null;
+            logE(TAG, test.toString());
+        }
+
+        public void skip46(View v) {
+            skip(VideoTestActivity.class);
+        }
+
+        public void skip48(View v) {
+            skip(AudioRecordActivity.class);
+        }
+
+        public void skip49(View v) {
+            skip(SocketTestActivity.class);
+        }
+
+        public void skip491(View v) {
+            skip(QueueTestActivity.class);
+        }
+
     }
-
-    @OnClick(R.id.layout_item_416)
-    public void skip416() {
-        skip(GreenDaoActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_417)
-    public void skip417() {
-        skip(GlideDealActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_418)
-    public void skip418() {
-        String test = null;
-        logE(TAG, test.toString());
-    }
-
-
-    @OnClick(R.id.layout_item_46)
-    public void skip46() {
-        skip(VideoTestActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_48)
-    public void skip48() {
-        skip(AudioRecordActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_49)
-    public void skip49() {
-        skip(SocketTestActivity.class);
-    }
-
-    @OnClick(R.id.layout_item_491)
-    public void skip491() {
-        skip(QueueTestActivity.class);
-    }
-
-
 }

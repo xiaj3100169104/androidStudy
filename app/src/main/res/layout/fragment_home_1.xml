@@ -1,66 +1,94 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/windows_color">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
-    <LinearLayout
+        <variable
+            name="onItemClickListener"
+            type="example.home.HomeFragment1.OnItemClickListener" />
+    </data>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:divider="@drawable/divider_common"
-        android:dividerPadding="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        android:background="@color/windows_color">
 
-        <TextView
-            android:id="@+id/layout_item_42"
-            style="@style/text_home_item"
-            android:text="复杂适配器" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:divider="@drawable/divider_common"
+            android:dividerPadding="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-        <TextView
-            android:id="@+id/btn_album"
-            style="@style/text_home_item"
-            android:text="album" />
+            <TextView
+                android:id="@+id/layout_item_42"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip42}"
+                android:text="复杂适配器" />
 
-        <TextView
-            android:id="@+id/btn_address"
-            style="@style/text_home_item"
-            android:text="address" />
+            <TextView
+                android:id="@+id/btn_album"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip1}"
 
-        <TextView
-            android:id="@+id/btn_radio"
-            style="@style/text_home_item"
-            android:text="radiogroup" />
+                android:text="album" />
 
-        <TextView
-            android:id="@+id/btn_wheel"
-            style="@style/text_home_item"
-            android:text="wheel" />
+            <TextView
+                android:id="@+id/btn_address"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip2}"
 
-        <TextView
-            android:id="@+id/btn_user_agree"
-            style="@style/text_home_item"
-            android:text="读取assets文本文件" />
+                android:text="address" />
 
-        <TextView
-            android:id="@+id/btn_file_down"
-            style="@style/text_home_item"
-            android:text="文件下载" />
+            <TextView
+                android:id="@+id/btn_radio"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip3}"
 
-        <TextView
-            android:id="@+id/btn_1"
-            style="@style/text_home_item"
-            android:text="弹出软键盘缩减布局高度" />
+                android:text="radiogroup" />
 
-        <TextView
-            android:id="@+id/btn_2"
-            style="@style/text_home_item"
-            android:text="弹出软键盘滚动布局" />
-        <TextView
-            android:id="@+id/btn_3"
-            style="@style/text_home_item"
-            android:text="弹出软键盘recyclerview调整" />
+            <TextView
+                android:id="@+id/btn_wheel"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip4}"
+
+                android:text="wheel" />
+
+            <TextView
+                android:id="@+id/btn_user_agree"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip5}"
+
+                android:text="读取assets文本文件" />
+
+            <TextView
+                android:id="@+id/btn_file_down"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip6}"
+
+                android:text="文件下载" />
+
+            <TextView
+                android:id="@+id/btn_1"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip7}"
+
+                android:text="弹出软键盘缩减布局高度" />
+
+            <TextView
+                android:id="@+id/btn_2"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip8}"
+
+                android:text="弹出软键盘滚动布局" />
+
+            <TextView
+                android:id="@+id/btn_3"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip9}"
+
+                android:text="弹出软键盘recyclerview调整" />
 
 
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</layout>

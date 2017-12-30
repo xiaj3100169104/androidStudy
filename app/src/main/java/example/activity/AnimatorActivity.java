@@ -6,8 +6,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,29 +17,29 @@ import android.widget.ImageView;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivitySecondBinding;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 public class AnimatorActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.iv_property)
-    ImageView ivProperty;
+
+    private ActivitySecondBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_second;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_second);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
 
     }
 
-    @OnClick(R.id.btn_value_animator)
-    public void skip414() {
-        float fromX = ivProperty.getTranslationX();
+    public void skip414(View v) {
+        float fromX = bd.ivProperty.getTranslationX();
         ValueAnimator va = ValueAnimator.ofFloat(fromX, fromX + 100f, fromX);
         va.setDuration(1000);
         //插值器，表示值变化的规律，默认均匀变化
@@ -46,7 +48,7 @@ public class AnimatorActivity extends BaseToolBarActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float v = (float) animation.getAnimatedValue();
-                ivProperty.setTranslationX(v);
+                bd.ivProperty.setTranslationX(v);
                 Log.d(TAG, "v:" + v);
             }
         });
@@ -54,10 +56,9 @@ public class AnimatorActivity extends BaseToolBarActivity {
         ObjectAnimator oa = new ObjectAnimator();
     }
 
-    @OnClick(R.id.btn_object_animator)
-    public void skip415() {
-        float fromX = ivProperty.getTranslationX();
-        ObjectAnimator oa = ObjectAnimator.ofFloat(ivProperty, "translationX", fromX, fromX + 100f, fromX);
+    public void skip415(View v) {
+        float fromX = bd.ivProperty.getTranslationX();
+        ObjectAnimator oa = ObjectAnimator.ofFloat(bd.ivProperty, "translationX", fromX, fromX + 100f, fromX);
         oa.setDuration(300);
         oa.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -69,12 +70,11 @@ public class AnimatorActivity extends BaseToolBarActivity {
 
     }
 
-    @OnClick(R.id.btn_animator_set)
-    public void skip416() {
-        ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(ivProperty, "scaleX", 0, 1);
-        ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(ivProperty, "scaleY", 0, 1);
-        ObjectAnimator oaRotation = ObjectAnimator.ofFloat(ivProperty, "rotation", 0, 360);
-        ObjectAnimator oaAlpha = ObjectAnimator.ofFloat(ivProperty, "alpha", 1, 0);
+    public void skip416(View v) {
+        ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(bd.ivProperty, "scaleX", 0, 1);
+        ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(bd.ivProperty, "scaleY", 0, 1);
+        ObjectAnimator oaRotation = ObjectAnimator.ofFloat(bd.ivProperty, "rotation", 0, 360);
+        ObjectAnimator oaAlpha = ObjectAnimator.ofFloat(bd.ivProperty, "alpha", 1, 0);
         AnimatorSet as = new AnimatorSet();
         as.play(oaScaleX).with(oaScaleY).with(oaRotation);
         as.play(oaAlpha).after(oaRotation);
@@ -83,17 +83,16 @@ public class AnimatorActivity extends BaseToolBarActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                ivProperty.setAlpha(1.0f);
-                Log.d(TAG, "finish:" + ivProperty.getAlpha());
+                bd.ivProperty.setAlpha(1.0f);
+                Log.d(TAG, "finish:" + bd.ivProperty.getAlpha());
             }
         });
         as.start();
     }
 
-    @OnClick(R.id.btn_animator_xml)
-    public void skip417() {
+    public void skip417(View v) {
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.property_demo);
-        animator.setTarget(ivProperty);
+        animator.setTarget(bd.ivProperty);
         animator.start();
 
     }

@@ -1,17 +1,20 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 
 import com.style.base.BaseActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityGreenDaoBinding;
 
-import butterknife.OnClick;
 import example.bean.TestBean;
 import example.bean.TestGreenBean;
 import example.greendao.dao.GreenDaoManager;
 
 public class GreenDaoActivity extends BaseActivity {
 
+    ActivityGreenDaoBinding bd;
     GreenDaoManager manager;
 
     @Override
@@ -21,13 +24,12 @@ public class GreenDaoActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_green_dao;
         super.onCreate(savedInstanceState);
-
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_green_dao);
+        initData();
     }
 
-    @OnClick(R.id.btn_insert_list)
-    public void skip418() {
+    public void skip418(View v) {
         for (int i = 0; i < 10; i++) {
             TestGreenBean bean = new TestGreenBean();
             bean.setId(i + "");
@@ -38,13 +40,11 @@ public class GreenDaoActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.btn_clear_table)
-    public void skip42() {
+    public void skip42(View v) {
         manager.clearGreenTable();
     }
 
-    @OnClick(R.id.btn_update)
-    public void skip44() {
+    public void skip44(View v) {
         TestGreenBean bean = new TestGreenBean();
         bean.setId("9");
         //bean.setName("name=" + i);
@@ -53,39 +53,32 @@ public class GreenDaoActivity extends BaseActivity {
         manager.update(bean);
     }
 
-    @OnClick(R.id.btn_query_all)
-    public void skip419() {
+    public void skip419(View v) {
         manager.queryAll();
     }
 
 
-    @OnClick(R.id.btn_query_asc)
-    public void skip420() {
+    public void skip420(View v) {
         manager.queryAsc();
     }
 
-    @OnClick(R.id.btn_query_desc)
-    public void skip421() {
+    public void skip421(View v) {
         manager.queryDesc();
     }
 
-    @OnClick(R.id.btn_query_and)
-    public void skip422() {
+    public void skip422(View v) {
         manager.queryWhereAnd();
     }
 
-    @OnClick(R.id.btn_query_or)
-    public void skip423() {
+    public void skip423(View v) {
         manager.queryWhereOr();
     }
 
-    @OnClick(R.id.btn_query_between)
-    public void skip424() {
+    public void skip424(View v) {
         manager.queryWhereBetween();
     }
 
-    @OnClick(R.id.btn_insert_new_db)
-    public void skip43() {
+    public void skip43(View v) {
         for (int i = 0; i < 10; i++) {
             TestGreenBean bean = new TestGreenBean();
             bean.setName("name" + i);

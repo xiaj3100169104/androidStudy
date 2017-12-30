@@ -8,8 +8,6 @@ import android.widget.PopupWindow;
 
 import com.style.framework.R;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by xiajun on 2017/1/5.
  */
@@ -29,14 +27,11 @@ public abstract class BasePopupWindow extends PopupWindow {
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);
-        setBackgroundDrawable(mContext.getResources().getDrawable(
-                R.drawable.bg_popupwindow_common));
-        ButterKnife.bind(this, mContentView);
+        setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_popupwindow_common));
         //this(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
     }
 
     public BasePopupWindow(View contentView, int width, int height, boolean focusable) {
         super(contentView, width, height, focusable);
-        ButterKnife.bind(this, contentView);
     }
 }

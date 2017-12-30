@@ -1,6 +1,7 @@
 package example.album;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,20 +16,19 @@ import com.style.constant.ConfigUtil;
 import com.style.constant.Skip;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.DeviceInfoUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * Created by xiajun on 2016/10/8.
  */
 public class SelectLocalPictureActivity extends BaseToolBarActivity {
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+
+    ActivitySelectLocalPictureBinding bd;
 
     private Media TAG_ADD;
 
@@ -41,12 +41,15 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_select_local_picture;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_select_local_picture);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
+
         setToolbarTitle("本地图片选择");
         paths = new ArrayList<>();
         TAG_ADD = new Media();
@@ -55,8 +58,8 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
         adapter = new DynamicPublishImageAdapter(getContext(), paths);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(adapter);
+        bd.recyclerView.setLayoutManager(gridLayoutManager);
+        bd.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Media>() {
             @Override
             public void onItemClick(int position, Media data) {

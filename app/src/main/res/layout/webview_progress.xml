@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:custom="http://schemas.android.com/tools"
-    android:fitsSystemWindows="false"
-    android:orientation="vertical">
+    xmlns:custom="http://schemas.android.com/tools">
 
-    <com.style.view.progressbar.HorizontalProgressBar
-        android:id="@+id/MaterialProgressBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@android:color/darker_gray"
-        custom:horizontalProgressColor="@color/colorAccent"
-        custom:horizontalProgress="30" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="false"
+        android:orientation="vertical">
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/MaterialProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgressColor="@color/colorAccent"
+            custom:horizontalProgress="30" />
+    </LinearLayout>
+</layout>
 

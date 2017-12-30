@@ -1,14 +1,10 @@
 package com.style.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
@@ -16,14 +12,8 @@ import com.style.utils.CommonUtil;
 
 import org.simple.eventbus.EventBus;
 
-import butterknife.ButterKnife;
-
 public abstract class BaseFragment extends Fragment {
     protected String TAG = getClass().getSimpleName();
-    protected Context mContext;
-    public LayoutInflater mInflater;
-    protected Integer mLayoutResID;
-    protected View rootView;
 
     protected boolean isViewCreated;
     protected boolean isInit;
@@ -35,18 +25,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContext = getContext();
-        mInflater = LayoutInflater.from(getContext());
-        if (mLayoutResID != null)
-            rootView = inflater.inflate(mLayoutResID, null);
-        rootView.setFitsSystemWindows(false);
-        //rootView = getTitleLayoutView(rootView);
-        ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override
@@ -92,12 +70,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
     }
 
     protected void skip(Class<?> cls) {
-        startActivity(new Intent(mContext, cls));
+        startActivity(new Intent(getContext(), cls));
     }
 
     public void logE(String tag, String msg) {
@@ -111,19 +88,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void showToast(String str) {
-        ToastManager.showToast(mContext, str);
+        ToastManager.showToast(getContext(), str);
     }
 
     public void showToast(int resId) {
-        ToastManager.showToast(mContext, resId);
+        ToastManager.showToast(getContext(), resId);
     }
 
     public void showToastLong(String msg) {
-        ToastManager.showToastLong(mContext, msg);
+        ToastManager.showToastLong(getContext(), msg);
     }
 
     public void showToastLong(int msgId) {
-        ToastManager.showToastLong(mContext, msgId);
+        ToastManager.showToastLong(getContext(), msgId);
     }
 
     protected CharSequence getNotNullText(CharSequence str) {

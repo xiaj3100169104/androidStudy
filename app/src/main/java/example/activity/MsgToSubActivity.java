@@ -1,48 +1,45 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityMsgToSubBinding;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MsgToSubActivity extends BaseToolBarActivity {
-
-
-    @Bind(R.id.tv_send)
-    TextView tvSend;
-    @Bind(R.id.tv_content)
-    TextView tvContent;
+    ActivityMsgToSubBinding bd;
 
     Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_msg_to_sub;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_msg_to_sub);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Looper.prepare();
                 //创建一个handler和当前线程绑定；handleMessage也是在当前线程中执行
-                mHandler = new Handler(){
+                mHandler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
                         MsgToSubActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tvContent.setText("主线程发来新消息那");
+                                bd.tvContent.setText("主线程发来新消息那");
                             }
                         });
                     }
@@ -52,8 +49,7 @@ public class MsgToSubActivity extends BaseToolBarActivity {
         }).start();
     }
 
-    @OnClick(R.id.tv_send)
-    public void send() {
+    public void send(View v) {
         mHandler.sendEmptyMessage(1);
 
     }

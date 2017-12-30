@@ -1,20 +1,15 @@
 package example.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.bean.Friend;
 import com.style.framework.R;
+import com.style.framework.databinding.AdapterFriendBinding;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class StringAdapter extends BaseRecyclerViewAdapter<String> {
     public StringAdapter(Context context, ArrayList<String> list) {
@@ -24,27 +19,27 @@ public class StringAdapter extends BaseRecyclerViewAdapter<String> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(mInflater.inflate(R.layout.adapter_friend, parent, false));
-    }
+        AdapterFriendBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_friend, parent, false);
+        return new ViewHolder(bd);    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         String f = getData(position);
-        holder.tv_mark.setText(f);
-        super.setOnItemClickListener(holder, position);
+        holder.bd.viewMark.setText(f);
+        holder.bd.executePendingBindings();
+
+        super.setOnItemClickListener(holder.itemView, position);
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.view_mark)
-        TextView tv_mark;
-        @Bind(R.id.view_nick)
-        TextView tv_name;
+        AdapterFriendBinding bd;
 
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
+        ViewHolder(AdapterFriendBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
+
         }
     }
 }

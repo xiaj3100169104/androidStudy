@@ -1,11 +1,14 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.style.base.BaseActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityTestRxBinding;
 import com.style.net.core2.BaseObserver;
 import com.style.net.core2.KuaiDiModel;
 import com.style.net.core2.RetrofitImpl;
@@ -13,7 +16,6 @@ import com.style.net.core2.StringObserver;
 
 import org.reactivestreams.Publisher;
 
-import butterknife.OnClick;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -26,20 +28,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TestRxActivity extends BaseActivity {
 
+    ActivityTestRxBinding bd;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_rx);
+        initData();
+    }
+
     @Override
     public void initData() {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_test_rx;
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @OnClick(R.id.btn_just)
-    public void skip1() {
+    public void skip1(View v) {
         String[] str = {"one", "two", "three", "four", "five"};
         Observable.fromArray(str)
                 .subscribeOn(Schedulers.io())
@@ -92,8 +95,7 @@ public class TestRxActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.btn_map)
-    public void skip2() {
+    public void skip2(View v) {
         Flowable.just("hello RxJava 2")
                 .subscribeOn(Schedulers.newThread())
                 .map(new Function<String, Integer>() {
@@ -118,8 +120,7 @@ public class TestRxActivity extends BaseActivity {
                 });
     }
 
-    @OnClick(R.id.btn_flat_map)
-    public void skip3() {
+    public void skip3(View v) {
         Student[] students = new Student[3];
         for (int i = 0; i < 3; i++) {
             students[i] = new Student();
@@ -159,8 +160,7 @@ public class TestRxActivity extends BaseActivity {
         String name;
     }
 
-    @OnClick(R.id.btn_request)
-    public void skip418() {
+    public void skip418(View v) {
         RetrofitImpl.getInstance().getKuaiDi("", "", new BaseObserver<KuaiDiModel>(TAG) {
             @Override
             public void onSuccess(KuaiDiModel object) {
@@ -174,8 +174,7 @@ public class TestRxActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.btn_request_2)
-    public void skip419() {
+    public void skip419(View v) {
         RetrofitImpl.getInstance().getKuaiDi2("", "", new StringObserver(TAG) {
             @Override
             public void onSuccess(String object) {

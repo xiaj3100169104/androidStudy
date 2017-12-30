@@ -13,9 +13,9 @@ public abstract class BaseToolBarActivity extends BaseActivity {
     private ImageView ivBaseToolbarReturn;
 
     protected void customTitleOptions(View mContentView) {
-        toolbar = (Toolbar) mContentView.findViewById(R.id.toolbar);
-        ivBaseToolbarReturn = (ImageView) mContentView.findViewById(R.id.iv_base_toolbar_Return);
-        tvTitleBase = (TextView) mContentView.findViewById(R.id.tv_base_toolbar_title);
+        toolbar = mContentView.findViewById(R.id.toolbar);
+        ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
+        tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
         if (toolbar != null) {
             toolbar.setTitle("");
             setSupportActionBar(toolbar);

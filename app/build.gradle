@@ -86,7 +86,7 @@ dependencies {
         exclude group: 'com.squareup.okhttp3',  module: 'okhttp'
     }*/
 
-    compile 'com.jakewharton:butterknife:7.0.1'
+    //compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.alibaba:fastjson:1.1.54.android'
     compile 'io.reactivex.rxjava2:rxjava:2.1.3'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'

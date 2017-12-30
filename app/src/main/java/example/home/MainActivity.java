@@ -2,6 +2,7 @@ package example.home;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,48 +15,19 @@ import android.widget.TextView;
 import com.style.base.BaseToolBarActivity;
 import com.style.bean.User;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityMainBinding;
 import com.style.manager.AccountManager;
-import com.style.net.core.HttpActionManager;
-import com.style.net.core.NetDataBeanCallback;
-import com.style.net.core.NetStringCallback;
-import com.style.view.CustomNotifyView;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import butterknife.Bind;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends BaseToolBarActivity {
+    ActivityMainBinding bd;
 
-    @Bind(R.id.layout_bottom)
-    RelativeLayout layoutBottom;
-    @Bind(R.id.view_home_tap_1)
-    TextView viewHomeTap1;
-    @Bind(R.id.layout_home_tap_1)
-    RelativeLayout layoutHomeTap1;
-    @Bind(R.id.view_home_tap_2)
-    TextView viewHomeTap2;
-    @Bind(R.id.layout_home_tap_2)
-    RelativeLayout layoutHomeTap2;
-    @Bind(R.id.view_home_tap_3)
-    TextView viewHomeTap3;
-    @Bind(R.id.layout_home_tap_3)
-    RelativeLayout layoutHomeTap3;
-    @Bind(R.id.view_home_tap_4)
-    TextView viewHomeTap4;
-    @Bind(R.id.layout_home_tap_4)
-    RelativeLayout layoutHomeTap4;
     protected static final String[] fragTags = {"tag1", "tag2", "tag3", "tag4", "tag5"};
     protected static final String[] titles = {"沟通", "首页", "工单", "通讯录", "客户"};
-    @Bind(R.id.view_notify_msg)
-    CustomNotifyView viewNotifyMsg;
+
 
     private HomeFragment1 homeFragment1;
     private HomeFragment2 homeFragment2;
@@ -81,10 +53,11 @@ public class MainActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        EventBus.getDefault().register(this);
+        initData();
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
@@ -106,13 +79,15 @@ public class MainActivity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
+
         curUser = AccountManager.getInstance().getCurrentUser();
 
         mTabs = new TextView[5];
-        mTabs[0] = viewHomeTap1;
-        mTabs[1] = viewHomeTap2;
-        mTabs[2] = viewHomeTap3;
-        mTabs[3] = viewHomeTap4;
+        mTabs[0] = bd.viewHomeTap1;
+        mTabs[1] = bd.viewHomeTap2;
+        mTabs[2] = bd.viewHomeTap3;
+        mTabs[3] = bd.viewHomeTap4;
         homeFragment1 = new HomeFragment1();
         homeFragment2 = new HomeFragment2();
         homeFragment3 = new HomeFragment3();

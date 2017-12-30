@@ -1,39 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/comm_toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_value_animator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="value_animator" />
+        <include layout="@layout/comm_toolbar" />
 
-    <Button
-        android:id="@+id/btn_object_animator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="object_animator" />
+        <Button
+            android:id="@+id/btn_value_animator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="value_animator"
+            android:onClick="skip414"/>
 
-    <Button
-        android:id="@+id/btn_animator_set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="animator_set" />
+        <Button
+            android:id="@+id/btn_object_animator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="object_animator"
+            android:onClick="skip415"/>
 
-    <Button
-        android:id="@+id/btn_animator_xml"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="animator_xml" />
+        <Button
+            android:id="@+id/btn_animator_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="animator_set"
+            android:onClick="skip416"/>
 
-    <ImageView
-        android:id="@+id/iv_property"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+        <Button
+            android:id="@+id/btn_animator_xml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="animator_xml"
+            android:onClick="skip417"/>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/iv_property"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+</layout>

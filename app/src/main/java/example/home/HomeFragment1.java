@@ -1,5 +1,6 @@
 package example.home;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;
+import com.style.framework.databinding.FragmentHome1Binding;
 
-import butterknife.OnClick;
 import example.activity.FileDownActivity;
 import example.activity.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
@@ -23,60 +24,59 @@ import example.album.SelectLocalPictureActivity;
 
 public class HomeFragment1 extends BaseFragment {
 
+    FragmentHome1Binding bd;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mLayoutResID = R.layout.fragment_home_1;
-        return super.onCreateView(inflater, container, savedInstanceState);
+        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_1, container, false);
+        return bd.getRoot();
     }
 
     @Override
     protected void initData() {
+        bd.setOnItemClickListener(new OnItemClickListener());
     }
 
-    @OnClick(R.id.layout_item_42)
-    public void skip42() {
-        skip(MultiTypeActivity.class);
-    }
+    public class OnItemClickListener {
 
-    @OnClick(R.id.btn_album)
-    public void skip1() {
-        skip(SelectLocalPictureActivity.class);
-    }
+        public void skip42(View v) {
+            skip(MultiTypeActivity.class);
+        }
 
-    @OnClick(R.id.btn_address)
-    public void skip2() {
-        skip(AddressActivity.class);
-    }
+        public void skip1(View v) {
+            skip(SelectLocalPictureActivity.class);
+        }
 
-    @OnClick(R.id.btn_radio)
-    public void skip3() {
-        skip(MyRadioGroupActivity.class);
-    }
+        public void skip2(View v) {
+            skip(AddressActivity.class);
+        }
 
-    @OnClick(R.id.btn_wheel)
-    public void skip4() {
-        skip(WheelActivity.class);
-    }
+        public void skip3(View v) {
+            skip(MyRadioGroupActivity.class);
+        }
 
-    @OnClick(R.id.btn_user_agree)
-    public void skip5() {
-        skip(ReadAssetsActivity.class);
-    }
+        public void skip4(View v) {
+            skip(WheelActivity.class);
+        }
 
-    @OnClick(R.id.btn_file_down)
-    public void skip6() {
-        skip(FileDownActivity.class);
-    }
-    @OnClick(R.id.btn_1)
-    public void skip7() {
-        skip(SoftMode1Activity.class);
-    }
-    @OnClick(R.id.btn_2)
-    public void skip8() {
-        skip(SoftMode2Activity.class);
-    }
-    @OnClick(R.id.btn_3)
-    public void skip9() {
-        skip(SoftMode3Activity.class);
+        public void skip5(View v) {
+            skip(ReadAssetsActivity.class);
+        }
+
+        public void skip6(View v) {
+            skip(FileDownActivity.class);
+        }
+
+        public void skip7(View v) {
+            skip(SoftMode1Activity.class);
+        }
+
+        public void skip8(View v) {
+            skip(SoftMode2Activity.class);
+        }
+
+        public void skip9(View v) {
+            skip(SoftMode3Activity.class);
+        }
     }
 }

@@ -1,25 +1,30 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/comm_toolbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_send"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="给其他app发消息"
-        android:gravity="center"
-        android:background="#f00"/>
+        <include layout="@layout/comm_toolbar" />
 
-    <TextView
-        android:id="@+id/tv_launch"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="启动其他app"
-        android:background="#0f0"/>
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#f00"
+            android:gravity="center"
+            android:text="给其他app发消息"
+            android:onClick="send"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_launch"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#0f0"
+            android:gravity="center"
+            android:text="启动其他app"
+            android:onClick="launch"/>
+
+    </LinearLayout>
+</layout>

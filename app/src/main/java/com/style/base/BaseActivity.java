@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
@@ -21,37 +20,24 @@ import com.style.rxAndroid.RXTaskManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
-import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
     protected Context context;
     protected LayoutInflater mInflater;
-    protected Integer mLayoutResID;
     protected View mContentView;
     private LoadingDialog progressDialog;
-
-
-    public <T extends View> T getView(int id) {
-        return (T) findViewById(id);
-    }
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         context = this;
         mInflater = LayoutInflater.from(context);
-        if (mLayoutResID != null)
-            mContentView = mInflater.inflate(mLayoutResID, null);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
         customWindowOptions(getWindow());
 
-        setContentView(mContentView);
-        //ButterKnife must set after setContentView
-        ButterKnife.bind(this);
-        initData();
     }
 
     public abstract void initData();
@@ -72,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             //设置状态栏颜色
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
             //预留状态栏空间
-            mContentView.setFitsSystemWindows(true);
+            //mContentView.setFitsSystemWindows(true);
         }
     }
 
@@ -82,14 +68,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             //去掉状态栏
             //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mContentView.setFitsSystemWindows(false);
+            //mContentView.setFitsSystemWindows(false);
         }
-    }
-
-    @Override
-    public void setContentView(View mContentView) {
-        customTitleOptions(mContentView);
-        super.setContentView(mContentView);
     }
 
     protected void customTitleOptions(View mContentView) {
@@ -109,7 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         RetrofitManager.getInstance().removeTask(TAG);
         RXTaskManager.getInstance().removeTask(TAG);
-        ButterKnife.unbind(this);
         dismissProgressDialog();
     }
 

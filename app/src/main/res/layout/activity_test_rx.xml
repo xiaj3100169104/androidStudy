@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Button
-        android:id="@+id/btn_just"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="just" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="map" />
+        <Button
+            android:id="@+id/btn_just"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="just"
+            android:onClick="skip1"/>
 
-    <Button
-        android:id="@+id/btn_flat_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="flatMap" />
+        <Button
+            android:id="@+id/btn_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="map"
+            android:onClick="skip2"/>
 
-    <Button
-        android:id="@+id/btn_insert_new_db"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="插入新数据库" />
+        <Button
+            android:id="@+id/btn_flat_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="flatMap"
+            android:onClick="skip3"/>
 
-    <Button
-        android:id="@+id/btn_request"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="网络请求解析bean" />
+        <Button
+            android:id="@+id/btn_insert_new_db"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="插入新数据库" />
 
-    <Button
-        android:id="@+id/btn_request_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="网络请求解析string" />
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="网络请求解析bean"
+            android:onClick="skip418"/>
+
+        <Button
+            android:id="@+id/btn_request_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="网络请求解析string"
+            android:onClick="skip419"/>
+    </LinearLayout>
+</layout>
 

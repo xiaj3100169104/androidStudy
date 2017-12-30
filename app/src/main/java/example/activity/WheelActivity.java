@@ -1,6 +1,8 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
@@ -10,26 +12,19 @@ import com.style.dialog.wheel.ChangeDialog1List;
 import com.style.dialog.wheel.ChangeDialog2List;
 import com.style.framework.R;
 import example.helper.DataHelper;
+
+import com.style.framework.databinding.ActivityWheelBinding;
 import com.style.utils.StringUtil;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by xiajun on 2016/10/8.
  */
 public class WheelActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.view_occupation)
-    TextView viewOccupation;
-    @Bind(R.id.view_age)
-    TextView viewAge;
-    @Bind(R.id.view_birthday)
-    TextView viewBirthday;
-    @Bind(R.id.view_hometown)
-    TextView viewHometown;
+    ActivityWheelBinding bd;
     private List<String> occupations;
     private List<String> fcAges;
 
@@ -41,34 +36,32 @@ public class WheelActivity extends BaseToolBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_wheel;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_wheel);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
         setToolbarTitle("滚轮");
         occupations = DataHelper.getOccupationSelf(this);
         fcAges = DataHelper.getAgeCondition();
 
     }
 
-    @OnClick(R.id.ll_occupation)
-    public void selOccupation() {
-        showSingleChoiceDialog("选择职业", occupations, viewOccupation);
+    public void selOccupation(View v) {
+        showSingleChoiceDialog("选择职业", occupations, bd.viewOccupation);
     }
 
-    @OnClick(R.id.ll_fc_age)
-    public void selFcAge() {
-        showTwoChoiceDialog("选择年龄", viewAge, fcAges, fcAges);
+    public void selFcAge(View v) {
+        showTwoChoiceDialog("选择年龄", bd.viewAge, fcAges, fcAges);
     }
 
-    @OnClick(R.id.ll_birthday)
-    public void selBirthday() {
+    public void selBirthday(View v) {
         showBirthDayDialog();
     }
-    @OnClick(R.id.ll_hometown)
-    public void selHometown() {
+    public void selHometown(View v) {
         selectPlaceDialog();
     }
     protected void showSingleChoiceDialog(String title, final List<String> items, final TextView textView) {
@@ -123,7 +116,7 @@ public class WheelActivity extends BaseToolBarActivity {
                 @Override
                 public void onClick(String year, String month, String day) {
                     logE("birthday", year + "-" + month + "-" + day);
-                    viewBirthday.setText(year + "-" + month + "-" + day);
+                    bd.viewBirthday.setText(year + "-" + month + "-" + day);
                 }
             });
         }
@@ -133,7 +126,7 @@ public class WheelActivity extends BaseToolBarActivity {
     protected void selectPlaceDialog() {
         String province = null;
         String city = null;
-        String str = viewHometown.getText().toString();
+        String str = bd.viewHometown.getText().toString();
         String[] s = StringUtil.getStringArray(str, " ");
         if (s != null) {
             if (s.length == 2) {
@@ -148,7 +141,7 @@ public class WheelActivity extends BaseToolBarActivity {
             @Override
             public void onClick(String province, String city) {
                 logE("city", province + " " + city);
-                viewHometown.setText(province + " " + city);
+                bd.viewHometown.setText(province + " " + city);
             }
         });
         mChangeAddressDialog.setAddress(province, city);

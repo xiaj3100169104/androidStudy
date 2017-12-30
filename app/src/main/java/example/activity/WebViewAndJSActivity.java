@@ -1,5 +1,6 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -12,31 +13,30 @@ import android.widget.Button;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityWebViewBinding;
 
-import butterknife.Bind;
 
 public class WebViewAndJSActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.btn_java_to_js)
-    Button btnJavaToJs;
-    private WebView webView;
+    ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
 
     @Override
     protected void onCreate(Bundle arg0) {
-        mLayoutResID = R.layout.activity_web_view;
         super.onCreate(arg0);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
         setToolbarTitle("与js交互测试");
 
-        webView = (WebView) findViewById(R.id.webView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new JsInterface(), "control");
+        bd.webView.getSettings().setJavaScriptEnabled(true);
+        bd.webView.addJavascriptInterface(new JsInterface(), "control");
 
-        webView.setWebChromeClient(new WebChromeClient() {
+        bd.webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int progress) {
                 // Activity和Webview根据加载程度决定进度条的进度大小
@@ -67,19 +67,19 @@ public class WebViewAndJSActivity extends BaseToolBarActivity {
             }
         });
 
-        btnJavaToJs.setOnClickListener(new View.OnClickListener() {
+        bd.btnJavaToJs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webView.loadUrl("javascript:javaCallJavascript('javacalljs参数')");
+                bd.webView.loadUrl("javascript:javaCallJavascript('javacalljs参数')");
             }
         });
-        webView.loadUrl(url);
+        bd.webView.loadUrl(url);
     }
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
+        if (bd.webView.canGoBack()) {
+            bd.webView.goBack();
             return;
         }
         super.onBackPressed();

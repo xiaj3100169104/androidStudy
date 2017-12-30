@@ -1,6 +1,7 @@
 package example.home;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +15,16 @@ import com.style.bean.Friend;
 import com.style.bean.User;
 import com.style.db.user.UserDBManager;
 import com.style.framework.R;
+import com.style.framework.databinding.FragmentHome2Binding;
 import com.style.manager.AccountManager;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-
 
 public class HomeFragment2 extends BaseFragment {
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    FragmentHome2Binding bd;
     private ArrayList<Friend> dataList;
     private LinearLayoutManager layoutManager;
     private FriendAdapter adapter;
@@ -35,8 +34,9 @@ public class HomeFragment2 extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mLayoutResID = R.layout.fragment_home_2;
-        return super.onCreateView(inflater, container, savedInstanceState);
+        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_2, container, false);
+        return bd.getRoot();
+
     }
 
     @Override
@@ -47,9 +47,9 @@ public class HomeFragment2 extends BaseFragment {
         dataList = new ArrayList<>();
         adapter = new FriendAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setAdapter(adapter);
+        bd.recyclerView.setLayoutManager(layoutManager);
+        bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        bd.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override

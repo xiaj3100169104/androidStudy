@@ -1,65 +1,58 @@
 package example.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityWebserviceBinding;
 import com.style.net.core.HttpActionManager;
 import com.style.net.core.NetStringCallback;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class WebServiceActivity extends BaseToolBarActivity {
-    @Bind(R.id.et_phone)
-    AutoCompleteTextView etPhone;
-    @Bind(R.id.btn_search)
-    Button btnSearch;
-    @Bind(R.id.et_city_code)
-    AutoCompleteTextView etCityCode;
-    @Bind(R.id.btn_search_weather)
-    Button btnSearchWeather;
-    @Bind(R.id.tv_result)
-    TextView tvResult;
 
+    ActivityWebserviceBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLayoutResID = R.layout.activity_webservice;
         super.onCreate(savedInstanceState);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_webservice);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
+
     }
 
-    @OnClick(R.id.btn_search)
-    public void search() {
-        final String phone = etPhone.getText().toString();
+    public void search(View v) {
+        final String phone = bd.etPhone.getText().toString();
 
         HttpActionManager.getInstance().getPhoneInfo(TAG, phone, new NetStringCallback() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 super.onResponse(call, response);
-                tvResult.setText(response.body());
+                bd.tvResult.setText(response.body());
             }
         });
 
     }
 
-    @OnClick(R.id.btn_search_weather)
-    public void setBtnSearchWeather() {
-        final String code = etCityCode.getText().toString();
+    public void searchWeather(View v) {
+        final String code = bd.etCityCode.getText().toString();
         HttpActionManager.getInstance().getWeather(TAG, code, new NetStringCallback(){
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 super.onResponse(call, response);
-                tvResult.setText(response.body());
+                bd.tvResult.setText(response.body());
             }
         });
 

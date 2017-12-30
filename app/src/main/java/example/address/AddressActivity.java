@@ -1,5 +1,6 @@
 package example.address;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.rxAndroid.RXTaskManager;
 import com.style.rxAndroid.callback.RXTaskCallBack;
 import com.style.threadpool.CachedThreadPoolManager;
@@ -20,38 +22,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
-
 
 public class AddressActivity extends BaseToolBarActivity {
 
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @Bind(R.id.tv_dialog)
-    TextView tvDialog;
-    @Bind(R.id.sidebar)
-    SideBar sidebar;
+    ActivityAddressBinding bd;
     private ArrayList dataList;
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
 
     @Override
     protected void onCreate(Bundle arg0) {
-        mLayoutResID = R.layout.activity_address;
         super.onCreate(arg0);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
+        initData();
     }
 
     @Override
     public void initData() {
+        super.customTitleOptions(bd.getRoot());
+
         setToolbarTitle("通讯录");
 
-        sidebar.setTextView(tvDialog);
+        bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();
         adapter = new UploadPhoneAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setAdapter(adapter);
+        bd.recyclerView.setLayoutManager(layoutManager);
+        bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        bd.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
@@ -61,13 +59,13 @@ public class AddressActivity extends BaseToolBarActivity {
             }
         });
         // 设置右侧触摸监听
-        sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+        bd.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
             @Override
             public void onTouchingLetterChanged(String s) {
                 // 该字母首次出现的位置
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    layoutManager.smoothScrollToPosition(recyclerView, null, position);
+                    layoutManager.smoothScrollToPosition(bd.recyclerView, null, position);
                 }
             }
         });

@@ -1,22 +1,22 @@
 package com.style.base;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import example.address.UploadPhone;
-import example.address.UploadPhoneAdapter;
 import com.style.framework.R;
+import com.style.framework.databinding.AdapterAddressBinding;
+import com.style.framework.databinding.HolderAddressBinding;
+import com.style.framework.databinding.HolderBannerBinding;
+import com.style.framework.databinding.HolderHeaderBinding;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import example.address.UploadPhone;
+import example.address.UploadPhoneAdapter;
 
 /**
  * Created by XiaJun on 2015/7/2.
@@ -44,13 +44,18 @@ public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter<Upload
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_BANNER)
-            return new BannerViewHolder(mInflater.inflate(R.layout.holder_banner, parent, false));
-        else if (viewType == TYPE_HEADER)
-            return new HeaderViewHolder(mInflater.inflate(R.layout.holder_header, parent, false));
-        else if (viewType == TYPE_ADDRESS)
-            return new AddressViewHolder(mInflater.inflate(R.layout.holder_address, parent, false));
-        return new ContactViewHolder(mInflater.inflate(R.layout.adapter_address, parent, false));
+        if (viewType == TYPE_BANNER) {
+            HolderBannerBinding bd = DataBindingUtil.inflate(mInflater, R.layout.holder_banner, parent, false);
+            return new BannerViewHolder(bd);
+        } else if (viewType == TYPE_HEADER) {
+            HolderHeaderBinding bd = DataBindingUtil.inflate(mInflater, R.layout.holder_header, parent, false);
+            return new HeaderViewHolder(bd);
+        } else if (viewType == TYPE_ADDRESS) {
+            HolderAddressBinding bd = DataBindingUtil.inflate(mInflater, R.layout.holder_address, parent, false);
+            return new AddressViewHolder(bd);
+        }
+        AdapterAddressBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_address, parent, false);
+        return new ContactViewHolder(bd);
     }
 
     @Override
@@ -62,64 +67,66 @@ public class MultiTypeRecyclerViewAdapter extends BaseRecyclerViewAdapter<Upload
             case TYPE_ADDRESS:
                 AddressViewHolder holder2 = (AddressViewHolder) viewHolder;
                 ArrayList<UploadPhone> list2 = new ArrayList();
-                if (list.size() > 4)
-                    list2 = (ArrayList<UploadPhone>) getList().subList(3, getItemCount() - 3);
+                /*if (list.size() > 4)
+                    list2 = (ArrayList<UploadPhone>) getList().subList(3, getItemCount() - 3);*/
                 UploadPhoneAdapter adapter = new UploadPhoneAdapter(getContext(), list2);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                holder2.recyclerView.setLayoutManager(layoutManager);
-                holder2.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-                holder2.recyclerView.setAdapter(adapter);
+                holder2.bd.recyclerView.setLayoutManager(layoutManager);
+                holder2.bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+                holder2.bd.recyclerView.setAdapter(adapter);
+                holder2.bd.executePendingBindings();
                 break;
             case TYPE_HEADER:
+
                 break;
             case TYPE_CONTACT:
                 ContactViewHolder holder = (ContactViewHolder) viewHolder;
                 UploadPhone up = getData(position);
                 logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
                 String name = up.getName();
-                holder.tv_first_name.setText(name.substring(name.length() - 1, name.length()));
-                holder.tv_name.setText(up.getName());
+                holder.bd.tvFirstName.setText(name.substring(name.length() - 1, name.length()));
+                holder.bd.tvName.setText(up.getName());
+                holder.bd.catalog.setText(up.getSortLetters());
+                holder.bd.executePendingBindings();
                 break;
         }
 
     }
 
     public class BannerViewHolder extends RecyclerView.ViewHolder {
-        public BannerViewHolder(View itemView) {
-            super(itemView);
+        HolderBannerBinding bd;
+        BannerViewHolder(HolderBannerBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
+
         }
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
+        HolderHeaderBinding bd;
+        HeaderViewHolder(HolderHeaderBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
+
         }
     }
 
     public class AddressViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.recyclerView)
-        RecyclerView recyclerView;
+        HolderAddressBinding bd;
+        AddressViewHolder(HolderAddressBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
 
-        AddressViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
         }
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_first_name)
-        TextView tv_first_name;
-        @Bind(R.id.tv_name)
-        TextView tv_name;
-        @Bind(R.id.catalog)
-        TextView tvLetter;
-        @Bind(R.id.tv_add)
-        TextView tv_add;
+        AdapterAddressBinding bd;
+        ContactViewHolder(AdapterAddressBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
 
-        ContactViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
         }
     }
     /*  @Override

@@ -1,26 +1,22 @@
 package example.media.video;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
+import com.style.framework.databinding.AdapterLocalVideoBinding;
 import com.style.utils.BitmapUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
     public LocalVideoAdapter(Context context, ArrayList<File> list) {
@@ -29,17 +25,19 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(mInflater.inflate(R.layout.adapter_local_video, parent, false));
+        AdapterLocalVideoBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_local_video, parent, false);
+        return new ViewHolder(bd);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         File f = getData(position);
-        holder.tv_name.setText(f.getName());
+        holder.bd.tvName.setText(f.getName());
 
-        setImageResource(f, holder.ivVideoPreview);
-        super.setOnItemClickListener(holder, position);
+        setImageResource(f, holder.bd.ivVideoPreview);
+        super.setOnItemClickListener(holder.itemView, position);
+        holder.bd.executePendingBindings();
     }
 
     private void setImageResource(File f, ImageView imageView) {
@@ -61,14 +59,12 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_name)
-        TextView tv_name;
-        @Bind(R.id.iv_video_preview)
-        ImageView ivVideoPreview;
+        AdapterLocalVideoBinding bd;
 
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
+        ViewHolder(AdapterLocalVideoBinding bd) {
+            super(bd.getRoot());
+            this.bd = bd;
+
         }
     }
 }

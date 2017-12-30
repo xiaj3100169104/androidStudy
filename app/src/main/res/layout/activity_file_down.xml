@@ -1,73 +1,78 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_light"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/comm_toolbar" />
-
-    <com.style.view.progressbar.HorizontalProgressBar
-        android:id="@+id/progressBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        custom:horizontalProgressColor="@color/colorAccent"
-        custom:horizontalProgress="30" />
+        android:layout_height="match_parent"
+        android:background="@color/gray_light"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bt_http_down"
-        style="@style/text_white_15sp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="http下载" />
-    <com.style.view.progressbar.HorizontalProgressBar
-        android:id="@+id/progressBar4"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        custom:horizontalProgressColor="@color/colorAccent"
-        custom:horizontalProgress="30"  />
+        <include layout="@layout/comm_toolbar" />
 
-    <Button
-        android:id="@+id/bt_multi_thread_down"
-        style="@style/text_white_15sp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="多线程下载" />
-    <com.style.view.progressbar.HorizontalProgressBar
-        android:id="@+id/progressBar2"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        custom:horizontalProgressColor="@color/colorAccent"
-        custom:horizontalProgress="30"  />
-    <com.style.view.progressbar.HorizontalProgressBar
-        android:id="@+id/progressBar3"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        custom:horizontalProgressColor="@color/colorAccent"
-        custom:horizontalProgress="30"
-        />
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgressColor="@color/colorAccent"
+            custom:horizontalProgress="30" />
 
-    <Button
-        android:id="@+id/bt_multi_file_down"
-        style="@style/text_white_15sp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="多文件下载" />
-</LinearLayout>
+        <Button
+            android:id="@+id/bt_http_down"
+            style="@style/text_white_15sp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="http下载" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progressBar4"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgressColor="@color/colorAccent"
+            custom:horizontalProgress="30" />
+
+        <Button
+            android:id="@+id/bt_multi_thread_down"
+            style="@style/text_white_15sp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="多线程下载" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgressColor="@color/colorAccent"
+            custom:horizontalProgress="30" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgressColor="@color/colorAccent"
+            custom:horizontalProgress="30" />
+
+        <Button
+            android:id="@+id/bt_multi_file_down"
+            style="@style/text_white_15sp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="多文件下载" />
+    </LinearLayout>
+</layout>

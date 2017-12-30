@@ -4,11 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.utils.AssetsUtil;
-
-import java.io.IOException;
 
 public class SoftMode1Activity extends AppCompatActivity {
 

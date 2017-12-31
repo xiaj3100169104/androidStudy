@@ -43,13 +43,12 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_select_local_picture);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         setToolbarTitle("本地图片选择");
         paths = new ArrayList<>();
         TAG_ADD = new Media();

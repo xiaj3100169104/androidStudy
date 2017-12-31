@@ -23,6 +23,7 @@ public class GlideDealActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_glide_deal);
+        super.setContentView(bd.getRoot());
         initData();
     }
 

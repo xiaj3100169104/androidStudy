@@ -57,6 +57,7 @@ public class MainActivity extends BaseToolBarActivity {
         bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         EventBus.getDefault().register(this);
+        super.setContentView(bd.getRoot());
         initData();
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
@@ -79,8 +80,6 @@ public class MainActivity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         curUser = AccountManager.getInstance().getCurrentUser();
 
         mTabs = new TextView[5];

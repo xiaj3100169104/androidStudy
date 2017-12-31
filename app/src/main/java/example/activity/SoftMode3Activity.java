@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseRecyclerViewAdapter;
+import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode3Binding;
 import com.style.view.DividerItemDecoration;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 import example.adapter.StringAdapter;
 
-public class SoftMode3Activity extends AppCompatActivity {
+public class SoftMode3Activity extends BaseToolBarActivity {
     private String TAG = "SoftMode3Activity";
 
     ActivitySoftMode3Binding bd;
@@ -33,8 +34,13 @@ public class SoftMode3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_3);
+        super.setContentView(bd.getRoot());
+        initData();
+    }
 
-        setContentView(R.layout.activity_soft_mode_3);
+    @Override
+    public void initData() {
+        setToolbarTitle("弹出软键盘recyclerview调整");
 
     }
 

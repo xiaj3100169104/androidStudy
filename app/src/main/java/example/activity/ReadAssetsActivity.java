@@ -22,12 +22,12 @@ public class ReadAssetsActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_user_agree);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
 
         setToolbarTitle("用户协议");
 

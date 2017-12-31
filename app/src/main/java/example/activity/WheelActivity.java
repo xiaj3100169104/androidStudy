@@ -38,12 +38,12 @@ public class WheelActivity extends BaseToolBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_wheel);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
         setToolbarTitle("滚轮");
         occupations = DataHelper.getOccupationSelf(this);
         fcAges = DataHelper.getAgeCondition();

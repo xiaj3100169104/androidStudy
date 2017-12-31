@@ -30,13 +30,12 @@ public class FileDownActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_file_down);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         setToolbarTitle("文件下载");
 
         bd.btHttpDown.setOnClickListener(new View.OnClickListener() {

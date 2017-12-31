@@ -30,13 +30,12 @@ public class MyRadioGroupActivity extends BaseToolBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_my_radio_group);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         setToolbarTitle("切换");
         rg_emotion = (MyRadioGroup) this.findViewById(R.id.rg_emotion_card_tab);
         fm = getSupportFragmentManager();

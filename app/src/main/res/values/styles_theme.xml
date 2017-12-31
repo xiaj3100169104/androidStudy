@@ -1,24 +1,26 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 布局还没加载出来前的窗口背景颜色 -->
+        <item name="android:windowBackground">@color/windowBackground</item>
         <!-- toolbar（actionbar）颜色 -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary2</item>
         <!-- 状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark2</item>
         <!--按钮选中或者点击获得焦点后的颜色-->
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent2</item>
         <!--返回键颜色-->
-        <item name="android:textColorPrimary">@color/black_light</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <!--Button按钮正常状态颜色-->
-        <item name="colorButtonNormal">@color/button_color_normal</item>
+        <item name="colorButtonNormal">@color/colorButtonNormal</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@color/black_light</item>
-        <!-- 布局还没加载出来前的窗口背景颜色 -->
-        <item name="android:windowBackground">@android:color/white</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
         <!-- SearchView -->
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
@@ -53,7 +55,11 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        //菜单字体颜色
+        <item name="android:textColorPrimary">@color/white</item>
+
+    </style>
 
     <style name="AppTheme.Toolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/bar_color</item>

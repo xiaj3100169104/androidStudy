@@ -25,12 +25,12 @@ public class WebViewAndJSActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
         setToolbarTitle("与js交互测试");
 
         bd.webView.getSettings().setJavaScriptEnabled(true);

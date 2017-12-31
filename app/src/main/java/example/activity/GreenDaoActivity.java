@@ -26,6 +26,7 @@ public class GreenDaoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_green_dao);
+        super.setContentView(bd.getRoot());
         initData();
     }
 

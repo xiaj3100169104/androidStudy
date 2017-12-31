@@ -39,13 +39,12 @@ public class MultiTypeActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_multi_type);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         setToolbarTitle("复杂布局");
 
         dataList = new ArrayList<>();

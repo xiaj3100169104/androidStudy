@@ -25,6 +25,7 @@ public class TestDBActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_test_db);
+        super.setContentView(bd.getRoot());
         initData();
     }
 

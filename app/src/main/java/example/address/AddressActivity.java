@@ -1,10 +1,16 @@
 package example.address;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.style.base.BaseRecyclerViewAdapter;
@@ -34,13 +40,12 @@ public class AddressActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
+        super.setContentView(bd.getRoot());
         initData();
     }
 
     @Override
     public void initData() {
-        super.customTitleOptions(bd.getRoot());
-
         setToolbarTitle("通讯录");
 
         bd.sidebar.setTextView(bd.tvDialog);
@@ -69,14 +74,52 @@ public class AddressActivity extends BaseToolBarActivity {
                 }
             }
         });
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            logE(TAG, "检查权限");
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+                logE(TAG, "上次拒绝");
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 5);
 
-        getData();
+            } else {
+                logE(TAG, "请求权限");
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 5);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            getData2();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == 5) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                logE(TAG, "权限允许");
+                getData2();
+            } else {
+                logE(TAG, "权限拒绝");
+                // Permission Denied
+                showToast("Permission Denied");
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void getData() {
         showProgressDialog();
         //custom();
-        RXTaskManager.getInstance().runTask(TAG, new RXTaskCallBack<List<UploadPhone>>(){
+        RXTaskManager.getInstance().runTask(TAG, new RXTaskCallBack<List<UploadPhone>>() {
             @Override
             public List<UploadPhone> doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());
@@ -106,8 +149,8 @@ public class AddressActivity extends BaseToolBarActivity {
         });
     }
 
-    private void custom() {
-        CachedThreadPoolManager.getInstance().runTask(TAG,new MyTaskCallBack() {
+    private void getData2() {
+        CachedThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
             @Override
             public Object doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());

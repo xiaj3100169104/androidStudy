@@ -11,9 +11,13 @@ import android.graphics.Typeface;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.style.broadcast.NetWorkChangeBroadcastReceiver;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import example.app.AppCrashHandler;
 
 
 public class AppManager {
@@ -35,6 +39,16 @@ public class AppManager {
 
     public void init(Context context) {
         this.context = context;
+        Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
+        initReceiver();
+
+    }
+
+    //      监听广播
+    private void initReceiver() {
+
+        IntentFilter filter = new IntentFilter(NetWorkChangeBroadcastReceiver.NET_CHANGE);
+        this.context.registerReceiver(new NetWorkChangeBroadcastReceiver(), filter);
     }
 
     public static Context getContext() {

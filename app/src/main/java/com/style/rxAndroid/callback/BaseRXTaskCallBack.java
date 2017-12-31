@@ -25,7 +25,7 @@ public abstract class BaseRXTaskCallBack {
                 return doInBackground();
             }
         });
-        //定义生产事件线程
+        //定义生产事件线程，注意必须链式调用，一旦mObservable被取出来就失效了
         mObservable.subscribeOn(Schedulers.io());
       /*  Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override

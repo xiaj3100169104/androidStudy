@@ -12,6 +12,12 @@ public abstract class BaseToolBarActivity extends BaseActivity {
     private TextView tvTitleBase;
     private ImageView ivBaseToolbarReturn;
 
+    @Override
+    public void setContentView(View mContentView) {
+        super.setContentView(mContentView);
+        customTitleOptions(mContentView);
+    }
+
     protected void customTitleOptions(View mContentView) {
         toolbar = mContentView.findViewById(R.id.toolbar);
         ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);

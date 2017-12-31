@@ -17,6 +17,7 @@ public class EnterActivity extends BaseToolBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_enter);
+        super.setContentView(bd.getRoot());
         initData();
     }
 

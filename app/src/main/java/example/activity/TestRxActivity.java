@@ -34,6 +34,7 @@ public class TestRxActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_test_rx);
+        super.setContentView(bd.getRoot());
         initData();
     }
 

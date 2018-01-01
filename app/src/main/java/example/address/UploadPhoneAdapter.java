@@ -42,9 +42,8 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter<UploadPhone> imp
 		} else {
 			holder.bd.catalog.setVisibility(View.GONE);
 		}
-		holder.bd.executePendingBindings();
-
 		super.setOnItemClickListener(holder.itemView, position);
+		holder.bd.executePendingBindings();
 	}
 
 	/**

@@ -34,9 +34,8 @@ public class FriendAdapter extends BaseRecyclerViewAdapter {
         Friend f = (Friend) getData(position);
         holder.bd.viewMark.setText(f.getMark());
         holder.bd.viewNick.setText(f.getUser().getUserName());
-        holder.bd.executePendingBindings();
         super.setOnItemClickListener(holder.itemView, position);
-
+        holder.bd.executePendingBindings();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

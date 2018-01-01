@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="#14191A" />
+        android:background="#ffffff" />
 
 
     <TextView

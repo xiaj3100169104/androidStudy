@@ -20,17 +20,16 @@ public class StringAdapter extends BaseRecyclerViewAdapter<String> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         AdapterFriendBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_friend, parent, false);
-        return new ViewHolder(bd);    }
+        return new ViewHolder(bd);
+    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         String f = getData(position);
         holder.bd.viewMark.setText(f);
-        holder.bd.executePendingBindings();
-
         super.setOnItemClickListener(holder.itemView, position);
-
+        holder.bd.executePendingBindings();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

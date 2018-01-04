@@ -87,7 +87,18 @@
                 android:onClick="@{onItemClickListener.skip9}"
 
                 android:text="弹出软键盘recyclerview调整" />
+            <TextView
+                android:id="@+id/btn_4"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip10}"
 
+                android:text="手势上下滑动移动布局并销毁activity" />
+            <TextView
+                android:id="@+id/btn_5"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip11}"
+
+                android:text="状态栏透明编辑框布局调整" />
 
         </LinearLayout>
     </ScrollView>

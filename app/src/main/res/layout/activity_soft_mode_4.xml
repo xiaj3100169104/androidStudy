@@ -7,7 +7,7 @@
 
         android:orientation="vertical">
 
-        <include layout="@layout/normal_toolbar" />
+        <include layout="@layout/comm_toolbar" />
 
         <LinearLayout
             android:id="@+id/layout_root"

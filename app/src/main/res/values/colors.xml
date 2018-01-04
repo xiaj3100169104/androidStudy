@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 布局还没加载出来前的窗口背景颜色 -->
+    <color name="windowBackground_translucent">#40000000</color>
+
     <color name="windowBackground">@color/white</color>
     <!-- appbar颜色 -->
-    <color name="colorPrimary2">@color/blue_single</color>
+    <color name="colorPrimary2">#00b0ff</color>
     <!-- 状态栏颜色 -->
-    <color name="colorPrimaryDark2">@color/blue_single</color>
+    <color name="colorPrimaryDark2">#0091ea</color>
     <!-- 文本颜色、日期等对话框字体颜色 -->
     <color name="textColorPrimary">@color/text_color_black_light</color>
     <!-- 控件选中后的颜色 -->
@@ -74,4 +75,7 @@
     <!-- 中灰色 -->
     <color name="gray_middle">#e3e3e3</color>
     <color name="gray_deep">#474747</color>
+
+    <color name="red_deep">#10ff0000</color>
+
 </resources>

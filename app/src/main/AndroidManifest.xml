@@ -91,7 +91,9 @@
         <activity android:name="example.activity.MyRadioGroupActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
-        <activity android:name="example.activity.EnterActivity" />
+        <activity
+            android:name="example.activity.TestGestureActivity"
+            android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.activity.WheelActivity" />
@@ -136,10 +138,15 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.activity.SoftMode2Activity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.activity.SoftMode3Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
+        <activity
+            android:name="example.activity.SoftMode4Activity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
 
 
         <meta-data

@@ -31,6 +31,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected View mContentView;
     private LoadingDialog progressDialog;
 
+    protected boolean isFlagTranslucentStatus() {
+        return true;
+    }
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -39,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
         customWindowOptions(getWindow());
+        //setTheme();
 
     }
 
@@ -46,6 +50,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //自定义窗口属性
     protected void customWindowOptions(Window window) {
+        if (isFlagTranslucentStatus()){
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        }
         //定义4.4以下窗口属性
         customWindowKitkat(window);
         //定义5.0以上窗口属性
@@ -74,27 +82,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean isWrapContentView() {
-        return true;
-    }
 
     @Override
     public void setContentView(View mContentView) {
-        if (isWrapContentView()) {
-            /*不用CoordinatorLayout，主题里面的状态栏颜色不生效。
-            v-21主题里面设置了状态栏透明，主题里面又能设置状态栏颜色；
-            说明状态栏在5.0后activity根布局是CoordinatorLayout时状态栏是一个悬浮着的view。
-            */
-            ViewGroup rootView = new CoordinatorLayout(this);
-            CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            //一个view不能同时有两个父布局
-            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
-            rootView.addView(mContentView, layoutParams);
-            rootView.setFitsSystemWindows(false);
-            mContentView = rootView;
-            this.mContentView = mContentView;
-        }
-        super.setContentView(mContentView);
+
     }
 
     @Override

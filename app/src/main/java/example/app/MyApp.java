@@ -1,8 +1,12 @@
 package example.app;
 
 import android.app.Application;
+import android.content.ComponentCallbacks;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
@@ -25,7 +29,25 @@ public class MyApp extends Application {
         UserDBManager.getInstance().initialize(appContext);
         GreenDaoManager.getInstance().initialize(appContext);
         HttpActionManager.getInstance().init();
+        registerComponentCallbacks(new ComponentCallbacks2() {
+            @Override
+            public void onTrimMemory(int level) {
+                Log.e("ComponentCallbacks2", "onTrimMemory-->" + level);
 
+            }
+
+            @Override
+            public void onConfigurationChanged(Configuration newConfig) {
+                Log.e("ComponentCallbacks2", "onConfigurationChanged-->" + newConfig.toString());
+
+            }
+
+            @Override
+            public void onLowMemory() {
+                Log.e("ComponentCallbacks2", "onLowMemory");
+
+            }
+        });
     }
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）
@@ -40,7 +62,15 @@ public class MyApp extends Application {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        Log.e("MyApp", "onTrimMemory-->" + level);
+        super.onTrimMemory(level);
+        //TRIM_MEMORY_UI_HIDDEN;刚打开11也是这个值，根本就不准，按home键时都调用，且还有很多内存
+    }
+
+    @Override
     public void onLowMemory() {
+        Log.e("MyApp", "onLowMemory");
         super.onLowMemory();
     }
 

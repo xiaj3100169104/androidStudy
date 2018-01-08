@@ -1,4 +1,4 @@
-package example.activity;
+package example.aidl;
 
 import android.content.ComponentName;
 import android.content.Context;

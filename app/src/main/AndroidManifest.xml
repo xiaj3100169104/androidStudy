@@ -98,11 +98,10 @@
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.activity.WheelActivity" />
         <activity android:name="example.activity.FileDownActivity" />
-        <activity android:name="example.activity.WebViewActivity" />
+        <activity android:name="example.web.WebViewActivity" />
         <activity android:name="example.activity.UserAgreeActivity" />
-        <activity android:name="example.activity.WebViewFeedbackActivity" />
-
-        <activity android:name="example.activity.WebViewAndJSActivity" />
+        <activity android:name="example.web.WebViewFeedbackActivity" />
+        <activity android:name="example.web.WebViewAndJSActivity" />
         <activity android:name="example.activity.MultiTypeActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
@@ -126,32 +125,36 @@
         <activity android:name="example.activity.DataBindingActivity" />
         <activity android:name="example.activity.MsgToSubActivity" />
         <activity android:name="example.ndk.JniTestActivity" />
-        <activity android:name="example.activity.AidlActivity" />
+        <activity android:name="example.aidl.AidlActivity" />
         <activity android:name="example.activity.WebServiceActivity" />
-
         <activity android:name="example.activity.TestDBActivity" />
         <activity android:name="example.activity.GlideDealActivity" />
         <activity android:name="example.activity.GreenDaoActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity
-            android:name="example.activity.SoftMode1Activity"
+            android:name="example.softInput.SoftMode1Activity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.activity.SoftMode2Activity"
+            android:name="example.softInput.SoftMode2Activity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.activity.SoftMode3Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            />
+            android:name="example.softInput.SoftMode3Activity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.activity.SoftMode4Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            />
-
+            android:name="example.softInput.SoftMode4Activity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <activity android:name="example.tablayout.TabLayoutActivity"></activity>
+        <activity android:name="example.viewpager.MyPickerActivity"></activity>
+        <activity
+            android:name="example.viewpager.ImageScanActivity"
+            android:theme="@style/AppTheme.Translucent"></activity>
+        <activity android:name="example.viewpager.GlideListActivity"></activity>
+
     </application>
 
 </manifest>

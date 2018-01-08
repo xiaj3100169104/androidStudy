@@ -31,23 +31,6 @@
 -dontwarn android.support.v7.**
 -keep class * extends android.support.v7.**{*;}
 
--keep class **$$ViewBinder { *; } #butterknife 7.x即之后的版本生成的类
--dontwarn butterknife.*
--keep class **$$ViewInjector { *; } #butterknife 7.x 版之前生成的类
--keepnames class * { @butterknife.InjectView *;}
-
-
-#保持eventbus
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
-#混淆第三方jar包，其中xxx为jar包名
-#-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
--keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件
--keep class JniTest
-
 #-dontwarn com.xxx**              #忽略某个包的警告
 -keepattributes Signature        #不混淆泛型
 -keepnames class * implements java.io.Serializable #不混淆Serializable
@@ -85,3 +68,18 @@ public static java.lang.String TABLENAME;
 -dontwarn org.greenrobot.greendao.database.**
 # If you do not use RxJava:
 -dontwarn rx.**
+
+#Glide的混淆规则
+-keep public class  extends com.bumptech.glide.module.AppGlideModule
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+
+#保持eventbus
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+#混淆第三方jar包，其中xxx为jar包名
+#-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
+-keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件
+-keep class JniTest

@@ -12,16 +12,16 @@ import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome3Binding;
 import com.style.manager.AccountManager;
 
-import example.activity.AidlActivity;
+import example.aidl.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
 import example.activity.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
 import example.activity.TestDBActivity;
 import example.activity.WebServiceActivity;
-import example.activity.WebViewActivity;
-import example.activity.WebViewAndJSActivity;
-import example.activity.WebViewFeedbackActivity;
+import example.web.WebViewActivity;
+import example.web.WebViewAndJSActivity;
+import example.web.WebViewFeedbackActivity;
 import example.ndk.JniTestActivity;
 
 

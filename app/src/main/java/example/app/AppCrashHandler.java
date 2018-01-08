@@ -16,6 +16,8 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        Log.e("AppCrashHandler", "uncaughtException");
+
         //读取stacktrace信息
         final Writer result = new StringWriter();
         final PrintWriter printWriter = new PrintWriter(result);

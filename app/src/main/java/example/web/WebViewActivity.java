@@ -1,4 +1,4 @@
-package example.activity;
+package example.web;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
-import com.style.view.progressbar.HorizontalProgressBar;
 
 
 public class WebViewActivity extends BaseToolBarActivity {

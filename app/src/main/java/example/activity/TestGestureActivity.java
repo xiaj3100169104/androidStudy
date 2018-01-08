@@ -14,14 +14,14 @@ import android.view.animation.DecelerateInterpolator;
 import com.style.base.BaseActivity;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityEnterBinding;
+import com.style.framework.databinding.ActivityTestGestureBinding;
 
 /**
  * Created by xiajun on 2016/10/8.
  */
 public class TestGestureActivity extends BaseActivity {
 
-    ActivityEnterBinding bd;
+    ActivityTestGestureBinding bd;
     private float mDownRawX;
     private float mDownRawY;
     private boolean isShouldFinish;
@@ -30,7 +30,7 @@ public class TestGestureActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_enter);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_gesture);
         super.setContentView(bd.getRoot());
         initData();
     }

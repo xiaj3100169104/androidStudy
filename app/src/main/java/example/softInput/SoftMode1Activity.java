@@ -1,4 +1,4 @@
-package example.activity;
+package example.softInput;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;

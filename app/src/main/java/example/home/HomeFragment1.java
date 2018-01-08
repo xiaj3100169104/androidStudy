@@ -10,18 +10,20 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
 
-import example.activity.SoftMode4Activity;
+import example.softInput.SoftMode4Activity;
 import example.activity.TestGestureActivity;
 import example.activity.FileDownActivity;
 import example.activity.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
-import example.activity.SoftMode1Activity;
-import example.activity.SoftMode2Activity;
-import example.activity.SoftMode3Activity;
+import example.softInput.SoftMode1Activity;
+import example.softInput.SoftMode2Activity;
+import example.softInput.SoftMode3Activity;
 import example.activity.ReadAssetsActivity;
 import example.activity.WheelActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
+import example.tablayout.TabLayoutActivity;
+import example.viewpager.MyPickerActivity;
 
 
 public class HomeFragment1 extends BaseFragment {
@@ -80,12 +82,20 @@ public class HomeFragment1 extends BaseFragment {
         public void skip9(View v) {
             skip(SoftMode3Activity.class);
         }
+
         public void skip10(View v) {
             skip(TestGestureActivity.class);
         }
+
         public void skip11(View v) {
             skip(SoftMode4Activity.class);
         }
 
+        public void skip12(View v) {
+            skip(TabLayoutActivity.class);
+        }
+        public void skip13(View v) {
+            skip(MyPickerActivity.class);
+        }
     }
 }

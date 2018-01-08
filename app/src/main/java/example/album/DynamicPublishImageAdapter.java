@@ -1,5 +1,6 @@
 package example.album;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +11,7 @@ import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.AdapterPublishDynamicPictureBinding;
-import com.style.manager.ImageLoadManager;
+import com.style.glide.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter<Media> {
         Media media = getData(position);
         if (position != getItemCount() - 1) {
             holder.bd.ivDelete.setVisibility(View.VISIBLE);
-            ImageLoadManager.loadNormalPicture(mContext, holder.bd.ivActiveImages, media.path);
+            ImageLoader.loadNormalPicture((Activity) mContext, holder.bd.ivActiveImages, media.path);
 
         } else {
             holder.bd.ivDelete.setVisibility(View.GONE);

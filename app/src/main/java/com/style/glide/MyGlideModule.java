@@ -54,8 +54,8 @@ public class MyGlideModule extends AppGlideModule {
         Log.e("defaultMemoryCacheSize", defaultMemoryCacheSize / 1024 / 1024 + "");
         Log.e("defaultBitmapPoolSize", defaultBitmapPoolSize / 1024 / 1024 + "");*/
 
-        int memoryCacheSizeBytes = 1024 * 1024 * 20;
-        int defaultBitmapPoolSize = 1024 * 1024 * 20;
+        long memoryCacheSizeBytes = Runtime.getRuntime().maxMemory() / 8;
+        long defaultBitmapPoolSize = Runtime.getRuntime().maxMemory() / 8;
 
         builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes));
         builder.setBitmapPool(new LruBitmapPool(defaultBitmapPoolSize));

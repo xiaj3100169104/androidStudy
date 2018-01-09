@@ -1,10 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
 
         <variable
             name="onItemClickListener"
             type="example.home.HomeFragment1.OnItemClickListener" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -87,30 +89,45 @@
                 android:onClick="@{onItemClickListener.skip9}"
 
                 android:text="弹出软键盘recyclerview调整" />
+
             <TextView
                 android:id="@+id/btn_4"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip10}"
 
                 android:text="手势上下滑动移动布局并销毁activity" />
+
             <TextView
                 android:id="@+id/btn_5"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip11}"
 
                 android:text="状态栏透明编辑框布局调整" />
+
             <TextView
                 android:id="@+id/btn_6"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip12}"
 
                 android:text="tabLayout" />
+
             <TextView
                 android:id="@+id/btn_7"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip13}"
-
                 android:text="imageScan" />
+
+            <TextView
+                android:id="@+id/btn_8"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip14}"
+                android:text="音频列表" />
+
+            <TextView
+                android:id="@+id/btn_9"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip15}"
+                android:text="单独进程服务" />
         </LinearLayout>
     </ScrollView>
 </layout>

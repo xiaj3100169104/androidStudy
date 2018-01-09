@@ -116,11 +116,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name="example.aidl.AidlService"
-            android:exported="false"
-            android:process="com.offline.message" />
-
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.activity.DataBindingActivity" />
         <activity android:name="example.activity.MsgToSubActivity" />
@@ -154,7 +149,19 @@
             android:name="example.viewpager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent"></activity>
         <activity android:name="example.viewpager.GlideListActivity"></activity>
-
+        <activity android:name="example.music.MusicListActivity"></activity>
+        <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。          -->
+        <service
+            android:name="example.music.PlayMusicService"
+            android:exported="false" />
+        <activity android:name="example.music.remote.RemotePlayActivity"></activity>
+        <service
+            android:name="example.music.remote.RemotePlayService"
+            android:process="com.offline.message">
+            <intent-filter>
+                <action android:name="action.remote.play" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

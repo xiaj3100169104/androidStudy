@@ -10,6 +10,8 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
 
+import example.music.MusicListActivity;
+import example.music.remote.RemotePlayActivity;
 import example.softInput.SoftMode4Activity;
 import example.activity.TestGestureActivity;
 import example.activity.FileDownActivity;
@@ -94,8 +96,17 @@ public class HomeFragment1 extends BaseFragment {
         public void skip12(View v) {
             skip(TabLayoutActivity.class);
         }
+
         public void skip13(View v) {
             skip(MyPickerActivity.class);
+        }
+
+        public void skip14(View v) {
+            skip(MusicListActivity.class);
+        }
+
+        public void skip15(View v) {
+            skip(RemotePlayActivity.class);
         }
     }
 }

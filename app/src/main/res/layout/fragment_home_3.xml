@@ -24,7 +24,6 @@
             <TextView
                 android:id="@+id/layout_item_417"
                 style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip417}"
                 android:text="主线程给子线程发消息" />
 
             <TextView

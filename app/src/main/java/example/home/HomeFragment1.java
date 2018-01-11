@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
+import com.style.manager.AppManager;
 
 import example.music.MusicListActivity;
 import example.music.remote.RemotePlayActivity;
@@ -106,7 +107,9 @@ public class HomeFragment1 extends BaseFragment {
         }
 
         public void skip15(View v) {
+
             skip(RemotePlayActivity.class);
+
         }
     }
 }

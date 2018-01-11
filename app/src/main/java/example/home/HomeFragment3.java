@@ -42,7 +42,7 @@ public class HomeFragment3 extends BaseFragment {
     }
 
     public class OnItemClickListener {
-        public void skip417(View v) {
+        public void ski(View v) {
             skip(MsgToSubActivity.class);
         }
 

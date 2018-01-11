@@ -10,7 +10,6 @@ import com.style.framework.BR;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityDataBindingBinding;
 
-import example.activity.EventListener;
 
 public class DataBindingActivity extends AppCompatActivity {
 
@@ -37,36 +36,33 @@ public class DataBindingActivity extends AppCompatActivity {
         User user = new User("绑定Model数据类型", "sdsd");
         bd.setUser(user);
 
-        bd.setVariable(BR.enabled2, true);
+        //bd.setVariable(BR.enabled2, true);
 
         bd.setTitle1("click1");
         bd.setTitle2("click2");
         bd.setTitle3("click3");
         bd.setTitle4("title4传给click3");
 
-        bd.setEvent(new EventListener());
-        /*binding.setEvent(new EventListener() {
+        bd.setEvent(new EventListener(){
             @Override
             public void click1(View v) {
-                binding.setTitle1("title1改变");
-
+                bd.setTitle1("事件1方法调用");
             }
 
             @Override
             public void click2(View v) {
-                binding.setTitle2("title2改变");
-
+                bd.setTitle2("事件2方法调用");
             }
 
             @Override
-            public void click3(String s) {
-                binding.setTitle3(s);
-
+            public void cilck3(String s) {
+                bd.setTitle3(s);
             }
-        });*/
+        });
+
     }
 
-    public class EventListener {
+   /* public class EventListener {
         public void click1(View v) {
             bd.setTitle1("title1改变");
 
@@ -81,5 +77,11 @@ public class DataBindingActivity extends AppCompatActivity {
             bd.setTitle3(s);
 
         }
+    }*/
+
+    public interface EventListener{
+        public void click1(View v);
+        public void click2(View v);
+        public void cilck3(String s);
     }
 }

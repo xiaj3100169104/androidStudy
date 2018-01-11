@@ -7,8 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
@@ -30,10 +33,11 @@ public class AppManager {
     public static Typeface TEXT_TYPE;
     private static AppManager mInstance;
 
-    public static AppManager getInstance() {
-        if (mInstance == null) {
-            mInstance = new AppManager();
-        }
+    static {
+        mInstance = new AppManager();
+    }
+
+    public synchronized static AppManager getInstance() {
         return mInstance;
     }
 
@@ -126,5 +130,28 @@ public class AppManager {
             Log.i("MyApp", "加载第三方字体失败。");
             TEXT_TYPE = null;
         }
+    }
+
+    /**
+     * 获取app当前的渠道号或application中指定的meta-data
+     *
+     * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
+     */
+    public String getAppMetaData() {
+        String channelNumber = null;
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo != null) {
+                    if (applicationInfo.metaData != null) {
+                        channelNumber = applicationInfo.metaData.getString("UMENG_CHANNEL");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return channelNumber;
     }
 }

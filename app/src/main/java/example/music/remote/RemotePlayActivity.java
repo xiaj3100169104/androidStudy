@@ -17,18 +17,20 @@ import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 import com.style.framework.databinding.ActivityMusicListBinding;
+import com.style.framework.databinding.ActivityRemoteServiceBinding;
+import com.style.manager.AppManager;
 
 import aidl.IRemoteService;
 
 public class RemotePlayActivity extends BaseToolBarActivity {
 
     private IRemotePlayService remoteService;
-    private ActivityMusicListBinding bd;
+    private ActivityRemoteServiceBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_music_list);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_remote_service);
         super.setContentView(bd.getRoot());
         setToolbarTitle("另起进程开启服务");
         initData();
@@ -48,6 +50,9 @@ public class RemotePlayActivity extends BaseToolBarActivity {
     }
 
     public void play(View v) {
+        String channelNumber = AppManager.getInstance().getAppMetaData();//获取app当前的渠道
+        logE("channelNumber", channelNumber);
+        bd.tvFlavor.setText(channelNumber);
     }
 
     public void stop(View v) {

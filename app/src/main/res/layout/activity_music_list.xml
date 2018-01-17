@@ -19,15 +19,23 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:onClick="start"
-                android:text="开始" />
+                android:text="启动" />
 
             <Button
-                android:id="@+id/btn_play"
+                android:id="@+id/btn_bind"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:onClick="play"
-                android:text="播放" />
+                android:onClick="bind"
+                android:text="绑定" />
+
+            <Button
+                android:id="@+id/btn_unbind"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:onClick="unbind"
+                android:text="解绑" />
 
             <Button
                 android:id="@+id/btn_stop"
@@ -35,7 +43,7 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:onClick="stop"
-                android:text="暂停" />
+                android:text="销毁" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

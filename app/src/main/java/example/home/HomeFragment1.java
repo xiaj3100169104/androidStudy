@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
-import com.style.manager.AppManager;
 
 import example.music.MusicListActivity;
 import example.music.remote.RemotePlayActivity;
 import example.softInput.SoftMode4Activity;
 import example.activity.TestGestureActivity;
-import example.activity.FileDownActivity;
+import example.filedown.FileDownActivity;
 import example.activity.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
 import example.softInput.SoftMode1Activity;

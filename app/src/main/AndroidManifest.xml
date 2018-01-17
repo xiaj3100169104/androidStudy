@@ -97,7 +97,7 @@
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.activity.WheelActivity" />
-        <activity android:name="example.activity.FileDownActivity" />
+        <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
         <activity android:name="example.activity.UserAgreeActivity" />
         <activity android:name="example.web.WebViewFeedbackActivity" />

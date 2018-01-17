@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
-
+//def config = rootProject.extensions.getByName("ext")
 
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion ANDROID_COMPILE_SDK_VERSION
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
         applicationId "com.style.framework"
-        minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
-        versionCode Integer.parseInt(project.VERSION_CODE)
-        versionName project.VERSION_NAME
+        minSdkVersion ANDROID_MIN_SDK_VERSION
+        targetSdkVersion ANDROID_TARGET_SDK_VERSION
+
         //multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个
@@ -25,17 +24,29 @@ android {
             moduleName "helloNDK"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }*/
+        versionCode 2
+        versionName '1.0'
     }
-    dataBinding {
-        enabled = true
+    signingConfigs {
+        debug {
+            storeFile file('E:/Android/keystore/debug.keystore')
+        }
+        release {
+            //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
+            storeFile file(project.STORE_FILE)
+            storePassword project.STORE_PASSWORD
+            keyAlias project.KEY_ALIAS
+            keyPassword project.KEY_PASSWORD
+        }
     }
+
     //改成如下配置,问题解决
     flavorDimensions "tier"//新增的,值是数组
     productFlavors {
-        xiaomi { dimension "tier" }
+        //_xiaomi { dimension "tier" }
         //_360 {dimension "tier"}
-        baidu { dimension "tier" }
-        wandoujia { dimension "tier" }
+        //_baidu { dimension "tier" }
+        _wandoujia { dimension "tier" }
     }
 
     productFlavors.all {
@@ -43,27 +54,31 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // 自定义输出配置
-            /*applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为wooyun_v1.0_wandoujia.apk
-                        def fileName = "wooyun_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }*/
+            signingConfig signingConfigs.release
         }
         debug {
+            debuggable true
             minifyEnabled false
             zipAlignEnabled true
             //慎用，导致很多未知错误
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    android.applicationVariants.all { variant ->    //批量修改Apk名字
+        variant.outputs.all { output ->
+            //if (!variant.buildType.isDebuggable()) {
+            //获取签名的名字 variant.signingConfig.name
+            //要被替换的源字符串
+            def sourceFile = "-${variant.flavorName}-${variant.buildType.name}"
+            //替换的字符串
+            def replaceFile = "_V${variant.versionName}_${variant.flavorName}_${variant.buildType.name}"
+            outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
+            //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
+            // }
         }
     }
 
@@ -74,6 +89,9 @@ android {
         abortOnError true
     }
 
+    dataBinding {
+        enabled = true
+    }
     externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
@@ -87,12 +105,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //compile 'com.android.support:appcompat-v7:27.+'
-    compile 'com.android.support:appcompat-v7:' + project.ANDROID_SUPPORT_VERSION
-    compile 'com.android.support:cardview-v7:' + project.ANDROID_SUPPORT_VERSION
-    compile 'com.android.support:design:' + project.ANDROID_SUPPORT_VERSION
-    compile 'com.android.support:recyclerview-v7:' + project.ANDROID_SUPPORT_VERSION
+    compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+    compile "com.android.support:cardview-v7:$ANDROID_SUPPORT_VERSION"
+    compile "com.android.support:design:$ANDROID_SUPPORT_VERSION"
+    compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_VERSION"
     testCompile 'junit:junit:4.12'
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.alibaba:fastjson:1.1.54.android'
@@ -111,20 +128,16 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
-
     //compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/pinyin4j-2.5.0.jar')
     //compile 'com.belerweb:pinyin4j:2.5.1'
     /*compile files('libs/ksoap2-android-assembly-3.6.2-jar-with-dependencies.jar') {
-        exclude group: 'com.squareup.okhttp3',  module: 'okhttp'
-    }*/
-
+                        exclude group: 'com.squareup.okhttp3',  module: 'okhttp'
+                    }*/
     //compile 'com.jakewharton:butterknife:7.0.1'
-
     compile project(':mediapicker')
     compile project(':libVideoRecord')
     compile project(':libWheelDialog')
-
 }
 greendao {
     schemaVersion 1

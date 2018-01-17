@@ -3,14 +3,13 @@
 buildscript {
     repositories {
         jcenter()
-        mavenCentral()
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
 
-      // NOTE: Do not place your application dependencies here; they belong
+        // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
@@ -18,11 +17,18 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        //解决a Failed to resolve: com.android.support:appcompat-v7:27.+
-        maven { url "https://maven.google.com" }
         google()
     }
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+ext {
+    ANDROID_COMPILE_SDK_VERSION = 27
+    ANDROID_BUILD_TOOLS_VERSION = '27.0.2'
+    ANDROID_MIN_SDK_VERSION = 19
+    ANDROID_TARGET_SDK_VERSION = 23
+    ANDROID_SUPPORT_VERSION = '27.0.2'
 }

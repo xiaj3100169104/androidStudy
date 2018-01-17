@@ -1,16 +1,16 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion ANDROID_COMPILE_SDK_VERSION
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
+        minSdkVersion ANDROID_MIN_SDK_VERSION
+        targetSdkVersion ANDROID_TARGET_SDK_VERSION
     }
 
     dependencies {
-        compile 'com.android.support:appcompat-v7:' + project.ANDROID_SUPPORT_VERSION
-        compile 'com.android.support:recyclerview-v7:' + project.ANDROID_SUPPORT_VERSION
+        compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+        compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_VERSION"
         implementation 'com.github.bumptech.glide:glide:4.5.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
 

@@ -4,6 +4,7 @@ allProduct/
 /build
 *.iml
 .externalNativeBuild
+gradle.properties
 local.properties
 *.jks
 *.apk

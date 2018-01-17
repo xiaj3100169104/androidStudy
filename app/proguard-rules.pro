@@ -26,9 +26,8 @@
 -printmapping mapping.txt        #混淆前后的映射
 
 #如果有引用v4或者v7包，需添加
--dontwarn android.support.v4.**
+-dontwarn android.support.**
 -keep class * extends android.support.v4.**{*;}
--dontwarn android.support.v7.**
 -keep class * extends android.support.v7.**{*;}
 
 #-dontwarn com.xxx**              #忽略某个包的警告
@@ -70,7 +69,7 @@ public static java.lang.String TABLENAME;
 -dontwarn rx.**
 
 #Glide的混淆规则
--keep public class  extends com.bumptech.glide.module.AppGlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
 
 #保持eventbus

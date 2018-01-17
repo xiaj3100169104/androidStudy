@@ -51,7 +51,7 @@ public class MusicListActivity extends BaseToolBarActivity implements MediaDataC
 
     @Override
     public void initData() {
-        setToolbarTitle("播放列表");
+        setToolbarTitle("播放列表4");
 
         dataList = new ArrayList<>();
         adapter = new AudioAdapter(this, dataList);
@@ -70,8 +70,6 @@ public class MusicListActivity extends BaseToolBarActivity implements MediaDataC
             }
         });
         getMediaData();
-        Intent i = new Intent(new Intent(this, PlayMusicService.class));
-        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
 
     }
 
@@ -120,14 +118,25 @@ public class MusicListActivity extends BaseToolBarActivity implements MediaDataC
     }
 
     public void start(View v) {
-        myBinder.start(0);
+        Intent i = new Intent(new Intent(this, PlayMusicService.class));
+        startService(i);
+
     }
 
-    public void play(View v) {
+    public void bind(View v) {
+        Intent i = new Intent(new Intent(this, PlayMusicService.class));
+        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+
+    }
+
+    public void unbind(View v) {
+        unbindService(mConnection);
+
     }
 
     public void stop(View v) {
-        myBinder.stop("停止");
+        Intent i = new Intent(new Intent(this, PlayMusicService.class));
+        stopService(i);
     }
 
     PlayMusicService.MyBinder myBinder;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,146 +9,160 @@
             type="example.home.HomeFragment4.EventListener" />
     </data>
 
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:srlEnablePureScrollMode="true">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/windows_color"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:divider="@drawable/divider_common"
-                android:dividerPadding="@dimen/activity_horizontal_margin"
-                android:onClick="@{event.skip415}"
-                android:orientation="vertical"
-                android:showDividers="middle">
+                android:layout_height="match_parent"
+                android:background="@color/windows_color"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/layout_item_415"
-                    style="@style/Layouts.normal_LinearLayout"
-                    android:onClick="@{event.skip415}">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:divider="@drawable/divider_common"
+                    android:dividerPadding="@dimen/activity_horizontal_margin"
+                    android:onClick="@{event.skip415}"
+                    android:orientation="vertical"
+                    android:showDividers="middle">
 
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
+                    <LinearLayout
+                        android:id="@+id/layout_item_415"
+                        style="@style/Layouts.normal_LinearLayout"
+                        android:onClick="@{event.skip415}">
 
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="rx测试" />
+                        <ImageView
+                            style="@style/layout_item_right_image"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="rx测试" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_item_416"
+                        style="@style/Layouts.normal_LinearLayout"
+                        android:onClick="@{event.skip416}">
+
+                        <ImageView
+                            style="@style/layout_item_right_image"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="GreenDao测试" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_item_417"
+                        style="@style/Layouts.normal_LinearLayout"
+                        android:onClick="@{event.skip417}">
+
+                        <ImageView
+                            style="@style/layout_item_right_image"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="Glide特殊处理" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_item_418"
+                        style="@style/Layouts.normal_LinearLayout"
+                        android:onClick="@{event.skip418}">
+
+                        <ImageView
+                            style="@style/layout_item_right_image"
+                            android:src="@mipmap/ic_launcher" />
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="模拟app崩溃" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout_item_416"
-                    style="@style/Layouts.normal_LinearLayout"
-                    android:onClick="@{event.skip416}">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:divider="@drawable/divider_common"
+                    android:dividerPadding="@dimen/activity_horizontal_margin"
+                    android:orientation="vertical"
+                    android:showDividers="middle">
 
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip46}">
 
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="GreenDao测试" />
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="VideoRecord" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip48}">
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="VoiceRecord" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip49}">
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="SocketTest" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip491}">
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="事件管理器" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip492}">
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="蓝牙学习" />
+                    </RelativeLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/layout_item_417"
-                    style="@style/Layouts.normal_LinearLayout"
-                    android:onClick="@{event.skip417}">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="Glide特殊处理" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/layout_item_418"
-                    style="@style/Layouts.normal_LinearLayout"
-                    android:onClick="@{event.skip418}">
-
-                    <ImageView
-                        style="@style/layout_item_right_image"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="模拟app崩溃" />
-                </LinearLayout>
             </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:divider="@drawable/divider_common"
-                android:dividerPadding="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:showDividers="middle">
-
-                <RelativeLayout
-                    android:id="@+id/layout_item_46"
-                    style="@style/Layouts.normal_RelativeLayout"
-                    android:onClick="@{event.skip46}">
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:text="VideoRecord" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layout_item_48"
-                    style="@style/Layouts.normal_RelativeLayout"
-                    android:onClick="@{event.skip48}">
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:text="VoiceRecord" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layout_item_49"
-                    style="@style/Layouts.normal_RelativeLayout"
-                    android:onClick="@{event.skip49}">
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:text="SocketTest" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layout_item_491"
-                    style="@style/Layouts.normal_RelativeLayout"
-                    android:onClick="@{event.skip491}">
-
-                    <TextView
-                        style="@style/text_black_16sp"
-                        android:layout_centerVertical="true"
-                        android:text="事件管理器" />
-                </RelativeLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
 </layout>

@@ -6,7 +6,10 @@
             name="onItemClickListener"
             type="example.home.HomeFragment1.OnItemClickListener" />
     </data>
-
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,14 +28,7 @@
                 android:id="@+id/layout_item_42"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip42}"
-                android:text="复杂适配器" />
-
-            <TextView
-                android:id="@+id/btn_album"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip1}"
-
-                android:text="album" />
+                android:text="复杂布局" />
 
             <TextView
                 android:id="@+id/btn_address"
@@ -42,11 +38,11 @@
                 android:text="address" />
 
             <TextView
-                android:id="@+id/btn_radio"
+                android:id="@+id/btn_album"
                 style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip3}"
+                android:onClick="@{onItemClickListener.skip1}"
 
-                android:text="radiogroup" />
+                android:text="album" />
 
             <TextView
                 android:id="@+id/btn_wheel"
@@ -54,6 +50,13 @@
                 android:onClick="@{onItemClickListener.skip4}"
 
                 android:text="wheel" />
+
+            <TextView
+                android:id="@+id/btn_radio"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip3}"
+
+                android:text="radiogroup" />
 
             <TextView
                 android:id="@+id/btn_user_agree"
@@ -130,4 +133,6 @@
                 android:text="单独进程服务" />
         </LinearLayout>
     </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </layout>

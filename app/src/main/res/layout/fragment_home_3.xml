@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -7,94 +8,103 @@
             type="example.home.HomeFragment3.OnItemClickListener" />
     </data>
 
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/windows_color">
+        app:srlEnableFooterFollowWhenLoadFinished="true"
+        app:srlEnableScrollContentWhenLoaded="true">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:divider="@drawable/divider_common"
-            android:dividerPadding="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            android:showDividers="middle">
+            android:background="@color/windows_color">
 
-            <TextView
-                android:id="@+id/layout_item_417"
-                style="@style/text_home_item"
-                android:text="主线程给子线程发消息" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@drawable/divider_common"
+                android:dividerPadding="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:showDividers="middle">
 
-            <TextView
-                android:id="@+id/layout_item_418"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip418}"
+                <TextView
+                    android:id="@+id/layout_item_417"
+                    style="@style/text_home_item"
+                    android:text="主线程给子线程发消息" />
 
-                android:text="原生数据库操作" />
+                <TextView
+                    android:id="@+id/layout_item_418"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip418}"
 
-            <TextView
-                android:id="@+id/layout_item_414"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip414}"
+                    android:text="原生数据库操作" />
 
-                android:text="动画分类" />
+                <TextView
+                    android:id="@+id/layout_item_414"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip414}"
 
-            <TextView
-                android:id="@+id/layout_item_419"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip419}"
+                    android:text="动画分类" />
 
-                android:text="DataDinding" />
+                <TextView
+                    android:id="@+id/layout_item_419"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip419}"
 
-            <TextView
-                android:id="@+id/btn_web_view"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip7}"
+                    android:text="DataDinding" />
 
-                android:text="远程网页" />
+                <TextView
+                    android:id="@+id/btn_web_view"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip7}"
 
-            <TextView
-                android:id="@+id/btn_web_view2"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip71}"
+                    android:text="远程网页" />
 
-                android:text="本地网页" />
+                <TextView
+                    android:id="@+id/btn_web_view2"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip71}"
 
-            <TextView
-                android:id="@+id/btn_web_view_js"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip8}"
+                    android:text="本地网页" />
 
-                android:text="与js交互" />
+                <TextView
+                    android:id="@+id/btn_web_view_js"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip8}"
 
-            <TextView
-                android:id="@+id/btn_feedback"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip81}"
+                    android:text="与js交互" />
 
-                android:text="用户反馈" />
+                <TextView
+                    android:id="@+id/btn_feedback"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip81}"
 
-            <TextView
-                android:id="@+id/btn_jni"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip9}"
+                    android:text="用户反馈" />
 
-                android:text="jni测试" />
+                <TextView
+                    android:id="@+id/btn_jni"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip9}"
 
-            <TextView
-                android:id="@+id/btn_aidl"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip10}"
+                    android:text="jni测试" />
 
-                android:text="aidl测试" />
+                <TextView
+                    android:id="@+id/btn_aidl"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip10}"
 
-            <TextView
-                android:id="@+id/btn_webservice"
-                style="@style/text_home_item"
-                android:onClick="@{onItemClickListener.skip11}"
+                    android:text="aidl测试" />
 
-                android:text="webservice测试" />
-        </LinearLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/btn_webservice"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener.skip11}"
+
+                    android:text="webservice测试" />
+            </LinearLayout>
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </layout>

@@ -1,7 +1,7 @@
 <resources>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="app_name">libraryDemos</string>
+    <string name="app_name">androidStudy</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="delete_succeed">删除成功</string>

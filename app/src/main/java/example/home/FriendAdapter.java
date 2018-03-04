@@ -16,8 +16,8 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendAdapter extends BaseRecyclerViewAdapter {
-    public FriendAdapter(Context context, ArrayList list) {
+public class FriendAdapter extends BaseRecyclerViewAdapter<Integer> {
+    public FriendAdapter(Context context, ArrayList<Integer> list) {
         super(context, list);
     }
 
@@ -31,15 +31,16 @@ public class FriendAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        Friend f = (Friend) getData(position);
-        holder.bd.viewMark.setText(f.getMark());
-        holder.bd.viewNick.setText(f.getUser().getUserName());
+        Integer f = getData(position);
+        holder.bd.viewMark.setText("数据" + f);
+        //holder.bd.viewNick.setText(f.getUser().getUserName());
         super.setOnItemClickListener(holder.itemView, position);
         holder.bd.executePendingBindings();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         AdapterFriendBinding bd;
+
         ViewHolder(AdapterFriendBinding bd) {
             super(bd.getRoot());
             this.bd = bd;

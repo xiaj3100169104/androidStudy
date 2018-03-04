@@ -39,6 +39,7 @@ public class HomeFragment3 extends BaseFragment {
     protected void initData() {
         curUser = AccountManager.getInstance().getCurrentUser();
         bd.setOnItemClickListener(new OnItemClickListener());
+        bd.refreshLayout.setEnableLoadMore(false);
     }
 
     public class OnItemClickListener {

@@ -31,8 +31,9 @@ import java.util.List;
 
 public class AddressActivity extends BaseToolBarActivity {
 
+    private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
-    private ArrayList dataList;
+    private ArrayList<UploadPhone> dataList;
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
 
@@ -83,12 +84,12 @@ public class AddressActivity extends BaseToolBarActivity {
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 5);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
 
             } else {
                 logE(TAG, "请求权限");
                 // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 5);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
@@ -102,7 +103,7 @@ public class AddressActivity extends BaseToolBarActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-        if (requestCode == 5) {
+        if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 logE(TAG, "权限允许");
                 getData2();

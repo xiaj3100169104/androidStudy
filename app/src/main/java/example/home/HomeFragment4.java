@@ -15,6 +15,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome4Binding;
 
 
+import example.ble.BlueToothActivity;
 import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
 import example.queue.QueueTestActivity;
@@ -36,6 +37,7 @@ public class HomeFragment4 extends BaseFragment {
     protected void initData() {
         bd.setEvent(new EventListener());
         logE(TAG, "initData");
+
     }
 
     public class EventListener {
@@ -71,6 +73,9 @@ public class HomeFragment4 extends BaseFragment {
 
         public void skip491(View v) {
             skip(QueueTestActivity.class);
+        }
+        public void skip492(View v) {
+            skip(BlueToothActivity.class);
         }
 
     }

@@ -49,6 +49,13 @@ public class BluetoothDeviceAdapter extends BaseRecyclerViewAdapter<BluetoothBea
         holder.bd.tvAddress.setText("address: " + d.getAddress());
         holder.bd.tvBondState.setText(BluetoothBean.getBondStateDesc(d.getBondState()));
         holder.bd.tvRssi.setText("rssi: " + data.rssi);
+        if (d.getType() == BluetoothDevice.DEVICE_TYPE_CLASSIC) {
+            holder.bd.tvProfileState.setVisibility(View.GONE);
+        } else if (d.getType() == BluetoothDevice.DEVICE_TYPE_LE || d.getType() == BluetoothDevice.DEVICE_TYPE_DUAL) {
+            holder.bd.tvProfileState.setVisibility(View.VISIBLE);
+            holder.bd.tvProfileState.setText(BluetoothBean.getProfileStateDesc(data.profileState));
+
+        }
         holder.bd.tvBondState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

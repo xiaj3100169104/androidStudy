@@ -157,7 +157,17 @@
                         <TextView
                             style="@style/text_black_16sp"
                             android:layout_centerVertical="true"
-                            android:text="蓝牙学习" />
+                            android:text="蓝牙开发" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        style="@style/Layouts.normal_RelativeLayout"
+                        android:onClick="@{event.skip493}">
+
+                        <TextView
+                            style="@style/text_black_16sp"
+                            android:layout_centerVertical="true"
+                            android:text="低功耗蓝牙开发" />
                     </RelativeLayout>
                 </LinearLayout>
 

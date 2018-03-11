@@ -15,6 +15,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome4Binding;
 
 
+import example.ble.BLEActivity;
 import example.ble.BlueToothActivity;
 import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
@@ -77,6 +78,8 @@ public class HomeFragment4 extends BaseFragment {
         public void skip492(View v) {
             skip(BlueToothActivity.class);
         }
-
+        public void skip493(View v) {
+            skip(BLEActivity.class);
+        }
     }
 }

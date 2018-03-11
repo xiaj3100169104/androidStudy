@@ -64,11 +64,11 @@
             android:text="rssi" />
 
         <TextView
-            android:id="@+id/tv_connectable"
+            android:id="@+id/tv_profile_state"
             style="@style/text_black_15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="connectable" />
+            android:text="未连接" />
     </LinearLayout>
 </layout>

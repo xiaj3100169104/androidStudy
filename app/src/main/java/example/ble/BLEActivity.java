@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
@@ -20,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -37,7 +40,6 @@ import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +50,7 @@ import example.address.UploadPhone;
 import example.address.UploadPhoneComparator;
 
 
-public class BlueToothActivity extends BaseToolBarActivity {
+public class BLEActivity extends BaseToolBarActivity {
     private static int REQUEST_ENABLE_BT = 6;
 
     ActivityBluetoothBinding bd;
@@ -61,6 +63,8 @@ public class BlueToothActivity extends BaseToolBarActivity {
     private ArrayList<BluetoothBean> dataList;
     private LinearLayoutManager layoutManager;
     private BluetoothDeviceAdapter adapter;
+    private Handler leScanHandler = new Handler();
+    private boolean isScanning;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -76,7 +80,18 @@ public class BlueToothActivity extends BaseToolBarActivity {
         // Initializes Bluetooth adapter.
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
-
+        if (adapter == null) {
+            //系统不支持蓝牙。
+            showToast("当前设备不支持蓝牙");
+            finish();
+            return;
+        }
+        boolean isSupportBle = this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
+        if (!isSupportBle) {
+            showToast("当前设备不支持低功耗蓝牙");
+            finish();
+            return;
+        }
         dataList = new ArrayList<>();
         adapter = new BluetoothDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
@@ -87,49 +102,14 @@ public class BlueToothActivity extends BaseToolBarActivity {
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<BluetoothBean>() {
             @Override
             public void onItemClick(int position, BluetoothBean data) {
-                final BluetoothDevice d = data.device;
-                if (d.getType() == BluetoothDevice.DEVICE_TYPE_CLASSIC) {
-                    if (d.getBondState() == BluetoothDevice.BOND_NONE) {
+                BluetoothDevice remoteDevice = data.device;
+                if (remoteDevice.getType() == BluetoothDevice.DEVICE_TYPE_CLASSIC) {
+                    if (remoteDevice.getBondState() == BluetoothDevice.BOND_NONE) {
+                        //BluetoothDevice remoteDevice = adapter.getRemoteDevice(address);
+                        MyGattCallback gattCallback = new MyGattCallback(data);
+                        remoteDevice.connectGatt(context, true, gattCallback);
+                    } else if (remoteDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
 
-                    } else if (d.getBondState() == BluetoothDevice.BOND_BONDED) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    BluetoothSocket socket = d.createInsecureRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-                                    socket.connect();
-                                    socket.getOutputStream().write(5);
-
-                                    /*BluetoothServerSocket server = mBluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("myServerSocket",
-                                            UUID.fromString("84D1319C-FBAF-644C-901A-8F091F25AF04"));
-                                    BluetoothSocket socket = server.accept();
-                                    InputStream inputStream = socket.getInputStream();
-                                    int read = -1;
-                                    final byte[] bytes = new byte[1024];
-                                    for (; (read = inputStream.read(bytes)) > -1; ) {
-                                        final int count = read;
-
-                                        StringBuilder sb = new StringBuilder();
-                                        for (int i = 0; i < count; i++) {
-                                            if (i > 0) {
-                                                sb.append(' ');
-                                            }
-                                            String _s = Integer.toHexString(bytes[i] & 0xFF);
-                                            if (_s.length() < 2) {
-                                                sb.append('0');
-                                            }
-                                            sb.append(_s);
-                                        }
-                                        System.out.println(sb.toString());
-
-                                    }
-                                    socket.getOutputStream().write(5);
-                                    socket.close();*/
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
                     }
                 }
             }
@@ -167,6 +147,16 @@ public class BlueToothActivity extends BaseToolBarActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mReceiver != null) {
+            unregisterReceiver(mReceiver);
+        }
+        leScanHandler.removeMessages(0);
+
+    }
+
     public void openBluetooth(View v) {
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
@@ -175,6 +165,9 @@ public class BlueToothActivity extends BaseToolBarActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+    }
+
+    public void close(View v) {
     }
 
     public void scan(View v) {
@@ -197,12 +190,6 @@ public class BlueToothActivity extends BaseToolBarActivity {
         filter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//行动扫描模式改变了
         registerReceiver(mReceiver, filter);
         mBluetoothAdapter.startDiscovery();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mReceiver);
     }
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -252,51 +239,74 @@ public class BlueToothActivity extends BaseToolBarActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void startScan() {
-        mScanner = mBluetoothAdapter.getBluetoothLeScanner();
-        if (mScanner == null) {
-            showToast("蓝牙不可用");
-            return;
-        }
-        mScanCallback = new ScanCallback() {
-            @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                logE("ScanCallback", "onScanResult==" + result.toString());
-                ParsedAd ad = BluetoothUtil.parseData(result.getScanRecord().getBytes());
-                dealData(result.getDevice(), ad.localName, result.getRssi());
+        if (!isScanning) {
+            mScanner = mBluetoothAdapter.getBluetoothLeScanner();
+            if (mScanner == null) {
+                showToast("蓝牙不可用");
+                return;
             }
+            mScanCallback = new ScanCallback() {
+                @Override
+                public void onScanResult(int callbackType, ScanResult result) {
+                    logE("ScanCallback", "onScanResult==" + result.toString());
+                    ParsedAd ad = BluetoothUtil.parseData(result.getScanRecord().getBytes());
+                    dealData(result.getDevice(), ad.localName, result.getRssi());
+                }
 
-            @Override
-            public void onBatchScanResults(List<ScanResult> results) {
-                logE("ScanCallback", "onBatchScanResults");
-                logResult(results);
-            }
+                @Override
+                public void onBatchScanResults(List<ScanResult> results) {
+                    logE("ScanCallback", "onBatchScanResults");
+                    logResult(results);
+                }
 
-            private void logResult(List<ScanResult> results) {
-                if (results != null && results.size() > 0) {
-                    for (ScanResult result : results) {
-                        result.toString();
+                private void logResult(List<ScanResult> results) {
+                    if (results != null && results.size() > 0) {
+                        for (ScanResult result : results) {
+                            result.toString();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onScanFailed(int errorCode) {
-                logE("ScanCallback", "onScanFailed==" + errorCode);
-            }
-        };
-        mScanner.startScan(mScanCallback);
+                @Override
+                public void onScanFailed(int errorCode) {
+                    logE("ScanCallback", "onScanFailed==" + errorCode);
+                }
+            };
+            mScanner.startScan(mScanCallback);
+            isScanning = true;
+            leScanHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopScan(null); //停止扫描
+                }
+            }, 5000);//设置10秒钟结束扫描
+        }
     }
 
     private void startLeScan() {
-        mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-            @Override
-            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                //logE("LeScanCallback", "onLeScan=" + scanRecord.length);
-                ParsedAd ad = BluetoothUtil.parseData(scanRecord);
-                dealData(device, ad.localName, rssi);
-            }
-        };
-        mBluetoothAdapter.startLeScan(mLeScanCallback);
+        //正在扫描时，不执行扫描
+        if (!isScanning) {
+            mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+                @Override
+                public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                    //这里注意，本人在开发中遇到的是 经常有的蓝牙设备是没有名字的， （device.getName == null）
+                    //不知道这是什么原因引起的，后来跟很多蓝牙高手讨论的是结果初步怀疑应该是芯片的问题
+                    //尤其是MTK的芯片经常出现这种问题,换了搭载高通和华为的芯片的设备就没问题了。
+                    //logE("LeScanCallback", "onLeScan=" + scanRecord.length);
+                    ParsedAd ad = BluetoothUtil.parseData(scanRecord);
+                    dealData(device, ad.localName, rssi);
+                }
+            };
+            mBluetoothAdapter.startLeScan(mLeScanCallback);
+            isScanning = true;
+            leScanHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopScan(null); //停止扫描
+                }
+            }, 5000);//设置10秒钟结束扫描
+        }
+
     }
 
     private void dealData(BluetoothDevice device, String deviceName, int rssi) {
@@ -319,19 +329,6 @@ public class BlueToothActivity extends BaseToolBarActivity {
         }
     }
 
-    //scanRecords的格式转换
-    static final char[] hexArray = "0123456789ABCDEF".toCharArray();
-
-    private static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
-    }
-
     public void stopScan(View v) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -339,48 +336,7 @@ public class BlueToothActivity extends BaseToolBarActivity {
             if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON)
                 mScanner.stopScan(mScanCallback);
         }
-
+        isScanning = false;
     }
 
-    public void close(View v) {
-    }
-
-    private void getData() {
-        showProgressDialog();
-
-        CachedThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
-            @Override
-            public Object doInBackground() {
-                List<UploadPhone> list = ContactHelper.getContacts(getContext());
-                if (null != list) {
-                    int size = list.size();
-                    for (int i = 0; i < size; i++) {
-                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
-                        list.get(i).setSortLetters(sortLetter);
-                    }
-                }
-                // 根据a-z进行排序源数据
-                Collections.sort(list, new UploadPhoneComparator());
-                return list;
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                Log.e(BlueToothActivity.this.TAG, "OnSuccess");
-                dismissProgressDialog();
-                if (data != null) {
-                    List<UploadPhone> response = (List<UploadPhone>) data;
-                    Log.e(BlueToothActivity.this.TAG, response.toString());
-                    //dataList.addAll(response);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailed(String message) {
-                dismissProgressDialog();
-
-            }
-        });
-    }
 }

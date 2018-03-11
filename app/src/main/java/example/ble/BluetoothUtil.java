@@ -122,4 +122,53 @@ public class BluetoothUtil {
             e.printStackTrace();
         }
     }
+
+    //两个byte -->int
+    private int byteToInt(byte b, byte c) {//计算总包长，两个字节表示的
+        short s = 0;
+        int ret;
+        short s0 = (short) (c & 0xff);// 最低位
+        short s1 = (short) (b & 0xff);
+        s1 <<= 8;
+        s = (short) (s0 | s1);
+        ret = s;
+        return ret;
+    }
+
+    //int -->两个byte
+    private byte[] int2byte(int res) {
+        byte[] targets = new byte[2];
+        targets[1] = (byte) (res & 0xff);// 最低位
+        targets[0] = (byte) ((res >> 8) & 0xff);// 次低位
+        return targets;
+    }
+
+    public static byte[] hexStringToByte(String hex) {
+        int len = (hex.length() / 2);
+        byte[] result = new byte[len];
+        char[] achar = hex.toCharArray();
+        for (int i = 0; i < len; i++) {
+            int pos = i * 2;
+            result[i] = (byte) (toByte(achar[pos]) << 4 | toByte(achar[pos + 1]));
+        }
+        return result;
+    }
+
+    private static byte toByte(char c) {
+        byte b = (byte) "0123456789ABCDEF".indexOf(c);
+        return b;
+    }
+
+    public static String byte2hex(byte [] buffer){
+        String h = "";
+        for(int i = 0; i < buffer.length; i++){
+            String temp = Integer.toHexString(buffer[i] & 0xFF);
+            if(temp.length() == 1){
+                temp = "0" + temp;
+            }
+            h = h + temp;
+        }
+        return h;
+    }
+
 }

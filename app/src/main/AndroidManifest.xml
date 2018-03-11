@@ -72,7 +72,7 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-feature android:name="android.bluetooth_le" android:required="true"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <!--粗略位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--精确位置-->
@@ -122,6 +122,7 @@
             </intent-filter>
         </receiver>
         <activity android:name="example.ble.BlueToothActivity" />
+        <activity android:name="example.ble.BLEActivity" />
 
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.activity.DataBindingActivity" />

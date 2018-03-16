@@ -29,7 +29,7 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('E:/Android/keystore/debug.keystore')
+            storeFile file(project.STORE_FILE_DEBUG)//('E:/Android/keystore/debug.keystore')
         }
         release {
             //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法

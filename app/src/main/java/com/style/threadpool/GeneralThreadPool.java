@@ -1,4 +1,4 @@
-package example.queue;
+package com.style.threadpool;
 
 import android.util.Log;
 
@@ -12,10 +12,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadPoolUtil {
-    private static final String TAG = "ThreadPoolUtil";
+/**
+ * Created by xiajun on 2018/3/24.
+ */
 
-    private ThreadPoolUtil() { }
+public class GeneralThreadPool extends ThreadPoolExecutor {
+    private static final String TAG = "GeneralThreadPool";
 
     // 线程池核心线程数
     private static final int CORE_POOL_SIZE = 5;
@@ -42,22 +44,12 @@ public class ThreadPoolUtil {
         }
     };
 
-    private static ThreadPoolExecutor sExecutor;
-    static {
-        sExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE,
+    public GeneralThreadPool(){
+        this(CORE_POOL_SIZE, MAX_POOL_SIZE,
                 KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT, workQueue, threadFactory, rejectedExecutionHandler);
     }
 
-    public static void execute(Runnable r){
-        sExecutor.execute(r);
+    public GeneralThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
     }
-
-    public static <V>  Future<V> submit(Callable<V> callable){
-        return sExecutor.submit(callable);
-    }
-
-    public static void shutDown(){
-        sExecutor.shutdown();
-    }
-
 }

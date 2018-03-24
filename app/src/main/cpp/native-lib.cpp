@@ -1,6 +1,7 @@
 #include <jni.h>
 #include <string>
 #include<Android/log.h>
+#include <string.h>
 #include "logUtil.cpp"
 
 using namespace std;
@@ -55,4 +56,3 @@ Java_example_ndk_JniTest_testJString(JNIEnv *env, jobject ,
     __android_log_print(ANDROID_LOG_ERROR, TAG, "c_str: %s\n", c_str);
 
 }
-

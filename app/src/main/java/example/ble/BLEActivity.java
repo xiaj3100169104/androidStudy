@@ -3,14 +3,7 @@ package example.ble;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -34,20 +27,10 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
-import com.style.threadpool.CachedThreadPoolManager;
-import com.style.threadpool.callback.MyTaskCallBack;
-import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
-
-import example.address.ContactHelper;
-import example.address.UploadPhone;
-import example.address.UploadPhoneComparator;
 
 
 public class BLEActivity extends BaseToolBarActivity {

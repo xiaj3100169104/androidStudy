@@ -7,11 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
@@ -19,7 +15,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.rxAndroid.RXTaskManager;
 import com.style.rxAndroid.callback.RXTaskCallBack;
-import com.style.threadpool.CachedThreadPoolManager;
+import com.style.threadpool.GeneralThreadPoolManager;
 import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
@@ -151,7 +147,7 @@ public class AddressActivity extends BaseToolBarActivity {
     }
 
     private void getData2() {
-        CachedThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
+        GeneralThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
             @Override
             public Object doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());

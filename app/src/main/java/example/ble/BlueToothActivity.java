@@ -3,11 +3,7 @@ package example.ble;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
@@ -31,13 +27,12 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
-import com.style.threadpool.CachedThreadPoolManager;
+import com.style.threadpool.GeneralThreadPoolManager;
 import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -343,44 +338,5 @@ public class BlueToothActivity extends BaseToolBarActivity {
     }
 
     public void close(View v) {
-    }
-
-    private void getData() {
-        showProgressDialog();
-
-        CachedThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
-            @Override
-            public Object doInBackground() {
-                List<UploadPhone> list = ContactHelper.getContacts(getContext());
-                if (null != list) {
-                    int size = list.size();
-                    for (int i = 0; i < size; i++) {
-                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
-                        list.get(i).setSortLetters(sortLetter);
-                    }
-                }
-                // 根据a-z进行排序源数据
-                Collections.sort(list, new UploadPhoneComparator());
-                return list;
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                Log.e(BlueToothActivity.this.TAG, "OnSuccess");
-                dismissProgressDialog();
-                if (data != null) {
-                    List<UploadPhone> response = (List<UploadPhone>) data;
-                    Log.e(BlueToothActivity.this.TAG, response.toString());
-                    //dataList.addAll(response);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailed(String message) {
-                dismissProgressDialog();
-
-            }
-        });
     }
 }

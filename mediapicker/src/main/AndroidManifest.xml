@@ -4,8 +4,7 @@
 
 
 
-    <application android:allowBackup="true"
-        android:supportsRtl="true">
+    <application>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

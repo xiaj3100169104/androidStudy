@@ -3,28 +3,17 @@ package example.vlayout;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
-import example.address.ContactHelper;
-import example.address.UploadPhone;
-import example.address.UploadPhoneComparator;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMultiTypeBinding;
-import com.style.threadpool.CachedThreadPoolManager;
-import com.style.threadpool.callback.MyTaskCallBack;
-import com.style.utils.HanyuToPinyin;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 public class MultiTypeActivity extends BaseToolBarActivity {

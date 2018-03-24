@@ -103,14 +103,23 @@ public class DeviceInfoUtil {
     }
 
 
-    public static boolean isSDcardAvailable() {
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            ToastManager.showToastOnApplication(R.string.sd_card_unavailable);
-            return false;
+    public static boolean isSDcardWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
         }
-        return true;
+        ToastManager.showToastOnApplication(R.string.sd_card_unavailable);
+        return false;
     }
 
+    public static boolean isSDcardReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        ToastManager.showToastOnApplication(R.string.sd_card_unavailable);
+        return false;
+    }
 
     public static String getLocalIpAddress() {
         try {

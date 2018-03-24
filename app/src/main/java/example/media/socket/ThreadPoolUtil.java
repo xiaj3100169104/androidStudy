@@ -25,11 +25,11 @@ public class ThreadPoolUtil {
     // 线程池核心线程数
     private static final int CORE_POOL_SIZE = 5;
     // 线程池最大线程数
-    private static final int MAX_POOL_SIZE = 100;
+    private static final int MAX_POOL_SIZE = 10;
     // 额外线程空状态生存时间
-    private static final int KEEP_ALIVE_TIME = 10000;
+    private static final int KEEP_ALIVE_TIME = 10;
     // 阻塞队列。当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程。
-    private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(20);
+    private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(3);
 
     private static ThreadFactory threadFactory = new ThreadFactory() {
         private final AtomicInteger atomicInteger = new AtomicInteger();

@@ -2,13 +2,16 @@ package example.dialog;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.style.base.BaseToolBarActivity;
+import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
+import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.framework.databinding.DialogActivityDialogBinding;
@@ -20,6 +23,7 @@ import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
 import example.fragment.EmotionBaseDataFrag;
 import example.fragment.EmotionDataFrag;
+import example.home.HomeFragment1;
 import example.vlayout.MultiTypeActivity;
 
 /**
@@ -42,6 +46,7 @@ public class DialogActivity extends BaseToolBarActivity {
     public void initData() {
         setToolbarTitle("弹出框");
         fm = getSupportFragmentManager();
+        bd.setOnItemClickListener(new OnItemClickListener());
     }
 
     public class OnItemClickListener {
@@ -65,15 +70,19 @@ public class DialogActivity extends BaseToolBarActivity {
         }
 
         public void skip2(View v) {
-            skip(AddressActivity.class);
+            LoadingDialog loadingDialog = new LoadingDialog(getContext());
+            loadingDialog.show();
         }
 
         public void skip3(View v) {
-            skip(MyRadioGroupActivity.class);
+            SelAvatarDialog selAvatarDialog = new SelAvatarDialog(getContext());
+            selAvatarDialog.show();
         }
 
         public void skip4(View v) {
-            skip(WheelActivity.class);
+            DialogFragment df= new DialogFragment();
+            fm.beginTransaction().add(R.id.layout_root, df , "dialog").commit();
+
         }
     }
 }

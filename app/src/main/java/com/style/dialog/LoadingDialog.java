@@ -13,7 +13,7 @@ import com.style.framework.R;
 public class LoadingDialog extends Dialog {
 
     public LoadingDialog(Context context) {
-        super(context);
+        super(context, R.style.Dialog_NoTitle);
         init();
     }
 

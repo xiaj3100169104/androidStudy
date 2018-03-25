@@ -10,7 +10,7 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/windows_color">
@@ -55,9 +55,12 @@
                 android:id="@+id/btn_radio"
                 style="@style/text_home_item"
                 android:onClick="@{onItemClickListener.skip3}"
-
                 android:text="radiogroup" />
-
+            <TextView
+                android:id="@+id/btn_dialog"
+                style="@style/text_home_item"
+                android:onClick="@{onItemClickListener.skip31}"
+                android:text="各种对话框" />
             <TextView
                 android:id="@+id/btn_user_agree"
                 style="@style/text_home_item"
@@ -132,7 +135,7 @@
                 android:onClick="@{onItemClickListener.skip15}"
                 android:text="单独进程服务" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </layout>

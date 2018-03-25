@@ -13,6 +13,7 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
 
+import example.dialog.DialogActivity;
 import example.music.MusicListActivity;
 import example.music.remote.RemotePlayActivity;
 import example.softInput.SoftMode4Activity;
@@ -74,6 +75,9 @@ public class HomeFragment1 extends BaseFragment {
 
         public void skip3(View v) {
             skip(MyRadioGroupActivity.class);
+        }
+        public void skip31(View v) {
+            skip(DialogActivity.class);
         }
 
         public void skip4(View v) {

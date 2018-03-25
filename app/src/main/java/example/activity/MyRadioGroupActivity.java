@@ -49,7 +49,7 @@ public class MyRadioGroupActivity extends BaseToolBarActivity {
         frags = new Fragment[]{baseDataFrag, emoDataFrag};
         bt = fm.beginTransaction();
         for (int i = 0; i < frags.length; i++) {
-            bt.add(R.id.rl_container, frags[i]).hide(frags[i]);
+            bt.add(bd.rlContainer.getId(), frags[i]).hide(frags[i]);
         }
         bt.show(frags[0]).commit();
         rg_emotion.setOnCheckedChangeListener(new MyRadioGroup.OnCheckedChangeListener() {

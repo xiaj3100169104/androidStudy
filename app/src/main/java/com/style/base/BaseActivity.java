@@ -140,7 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showProgressDialog(String msg) {
         if (progressDialog == null)
-            progressDialog = new LoadingDialog(getContext(), R.style.Dialog_NoTitle);
+            progressDialog = new LoadingDialog(getContext());
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage(msg);
         progressDialog.show();

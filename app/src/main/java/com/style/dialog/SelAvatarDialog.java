@@ -24,6 +24,12 @@ public class SelAvatarDialog extends Dialog {
         init(context);
     }
 
+    public SelAvatarDialog(Context context) {
+        super(context, R.style.Dialog_NoTitle);
+        setOwnerActivity((Activity) context);
+        init(context);
+    }
+
     public void init(Context context) {
         setContentView(R.layout.dlg_sel_avatar);
         bt_takePhoto = (Button) this.findViewById(R.id.item_camera);

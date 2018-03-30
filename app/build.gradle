@@ -1,7 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 //def config = rootProject.extensions.getByName("ext")
-
+//打包时间
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd HH_mm_ss", TimeZone.getDefault())
+}
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
@@ -14,7 +17,7 @@ android {
         //multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个
-        manifestPlaceholders = [UMENG_CHANNEL_CALUE: "UMENG_CHANNEL"]
+        //manifestPlaceholders = [UMENG_CHANNEL_CALUE: "UMENG_CHANNEL"]
         externalNativeBuild {
             cmake {
                 cppFlags "-frtti -fexceptions"
@@ -29,7 +32,12 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(project.STORE_FILE_DEBUG)//('E:/Android/keystore/debug.keystore')
+            storeFile file(project.STORE_FILE)
+            storePassword project.STORE_PASSWORD
+            keyAlias project.KEY_ALIAS
+            keyPassword project.KEY_PASSWORD
+            v2SigningEnabled false
+
         }
         release {
             //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
@@ -37,6 +45,8 @@ android {
             storePassword project.STORE_PASSWORD
             keyAlias project.KEY_ALIAS
             keyPassword project.KEY_PASSWORD
+            v2SigningEnabled false
+
         }
     }
 
@@ -75,9 +85,9 @@ android {
             //if (!variant.buildType.isDebuggable()) {
             //获取签名的名字 variant.signingConfig.name
             //要被替换的源字符串
-            def sourceFile = "-${variant.flavorName}-${variant.buildType.name}"
+            def sourceFile = "app-${variant.flavorName}-${variant.buildType.name}"
             //替换的字符串
-            def replaceFile = "_V${variant.versionName}_${variant.flavorName}_${variant.buildType.name}"
+            def replaceFile = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}"
             outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
             //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
             // }

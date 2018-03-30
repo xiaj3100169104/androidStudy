@@ -8,3 +8,4 @@ gradle.properties
 local.properties
 *.jks
 *.apk
+*.keystore

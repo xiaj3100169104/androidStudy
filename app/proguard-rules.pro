@@ -77,7 +77,13 @@ public static java.lang.String TABLENAME;
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
+#androidEventBud
+-keep class org.simple.** { *; }
+-keep interface org.simple.** { *; }
+-keepclassmembers class * {
+    @org.simple.eventbus.Subscriber <methods>;
+}
+-keepattributes *Annotation*
 #混淆第三方jar包，其中xxx为jar包名
 #-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
 -keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件

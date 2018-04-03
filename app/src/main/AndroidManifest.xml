@@ -150,7 +150,7 @@
 
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
+            android:value="${ENVIRONMENT}" />
 
         <activity android:name="example.tablayout.TabLayoutActivity"></activity>
         <activity android:name="example.viewpager.MyPickerActivity"></activity>

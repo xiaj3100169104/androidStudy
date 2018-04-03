@@ -5,6 +5,10 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd HH_mm_ss", TimeZone.getDefault())
 }
+//获取local.properties的内容
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
@@ -17,12 +21,12 @@ android {
         //multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个
-        //manifestPlaceholders = [UMENG_CHANNEL_CALUE: "UMENG_CHANNEL"]
-        externalNativeBuild {
+        //manifestPlaceholders = [ENVIRONMENT: "UMENG_CHANNEL"]
+        /*externalNativeBuild {
             cmake {
                 cppFlags "-frtti -fexceptions"
             }
-        }
+        }*/
         /*  ndk {
             moduleName "helloNDK"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
@@ -32,26 +36,26 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(project.STORE_FILE)
-            storePassword project.STORE_PASSWORD
-            keyAlias project.KEY_ALIAS
-            keyPassword project.KEY_PASSWORD
+            /*storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
+             storePassword properties.getProperty("STORE_PASSWORD")
+                keyAlias project.KEY_ALIAS
+                 keyPassword project.KEY_PASSWORD*/
             v2SigningEnabled false
 
         }
         release {
             //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
-            storeFile file(project.STORE_FILE)
-            storePassword project.STORE_PASSWORD
-            keyAlias project.KEY_ALIAS
-            keyPassword project.KEY_PASSWORD
+            storeFile file(properties.getProperty("STORE_FILE"))
+            storePassword properties.getProperty("STORE_PASSWORD")
+            keyAlias properties.getProperty("KEY_ALIAS")
+            keyPassword properties.getProperty("KEY_PASSWORD")
             v2SigningEnabled false
 
         }
     }
 
     //改成如下配置,问题解决
-    flavorDimensions "tier"//新增的,值是数组
+    /* flavorDimensions "tier"//新增的,值是数组
     productFlavors {
         //_xiaomi { dimension "tier" }
         //_360 {dimension "tier"}
@@ -59,26 +63,23 @@ android {
         _wandoujia { dimension "tier" }
     }
 
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
-
-    buildTypes {
-        release {
-            debuggable false
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+   productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [ENVIRONMENT: name]
+    }*/
+    // 多渠道 的不同配置
+    flavorDimensions "default"
+    productFlavors {
+        _wandoujia {
+            manifestPlaceholders = [ENVIRONMENT: "health"]
+            /*          ,
+                                              app_name   : "@string/app_name",
+                                              app_icon   : "@mipmap/ic_launcher"]*/
         }
-        debug {
-            debuggable true
-            minifyEnabled false
-            zipAlignEnabled true
-            //慎用，导致很多未知错误
-            shrinkResources false
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-        }
+        /* wxzn {
+             manifestPlaceholders = [ENVIRONMENT: "remote_wxzn",
+                                     app_name   : "@string/app_name_wxzn",
+                                     app_icon   : "@mipmap/ic_launcher_wxzn"]
+         }*/
     }
     android.applicationVariants.all { variant ->    //批量修改Apk名字
         variant.outputs.all { output ->
@@ -91,6 +92,25 @@ android {
             outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
             //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
             // }
+        }
+    }
+    buildTypes {
+        release {
+            debuggable false
+            jniDebuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            zipAlignEnabled true
+            //慎用，导致很多未知错误
+            shrinkResources false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -141,7 +161,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    compile ('com.alibaba.android:vlayout:1.2.8@aar') {
+    compile('com.alibaba.android:vlayout:1.2.8@aar') {
         transitive = true
     }
     //compile fileTree(dir: 'libs', include: ['*.jar'])

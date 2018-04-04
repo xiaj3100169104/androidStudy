@@ -17,7 +17,8 @@ android {
         applicationId "com.style.framework"
         minSdkVersion ANDROID_MIN_SDK_VERSION
         targetSdkVersion ANDROID_TARGET_SDK_VERSION
-
+        versionCode 2
+        versionName '1.0'
         //multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个
@@ -31,15 +32,14 @@ android {
             moduleName "helloNDK"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }*/
-        versionCode 2
-        versionName '1.0'
+
     }
     signingConfigs {
         debug {
-            /*storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
-             storePassword properties.getProperty("STORE_PASSWORD")
-                keyAlias project.KEY_ALIAS
-                 keyPassword project.KEY_PASSWORD*/
+            storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
+            /*storePassword properties.getProperty("STORE_PASSWORD")
+               keyAlias project.KEY_ALIAS
+                keyPassword project.KEY_PASSWORD*/
             v2SigningEnabled false
 
         }
@@ -106,7 +106,7 @@ android {
             debuggable true
             jniDebuggable true
             minifyEnabled false
-            zipAlignEnabled true
+            zipAlignEnabled false
             //慎用，导致很多未知错误
             shrinkResources false
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -124,11 +124,11 @@ android {
     dataBinding {
         enabled = true
     }
-    externalNativeBuild {
+  /*  externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
         }
-    }
+    }*/
 
 }
 

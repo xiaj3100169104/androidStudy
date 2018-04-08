@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
+import com.style.manager.ToastManager;
 import com.style.view.MyRadioGroup;
 
 import example.fragment.EmotionBaseDataFrag;
@@ -59,9 +60,11 @@ public class MyRadioGroupActivity extends BaseToolBarActivity {
                 switch (checkedId) {
                     case R.id.rb_base_data:
                         index = 0;
+                        ToastManager.showToast(MyRadioGroupActivity.this,"activity");
                         break;
                     case R.id.rb_emotion_data:
                         index = 1;
+                        ToastManager.showToastOnApplication("application");
                         break;
                 }
                 changeFrag(index);

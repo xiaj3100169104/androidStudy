@@ -67,9 +67,9 @@ public class RetrofitImpl {
         return mRetrofitFactory;
     }
 
-    public void login(String userName, String password, BaseObserver<LoginBean> consumer) {
-        //Observable<BaseResult<LoginBean>> mObservable = mAPIFunction.login(userName, password);
-        //consumer.setObservable(mObservable);
+    public Observable<BaseResult<LoginBean>> login(String userName, String password) {
+        Observable<BaseResult<LoginBean>> mObservable = mAPIFunction.login(userName, password);
+        return mObservable.compose(transformer);
     }
 
     public void getKuaiDi(String userName, String password, BaseObserver consumer) {

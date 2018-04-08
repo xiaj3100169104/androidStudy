@@ -19,7 +19,7 @@ android {
         targetSdkVersion ANDROID_TARGET_SDK_VERSION
         versionCode 2
         versionName '1.0'
-        //multiDexEnabled true //突破应用方法数65535的一个限制
+        multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个
         //manifestPlaceholders = [ENVIRONMENT: "UMENG_CHANNEL"]
@@ -155,6 +155,7 @@ dependencies {
     compile 'org.simple:androideventbus:1.0.5.1'
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.google.dagger:dagger:2.4'
+    compile 'android.arch.lifecycle:extensions:1.1.0'
     //java注解
     compile 'org.glassfish:javax.annotation:10.0-b28'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'

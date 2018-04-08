@@ -1,5 +1,7 @@
-package example.activity;
+package example.login;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -10,18 +12,13 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityLoginBinding;
 
 import example.home.MainActivity;
-import example.login.presenter.ILoginPresenter;
-import example.login.presenter.LoginPresenterImpl;
 import example.login.view.ILoginView;
 
 public class LoginActivity extends BaseActivity implements ILoginView {
 
     private long userId = 18;
-
-    //@Inject
-    ILoginPresenter presenter;
     private ActivityLoginBinding bd;
-
+    LoginViewModel loginVewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +29,22 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void initData() {
-        presenter = new LoginPresenterImpl(TAG, this);
-        presenter.onActivityCreate();
-
+        loginVewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        User loginUser = loginVewModel.getLoginUser();
+        setUserView(loginUser);
+        /*loginVewModel.
+        viewModel.userLiveData.observer(this, new Observer<User>() {
+             {@literal @}Override
+              public void onChanged(@Nullable User data) {
+                  // update ui.
+              }
+          });*/
     }
 
     public void login(View v) {
-
         String userId = bd.etAccount.getText().toString();
         String password = bd.etPassword.getText().toString();
-        presenter.login(userId, password);
+        loginVewModel.login(userId, password);
     }
 
     @Override
@@ -59,6 +62,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onActivityDestroy();
+       // presenter.onActivityDestroy();
     }
 }

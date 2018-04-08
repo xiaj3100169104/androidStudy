@@ -1,6 +1,8 @@
 package example.address;
 
 import android.Manifest;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -25,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class AddressActivity extends BaseToolBarActivity {
+public class AddressActivity extends BaseToolBarActivity implements LifecycleOwner {
 
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
@@ -36,9 +38,11 @@ public class AddressActivity extends BaseToolBarActivity {
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        getLifecycle().addObserver((LifecycleObserver) this);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
         super.setContentView(bd.getRoot());
         initData();
+
     }
 
     @Override

@@ -137,6 +137,9 @@
         <activity android:name="example.activity.GreenDaoActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity
+            android:name="example.softInput.StatusbarStyleMainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
             android:name="example.softInput.SoftMode1Activity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity

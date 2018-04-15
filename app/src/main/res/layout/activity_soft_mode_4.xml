@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="并没有覆盖，只是被缩减了高度，需要重新滚动到底部" />
+                android:text="并没有覆盖，只是被缩减了高度，需要重新滚动到底部.fitsSystemWindows放在哪里就在那个地方顶部预留状态栏高度空间" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

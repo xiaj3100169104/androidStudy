@@ -34,6 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean isFlagTranslucentStatus() {
         return true;
     }
+    protected boolean isFitSystemWindows() {
+        return true;
+    }
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -85,7 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(View mContentView) {
-
+        mContentView.setFitsSystemWindows(isFitSystemWindows());
     }
 
     @Override

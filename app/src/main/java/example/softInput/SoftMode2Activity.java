@@ -16,16 +16,12 @@ public class SoftMode2Activity extends BaseToolBarActivity {
 
     ActivitySoftMode2Binding bd;
 
-    @Override
-    protected boolean isFlagTranslucentStatus() {
-        return false;
-    }
 
     @Override
     protected void customWindowOptions(Window w) {
         super.customWindowOptions(w);
-        w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        w.setStatusBarColor(Color.TRANSPARENT);
+       /* w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        w.setStatusBarColor(Color.TRANSPARENT);*/
     }
 
     @Override
@@ -38,7 +34,7 @@ public class SoftMode2Activity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
-        setToolbarTitle("弹出软键盘滚动布局");
+        setToolbarTitle("默认状态栏样式，适合白色标题栏的时候");
     }
 
     @Override

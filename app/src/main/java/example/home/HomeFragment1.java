@@ -19,6 +19,7 @@ import example.music.remote.RemotePlayActivity;
 import example.softInput.SoftMode4Activity;
 import example.activity.TestGestureActivity;
 import example.filedown.FileDownActivity;
+import example.softInput.StatusbarStyleMainActivity;
 import example.vlayout.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
 import example.softInput.SoftMode1Activity;
@@ -92,24 +93,12 @@ public class HomeFragment1 extends BaseFragment {
             skip(FileDownActivity.class);
         }
 
-        public void skip7(View v) {
-            skip(SoftMode1Activity.class);
-        }
-
-        public void skip8(View v) {
-            skip(SoftMode2Activity.class);
-        }
-
-        public void skip9(View v) {
-            skip(SoftMode3Activity.class);
-        }
-
         public void skip10(View v) {
             skip(TestGestureActivity.class);
         }
 
         public void skip11(View v) {
-            skip(SoftMode4Activity.class);
+            skip(StatusbarStyleMainActivity.class);
         }
 
         public void skip12(View v) {

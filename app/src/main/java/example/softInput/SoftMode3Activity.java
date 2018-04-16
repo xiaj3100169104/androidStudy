@@ -1,14 +1,18 @@
 package example.softInput;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
@@ -34,10 +38,14 @@ public class SoftMode3Activity extends BaseToolBarActivity {
     private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
 
+    @Override
+    protected boolean isFitSystemWindows() {
+        return false;
+    }
 
     @Override
     protected boolean isFlagTranslucentStatus() {
-        return false;
+        return true;
     }
 
     @Override
@@ -51,7 +59,7 @@ public class SoftMode3Activity extends BaseToolBarActivity {
 
     @Override
     public void initData() {
-        setToolbarTitle("弹出软键盘recyclerview调整");
+        setToolbarTitle("半透明状态栏，需要自己手动处理编辑框位置");
 
     }
 
@@ -99,6 +107,43 @@ public class SoftMode3Activity extends BaseToolBarActivity {
                 }
             }
         });
+        //resetSendMsgRl();
+    }
+
+    private void resetSendMsgRl() {
+
+        final View decorView = getWindow().getDecorView();
+        final Rect rect = new Rect();
+        final int screenHeight = getScreenHeight();
+        //阀值设置为屏幕高度的1/3
+        final int keyHeight = screenHeight / 3;
+        decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Log.e(TAG, "onGlobalLayout");
+                decorView.getWindowVisibleDisplayFrame(rect);
+                int heightDifference = screenHeight - rect.bottom;//计算软键盘占有的高度  = 屏幕高度 - 视图可见高度
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bd.layoutRoot.getLayoutParams();
+                layoutParams.setMargins(0, 0, 0, heightDifference);//设置rlContent的marginBottom的值为软键盘占有的高度即可
+                bd.layoutRoot.requestLayout();
+                if (heightDifference > keyHeight) {
+                    Log.e("onGlobalLayout", "监听到软键盘弹起");
+                    layoutManager.scrollToPosition(adapter.getItemCount() - 1);
+
+                } else {
+                    Log.e("onGlobalLayout", "监听到软件盘关闭");
+
+                }
+            }
+        });
+    }
+
+    private int getScreenHeight() {
+        WindowManager manager = this.getWindowManager();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(outMetrics);
+        int height = outMetrics.heightPixels;
+        return height;
     }
 
     @Override

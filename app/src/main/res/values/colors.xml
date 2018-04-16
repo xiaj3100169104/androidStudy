@@ -5,9 +5,9 @@
 
     <color name="windowBackground">@color/white</color>
     <!-- appbar颜色 -->
-    <color name="colorPrimary2">#00b0ff</color>
+    <color name="colorPrimary2">#ffff0000</color>
     <!-- 状态栏颜色 -->
-    <color name="colorPrimaryDark2">#0091ea</color>
+    <color name="colorPrimaryDark2">#ff00ff00</color>
     <!-- 文本颜色、日期等对话框字体颜色 -->
     <color name="textColorPrimary">@color/text_color_black_light</color>
     <!-- 控件选中后的颜色 -->

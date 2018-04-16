@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="onItemClickListener"
+            type="example.softInput.StatusbarStyleMainActivity.OnItemClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/comm_toolbar_layout" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/gray"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{onItemClickListener.skip1}"
+            android:text="状态栏显示为主题配置里的颜色" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{onItemClickListener.skip2}"
+            android:text="默认状态栏样式，适合白色标题栏的时候" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{onItemClickListener.skip3}"
+            android:text="不适应窗口，状态栏透明" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{onItemClickListener.skip4}"
+            android:text="DialogFragment" />
+
+    </LinearLayout>
+</layout>

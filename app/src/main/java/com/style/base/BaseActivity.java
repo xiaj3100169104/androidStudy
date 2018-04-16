@@ -121,15 +121,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ToastManager.showToast(getContext(), resId);
     }
 
-
-    public void showToastLong(String msg) {
-        ToastManager.showToastLong(getContext(), msg);
-    }
-
-    public void showToastLong(int msgId) {
-        ToastManager.showToastLong(getContext(), msgId);
-    }
-
     public void showProgressDialog() {
         showProgressDialog("");
     }

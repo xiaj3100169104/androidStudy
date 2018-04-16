@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class AddressActivity extends BaseToolBarActivity implements LifecycleOwner {
+public class AddressActivity extends BaseToolBarActivity {
 
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
@@ -38,7 +38,6 @@ public class AddressActivity extends BaseToolBarActivity implements LifecycleOwn
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
-        getLifecycle().addObserver((LifecycleObserver) this);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
         super.setContentView(bd.getRoot());
         initData();

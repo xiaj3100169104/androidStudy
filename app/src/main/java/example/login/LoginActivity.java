@@ -1,6 +1,5 @@
 package example.login;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,9 +11,8 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityLoginBinding;
 
 import example.home.MainActivity;
-import example.login.view.ILoginView;
 
-public class LoginActivity extends BaseActivity implements ILoginView {
+public class LoginActivity extends BaseActivity {
 
     private long userId = 18;
     private ActivityLoginBinding bd;
@@ -47,21 +45,13 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         loginVewModel.login(userId, password);
     }
 
-    @Override
     public void setUserView(User user) {
         bd.etAccount.setText(user.userName);
         bd.etPassword.setText(user.password);
     }
 
-    @Override
     public void skip2Main() {
         skip(MainActivity.class);
         finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       // presenter.onActivityDestroy();
     }
 }

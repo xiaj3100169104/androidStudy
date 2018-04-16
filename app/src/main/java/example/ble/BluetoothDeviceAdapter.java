@@ -34,7 +34,7 @@ public class BluetoothDeviceAdapter extends BaseRecyclerViewAdapter<BluetoothBea
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         BluetoothBean data = getData(position);
-        logE(TAG, "新设备->" + data.toString());
+        //logE(TAG, "新设备->" + data.toString());
         final BluetoothDevice d = data.device;
         String name = d.getName();
         if (TextUtils.isEmpty(name)) {
@@ -59,22 +59,7 @@ public class BluetoothDeviceAdapter extends BaseRecyclerViewAdapter<BluetoothBea
         holder.bd.tvBondState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (d.getType() == BluetoothDevice.DEVICE_TYPE_CLASSIC) {
-                    if (d.getBondState() == BluetoothDevice.BOND_NONE) {
-                        boolean b = d.createBond();
-                        logE(TAG, "createBond==" + b);
-                    } else if (d.getBondState() == BluetoothDevice.BOND_BONDED) {
-                        try {
-                            boolean b = BluetoothUtil.removeBond(d.getClass(), d);
-                            logE(TAG, "removeBond==" + b);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else if ((d.getType() == BluetoothDevice.DEVICE_TYPE_LE || d.getType() == BluetoothDevice.DEVICE_TYPE_DUAL) &&
-                        d.getBondState() == BluetoothDevice.BOND_NONE) {
-                    BluetoothGatt gatt = d.connectGatt(getContext(), false, gattCallback);
-                }
+
             }
         });
         super.setOnItemClickListener(holder.itemView, position);
@@ -89,26 +74,4 @@ public class BluetoothDeviceAdapter extends BaseRecyclerViewAdapter<BluetoothBea
             this.bd = bd;
         }
     }
-
-
-    BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
-        @Override
-        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            logE("onConnectionStateChange", "state==" + status + "   newState==" + newState);
-            if (status == 133) {
-                gatt.disconnect();
-                gatt.close();
-                gatt.connect();
-            }
-
-            if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
-                gatt.discoverServices();
-            }
-        }
-
-        @Override
-        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            logE("onServicesDiscovered", "state==" + status);
-        }
-    };
 }

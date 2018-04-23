@@ -162,10 +162,11 @@ public class TestRxActivity extends BaseActivity {
     }
 
     public void skip418(View v) {
-        RetrofitImpl.getInstance().getKuaiDi("", "", new BaseObserver<KuaiDiModel>(TAG) {
+        RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver<KuaiDiModel>(TAG) {
             @Override
             public void onSuccess(KuaiDiModel object) {
                 logE(TAG, object.message);
+                bd.tvContent.setText(object.message);
             }
 
             @Override
@@ -176,11 +177,11 @@ public class TestRxActivity extends BaseActivity {
     }
 
     public void skip419(View v) {
-        RetrofitImpl.getInstance().getKuaiDi2("", "", new StringObserver(TAG) {
+        RetrofitImpl.getInstance().getKuaiDi2("", "").subscribe(new StringObserver(TAG) {
             @Override
             public void onSuccess(String object) {
                 logE(TAG, object);
-                ((Button) findViewById(R.id.btn_request_2)).setText(object);
+                bd.tvContent.setText(object);
             }
 
             @Override

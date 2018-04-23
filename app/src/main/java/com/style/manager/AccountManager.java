@@ -134,4 +134,12 @@ public class AccountManager {
     public String getToken() {
         return null;
     }
+
+    public void saveBleAddress(String address) {
+        getLoginSharedPreferences().edit().putString("bleAddress", address).apply();
+    }
+
+    public String getBleAddress() {
+        return getLoginSharedPreferences().getString("bleAddress", "");
+    }
 }

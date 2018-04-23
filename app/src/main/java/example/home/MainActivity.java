@@ -1,12 +1,17 @@
 package example.home;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -21,9 +26,12 @@ import com.style.manager.AccountManager;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import example.ble.BleManager;
+
 
 public class MainActivity extends BaseToolBarActivity {
     ActivityMainBinding bd;
+    public static final int REQUEST_ENABLE_BT = 6;
 
     protected static final String[] fragTags = {"tag1", "tag2", "tag3", "tag4", "tag5"};
     protected static final String[] titles = {"沟通", "首页", "工单", "通讯录", "客户"};
@@ -73,13 +81,36 @@ public class MainActivity extends BaseToolBarActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         //取消事件注册
         EventBus.getDefault().unregister(this);
+        BleManager.getInstance().close();
+        super.onDestroy();
+
     }
 
     @Override
     public void initData() {
+        String[] permissions = {Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
+
+        if (ContextCompat.checkSelfPermission(this.getApplication(), permissions[0]) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this.getApplication(), permissions[1]) != PackageManager.PERMISSION_GRANTED) {
+            logE(TAG, "没有权限");
+            /*if (!mBluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(
+                        BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }*/
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[1])) {
+                logE(TAG, "上次拒绝");
+                ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
+            } else {
+                logE(TAG, "请求权限");
+                ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
+            }
+        } else {
+            startBleService();
+        }
         curUser = AccountManager.getInstance().getCurrentUser();
 
         mTabs = new TextView[5];
@@ -127,6 +158,11 @@ public class MainActivity extends BaseToolBarActivity {
         componentName.getClassName();*/
     }
 
+    private void startBleService() {
+        BleManager.getInstance().init(this);
+
+    }
+
     private void showSelectedTab() {
         bt = fm.beginTransaction();
         for (int i = 0; i < fragments.length; i++) {
@@ -164,4 +200,19 @@ public class MainActivity extends BaseToolBarActivity {
         showSelectedTab();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                logE(TAG, "权限允许");
+                startBleService();
+            } else {
+                logE(TAG, "权限拒绝");
+                // Permission Denied
+                showToast("权限拒绝");
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }

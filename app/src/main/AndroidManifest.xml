@@ -124,6 +124,8 @@
         </receiver>
         <activity android:name="example.ble.BlueToothActivity" />
         <activity android:name="example.ble.BLEActivity" />
+        <service android:name="example.ble.BleService" />
+
         <activity android:name="example.wifi.WifiTestActivity" />
 
         <activity android:name="example.queue.QueueTestActivity" />

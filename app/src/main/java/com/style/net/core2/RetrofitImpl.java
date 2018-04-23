@@ -72,18 +72,15 @@ public class RetrofitImpl {
         return mObservable.compose(transformer);
     }
 
-    public void getKuaiDi(String userName, String password, BaseObserver consumer) {
+    public Observable<BaseResult<KuaiDiModel>> getKuaiDi(String userName, String password) {
         //这里必须链式调用，如果赋值出来会报主线程请求网络错误
-        mAPIFunction.getKuaiDi("yuantong", "11111111111")
-                .compose(transformer)
-                .subscribe(consumer);
+        return mAPIFunction.getKuaiDi("yuantong", "11111111111").compose(transformer);
     }
 
-    public void getKuaiDi2(String userName, String password, Observer consumer) {
+    public Observable<String> getKuaiDi2(String userName, String password) {
         //这里必须链式调用，如果赋值出来会报主线程请求网络错误
-        mAPIFunction.getKuaiDi2("yuantong", "11111111111")
-                .compose(transformer)
-                .subscribe(consumer);
+        return mAPIFunction.getKuaiDi2("yuantong", "11111111111")
+                .compose(transformer);
     }
 
     private static ObservableTransformer transformer = new ObservableTransformer() {

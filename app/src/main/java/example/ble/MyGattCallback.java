@@ -21,28 +21,27 @@ public class MyGattCallback extends BluetoothGattCallback {
     private static final UUID UUID_CHARACTERISTIC_WRITE = UUID.fromString("66880001-0000-1000-8000-008012563489");
     private static final UUID UUID_CHARACTERISTIC_NOTIFY = UUID.fromString("66880002-0000-1000-8000-008012563489");
     private static final UUID UUID_CONFIG = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+    private final BleService mService;
 
-    private String address;
     private BluetoothGattCharacteristic characteristicWrite;
-    private boolean mBleConnected;
 
 
-    public MyGattCallback(String address) {
-        this.address = address;
+    public MyGattCallback(BleService service) {
+        this.mService = service;
     }
 
     @Override
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-        Log.e(TAG, "onConnectionStateChange ----------------" + status + "---" + newState);
+        Log.e(TAG, "onConnectionStateChange ------------" + status + "---" + newState);
         if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
             //连接成功
             gatt.discoverServices();//开始发现设备的服务
         } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+            Log.e(TAG, "onConnectionStateChange ------------" + " 连接断开");
             //连接断开
+            mService.setStateDisconnected();
+            mService.reConnect();
         }
-        //改变当前状态
-        //this.bluetoothBean.profileState = newState;
-        //adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -73,38 +72,15 @@ public class MyGattCallback extends BluetoothGattCallback {
             }
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             gatt.writeDescriptor(descriptor);
-          /*  //读取数据
-            byte[] data = characteristic.getValue();
-            characteristic.setValue(CHexConver.hexStr2Bytes("TEST"));
-            //每次最多传20bytes，每次最少间隔10ms。
-            gatt.writeCharacteristic(characteristic);*/
-            /*if ((characteristic.getProperties() | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                //设置true为启用通知,//设置characteristic的通知，触发bluetoothGatt.onCharacteristicWrite()事件。
-                boolean success = gatt.setCharacteristicNotification(characteristic, true);
-                Log.e("success", "setCharactNotify: "+success);
-                //在通过上面的设置返回为true之后还要进行下面的操作，才能订阅到数据的上传。下面是完整的订阅数据代码！
-                if (success) {
-                    for (BluetoothGattDescriptor dp : characteristic.getDescriptors()) {
-                        if (dp != null) {
-                            if ((characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0) {
-                                dp.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                            } else if ((characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_INDICATE) != 0) {
-                                dp.setValue(BluetoothGattDescriptor.ENABLE_INDICATION_VALUE);
-                            }
-                            gatt.writeDescriptor(dp);
-                        }
-                    }
-                }
-            }*/
-
         }
     }
 
     @Override
     public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
         Log.e(TAG, "onDescriptorWrite ----------------" + status);
-        Log.e(TAG, gatt.getDevice().getName() + " write successfully");
-        mBleConnected = true;
+        Log.e(TAG, gatt.getDevice().getName() + " 连接成功");
+        //这里真正连接成功
+        mService.setStateConnected();
 
     }
 

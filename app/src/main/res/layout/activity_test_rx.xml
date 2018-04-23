@@ -3,51 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_just"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="just"
-            android:onClick="skip1"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="map"
-            android:onClick="skip2"/>
+            <Button
+                android:id="@+id/btn_just"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip1"
+                android:text="just" />
 
-        <Button
-            android:id="@+id/btn_flat_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="flatMap"
-            android:onClick="skip3"/>
+            <Button
+                android:id="@+id/btn_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip2"
+                android:text="map" />
 
-        <Button
-            android:id="@+id/btn_insert_new_db"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="插入新数据库" />
+            <Button
+                android:id="@+id/btn_flat_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip3"
+                android:text="flatMap" />
 
-        <Button
-            android:id="@+id/btn_request"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="网络请求解析bean"
-            android:onClick="skip418"/>
+            <Button
+                android:id="@+id/btn_insert_new_db"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="插入新数据库" />
 
-        <Button
-            android:id="@+id/btn_request_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="网络请求解析string"
-            android:onClick="skip419"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip418"
+                android:text="网络请求解析bean" />
+
+            <Button
+                android:id="@+id/btn_request_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip419"
+                android:text="网络请求解析string" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="skip419"
+                android:text="bablalbabab" />
+        </LinearLayout>
+    </ScrollView>
 </layout>
 

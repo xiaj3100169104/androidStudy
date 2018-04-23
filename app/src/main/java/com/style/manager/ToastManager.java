@@ -37,7 +37,7 @@ public class ToastManager {
     }
 
     public static void showToastOnApplication(String str) {
-        Toast toast = new Toast(MyApp.getAppContext());
+       /* Toast toast = new Toast(MyApp.getAppContext());
         toast.setGravity(Gravity.TOP, 0, 126);
         LinearLayout layout = (LinearLayout) LayoutInflater.from(MyApp.getAppContext()).inflate(R.layout.smart_toast, null);
         ImageView icon = (ImageView) layout.findViewById(R.id.smart_toast_icon);
@@ -46,8 +46,8 @@ public class ToastManager {
         messageTx.setText(str);
         toast.setView(layout);
         toast.setDuration(Toast.LENGTH_SHORT);
-        toast.show();
-        //showToast(MyApp.getAppContext(), str);
+        toast.show();*/
+        showToast(MyApp.getAppContext(), str);
     }
 
     public static void showToastonFailureOnApp() {

@@ -25,6 +25,7 @@ import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
 import com.style.net.core.HttpActionManager;
 
+import example.ble.BleManager;
 import example.greendao.dao.GreenDaoManager;
 import example.helper.DynamicTimeFormat;
 

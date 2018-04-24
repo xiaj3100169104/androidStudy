@@ -2,15 +2,10 @@ package example.login;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.style.bean.Friend;
 import com.style.bean.User;
-import com.style.db.user.UserDBManager;
 import com.style.manager.AccountManager;
-import com.style.net.core2.BaseObserver;
-import com.style.net.core2.BaseResult;
+import com.style.net.core2.response.BaseResult;
 import com.style.net.core2.RetrofitImpl;
-
-import java.util.List;
 
 import example.newwork.response.LoginBean;
 import io.reactivex.disposables.Disposable;

@@ -10,7 +10,7 @@
 
         <variable
             name="enabled2"
-            type="Boolean" />
+            type="boolean" />
 
         <variable
             name="user"
@@ -65,13 +65,13 @@
             android:id="@+id/btn_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{event.click1}"
+            android:onClick="@{event::click1}"
             android:text="@{title1}" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{event.click2}"
+            android:onClick="@{event::click2}"
             android:text="@{title2}" />
 
         <Button

@@ -1,4 +1,4 @@
-package com.style.net.core2;
+package com.style.net.core2.response;
 
 public class BaseResult<T> {
     public static final int SUCCESS = 0;

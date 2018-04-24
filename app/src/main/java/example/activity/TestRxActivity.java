@@ -1,20 +1,20 @@
 package example.activity;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
-import com.style.net.core2.BaseObserver;
-import com.style.net.core2.KuaiDiModel;
+import com.style.net.bean.KuaiDi;
+import com.style.net.core2.observer.BaseObserver;
+import com.style.net.bean.KuaiDiModel;
 import com.style.net.core2.RetrofitImpl;
 import com.style.net.core2.StringObserver;
+import com.style.net.core2.observer.BaseObserver2;
 
-import org.reactivestreams.Publisher;
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -162,11 +162,15 @@ public class TestRxActivity extends BaseActivity {
     }
 
     public void skip418(View v) {
-        RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver<KuaiDiModel>(TAG) {
+        RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver2<List<KuaiDi>>() {
             @Override
-            public void onSuccess(KuaiDiModel object) {
-                logE(TAG, object.message);
-                bd.tvContent.setText(object.message);
+            public void onSuccess(List<KuaiDi> object) {
+                if (object != null && !object.isEmpty()) {
+                    for (KuaiDi b : object) {
+                        logE(TAG, b.toString());
+                        bd.tvContent.setText(object.toString());
+                    }
+                }
             }
 
             @Override

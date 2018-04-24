@@ -20,25 +20,25 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{onItemClickListener.skip1}"
+            android:onClick="@{onItemClickListener::skip1}"
             android:text="系统自带提示对话框" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{onItemClickListener.skip2}"
+            android:onClick="@{onItemClickListener::skip2}"
             android:text="自定义加载对话框" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{onItemClickListener.skip3}"
+            android:onClick="@{onItemClickListener::skip3}"
             android:text="底部弹出对话框" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{onItemClickListener.skip4}"
+            android:onClick="@{onItemClickListener::skip4}"
             android:text="DialogFragment" />
 
     </LinearLayout>

@@ -31,14 +31,14 @@
                     android:layout_marginTop="20dp"
                     android:divider="@drawable/divider_common"
                     android:dividerPadding="@dimen/activity_horizontal_margin"
-                    android:onClick="@{event.skip415}"
+                    android:onClick="@{event::skip415}"
                     android:orientation="vertical"
                     android:showDividers="middle">
 
                     <LinearLayout
                         android:id="@+id/layout_item_415"
                         style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event.skip415}">
+                        android:onClick="@{event::skip415}">
 
                         <ImageView
                             style="@style/layout_item_right_image"
@@ -54,7 +54,7 @@
                     <LinearLayout
                         android:id="@+id/layout_item_416"
                         style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event.skip416}">
+                        android:onClick="@{event::skip416}">
 
                         <ImageView
                             style="@style/layout_item_right_image"
@@ -70,7 +70,7 @@
                     <LinearLayout
                         android:id="@+id/layout_item_417"
                         style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event.skip417}">
+                        android:onClick="@{event::skip417}">
 
                         <ImageView
                             style="@style/layout_item_right_image"
@@ -87,7 +87,7 @@
                     <LinearLayout
                         android:id="@+id/layout_item_418"
                         style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event.skip418}">
+                        android:onClick="@{event::skip418}">
 
                         <ImageView
                             style="@style/layout_item_right_image"
@@ -112,7 +112,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip46}">
+                        android:onClick="@{event::skip46}">
 
                         <TextView
                             style="@style/text_black_16sp"
@@ -122,7 +122,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip48}">
+                        android:onClick="@{event::skip48}">
 
                         <TextView
                             style="@style/text_black_16sp"
@@ -132,7 +132,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip49}">
+                        android:onClick="@{event::skip49}">
 
                         <TextView
                             style="@style/text_black_16sp"
@@ -142,7 +142,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip491}">
+                        android:onClick="@{event::skip491}">
 
                         <TextView
                             style="@style/text_black_16sp"
@@ -152,7 +152,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip492}">
+                        android:onClick="@{event::skip492}">
 
                         <TextView
                             style="@style/text_black_16sp"
@@ -162,7 +162,7 @@
 
                     <RelativeLayout
                         style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event.skip493}">
+                        android:onClick="@{event::skip493}">
 
                         <TextView
                             style="@style/text_black_16sp"

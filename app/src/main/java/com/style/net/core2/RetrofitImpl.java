@@ -2,20 +2,19 @@ package com.style.net.core2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.style.net.bean.KuaiDi;
+import com.style.net.core2.response.BaseResponse;
+import com.style.net.core2.response.BaseResult;
+import com.style.net.bean.KuaiDiModel;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import example.newwork.response.LoginBean;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.disposables.ListCompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -72,7 +71,7 @@ public class RetrofitImpl {
         return mObservable.compose(transformer);
     }
 
-    public Observable<BaseResult<KuaiDiModel>> getKuaiDi(String userName, String password) {
+    public Observable<BaseResponse<List<KuaiDi>>> getKuaiDi(String userName, String password) {
         //这里必须链式调用，如果赋值出来会报主线程请求网络错误
         return mAPIFunction.getKuaiDi("yuantong", "11111111111").compose(transformer);
     }

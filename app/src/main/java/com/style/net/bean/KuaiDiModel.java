@@ -1,4 +1,4 @@
-package com.style.net.core2;
+package com.style.net.bean;
 
 /**
  * Created by xiajun on 2017/12/21.

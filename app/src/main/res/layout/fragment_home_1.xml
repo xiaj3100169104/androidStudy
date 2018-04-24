@@ -29,88 +29,88 @@
                 <TextView
                     android:id="@+id/layout_item_42"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip42}"
+                    android:onClick="@{onItemClickListener::skip42}"
                     android:text="复杂布局" />
 
                 <TextView
                     android:id="@+id/btn_address"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip2}"
+                    android:onClick="@{onItemClickListener::skip2}"
 
                     android:text="address" />
 
                 <TextView
                     android:id="@+id/btn_album"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip1}"
+                    android:onClick="@{onItemClickListener::skip1}"
                     android:text="album" />
 
                 <TextView
                     android:id="@+id/btn_wheel"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip4}"
+                    android:onClick="@{onItemClickListener::skip4}"
 
                     android:text="wheel" />
 
                 <TextView
                     android:id="@+id/btn_radio"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip3}"
+                    android:onClick="@{onItemClickListener::skip3}"
                     android:text="radiogroup" />
 
                 <TextView
                     android:id="@+id/btn_dialog"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip31}"
+                    android:onClick="@{onItemClickListener::skip31}"
                     android:text="各种对话框" />
 
                 <TextView
                     android:id="@+id/btn_user_agree"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip5}"
+                    android:onClick="@{onItemClickListener::skip5}"
 
                     android:text="读取assets文本文件" />
 
                 <TextView
                     android:id="@+id/btn_file_down"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip6}"
+                    android:onClick="@{onItemClickListener::skip6}"
                     android:text="文件下载" />
 
                 <TextView
                     android:id="@+id/btn_4"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip10}"
+                    android:onClick="@{onItemClickListener::skip10}"
                     android:text="手势上下滑动移动布局并销毁activity" />
 
                 <TextView
                     android:id="@+id/btn_5"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip11}"
+                    android:onClick="@{onItemClickListener::skip11}"
                     android:text="状态栏风格" />
 
                 <TextView
                     android:id="@+id/btn_6"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip12}"
+                    android:onClick="@{onItemClickListener::skip12}"
                     android:text="tabLayout" />
 
                 <TextView
                     android:id="@+id/btn_7"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip13}"
+                    android:onClick="@{onItemClickListener::skip13}"
                     android:text="imageScan" />
 
                 <TextView
                     android:id="@+id/btn_8"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip14}"
+                    android:onClick="@{onItemClickListener::skip14}"
                     android:text="音频列表" />
 
                 <TextView
                     android:id="@+id/btn_9"
                     style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener.skip15}"
+                    android:onClick="@{onItemClickListener::skip15}"
                     android:text="单独进程服务" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

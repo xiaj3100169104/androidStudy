@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -120,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ToastManager.showToast(getContext(), str);
     }
 
-    public void showToast(int resId) {
+    public void showToast(@StringRes int resId) {
         ToastManager.showToast(getContext(), resId);
     }
 

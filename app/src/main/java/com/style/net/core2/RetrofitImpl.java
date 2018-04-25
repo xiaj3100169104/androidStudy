@@ -3,9 +3,10 @@ package com.style.net.core2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.style.net.bean.KuaiDi;
+import com.style.net.core2.converter.CustomGsonConverterFactory;
+import com.style.net.core2.converter.StringConverterFactory;
 import com.style.net.core2.response.BaseResponse;
 import com.style.net.core2.response.BaseResult;
-import com.style.net.bean.KuaiDiModel;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class RetrofitImpl {
                 .baseUrl(URL_BASE_REMOTE)
                 // 如是有Gson这类的Converter 一定要放在其它前面
                 .addConverterFactory(StringConverterFactory.create())
+                .addConverterFactory(CustomGsonConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))//添加gson转换器
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
                 .client(mOkHttpClient)

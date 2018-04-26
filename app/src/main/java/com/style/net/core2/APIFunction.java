@@ -25,5 +25,8 @@ public interface APIFunction {
     Observable<BaseResponse<List<KuaiDi>>> getKuaiDi(@Field("type") String name, @Field("postid") String password);
 
     @POST("http://www.kuaidi100.com/query?") @FormUrlEncoded
+    Observable<List<KuaiDi>> getKuaiDi3(@Field("type") String name, @Field("postid") String password);
+
+    @POST("http://www.kuaidi100.com/query?") @FormUrlEncoded
     Observable<String> getKuaiDi2(@Field("type") String name, @Field("postid") String password);
 }

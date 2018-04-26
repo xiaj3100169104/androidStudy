@@ -1,10 +1,10 @@
 package com.style.net.core2.converter;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.style.net.core2.response.BaseRes;
-import com.style.net.core2.response.BaseResponse;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -35,22 +35,22 @@ public class BaseResponseBodyConverter<T> implements Converter<ResponseBody, T> 
     @Override
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
-        BaseRes httpStatus = gson.fromJson(response, HttpStatus.class);
-        if (httpStatus.isCodeInvalid()) {
+        BaseRes baseRes = JSON.parseObject(response, BaseRes.class);
+        if (baseRes != null && !baseRes.isSuccess()) {
             value.close();
-            throw new ResultErrorException(httpStatus.getCode(), httpStatus.getMessage());
+            throw new ResultErrorException(baseRes.ischeck, baseRes.message);
         }
-
-        MediaType contentType = value.contentType();
-        Charset charset = contentType != null ? contentType.charset(UTF_8) : UTF_8;
-        InputStream inputStream = new ByteArrayInputStream(response.getBytes());
-        Reader reader = new InputStreamReader(inputStream, charset);
-        JsonReader jsonReader = gson.newJsonReader(reader);
-
         try {
+            MediaType contentType = value.contentType();
+            Charset charset = contentType != null ? contentType.charset(UTF_8) : UTF_8;
+            InputStream inputStream = new ByteArrayInputStream(baseRes.data.getBytes());
+            Reader reader = new InputStreamReader(inputStream, charset);
+            JsonReader jsonReader = gson.newJsonReader(reader);
             return adapter.read(jsonReader);
         } finally {
             value.close();
         }
+
+
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.style.net.bean.KuaiDi;
 import com.style.net.core2.converter.CustomGsonConverterFactory;
+import com.style.net.core2.converter.FastJsonConverterFactory;
 import com.style.net.core2.converter.StringConverterFactory;
 import com.style.net.core2.response.BaseResponse;
 import com.style.net.core2.response.BaseResult;
@@ -30,7 +31,6 @@ public class RetrofitImpl {
     protected String TAG = "HttpManager";
     private static String URL_BASE_REMOTE = "http://ws.webxml.com.cn/WebServices/";
 
-    private static RetrofitImpl mRetrofitFactory;
     private static APIFunction mAPIFunction;
 
     private RetrofitImpl() {
@@ -41,31 +41,29 @@ public class RetrofitImpl {
                 .addInterceptor(InterceptorUtil.HeaderInterceptor())
                 .addInterceptor(InterceptorUtil.LogInterceptor())//添加日志拦截器 */
                 .build();
-        Gson gson = new GsonBuilder()
-                //配置你的Gson
-                .setDateFormat("yyyy-MM-dd hh:mm:ss")
-                .create();
-        Retrofit mRetrofit = new Retrofit.Builder()
+                Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(URL_BASE_REMOTE)
                 // 如是有Gson这类的Converter 一定要放在其它前面
                 .addConverterFactory(StringConverterFactory.create())
-                .addConverterFactory(CustomGsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))//添加gson转换器
+                //.addConverterFactory(CustomGsonConverterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())
+                //.addConverterFactory(GsonConverterFactory.create(gson))//添加gson转换器
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
                 .client(mOkHttpClient)
                 .build();
         mAPIFunction = mRetrofit.create(APIFunction.class);
     }
 
-    public static RetrofitImpl getInstance() {
-        if (mRetrofitFactory == null) {
-            synchronized (RetrofitImpl.class) {
-                if (mRetrofitFactory == null)
-                    mRetrofitFactory = new RetrofitImpl();
-            }
+    private static final Object mLock = new Object();
+    private static RetrofitImpl mInstance;
 
+    public static RetrofitImpl getInstance() {
+        synchronized (mLock) {
+            if (mInstance == null) {
+                mInstance = new RetrofitImpl();
+            }
+            return mInstance;
         }
-        return mRetrofitFactory;
     }
 
     public Observable<BaseResult<LoginBean>> login(String userName, String password) {
@@ -76,6 +74,11 @@ public class RetrofitImpl {
     public Observable<BaseResponse<List<KuaiDi>>> getKuaiDi(String userName, String password) {
         //这里必须链式调用，如果赋值出来会报主线程请求网络错误
         return mAPIFunction.getKuaiDi("yuantong", "11111111111").compose(transformer);
+    }
+
+    public Observable<List<KuaiDi>> getKuaiDi3(String userName, String password) {
+        //这里必须链式调用，如果赋值出来会报主线程请求网络错误
+        return mAPIFunction.getKuaiDi3("yuantong", "11111111111").compose(transformer);
     }
 
     public Observable<String> getKuaiDi2(String userName, String password) {

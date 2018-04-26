@@ -18,12 +18,15 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.internal.operators.observable.ObserverResourceWrapper;
+import io.reactivex.observers.ResourceObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class TestRxActivity extends BaseActivity {
@@ -162,7 +165,7 @@ public class TestRxActivity extends BaseActivity {
     }
 
     public void skip418(View v) {
-        RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver2<List<KuaiDi>>() {
+        /*RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver2<List<KuaiDi>>() {
             @Override
             public void onSuccess(List<KuaiDi> object) {
                 if (object != null && !object.isEmpty()) {
@@ -176,6 +179,27 @@ public class TestRxActivity extends BaseActivity {
             @Override
             public void onFailed(String message) {
                 super.onFailed(message);
+            }
+        });*/
+        RetrofitImpl.getInstance().getKuaiDi3("", "").flatMap(new Function<List<KuaiDi>, ObservableSource<List<KuaiDi>>>() {
+            @Override
+            public ObservableSource<List<KuaiDi>> apply(List<KuaiDi> kuaiDis) throws Exception {
+                return RetrofitImpl.getInstance().getKuaiDi3("", "");
+            }
+        }).subscribe(new ResourceObserver<List<KuaiDi>>() {
+            @Override
+            public void onNext(List<KuaiDi> kuaiDis) {
+                logE(TAG, kuaiDis.toString());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }

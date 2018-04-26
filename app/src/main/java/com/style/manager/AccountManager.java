@@ -22,13 +22,16 @@ public class AccountManager {
     private User currentUser;
 
     private static AccountManager mInstance;
+    private static final Object mLock = new Object();
 
     //避免同时获取多个实例
     public synchronized static AccountManager getInstance() {
-        if (mInstance == null) {
-            mInstance = new AccountManager();
+        synchronized (mLock) {
+            if (mInstance == null) {
+                mInstance = new AccountManager();
+            }
+            return mInstance;
         }
-        return mInstance;
     }
 
     public void init(Context context) {

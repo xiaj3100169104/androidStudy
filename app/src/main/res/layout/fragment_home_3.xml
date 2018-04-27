@@ -102,7 +102,7 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip11}"
 
-                    android:text="webservice测试" />
+                    android:text="retrofit2+rxjava2,webservice请求" />
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

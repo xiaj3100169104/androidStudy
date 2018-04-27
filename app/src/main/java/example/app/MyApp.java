@@ -1,7 +1,6 @@
 package example.app;
 
 import android.app.Application;
-import android.content.ComponentCallbacks;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
@@ -23,9 +21,7 @@ import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.manager.AccountManager;
 import com.style.manager.AppManager;
-import com.style.net.core.HttpActionManager;
 
-import example.ble.BleManager;
 import example.greendao.dao.GreenDaoManager;
 import example.helper.DynamicTimeFormat;
 
@@ -63,7 +59,6 @@ public class MyApp extends Application {
         AccountManager.getInstance().init(appContext);
         UserDBManager.getInstance().initialize(appContext);
         GreenDaoManager.getInstance().initialize(appContext);
-        HttpActionManager.getInstance().init();
         registerComponentCallbacks(new ComponentCallbacks2() {
             @Override
             public void onTrimMemory(int level) {

@@ -18,20 +18,14 @@ public class FastJsonConverterFactory extends Converter.Factory {
         return new FastJsonConverterFactory();
     }
 
-    /**
-     * 需要重写父类中responseBodyConverter，该方法用来转换服务器返回数据
-     */
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         return new FastJsonResponseBodyConverter<>(type);
     }
 
-/*    *//**
-     * 需要重写父类中responseBodyConverter，该方法用来转换发送给服务器的数据
-     *//*
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
         return new FastJsonRequestBodyConverter<>();
-    }*/
+    }
 
 }

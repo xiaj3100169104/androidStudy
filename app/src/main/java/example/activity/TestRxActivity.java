@@ -7,26 +7,15 @@ import android.view.View;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
-import com.style.net.bean.KuaiDi;
-import com.style.net.core2.observer.BaseObserver;
-import com.style.net.bean.KuaiDiModel;
-import com.style.net.core2.RetrofitImpl;
-import com.style.net.core2.StringObserver;
-import com.style.net.core2.observer.BaseObserver2;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.internal.operators.observable.ObserverResourceWrapper;
-import io.reactivex.observers.ResourceObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class TestRxActivity extends BaseActivity {
@@ -162,60 +151,5 @@ public class TestRxActivity extends BaseActivity {
 
     static class Course {
         String name;
-    }
-
-    public void skip418(View v) {
-        /*RetrofitImpl.getInstance().getKuaiDi("", "").subscribe(new BaseObserver2<List<KuaiDi>>() {
-            @Override
-            public void onSuccess(List<KuaiDi> object) {
-                if (object != null && !object.isEmpty()) {
-                    for (KuaiDi b : object) {
-                        logE(TAG, b.toString());
-                        bd.tvContent.setText(object.toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailed(String message) {
-                super.onFailed(message);
-            }
-        });*/
-        RetrofitImpl.getInstance().getKuaiDi3("", "").flatMap(new Function<List<KuaiDi>, ObservableSource<List<KuaiDi>>>() {
-            @Override
-            public ObservableSource<List<KuaiDi>> apply(List<KuaiDi> kuaiDis) throws Exception {
-                return RetrofitImpl.getInstance().getKuaiDi3("", "");
-            }
-        }).subscribe(new ResourceObserver<List<KuaiDi>>() {
-            @Override
-            public void onNext(List<KuaiDi> kuaiDis) {
-                logE(TAG, kuaiDis.toString());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
-
-    public void skip419(View v) {
-        RetrofitImpl.getInstance().getKuaiDi2("", "").subscribe(new StringObserver(TAG) {
-            @Override
-            public void onSuccess(String object) {
-                logE(TAG, object);
-                bd.tvContent.setText(object);
-            }
-
-            @Override
-            public void onFailed(String message) {
-                super.onFailed(message);
-            }
-        });
     }
 }

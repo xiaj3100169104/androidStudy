@@ -29,7 +29,7 @@ public class AppManager {
     private static final String APP_INFO = "appInfo";
     private static final String IS_FIRST_LOGIN = "isFirstLogin";
 
-    protected static Context context;
+    protected Context context;
     public static Typeface TEXT_TYPE;
     private static AppManager mInstance;
 
@@ -55,7 +55,7 @@ public class AppManager {
         this.context.registerReceiver(new NetWorkChangeBroadcastReceiver(), filter);
     }
 
-    public static Context getContext() {
+    public Context getContext() {
         return context;
     }
 
@@ -110,15 +110,15 @@ public class AppManager {
     }
 
     //在application中使用//不让其他应用接收到广播
-    public static void sendLocalBroadcast(Intent intent) {
+    public void sendLocalBroadcast(Intent intent) {
         LocalBroadcastManager.getInstance(getContext()).sendBroadcastSync(intent);
     }
 
-    public static void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+    public void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, filter);
     }
 
-    public static void unregisterLocalReceiver(BroadcastReceiver receiver) {
+    public void unregisterLocalReceiver(BroadcastReceiver receiver) {
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(receiver);
     }
 

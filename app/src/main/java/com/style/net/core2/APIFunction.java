@@ -49,5 +49,5 @@ public interface APIFunction {
     Observable<TokenResponse> getToken(@Field("grant_type") String grant_type);
 
     @POST(HttpConfig.BASE_URL + "guardian/login")
-    Observable<UserInfo> login2(@Header("Authorization") String Authorization, @Body LoginRequest requestBody);
+    Observable<UserInfo> login2(@Body LoginRequest requestBody);
 }

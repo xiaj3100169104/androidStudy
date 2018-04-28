@@ -92,7 +92,7 @@ public class WebServiceActivity extends BaseToolBarActivity {
             @Override
             public void onNext(TokenResponse baseRes) {
                 logE(TAG, baseRes.access_token);
-                AccountManager.getInstance().setSignKey("17364814713", baseRes.access_token);
+                AccountManager.getInstance().setSignKey(baseRes.access_token);
             }
         });
     }

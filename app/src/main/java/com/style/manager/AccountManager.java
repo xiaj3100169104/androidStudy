@@ -72,7 +72,7 @@ public class AccountManager {
             String account = user.getUserId();
             setCurrentAccount(user.getUserId());
             setPassword(account, user.getPassword());
-            setSignKey(account, user.getSignKey());
+            setSignKey(user.getSignKey());
             UserDBManager.getInstance().insertUser(user);
             currentUser = getCurrentUser();
         }
@@ -92,7 +92,7 @@ public class AccountManager {
         User user = UserDBManager.getInstance().getUser(account);
         if (user != null) {
             user.setPassword(getPassword(account));
-            user.setSignKey(getSignKey(account));
+            user.setSignKey(getSignKey());
         }
         return user;
     }
@@ -100,7 +100,7 @@ public class AccountManager {
     public void clearUser(String account) {
         currentUser = null;
         setPassword(account, "");
-        setSignKey(account, "");
+        setSignKey("");
     }
 
     public void setIsAutoLogin(String account, boolean value) {
@@ -113,13 +113,13 @@ public class AccountManager {
         return value;
     }
 
-    public void setSignKey(String account, String signKey) {
-        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
+    public void setSignKey(String signKey) {
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
         editor.putString(SIGN_KEY, signKey).apply();
     }
 
-    public String getSignKey(String account) {
-        String value = getUserSharedPreferences(account).getString(SIGN_KEY, "");
+    public String getSignKey() {
+        String value = "Bearer " + getLoginSharedPreferences().getString(SIGN_KEY, "");
         return value;
 
     }
@@ -132,10 +132,6 @@ public class AccountManager {
     public String getPassword(String account) {
         String value = getUserSharedPreferences(account).getString(PASSWORD, "");
         return value;
-    }
-
-    public String getToken() {
-        return null;
     }
 
     public void saveBleAddress(String address) {

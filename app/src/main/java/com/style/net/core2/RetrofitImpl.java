@@ -54,8 +54,8 @@ public class RetrofitImpl {
                 .connectTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
-                .addInterceptor(InterceptorUtil.HeaderInterceptor())
                 .addInterceptor(InterceptorUtil.LogInterceptor())//添加日志拦截器
+                .addInterceptor(InterceptorUtil.HeaderInterceptor())
                 .build();
         Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(URL_BASE_WEBSERVICE)
@@ -108,7 +108,7 @@ public class RetrofitImpl {
     }
 
     public Observable<UserInfo> login2(String userName, String passWord) {
-        return mAPIFunction.login2("Bearer " + AccountManager.getInstance().getSignKey("17364814713"), new LoginRequest(userName, passWord)).compose(transformer);
+        return mAPIFunction.login2(new LoginRequest(userName, passWord)).compose(transformer);
     }
 
 }

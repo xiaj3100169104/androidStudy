@@ -2,16 +2,14 @@ package com.style.net.core2;
 
 import android.util.Log;
 
+import com.style.manager.AccountManager;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-
-/**
- * Created by xiajun on 2017/12/22.
- */
 
 public class InterceptorUtil {
     public static String TAG = "InterceptorUtil";
@@ -32,8 +30,7 @@ public class InterceptorUtil {
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder newBuilder = original.newBuilder();
-                //newBuilder.addHeader("Content-Type", "application/json");
-                //newBuilder.addHeader("Authorization", "Bearer " + AccountManager.getInstance().getAccessToken());
+                newBuilder.addHeader("Authorization", AccountManager.getInstance().getSignKey());
                 Request newRequest = newBuilder.build();
                 return chain.proceed(newRequest);
             }

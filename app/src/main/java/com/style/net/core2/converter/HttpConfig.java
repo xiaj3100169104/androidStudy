@@ -7,7 +7,6 @@ package com.style.net.core2.converter;
 public class HttpConfig {
     public static final long HTTP_TIME = 5;
 
-    public static String URL_BASE_WEBSERVICE = "http://ws.webxml.com.cn/WebServices/";
     public static final String HOSTNAME = "https://watch.lemonnc.com/";
-    public static final String BASE_URL = HOSTNAME + "LMService/Health/";
+    public static final String URL_BASE = HOSTNAME + "LMService/Health/";
 }

@@ -25,11 +25,11 @@ import retrofit2.http.POST;
 
 public interface APIFunction {
 
-    @POST("MobileCodeWS.asmx/getMobileCodeInfo")
+    @POST("http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx/getMobileCodeInfo")
     @FormUrlEncoded
     Observable<String> getMolileLocation(@Field("mobileCode") String mobileCode, @Field("userID") String userID);
 
-    @POST("WeatherWS.asmx/getWeather")
+    @POST("http://ws.webxml.com.cn/WebServices/WeatherWS.asmx/getWeather")
     @FormUrlEncoded
     Observable<String> getWeatherInfo(@Field("theCityCode") String mobileCode, @Field("theUserID") String userID);
 
@@ -40,14 +40,14 @@ public interface APIFunction {
     @FormUrlEncoded
     Observable<String> getKuaiDi(@Field("type") String name, @Field("postid") String password);
 
-    @POST("LMService/Health/guardian/pupillus")
+    @POST("guardian/pupillus")
     Observable<List<KuaiDi>> getPupil(@Body RequestBody requestBody);
 
     @Headers("Authorization:Basic YW5kcm9pZGNsaWVudDo4QTcyOUZENC04NjdGLTREMTItOEE4Ri1CQTNFOEQ4MzhERjM=")
-    @POST(HttpConfig.HOSTNAME + "OAuth/Token")
+    @POST("https://watch.lemonnc.com/OAuth/Token")
     @FormUrlEncoded
     Observable<TokenResponse> getToken(@Field("grant_type") String grant_type);
 
-    @POST(HttpConfig.BASE_URL + "guardian/login")
+    @POST("guardian/login")
     Observable<UserInfo> login2(@Body LoginRequest requestBody);
 }

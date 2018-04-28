@@ -34,7 +34,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class RetrofitImpl {
     protected String TAG = this.getClass().getSimpleName();
-    private static String URL_BASE_WEBSERVICE = HttpConfig.URL_BASE_WEBSERVICE;
+    private static String URL_BASE = HttpConfig.URL_BASE;
 
     private static APIFunction mAPIFunction;
     private static final Object mLock = new Object();
@@ -54,11 +54,11 @@ public class RetrofitImpl {
                 .connectTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
-                .addInterceptor(InterceptorUtil.LogInterceptor())//添加日志拦截器
+                .addInterceptor(InterceptorUtil.LogInterceptor())
                 .addInterceptor(InterceptorUtil.HeaderInterceptor())
                 .build();
         Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(URL_BASE_WEBSERVICE)
+                .baseUrl(URL_BASE)
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
                 .client(mOkHttpClient)

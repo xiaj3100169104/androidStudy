@@ -1,5 +1,6 @@
 package com.style.net.core2;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.manager.AccountManager;
@@ -30,7 +31,8 @@ public class InterceptorUtil {
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder newBuilder = original.newBuilder();
-                newBuilder.addHeader("Authorization", AccountManager.getInstance().getSignKey());
+                if (TextUtils.isEmpty(original.header("Authorization")))
+                    newBuilder.addHeader("Authorization", AccountManager.getInstance().getSignKey());
                 Request newRequest = newBuilder.build();
                 return chain.proceed(newRequest);
             }

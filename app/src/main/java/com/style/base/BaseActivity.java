@@ -5,24 +5,20 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.style.dialog.LoadingDialog;
-import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
-import com.style.net.core2.RetrofitManager;
-import com.style.rxAndroid.RXTaskManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
+
+import example.login.BaseActivityPresenter;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -31,13 +27,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected LayoutInflater mInflater;
     protected View mContentView;
     private LoadingDialog progressDialog;
+    private BaseActivityPresenter mBasePresenter;
 
     protected boolean isFlagTranslucentStatus() {
         return true;
     }
+
     protected boolean isFitSystemWindows() {
         return true;
     }
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -52,9 +51,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract void initData();
 
+    protected void addPresenter(BaseActivityPresenter mPresenter) {
+        this.mBasePresenter = mPresenter;
+    }
+
     //自定义窗口属性
     protected void customWindowOptions(Window window) {
-        if (isFlagTranslucentStatus()){
+        if (isFlagTranslucentStatus()) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         }
@@ -104,9 +107,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RetrofitManager.getInstance().removeTask(TAG);
-        RXTaskManager.getInstance().removeTask(TAG);
         dismissProgressDialog();
+        if (mBasePresenter != null) {
+            mBasePresenter.onDestroy();
+        }
     }
 
     public Context getContext() {

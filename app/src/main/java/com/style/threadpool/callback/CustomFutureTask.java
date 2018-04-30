@@ -10,19 +10,19 @@ import android.os.Message;
  * Created by xiajun on 2017/2/14.
  */
 
-public abstract class CustomFutureTask implements Runnable {
+public abstract class CustomFutureTask<T> implements Runnable {
     private static final int TASK_START = 2;
     private static final int TASK_PROGRESS = 3;
     private static final int TASK_COMPLETE = 4;
     private static final int TASK_FAILED = 5;
 
     private static final String TAG = CustomFutureTask.class.getSimpleName();
-    private Object data;
+    private T data;
 
-    public abstract Object doInBackground();
+    public abstract T doInBackground();
     public abstract void onStart();
 
-    public abstract void onSuccess(Object data);
+    public abstract void onSuccess(T data);
 
     public abstract void onFailed(String message);
 

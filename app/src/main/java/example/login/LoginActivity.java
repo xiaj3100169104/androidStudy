@@ -16,7 +16,8 @@ public class LoginActivity extends BaseActivity {
 
     private long userId = 18;
     private ActivityLoginBinding bd;
-    LoginViewModel loginVewModel;
+    private LoginPresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,31 +28,20 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        loginVewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-        User loginUser = loginVewModel.getLoginUser();
-        setUserView(loginUser);
-        /*loginVewModel.
-        viewModel.userLiveData.observer(this, new Observer<User>() {
-             {@literal @}Override
-              public void onChanged(@Nullable User data) {
-                  // update ui.
-              }
-          });*/
+        mPresenter = new LoginPresenter(this);
+        addPresenter(mPresenter);
+        mPresenter.getLoginUser();
     }
+
 
     public void login(View v) {
         String userId = bd.etAccount.getText().toString();
         String password = bd.etPassword.getText().toString();
-        loginVewModel.login(userId, password);
+        mPresenter.login(userId, password);
     }
 
     public void setUserView(User user) {
         bd.etAccount.setText(user.userName);
         bd.etPassword.setText(user.password);
-    }
-
-    public void skip2Main() {
-        skip(MainActivity.class);
-        finish();
     }
 }

@@ -83,7 +83,7 @@ public class HanyuToPinyin {
 
 	public static String hanziToCapital(String hanzi) {
 		String sortString = "#";
-		String pinyin = HanyuToPinyin.converterToSpell(hanzi);
+		String pinyin = converterToSpell(hanzi);
 		if ("" != pinyin) {
 			String uc = pinyin.substring(0, 1).toUpperCase();
 			if (uc.matches("[A-Z]")) {

@@ -28,7 +28,6 @@ import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
 import com.style.threadpool.GeneralThreadPoolManager;
-import com.style.threadpool.callback.MyTaskCallBack;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 

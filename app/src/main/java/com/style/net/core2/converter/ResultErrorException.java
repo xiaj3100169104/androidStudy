@@ -5,6 +5,7 @@ package com.style.net.core2.converter;
 public class ResultErrorException extends RuntimeException {
 
     public static final int REQUEST_FAILED = 9998; //请求失败
+    public static final int PARSE_FAILED = 9997; //数据解析失败
     public int errorCode;
     public String msg;
 

@@ -1,8 +1,6 @@
 package example.address;
 
 import android.Manifest;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,10 +13,8 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseToolBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
-import com.style.rxAndroid.RXTaskManager;
-import com.style.rxAndroid.callback.RXTaskCallBack;
 import com.style.threadpool.GeneralThreadPoolManager;
-import com.style.threadpool.callback.MyTaskCallBack;
+import com.style.threadpool.callback.CustomFutureTask;
 import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
@@ -34,6 +30,7 @@ public class AddressActivity extends BaseToolBarActivity {
     private ArrayList<UploadPhone> dataList;
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
+    private AddressPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -47,6 +44,8 @@ public class AddressActivity extends BaseToolBarActivity {
     @Override
     public void initData() {
         setToolbarTitle("通讯录");
+        mPresenter = new AddressPresenter(this);
+        addPresenter(mPresenter);
 
         bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();
@@ -95,7 +94,7 @@ public class AddressActivity extends BaseToolBarActivity {
                 // result of the request.
             }
         } else {
-            getData2();
+            getData();
         }
     }
 
@@ -105,7 +104,7 @@ public class AddressActivity extends BaseToolBarActivity {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 logE(TAG, "权限允许");
-                getData2();
+                getData();
             } else {
                 logE(TAG, "权限拒绝");
                 // Permission Denied
@@ -116,10 +115,18 @@ public class AddressActivity extends BaseToolBarActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void getData() {
-        showProgressDialog();
-        //custom();
-        RXTaskManager.getInstance().runTask(TAG, new RXTaskCallBack<List<UploadPhone>>() {
+    public void getData() {
+        mPresenter.getData();
+        //getData2();
+    }
+    public void setData(List<UploadPhone> data) {
+        Log.e(AddressActivity.this.TAG, data.toString());
+        dataList.addAll(data);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void getData2() {
+        GeneralThreadPoolManager.getInstance().runTask(TAG, new CustomFutureTask<List<UploadPhone>>() {
             @Override
             public List<UploadPhone> doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());
@@ -136,45 +143,16 @@ public class AddressActivity extends BaseToolBarActivity {
             }
 
             @Override
+            public void onStart() {
+
+            }
+
+            @Override
             public void onSuccess(List<UploadPhone> data) {
                 Log.e(AddressActivity.this.TAG, "OnSuccess");
                 dismissProgressDialog();
                 if (data != null) {
-                    //List<UploadPhone> response = (List<UploadPhone>) data;
-                    Log.e(AddressActivity.this.TAG, data.toString());
-                    dataList.addAll(data);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
-    }
-
-    private void getData2() {
-        GeneralThreadPoolManager.getInstance().runTask(TAG, new MyTaskCallBack() {
-            @Override
-            public Object doInBackground() {
-                List<UploadPhone> list = ContactHelper.getContacts(getContext());
-                if (null != list) {
-                    int size = list.size();
-                    for (int i = 0; i < size; i++) {
-                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
-                        list.get(i).setSortLetters(sortLetter);
-                    }
-                }
-                // 根据a-z进行排序源数据
-                Collections.sort(list, new UploadPhoneComparator());
-                return list;
-            }
-
-            @Override
-            public void onSuccess(Object data) {
-                Log.e(AddressActivity.this.TAG, "OnSuccess");
-                dismissProgressDialog();
-                if (data != null) {
-                    List<UploadPhone> response = (List<UploadPhone>) data;
-                    Log.e(AddressActivity.this.TAG, response.toString());
-                    dataList.addAll(response);
-                    adapter.notifyDataSetChanged();
+                    setData(data);
                 }
             }
 
@@ -185,4 +163,5 @@ public class AddressActivity extends BaseToolBarActivity {
             }
         });
     }
+
 }

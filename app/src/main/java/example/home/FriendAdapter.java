@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendAdapter extends BaseRecyclerViewAdapter<Integer> {
-    public FriendAdapter(Context context, ArrayList<Integer> list) {
-        super(context, list);
-    }
 
+
+    public FriendAdapter(Context context, ArrayList<Integer> dataList) {
+        super(context, dataList);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

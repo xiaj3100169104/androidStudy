@@ -1,36 +1,31 @@
 package example.login;
 
-import android.arch.lifecycle.ViewModel;
 
 import com.style.bean.User;
 import com.style.manager.AccountManager;
 import com.style.net.core2.response.BaseResult;
-import com.style.net.core2.RetrofitImpl;
 
 import example.newwork.response.LoginBean;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-/**
- * Created by xiajun on 2018/4/8.
- */
 
-public class LoginViewModel extends ViewModel {
+public class LoginPresenter extends BaseActivityPresenter<LoginActivity> {
 
-    public LoginViewModel() {
+    public LoginPresenter(LoginActivity mActivity) {
+        super(mActivity);
     }
 
-    public User getLoginUser() {
-        String a = AccountManager.getInstance().getCurrentAccount();
-        return AccountManager.getInstance().getUser(a);
+    public void getLoginUser() {
+        String a = getAccountManager().getCurrentAccount();
+        getActivity().setUserView(getAccountManager().getUser(a));
     }
 
     public void login(String userName, String password) {
         User user = new User(userName, password);
         AccountManager.getInstance().setCurrentUser(user);
         synData();
-        RetrofitImpl.getInstance().login(userName, password).subscribe(new Consumer<BaseResult<LoginBean>>() {
+        Disposable d = getHttpApi().login(userName, password).subscribe(new Consumer<BaseResult<LoginBean>>() {
             @Override
             public void accept(BaseResult<LoginBean> loginBeanBaseResult) throws Exception {
 
@@ -40,17 +35,8 @@ public class LoginViewModel extends ViewModel {
             public void accept(Throwable throwable) throws Exception {
 
             }
-        }, new Action() {
-            @Override
-            public void run() throws Exception {
-
-            }
-        }, new Consumer<Disposable>() {
-            @Override
-            public void accept(Disposable disposable) throws Exception {
-
-            }
         });
+        addTask(d);
 
     }
 

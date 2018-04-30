@@ -10,8 +10,11 @@ import com.style.framework.databinding.ActivityWebserviceBinding;
 import com.style.manager.AccountManager;
 import com.style.net.bean.UserInfo;
 import com.style.net.core2.RetrofitImpl;
+import com.style.net.core2.callback.CustomHttpThrowable;
 import com.style.net.core2.callback.CustomResourceObserver;
 import com.style.net.core2.response.TokenResponse;
+
+import io.reactivex.functions.Consumer;
 
 public class WebServiceActivity extends BaseToolBarActivity {
 
@@ -78,22 +81,27 @@ public class WebServiceActivity extends BaseToolBarActivity {
                 bd.tvResult.setText(kuaiDis.toString());
             }
         });*/
-        RetrofitImpl.getInstance().login2("17364814713", "xj19910809").subscribe(new CustomResourceObserver<UserInfo>() {
+        RetrofitImpl.getInstance().login2("17364814713", "xj19910809").subscribe(new Consumer<UserInfo>() {
             @Override
-            public void onNext(UserInfo baseRes) {
-                logE(TAG, baseRes.toString());
+            public void accept(UserInfo userInfo) throws Exception {
+                logE(TAG, userInfo.toString());
 
+            }
+        }, new CustomHttpThrowable() {
+            @Override
+            public void accept(Throwable e) throws Exception {
+                super.accept(e);
             }
         });
     }
 
     public void responseGeneralNoData(View v) {
-        RetrofitImpl.getInstance().getToken().subscribe(new CustomResourceObserver<TokenResponse>() {
+        RetrofitImpl.getInstance().getToken().subscribe(new Consumer<TokenResponse>() {
             @Override
-            public void onNext(TokenResponse baseRes) {
-                logE(TAG, baseRes.access_token);
-                AccountManager.getInstance().setSignKey(baseRes.access_token);
+            public void accept(TokenResponse tokenResponse) throws Exception {
+                logE(TAG, tokenResponse.access_token);
+                AccountManager.getInstance().setSignKey(tokenResponse.access_token);
             }
-        });
+        }, new CustomHttpThrowable());
     }
 }

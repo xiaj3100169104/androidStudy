@@ -1,6 +1,7 @@
 package com.style.manager;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,13 +27,13 @@ public class ToastManager {
         }
     }
 
-    public static void showToast(Context context, int resId) {
+    public static void showToast(Context context, @StringRes int resId) {
         if (null != context) {
             Toast.makeText(context, resId, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public static void showToastOnApplication(int resId) {
+    public static void showToastOnApplication(@StringRes int resId) {
         showToast(MyApp.getAppContext(), resId);
     }
 
@@ -65,7 +66,7 @@ public class ToastManager {
         }
     }
 
-    public static void showToastLong(Context context, int resId) {
+    public static void showToastLong(Context context, @StringRes int resId) {
         if (null != context) {
             Toast.makeText(context, resId, Toast.LENGTH_LONG).show();
         }

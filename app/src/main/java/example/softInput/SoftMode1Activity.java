@@ -3,23 +3,20 @@ package example.softInput;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode1Binding;
 
 //
-public class SoftMode1Activity extends BaseToolBarActivity {
+public class SoftMode1Activity extends BaseActivity {
 
     ActivitySoftMode1Binding bd;
-
-    @Override
-    protected boolean isFitSystemWindows() {
-        return true;
-    }
-
-    @Override
-    protected boolean isFlagTranslucentStatus() {
+    protected boolean isTransparentStatusBar() {
         return false;
+    }
+    @Override
+    protected boolean isDefaultStatusBar() {
+        return true;
     }
 
     @Override
@@ -27,8 +24,6 @@ public class SoftMode1Activity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_1);
         super.setContentView(bd.getRoot());
-
-        initData();
     }
 
     @Override

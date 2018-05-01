@@ -15,12 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 
 
-public class AnimatorActivity extends BaseToolBarActivity {
+public class AnimatorActivity extends BaseActivity {
 
 
     private ActivitySecondBinding bd;
@@ -30,7 +30,6 @@ public class AnimatorActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_second);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

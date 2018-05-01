@@ -12,7 +12,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
@@ -22,7 +22,7 @@ import com.style.manager.AppManager;
 
 import aidl.IRemoteService;
 
-public class RemotePlayActivity extends BaseToolBarActivity {
+public class RemotePlayActivity extends BaseActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;
@@ -33,7 +33,6 @@ public class RemotePlayActivity extends BaseToolBarActivity {
         bd = DataBindingUtil.setContentView(this, R.layout.activity_remote_service);
         super.setContentView(bd.getRoot());
         setToolbarTitle("另起进程开启服务");
-        initData();
     }
 
     @Override

@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode3Binding;
 import com.style.view.DividerItemDecoration;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import example.adapter.StringAdapter;
 
 
-public class SoftMode3Activity extends BaseToolBarActivity {
+public class SoftMode3Activity extends BaseActivity {
     private String TAG = "SoftMode3Activity";
 
     ActivitySoftMode3Binding bd;
@@ -38,13 +38,12 @@ public class SoftMode3Activity extends BaseToolBarActivity {
     private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
 
-    @Override
-    protected boolean isFitSystemWindows() {
+    protected boolean isTransparentStatusBar() {
         return false;
     }
 
     @Override
-    protected boolean isFlagTranslucentStatus() {
+    protected boolean isTranslucentStatusBar() {
         return true;
     }
 
@@ -53,8 +52,6 @@ public class SoftMode3Activity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_3);
         super.setContentView(bd.getRoot());
-
-        initData();
     }
 
     @Override

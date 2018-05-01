@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode3Binding;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import example.adapter.StringAdapter;
 
 
-public class SoftMode4Activity extends BaseToolBarActivity {
+public class SoftMode4Activity extends BaseActivity {
     private String TAG = "SoftMode3Activity";
 
     ActivitySoftMode4Binding bd;
@@ -39,8 +39,6 @@ public class SoftMode4Activity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_4);
         super.setContentView(bd.getRoot());
-
-        initData();
     }
 
     @Override

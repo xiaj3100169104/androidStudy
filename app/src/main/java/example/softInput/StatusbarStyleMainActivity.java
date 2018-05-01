@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
@@ -18,7 +18,7 @@ import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class StatusbarStyleMainActivity extends BaseToolBarActivity {
+public class StatusbarStyleMainActivity extends BaseActivity {
     StatusbarStyleActivityMainBinding bd;
 
     @Override
@@ -26,7 +26,6 @@ public class StatusbarStyleMainActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.statusbar_style_activity_main);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

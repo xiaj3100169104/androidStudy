@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
 import com.style.threadpool.GeneralThreadPoolManager;
@@ -42,7 +42,7 @@ import example.address.UploadPhone;
 import example.address.UploadPhoneComparator;
 
 
-public class BlueToothActivity extends BaseToolBarActivity {
+public class BlueToothActivity extends BaseActivity {
     private static int REQUEST_ENABLE_BT = 6;
 
     ActivityBluetoothBinding bd;
@@ -61,7 +61,6 @@ public class BlueToothActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

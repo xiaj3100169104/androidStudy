@@ -27,7 +27,6 @@ public class TestRxActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_test_rx);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

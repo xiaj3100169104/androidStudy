@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.style.dialog.LoadingDialog;
+import com.style.framework.R;
 import com.style.manager.LogManager;
 import com.style.manager.ToastManager;
 import com.style.utils.CommonUtil;
@@ -24,16 +29,27 @@ import example.login.BaseActivityPresenter;
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
     protected Context context;
-    protected LayoutInflater mInflater;
     protected View mContentView;
     private LoadingDialog progressDialog;
     private BaseActivityPresenter mBasePresenter;
 
-    protected boolean isFlagTranslucentStatus() {
-        return true;
+    //是否是系统默认状态栏颜色
+    protected boolean isDefaultStatusBar() {
+        return false;
     }
 
-    protected boolean isFitSystemWindows() {
+    //是否是主题配置状态栏颜色
+    protected boolean isThemeStatusBar() {
+        return false;
+    }
+
+    //是否是半透明状态栏
+    protected boolean isTranslucentStatusBar() {
+        return false;
+    }
+
+    //是否是全透明状态栏颜色，默认全屏风格
+    protected boolean isTransparentStatusBar() {
         return true;
     }
 
@@ -41,11 +57,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         context = this;
-        mInflater = LayoutInflater.from(context);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
-        customWindowOptions(getWindow());
-        //setTheme();
 
     }
 
@@ -55,44 +68,78 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.mBasePresenter = mPresenter;
     }
 
-    //自定义窗口属性
-    protected void customWindowOptions(Window window) {
-        if (isFlagTranslucentStatus()) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        }
-        //定义4.4以下窗口属性
-        customWindowKitkat(window);
-        //定义5.0以上窗口属性
-        customWindowLollipop(window);
-    }
-
-    //定义5.0以上窗口属性
-    protected void customWindowLollipop(Window window) {
-        //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-        //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //设置状态栏颜色
-            //window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-            //预留状态栏空间
-            //mContentView.setFitsSystemWindows(true);
-        }
-    }
-
-    //定义4.4窗口属性
-    protected void customWindowKitkat(Window window) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            //去掉状态栏
-            //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //mContentView.setFitsSystemWindows(false);
-        }
-    }
-
-
     @Override
     public void setContentView(View mContentView) {
-        mContentView.setFitsSystemWindows(isFitSystemWindows());
+        Window window = getWindow();
+        if (isTransparentStatusBar()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //防止之前加了这个标志
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            }
+            mContentView.setFitsSystemWindows(false);
+        } else if (isDefaultStatusBar()) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            mContentView.setFitsSystemWindows(true);
+        } else if (isThemeStatusBar()) {
+            mContentView.setFitsSystemWindows(true);
+        } else if (isTranslucentStatusBar()) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            mContentView.setFitsSystemWindows(false);
+        }
+        super.setContentView(mContentView);
+        customTitleOptions(mContentView);
+
+        initData();
+    }
+
+    private Toolbar toolbar;
+    private TextView tvTitleBase;
+    private ImageView ivBaseToolbarReturn;
+
+    protected void customTitleOptions(View mContentView) {
+        toolbar = mContentView.findViewById(R.id.toolbar);
+        ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
+        tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
+        if (toolbar != null) {
+            toolbar.setTitle("");
+            setSupportActionBar(toolbar);
+        }
+        //隐藏Toolbar的标题
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickTitleBack();
+            }
+        });
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public View getToolbarRightView() {
+        return ivBaseToolbarReturn;
+    }
+
+    protected void onClickTitleBack() {
+        onBackFinish();
+    }
+
+    protected void setNavigationIcon(@DrawableRes int resId) {
+        toolbar.setNavigationIcon(getResources().getDrawable(resId));
+    }
+
+    protected void setToolbarTitle(String title) {
+        tvTitleBase.setText(getNotNullText(title));
+    }
+
+    protected void setToolbarTitle(@StringRes int resId) {
+        tvTitleBase.setText(getContext().getString(resId));
     }
 
     @Override
@@ -108,6 +155,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissProgressDialog();
+
         if (mBasePresenter != null) {
             mBasePresenter.onDestroy();
         }
@@ -133,7 +181,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         showProgressDialog("");
     }
 
-    public void showProgressDialog(int msgId) {
+    public void showProgressDialog(@StringRes int msgId) {
         showProgressDialog(getString(msgId));
     }
 

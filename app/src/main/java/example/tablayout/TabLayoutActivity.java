@@ -6,14 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTabLayoutBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLayoutActivity extends BaseToolBarActivity {
+public class TabLayoutActivity extends BaseActivity {
 
     ActivityTabLayoutBinding bd;
     private FindTabAdapter fAdapter;                               //定义adapter
@@ -26,7 +26,6 @@ public class TabLayoutActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_tab_layout);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

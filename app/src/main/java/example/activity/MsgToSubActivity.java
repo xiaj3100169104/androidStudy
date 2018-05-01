@@ -8,12 +8,12 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 
 
-public class MsgToSubActivity extends BaseToolBarActivity {
+public class MsgToSubActivity extends BaseActivity {
     ActivityMsgToSubBinding bd;
 
     Handler mHandler;
@@ -23,7 +23,6 @@ public class MsgToSubActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_msg_to_sub);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

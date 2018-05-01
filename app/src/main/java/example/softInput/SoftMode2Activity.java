@@ -8,20 +8,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
 
-public class SoftMode2Activity extends BaseToolBarActivity {
+public class SoftMode2Activity extends BaseActivity {
 
     ActivitySoftMode2Binding bd;
-
-
-    @Override
-    protected void customWindowOptions(Window w) {
-        super.customWindowOptions(w);
-       /* w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        w.setStatusBarColor(Color.TRANSPARENT);*/
+    protected boolean isTransparentStatusBar() {
+        return false;
+    }
+    protected boolean isThemeStatusBar() {
+        return true;
     }
 
     @Override
@@ -29,7 +27,6 @@ public class SoftMode2Activity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_2);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

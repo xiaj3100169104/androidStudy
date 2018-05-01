@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.BleActivityScanBinding;
 import com.style.manager.AccountManager;
@@ -25,7 +25,7 @@ import org.simple.eventbus.Subscriber;
 import java.util.ArrayList;
 
 
-public class BLEActivity extends BaseToolBarActivity {
+public class BLEActivity extends BaseActivity {
     public static final int REQUEST_ENABLE_BT = 6;
 
     BleActivityScanBinding bd;
@@ -40,7 +40,6 @@ public class BLEActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.ble_activity_scan);
         super.setContentView(bd.getRoot());
-        initData();
         EventBus.getDefault().register(this);
     }
 

@@ -23,7 +23,6 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_login);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

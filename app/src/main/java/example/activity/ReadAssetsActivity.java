@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityUserAgreeBinding;
 import com.style.utils.AssetsUtil;
@@ -13,7 +13,7 @@ import com.style.utils.StreamUtil;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ReadAssetsActivity extends BaseToolBarActivity {
+public class ReadAssetsActivity extends BaseActivity {
 
     ActivityUserAgreeBinding bd;
     private TextView tv_agree;
@@ -23,7 +23,6 @@ public class ReadAssetsActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_user_agree);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

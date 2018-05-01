@@ -25,25 +25,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{onItemClickListener::skip1}"
-            android:text="状态栏显示为主题配置里的颜色" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{onItemClickListener::skip2}"
             android:text="默认状态栏样式，适合白色标题栏的时候" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{onItemClickListener::skip2}"
+            android:text="状态栏显示为主题配置里的颜色" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:onClick="@{onItemClickListener::skip3}"
-            android:text="不适应窗口，状态栏透明" />
+            android:text="半状态栏透明且内容延伸到状态栏" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{onItemClickListener::skip4}"
-            android:text="DialogFragment" />
+            android:text="全透明状态栏且内容延伸到状态栏" />
 
     </LinearLayout>
 </layout>

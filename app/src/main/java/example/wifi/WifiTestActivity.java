@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.WifiActivityMainBinding;
 import com.style.view.DividerItemDecoration;
@@ -30,7 +30,7 @@ import example.ble.BluetoothBean;
 import example.ble.BluetoothDeviceAdapter;
 
 
-public class WifiTestActivity extends BaseToolBarActivity {
+public class WifiTestActivity extends BaseActivity {
     private static int REQUEST_ENABLE_BT = 6;
     WifiActivityMainBinding bd;
 
@@ -48,7 +48,6 @@ public class WifiTestActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.wifi_activity_main);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

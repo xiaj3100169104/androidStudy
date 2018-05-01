@@ -9,14 +9,14 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMultiTypeBinding;
 
 import java.util.ArrayList;
 
 
-public class MultiTypeActivity extends BaseToolBarActivity {
+public class MultiTypeActivity extends BaseActivity {
 
     ActivityMultiTypeBinding bd;
 
@@ -35,7 +35,6 @@ public class MultiTypeActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_multi_type);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

@@ -26,7 +26,6 @@ public class TestDBActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_test_db);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     public void skip418(View v) {

@@ -12,13 +12,13 @@ import android.os.RemoteException;
 import android.view.View;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
 import aidl.IRemoteService;
 
-public class AidlActivity extends BaseToolBarActivity {
+public class AidlActivity extends BaseActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;
@@ -28,7 +28,6 @@ public class AidlActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_aidl);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

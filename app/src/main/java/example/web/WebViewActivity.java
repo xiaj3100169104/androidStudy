@@ -9,12 +9,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
 
-public class WebViewActivity extends BaseToolBarActivity {
+public class WebViewActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "http://www.baidu.com";
@@ -24,7 +24,6 @@ public class WebViewActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_h5_remote);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

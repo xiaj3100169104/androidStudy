@@ -11,7 +11,7 @@ import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.constant.ConfigUtil;
 import com.style.constant.Skip;
 import com.style.dialog.SelAvatarDialog;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class SelectLocalPictureActivity extends BaseToolBarActivity {
+public class SelectLocalPictureActivity extends BaseActivity {
 
     ActivitySelectLocalPictureBinding bd;
 
@@ -44,7 +44,6 @@ public class SelectLocalPictureActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_select_local_picture);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

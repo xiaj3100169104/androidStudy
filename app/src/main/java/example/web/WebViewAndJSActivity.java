@@ -11,12 +11,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
 
-public class WebViewAndJSActivity extends BaseToolBarActivity {
+public class WebViewAndJSActivity extends BaseActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
@@ -26,7 +26,6 @@ public class WebViewAndJSActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

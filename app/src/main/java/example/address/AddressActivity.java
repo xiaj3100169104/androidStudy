@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.threadpool.GeneralThreadPoolManager;
@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class AddressActivity extends BaseToolBarActivity {
+public class AddressActivity extends BaseActivity {
 
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
@@ -37,8 +37,6 @@ public class AddressActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
         super.setContentView(bd.getRoot());
-        initData();
-
     }
 
     @Override

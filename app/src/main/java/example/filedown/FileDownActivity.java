@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityFileDownBinding;
@@ -16,7 +16,7 @@ import com.style.view.progressbar.HorizontalProgressBar;
 
 import java.io.File;
 
-public class FileDownActivity extends BaseToolBarActivity {
+public class FileDownActivity extends BaseActivity {
 
     ActivityFileDownBinding bd;
 
@@ -31,7 +31,6 @@ public class FileDownActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_file_down);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

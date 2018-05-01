@@ -11,11 +11,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
-public class WebViewFeedbackActivity extends BaseToolBarActivity {
+public class WebViewFeedbackActivity extends BaseActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/user_feedback.html";
@@ -25,7 +25,6 @@ public class WebViewFeedbackActivity extends BaseToolBarActivity {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

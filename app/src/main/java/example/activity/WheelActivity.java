@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.dialog.wheel.ChangeAddressDialog;
 import com.style.dialog.wheel.ChangeBirthdayDialog;
 import com.style.dialog.wheel.ChangeDialog1List;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class WheelActivity extends BaseToolBarActivity {
+public class WheelActivity extends BaseActivity {
 
     ActivityWheelBinding bd;
     private List<String> occupations;
@@ -39,7 +39,6 @@ public class WheelActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_wheel);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

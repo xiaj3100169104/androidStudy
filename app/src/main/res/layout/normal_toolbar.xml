@@ -4,7 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/white"
+    android:background="@color/colorPrimary2"
     app:contentInsetEnd="0dp"
     app:contentInsetStart="0dp"
     app:popupTheme="@style/AppTheme.PopupOverlay">

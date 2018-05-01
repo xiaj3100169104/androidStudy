@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
 import com.style.manager.AccountManager;
@@ -16,7 +16,7 @@ import com.style.net.core2.response.TokenResponse;
 
 import io.reactivex.functions.Consumer;
 
-public class WebServiceActivity extends BaseToolBarActivity {
+public class WebServiceActivity extends BaseActivity {
 
     ActivityWebserviceBinding bd;
 
@@ -25,7 +25,6 @@ public class WebServiceActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_webservice);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

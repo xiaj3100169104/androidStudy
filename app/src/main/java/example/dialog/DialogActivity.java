@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
@@ -29,7 +29,7 @@ import example.vlayout.MultiTypeActivity;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class DialogActivity extends BaseToolBarActivity {
+public class DialogActivity extends BaseActivity {
     DialogActivityDialogBinding bd;
     private FragmentManager fm;
     private FragmentTransaction bt;
@@ -39,7 +39,6 @@ public class DialogActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.dialog_activity_dialog);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.manager.ToastManager;
@@ -18,7 +18,7 @@ import example.fragment.EmotionDataFrag;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class MyRadioGroupActivity extends BaseToolBarActivity {
+public class MyRadioGroupActivity extends BaseActivity {
     ActivityMyRadioGroupBinding bd;
     private MyRadioGroup rg_emotion;
     private FragmentManager fm;
@@ -32,7 +32,6 @@ public class MyRadioGroupActivity extends BaseToolBarActivity {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_my_radio_group);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

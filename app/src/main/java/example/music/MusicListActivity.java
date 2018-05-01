@@ -17,7 +17,7 @@ import android.view.View;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMusicListBinding;
 import com.style.view.DividerItemDecoration;
@@ -34,7 +34,7 @@ import example.music.entity.MediaFolder;
  * Created by dmcBig on 2017/6/9.
  */
 
-public class MusicListActivity extends BaseToolBarActivity implements MediaDataCallback {
+public class MusicListActivity extends BaseActivity implements MediaDataCallback {
 
     ActivityMusicListBinding bd;
     private ArrayList<MediaBean> dataList;
@@ -46,7 +46,6 @@ public class MusicListActivity extends BaseToolBarActivity implements MediaDataC
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_music_list);
         super.setContentView(bd.getRoot());
-        initData();
     }
 
     @Override

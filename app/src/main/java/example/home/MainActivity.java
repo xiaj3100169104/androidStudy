@@ -17,7 +17,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.style.base.BaseToolBarActivity;
+import com.style.base.BaseActivity;
+import com.style.base.BaseActivity;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
@@ -29,7 +30,7 @@ import org.simple.eventbus.Subscriber;
 import example.ble.BleManager;
 
 
-public class MainActivity extends BaseToolBarActivity {
+public class MainActivity extends BaseActivity {
     ActivityMainBinding bd;
     public static final int REQUEST_ENABLE_BT = 6;
 
@@ -63,10 +64,8 @@ public class MainActivity extends BaseToolBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         EventBus.getDefault().register(this);
         super.setContentView(bd.getRoot());
-        initData();
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);

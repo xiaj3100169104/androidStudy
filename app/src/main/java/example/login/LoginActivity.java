@@ -28,7 +28,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData() {
         mPresenter = new LoginPresenter(this);
-        addPresenter(mPresenter);
         mPresenter.getLoginUser();
     }
 
@@ -42,5 +41,13 @@ public class LoginActivity extends BaseActivity {
     public void setUserView(User user) {
         bd.etAccount.setText(user.userName);
         bd.etPassword.setText(user.password);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
     }
 }

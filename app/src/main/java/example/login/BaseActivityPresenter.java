@@ -10,20 +10,20 @@ import io.reactivex.disposables.Disposable;
  * Created by xiajun on 2018/4/29.
  */
 
-public abstract class BaseActivityPresenter<T> {
+public abstract class BaseActivityPresenter<V> {
     private final AccountManager accountManager;
     private final RetrofitImpl httpApi;
     private final CompositeDisposable tasks;
-    T mActivity;
+    V mActivity;
 
-    public BaseActivityPresenter(T mActivity) {
+    public BaseActivityPresenter(V mActivity) {
         this.mActivity = mActivity;
         accountManager = AccountManager.getInstance();
         httpApi = RetrofitImpl.getInstance();
         tasks = new CompositeDisposable();
     }
 
-    public T getActivity() {
+    public V getActivity() {
         return mActivity;
     }
 

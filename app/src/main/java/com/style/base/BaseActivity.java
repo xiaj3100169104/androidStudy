@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
 import com.style.manager.LogManager;
@@ -31,7 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Context context;
     protected View mContentView;
     private LoadingDialog progressDialog;
-    private BaseActivityPresenter mBasePresenter;
 
     //是否是系统默认状态栏颜色
     protected boolean isDefaultStatusBar() {
@@ -53,6 +54,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
+    protected int getStatusHeight() {
+        int statusBarHeight = getStatusHeightDefault();
+        //获取status_bar_height资源的ID
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        Log.e(TAG, "状态栏-高度:" + statusBarHeight);
+        return statusBarHeight;
+    }
+
+    //获取状态栏高度(一般情况下)
+    protected int getStatusHeightDefault() {
+        return ScreenUtils.dp2px(this, 24f);
+    }
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -60,12 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
 
-    }
-
-    public abstract void initData();
-
-    protected void addPresenter(BaseActivityPresenter mPresenter) {
-        this.mBasePresenter = mPresenter;
     }
 
     @Override
@@ -95,6 +108,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         initData();
     }
+
+    public abstract void initData();
 
     private Toolbar toolbar;
     private TextView tvTitleBase;
@@ -155,10 +170,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissProgressDialog();
-
-        if (mBasePresenter != null) {
-            mBasePresenter.onDestroy();
-        }
     }
 
     public Context getContext() {

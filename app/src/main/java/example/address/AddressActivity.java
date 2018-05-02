@@ -43,7 +43,6 @@ public class AddressActivity extends BaseActivity {
     public void initData() {
         setToolbarTitle("通讯录");
         mPresenter = new AddressPresenter(this);
-        addPresenter(mPresenter);
 
         bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();
@@ -161,5 +160,11 @@ public class AddressActivity extends BaseActivity {
             }
         });
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+    }
 }

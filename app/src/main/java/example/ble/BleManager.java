@@ -1,23 +1,15 @@
 package example.ble;
 
-import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
 import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.style.manager.AccountManager;
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.LogManager;
 
 import example.home.MainActivity;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by xiajun on 2018/4/17.

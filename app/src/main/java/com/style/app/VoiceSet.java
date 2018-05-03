@@ -1,4 +1,4 @@
-package com.style.manager;
+package com.style.app;
 
 import android.app.Service;
 import android.content.res.AssetFileDescriptor;
@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Vibrator;
 
-import example.app.MyApp;
+import com.style.app.MyApp;
 
 public class VoiceSet {
 	public static MediaPlayer mp = new MediaPlayer();

@@ -1,18 +1,13 @@
-package com.style.manager;
+package com.style.app;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.style.framework.R;
 
-import example.app.MyApp;
+import com.style.app.MyApp;
 
 
 public class ToastManager {

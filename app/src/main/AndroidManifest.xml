@@ -79,7 +79,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="example.app.MyApp"
+        android:name="com.style.app.MyApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -177,6 +177,17 @@
                 <action android:name="action.remote.play" />
             </intent-filter>
         </service>
+
+        <!--阿里热修复-->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24874332-1" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="fc195ecea3d8d858c497193e0804e134" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="RSA密钥" />
     </application>
 
 </manifest>

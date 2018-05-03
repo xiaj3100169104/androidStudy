@@ -1,6 +1,5 @@
 package com.style.net.core2;
 
-import com.style.manager.AccountManager;
 import com.style.net.bean.KuaiDi;
 import com.style.net.bean.UserInfo;
 import com.style.net.core2.converter.FastJsonConverterFactory;

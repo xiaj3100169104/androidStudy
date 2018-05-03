@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.style.manager.AppManager;
+import com.style.app.AppManager;
 
 public class MyFrontTextView extends TextView {
 

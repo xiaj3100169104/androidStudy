@@ -3,7 +3,7 @@ package com.style.net.core2;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 
 import java.io.IOException;
 

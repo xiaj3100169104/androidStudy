@@ -1,6 +1,6 @@
 package example.login;
 
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 import com.style.net.core2.RetrofitImpl;
 
 import io.reactivex.disposables.CompositeDisposable;

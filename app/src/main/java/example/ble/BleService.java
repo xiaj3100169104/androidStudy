@@ -12,14 +12,10 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ServiceCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.style.manager.AccountManager;
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.AccountManager;
+import com.style.app.LogManager;
 
 import org.simple.eventbus.EventBus;
 

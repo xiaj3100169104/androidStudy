@@ -1,4 +1,4 @@
-package com.style.manager;
+package com.style.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;

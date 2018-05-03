@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
-import com.style.manager.ToastManager;
+import com.style.app.ToastManager;
 import com.style.view.MyRadioGroup;
 
 import example.fragment.EmotionBaseDataFrag;

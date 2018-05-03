@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.Log;
 
-import com.style.manager.ToastManager;
+import com.style.app.ToastManager;
 
 import java.io.File;
 import java.io.FileInputStream;

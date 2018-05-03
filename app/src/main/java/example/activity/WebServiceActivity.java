@@ -7,7 +7,7 @@ import android.view.View;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 import com.style.net.bean.UserInfo;
 import com.style.net.core2.RetrofitImpl;
 import com.style.net.core2.callback.CustomHttpThrowable;

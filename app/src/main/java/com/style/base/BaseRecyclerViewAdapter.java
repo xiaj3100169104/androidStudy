@@ -4,18 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.LogManager;
+import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by XiaJun on 2015/7/2.

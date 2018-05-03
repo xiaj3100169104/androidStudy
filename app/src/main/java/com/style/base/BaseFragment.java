@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.LogManager;
+import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 
 import org.simple.eventbus.EventBus;

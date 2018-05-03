@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.LogManager;
+import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 

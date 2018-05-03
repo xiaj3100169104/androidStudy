@@ -42,7 +42,7 @@ public class AppInfoUtil {
     public static String getVersionName(Context context) {
         String verName = "";
         try {
-            verName = context.getPackageManager().getPackageInfo("com.meilian.youyuan", 0).versionName;
+            verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
         }
         return verName;

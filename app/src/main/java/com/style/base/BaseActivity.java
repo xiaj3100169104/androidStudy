@@ -10,7 +10,6 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,12 +19,10 @@ import android.widget.TextView;
 import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
-import com.style.manager.LogManager;
-import com.style.manager.ToastManager;
+import com.style.app.LogManager;
+import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
-
-import example.login.BaseActivityPresenter;
 
 
 public abstract class BaseActivity extends AppCompatActivity {

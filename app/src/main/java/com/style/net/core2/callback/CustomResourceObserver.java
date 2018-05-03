@@ -2,9 +2,8 @@ package com.style.net.core2.callback;
 
 import android.support.annotation.StringRes;
 
-import com.style.framework.R;
-import com.style.manager.AppManager;
-import com.style.manager.ToastManager;
+import com.style.app.AppManager;
+import com.style.app.ToastManager;
 import com.style.net.core2.converter.ResultErrorException;
 
 import java.net.SocketTimeoutException;

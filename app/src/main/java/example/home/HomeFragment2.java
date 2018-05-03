@@ -1,10 +1,8 @@
 package example.home;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +13,14 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.style.base.BaseFragment;
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.bean.Friend;
 import com.style.bean.User;
 import com.style.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome2Binding;
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeFragment2 extends BaseFragment {

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.style.framework.R;
-import com.style.manager.ToastManager;
+import com.style.app.ToastManager;
 
 import java.io.File;
 import java.net.InetAddress;

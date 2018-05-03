@@ -1,4 +1,4 @@
-package com.style.manager;
+package com.style.app;
 
 import android.text.TextUtils;
 import android.util.Log;

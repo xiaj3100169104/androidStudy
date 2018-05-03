@@ -50,4 +50,12 @@ public class LoginActivity extends BaseActivity {
             mPresenter.onDestroy();
         }
     }
+
+    public void loginSuccess() {
+
+    }
+
+    public void loginFailed() {
+
+    }
 }

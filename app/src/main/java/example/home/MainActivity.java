@@ -1,9 +1,6 @@
 package example.home;
 
 import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,20 +9,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.style.base.BaseActivity;
+import com.style.app.HotFixManager;
 import com.style.base.BaseActivity;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 
 import org.simple.eventbus.EventBus;
-import org.simple.eventbus.Subscriber;
 
 import example.ble.BleManager;
 
@@ -66,10 +60,12 @@ public class MainActivity extends BaseActivity {
         bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
         EventBus.getDefault().register(this);
         super.setContentView(bd.getRoot());
+        setToolbarTitle("添加补丁后");
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
+        HotFixManager.getInstance().query();
     }
 
     @Override

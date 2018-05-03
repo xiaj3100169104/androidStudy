@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.style.manager.ToastManager;
+import com.style.app.ToastManager;
 import com.style.utils.NetWorkUtil;
 
 /**

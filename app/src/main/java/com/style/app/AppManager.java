@@ -1,4 +1,4 @@
-package com.style.manager;
+package com.style.app;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -11,20 +11,15 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import example.app.AppCrashHandler;
 
 
 public class AppManager {
-    protected String TAG = getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
 
     private static final String APP_INFO = "appInfo";
     private static final String IS_FIRST_LOGIN = "isFirstLogin";

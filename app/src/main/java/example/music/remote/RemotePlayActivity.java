@@ -15,12 +15,8 @@ import android.view.View;
 import com.style.base.BaseActivity;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityAidlBinding;
-import com.style.framework.databinding.ActivityMusicListBinding;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
-import com.style.manager.AppManager;
-
-import aidl.IRemoteService;
+import com.style.app.AppManager;
 
 public class RemotePlayActivity extends BaseActivity {
 

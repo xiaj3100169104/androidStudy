@@ -2,7 +2,7 @@ package example.login;
 
 
 import com.style.bean.User;
-import com.style.manager.AccountManager;
+import com.style.app.AccountManager;
 import com.style.net.core2.response.BaseResult;
 
 import example.newwork.response.LoginBean;
@@ -28,12 +28,12 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> {
         Disposable d = getHttpApi().login(userName, password).subscribe(new Consumer<BaseResult<LoginBean>>() {
             @Override
             public void accept(BaseResult<LoginBean> loginBeanBaseResult) throws Exception {
-
+                getActivity().loginSuccess();
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-
+                getActivity().loginFailed();
             }
         });
         addTask(d);

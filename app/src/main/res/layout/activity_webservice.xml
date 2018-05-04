@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:hint="电话号码"
             android:inputType="number"
-            android:text="18202823096" />
+            android:text="18202823096"
+            android:textStyle="italic"/>
 
         <Button
             android:id="@+id/btn_search"
@@ -29,7 +30,8 @@
             android:layout_height="wrap_content"
             android:hint="城市ID"
             android:inputType="number"
-            android:text="1117" />
+            android:text="1117"
+            android:textStyle="normal"/>
 
         <Button
             android:id="@+id/btn_search_weather"
@@ -63,8 +65,10 @@
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="data" />
+            android:layout_height="match_parent"
+            android:hint="msg"
+            android:textStyle="bold"
+            android:text=""/>
 
     </LinearLayout>
 </layout>

@@ -29,7 +29,7 @@ public class ToastManager {
     }
 
     public static void showToastOnApplication(@StringRes int resId) {
-        showToast(MyApp.getAppContext(), resId);
+        showToast(AppManager.getInstance().getContext(), resId);
     }
 
     public static void showToastOnApplication(String str) {
@@ -43,7 +43,7 @@ public class ToastManager {
         toast.setView(layout);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();*/
-        showToast(MyApp.getAppContext(), str);
+        showToast(AppManager.getInstance().getContext(), str);
     }
 
     public static void showToastonFailureOnApp() {

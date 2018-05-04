@@ -2,6 +2,7 @@ package com.style.app;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentCallbacks2;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -19,12 +21,12 @@ import java.util.List;
 
 
 public class AppManager {
-    protected final String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
     private static final String APP_INFO = "appInfo";
     private static final String IS_FIRST_LOGIN = "isFirstLogin";
 
-    protected Context context;
+    private Context context;
     public static Typeface TEXT_TYPE;
     private static AppManager mInstance;
 
@@ -39,6 +41,8 @@ public class AppManager {
     public void init(Context context) {
         this.context = context;
         Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
+        addComponentCallbacks2();
+
         initReceiver();
 
     }
@@ -51,7 +55,7 @@ public class AppManager {
     }
 
     public Context getContext() {
-        return context;
+        return this.context;
     }
 
     public SharedPreferences getAppSharedPreferences() {
@@ -148,5 +152,26 @@ public class AppManager {
             e.printStackTrace();
         }
         return channelNumber;
+    }
+
+    private void addComponentCallbacks2() {
+        this.context.registerComponentCallbacks(new ComponentCallbacks2() {
+            @Override
+            public void onTrimMemory(int level) {
+                //Log.e("ComponentCallbacks2", "onTrimMemory-->" + level);
+
+            }
+
+            @Override
+            public void onConfigurationChanged(Configuration newConfig) {
+                //Log.e("ComponentCallbacks2", "onConfigurationChanged-->" + newConfig.toString());
+
+            }
+
+            @Override
+            public void onLowMemory() {
+                //Log.e("ComponentCallbacks2", "onLowMemory");
+            }
+        });
     }
 }

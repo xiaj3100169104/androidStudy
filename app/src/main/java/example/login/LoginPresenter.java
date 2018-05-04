@@ -1,6 +1,7 @@
 package example.login;
 
 
+import com.style.base.BaseActivityPresenter;
 import com.style.bean.User;
 import com.style.app.AccountManager;
 import com.style.net.core2.response.BaseResult;

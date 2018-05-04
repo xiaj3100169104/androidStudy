@@ -1,4 +1,4 @@
-package example.activity;
+package example.webservice;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import io.reactivex.functions.Consumer;
 public class WebServiceActivity extends BaseActivity {
 
     ActivityWebserviceBinding bd;
-
+    WebServicePresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,13 @@ public class WebServiceActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        presenter = new WebServicePresenter(this);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     public void searchMobile(View v) {
@@ -46,13 +52,7 @@ public class WebServiceActivity extends BaseActivity {
 
     public void searchWeather(View v) {
         final String code = bd.etCityCode.getText().toString();
-        RetrofitImpl.getInstance().getWeather(code).subscribe(new CustomResourceObserver<String>() {
-            @Override
-            public void onNext(String s) {
-                logE(TAG, s);
-                bd.tvResult.setText(s);
-            }
-        });
+        presenter.searchWeather(code);
 
     }
 
@@ -102,5 +102,10 @@ public class WebServiceActivity extends BaseActivity {
                 AccountManager.getInstance().setSignKey(tokenResponse.access_token);
             }
         }, new CustomHttpThrowable());
+    }
+
+    public void searchWeatherSuccess(String s) {
+        logE(TAG, s);
+        bd.tvResult.setText(s);
     }
 }

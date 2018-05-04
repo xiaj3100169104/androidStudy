@@ -1,4 +1,4 @@
-package example.login;
+package com.style.base;
 
 import com.style.app.AccountManager;
 import com.style.net.core2.RetrofitImpl;

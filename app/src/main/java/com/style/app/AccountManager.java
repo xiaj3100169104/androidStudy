@@ -8,7 +8,7 @@ import com.style.bean.User;
 import com.style.db.user.UserDBManager;
 
 public class AccountManager {
-    protected String TAG = getClass().getSimpleName();
+    private String TAG = getClass().getSimpleName();
 
     private static final String LOGIN_INFO = "loginInfo";
     private static final String CURRENT_ACCOUNT = "currentAccount";

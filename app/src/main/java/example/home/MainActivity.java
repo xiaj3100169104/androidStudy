@@ -60,12 +60,12 @@ public class MainActivity extends BaseActivity {
         bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
         EventBus.getDefault().register(this);
         super.setContentView(bd.getRoot());
-        setToolbarTitle("添加补丁后");
+        setToolbarTitle(titles[0]);
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
-        HotFixManager.getInstance().query();
+        //HotFixManager.getInstance().query();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         //取消事件注册
         EventBus.getDefault().unregister(this);
-        BleManager.getInstance().close();
+        //BleManager.getInstance().close();
         super.onDestroy();
 
     }
@@ -154,7 +154,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void startBleService() {
-        BleManager.getInstance().init(this);
+        //BleManager.getInstance().init(this);
 
     }
 

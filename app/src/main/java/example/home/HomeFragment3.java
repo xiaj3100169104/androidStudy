@@ -18,7 +18,7 @@ import example.activity.DataBindingActivity;
 import example.activity.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
 import example.activity.TestDBActivity;
-import example.activity.WebServiceActivity;
+import example.webservice.WebServiceActivity;
 import example.web.WebViewActivity;
 import example.web.WebViewAndJSActivity;
 import example.web.WebViewFeedbackActivity;

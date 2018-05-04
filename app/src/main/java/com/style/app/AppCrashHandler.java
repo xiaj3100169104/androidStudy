@@ -12,11 +12,11 @@ import java.io.Writer;
  */
 
 public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
-    private static final String TAG = "app_crash";
+    private final String TAG = this.getClass().getSimpleName();
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        Log.e("AppCrashHandler", "uncaughtException");
+        Log.e(TAG, "uncaughtException");
 
         //读取stacktrace信息
         final Writer result = new StringWriter();

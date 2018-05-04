@@ -5,7 +5,7 @@ import com.style.utils.HanyuToPinyin;
 import java.util.Collections;
 import java.util.List;
 
-import example.login.BaseActivityPresenter;
+import com.style.base.BaseActivityPresenter;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

@@ -17,8 +17,8 @@ android {
         applicationId "com.style.framework"
         minSdkVersion ANDROID_MIN_SDK_VERSION
         targetSdkVersion ANDROID_TARGET_SDK_VERSION
-        versionCode 4
-        versionName '1.1.0'
+        versionCode 5
+        versionName '1.1.5'
         multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //默认渠道,按渠道首字母排序第一个

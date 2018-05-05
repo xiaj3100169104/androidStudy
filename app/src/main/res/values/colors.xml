@@ -23,7 +23,8 @@
     <color name="textColorHint">@color/gray_light</color>
 
     <color name="bg_refresh_view">@color/windows_color</color>
-
+    <color name="pull_refresh_bg">@color/windows_color</color>
+    <color name="pull_refresh_text">#ff999999</color>
     <!-- font color -->
     <color name="text_color_white">#FFFFFF</color>
     <color name="text_color_black_light">#333333</color>

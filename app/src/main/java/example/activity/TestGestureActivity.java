@@ -22,7 +22,9 @@ public class TestGestureActivity extends BaseActivity {
     private float mDownRawY;
     private boolean isShouldFinish;
 
-
+    protected boolean isGeneralTitleBar() {
+        return false;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

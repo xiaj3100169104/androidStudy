@@ -102,7 +102,7 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip11}"
 
-                    android:text="常规升级3升级http请求webservice" />
+                    android:text="常规升级456级http请求webservice" />
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
-        //HotFixManager.getInstance().query();
+        HotFixManager.getInstance().query();
     }
 
     @Override

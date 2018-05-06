@@ -101,11 +101,17 @@ public abstract class BaseActivity extends AppCompatActivity {
             mContentView.setFitsSystemWindows(false);
         }
         super.setContentView(mContentView);
-        customTitleOptions(mContentView);
+        if (isGeneralTitleBar()){
+            customTitleOptions(mContentView);
+        }
 
         initData();
     }
 
+    //是否是一般标题栏
+    protected boolean isGeneralTitleBar() {
+        return true;
+    }
     public abstract void initData();
 
     private Toolbar toolbar;
@@ -139,7 +145,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void onClickTitleBack() {
-        onBackFinish();
+        onBackPressed();
     }
 
     protected void setNavigationIcon(@DrawableRes int resId) {
@@ -156,11 +162,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        onBackFinish();
-    }
-
-    protected void onBackFinish() {
-        finish();
+        super.onBackPressed();
     }
 
     @Override

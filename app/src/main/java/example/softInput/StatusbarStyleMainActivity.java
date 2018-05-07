@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
@@ -20,6 +21,15 @@ import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
  */
 public class StatusbarStyleMainActivity extends BaseActivity {
     StatusbarStyleActivityMainBinding bd;
+
+    public boolean isLightStatusBar() {
+        return true;
+    }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

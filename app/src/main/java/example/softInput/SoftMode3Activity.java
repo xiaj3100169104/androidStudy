@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
@@ -40,6 +41,11 @@ public class SoftMode3Activity extends BaseActivity {
 
     protected boolean isTransparentStatusBar() {
         return false;
+    }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
     }
 
     @Override

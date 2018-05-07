@@ -8,7 +8,7 @@
         android:fitsSystemWindows="false"
         android:orientation="vertical">
 
-        <include layout="@layout/comm_toolbar" />
+        <include layout="@layout/title_bar_normal" />
 
         <include layout="@layout/webview_progress" />
 

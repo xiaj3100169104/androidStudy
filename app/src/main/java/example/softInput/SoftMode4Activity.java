@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
@@ -33,6 +34,11 @@ public class SoftMode4Activity extends BaseActivity {
     private ArrayList<String> dataList;
     private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

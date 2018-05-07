@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTabLayoutBinding;
 
@@ -20,6 +21,11 @@ public class TabLayoutActivity extends BaseActivity {
 
     private List<Fragment> fragments = new ArrayList<>();                                //定义要装fragment的列表
     private List<String> titles = new ArrayList<>();
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

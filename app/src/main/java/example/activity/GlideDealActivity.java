@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGlideDealBinding;
 import com.style.glide.GlideCircleTransform;
@@ -18,6 +19,11 @@ import com.style.glide.GlideRoundTransform;
 public class GlideDealActivity extends BaseActivity {
 
     private ActivityGlideDealBinding bd;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

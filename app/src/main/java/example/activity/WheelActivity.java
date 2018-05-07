@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.dialog.wheel.ChangeAddressDialog;
 import com.style.dialog.wheel.ChangeBirthdayDialog;
 import com.style.dialog.wheel.ChangeDialog1List;
@@ -33,6 +34,11 @@ public class WheelActivity extends BaseActivity {
 
     private ChangeBirthdayDialog mChangeBirthDialog;
     private ChangeAddressDialog mChangeAddressDialog;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGreenDaoBinding;
 
@@ -20,6 +21,11 @@ public class GreenDaoActivity extends BaseActivity {
     @Override
     public void initData() {
         manager = GreenDaoManager.getInstance();
+    }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
     }
 
     @Override

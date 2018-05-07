@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.style.app.HotFixManager;
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
@@ -52,6 +53,11 @@ public class MainActivity extends BaseActivity {
     public void onSaveInstanceState(Bundle outState) {
 
         //super.onSaveInstanceState(outState);//将super调用取消即可，表明当意外(比如系统内存吃紧将应用杀死)发生我不需要保存Fragment状态和数据等,当activity销毁时不保存其内部的view的状态
+    }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
     }
 
     @Override

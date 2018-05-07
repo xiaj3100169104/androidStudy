@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
@@ -18,6 +19,11 @@ public class WebViewActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "http://www.baidu.com";
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

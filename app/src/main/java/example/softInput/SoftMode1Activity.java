@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode1Binding;
 
@@ -14,6 +15,12 @@ public class SoftMode1Activity extends BaseActivity {
     protected boolean isTransparentStatusBar() {
         return false;
     }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
+
     @Override
     protected boolean isDefaultStatusBar() {
         return true;

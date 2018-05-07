@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
@@ -40,6 +41,11 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
     private ArrayList<MediaBean> dataList;
 
     AudioAdapter adapter;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

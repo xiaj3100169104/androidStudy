@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
@@ -28,8 +29,9 @@ import com.style.utils.DeviceInfoUtil;
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
     protected Context context;
-    protected View mContentView;
+    private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
+    private View statusBar;
 
     //是否是系统默认状态栏颜色
     protected boolean isDefaultStatusBar() {
@@ -69,6 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return ScreenUtils.dp2px(this, 24f);
     }
 
+    protected abstract BaseActivityPresenter getPresenter();
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -81,15 +85,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(View mContentView) {
         Window window = getWindow();
+
         if (isTransparentStatusBar()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 //防止之前加了这个标志
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                if (isLightStatusBar())
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                else
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                 //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
             }
+
             mContentView.setFitsSystemWindows(false);
         } else if (isDefaultStatusBar()) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -101,10 +111,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             mContentView.setFitsSystemWindows(false);
         }
         super.setContentView(mContentView);
-        if (isGeneralTitleBar()){
+        if (isGeneralTitleBar()) {
             customTitleOptions(mContentView);
         }
 
+        mPresenter = getPresenter();
         initData();
     }
 
@@ -112,22 +123,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean isGeneralTitleBar() {
         return true;
     }
+
     public abstract void initData();
 
-    private Toolbar toolbar;
+    private LinearLayout titlebar;
     private TextView tvTitleBase;
     private ImageView ivBaseToolbarReturn;
 
     protected void customTitleOptions(View mContentView) {
-        toolbar = mContentView.findViewById(R.id.toolbar);
+        titlebar = mContentView.findViewById(R.id.toolbar);
+        statusBar = mContentView.findViewById(R.id.status_bar);
         ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
-        if (toolbar != null) {
-            toolbar.setTitle("");
-            setSupportActionBar(toolbar);
-        }
-        //隐藏Toolbar的标题
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        statusBar.getLayoutParams().height = getStatusHeight();
         ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,20 +144,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
-
-    public View getToolbarRightView() {
-        return ivBaseToolbarReturn;
-    }
-
     protected void onClickTitleBack() {
         onBackPressed();
-    }
-
-    protected void setNavigationIcon(@DrawableRes int resId) {
-        toolbar.setNavigationIcon(getResources().getDrawable(resId));
     }
 
     protected void setToolbarTitle(String title) {
@@ -221,4 +217,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return DeviceInfoUtil.dp2px(getContext(), dpValue);
     }
 
+    public boolean isLightStatusBar() {
+        return false;
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityLoginBinding;
@@ -19,6 +20,12 @@ public class LoginActivity extends BaseActivity {
     private LoginPresenter mPresenter;
 
     @Override
+    protected BaseActivityPresenter getPresenter() {
+        mPresenter = new LoginPresenter(this);
+        return mPresenter;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -27,7 +34,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        mPresenter = new LoginPresenter(this);
         mPresenter.getLoginUser();
     }
 

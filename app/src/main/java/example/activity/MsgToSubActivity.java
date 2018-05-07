@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 
@@ -17,6 +18,11 @@ public class MsgToSubActivity extends BaseActivity {
     ActivityMsgToSubBinding bd;
 
     Handler mHandler;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

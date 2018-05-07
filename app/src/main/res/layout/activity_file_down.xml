@@ -7,7 +7,7 @@
         android:background="@color/gray_light"
         android:orientation="vertical">
 
-        <include layout="@layout/comm_toolbar" />
+        <include layout="@layout/title_bar_normal" />
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progressBar"

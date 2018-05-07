@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
@@ -33,6 +34,12 @@ public class AddressActivity extends BaseActivity {
     private AddressPresenter mPresenter;
 
     @Override
+    protected BaseActivityPresenter getPresenter() {
+        mPresenter = new AddressPresenter(this);
+        return mPresenter;
+    }
+
+    @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
@@ -42,7 +49,6 @@ public class AddressActivity extends BaseActivity {
     @Override
     public void initData() {
         setToolbarTitle("通讯录");
-        mPresenter = new AddressPresenter(this);
 
         bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();

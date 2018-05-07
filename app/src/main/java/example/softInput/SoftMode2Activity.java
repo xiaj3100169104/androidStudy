@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
 
@@ -18,6 +19,12 @@ public class SoftMode2Activity extends BaseActivity {
     protected boolean isTransparentStatusBar() {
         return false;
     }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
+
     protected boolean isThemeStatusBar() {
         return true;
     }

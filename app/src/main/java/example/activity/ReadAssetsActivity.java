@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityUserAgreeBinding;
 import com.style.utils.AssetsUtil;
@@ -17,6 +18,11 @@ public class ReadAssetsActivity extends BaseActivity {
 
     ActivityUserAgreeBinding bd;
     private TextView tv_agree;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

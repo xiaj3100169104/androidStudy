@@ -171,7 +171,6 @@ dependencies {
     /*compile files('libs/ksoap2-android-assembly-3.6.2-jar-with-dependencies.jar') {
                         exclude group: 'com.squareup.okhttp3',  module: 'okhttp'
                     }*/
-    //compile 'com.jakewharton:butterknife:7.0.1'
     implementation project(':mediapicker')
     implementation project(':libVideoRecord')
     implementation project(':libWheelDialog')

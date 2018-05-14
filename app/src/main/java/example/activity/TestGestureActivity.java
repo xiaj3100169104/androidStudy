@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
 
@@ -25,6 +26,12 @@ public class TestGestureActivity extends BaseActivity {
     protected boolean isGeneralTitleBar() {
         return false;
     }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

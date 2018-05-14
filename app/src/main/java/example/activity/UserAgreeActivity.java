@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 import com.style.view.progressbar.HorizontalProgressBar;
@@ -19,6 +20,11 @@ public class UserAgreeActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "file:///android_asset/useragree.html";
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

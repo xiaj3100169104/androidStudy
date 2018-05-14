@@ -10,6 +10,7 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMultiTypeBinding;
 
@@ -29,6 +30,11 @@ public class MultiTypeActivity extends BaseActivity {
     private ArrayList<String> dataList4;
 
     private BannerAdapter adapter;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

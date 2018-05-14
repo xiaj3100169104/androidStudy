@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.constant.ConfigUtil;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityFileDownBinding;
@@ -25,6 +26,11 @@ public class FileDownActivity extends BaseActivity {
     private String url3 = "http://wdl1.cache.wps.cn/wps/download/W.P.S.50.391.exe";
 
     private String targetPath = ConfigUtil.DIR_APP_FILE + "/apache-tomcat-8.0.24_multi_thread.exe";
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

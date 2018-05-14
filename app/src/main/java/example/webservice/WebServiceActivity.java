@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
 import com.style.app.AccountManager;
@@ -20,6 +21,14 @@ public class WebServiceActivity extends BaseActivity {
 
     ActivityWebserviceBinding bd;
     WebServicePresenter presenter;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        presenter = new WebServicePresenter(this);
+
+        return presenter;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +38,6 @@ public class WebServiceActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        presenter = new WebServicePresenter(this);
     }
 
     @Override

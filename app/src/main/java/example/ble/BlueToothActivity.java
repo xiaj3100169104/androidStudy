@@ -23,6 +23,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
@@ -55,6 +56,11 @@ public class BlueToothActivity extends BaseActivity {
     private ArrayList<BluetoothBean> dataList;
     private LinearLayoutManager layoutManager;
     private BluetoothDeviceAdapter adapter;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 
@@ -24,6 +25,11 @@ public class AnimatorActivity extends BaseActivity {
 
 
     private ActivitySecondBinding bd;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.app.ToastManager;
@@ -26,6 +27,11 @@ public class MyRadioGroupActivity extends BaseActivity {
     private EmotionBaseDataFrag baseDataFrag;
     private EmotionDataFrag emoDataFrag;
     private Fragment[] frags;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
+import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.constant.ConfigUtil;
@@ -38,6 +39,11 @@ public class SelectLocalPictureActivity extends BaseActivity {
     private SelAvatarDialog dialog;
 
     private boolean haveImg;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

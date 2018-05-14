@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
 
@@ -21,6 +22,11 @@ import io.reactivex.schedulers.Schedulers;
 public class TestRxActivity extends BaseActivity {
 
     ActivityTestRxBinding bd;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

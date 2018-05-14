@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
@@ -33,6 +34,11 @@ public class DialogActivity extends BaseActivity {
     DialogActivityDialogBinding bd;
     private FragmentManager fm;
     private FragmentTransaction bt;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

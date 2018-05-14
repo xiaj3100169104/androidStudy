@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
@@ -22,6 +23,11 @@ public class AidlActivity extends BaseActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

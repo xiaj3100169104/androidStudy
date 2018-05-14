@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
@@ -22,6 +23,11 @@ public class RemotePlayActivity extends BaseActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

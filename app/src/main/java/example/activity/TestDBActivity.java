@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestDbBinding;
 
@@ -19,6 +20,11 @@ public class TestDBActivity extends BaseActivity {
     public void initData() {
 
         TestDBManager.getInstance().initialize(this);
+    }
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
     }
 
     @Override

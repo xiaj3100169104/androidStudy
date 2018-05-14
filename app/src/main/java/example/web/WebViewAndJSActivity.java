@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
@@ -20,6 +21,11 @@ public class WebViewAndJSActivity extends BaseActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
+
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle arg0) {

@@ -39,18 +39,14 @@ public class SoftMode3Activity extends BaseActivity {
     private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
 
-    protected boolean isTransparentStatusBar() {
-        return false;
-    }
-
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected boolean isTranslucentStatusBar() {
-        return true;
+    protected int getStatusBarStyle() {
+        return STATUS_BAR_TRANSLUCENT;
     }
 
     @Override

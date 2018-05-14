@@ -6,30 +6,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
+
         <include layout="@layout/title_bar_normal" />
 
         <Button
             android:id="@+id/btn_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="处理圆形"
-            android:onClick="skip418"/>
+            android:onClick="skip418"
+            android:text="处理圆形" />
 
         <Button
             android:id="@+id/btn_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="处理圆角"
-            android:onClick="skip419"/>
+            android:onClick="skip419"
+            android:text="处理圆角" />
 
         <Button
             android:id="@+id/btn_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="处理矩形边框"
-            android:onClick="skip420"/>
+            android:onClick="skip420"
+            android:text="处理矩形边框" />
 
         <ImageView
             android:id="@+id/iv_1"

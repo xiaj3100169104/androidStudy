@@ -27,30 +27,18 @@ import com.style.utils.DeviceInfoUtil;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
+    protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
+    protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
+    protected static final int STATUS_BAR_THEME = 2;//主题配置状态栏颜色
+    protected static final int STATUS_BAR_DEFAULT = 3;//系统默认状态栏颜色
     protected String TAG = getClass().getSimpleName();
     protected Context context;
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
-    private View statusBar;
 
-    //是否是系统默认状态栏颜色
-    protected boolean isDefaultStatusBar() {
-        return false;
-    }
 
-    //是否是主题配置状态栏颜色
-    protected boolean isThemeStatusBar() {
-        return false;
-    }
-
-    //是否是半透明状态栏
-    protected boolean isTranslucentStatusBar() {
-        return false;
-    }
-
-    //是否是全透明状态栏颜色，默认全屏风格
-    protected boolean isTransparentStatusBar() {
-        return true;
+    protected int getStatusBarStyle() {
+        return STATUS_BAR_TRANSPARENT;
     }
 
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
@@ -85,30 +73,33 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(View mContentView) {
         Window window = getWindow();
-
-        if (isTransparentStatusBar()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                //防止之前加了这个标志
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                if (isLightStatusBar())
-                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                else
-                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-                //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
-            }
-
-            mContentView.setFitsSystemWindows(false);
-        } else if (isDefaultStatusBar()) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mContentView.setFitsSystemWindows(true);
-        } else if (isThemeStatusBar()) {
-            mContentView.setFitsSystemWindows(true);
-        } else if (isTranslucentStatusBar()) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mContentView.setFitsSystemWindows(false);
+        switch (getStatusBarStyle()) {
+            case STATUS_BAR_TRANSPARENT:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    //防止之前加了这个标志
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    if (isLightStatusBar())
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    else
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                    //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                }
+                mContentView.setFitsSystemWindows(false);
+                break;
+            case STATUS_BAR_DEFAULT:
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                mContentView.setFitsSystemWindows(true);
+                break;
+            case STATUS_BAR_THEME:
+                mContentView.setFitsSystemWindows(true);
+                break;
+            case STATUS_BAR_TRANSLUCENT:
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                mContentView.setFitsSystemWindows(false);
+                break;
         }
         super.setContentView(mContentView);
         if (isGeneralTitleBar()) {
@@ -119,23 +110,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
-    //是否是一般标题栏
+    //是否是一般标题栏布局
     protected boolean isGeneralTitleBar() {
         return true;
+    }
+
+    //是否是亮色状态栏
+    public boolean isLightStatusBar() {
+        return false;
     }
 
     public abstract void initData();
 
     private LinearLayout titlebar;
+    private View statusBar;
     private TextView tvTitleBase;
     private ImageView ivBaseToolbarReturn;
 
     protected void customTitleOptions(View mContentView) {
-        titlebar = mContentView.findViewById(R.id.toolbar);
+        titlebar = mContentView.findViewById(R.id.title_bar);
         statusBar = mContentView.findViewById(R.id.status_bar);
         ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
-        statusBar.getLayoutParams().height = getStatusHeight();
+        if (getStatusBarStyle() == STATUS_BAR_DEFAULT || getStatusBarStyle() == STATUS_BAR_THEME)
+            statusBar.getLayoutParams().height = 0;
+        else
+            statusBar.getLayoutParams().height = getStatusHeight();
         ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,7 +217,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         return DeviceInfoUtil.dp2px(getContext(), dpValue);
     }
 
-    public boolean isLightStatusBar() {
-        return false;
-    }
 }

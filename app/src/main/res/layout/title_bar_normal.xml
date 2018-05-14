@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    android:id="@+id/title_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,9 +10,9 @@
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:background="@color/colorPrimaryDark2" />
+        android:background="@color/colorPrimary2" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
@@ -25,30 +25,20 @@
             android:layout_height="35dp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_back" />
-
-        <View
-            android:id="@+id/viewDivider"
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:background="#ffffff" />
+            android:layout_marginLeft="7dp"
+            android:src="@mipmap/ic_back_white" />
 
 
         <TextView
             android:id="@+id/tv_base_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:maxLength="9"
             android:maxLines="1"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </LinearLayout>

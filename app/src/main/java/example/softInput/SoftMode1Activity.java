@@ -12,9 +12,6 @@ import com.style.framework.databinding.ActivitySoftMode1Binding;
 public class SoftMode1Activity extends BaseActivity {
 
     ActivitySoftMode1Binding bd;
-    protected boolean isTransparentStatusBar() {
-        return false;
-    }
 
     @Override
     protected BaseActivityPresenter getPresenter() {
@@ -22,8 +19,8 @@ public class SoftMode1Activity extends BaseActivity {
     }
 
     @Override
-    protected boolean isDefaultStatusBar() {
-        return true;
+    protected int getStatusBarStyle() {
+        return STATUS_BAR_DEFAULT;
     }
 
     @Override
@@ -35,7 +32,7 @@ public class SoftMode1Activity extends BaseActivity {
 
     @Override
     public void initData() {
-        setToolbarTitle("状态栏显示为主题配置里的颜色");
+        setToolbarTitle("默认状态栏样式");
     }
 
 }

@@ -40,7 +40,7 @@ public class StatusbarStyleMainActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        setToolbarTitle("默认状态栏样式，适合白色标题栏的时候");
+        setToolbarTitle("全透明浅色标题栏");
         bd.setOnItemClickListener(new OnItemClickListener());
     }
 

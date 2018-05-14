@@ -16,11 +16,6 @@
 
         <include layout="@layout/title_bar_light" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="@color/gray"/>
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

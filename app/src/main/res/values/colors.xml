@@ -6,13 +6,13 @@
 
     <color name="windowBackground">@color/windows_color</color>
     <!-- appbar颜色 -->
-    <color name="colorPrimary2">#FF00B2EE</color>
+    <color name="colorPrimary">#FF00B2EE</color>
     <!-- 状态栏颜色 -->
-    <color name="colorPrimaryDark2">#FF1C86EE</color>
+    <color name="colorPrimaryDark">#FF1C86EE</color>
     <!-- 文本颜色、日期等对话框字体颜色 -->
     <color name="textColorPrimary">@color/text_color_black_light</color>
     <!-- 控件选中后的颜色 -->
-    <color name="colorAccent2">@color/colorPrimary2</color>
+    <color name="colorAccent">@color/colorPrimary</color>
     <!-- 表示控件默认时的色调 -->
     <color name="colorControlNormal">@color/gray</color>
     <!-- 表示控件激活时候的色调 -->

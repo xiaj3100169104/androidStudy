@@ -13,24 +13,19 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
 
-import example.dialog.DialogActivity;
-import example.music.MusicListActivity;
-import example.music.remote.RemotePlayActivity;
-import example.softInput.SoftMode4Activity;
-import example.activity.TestGestureActivity;
-import example.filedown.FileDownActivity;
-import example.softInput.StatusbarStyleMainActivity;
-import example.vlayout.MultiTypeActivity;
 import example.activity.MyRadioGroupActivity;
-import example.softInput.SoftMode1Activity;
-import example.softInput.SoftMode2Activity;
-import example.softInput.SoftMode3Activity;
 import example.activity.ReadAssetsActivity;
+import example.activity.TestGestureActivity;
 import example.activity.WheelActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
+import example.dialog.DialogActivity;
+import example.filedown.FileDownActivity;
+import example.music.MusicListActivity;
+import example.music.remote.RemotePlayActivity;
+import example.softInput.StatusbarStyleMainActivity;
 import example.tablayout.TabLayoutActivity;
-import example.viewpager.MyPickerActivity;
+import example.vlayout.MultiTypeActivity;
 
 
 public class HomeFragment1 extends BaseFragment {
@@ -106,7 +101,6 @@ public class HomeFragment1 extends BaseFragment {
         }
 
         public void skip13(View v) {
-            skip(MyPickerActivity.class);
         }
 
         public void skip14(View v) {

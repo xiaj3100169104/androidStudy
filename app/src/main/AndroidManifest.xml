@@ -131,7 +131,6 @@
             android:value="${ENVIRONMENT}" />
 
         <activity android:name="example.tablayout.TabLayoutActivity"></activity>
-        <activity android:name="example.viewpager.MyPickerActivity"></activity>
         <activity
             android:name="example.viewpager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent"></activity>

@@ -5,13 +5,15 @@
         <!-- 窗口颜色，位于activity之上，不设置activity也会有一层黑色背景 -->
         <item name="android:windowBackground">@color/windowBackground</item>
         <!-- toolbar（actionbar）颜色 -->
-        <item name="colorPrimary">@color/colorPrimary2</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <!-- 状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark2</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--按钮选中或者点击获得焦点后的颜色-->
-        <item name="colorAccent">@color/colorAccent2</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!--英文全局小写-->
         <item name="android:textAllCaps">false</item>
+        <!--应用的主要文字颜色-->
+        <item name="android:textColorPrimary">@color/black_light</item>
         <!--Button按钮正常状态颜色-->
         <item name="colorButtonNormal">@color/colorButtonNormal</item>
         <item name="android:colorBackgroundCacheHint">@null</item>

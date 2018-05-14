@@ -24,6 +24,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.viewpager.ImageScanActivity;
+
 /**
  * Created by xiajun on 2016/10/8.
  */
@@ -67,7 +69,20 @@ public class SelectLocalPictureActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Media>() {
             @Override
             public void onItemClick(int position, Media data) {
-                showSelPicPopupWindow(position);
+                int count = adapter.getItemCount();
+                if (position == count - 1) {
+                    showSelPicPopupWindow();
+                }else {
+                    ArrayList<Media> cacheList = new ArrayList<>();
+                    if (count > 1) {
+                        for (int i = 0; i < count - 1; i++) {
+                            cacheList.add(paths.get(i));
+                        }
+                    }
+                    Intent intent = new Intent(SelectLocalPictureActivity.this, ImageScanActivity.class);
+                    intent.putExtra("list", cacheList); // (Optional)
+                    startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
+                }
             }
         });
 
@@ -130,45 +145,42 @@ public class SelectLocalPictureActivity extends BaseActivity {
             haveImg = false;
     }
 
-    private void showSelPicPopupWindow(int position) {
-        int count = adapter.getItemCount();
-        if (position == count - 1) {
-            if (dialog == null) {
-                dialog = new SelAvatarDialog(getContext());
-                dialog.setOnItemClickListener(new SelAvatarDialog.OnItemClickListener() {
-                    @Override
-                    public void OnClickCamera() {
-                        photoFile = Skip.takePhoto(SelectLocalPictureActivity.this, ConfigUtil.DIR_APP_IMAGE_CAMERA, String.valueOf(System.currentTimeMillis()) + ".jpg");
+    private void showSelPicPopupWindow() {
+        if (dialog == null) {
+            dialog = new SelAvatarDialog(getContext());
+            dialog.setOnItemClickListener(new SelAvatarDialog.OnItemClickListener() {
+                @Override
+                public void OnClickCamera() {
+                    photoFile = Skip.takePhoto(SelectLocalPictureActivity.this, ConfigUtil.DIR_APP_IMAGE_CAMERA, String.valueOf(System.currentTimeMillis()) + ".jpg");
 
-                    }
+                }
 
-                    @Override
-                    public void OnClickPhoto() {
-                        int newCount = adapter.getItemCount();
-                        ArrayList<Media> cacheList = new ArrayList<>();
-                        if (newCount > 1) {
-                            for (int i = 0; i < newCount - 1; i++) {
-                                cacheList.add(paths.get(i));
-                            }
+                @Override
+                public void OnClickPhoto() {
+                    int newCount = adapter.getItemCount();
+                    ArrayList<Media> cacheList = new ArrayList<>();
+                    if (newCount > 1) {
+                        for (int i = 0; i < newCount - 1; i++) {
+                            cacheList.add(paths.get(i));
                         }
-
-                        Intent intent = new Intent(SelectLocalPictureActivity.this, PickerActivity.class);
-                        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
-                        long maxSize = 188743680L;//long long long
-                        intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
-                        intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)
-                        intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, cacheList); // (Optional)
-                        SelectLocalPictureActivity.this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
-
                     }
 
-                    @Override
-                    public void OnClickCancel() {
+                    Intent intent = new Intent(SelectLocalPictureActivity.this, PickerActivity.class);
+                    intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
+                    long maxSize = 188743680L;//long long long
+                    intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
+                    intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)
+                    intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, cacheList); // (Optional)
+                    SelectLocalPictureActivity.this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
 
-                    }
-                });
-            }
-            dialog.show();
+                }
+
+                @Override
+                public void OnClickCancel() {
+
+                }
+            });
         }
+        dialog.show();
     }
 }

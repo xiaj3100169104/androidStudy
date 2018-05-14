@@ -2,12 +2,15 @@ package com.dmcbig.mediapicker;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
@@ -32,15 +35,13 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 
 import java.util.ArrayList;
 
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
-
 
 /**
  * Created by dmcBig on 2017/6/9.
  */
 
 public class PickerActivity extends AppCompatActivity implements DataCallback, View.OnClickListener {
+    private static int REQUEST_EXTERNAL_STORAGE = 511;
 
     Intent argsIntent;
     RecyclerView recyclerView;
@@ -48,6 +49,7 @@ public class PickerActivity extends AppCompatActivity implements DataCallback, V
     MediaGridAdapter gridAdapter;
     ListPopupWindow mFolderPopupWindow;
     private FolderAdapter mFolderAdapter;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,9 +68,29 @@ public class PickerActivity extends AppCompatActivity implements DataCallback, V
         //get view end
         createAdapter();
         createFolderAdapter();
-        getMediaData();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_EXTERNAL_STORAGE);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_EXTERNAL_STORAGE);
+            }
+        } else {
+            getMediaData();
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_EXTERNAL_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getMediaData();
+            } else {
+                Toast.makeText(this, "权限被拒绝，请开启权限", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
 
     public void setTitleBar() {
         int type = argsIntent.getIntExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE_VIDEO);
@@ -117,19 +139,14 @@ public class PickerActivity extends AppCompatActivity implements DataCallback, V
         });
     }
 
-    @AfterPermissionGranted(119)
     void getMediaData() {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            int type = argsIntent.getIntExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE_VIDEO);
-            if (type == PickerConfig.PICKER_IMAGE_VIDEO) {
-                getLoaderManager().initLoader(type, null, new MediaLoader(this, this));
-            } else if (type == PickerConfig.PICKER_IMAGE) {
-                getLoaderManager().initLoader(type, null, new ImageLoader(this, this));
-            } else if (type == PickerConfig.PICKER_VIDEO) {
-                getLoaderManager().initLoader(type, null, new VideoLoader(this, this));
-            }
-        } else {
-            EasyPermissions.requestPermissions(this, getString(R.string.READ_EXTERNAL_STORAGE), 119, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int type = argsIntent.getIntExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE_VIDEO);
+        if (type == PickerConfig.PICKER_IMAGE_VIDEO) {
+            getLoaderManager().initLoader(type, null, new MediaLoader(this, this));
+        } else if (type == PickerConfig.PICKER_IMAGE) {
+            getLoaderManager().initLoader(type, null, new ImageLoader(this, this));
+        } else if (type == PickerConfig.PICKER_VIDEO) {
+            getLoaderManager().initLoader(type, null, new VideoLoader(this, this));
         }
     }
 
@@ -201,14 +218,7 @@ public class PickerActivity extends AppCompatActivity implements DataCallback, V
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200) {
             ArrayList<Media> selects = data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT);
             if (resultCode == PickerConfig.RESULT_UPDATE_CODE) {

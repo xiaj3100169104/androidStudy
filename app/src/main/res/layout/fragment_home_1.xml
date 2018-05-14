@@ -99,7 +99,7 @@
                     android:id="@+id/btn_7"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip13}"
-                    android:text="imageScan" />
+                    android:text="null" />
 
                 <TextView
                     android:id="@+id/btn_8"

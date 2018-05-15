@@ -76,7 +76,7 @@ public class HomeFragment2 extends BaseFragment {
                 refreshLayout.getLayout().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (adapter.getItemCount() > 20000) {
+                        if (adapter.getItemCount() > 20) {
                             Toast.makeText(getContext(), "数据全部加载完毕", Toast.LENGTH_SHORT).show();
                             refreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
                         } else {
@@ -94,7 +94,7 @@ public class HomeFragment2 extends BaseFragment {
 
     private void loadMore() {
         int k = dataList.size();
-        for (int i = k; i < k + 500; i++) {
+        for (int i = k; i < k + 5; i++) {
             dataList.add(i);
         }
         adapter.notifyDataSetChanged();

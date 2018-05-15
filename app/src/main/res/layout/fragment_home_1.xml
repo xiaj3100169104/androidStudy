@@ -99,7 +99,7 @@
                     android:id="@+id/btn_7"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip13}"
-                    android:text="null" />
+                    android:text="recycler_view拖拽测试" />
 
                 <TextView
                     android:id="@+id/btn_8"

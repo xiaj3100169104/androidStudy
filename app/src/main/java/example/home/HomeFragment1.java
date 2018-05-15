@@ -20,6 +20,7 @@ import example.activity.WheelActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;
 import example.dialog.DialogActivity;
+import example.drag.DragActivity;
 import example.filedown.FileDownActivity;
 import example.music.MusicListActivity;
 import example.music.remote.RemotePlayActivity;
@@ -72,6 +73,7 @@ public class HomeFragment1 extends BaseFragment {
         public void skip3(View v) {
             skip(MyRadioGroupActivity.class);
         }
+
         public void skip31(View v) {
             skip(DialogActivity.class);
         }
@@ -101,6 +103,7 @@ public class HomeFragment1 extends BaseFragment {
         }
 
         public void skip13(View v) {
+            skip(DragActivity.class);
         }
 
         public void skip14(View v) {

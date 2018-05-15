@@ -71,6 +71,8 @@
         <activity
             android:name="example.activity.TestGestureActivity"
             android:theme="@style/AppTheme.Translucent" />
+        <activity
+            android:name="example.drag.DragActivity" />
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.activity.WheelActivity" />

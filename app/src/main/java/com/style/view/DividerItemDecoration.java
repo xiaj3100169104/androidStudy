@@ -24,7 +24,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * item之间分割线的size，默认为1px
      */
-    private int mItemSize = 1 ;
+    private int mItemSize = 2 ;
 
     /**
      * 绘制item分割线的画笔，和设置其属性
@@ -46,7 +46,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         //mItemSize = (int) TypedValue.applyDimension(mItemSize, TypedValue.COMPLEX_UNIT_DIP,context.getResources().getDisplayMetrics());
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG) ;
-        mPaint.setColor(Color.parseColor("#c8c8c8"));
+        mPaint.setColor(Color.parseColor("#FFF5F5F5"));
          /*设置填充*/
         mPaint.setStyle(Paint.Style.FILL);
     }

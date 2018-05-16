@@ -6,11 +6,12 @@
         android:layout_height="60dp"
         android:background="@color/red_single">
 
+        <!--不加elevation，按住当前布局时会看见背后文字，很奇怪哦-->
         <LinearLayout
             android:id="@+id/layout_fore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@drawable/bg_pressed_default"
             android:elevation="1dp"
             android:orientation="vertical"
             android:visibility="visible">

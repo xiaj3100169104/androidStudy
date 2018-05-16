@@ -6,6 +6,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 
 import com.style.base.BaseRecyclerViewAdapter;
+import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,6 +51,7 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
+
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         Log.e(TAG, "onMove");
@@ -69,41 +71,52 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         Log.e(TAG, "onSwiped");
+        DragAdapter.ViewHolder holder = (DragAdapter.ViewHolder) viewHolder;
+        holder.bd.layoutFore.setTranslationX(0);
+
         int position = viewHolder.getAdapterPosition();
-        mAdapter.list.remove(position);
+        int temp = mAdapter.list.remove(position);
         mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        Log.e(TAG, "clearView");
-        super.clearView(recyclerView, viewHolder);
-        //水平滑动完成，重置改变，防止由于复用而导致的显示问题
-        if (lastAction == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            DragAdapter.ViewHolder holder = (DragAdapter.ViewHolder) viewHolder;
-            holder.bd.layoutFore.setTranslationX(0);
-        }
-        //拖动完成
-        if (lastAction == ItemTouchHelper.ACTION_STATE_DRAG) {
-
-        }
-    }
-
-    @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        //Log.e(TAG, "onChildDraw");
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            DragAdapter.ViewHolder holder = (DragAdapter.ViewHolder) viewHolder;
-            holder.bd.layoutFore.setTranslationX(dX);
-        } else {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
+        mAdapter.list.add(position, temp);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         Log.e(TAG, "onSelectedChanged--actionState-->" + actionState);
         super.onSelectedChanged(viewHolder, actionState);
-        lastAction = actionState;
+        if (actionState == ItemTouchHelper.ACTION_STATE_DRAG)
+            lastAction = ItemTouchHelper.ACTION_STATE_DRAG;
+        else if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE)
+            lastAction = ItemTouchHelper.ACTION_STATE_SWIPE;
     }
+
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        Log.e(TAG, "clearView--actionState-->" + lastAction);
+        super.clearView(recyclerView, viewHolder);
+        //拖动完成
+        if (lastAction == ItemTouchHelper.ACTION_STATE_DRAG) {
+            for (Integer i : mAdapter.list) {
+                Log.e(TAG, "" + i);
+            }
+        }
+    }
+
+    @Override
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        Log.e(TAG, "onChildDraw--dx-->" + dX + "--actionState-->" + actionState + "--isCurrentlyActive-->" + isCurrentlyActive);
+        if ((actionState == ItemTouchHelper.ACTION_STATE_SWIPE)) {
+            DragAdapter.ViewHolder holder = (DragAdapter.ViewHolder) viewHolder;
+            //if (Math.abs(dX) <= DeviceInfoUtil.dp2px(recyclerView.getContext(), 200))
+            holder.bd.layoutFore.setTranslationX(dX);
+            // else
+            //  holder.bd.layoutFore.setTranslationX(0.0f);
+            super.onChildDraw(c, recyclerView, viewHolder, 0, dY, actionState, isCurrentlyActive);
+
+        } else {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        }
+    }
+
 }

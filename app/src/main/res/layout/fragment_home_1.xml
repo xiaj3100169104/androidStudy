@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:divider="@drawable/divider_common"
+                android:divider="@drawable/divider_gray_horizontal"
                 android:dividerPadding="@dimen/activity_horizontal_margin"
                 android:orientation="vertical"
                 android:showDividers="middle">

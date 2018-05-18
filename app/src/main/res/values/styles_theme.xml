@@ -1,7 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
         <!-- 窗口颜色，位于activity之上，不设置activity也会有一层黑色背景 -->
         <item name="android:windowBackground">@color/windowBackground</item>
         <!-- toolbar（actionbar）颜色 -->
@@ -17,26 +16,26 @@
         <!--Button按钮正常状态颜色-->
         <item name="colorButtonNormal">@color/colorButtonNormal</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@color/black_light</item>
-        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
-        <!-- SearchView -->
-        <item name="searchViewStyle">@style/MySearchViewStyle</item>
+        <item name="android:windowAnimationStyle">@style/CustomEnterExitAnimation</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:windowAnimationStyle">@style/Anim_main</item>
-    </style>
-
-    //activity的Window窗口背景透明
-
-    <style name="AppTheme.Translucent">
+    <!--activity的Window窗口背景透明-->
+    <style name="AppTheme.Translucent" parent="BaseAppTheme">
         <item name="android:windowBackground">@color/windowBackground_translucent</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/Anim_2</item>
     </style>
-
+    <style name="CustomEnterExitAnimation" parent="@android:style/Animation.Activity">
+        <!-- 当我们从 A1 启动 A2 时，A2 出现在屏幕上 -->
+        <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
+        <!-- 当我们从 A2 退出回到 A1 时，A2 从屏幕上消失 -->
+        <item name="android:activityCloseExitAnimation">@anim/activity_close_exit</item>
+        <!-- 当我们从 A1 启动 A2 时，A1退出屏幕的动画 -->
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
+        <!-- 当我们从 A2 回到 A1 时，A1进入屏幕的动画 -->
+        <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
+    </style>
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
         <!-- 菜单是否覆盖在ToolBar上-->
         <item name="overlapAnchor">false</item>

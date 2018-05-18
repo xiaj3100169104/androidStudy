@@ -49,14 +49,6 @@ public class LoginActivity extends BaseActivity {
         bd.etPassword.setText(user.password);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.onDestroy();
-        }
-    }
-
     public void loginSuccess() {
 
     }

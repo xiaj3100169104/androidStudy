@@ -164,6 +164,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (mPresenter != null)
+            mPresenter.onDestroy();
         dismissProgressDialog();
     }
 

@@ -40,12 +40,6 @@ public class WebServiceActivity extends BaseActivity {
     public void initData() {
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
-
     public void searchMobile(View v) {
         final String phone = bd.etPhone.getText().toString();
         RetrofitImpl.getInstance().getPhoneInfo(phone).subscribe(new CustomResourceObserver<String>() {

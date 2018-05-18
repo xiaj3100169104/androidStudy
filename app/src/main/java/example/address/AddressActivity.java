@@ -166,11 +166,4 @@ public class AddressActivity extends BaseActivity {
             }
         });
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.onDestroy();
-        }
-    }
 }

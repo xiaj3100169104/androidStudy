@@ -47,8 +47,8 @@ public class AidlActivity extends BaseActivity {
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setComponent(new ComponentName("com.xiajun.voicephone", "com.xiajun.voicephone.MainActivity"));
         startActivity(intent);*/
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.xiajun.voicephone");
-        context.startActivity(intent);
+        Intent intent = getContext().getPackageManager().getLaunchIntentForPackage("com.xiajun.voicephone");
+        getContext().startActivity(intent);
     }
 
     public void send(View v) {

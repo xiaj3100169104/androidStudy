@@ -27,15 +27,19 @@ import com.style.utils.DeviceInfoUtil;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
+    protected String TAG = getClass().getSimpleName();
+
     protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
     protected static final int STATUS_BAR_THEME = 2;//主题配置状态栏颜色
     protected static final int STATUS_BAR_DEFAULT = 3;//系统默认状态栏颜色
-    protected String TAG = getClass().getSimpleName();
-    protected Context context;
+    private Context context;
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
 
+    protected boolean isScreenPortrait() {
+        return true;
+    }
 
     protected int getStatusBarStyle() {
         return STATUS_BAR_TRANSPARENT;
@@ -66,7 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(arg0);
         context = this;
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
+        if (isScreenPortrait())
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
 
     }
 
@@ -116,11 +121,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     //是否是亮色状态栏
-    public boolean isLightStatusBar() {
+    protected boolean isLightStatusBar() {
         return false;
     }
 
-    public abstract void initData();
+    protected abstract void initData();
 
     private LinearLayout titlebar;
     private View statusBar;

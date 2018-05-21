@@ -139,17 +139,17 @@
             android:name="UMENG_CHANNEL"
             android:value="${ENVIRONMENT}" />
 
-        <activity android:name="example.tablayout.TabLayoutActivity"></activity>
+        <activity android:name="example.tablayout.TabLayoutActivity" />
         <activity
             android:name="example.viewpager.ImageScanActivity"
-            android:theme="@style/AppTheme.Translucent"></activity>
-        <activity android:name="example.viewpager.GlideListActivity"></activity>
-        <activity android:name="example.music.MusicListActivity"></activity>
+            android:theme="@style/AppTheme.Translucent" />
+        <activity android:name="example.viewpager.GlideListActivity" />
+        <activity android:name="example.music.MusicListActivity" />
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。          -->
         <service
             android:name="example.music.PlayMusicService"
             android:exported="false" />
-        <activity android:name="example.music.remote.RemotePlayActivity"></activity>
+        <activity android:name="example.music.remote.RemotePlayActivity" />
         <service
             android:name="example.music.remote.RemotePlayService"
             android:process="com.offline.message">

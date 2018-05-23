@@ -1,6 +1,8 @@
 package com.style.app;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
 import android.content.ComponentName;
@@ -18,6 +20,8 @@ import android.util.Log;
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 
 import java.util.List;
+
+import example.home.MainActivity;
 
 
 public class AppManager {
@@ -89,6 +93,31 @@ public class AppManager {
      */
     public void exitApp() {
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    public void reStartApp() {
+        /*Intent i = getContext().getPackageManager().getLaunchIntentForPackage(getContext().getPackageName());
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getContext().startActivity(i);*/
+        Intent mStartActivity = new Intent(context, MainActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 50, mPendingIntent);
+        System.exit(0);
+
+    }
+
+    public Class<?> getTopActivity() {
+        ActivityManager manager = (ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String className = manager.getRunningTasks(1).get(0).topActivity.getClassName();
+        Class<?> cls = null;
+        try {
+            cls = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cls;
     }
 
     public static boolean isBackground(Context context) {
@@ -174,4 +203,6 @@ public class AppManager {
             }
         });
     }
+
+
 }

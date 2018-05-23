@@ -85,6 +85,8 @@ public class DialogActivity extends BaseActivity {
         }
 
         public void skip4(View v) {
+            String test = null;
+            logE(TAG, test.toString());
             DialogFragment df= new DialogFragment();
             fm.beginTransaction().add(R.id.layout_root, df , "dialog").commit();
 

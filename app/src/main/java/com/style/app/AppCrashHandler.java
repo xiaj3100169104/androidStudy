@@ -9,6 +9,11 @@ import java.io.Writer;
 
 /**
  * Created by xiajun on 2017/12/22.
+ * 注意：自定义处理时就不能再主动退出app时执行
+ * Process.killProcess(Process.myPid());
+ * System.exit(0);
+ * 默认崩溃会执行Process.killProcess(Process.myPid());
+ * 向底层发送信号Sending signal. PID: 8561 SIG: 9
  */
 
 public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
@@ -24,7 +29,9 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
         ex.printStackTrace(printWriter);
         String errorReport = result.toString();
         Log.e(TAG, errorReport);
-        Process.killProcess(Process.myPid());
+        //重启app
+        //AppManager.getInstance().exitApp();
+        AppManager.getInstance().reStartApp();
 
     }
 }

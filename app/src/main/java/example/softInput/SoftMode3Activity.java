@@ -40,24 +40,20 @@ public class SoftMode3Activity extends BaseActivity {
     private StringAdapter adapter;
 
     @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
-
-    @Override
     protected int getStatusBarStyle() {
         return STATUS_BAR_TRANSLUCENT;
     }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_3);
-        super.setContentView(bd.getRoot());
+    public int getLayoutResId() {
+        return R.layout.activity_soft_mode_3;
     }
-
+    @Override
+    protected BaseActivityPresenter getPresenter() {
+        return null;
+    }
     @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("半透明状态栏，需要自己手动处理编辑框位置");
 
     }

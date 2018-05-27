@@ -12,7 +12,10 @@ import com.style.framework.databinding.ActivitySoftMode1Binding;
 public class SoftMode1Activity extends BaseActivity {
 
     ActivitySoftMode1Binding bd;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_soft_mode_1;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
@@ -24,14 +27,8 @@ public class SoftMode1Activity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_1);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("默认状态栏样式");
     }
 

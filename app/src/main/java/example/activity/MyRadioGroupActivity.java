@@ -27,21 +27,18 @@ public class MyRadioGroupActivity extends BaseActivity {
     private EmotionBaseDataFrag baseDataFrag;
     private EmotionDataFrag emoDataFrag;
     private Fragment[] frags;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_my_radio_group;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_my_radio_group);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("切换");
         rg_emotion = (MyRadioGroup) this.findViewById(R.id.rg_emotion_card_tab);
         fm = getSupportFragmentManager();

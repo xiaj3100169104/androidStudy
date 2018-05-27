@@ -25,21 +25,18 @@ public class StatusbarStyleMainActivity extends BaseActivity {
     public boolean isLightStatusBar() {
         return true;
     }
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.statusbar_style_activity_main;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.statusbar_style_activity_main);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("全透明浅色标题栏");
         bd.setOnItemClickListener(new OnItemClickListener());
     }

@@ -42,7 +42,6 @@ public class MainActivity extends BaseActivity {
     private TextView[] mTabs;
     public int currentTabIndex = 0;
     public Fragment[] fragments;
-    private User curUser;
 
     /**
      * 解决方案为以下两种：
@@ -56,41 +55,25 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    public int getLayoutResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    public void initData() {
+        bd = getBinding();
         EventBus.getDefault().register(this);
-        super.setContentView(bd.getRoot());
         setToolbarTitle(titles[0]);
         /*Intent i = new Intent(this, MQTTService.class);
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
         HotFixManager.getInstance().query();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //updateUnreadMsg();
-    }
-
-    @Override
-    protected void onDestroy() {
-        //取消事件注册
-        EventBus.getDefault().unregister(this);
-        //BleManager.getInstance().close();
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void initData() {
         String[] permissions = {Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
 
         if (ContextCompat.checkSelfPermission(this.getApplication(), permissions[0]) != PackageManager.PERMISSION_GRANTED
@@ -112,7 +95,6 @@ public class MainActivity extends BaseActivity {
         } else {
             startBleService();
         }
-        curUser = AccountManager.getInstance().getCurrentUser();
 
         mTabs = new TextView[5];
         mTabs[0] = bd.viewHomeTap1;
@@ -216,4 +198,20 @@ public class MainActivity extends BaseActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //updateUnreadMsg();
+    }
+
+    @Override
+    protected void onDestroy() {
+        //取消事件注册
+        EventBus.getDefault().unregister(this);
+        //BleManager.getInstance().close();
+        super.onDestroy();
+
+    }
+
 }

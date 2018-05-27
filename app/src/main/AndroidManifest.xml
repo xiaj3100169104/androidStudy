@@ -74,7 +74,7 @@
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
         <activity
-            android:name="example.activity.TestGestureActivity"
+            android:name="example.gesture.TestGestureActivity"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.drag.DragActivity" />
@@ -83,7 +83,7 @@
         <activity android:name="example.activity.WheelActivity" />
         <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
-        <activity android:name="example.activity.UserAgreeActivity" />
+        <activity android:name="example.web.UserAgreeActivity" />
         <activity android:name="example.web.WebViewFeedbackActivity" />
         <activity android:name="example.web.WebViewAndJSActivity" />
         <activity android:name="example.vlayout.MultiTypeActivity" />

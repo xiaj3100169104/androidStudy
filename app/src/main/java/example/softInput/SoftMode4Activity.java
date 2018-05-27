@@ -34,21 +34,18 @@ public class SoftMode4Activity extends BaseActivity {
     private ArrayList<String> dataList;
     private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_soft_mode_4;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_soft_mode_4);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("布局调整");
 
     }

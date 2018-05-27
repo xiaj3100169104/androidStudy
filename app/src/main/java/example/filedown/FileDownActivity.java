@@ -26,21 +26,19 @@ public class FileDownActivity extends BaseActivity {
     private String url3 = "http://wdl1.cache.wps.cn/wps/download/W.P.S.50.391.exe";
 
     private String targetPath = ConfigUtil.DIR_APP_FILE + "/apache-tomcat-8.0.24_multi_thread.exe";
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_file_down;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_file_down);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
+
         setToolbarTitle("文件下载");
 
         bd.btHttpDown.setOnClickListener(new View.OnClickListener() {

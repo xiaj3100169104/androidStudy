@@ -1,15 +1,19 @@
 package example.music;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -37,10 +41,16 @@ import example.music.entity.MediaFolder;
 
 public class MusicListActivity extends BaseActivity implements MediaDataCallback {
 
+    private static final int REQUEST_READ_EXTERNAL_STORAGE = 5;
     ActivityMusicListBinding bd;
     private ArrayList<MediaBean> dataList;
 
     AudioAdapter adapter;
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_music_list;
+    }
 
     @Override
     protected BaseActivityPresenter getPresenter() {
@@ -48,14 +58,8 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_music_list);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("播放列表4");
 
         dataList = new ArrayList<>();
@@ -74,8 +78,38 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
 
             }
         });
-        getMediaData();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            logE(TAG, "没有权限");
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                logE(TAG, "上次拒绝");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
+            } else {
+                logE(TAG, "请求权限");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
+            }
+        } else {
+            getMediaData();
+
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                logE(TAG, "权限允许");
+                getMediaData();
+
+            } else {
+                logE(TAG, "权限拒绝");
+                // Permission Denied
+                showToast("Permission Denied");
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void getMediaData() {
@@ -100,21 +134,12 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
         finish();
     }
 
-    @Override
-    protected void onDestroy() {
-        unbindService(mConnection);
-        super.onDestroy();
-    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -144,6 +169,13 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
         stopService(i);
     }
 
+    @Override
+    protected void onDestroy() {
+        //绑定了才调用此方法，不然会报错
+        unbindService(mConnection);
+        super.onDestroy();
+    }
+
     PlayMusicService.MyBinder myBinder;
     private ServiceConnection mConnection = new ServiceConnection() {
         // 当与service的连接建立后被调用
@@ -157,7 +189,7 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
 
         }
 
-        // 当与service的连接意外断开时被调用
+        // 当与service的连接意外断开时被调用,调unbindservice不会触发此回调
         public void onServiceDisconnected(ComponentName className) {
             Log.e(TAG, "onServiceDisconnected");
 

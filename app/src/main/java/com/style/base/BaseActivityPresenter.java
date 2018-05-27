@@ -11,6 +11,8 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class BaseActivityPresenter<V> {
+    protected final String TAG = getClass().getSimpleName();
+
     private final AccountManager accountManager;
     private final RetrofitImpl httpApi;
     private final CompositeDisposable tasks;

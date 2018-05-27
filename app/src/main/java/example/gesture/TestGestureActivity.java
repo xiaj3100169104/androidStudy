@@ -1,4 +1,4 @@
-package example.activity;
+package example.gesture;
 
 import android.animation.ValueAnimator;
 import android.databinding.DataBindingUtil;
@@ -26,17 +26,36 @@ public class TestGestureActivity extends BaseActivity {
     protected boolean isGeneralTitleBar() {
         return false;
     }
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_test_gesture;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_gesture);
-        super.setContentView(bd.getRoot());
+    public void initData() {
+        bd = getBinding();
+
+        bd.iv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.e("v2", "onTouchEvent--ACTION_DOWN");
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.e("v2", "onTouchEvent--ACTION_MOVE");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.e("v2", "onTouchEvent--ACTION_UP");
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -87,28 +106,6 @@ public class TestGestureActivity extends BaseActivity {
                 break;
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void initData() {
-
-        bd.iv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.e("v2", "onTouchEvent--ACTION_DOWN");
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.e("v2", "onTouchEvent--ACTION_MOVE");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.e("v2", "onTouchEvent--ACTION_UP");
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
 }

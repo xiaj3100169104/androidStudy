@@ -20,19 +20,18 @@ public class ReadAssetsActivity extends BaseActivity {
     private TextView tv_agree;
 
     @Override
+    public int getLayoutResId() {
+        return R.layout.activity_user_agree;
+    }
+
+    @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_user_agree);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
 
         setToolbarTitle("用户协议");
 

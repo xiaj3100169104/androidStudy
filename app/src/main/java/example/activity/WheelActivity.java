@@ -34,21 +34,18 @@ public class WheelActivity extends BaseActivity {
 
     private ChangeBirthdayDialog mChangeBirthDialog;
     private ChangeAddressDialog mChangeAddressDialog;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_wheel;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_wheel);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("滚轮");
         occupations = DataHelper.getOccupationSelf(this);
         fcAges = DataHelper.getAgeCondition();

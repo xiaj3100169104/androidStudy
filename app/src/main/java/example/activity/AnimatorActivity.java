@@ -27,20 +27,18 @@ public class AnimatorActivity extends BaseActivity {
     private ActivitySecondBinding bd;
 
     @Override
+    public int getLayoutResId() {
+        return R.layout.activity_second;
+    }
+
+    @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_second);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
-
+        bd = getBinding();
         /*
         * AccelerateDecelerateInterpolator 在动画开始与结束的地方速率改变比较慢，在中间的时候加速
 

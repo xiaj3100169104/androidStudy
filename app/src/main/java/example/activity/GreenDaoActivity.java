@@ -18,21 +18,21 @@ public class GreenDaoActivity extends BaseActivity {
     ActivityGreenDaoBinding bd;
     GreenDaoManager manager;
 
-    @Override
-    public void initData() {
-        manager = GreenDaoManager.getInstance();
-    }
 
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_green_dao;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_green_dao);
-        super.setContentView(bd.getRoot());
+    public void initData() {
+        bd = getBinding();
+
+        manager = GreenDaoManager.getInstance();
     }
 
     public void skip418(View v) {

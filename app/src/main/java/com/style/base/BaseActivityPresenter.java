@@ -73,7 +73,7 @@ public abstract class BaseActivityPresenter<V> {
             HttpException he = (HttpException) e;
             switch (he.code()) {
                 case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                    onErrorMsg("授权过期，请稍候重试");
+                    onTokenError();
                     break;
                 case HttpsURLConnection.HTTP_INTERNAL_ERROR:
                     onErrorMsg("服务器繁忙");
@@ -88,7 +88,10 @@ public abstract class BaseActivityPresenter<V> {
         }
     }
 
-    public void onError() {
+    protected void onTokenError() {
+        onErrorMsg("授权过期，请稍候重试");
+        //getMvpView().onError(R.string.str_unauthorized);
+        //updateAccessToken();
     }
 
     private void onErrorMsg(@StringRes int resId) {

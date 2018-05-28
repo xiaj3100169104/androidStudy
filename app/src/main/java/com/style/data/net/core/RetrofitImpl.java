@@ -1,12 +1,12 @@
-package com.style.data.net.core2;
+package com.style.data.net.core;
 
 import com.style.data.net.bean.KuaiDi;
-import com.style.data.net.core2.request.LoginRequest;
-import com.style.data.net.core2.response.BaseResult;
-import com.style.data.net.core2.response.TokenResponse;
+import com.style.data.net.request.LoginRequest;
+import com.style.data.net.response.BaseResult;
+import com.style.data.net.response.TokenResponse;
 import com.style.data.net.bean.UserInfo;
-import com.style.data.net.core2.converter.FastJsonConverterFactory;
-import com.style.data.net.core2.converter.HttpConfig;
+import com.style.data.net.converter.FastJsonConverterFactory;
+import com.style.data.net.converter.HttpConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +33,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public final class RetrofitImpl {
     protected String TAG = this.getClass().getSimpleName();
+    public static final long HTTP_TIME_OUT = 5;
+
     private static String URL_BASE = HttpConfig.URL_BASE;
 
     private static APIFunction mAPIFunction;
@@ -50,9 +52,9 @@ public final class RetrofitImpl {
 
     private RetrofitImpl() {
         OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
-                .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
-                .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
+                .connectTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(InterceptorUtil.LogInterceptor())
                 .addInterceptor(InterceptorUtil.HeaderInterceptor())
                 .build();

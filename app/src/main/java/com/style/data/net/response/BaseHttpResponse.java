@@ -1,4 +1,4 @@
-package com.style.data.net.core2.response;
+package com.style.data.net.response;
 
 import android.text.TextUtils;
 

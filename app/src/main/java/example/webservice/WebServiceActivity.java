@@ -6,11 +6,6 @@ import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
-import com.style.net.bean.UserInfo;
-import com.style.net.core2.RetrofitImpl;
-import com.style.net.core2.callback.CustomHttpThrowable;
-
-import io.reactivex.functions.Consumer;
 
 public class WebServiceActivity extends BaseActivity {
 

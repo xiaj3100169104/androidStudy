@@ -1,10 +1,11 @@
-package com.style.data.net.core2.converter;
+package com.style.data.net.converter;
 
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.style.data.net.core2.response.BaseHttpResponse;
-import com.style.data.net.core2.response.TokenResponse;
+import com.style.data.net.exception.ResultErrorException;
+import com.style.data.net.response.BaseHttpResponse;
+import com.style.data.net.response.TokenResponse;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

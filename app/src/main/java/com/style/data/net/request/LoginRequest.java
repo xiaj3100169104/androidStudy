@@ -1,4 +1,4 @@
-package com.style.data.net.core2.request;
+package com.style.data.net.request;
 
 /**
  * Created by xiajun on 2018/4/27.

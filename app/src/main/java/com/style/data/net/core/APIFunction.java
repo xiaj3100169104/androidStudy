@@ -1,10 +1,10 @@
-package com.style.data.net.core2;
+package com.style.data.net.core;
 
 import com.style.data.net.bean.KuaiDi;
 import com.style.data.net.bean.UserInfo;
-import com.style.data.net.core2.request.LoginRequest;
-import com.style.data.net.core2.response.BaseResult;
-import com.style.data.net.core2.response.TokenResponse;
+import com.style.data.net.request.LoginRequest;
+import com.style.data.net.response.BaseResult;
+import com.style.data.net.response.TokenResponse;
 
 import java.util.List;
 

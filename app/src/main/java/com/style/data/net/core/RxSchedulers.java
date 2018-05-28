@@ -1,4 +1,4 @@
-package com.style.data.net.core2;
+package com.style.data.net.core;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

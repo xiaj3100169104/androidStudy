@@ -8,12 +8,12 @@ import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
-import com.style.app.AccountManager;
-import com.style.net.bean.UserInfo;
-import com.style.net.core2.RetrofitImpl;
-import com.style.net.core2.callback.CustomHttpThrowable;
-import com.style.net.core2.callback.CustomResourceObserver;
-import com.style.net.core2.response.TokenResponse;
+import com.style.data.prefs.AccountManager;
+import com.style.data.net.bean.UserInfo;
+import com.style.data.net.core2.RetrofitImpl;
+import com.style.data.net.core2.callback.CustomHttpThrowable;
+import com.style.data.net.core2.callback.CustomResourceObserver;
+import com.style.data.net.core2.response.TokenResponse;
 
 import io.reactivex.functions.Consumer;
 

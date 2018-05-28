@@ -30,16 +30,21 @@ public class AppManager {
     private static final String APP_INFO = "appInfo";
     private static final String IS_FIRST_LOGIN = "isFirstLogin";
 
-    private Context context;
     public static Typeface TEXT_TYPE;
+    private static final Object mLock = new Object();
     private static AppManager mInstance;
-
-    static {
-        mInstance = new AppManager();
-    }
+    private Context context;
 
     public synchronized static AppManager getInstance() {
-        return mInstance;
+        synchronized (mLock) {
+            if (mInstance == null) {
+                mInstance = new AppManager();
+            }
+            return mInstance;
+        }
+    }
+
+    private AppManager() {
     }
 
     public void init(Context context) {
@@ -104,8 +109,8 @@ public class AppManager {
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 50, mPendingIntent);
-        System.exit(0);
-
+        //System.exit(0);
+        exitApp();
     }
 
     public Class<?> getTopActivity() {

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentImageScanBinding;
-import com.style.glide.ImageLoader;
+import com.style.data.glide.ImageLoader;
 
 /**
  * Created by dmcBig on 2017/8/16.

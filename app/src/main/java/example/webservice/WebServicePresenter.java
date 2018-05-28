@@ -2,7 +2,7 @@ package example.webservice;
 
 
 import com.style.base.BaseActivityPresenter;
-import com.style.net.core2.callback.CustomHttpThrowable;
+import com.style.data.net.core2.callback.CustomHttpThrowable;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;

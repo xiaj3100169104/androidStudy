@@ -10,13 +10,32 @@
         <include layout="@layout/title_bar_normal" />
 
         <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/bt_http_down"
+            style="@style/text_white_15sp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="http下载" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray"
-            custom:horizontalProgressColor="@color/colorAccent"
-            custom:horizontalProgress="30" />
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_http_down"
@@ -34,8 +53,8 @@
             android:layout_height="5dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray"
-            custom:horizontalProgressColor="@color/colorAccent"
-            custom:horizontalProgress="30" />
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_multi_thread_down"
@@ -53,8 +72,8 @@
             android:layout_height="5dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray"
-            custom:horizontalProgressColor="@color/colorAccent"
-            custom:horizontalProgress="30" />
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progressBar3"
@@ -62,8 +81,8 @@
             android:layout_height="5dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/darker_gray"
-            custom:horizontalProgressColor="@color/colorAccent"
-            custom:horizontalProgress="30" />
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/bt_multi_file_down"

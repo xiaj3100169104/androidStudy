@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.style.bean.User;
-import com.style.app.AccountManager;
+import com.style.data.prefs.AccountManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

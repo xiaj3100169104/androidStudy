@@ -17,7 +17,7 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.BleActivityScanBinding;
-import com.style.app.AccountManager;
+import com.style.data.prefs.AccountManager;
 import com.style.view.DividerItemDecoration;
 
 import org.simple.eventbus.EventBus;

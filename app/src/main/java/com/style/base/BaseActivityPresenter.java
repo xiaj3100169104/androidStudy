@@ -1,7 +1,7 @@
 package com.style.base;
 
-import com.style.app.AccountManager;
-import com.style.net.core2.RetrofitImpl;
+import com.style.data.prefs.AccountManager;
+import com.style.data.net.core2.RetrofitImpl;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

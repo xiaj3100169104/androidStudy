@@ -10,7 +10,7 @@ import com.style.base.BaseFragment;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome3Binding;
-import com.style.app.AccountManager;
+import com.style.data.prefs.AccountManager;
 
 import example.aidl.AidlActivity;
 import example.activity.AnimatorActivity;

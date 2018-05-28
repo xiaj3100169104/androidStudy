@@ -14,10 +14,10 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.style.base.BaseFragment;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.bean.User;
-import com.style.db.user.UserDBManager;
+import com.style.data.db.user.UserDBManager;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome2Binding;
-import com.style.app.AccountManager;
+import com.style.data.prefs.AccountManager;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;

@@ -1,10 +1,8 @@
 package com.style.app;
 
 import android.app.Application;
-import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
@@ -18,9 +16,9 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.style.db.user.UserDBManager;
+import com.style.data.db.user.UserDBManager;
+import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
-import com.style.utils.AppInfoUtil;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;

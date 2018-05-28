@@ -56,21 +56,18 @@ public class BlueToothActivity extends BaseActivity {
     private ArrayList<BluetoothBean> dataList;
     private LinearLayoutManager layoutManager;
     private BluetoothDeviceAdapter adapter;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_bluetooth;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_bluetooth);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("蓝牙测试");
         // Initializes Bluetooth adapter.
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);

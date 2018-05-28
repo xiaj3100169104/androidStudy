@@ -36,19 +36,18 @@ public class DialogActivity extends BaseActivity {
     private FragmentTransaction bt;
 
     @Override
+    public int getLayoutResId() {
+        return R.layout.dialog_activity_dialog;
+    }
+
+    @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.dialog_activity_dialog);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("弹出框");
         fm = getSupportFragmentManager();
         bd.setOnItemClickListener(new OnItemClickListener());

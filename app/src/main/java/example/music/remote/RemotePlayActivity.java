@@ -23,22 +23,20 @@ public class RemotePlayActivity extends BaseActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_remote_service;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_remote_service);
-        super.setContentView(bd.getRoot());
-        setToolbarTitle("另起进程开启服务");
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
+        setToolbarTitle("另起进程开启服务");
+
         conn();
     }
 

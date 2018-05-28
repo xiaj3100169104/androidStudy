@@ -21,21 +21,18 @@ public class TabLayoutActivity extends BaseActivity {
 
     private List<Fragment> fragments = new ArrayList<>();                                //定义要装fragment的列表
     private List<String> titles = new ArrayList<>();
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_tab_layout;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_tab_layout);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("tabLayout");
         for (int i = 1; i < 10; i++) {
             titles.add("title_" + i);

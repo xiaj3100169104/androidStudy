@@ -22,22 +22,18 @@ import io.reactivex.schedulers.Schedulers;
 public class TestRxActivity extends BaseActivity {
 
     ActivityTestRxBinding bd;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_test_rx;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_rx);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
-
+        bd = getBinding();
     }
 
     public void skip1(View v) {

@@ -45,19 +45,18 @@ public class WifiTestActivity extends BaseActivity {
     private List<ScanResult> mScanResults;//扫描结果
 
     @Override
+    public int getLayoutResId() {
+        return R.layout.wifi_activity_main;
+    }
+
+    @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.wifi_activity_main);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("蓝牙测试");
         dataList = new ArrayList<>();
         adapter = new WifiDeviceAdapter(getContext(), dataList);

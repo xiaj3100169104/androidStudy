@@ -1,4 +1,4 @@
-package example.activity;
+package example.web;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -13,28 +13,24 @@ import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
-import com.style.view.progressbar.HorizontalProgressBar;
 
 
 public class UserAgreeActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "file:///android_asset/useragree.html";
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_h5_remote;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_h5_remote);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("");
 
         bd.webView.getSettings().setJavaScriptEnabled(true);

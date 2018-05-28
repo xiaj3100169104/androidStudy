@@ -31,7 +31,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * Created by xiajun on 2017/12/21.
  */
 
-public class RetrofitImpl {
+public final class RetrofitImpl {
     protected String TAG = this.getClass().getSimpleName();
     private static String URL_BASE = HttpConfig.URL_BASE;
 

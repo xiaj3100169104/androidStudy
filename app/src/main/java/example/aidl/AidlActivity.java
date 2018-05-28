@@ -23,21 +23,18 @@ public class AidlActivity extends BaseActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_aidl;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_aidl);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         conn();
     }
 

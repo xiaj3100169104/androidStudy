@@ -31,7 +31,7 @@ public class InterceptorUtil {
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
                 Request.Builder newBuilder = original.newBuilder();
-                if (TextUtils.isEmpty(original.header("Authorization")))
+                if (TextUtils.isEmpty(original.header("Authorization")))//这里没打印Authorization因为执行在离职拦截后
                     newBuilder.addHeader("Authorization", AccountManager.getInstance().getSignKey());
                 Request newRequest = newBuilder.build();
                 return chain.proceed(newRequest);

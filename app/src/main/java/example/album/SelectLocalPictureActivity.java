@@ -41,21 +41,18 @@ public class SelectLocalPictureActivity extends BaseActivity {
     private SelAvatarDialog dialog;
 
     private boolean haveImg;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_select_local_picture;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_select_local_picture);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("本地图片选择");
         paths = new ArrayList<>();
         TAG_ADD = new Media();

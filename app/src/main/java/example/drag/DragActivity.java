@@ -21,12 +21,9 @@ public class DragActivity extends BaseActivity {
     private LinearLayoutManager layoutManager;
     private DragAdapter adapter;
 
-
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.drag_activity);
-        super.setContentView(bd.getRoot());
+    public int getLayoutResId() {
+        return R.layout.drag_activity;
     }
 
     @Override
@@ -36,6 +33,8 @@ public class DragActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        bd = getBinding();
+
         setToolbarTitle("拖拽测试");
 
         dataList = new ArrayList<>();

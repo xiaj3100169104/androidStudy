@@ -32,22 +32,18 @@ public class AddressActivity extends BaseActivity {
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
     private AddressPresenter mPresenter;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_address;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         mPresenter = new AddressPresenter(this);
         return mPresenter;
     }
-
-    @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_address);
-        super.setContentView(bd.getRoot());
-    }
-
     @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("通讯录");
 
         bd.sidebar.setTextView(bd.tvDialog);

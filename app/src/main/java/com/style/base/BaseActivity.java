@@ -3,11 +3,14 @@ package com.style.base;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,7 +28,7 @@ import com.style.utils.DeviceInfoUtil;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected String TAG = getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
 
     protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
@@ -34,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Context context;
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
+    private View contentView;
 
     protected boolean isScreenPortrait() {
         return true;
@@ -61,6 +65,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return ScreenUtils.dp2px(this, 24f);
     }
 
+    public abstract int getLayoutResId();
+
     protected abstract BaseActivityPresenter getPresenter();
 
     @Override
@@ -70,7 +76,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         if (isScreenPortrait())
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
+        contentView = LayoutInflater.from(context).inflate(getLayoutResId(), null);
+        setContentView(getContentView());
 
+    }
+
+    public View getContentView() {
+        return contentView;
+    }
+
+    public <T extends ViewDataBinding> T getBinding() {
+        return DataBindingUtil.bind(getContentView());
     }
 
     @Override
@@ -152,7 +168,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void setToolbarTitle(String title) {
-        tvTitleBase.setText(getNotNullText(title));
+        tvTitleBase.setText(title);
     }
 
     protected void setToolbarTitle(@StringRes int resId) {
@@ -167,16 +183,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        dismissProgressDialog();
         if (mPresenter != null)
             mPresenter.onDestroy();
-        dismissProgressDialog();
     }
 
     public Context getContext() {
         return context;
     }
 
-    protected void skip(Class<?> cls) {
+    public void skip(Class<?> cls) {
         startActivity(new Intent(getContext(), cls));
     }
 
@@ -210,12 +226,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void logE(String tag, String msg) {
+    protected void logE(String tag, String msg) {
         LogManager.logE(tag, msg);
-    }
-
-    protected CharSequence getNotNullText(CharSequence str) {
-        return CommonUtil.getNotNullText(str);
     }
 
     protected int dp2px(float dpValue) {

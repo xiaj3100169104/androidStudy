@@ -20,21 +20,18 @@ public class WebViewFeedbackActivity extends BaseActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/user_feedback.html";
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_web_view;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("");
 
         bd.webView.getSettings().setJavaScriptEnabled(true);

@@ -35,23 +35,21 @@ public class BLEActivity extends BaseActivity {
     private BluetoothDeviceAdapter adapter;
     private Handler leScanHandler = new Handler();
     private boolean isScanning;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.ble_activity_scan;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.ble_activity_scan);
-        super.setContentView(bd.getRoot());
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("低功耗蓝牙连接测试");
+        EventBus.getDefault().register(this);
+
         dataList = new ArrayList<>();
         adapter = new BluetoothDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

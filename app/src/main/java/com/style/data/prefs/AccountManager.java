@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.style.bean.User;
 import com.style.data.db.user.UserDBManager;
 
-public class AccountManager {
+public final class AccountManager {
     private String TAG = getClass().getSimpleName();
 
     private static final String LOGIN_INFO = "loginInfo";
@@ -20,11 +20,11 @@ public class AccountManager {
 
     private User currentUser;
 
-    private static AccountManager mInstance;
     private static final Object mLock = new Object();
+    private static AccountManager mInstance;
     private Context context;
 
-    public synchronized static AccountManager getInstance() {
+    public static AccountManager getInstance() {
         synchronized (mLock) {
             if (mInstance == null) {
                 mInstance = new AccountManager();
@@ -33,7 +33,8 @@ public class AccountManager {
         }
     }
 
-    public AccountManager() {
+    /* 私有构造方法，防止被JAVA默认的构造函数实例化 */
+    private AccountManager() {
     }
 
     public void init(Context context) {

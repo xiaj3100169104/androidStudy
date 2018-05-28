@@ -11,8 +11,4 @@ public class CommonUtil {
        String UUID = java.util.UUID.randomUUID().toString();
        return new String(UUID.getBytes(), Charset.forName("UTF-8"));
     }
-
-    public static CharSequence getNotNullText(CharSequence str) {
-        return str == null ? "" : str;
-    }
 }

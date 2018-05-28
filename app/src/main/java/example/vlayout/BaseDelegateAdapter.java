@@ -136,10 +136,6 @@ public abstract class BaseDelegateAdapter<T> extends DelegateAdapter.Adapter<Rec
         LogManager.logE(tag, msg);
     }
 
-    protected CharSequence getNotNullText(CharSequence str) {
-        return CommonUtil.getNotNullText(str);
-    }
-
     protected int dp2px(float dpValue) {
         return DeviceInfoUtil.dp2px(mContext, dpValue);
     }

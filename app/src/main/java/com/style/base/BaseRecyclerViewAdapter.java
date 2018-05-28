@@ -135,10 +135,6 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         LogManager.logE(tag, msg);
     }
 
-    protected CharSequence getNotNullText(CharSequence str) {
-        return CommonUtil.getNotNullText(str);
-    }
-
     protected int dp2px(float dpValue) {
         return DeviceInfoUtil.dp2px(mContext, dpValue);
     }

@@ -15,7 +15,7 @@ import com.style.framework.databinding.FragmentHome1Binding;
 
 import example.activity.MyRadioGroupActivity;
 import example.activity.ReadAssetsActivity;
-import example.activity.TestGestureActivity;
+import example.gesture.TestGestureActivity;
 import example.activity.WheelActivity;
 import example.address.AddressActivity;
 import example.album.SelectLocalPictureActivity;

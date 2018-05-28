@@ -15,7 +15,7 @@ import com.style.data.prefs.AccountManager;
 import example.aidl.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
-import example.activity.UserAgreeActivity;
+import example.web.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
 import example.activity.TestDBActivity;
 import example.webservice.WebServiceActivity;

@@ -19,21 +19,18 @@ public class WebViewActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "http://www.baidu.com";
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_h5_remote;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_h5_remote);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("");
 
         bd.webView.getSettings().setJavaScriptEnabled(true);

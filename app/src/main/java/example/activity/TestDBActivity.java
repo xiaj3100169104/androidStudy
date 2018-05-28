@@ -17,21 +17,19 @@ public class TestDBActivity extends BaseActivity {
 
     ActivityTestDbBinding bd;
     @Override
-    public void initData() {
+    public int getLayoutResId() {
+        return R.layout.activity_test_db;
+    }
 
+    @Override
+    public void initData() {
+        bd = getBinding();
         TestDBManager.getInstance().initialize(this);
     }
 
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_test_db);
-        super.setContentView(bd.getRoot());
     }
 
     public void skip418(View v) {

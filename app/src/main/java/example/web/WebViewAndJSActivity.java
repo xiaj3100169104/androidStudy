@@ -21,6 +21,10 @@ public class WebViewAndJSActivity extends BaseActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_web_view;
+    }
 
     @Override
     protected BaseActivityPresenter getPresenter() {
@@ -28,14 +32,8 @@ public class WebViewAndJSActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_web_view);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("与js交互测试");
 
         bd.webView.getSettings().setJavaScriptEnabled(true);

@@ -18,21 +18,18 @@ public class MsgToSubActivity extends BaseActivity {
     ActivityMsgToSubBinding bd;
 
     Handler mHandler;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_msg_to_sub;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_msg_to_sub);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         new Thread(new Runnable() {
             @Override
             public void run() {

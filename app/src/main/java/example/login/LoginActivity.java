@@ -18,6 +18,10 @@ public class LoginActivity extends BaseActivity {
     private long userId = 18;
     private ActivityLoginBinding bd;
     private LoginPresenter mPresenter;
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_login;
+    }
 
     @Override
     protected BaseActivityPresenter getPresenter() {
@@ -26,14 +30,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        super.setContentView(bd.getRoot());
-    }
-
-    @Override
     public void initData() {
+        bd = getBinding();
         mPresenter.getLoginUser();
     }
 

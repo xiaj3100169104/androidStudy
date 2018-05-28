@@ -103,8 +103,4 @@ public abstract class BaseFragment extends Fragment {
         ToastManager.showToastLong(getContext(), msgId);
     }
 
-    protected CharSequence getNotNullText(CharSequence str) {
-        return CommonUtil.getNotNullText(str);
-    }
-
 }

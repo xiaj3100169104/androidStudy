@@ -30,21 +30,17 @@ public class MultiTypeActivity extends BaseActivity {
     private ArrayList<String> dataList4;
 
     private BannerAdapter adapter;
-
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_multi_type;
+    }
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
     }
-
-    @Override
-    protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_multi_type);
-        super.setContentView(bd.getRoot());
-    }
-
     @Override
     public void initData() {
+        bd = getBinding();
         setToolbarTitle("复杂布局");
 
         dataList = new ArrayList<>();

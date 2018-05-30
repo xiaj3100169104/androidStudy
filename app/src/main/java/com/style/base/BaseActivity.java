@@ -34,8 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
-    protected static final int STATUS_BAR_THEME = 2;//主题配置状态栏颜色
-    protected static final int STATUS_BAR_DEFAULT = 3;//系统默认状态栏颜色
+    protected static final int STATUS_BAR_COLOR= 2;//自定义状态栏颜色
     private Context context;
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
@@ -106,21 +105,24 @@ public abstract class BaseActivity extends AppCompatActivity {
                         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                     //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                    //window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
                 }
                 mContentView.setFitsSystemWindows(false);
-                break;
-            case STATUS_BAR_DEFAULT:
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                mContentView.setFitsSystemWindows(true);
-                break;
-            case STATUS_BAR_THEME:
-                mContentView.setFitsSystemWindows(true);
                 break;
             case STATUS_BAR_TRANSLUCENT:
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 mContentView.setFitsSystemWindows(false);
                 break;
+            case STATUS_BAR_COLOR:
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    window.setStatusBarColor(getResources().getColor(R.color.orange));
+                mContentView.setFitsSystemWindows(true);
+                break;
+            default:
+                mContentView.setFitsSystemWindows(true);
+                break;
+
         }
         super.setContentView(mContentView);
         if (isGeneralTitleBar()) {
@@ -153,10 +155,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         statusBar = mContentView.findViewById(R.id.status_bar);
         ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
-        if (getStatusBarStyle() == STATUS_BAR_DEFAULT || getStatusBarStyle() == STATUS_BAR_THEME)
-            statusBar.getLayoutParams().height = 0;
-        else
+        if (getStatusBarStyle() == STATUS_BAR_TRANSLUCENT || getStatusBarStyle() == STATUS_BAR_TRANSPARENT)
             statusBar.getLayoutParams().height = getStatusHeight();
+        else
+            statusBar.getLayoutParams().height = 0;
         ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

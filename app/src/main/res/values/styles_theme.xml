@@ -20,7 +20,10 @@
         <item name="editTextColor">@color/black_light</item>
         <item name="android:windowAnimationStyle">@style/CustomEnterExitAnimation</item>
     </style>
-
+    <!--activity的Window窗口背景透明-->
+    <style name="AppTheme.Black_Status" parent="BaseAppTheme">
+        <item name="colorPrimaryDark">@color/orange</item>
+    </style>
     <!--activity的Window窗口背景透明-->
     <style name="AppTheme.Translucent" parent="BaseAppTheme">
         <item name="android:windowBackground">@color/windowBackground_translucent</item>

@@ -3,7 +3,6 @@ package example.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -11,9 +10,9 @@ import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGlideDealBinding;
-import com.style.glide.GlideCircleTransform;
-import com.style.glide.GlideRectBoundTransform;
-import com.style.glide.GlideRoundTransform;
+import com.style.data.glide.GlideCircleTransform;
+import com.style.data.glide.GlideRectBoundTransform;
+import com.style.data.glide.GlideRoundTransform;
 
 
 public class GlideDealActivity extends BaseActivity {

@@ -1,6 +1,5 @@
 package com.style.app;
 
-import android.os.Process;
 import android.util.Log;
 
 import java.io.PrintWriter;

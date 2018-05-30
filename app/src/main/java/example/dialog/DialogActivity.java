@@ -1,9 +1,6 @@
 package example.dialog;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -14,18 +11,7 @@ import com.style.dialog.LoadingDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.framework.databinding.DialogActivityDialogBinding;
-import com.style.view.MyRadioGroup;
-
-import example.activity.MyRadioGroupActivity;
-import example.activity.WheelActivity;
-import example.address.AddressActivity;
-import example.album.SelectLocalPictureActivity;
-import example.fragment.EmotionBaseDataFrag;
-import example.fragment.EmotionDataFrag;
-import example.home.HomeFragment1;
-import example.vlayout.MultiTypeActivity;
 
 /**
  * Created by xiajun on 2016/10/8.

@@ -5,10 +5,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.base.BaseActivityPresenter;
-import com.style.net.bean.UserInfo;
-import com.style.net.core2.callback.CustomHttpThrowable;
-import com.style.net.core2.converter.ResultErrorException;
-import com.style.net.core2.response.TokenResponse;
+import com.style.data.net.bean.UserInfo;
+import com.style.data.net.exception.ResultErrorException;
+import com.style.data.net.response.TokenResponse;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
@@ -29,10 +28,10 @@ public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivit
                 getActivity().showToast("查询天气成功");
                 getActivity().searchWeatherSuccess(s);
             }
-        }, new CustomHttpThrowable() {
+        }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable e) throws Exception {
-                super.accept(e);
+                handleHttpError(e);
                 getActivity().showToast("查询天气失败");
             }
         });
@@ -94,10 +93,10 @@ public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivit
                 Log.e(TAG, userInfo.toString());
 
             }
-        }, new CustomHttpThrowable() {
+        }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable e) throws Exception {
-                super.accept(e);
+                handleHttpError(e);
             }
         });
         addTask(d);

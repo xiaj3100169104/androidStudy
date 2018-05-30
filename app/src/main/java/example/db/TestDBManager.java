@@ -6,11 +6,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.style.bean.Friend;
 import com.style.bean.User;
-import com.style.db.user.DBUtils;
-import com.style.db.user.SQLiteHelperListener;
-import com.style.db.user.UserRelativeSQLiteHelper;
+import com.style.data.db.user.SQLiteHelperListener;
+import com.style.data.db.user.UserRelativeSQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;

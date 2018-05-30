@@ -18,11 +18,9 @@ import com.style.base.BaseActivityPresenter;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
-import com.style.app.AccountManager;
+import com.style.data.prefs.AccountManager;
 
 import org.simple.eventbus.EventBus;
-
-import example.ble.BleManager;
 
 
 public class MainActivity extends BaseActivity {

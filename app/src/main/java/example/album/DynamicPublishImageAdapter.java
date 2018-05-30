@@ -11,7 +11,7 @@ import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.AdapterPublishDynamicPictureBinding;
-import com.style.glide.ImageLoader;
+import com.style.data.glide.ImageLoader;
 
 import java.util.ArrayList;
 

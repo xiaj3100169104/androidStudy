@@ -1,27 +1,13 @@
 package com.style.app;
 
-import android.app.ActivityManager;
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Typeface;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.utils.AppInfoUtil;
-import com.style.utils.CommonUtil;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
-
-import java.util.List;
 
 
 public class HotFixManager {

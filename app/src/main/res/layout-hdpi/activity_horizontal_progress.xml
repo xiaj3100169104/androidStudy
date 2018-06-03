@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgress="30"
+            custom:horizontalProgressColor="@color/colorAccent" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress3"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgress="50"
+            custom:horizontalProgressColor="@android:color/holo_green_light" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress4"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/darker_gray"
+            custom:horizontalProgress="80"
+            custom:horizontalProgressColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="下载" />
+    </LinearLayout>
+
+</RelativeLayout>

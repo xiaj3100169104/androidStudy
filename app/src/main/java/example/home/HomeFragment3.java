@@ -15,6 +15,7 @@ import com.style.data.prefs.AccountManager;
 import example.aidl.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
+import example.customview.activity.CustomViewMainActivity;
 import example.web.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
 import example.activity.TestDBActivity;
@@ -23,6 +24,7 @@ import example.web.WebViewActivity;
 import example.web.WebViewAndJSActivity;
 import example.web.WebViewFeedbackActivity;
 import example.ndk.JniTestActivity;
+import fussen.cc.barchart.activity.CustomScrollMainActivity;
 
 
 public class HomeFragment3 extends BaseFragment {
@@ -87,6 +89,11 @@ public class HomeFragment3 extends BaseFragment {
         public void skip11(View v) {
             skip(WebServiceActivity.class);
         }
-
+        public void skip12(View v) {
+            skip(CustomViewMainActivity.class);
+        }
+        public void skip13(View v) {
+            skip(CustomScrollMainActivity.class);
+        }
     }
 }

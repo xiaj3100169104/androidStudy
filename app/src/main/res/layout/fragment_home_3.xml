@@ -101,6 +101,16 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip11}"
                     android:text="1.1.5 release常规更新http请求webservice" />
+                <TextView
+                    android:id="@+id/btn_custom_view"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip12}"
+                    android:text="自定义view" />
+                <TextView
+                    android:id="@+id/btn_custom_view_scroll"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip13}"
+                    android:text="自定义滚动view" />
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -20,6 +20,12 @@ public class CurveActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bd = DataBindingUtil.setContentView(this, R.layout.activity_curve);
+        /*bd.heartLine.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                bd.heartLine.scrollTo(900, 0);
+            }
+        }, 2000);*/
     }
 
     public void refresh(View view) {

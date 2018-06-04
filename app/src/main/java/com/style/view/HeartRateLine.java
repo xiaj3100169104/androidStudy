@@ -54,7 +54,8 @@ public class HeartRateLine extends View {
     private ArrayList<PointItem> dataList;
     private int defaultWidth;
     private Paint mNoDataPathPaint;
-
+    //内容区偏移量，
+    private int mContentOffset;
     public HeartRateLine(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         defaultWidth = Utils.dp2px(getContext(), 300);
@@ -122,7 +123,19 @@ public class HeartRateLine extends View {
         Log.e(TAG, "onMeasure--" + mWidth + "  " + mHeight);
         setMeasuredDimension(mWidth, mHeight);
     }
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e(TAG, "onLayout-->  " + "changed:" + changed + " left:" + left + " top:" + top + "  right:" + right + "  bottom:" + bottom);
 
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        Log.e(TAG, "onScrollChanged-->  " + " left:" + l + " top:" + t + "  oldl:" + oldl + "  oldt:" + oldt);
+        mContentOffset = l;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         mLinePath.reset();

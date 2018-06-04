@@ -19,7 +19,6 @@
             custom:horizontalProgressColor="@color/colorAccent" />
 
         <Button
-            android:id="@+id/bt_http_down"
             style="@style/text_white_15sp"
             android:layout_width="200dp"
             android:layout_height="50dp"

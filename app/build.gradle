@@ -83,17 +83,17 @@ android {
     }
     android.applicationVariants.all { variant ->    //批量修改Apk名字
         variant.outputs.all { output ->
-            //if (!variant.buildType.isDebuggable()) {
-            //获取签名的名字 variant.signingConfig.name
+            def fileDir = "${project.rootDir.absolutePath}/publish/${variant.flavorName}/${variant.buildType.name}"
+            variant.getPackageApplication().outputDirectory = new File(fileDir)
             //要被替换的源字符串
-            def sourceFile = "app-${variant.flavorName}-${variant.buildType.name}"
+            /*def sourceFile = "app-${variant.flavorName}-${variant.buildType.name}"
             //替换的字符串
             def replaceFile = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}"
-            outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
-            //遗留问题：如何获取当前module的name，如CodeBooke这个名字怎么获取到
-            // }
+            outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)*/
+            outputFileName = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}.apk"
         }
     }
+
     buildTypes {
         release {
             debuggable false

@@ -11,7 +11,6 @@ import android.view.animation.RotateAnimation;
 
 import com.style.framework.R;
 
-
 /**
  * 百分比圆环形进度 View
  */

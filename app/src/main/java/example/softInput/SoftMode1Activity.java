@@ -1,8 +1,5 @@
 package example.softInput;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
@@ -23,13 +20,13 @@ public class SoftMode1Activity extends BaseActivity {
 
     @Override
     protected int getStatusBarStyle() {
-        return STATUS_BAR_DEFAULT;
+        return STATUS_BAR_COLOR;
     }
 
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("默认状态栏样式");
+        setToolbarTitle("自定义状态栏颜色");
     }
 
 }

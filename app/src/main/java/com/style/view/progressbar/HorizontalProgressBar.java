@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.style.framework.R;
 
-
 /**
  * 自定义通知提醒view(小圆点)
  */

@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:background="#121212">
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:text="号码："
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:id="@+id/et_call_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@null"
+            android:layout_toLeftOf="@+id/bt_delete"
+            android:layout_toRightOf="@+id/tag"
+            android:inputType="number"
+            android:maxLength="13"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/bt_delete"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:src="@mipmap/ic_check_in_delete" />
+    </RelativeLayout>
+
+    <com.style.view.CallKeyboard
+        android:id="@+id/call_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/bt_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#121212"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"/>
+
+</LinearLayout>

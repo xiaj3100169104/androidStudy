@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:id="@+id/gridlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:background="@android:color/white"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:rowCount="4">
+
+        <Button
+            android:id="@+id/one"
+            style="@style/bt_call_keyboard"
+            android:text="1" />
+        　　
+
+        <Button
+            android:id="@+id/two"
+            style="@style/bt_call_keyboard"
+            android:text="2" />
+        　　
+
+        <Button
+            android:id="@+id/three"
+            style="@style/bt_call_keyboard"
+            android:text="3" />
+        　　
+
+        <Button
+            android:id="@+id/four"
+            style="@style/bt_call_keyboard"
+            android:text="4" />
+        　　
+
+        <Button
+            android:id="@+id/five"
+            style="@style/bt_call_keyboard"
+            android:text="5" />
+        　　
+
+        <Button
+            android:id="@+id/six"
+            style="@style/bt_call_keyboard"
+            android:text="6" />
+        　　
+
+        <Button
+            android:id="@+id/seven"
+            style="@style/bt_call_keyboard"
+            android:text="7" />
+        　　
+
+        <Button
+            android:id="@+id/eight"
+            style="@style/bt_call_keyboard"
+            android:text="8" />
+        　　
+
+        <Button
+            android:id="@+id/nine"
+            style="@style/bt_call_keyboard"
+            android:text="9" />
+
+        <Button
+            android:id="@+id/mark"
+            style="@style/bt_call_keyboard"
+            android:text="*" />
+
+        <Button
+            android:id="@+id/zero"
+            style="@style/bt_call_keyboard"
+            android:text="0" />
+
+        <Button
+            android:id="@+id/asterisk"
+            style="@style/bt_call_keyboard"
+            android:text="#" />
+    </GridLayout>
+</LinearLayout>

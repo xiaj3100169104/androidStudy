@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.style.view.ScanView
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        app:xj_corner_color="#0090ff"
+        app:xj_corner_width="8dp"
+        app:xj_corner_height="3dp"
+        app:xj_refresh_time="50"/>
+
+
+</RelativeLayout>

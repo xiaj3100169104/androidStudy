@@ -1,17 +1,10 @@
 package example.softInput;
 
-import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
-
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
+import com.style.helper.EditTextHelper;
 
 public class SoftMode2Activity extends BaseActivity {
 
@@ -34,6 +27,8 @@ public class SoftMode2Activity extends BaseActivity {
     public void initData() {
         bd = getBinding();
         setToolbarTitle("状态栏为主题配置里的颜色");
+
+
     }
 
     @Override

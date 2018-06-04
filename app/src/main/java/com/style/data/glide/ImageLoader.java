@@ -7,12 +7,9 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.module.GlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.framework.R;
-import com.style.glide.GlideApp;
 
 public class ImageLoader {
     public static void loadNormalAvatar(Context context, ImageView imageView, String url) {

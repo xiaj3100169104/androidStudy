@@ -3,6 +3,7 @@ package com.style.base;
 import android.support.annotation.StringRes;
 
 import com.style.app.AppManager;
+import com.style.app.LogManager;
 import com.style.app.ToastManager;
 import com.style.data.net.exception.ResultErrorException;
 import com.style.data.prefs.AccountManager;
@@ -60,6 +61,14 @@ public abstract class BaseActivityPresenter<V> {
         if (tasks != null)
             tasks.dispose();
         mActivity = null;
+    }
+
+    protected void logI(String tag, String msg) {
+        LogManager.logI(tag, msg);
+    }
+
+    protected void logE(String tag, String msg) {
+        LogManager.logE(tag, msg);
     }
 
     public void handleHttpError(Throwable e) {

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.data.prefs.AccountManager;
+import com.style.framework.BuildConfig;
 
 import java.io.IOException;
 
@@ -20,7 +21,8 @@ public class InterceptorUtil {
         return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.e(TAG, message);
+                if (BuildConfig.LOG_ENABLE)
+                    Log.e(TAG, message);
             }
         }).setLevel(HttpLoggingInterceptor.Level.BODY);//设置打印数据的级别
     }

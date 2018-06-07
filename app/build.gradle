@@ -84,7 +84,7 @@ android {
     android.applicationVariants.all { variant ->    //批量修改Apk名字
         variant.outputs.all { output ->
             def fileDir = "${project.rootDir.absolutePath}/publish/${variant.flavorName}/${variant.buildType.name}"
-            variant.getPackageApplication().outputDirectory = new File(fileDir)
+            //variant.getPackageApplication().outputDirectory = new File(fileDir)
             //要被替换的源字符串
             /*def sourceFile = "app-${variant.flavorName}-${variant.buildType.name}"
             //替换的字符串
@@ -96,6 +96,7 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("boolean", "LOG_ENABLE", "false")
             debuggable false
             jniDebuggable false
             minifyEnabled false
@@ -103,6 +104,7 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            buildConfigField("boolean", "LOG_ENABLE", "true")
             debuggable true
             jniDebuggable true
             minifyEnabled false

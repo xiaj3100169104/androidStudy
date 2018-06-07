@@ -38,7 +38,7 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="200dp"
                         android:background="#0f0"
                         android:text="视图2" />
 

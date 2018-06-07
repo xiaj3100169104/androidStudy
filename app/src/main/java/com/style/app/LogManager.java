@@ -1,19 +1,17 @@
 package com.style.app;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-public class LogManager {
-	private static boolean bothNotNull(String tag, String msg) {
-		if (!TextUtils.isEmpty(tag) && !TextUtils.isEmpty(msg)) {
-			return true;
-		}
-		return false;
-	}
+import com.style.framework.BuildConfig;
 
-	public static void logE(String tag, String msg) {
-		if (bothNotNull(tag, msg)) {
-			Log.e(tag, msg);
-		}
-	};
+public class LogManager {
+    public static void logI(String tag, String msg) {
+        if (BuildConfig.LOG_ENABLE)
+            Log.i(tag, msg);
+    }
+
+    public static void logE(String tag, String msg) {
+        if (BuildConfig.LOG_ENABLE)
+            Log.e(tag, msg);
+    }
 }

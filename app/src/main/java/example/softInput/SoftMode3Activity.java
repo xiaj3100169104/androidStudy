@@ -154,7 +154,7 @@ public class SoftMode3Activity extends BaseActivity {
             dataList.add(i + "");
         }
         adapter.notifyDataSetChanged();
-
+        bd.recyclerView.scrollToPosition(adapter.getItemCount());
     }
 
 }

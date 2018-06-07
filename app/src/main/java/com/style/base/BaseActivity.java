@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
-    protected static final int STATUS_BAR_COLOR= 2;//自定义状态栏颜色
+    protected static final int STATUS_BAR_COLOR = 2;//自定义状态栏颜色
     private Context context;
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
@@ -212,10 +212,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void logE(String tag, String msg) {
-        LogManager.logE(tag, msg);
-    }
-
     protected int dp2px(float dpValue) {
         return DeviceInfoUtil.dp2px(getContext(), dpValue);
     }
@@ -252,4 +248,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
 
+    protected void logI(String tag, String msg) {
+        LogManager.logI(tag, msg);
+    }
+
+    protected void logE(String tag, String msg) {
+        LogManager.logE(tag, msg);
+    }
 }

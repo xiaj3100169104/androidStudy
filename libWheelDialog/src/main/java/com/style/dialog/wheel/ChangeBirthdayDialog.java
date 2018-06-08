@@ -22,7 +22,7 @@ import java.util.Calendar;
  * @author ywl
  *
  */
-public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener {
+public class ChangeBirthdayDialog extends BaseWheelDialog implements View.OnClickListener {
 
 	private Context context;
 	private WheelView wvYear;
@@ -30,7 +30,6 @@ public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener
 	private WheelView wvDay;
 
 	private View vChangeBirth;
-	private View vChangeBirthChild;
 	private TextView btnSure;
 	private TextView btnCancel;
 
@@ -68,17 +67,20 @@ public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_change_birthday);
+
+	}
+
+	@Override
+	protected void init() {
 		wvYear = (WheelView) findViewById(R.id.wv_birth_year);
 		wvMonth = (WheelView) findViewById(R.id.wv_birth_month);
 		wvDay = (WheelView) findViewById(R.id.wv_birth_day);
 
 		vChangeBirth = findViewById(R.id.ly_myinfo_changebirth);
-		vChangeBirthChild = findViewById(R.id.ly_myinfo_changebirth_child);
 		btnSure = (TextView) findViewById(R.id.btn_myinfo_sure);
 		btnCancel = (TextView) findViewById(R.id.btn_myinfo_cancel);
 
 		vChangeBirth.setOnClickListener(this);
-		vChangeBirthChild.setOnClickListener(this);
 		btnSure.setOnClickListener(this);
 		btnCancel.setOnClickListener(this);
 
@@ -258,10 +260,6 @@ public class ChangeBirthdayDialog extends Dialog implements View.OnClickListener
 			}
 		} else if (v == btnSure) {
 
-		} else if (v == vChangeBirthChild) {
-			return;
-		} else {
-			dismiss();
 		}
 		dismiss();
 

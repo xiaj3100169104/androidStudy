@@ -45,12 +45,6 @@
                     android:onClick="@{onItemClickListener::skip1}"
                     android:text="album" />
 
-                <TextView
-                    android:id="@+id/btn_wheel"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip4}"
-
-                    android:text="wheel" />
 
                 <TextView
                     android:id="@+id/btn_radio"
@@ -63,6 +57,13 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip31}"
                     android:text="各种对话框" />
+
+                <TextView
+                    android:id="@+id/btn_wheel"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip4}"
+
+                    android:text="wheel" />
 
                 <TextView
                     android:id="@+id/btn_user_agree"

@@ -5,29 +5,28 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <!--地址选择对话框样式 -->
-    <style name="Dialog_Address" parent="android:Theme.Holo.Light.Dialog">
+    <style name="Dialog_General" parent="android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-
-    </style>
-
-    <style name="Dialog_Base" parent="android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <!--背景是否变暗-->
         <item name="android:backgroundDimEnabled">true</item>
+        <!--控制灰度的值，当为1时dialog以外的区域是黑色-->
+        <item name="android:backgroundDimAmount">0.3</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     </style>
 
-    <style name="Dialog_NoTitle" parent="@style/Dialog_Base">
-        <item name="android:windowNoTitle">true</item>
+    <!--布局外区域全透明-->
+    <style name="Dialog_Transparent" parent="@style/Dialog_General">
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="Dialog_bg_transparent_NoTitle" parent="@style/Dialog_NoTitle">
+    <style name="MaterialProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
+        <!--使用colorAccent兼容低版本，而不是android:colorAccent-->
+        <item name="colorAccent">#FF458B00</item>
     </style>
-
 </resources>

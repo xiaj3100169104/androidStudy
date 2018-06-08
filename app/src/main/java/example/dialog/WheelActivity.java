@@ -1,4 +1,4 @@
-package example.activity;
+package example.dialog;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.style.dialog.wheel.ChangeBirthdayDialog;
 import com.style.dialog.wheel.ChangeDialog1List;
 import com.style.dialog.wheel.ChangeDialog2List;
 import com.style.framework.R;
+
 import example.helper.DataHelper;
 
 import com.style.framework.databinding.ActivityWheelBinding;
@@ -34,10 +35,12 @@ public class WheelActivity extends BaseActivity {
 
     private ChangeBirthdayDialog mChangeBirthDialog;
     private ChangeAddressDialog mChangeAddressDialog;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_wheel;
     }
+
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
@@ -63,9 +66,11 @@ public class WheelActivity extends BaseActivity {
     public void selBirthday(View v) {
         showBirthDayDialog();
     }
+
     public void selHometown(View v) {
         selectPlaceDialog();
     }
+
     protected void showSingleChoiceDialog(String title, final List<String> items, final TextView textView) {
         String value = textView.getText().toString();
         if (singleChoiceDialog == null) {

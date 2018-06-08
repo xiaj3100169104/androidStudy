@@ -9,11 +9,6 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal">
-
         <Button
             android:id="@+id/item_camera"
             android:layout_width="match_parent"
@@ -22,12 +17,6 @@
             android:text="拍照"
             android:textColor="#585858"
             android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal">
 
         <Button
             android:id="@+id/item_photo"
@@ -37,14 +26,7 @@
             android:text="从相册中选取"
             android:textColor="#585858"
             android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal">
-
-        <Button
+         <Button
             android:id="@+id/item_cancel"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -52,5 +34,4 @@
             android:text="取消"
             android:textColor="#585858"
             android:textSize="18sp" />
-    </LinearLayout>
 </LinearLayout>

@@ -22,10 +22,9 @@ import java.util.List;
  *
  * @author ywl
  */
-public class ChangeDialog1List extends Dialog implements View.OnClickListener {
+public class ChangeDialog1List extends BaseWheelDialog implements View.OnClickListener {
     private WheelView wvProvince;
     private View lyChangeAddress;
-    private View lyChangeAddressChild;
     private TextView btnSure;
     private TextView btnCancel;
 
@@ -63,15 +62,18 @@ public class ChangeDialog1List extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_change_1_list);
 
+    }
+
+    @Override
+    protected void init() {
+
         wvProvince = (WheelView) findViewById(R.id.wv_address_province);
         lyChangeAddress = findViewById(R.id.ly_myinfo_changeaddress);
-        lyChangeAddressChild = findViewById(R.id.ly_myinfo_changeaddress_child);
         btnSure = (TextView) findViewById(R.id.btn_myinfo_sure);
         btnCancel = (TextView) findViewById(R.id.btn_myinfo_cancel);
         tv_title = (TextView) findViewById(R.id.tv_share_title);
 
         lyChangeAddress.setOnClickListener(this);
-        lyChangeAddressChild.setOnClickListener(this);
         btnSure.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         strProvince = arrProvinces.get(0);
@@ -89,7 +91,6 @@ public class ChangeDialog1List extends Dialog implements View.OnClickListener {
 
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                // TODO Auto-generated method stub
                 String currentText = (String) provinceAdapter.getItemText(wheel.getCurrentItem());
                 strProvince = currentText;
                 setTextviewSize(currentText, provinceAdapter);
@@ -100,13 +101,11 @@ public class ChangeDialog1List extends Dialog implements View.OnClickListener {
 
             @Override
             public void onScrollingStarted(WheelView wheel) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void onScrollingFinished(WheelView wheel) {
-                // TODO Auto-generated method stub
                 String currentText = (String) provinceAdapter.getItemText(wheel.getCurrentItem());
                 setTextviewSize(currentText, provinceAdapter);
             }
@@ -166,17 +165,12 @@ public class ChangeDialog1List extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         if (v == btnSure) {
             if (onAddressCListener != null) {
                 onAddressCListener.onClick(strProvince);
             }
         } else if (v == btnCancel) {
 
-        } else if (v == lyChangeAddressChild) {
-            return;
-        } else {
-            dismiss();
         }
         dismiss();
     }

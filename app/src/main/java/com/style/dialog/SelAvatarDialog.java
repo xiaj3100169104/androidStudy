@@ -25,7 +25,7 @@ public class SelAvatarDialog extends Dialog {
     }
 
     public SelAvatarDialog(Context context) {
-        super(context, R.style.Dialog_NoTitle);
+        super(context, R.style.Dialog_General);
         setOwnerActivity((Activity) context);
         init(context);
     }
@@ -60,6 +60,7 @@ public class SelAvatarDialog extends Dialog {
             }
         });
         Window window = getWindow();
+        //默认对话框会有边距，宽度不能占满屏幕
         window.getDecorView().setPadding(0, 0, 0, 0);
         window.setGravity(Gravity.BOTTOM);
         DisplayMetrics dm = new DisplayMetrics();

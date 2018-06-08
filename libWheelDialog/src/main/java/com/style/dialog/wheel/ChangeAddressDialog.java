@@ -1,10 +1,14 @@
 package com.style.dialog.wheel;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.style.dialog.wheel.adapters.AbstractWheelTextAdapter;
@@ -28,12 +32,11 @@ import java.util.Map;
  *
  * @author ywl
  */
-public class ChangeAddressDialog extends Dialog implements View.OnClickListener {
+public class ChangeAddressDialog extends BaseWheelDialog implements View.OnClickListener {
 
     private WheelView wvProvince;
     private WheelView wvCitys;
     private View lyChangeAddress;
-    private View lyChangeAddressChild;
     private TextView btnSure;
     private TextView btnCancel;
 
@@ -64,14 +67,17 @@ public class ChangeAddressDialog extends Dialog implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_change_address);
 
+    }
+
+    @Override
+    protected void init() {
+
         wvProvince = (WheelView) findViewById(R.id.wv_address_province);
         wvCitys = (WheelView) findViewById(R.id.wv_address_city);
         lyChangeAddress = findViewById(R.id.ly_myinfo_changeaddress);
-        lyChangeAddressChild = findViewById(R.id.ly_myinfo_changeaddress_child);
         btnSure = (TextView) findViewById(R.id.btn_myinfo_sure);
         btnCancel = (TextView) findViewById(R.id.btn_myinfo_cancel);
         lyChangeAddress.setOnClickListener(this);
-        lyChangeAddressChild.setOnClickListener(this);
         btnSure.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
@@ -210,10 +216,6 @@ public class ChangeAddressDialog extends Dialog implements View.OnClickListener 
             }
         } else if (v == btnCancel) {
 
-        } else if (v == lyChangeAddressChild) {
-            return;
-        } else {
-            dismiss();
         }
         dismiss();
     }

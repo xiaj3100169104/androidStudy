@@ -8,6 +8,7 @@ import android.view.View;
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.dialog.LoadingDialog;
+import com.style.dialog.MaterialProgressDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
@@ -20,6 +21,7 @@ public class DialogActivity extends BaseActivity {
     DialogActivityDialogBinding bd;
     private FragmentManager fm;
     private FragmentTransaction bt;
+    private MaterialProgressDialog materialDialog;
 
     @Override
     public int getLayoutResId() {
@@ -37,6 +39,9 @@ public class DialogActivity extends BaseActivity {
         setToolbarTitle("弹出框");
         fm = getSupportFragmentManager();
         bd.setOnItemClickListener(new OnItemClickListener());
+
+        materialDialog = new MaterialProgressDialog(this);
+        materialDialog.show();
     }
 
     public class OnItemClickListener {

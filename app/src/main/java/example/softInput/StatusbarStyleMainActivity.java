@@ -1,19 +1,10 @@
 package example.softInput;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
-import com.style.dialog.LoadingDialog;
-import com.style.dialog.PromptDialog;
-import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
-import com.style.framework.databinding.DialogActivityDialogBinding;
 import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 
 /**

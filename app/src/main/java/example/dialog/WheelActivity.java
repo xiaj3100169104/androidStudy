@@ -1,24 +1,21 @@
 package example.dialog;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
-import com.style.dialog.wheel.ChangeAddressDialog;
-import com.style.dialog.wheel.ChangeBirthdayDialog;
-import com.style.dialog.wheel.ChangeDialog1List;
-import com.style.dialog.wheel.ChangeDialog2List;
+import com.style.dialog.BaseSingleWheelDialog;
+import com.style.dialog.ChangeAddressDialog;
+import com.style.dialog.ChangeBirthdayDialog;
+import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.framework.R;
-
-import example.helper.DataHelper;
-
 import com.style.framework.databinding.ActivityWheelBinding;
 import com.style.utils.StringUtil;
 
 import java.util.List;
+
+import example.helper.DataHelper;
 
 
 /**
@@ -27,11 +24,9 @@ import java.util.List;
 public class WheelActivity extends BaseActivity {
 
     ActivityWheelBinding bd;
-    private List<String> occupations;
-    private List<String> fcAges;
 
-    private ChangeDialog2List twoChoiceDialog;
-    private ChangeDialog1List singleChoiceDialog;
+    private AgeScreenDialog twoChoiceDialog;
+    private OccupationDialog singleChoiceDialog;
 
     private ChangeBirthdayDialog mChangeBirthDialog;
     private ChangeAddressDialog mChangeAddressDialog;
@@ -50,17 +45,17 @@ public class WheelActivity extends BaseActivity {
     public void initData() {
         bd = getBinding();
         setToolbarTitle("滚轮");
-        occupations = DataHelper.getOccupationSelf(this);
-        fcAges = DataHelper.getAgeCondition();
 
     }
 
     public void selOccupation(View v) {
-        showSingleChoiceDialog("选择职业", occupations, bd.viewOccupation);
+        String str = bd.viewOccupation.getText().toString();
+        showOccupationDialog(str);
     }
 
     public void selFcAge(View v) {
-        showTwoChoiceDialog("选择年龄", bd.viewAge, fcAges, fcAges);
+        String str = bd.viewAge.getText().toString();
+        showAgeScreenDialog(str);
     }
 
     public void selBirthday(View v) {
@@ -71,27 +66,23 @@ public class WheelActivity extends BaseActivity {
         selectPlaceDialog();
     }
 
-    protected void showSingleChoiceDialog(String title, final List<String> items, final TextView textView) {
-        String value = textView.getText().toString();
+    protected void showOccupationDialog(String str) {
         if (singleChoiceDialog == null) {
-            singleChoiceDialog = new ChangeDialog1List(this, items);
+            singleChoiceDialog = new OccupationDialog(this);
+            singleChoiceDialog.setAddresskListener(new BaseSingleWheelDialog.OnAddressCListener() {
+                @Override
+                public void onClick(String value) {
+                    bd.viewOccupation.setText(value);
+                }
+            });
         }
-        singleChoiceDialog.setAddresskListener(new ChangeDialog1List.OnAddressCListener() {
-            @Override
-            public void onClick(String value) {
-                textView.setText(value);
-            }
-        });
-        singleChoiceDialog.setList(items);
         singleChoiceDialog.show();
-        singleChoiceDialog.setMyTitle(title);
-        singleChoiceDialog.initView(value);
+        singleChoiceDialog.setCurrentItem(str);
     }
 
-    private void showTwoChoiceDialog(String title, final TextView textView, List<String> list1, List<String> list2) {
+    private void showAgeScreenDialog(String str) {
         String province = null;
         String city = null;
-        String str = textView.getText().toString();
         String[] s = StringUtil.getStringArray(str, " - ");
         if (s != null) {
             if (s.length == 2) {
@@ -100,18 +91,16 @@ public class WheelActivity extends BaseActivity {
             }
         }
         if (twoChoiceDialog == null) {
-            twoChoiceDialog = new ChangeDialog2List(this, list1, list2);
+            twoChoiceDialog = new AgeScreenDialog(this);
         }
-        twoChoiceDialog.setAddresskListener(new ChangeDialog2List.OnAddressCListener() {
+        twoChoiceDialog.setAddresskListener(new BaseDoubleWheelDialog.OnAddressCListener() {
             @Override
             public void onClick(String province, String city) {
                 logE("city", province + " - " + city);
-                textView.setText(province + " - " + city);
+                bd.viewAge.setText(province + " - " + city);
             }
         });
-        twoChoiceDialog.setList(list1, list2);
         twoChoiceDialog.show();
-        twoChoiceDialog.setMyTitle(title);
         twoChoiceDialog.initView(province, city);
     }
 

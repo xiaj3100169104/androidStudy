@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aigestudio="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_share_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dip"
+        android:layout_marginLeft="18dip"
+        android:layout_marginTop="18dip"
+        android:gravity="center_vertical"
+        android:text="单条列表选择对话框"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.aigestudio.wheelpicker.WheelPicker
+            android:id="@+id/main_wheel_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            aigestudio:wheel_atmospheric="true"
+            aigestudio:wheel_curved="true"
+            aigestudio:wheel_cyclic="true"
+            aigestudio:wheel_item_text_color="#A7A7DB"
+            aigestudio:wheel_item_text_size="24sp"
+            aigestudio:wheel_selected_item_text_color="#536D8A" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="21dip"
+        android:layout_marginTop="25dip">
+
+        <TextView
+            android:id="@+id/btn_myinfo_sure"
+            android:layout_width="77dip"
+            android:layout_height="33dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dip"
+            android:gravity="center"
+            android:text="确认"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_myinfo_cancel"
+            android:layout_width="77dip"
+            android:layout_height="33dip"
+            android:layout_toLeftOf="@+id/btn_myinfo_sure"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</LinearLayout>

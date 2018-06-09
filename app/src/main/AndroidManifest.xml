@@ -136,25 +136,33 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customview.activity.CustomViewMainActivity" />
         <activity android:name="example.customview.activity.WriteWordActivity" />
-        <activity android:name="example.customview.activity.WaterPoloActivity"
-            android:label="WaterPolo"/>
-        <activity android:name="example.customview.activity.SoundWaveActivity"
-            android:label="SoundWave"/>
-        <activity android:name="example.customview.activity.CustomNotifyViewActivity"
-            android:label="CustomNotifyView"/>
-        <activity android:name="example.customview.activity.HorizontalProgressActivity"
-            android:label="HorizontalProgressBar"/>
+        <activity
+            android:name="example.customview.activity.WaterPoloActivity"
+            android:label="WaterPolo" />
+        <activity
+            android:name="example.customview.activity.SoundWaveActivity"
+            android:label="SoundWave" />
+        <activity
+            android:name="example.customview.activity.CustomNotifyViewActivity"
+            android:label="CustomNotifyView" />
+        <activity
+            android:name="example.customview.activity.HorizontalProgressActivity"
+            android:label="HorizontalProgressBar" />
         <activity android:name="example.customview.activity.CurveActivity2" />
         <activity android:name="example.customview.activity.TemperatureActivity" />
 
-        <activity android:name="example.customview.activity.CircleProgressBarActivity"
-            android:label="CircleProgressBar"/>
-        <activity android:name="example.customview.activity.SuspendWindowActivity"
-            android:label="SuspendWindow"/>
-        <activity android:name="example.customview.activity.KeyboardActivity"
-            android:label="CustomKeyboard"/>
-        <activity android:name="example.customview.activity.ScanViewActivity"
-            android:label="ScanView"/>
+        <activity
+            android:name="example.customview.activity.CircleProgressBarActivity"
+            android:label="CircleProgressBar" />
+        <activity
+            android:name="example.customview.activity.SuspendWindowActivity"
+            android:label="SuspendWindow" />
+        <activity
+            android:name="example.customview.activity.KeyboardActivity"
+            android:label="CustomKeyboard" />
+        <activity
+            android:name="example.customview.activity.ScanViewActivity"
+            android:label="ScanView" />
         <activity android:name="fussen.cc.barchart.activity.CustomScrollMainActivity">
 
         </activity>

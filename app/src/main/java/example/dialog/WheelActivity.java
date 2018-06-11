@@ -69,7 +69,7 @@ public class WheelActivity extends BaseActivity {
     protected void showOccupationDialog(String str) {
         if (singleChoiceDialog == null) {
             singleChoiceDialog = new OccupationDialog(this);
-            singleChoiceDialog.setAddresskListener(new BaseSingleWheelDialog.OnAddressCListener() {
+            singleChoiceDialog.setOnSureClickListener(new BaseSingleWheelDialog.OnSureClickListener() {
                 @Override
                 public void onClick(String value) {
                     bd.viewOccupation.setText(value);

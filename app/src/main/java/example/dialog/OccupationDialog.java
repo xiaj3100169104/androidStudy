@@ -19,6 +19,6 @@ public class OccupationDialog extends BaseSingleWheelDialog {
     @Override
     protected void init() {
         super.init();
-        setMyTitle("选择职业");
+        //setMyTitle("选择职业");
     }
 }

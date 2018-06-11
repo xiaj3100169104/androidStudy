@@ -2,32 +2,27 @@ package com.style.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.util.TypedValue;
 
 import com.aigestudio.wheelpicker.WheelPicker;
-import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.framework.R;
-import com.style.view.wheel.adapters.AbstractWheelTextAdapter;
-import com.style.view.wheel.views.OnWheelChangedListener;
-import com.style.view.wheel.views.OnWheelScrollListener;
-import com.style.view.wheel.views.WheelView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.dmcbig.mediapicker.utils.ScreenUtils.sp2px;
+import static com.style.utils.DeviceInfoUtil.dp2px;
 
 /**
  * 单条列表选择对话框
  *
  * @author ywl
  */
-public abstract class BaseSingleWheelDialog extends BaseCenterDialog {
+public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
     private WheelPicker wheelCenter;
     private List<String> dataList = new ArrayList<>();
-    private OnAddressCListener onAddressCListener;
+    private OnSureClickListener listener;
     private String currentItem;
 
     public BaseSingleWheelDialog(Context context, List<String> list) {
@@ -47,9 +42,9 @@ public abstract class BaseSingleWheelDialog extends BaseCenterDialog {
         wheelCenter.setItemTextColor(0xffcccccc);
         wheelCenter.setSelectedItemTextColor(0xff666666);
         wheelCenter.setIndicator(true);
-        wheelCenter.setIndicatorSize(ScreenUtils.dp2px(getContext(), 1));
-        wheelCenter.setIndicatorColor(0xff91c532);
-        wheelCenter.setItemTextSize(ScreenUtils.sp2px(getContext(), 21));
+        wheelCenter.setIndicatorSize(dp2px(getContext(), 1));
+        wheelCenter.setIndicatorColor(0xFFe3e3e3);
+        wheelCenter.setItemTextSize(sp2px(getContext(), 21));
         wheelCenter.setCurved(false);
         wheelCenter.setCyclic(false);
         wheelCenter.setVisibleItemCount(5);
@@ -76,30 +71,27 @@ public abstract class BaseSingleWheelDialog extends BaseCenterDialog {
 
     public void setCurrentItem(String str) {
         int currentIndex = 0;
-        if (!TextUtils.isEmpty(str) || dataList.indexOf(str) != -1)
+        if (!TextUtils.isEmpty(str) && dataList.indexOf(str) != -1)
             currentIndex = dataList.indexOf(str);
+        //该方法不会触发onWheelSelected，所以需要手动设置当前选择数据
         wheelCenter.setSelectedItemPosition(currentIndex);
+        currentItem = dataList.get(currentIndex);
     }
 
-    public void setAddresskListener(OnAddressCListener onAddressCListener) {
-        this.onAddressCListener = onAddressCListener;
+    public void setOnSureClickListener(OnSureClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onClickSure() {
-        if (onAddressCListener != null) {
-            onAddressCListener.onClick(currentItem);
+        if (listener != null) {
+            listener.onClick(currentItem);
         }
         super.onClickSure();
     }
 
-    /**
-     * 回调接口
-     *
-     * @author Administrator
-     */
-    public interface OnAddressCListener {
-        void onClick(String province);
+    public interface OnSureClickListener {
+        void onClick(String value);
     }
 
     public void setList(List<String> list) {

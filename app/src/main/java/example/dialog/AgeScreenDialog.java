@@ -3,8 +3,6 @@ package example.dialog;
 import android.content.Context;
 
 import com.style.dialog.BaseDoubleWheelDialog;
-import com.style.dialog.BaseSingleWheelDialog;
-
 import example.helper.DataHelper;
 
 /**

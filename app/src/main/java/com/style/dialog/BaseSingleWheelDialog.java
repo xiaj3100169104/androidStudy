@@ -3,9 +3,9 @@ package com.style.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.TypedValue;
 
 import com.aigestudio.wheelpicker.WheelPicker;
+import com.style.base.BaseBottomDialog;
 import com.style.framework.R;
 
 import java.util.ArrayList;

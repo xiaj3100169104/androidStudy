@@ -15,6 +15,7 @@ import com.style.framework.databinding.FragmentHome1Binding;
 
 import example.activity.MyRadioGroupActivity;
 import example.activity.ReadAssetsActivity;
+import example.gesture.SimpleGestureActivity;
 import example.gesture.TestGestureActivity;
 import example.dialog.WheelActivity;
 import example.address.AddressActivity;
@@ -88,6 +89,10 @@ public class HomeFragment1 extends BaseFragment {
 
         public void skip6(View v) {
             skip(FileDownActivity.class);
+        }
+
+        public void skip9(View v) {
+            skip(SimpleGestureActivity.class);
         }
 
         public void skip10(View v) {

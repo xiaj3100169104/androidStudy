@@ -49,7 +49,7 @@
         android:layout_marginTop="25dip">
 
         <TextView
-            android:id="@+id/btn_myinfo_sure"
+            android:id="@+id/btn_ok"
             android:layout_width="77dip"
             android:layout_height="33dip"
             android:layout_alignParentRight="true"
@@ -60,10 +60,10 @@
 
 
         <TextView
-            android:id="@+id/btn_myinfo_cancel"
+            android:id="@+id/btn_cancel"
             android:layout_width="77dip"
             android:layout_height="33dip"
-            android:layout_toLeftOf="@+id/btn_myinfo_sure"
+            android:layout_toLeftOf="@+id/btn_ok"
             android:gravity="center"
             android:text="取消"
             android:textSize="16sp" />

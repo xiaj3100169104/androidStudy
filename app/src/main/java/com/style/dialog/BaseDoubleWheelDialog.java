@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.style.base.BaseCenterDialog;
 import com.style.framework.R;
 import com.style.view.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.view.wheel.views.OnWheelChangedListener;

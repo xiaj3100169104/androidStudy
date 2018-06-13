@@ -79,6 +79,12 @@
                     android:text="文件下载" />
 
                 <TextView
+                    android:id="@+id/btn_3"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip9}"
+                    android:text="gesture simple" />
+
+                <TextView
                     android:id="@+id/btn_4"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip10}"

@@ -1,4 +1,4 @@
-package com.style.dialog;
+package com.style.base;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,22 +18,18 @@ import com.style.framework.R;
  * Created by xiajun on 2018/6/8.
  */
 
-public abstract class BaseCenterDialog extends Dialog {
-    private TextView tv_title;
-
+public abstract class BaseBottomDialog extends Dialog {
     private TextView btnSure;
-    private TextView btnCancel;
 
-
-    public BaseCenterDialog(Context context) {
+    public BaseBottomDialog(Context context) {
         super(context, R.style.Dialog_General);
     }
 
-    public BaseCenterDialog(Context context, int themeResId) {
+    public BaseBottomDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected BaseCenterDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected BaseBottomDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -48,24 +44,17 @@ public abstract class BaseCenterDialog extends Dialog {
         super.setContentView(layoutResID);
         Window window = getWindow();
         window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setGravity(Gravity.CENTER);
+        window.setGravity(Gravity.BOTTOM);
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(Utils.dp2px(getContext(), 300), window.getAttributes().height);
+        window.setLayout(dm.widthPixels, window.getAttributes().height);
+        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
 
-        btnSure = (TextView) findViewById(R.id.btn_myinfo_sure);
-        btnCancel = (TextView) findViewById(R.id.btn_myinfo_cancel);
-        tv_title = (TextView) findViewById(R.id.tv_share_title);
+        btnSure = (TextView) findViewById(R.id.btn_ok);
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickSure();
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickCancel();
             }
         });
 
@@ -78,12 +67,6 @@ public abstract class BaseCenterDialog extends Dialog {
 
     protected void onClickSure() {
         dismiss();
-    }
-
-    public void setMyTitle(String title) {
-        if (!TextUtils.isEmpty(title)) {
-            tv_title.setText(title);
-        }
     }
 
     protected abstract void init();

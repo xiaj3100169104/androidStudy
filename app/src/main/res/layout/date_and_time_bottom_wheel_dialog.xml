@@ -32,16 +32,22 @@
         android:layout_height="1px"
         android:background="#ff9a9b9c" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:paddingBottom="20dp"
         android:paddingTop="20dp">
 
+        <com.aigestudio.wheelpicker.widgets.WheelDatePicker
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <com.aigestudio.wheelpicker.WheelPicker
-            android:id="@+id/main_wheel_center"
-            android:layout_width="match_parent"
+            android:id="@+id/hour_picker"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             aigestudio:wheel_atmospheric="true"
@@ -50,6 +56,6 @@
             aigestudio:wheel_item_text_color="#A7A7DB"
             aigestudio:wheel_item_text_size="24sp"
             aigestudio:wheel_selected_item_text_color="#536D8A" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

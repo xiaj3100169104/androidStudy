@@ -1,17 +1,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <include layout="@layout/title_bar_normal" />
 
-            <include layout="@layout/title_bar_normal" />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="不缩减高度，整体向上滚动，也相当于在调整scrollview高度" />
+                    android:text="整体向上滚动" />
 
 
                 <LinearLayout
@@ -40,6 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:background="#0f0"
+                        android:gravity="bottom|center_horizontal"
                         android:text="视图2" />
 
                     <EditText
@@ -53,8 +54,6 @@
                         android:hint="密码" />
                 </LinearLayout>
             </LinearLayout>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.style.dialog;
+package com.style.base;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,24 +12,29 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.style.dialog.Utils;
 import com.style.framework.R;
 
 /**
  * Created by xiajun on 2018/6/8.
  */
 
-public abstract class BaseBottomDialog extends Dialog {
-    private TextView btnSure;
+public abstract class BaseCenterDialog extends Dialog {
+    private TextView tv_title;
 
-    public BaseBottomDialog(Context context) {
+    private TextView btnSure;
+    private TextView btnCancel;
+
+
+    public BaseCenterDialog(Context context) {
         super(context, R.style.Dialog_General);
     }
 
-    public BaseBottomDialog(Context context, int themeResId) {
+    public BaseCenterDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected BaseBottomDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected BaseCenterDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
@@ -44,17 +49,24 @@ public abstract class BaseBottomDialog extends Dialog {
         super.setContentView(layoutResID);
         Window window = getWindow();
         window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setGravity(Gravity.BOTTOM);
+        window.setGravity(Gravity.CENTER);
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(dm.widthPixels, window.getAttributes().height);
-        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
+        window.setLayout(Utils.dp2px(getContext(), 300), window.getAttributes().height);
 
-        btnSure = (TextView) findViewById(R.id.btn_myinfo_sure);
+        btnSure = (TextView) findViewById(R.id.btn_ok);
+        btnCancel = (TextView) findViewById(R.id.btn_cancel);
+        tv_title = (TextView) findViewById(R.id.tv_share_title);
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickSure();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickCancel();
             }
         });
 
@@ -67,6 +79,12 @@ public abstract class BaseBottomDialog extends Dialog {
 
     protected void onClickSure() {
         dismiss();
+    }
+
+    public void setMyTitle(String title) {
+        if (!TextUtils.isEmpty(title)) {
+            tv_title.setText(title);
+        }
     }
 
     protected abstract void init();

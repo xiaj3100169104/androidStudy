@@ -28,10 +28,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:background="#0f0"
                 android:gravity="bottom|center_horizontal"
-                android:text="视图2" />
+                android:text="要此view尺寸不变高度值必须固定" />
 
         </LinearLayout>
 

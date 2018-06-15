@@ -4,7 +4,6 @@ import android.support.annotation.StringRes;
 
 import com.style.app.AppManager;
 import com.style.app.LogManager;
-import com.style.app.ToastManager;
 import com.style.data.net.exception.ResultErrorException;
 import com.style.data.prefs.AccountManager;
 import com.style.data.net.core.RetrofitImpl;
@@ -75,9 +74,9 @@ public abstract class BaseActivityPresenter<V> {
         e.printStackTrace();
         //网络断开
         if (e instanceof UnknownHostException) {
-            onErrorMsg("网络连接断开");
+            showToast("网络连接断开");
         } else if (e instanceof SocketTimeoutException) {
-            onErrorMsg("网络连接超时");
+            showToast("网络连接超时");
         } else if (e instanceof HttpException) {
             HttpException he = (HttpException) e;
             switch (he.code()) {
@@ -85,29 +84,29 @@ public abstract class BaseActivityPresenter<V> {
                     onTokenError();
                     break;
                 case HttpsURLConnection.HTTP_INTERNAL_ERROR:
-                    onErrorMsg("服务器繁忙");
+                    showToast("服务器繁忙");
                     break;
                 case HttpsURLConnection.HTTP_NOT_FOUND:
-                    onErrorMsg("跑去火星啦");
+                    showToast("跑去火星啦");
                     break;
             }
         } else if (e instanceof ResultErrorException) {
             //请求失败
-            onErrorMsg(((ResultErrorException) e).msg);
+            showToast(((ResultErrorException) e).msg);
         }
     }
 
     protected void onTokenError() {
-        onErrorMsg("授权过期，请稍候重试");
+        showToast("授权过期，请稍候重试");
         //getMvpView().onError(R.string.str_unauthorized);
         //updateAccessToken();
     }
-
-    private void onErrorMsg(@StringRes int resId) {
-        onErrorMsg(AppManager.getInstance().getContext().getString(resId));
+    public void showToast(CharSequence str) {
+        ((BaseActivity) getActivity()).showToast(str);
     }
 
-    private void onErrorMsg(String msg) {
-        ToastManager.showToast(AppManager.getInstance().getContext(), msg);
+    public void showToast(@StringRes int resId) {
+        ((BaseActivity) getActivity()).showToast(resId);
     }
+
 }

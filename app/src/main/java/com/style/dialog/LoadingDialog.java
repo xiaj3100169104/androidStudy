@@ -32,7 +32,7 @@ public class LoadingDialog extends Dialog {
         //window.setWindowAnimations(R.style.Animations_SlideInFromRight_OutToLeft);
     }
 
-    public void setMessage(String msg) {
+    public void setMessage(CharSequence msg) {
         if (!TextUtils.isEmpty(msg)) {
             TextView textView = (TextView) this.findViewById(R.id.tv_loading_info);
             textView.setText(msg);

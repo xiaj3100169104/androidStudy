@@ -19,13 +19,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
+import com.style.app.LogManager;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
-import com.style.app.LogManager;
-import com.style.app.ToastManager;
-import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
 
@@ -39,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
     private View contentView;
+    private Toast toast;
 
     protected boolean isScreenPortrait() {
         return true;
@@ -167,6 +167,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        cancelToast();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         dismissProgressDialog();
@@ -182,12 +188,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(new Intent(getContext(), cls));
     }
 
-    public void showToast(String str) {
-        ToastManager.showToast(getContext(), str);
+    public void showToast(CharSequence str) {
+        if (toast == null)
+            toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
+        toast.setText(str);
+        toast.show();
     }
 
     public void showToast(@StringRes int resId) {
-        ToastManager.showToast(getContext(), resId);
+        showToast(getText(resId));
+    }
+
+    private void cancelToast() {
+        if (toast != null)
+            toast.cancel();
     }
 
     public void showProgressDialog() {
@@ -195,10 +209,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog(@StringRes int msgId) {
-        showProgressDialog(getString(msgId));
+        showProgressDialog(getText(msgId));
     }
 
-    public void showProgressDialog(String msg) {
+    public void showProgressDialog(CharSequence msg) {
         if (progressDialog == null)
             progressDialog = new LoadingDialog(getContext());
         progressDialog.setCanceledOnTouchOutside(false);

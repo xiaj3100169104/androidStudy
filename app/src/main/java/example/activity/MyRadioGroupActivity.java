@@ -1,7 +1,5 @@
 package example.activity;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +8,6 @@ import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
-import com.style.app.ToastManager;
 import com.style.view.MyRadioGroup;
 
 import example.fragment.EmotionBaseDataFrag;
@@ -62,11 +59,11 @@ public class MyRadioGroupActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_base_data:
                         index = 0;
-                        ToastManager.showToast(MyRadioGroupActivity.this,"activity");
+                        showToast("activity");
                         break;
                     case R.id.rb_emotion_data:
                         index = 1;
-                        ToastManager.showToastOnApplication("application");
+                        //ToastManager.showToastOnApplication("application");
                         break;
                 }
                 changeFrag(index);

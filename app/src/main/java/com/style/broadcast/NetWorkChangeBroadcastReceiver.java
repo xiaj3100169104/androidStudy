@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.style.app.ToastManager;
+import com.style.app.AppManager;
 import com.style.utils.NetWorkUtil;
 
 /**
@@ -21,6 +21,6 @@ public class NetWorkChangeBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!NetWorkUtil.isNetWorkActive(context))
-            ToastManager.showToast(context, "网络不可用");
+            AppManager.getInstance().showToast("网络不可用");
     }
 }

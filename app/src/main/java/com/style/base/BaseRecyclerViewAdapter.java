@@ -1,12 +1,12 @@
 package com.style.base;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.style.app.LogManager;
-import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
@@ -34,9 +34,11 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     public int getItemCount() {
         return list.size();
     }
+
     public Context getContext() {
         return mContext;
     }
+
     public ArrayList<T> getList() {
         return list;
     }
@@ -123,13 +125,14 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         void onItemLongClick(View itemView, int position, T data);
     }
 
-    public void showToast(String str) {
-        ToastManager.showToast(mContext, str);
+    public void showToast(CharSequence str) {
+        ((BaseActivity) mContext).showToast(str);
     }
 
-    public void showToast(int resId) {
-        ToastManager.showToast(mContext, resId);
+    public void showToast(@StringRes int resId) {
+        showToast(mContext.getText(resId));
     }
+
 
     public void logE(String tag, String msg) {
         LogManager.logE(tag, msg);

@@ -12,9 +12,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.style.framework.R;
-import com.style.app.ToastManager;
-
 import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -108,7 +105,6 @@ public class DeviceInfoUtil {
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
         }
-        ToastManager.showToastOnApplication(R.string.sd_card_unavailable);
         return false;
     }
 
@@ -117,7 +113,6 @@ public class DeviceInfoUtil {
         if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
             return true;
         }
-        ToastManager.showToastOnApplication(R.string.sd_card_unavailable);
         return false;
     }
 

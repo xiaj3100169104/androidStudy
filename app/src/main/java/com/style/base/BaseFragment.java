@@ -3,11 +3,11 @@ package com.style.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.style.app.LogManager;
-import com.style.app.ToastManager;
 import com.style.utils.CommonUtil;
 
 import org.simple.eventbus.EventBus;
@@ -87,20 +87,11 @@ public abstract class BaseFragment extends Fragment {
         void onNegativeButton();
     }
 
-    public void showToast(String str) {
-        ToastManager.showToast(getContext(), str);
+    public void showToast(CharSequence str) {
+        ((BaseActivity) getActivity()).showToast(str);
     }
 
-    public void showToast(int resId) {
-        ToastManager.showToast(getContext(), resId);
+    public void showToast(@StringRes int resId) {
+        ((BaseActivity) getActivity()).showToast(resId);
     }
-
-    public void showToastLong(String msg) {
-        ToastManager.showToastLong(getContext(), msg);
-    }
-
-    public void showToastLong(int msgId) {
-        ToastManager.showToastLong(getContext(), msgId);
-    }
-
 }

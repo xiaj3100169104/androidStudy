@@ -1,13 +1,14 @@
 package example.vlayout;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.style.app.LogManager;
-import com.style.app.ToastManager;
+import com.style.base.BaseActivity;
 import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
@@ -124,12 +125,12 @@ public abstract class BaseDelegateAdapter<T> extends DelegateAdapter.Adapter<Rec
         void onItemLongClick(View itemView, int position, T data);
     }
 
-    public void showToast(String str) {
-        ToastManager.showToast(mContext, str);
+    public void showToast(CharSequence str) {
+        ((BaseActivity)mContext).showToast(str);
     }
 
-    public void showToast(int resId) {
-        ToastManager.showToast(mContext, resId);
+    public void showToast(@StringRes int resId) {
+        showToast(mContext.getText(resId));
     }
 
     public void logE(String tag, String msg) {

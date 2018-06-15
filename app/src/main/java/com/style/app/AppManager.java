@@ -14,8 +14,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.support.annotation.StringRes;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 
@@ -34,6 +36,7 @@ public class AppManager {
     private static final Object mLock = new Object();
     private static AppManager mInstance;
     private Context context;
+    private Toast toast;
 
     public synchronized static AppManager getInstance() {
         synchronized (mLock) {
@@ -54,6 +57,22 @@ public class AppManager {
 
         initReceiver();
 
+    }
+
+    public void showToast(CharSequence str) {
+        if (toast == null)
+            toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
+        toast.setText(str);
+        toast.show();
+    }
+
+    public void showToast(@StringRes int resId) {
+        showToast(getContext().getText(resId));
+    }
+
+    private void cancelToast() {
+        if (toast != null)
+            toast.cancel();
     }
 
     //      监听广播

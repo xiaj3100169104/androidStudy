@@ -1,7 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -9,40 +8,43 @@
 
         <include layout="@layout/title_bar_normal" />
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="不缩减高度，整体向上滚动，也相当于在调整scrollview高度" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
                 <TextView
                     android:id="@+id/tv_content1"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="300dp"
                     android:background="#0f0"
                     android:gravity="bottom"
                     android:text="视图2" />
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="用户名" />
+                <example.gesture.MyHorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="密码" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="和哈佛生活费ISO还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
+                </example.gesture.MyHorizontalScrollView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:background="#0ff"
+                    android:gravity="bottom"
+                    android:text="视图2" />
             </LinearLayout>
-        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
 </layout>

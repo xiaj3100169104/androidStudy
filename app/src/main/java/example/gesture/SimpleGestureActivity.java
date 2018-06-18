@@ -28,7 +28,7 @@ public class SimpleGestureActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("状态栏为主题配置里的颜色");
+        setToolbarTitle("区分上下、左右滑动");
 
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             public static final float FLING_MIN_VELOCITY = 2000f;
@@ -38,28 +38,36 @@ public class SimpleGestureActivity extends BaseActivity {
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 logE(TAG, "distance  " + (e2.getX() - e1.getX()) + "  velocityX  " + velocityX);
                 if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-                    // Fling left
                     logE(TAG, "向左手势");
                 } else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-                    // Fling right
                     logE(TAG, "向右手势");
                 } else if (e1.getY() - e2.getY() > FLING_MIN_DISTANCE && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
-                    // Fling up
                     logE(TAG, "向上手势");
                 } else if (e2.getY() - e1.getY() > FLING_MIN_DISTANCE && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
-                    // Fling down
                     logE(TAG, "向下手势");
                 }
-                return true;
+                return false;
             }
         });
         bd.tvContent1.setLongClickable(true);
-        bd.tvContent1.setOnTouchListener(new View.OnTouchListener() {
+        /*bd.tvContent1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                logE(TAG, "onTouch");
+                logE(TAG, "onTouch   " + event.getAction());
+                bd.nestedScrollView.requestDisallowInterceptTouchEvent(true);
                 mGestureDetector.onTouchEvent(event);
                 return false;
+            }
+        });*/
+        bd.tvContent1.setOnTouchListener(new MyGestureListener(bd.nestedScrollView){
+            @Override
+            public void onSlideLeft() {
+                super.onSlideLeft();
+            }
+
+            @Override
+            public void onSlideRight() {
+                super.onSlideRight();
             }
         });
     }

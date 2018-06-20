@@ -25,7 +25,9 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.app.LogManager;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
+import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
+import com.style.utils.InputMethodUtil;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -170,6 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         cancelToast();
+        hideKeyboard();
     }
 
     @Override
@@ -224,6 +227,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    public void hideKeyboard() {
+        InputMethodUtil.hiddenSoftInput(this);
+
     }
 
     protected int dp2px(float dpValue) {

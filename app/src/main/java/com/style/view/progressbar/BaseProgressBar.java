@@ -23,7 +23,6 @@ public abstract class BaseProgressBar extends View {
         super(context, attrs, defStyleAttr);
     }
 
-
     //带动画渐进到指定进度
     public void setPercentWithAnimation(int percent) {
         if (percent > 100) {

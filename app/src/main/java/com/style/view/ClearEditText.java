@@ -2,6 +2,7 @@ package com.style.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -16,7 +17,7 @@ import android.widget.EditText;
 import com.style.framework.R;
 
 
-public class ClearEditText extends EditText implements  
+public class ClearEditText extends AppCompatEditText implements
         OnFocusChangeListener, TextWatcher { 
 	/**
 	 * ɾ����ť������

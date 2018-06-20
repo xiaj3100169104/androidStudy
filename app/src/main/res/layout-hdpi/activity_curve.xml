@@ -6,7 +6,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:background="@color/windows_color"
         android:orientation="vertical">
 
@@ -37,36 +36,57 @@
                     android:layout_height="140dp" />
             </LinearLayout>
 
-            <RelativeLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFFFF" >
+                android:layout_height="wrap_content">
 
-                <com.style.view.HeartRateLineBg
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="270dp" />
-
-                <HorizontalScrollView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layerType="software">
+                    android:orientation="vertical">
 
-                    <com.style.view.HeartRateLine
-                        android:id="@+id/heart_line"
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="refresh"
+                        android:text="刷新"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="270dp" />
-                </HorizontalScrollView>
-            </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:background="#4fa213">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:onClick="refresh"
-                android:text="刷新"
-                android:textStyle="bold" />
+                        <com.style.view.SleepWeekHistogram
+                            android:id="@+id/sleep_histogram"
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFFFF">
+
+                        <com.style.view.HeartRateLineBg
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp" />
+
+                        <HorizontalScrollView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:layerType="software">
+
+                            <com.style.view.HeartRateLine
+                                android:id="@+id/heart_line"
+                                android:layout_width="wrap_content"
+                                android:layout_height="270dp" />
+                        </HorizontalScrollView>
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
     </LinearLayout>
 </layout>

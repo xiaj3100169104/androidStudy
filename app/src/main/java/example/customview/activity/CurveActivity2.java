@@ -10,6 +10,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityCurveBinding;
 import com.style.view.HeartRateLine;
 import com.style.view.SleepWeekHistogram;
+import com.style.view.TemperatureLineNew;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ import java.util.Random;
 public class CurveActivity2 extends AppCompatActivity {
 
     ActivityCurveBinding bd;
+    float max;
+    float min;
+
     private String[] mWeeks;
 
     @Override
@@ -43,6 +47,7 @@ public class CurveActivity2 extends AppCompatActivity {
 
     public void refresh(View view) {
         //bd.heartLine.setData(getTestData());
+        //bd.temperatureLine.setData(getTestData());
         bd.sleepHistogram.setData(getHistogramData(), true);
     }
 
@@ -59,7 +64,7 @@ public class CurveActivity2 extends AppCompatActivity {
         return mValueList;
     }
 
-    private ArrayList<HeartRateLine.PointItem> getTestData() {
+    private ArrayList<HeartRateLine.PointItem> getHeartRateData() {
         ArrayList<HeartRateLine.PointItem> list = new ArrayList<>();
         Random random = new Random();
         HeartRateLine.PointItem item;
@@ -84,4 +89,45 @@ public class CurveActivity2 extends AppCompatActivity {
         return list;
     }
 
+
+    private ArrayList<TemperatureLineNew.PointItem> getTemperatureData() {
+
+        ArrayList<TemperatureLineNew.PointItem> list = new ArrayList<>();
+        Random random = new Random();
+        TemperatureLineNew.PointItem item;
+
+        for (int i = 0; i < 1500; i++) {
+            String xLabel = "00:00";// + String.valueOf(i);
+
+            float y;
+            if (i > 2 && i < 8)
+                y = 0;
+            else if (i > 9 && i < 15)
+                y = 0;
+            else if (i > 20 && i < 30)
+                y = 0;
+            else if (i > 35 && i < 50 && i % 2 == 0)
+                y = 0;
+            else if (i <= 1498 && i >= 1495)
+                y = 0;
+            else
+                y = 35 + random.nextInt(3) + random.nextFloat();
+            //Log.e("" + i, y + "");
+
+            if (i == 0) {
+                max = min = y;
+            }
+            if (y > max)
+                max = y;
+            if (y < min && y != 0)
+                min = y;
+            item = new TemperatureLineNew.PointItem(xLabel, y);
+
+            list.add(item);
+        }
+        bd.temperatureLineBg.setMaxAndMin(max, min);
+        bd.temperatureLineBg.setAverageValue(36.3f);
+        bd.temperatureLine.setMaxAndMin(max, min);
+        return list;
+    }
 }

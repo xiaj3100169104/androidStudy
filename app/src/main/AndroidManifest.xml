@@ -115,6 +115,8 @@
         <activity android:name="example.activity.MsgToSubActivity" />
         <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="example.aidl.AidlActivity" />
+        <activity android:name="example.db.EncryptActivity" />
+
         <activity android:name="example.webservice.WebServiceActivity" />
         <activity android:name="example.activity.TestDBActivity" />
         <activity android:name="example.activity.GlideDealActivity" />
@@ -150,7 +152,6 @@
             android:name="example.customview.activity.HorizontalProgressActivity"
             android:label="HorizontalProgressBar" />
         <activity android:name="example.customview.activity.CurveActivity2" />
-        <activity android:name="example.customview.activity.TemperatureActivity" />
 
         <activity
             android:name="example.customview.activity.CircleProgressBarActivity"

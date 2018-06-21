@@ -28,8 +28,7 @@ public class MainActivity extends BaseActivity {
     public static final int REQUEST_ENABLE_BT = 6;
 
     protected static final String[] fragTags = {"tag1", "tag2", "tag3", "tag4", "tag5"};
-    protected static final String[] titles = {"沟通", "首页", "工单", "通讯录", "客户"};
-
+    protected static final String[] titles = {"View相关", "列表", "原生相关", "其他框架", "客户"};
 
     private HomeFragment1 homeFragment1;
     private HomeFragment2 homeFragment2;

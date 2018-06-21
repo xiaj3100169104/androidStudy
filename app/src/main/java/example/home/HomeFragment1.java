@@ -15,6 +15,7 @@ import com.style.framework.databinding.FragmentHome1Binding;
 
 import example.activity.MyRadioGroupActivity;
 import example.activity.ReadAssetsActivity;
+import example.customview.activity.CustomViewMainActivity;
 import example.gesture.SimpleGestureActivity;
 import example.gesture.TestGestureActivity;
 import example.dialog.WheelActivity;
@@ -28,6 +29,7 @@ import example.music.remote.RemotePlayActivity;
 import example.softInput.StatusbarStyleMainActivity;
 import example.tablayout.TabLayoutActivity;
 import example.vlayout.MultiTypeActivity;
+import fussen.cc.barchart.activity.CustomScrollMainActivity;
 
 
 public class HomeFragment1 extends BaseFragment {
@@ -58,6 +60,13 @@ public class HomeFragment1 extends BaseFragment {
     }
 
     public class OnItemClickListener {
+        public void skip01(View v) {
+            skip(CustomViewMainActivity.class);
+        }
+
+        public void skip02(View v) {
+            skip(CustomScrollMainActivity.class);
+        }
 
         public void skip42(View v) {
             skip(MultiTypeActivity.class);
@@ -81,10 +90,6 @@ public class HomeFragment1 extends BaseFragment {
 
         public void skip4(View v) {
             skip(WheelActivity.class);
-        }
-
-        public void skip5(View v) {
-            skip(ReadAssetsActivity.class);
         }
 
         public void skip6(View v) {

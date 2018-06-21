@@ -3,9 +3,12 @@ package com.style.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.style.bean.User;
 import com.style.data.db.user.UserDBManager;
+import com.style.utils.AESCipher;
 
 public final class AccountManager {
     private String TAG = getClass().getSimpleName();
@@ -104,6 +107,31 @@ public final class AccountManager {
         currentUser = null;
         setPassword(account, "");
         setSignKey("");
+    }
+
+    public void saveUserEncrypt(User user) {
+        String beforeEncrypt = JSON.toJSONString(user);
+        Log.e(TAG, "加密前 -> " + beforeEncrypt);
+        try {
+            String k = AESCipher.aesEncryptString(beforeEncrypt, "abcdabcdabcdabcd");
+            Log.e(TAG, "加密后 -> " + k);
+            getLoginSharedPreferences().edit().putString("userEncrypt", k).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getUserDecrypt() {
+        String beforeDescrypt = getLoginSharedPreferences().getString("userEncrypt", "");
+        Log.e(TAG, "解密前 -> " + beforeDescrypt);
+        try {
+            String k = AESCipher.aesDecryptString(beforeDescrypt, "abcdabcdabcdabcd");
+            Log.e(TAG, "解密后 -> " + k);
+            User user = JSON.parseObject(k, User.class);
+            user.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setIsAutoLogin(String account, boolean value) {

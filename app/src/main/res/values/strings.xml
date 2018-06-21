@@ -83,4 +83,7 @@
     <string name="false_identity">虚假身份</string>
     <string name="harass_info">骚扰信息</string>
     <string name="improper_speek">不当发言</string>
+
+    <string name="week_no_data">当周无历史记录</string>
+
 </resources>

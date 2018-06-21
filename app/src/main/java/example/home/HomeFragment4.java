@@ -21,6 +21,7 @@ import example.media.socket.chat.SocketTestActivity;
 import example.media.AudioRecordActivity;
 import example.queue.QueueTestActivity;
 import example.media.VideoTestActivity;
+import example.webservice.WebServiceActivity;
 
 
 public class HomeFragment4 extends BaseFragment {
@@ -81,5 +82,9 @@ public class HomeFragment4 extends BaseFragment {
         public void skip493(View v) {
             skip(BLEActivity.class);
         }
+        public void skip11(View v) {
+            skip(WebServiceActivity.class);
+        }
+
     }
 }

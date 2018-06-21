@@ -13,18 +13,7 @@ public class CustomViewMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_view_main);
-        findViewById(R.id.bt_temperature).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(TemperatureActivity.class);
-            }
-        });
-        findViewById(R.id.bt_curve).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(CurveActivity2.class);
-            }
-        });
+
         findViewById(R.id.bt_notify_point).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +69,12 @@ public class CustomViewMainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.bt_curve).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skip(CurveActivity2.class);
+            }
+        });
     }
 
     public void skip(Class<?> cls){

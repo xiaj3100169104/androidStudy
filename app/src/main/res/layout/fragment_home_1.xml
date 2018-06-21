@@ -27,6 +27,18 @@
                 android:showDividers="middle">
 
                 <TextView
+                    android:id="@+id/btn_custom_view"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip01}"
+                    android:text="自定义view" />
+
+                <TextView
+                    android:id="@+id/btn_custom_view_scroll"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip02}"
+                    android:text="自定义滚动view" />
+
+                <TextView
                     android:id="@+id/layout_item_42"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip42}"
@@ -62,15 +74,7 @@
                     android:id="@+id/btn_wheel"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip4}"
-
                     android:text="wheel" />
-
-                <TextView
-                    android:id="@+id/btn_user_agree"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip5}"
-
-                    android:text="读取assets文本文件" />
 
                 <TextView
                     android:id="@+id/btn_file_down"

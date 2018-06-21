@@ -36,6 +36,13 @@
                     android:layout_height="140dp" />
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="refresh"
+                android:text="刷新"
+                android:textStyle="bold" />
+
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -45,12 +52,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="refresh"
-                        android:text="刷新"
-                        android:textStyle="bold" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -61,6 +62,32 @@
                             android:id="@+id/sleep_histogram"
                             android:layout_width="match_parent"
                             android:layout_height="280dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FF91c532">
+
+                        <com.style.view.TemperatureLineBg
+                            android:id="@+id/temperature_line_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layerType="software" />
+
+                        <HorizontalScrollView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:layout_marginRight="40dp"
+                            android:layerType="software">
+
+                            <com.style.view.TemperatureLineNew
+                                android:id="@+id/temperature_line"
+                                android:layout_width="wrap_content"
+                                android:layout_height="300dp"
+                                android:visibility="visible" />
+                        </HorizontalScrollView>
                     </RelativeLayout>
 
                     <RelativeLayout

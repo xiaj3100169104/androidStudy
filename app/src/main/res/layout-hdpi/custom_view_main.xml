@@ -10,21 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
-        <Button
-            android:id="@+id/bt_temperature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="体温线" />
-        <Button
-            android:id="@+id/bt_curve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="曲线" />
+
         <Button
             android:id="@+id/bt_notify_point"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="通知小圆点" />
+
         <Button
             android:id="@+id/bt_progress1"
             android:layout_width="match_parent"
@@ -54,21 +46,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="声浪" />
+
         <Button
             android:id="@+id/bt_suspend_window"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="悬浮窗" />
+
         <Button
             android:id="@+id/bt_keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义键盘" />
+
         <Button
             android:id="@+id/bt_scan_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义扫描框" />
+
+        <Button
+            android:id="@+id/bt_curve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="曲线，折线加虚线，柱状图" />
     </LinearLayout>
 
 </RelativeLayout>

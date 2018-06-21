@@ -95,22 +95,16 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip10}"
                     android:text="aidl测试" />
-
                 <TextView
-                    android:id="@+id/btn_webservice"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip11}"
-                    android:text="1.1.5 release常规更新http请求webservice" />
+                    android:text="读取assets文本文件" />
+
                 <TextView
-                    android:id="@+id/btn_custom_view"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip12}"
-                    android:text="自定义view" />
-                <TextView
-                    android:id="@+id/btn_custom_view_scroll"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip13}"
-                    android:text="自定义滚动view" />
+                    android:text="加密解密" />
+
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

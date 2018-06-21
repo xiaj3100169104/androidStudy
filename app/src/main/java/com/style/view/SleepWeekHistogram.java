@@ -27,6 +27,11 @@ import java.util.Random;
  */
 
 public class SleepWeekHistogram extends View {
+    //浅白色
+    private static final int COLOR_WHITE_LIGHT = 0x40FFFFFF;
+    private static final int COLOR_X_LABEL = 0xFFAAAAAA;
+    private static final int COLOR_HISTOGRAM = 0x99FFFFFF;
+    private static final int COLOR_Y_LABEL = 0xffe6f1df;
     private final String TAG = this.getClass().getSimpleName();
     private final String[] mWeeks;
     private int mViewHeight, mViewWidth;
@@ -44,18 +49,19 @@ public class SleepWeekHistogram extends View {
     private int mInterval, mHistogramWidth;
     //网格宽高
     private int mYAxisHeight, mXAxisWidth;
-    private int mYTextHeight, mValueTextHeight;
     private int mTouchSlop, mTouchX, mTouchY;
-    private int mYTextWidth, mXTextHeight;
     //默认9个小时
     private int mYMax = 9;
     private int mAverage, mAvailable;
-    private Paint mHistogramPaint, mYPaint, mXPaint, mGridPaint, mAveragePaint;
+    private Paint mHistogramPaint, mYPaint, mGridPaint, mAveragePaint;
     private List<PointItem> mValueList;
     private int percent = 100;
     private OnSelectionChangeListener mListener;
     private Path average;
     private PercentThread percentThread;
+    private int mYTextSize;
+    private int mXTextSize;
+    private int mHistogramValueTextSize;
 
     public void setOnSelectionChangeListener(OnSelectionChangeListener listener) {
         mListener = listener;
@@ -88,50 +94,33 @@ public class SleepWeekHistogram extends View {
         yTopOffset = dp2px(30);
         yBottomOffset = dp2px(30);
         mInterval = dp2px(20);
+        mYTextSize = sp2px(12.0f);
+        mXTextSize = sp2px(12.0f);
+        mHistogramValueTextSize = sp2px(10);
         average = new Path();
         init();
     }
 
     private void init() {
-        int mYTextSize = sp2px(12.0f);
-        int mXTextSize = sp2px(12.0f);
+        mGridPaint = new Paint();
+        mGridPaint.setAntiAlias(true);
+        mGridPaint.setColor(COLOR_WHITE_LIGHT);
 
-        mHistogramPaint = new Paint();
-        mHistogramPaint.setAntiAlias(true);
-        mHistogramPaint.setTextSize(sp2px(10));
-        mHistogramPaint.setTextAlign(Paint.Align.CENTER);
-        mHistogramPaint.setColor(0xFF91c532);
-        mHistogramPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        Paint.FontMetrics fm = mHistogramPaint.getFontMetrics();
-        mValueTextHeight = (int) Math.abs(fm.descent - fm.ascent);
-
-        mGridPaint = new Paint(mHistogramPaint);
-        mGridPaint.setStyle(Paint.Style.FILL);
-
-        mYPaint = new Paint(mHistogramPaint);
+        mYPaint = new Paint(mGridPaint);
         mYPaint.setTextSize(mYTextSize);
-        mYPaint.setColor(0x40FFFFFF);
         mYPaint.setTextAlign(Paint.Align.CENTER);
 
+        mHistogramPaint = new Paint(mGridPaint);
+        mHistogramPaint.setColor(COLOR_HISTOGRAM);
+
         mAveragePaint = new Paint();
-        DashPathEffect pathEffect = new DashPathEffect(new float[]{Y_AXIS_SCALE, Y_AXIS_SCALE}, Y_AXIS_SCALE);
         mAveragePaint.setAntiAlias(true);
-        mAveragePaint.setColor(0xffe6f1df);
+        mAveragePaint.setColor(COLOR_Y_LABEL);
         mAveragePaint.setStyle(Paint.Style.STROKE);
         mAveragePaint.setStrokeWidth(2);
+        DashPathEffect pathEffect = new DashPathEffect(new float[]{Y_AXIS_SCALE, Y_AXIS_SCALE}, Y_AXIS_SCALE);
         mAveragePaint.setPathEffect(pathEffect);
 
-        mXPaint = new Paint();
-        mXPaint.setAntiAlias(true);
-        mXPaint.setTextSize(mXTextSize);
-        mXPaint.setTextAlign(Paint.Align.CENTER);
-
-        mYTextWidth = (int) mYPaint.measureText("4.5");
-        Paint.FontMetrics fontMetrics = mYPaint.getFontMetrics();
-        mYTextHeight = (int) Math.abs(fontMetrics.descent - fontMetrics.ascent);
-
-        Paint.FontMetrics metrics = mXPaint.getFontMetrics();
-        mXTextHeight = (int) Math.abs(metrics.descent - metrics.ascent);
     }
 
     @Override
@@ -159,12 +148,13 @@ public class SleepWeekHistogram extends View {
     private void drawGrid(Canvas canvas) {
         canvas.save();
         canvas.translate(mPadding, yTopOffset);
-        mGridPaint.setColor(0x40FFFFFF);
+        mGridPaint.setColor(COLOR_WHITE_LIGHT);
         int gridWidth = mXAxisWidth / 4;
         int gridHeight = mYAxisHeight / 4;
         for (int i = 0; i <= 4; i++) {
             //画横线
             if (i == 0 || i == 2) {
+                int mYTextWidth = (int) mYPaint.measureText("4.5");
                 canvas.drawLine(0, i * gridHeight, mXAxisWidth - mYTextWidth / 2, i * gridHeight, mGridPaint);
             } else {
                 canvas.drawLine(0, i * gridHeight, mXAxisWidth, i * gridHeight, mGridPaint);
@@ -173,12 +163,14 @@ public class SleepWeekHistogram extends View {
             if (i != 4) {
                 canvas.drawLine(i * gridWidth, 0, i * gridWidth, mYAxisHeight, mGridPaint);
             } else {
+                int mYTextHeight = getTextHeight(mYPaint);
                 canvas.drawLine(i * gridWidth, mYTextHeight / 2, i * gridWidth, mYAxisHeight / 2 - mYTextHeight / 2, mGridPaint);
                 canvas.drawLine(i * gridWidth, mYAxisHeight / 2 + mYTextHeight / 2, i * gridWidth, mYAxisHeight, mGridPaint);
             }
         }
         //y轴刻度文字
-        mYPaint.setColor(0x40FFFFFF);
+        mYPaint.setColor(COLOR_Y_LABEL);
+        mYPaint.setTextSize(mYTextSize);
         canvas.drawText(String.valueOf(mYMax), mXAxisWidth, 0 + (-mYPaint.getFontMetrics().ascent / 2), mYPaint);
         String mYMiddle = mYMax % 2 == 0 ? String.valueOf(mYMax / 2) : String.format(Locale.getDefault(), "%.1f", mYMax / 2.0f);
         canvas.drawText(mYMiddle, mXAxisWidth, mYAxisHeight / 2 + (-mYPaint.getFontMetrics().ascent / 2), mYPaint);
@@ -192,9 +184,10 @@ public class SleepWeekHistogram extends View {
 
         canvas.save();
         canvas.translate(mPadding + xOffset, yTopOffset + mYAxisHeight);
-        mXPaint.setColor(0xFFAAAAAA);
+        mYPaint.setColor(COLOR_X_LABEL);
+        mYPaint.setTextSize(mXTextSize);
         for (int i = 0; i < 7; i++) {
-            canvas.drawText(mWeeks[i], i * mInterval + (mHistogramWidth + 1) * i + mHistogramWidth / 2, yBottomOffset / 2 + mXPaint.getFontMetrics().descent, mXPaint);
+            canvas.drawText(mWeeks[i], i * mInterval + (mHistogramWidth + 1) * i + mHistogramWidth / 2, getTextHeight(mYPaint), mYPaint);
         }
         canvas.restore();
 
@@ -202,7 +195,8 @@ public class SleepWeekHistogram extends View {
 
     private void drawHistogram(Canvas canvas) {
         if (mValueList == null || mValueList.isEmpty() || mAvailable == 0) {
-            showEmpty(canvas);
+            mYPaint.setColor(Color.WHITE);
+            canvas.drawText(getContext().getString(R.string.week_no_data), mViewWidth / 2, mViewHeight / 2, mYPaint);
             return;
         }
 
@@ -220,14 +214,17 @@ public class SleepWeekHistogram extends View {
                 rect.bottom = 0;
                 if (mSelected == i) {
                     mHistogramPaint.setColor(Color.WHITE);
+
+                    mYPaint.setColor(Color.WHITE);
+                    mYPaint.setTextSize(mHistogramValueTextSize);
                     if (percent == 100) {
+                        int mXTextHeight = getTextHeight(mYPaint);
                         canvas.drawText(String.valueOf(value / 60) + "h" + value % 60 + "min",
-                                rect.centerX(), rect.top - mXTextHeight / 4, mHistogramPaint);
+                                rect.centerX(), rect.top - mXTextHeight / 4, mYPaint);
                     }
-                    if (mListener != null)
-                        mListener.onSelectionChanged(mSelected);
+
                 } else {
-                    mHistogramPaint.setColor(0x99FFFFFF);
+                    mHistogramPaint.setColor(COLOR_HISTOGRAM);
                 }
                 canvas.drawRect(rect, mHistogramPaint);
             }
@@ -242,19 +239,6 @@ public class SleepWeekHistogram extends View {
             }
         }
         canvas.restore();
-    }
-
-    /**
-     * 没有数据的时候展示空数据
-     */
-    private void showEmpty(Canvas canvas) {
-        mYPaint.setColor(Color.WHITE);
-        Rect rect = new Rect();
-        rect.left = mPadding;
-        rect.top = mYTextHeight / 2;
-        rect.right = rect.left + mXAxisWidth;
-        rect.bottom = rect.top + mYAxisHeight;
-        canvas.drawText("无数据", rect.centerX(), getBaseLine(rect, mYPaint.getFontMetricsInt()), mYPaint);
     }
 
     public void setData(List<PointItem> list, boolean showAnimation) {
@@ -274,6 +258,7 @@ public class SleepWeekHistogram extends View {
     }
 
     private void initOtherValue() {
+        mSelected = 0;
         mAverage = 0;
         int mMaxValue = 60 * mYMax;
         mAvailable = 0;
@@ -306,6 +291,11 @@ public class SleepWeekHistogram extends View {
         }
         percentThread = new PercentThread();
         percentThread.start();
+    }
+
+    public int getTextHeight(Paint paint) {
+        Paint.FontMetrics metrics = paint.getFontMetrics();
+        return (int) Math.abs(metrics.descent - metrics.ascent);
     }
 
     private class PercentThread extends Thread {
@@ -373,17 +363,19 @@ public class SleepWeekHistogram extends View {
         int selected = -1;
         for (int i = 0; i < mValueList.size(); i++) {
             rect = new Rect();
-            rect.left = i * (mInterval + mHistogramWidth) + mPadding;
-            rect.top = 0;
+            rect.left = mPadding + xOffset + (mHistogramWidth + mInterval) * i;
+            rect.top = yTopOffset;
             rect.right = rect.left + mHistogramWidth;
-            rect.bottom = mYAxisHeight / 2 + mYAxisHeight;
-            if (mValueList.get(i).yValue > 0 && rect.contains(x, getScrollY() + y)) {
+            rect.bottom = yTopOffset + mYAxisHeight;
+            if (mValueList.get(i).yValue > 0 && rect.contains(x, y)) {
                 selected = i;
             }
         }
         if (selected >= 0 && mSelected != selected) {
             mSelected = selected;
             invalidate();
+            if (mListener != null)
+                mListener.onSelectionChanged(mSelected);
             return true;
         }
         return false;
@@ -409,16 +401,6 @@ public class SleepWeekHistogram extends View {
     private int dp2px(float dipValue) {
         final float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据矩形区域换算文字的BaseLine
-     *
-     * @param rect
-     * @return
-     */
-    private int getBaseLine(Rect rect, Paint.FontMetricsInt metricsInt) {
-        return (rect.top + rect.bottom - metricsInt.bottom - metricsInt.top) / 2;
     }
 
     public static class PointItem {

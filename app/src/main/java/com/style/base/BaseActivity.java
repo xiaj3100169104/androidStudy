@@ -37,7 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
     protected static final int STATUS_BAR_COLOR = 2;//自定义状态栏颜色
     private Context context;
-    private BaseActivityPresenter mPresenter;
     private LoadingDialog progressDialog;
     private View contentView;
     private Toast toast;
@@ -112,8 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isGeneralTitleBar()) {
             customTitleOptions(mContentView);
         }
-
-        mPresenter = getPresenter();
         initData();
     }
 
@@ -179,8 +176,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissProgressDialog();
-        if (mPresenter != null)
-            mPresenter.onDestroy();
+        if (getPresenter() != null)
+            getPresenter().onDestroy();
     }
 
     public Context getContext() {

@@ -1,6 +1,8 @@
 package com.style.utils;
 
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -14,6 +16,27 @@ import java.util.List;
  */
 
 public class AppInfoUtil {
+    public static boolean IsForeground(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+        if (tasks != null && !tasks.isEmpty()) {
+            ComponentName topActivity = tasks.get(0).topActivity;
+            if (topActivity.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public static void launchApp(Activity context) {
+        if (IsForeground(context) == false) {
+            ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            am.moveTaskToFront(context.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+        }
+
+    }
+
     /**
      * 获取软件版本号
      *

@@ -38,14 +38,14 @@ public class AddressActivity extends BaseActivity {
     }
     @Override
     protected BaseActivityPresenter getPresenter() {
-        mPresenter = new AddressPresenter(this);
         return mPresenter;
     }
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("通讯录");
+        mPresenter = new AddressPresenter(this);
 
+        setToolbarTitle("通讯录");
         bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();
         adapter = new UploadPhoneAdapter(getContext(), dataList);

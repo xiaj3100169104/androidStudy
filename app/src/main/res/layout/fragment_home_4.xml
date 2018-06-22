@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,164 +20,188 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/windows_color"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@color/windows_color">
 
-                <LinearLayout
+                <android.support.constraint.Group
+                    android:id="@+id/group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:divider="@drawable/divider_gray_horizontal"
-                    android:dividerPadding="@dimen/activity_horizontal_margin"
-                    android:onClick="@{event::skip415}"
-                    android:orientation="vertical"
-                    android:showDividers="middle">
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/bg_pressed_default"
+                    app:constraint_referenced_ids="textView,imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"/>
 
-                    <LinearLayout
-                        android:id="@+id/layout_item_415"
-                        style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event::skip415}">
-
-                        <ImageView
-                            style="@style/layout_item_right_image"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="rx测试" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layout_item_416"
-                        style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event::skip416}">
-
-                        <ImageView
-                            style="@style/layout_item_right_image"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="GreenDao测试" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layout_item_417"
-                        style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event::skip417}">
-
-                        <ImageView
-                            style="@style/layout_item_right_image"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="Glide特殊处理" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/layout_item_418"
-                        style="@style/Layouts.normal_LinearLayout"
-                        android:onClick="@{event::skip418}">
-
-                        <ImageView
-                            style="@style/layout_item_right_image"
-                            android:src="@mipmap/ic_launcher" />
-
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="模拟app崩溃" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageView"
+                    style="@style/layout_item_right_image"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:divider="@drawable/divider_gray_horizontal"
-                    android:dividerPadding="@dimen/activity_horizontal_margin"
-                    android:orientation="vertical"
-                    android:showDividers="middle">
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip46}">
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/text_black_16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="rx测试"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@id/imageView" />
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="VideoRecord" />
-                    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    style="@style/layout_item_right_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip48}">
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/text_black_16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="GreenDao测试"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@id/imageView2" />
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="VoiceRecord" />
-                    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imageView3"
+                    style="@style/layout_item_right_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip49}">
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/text_black_16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glide特殊处理"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView3"
+                    app:layout_constraintLeft_toRightOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@id/imageView3" />
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="SocketTest" />
-                    </RelativeLayout>
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip491}">
+                <ImageView
+                    android:id="@+id/imageView4"
+                    style="@style/layout_item_right_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="事件管理器" />
-                    </RelativeLayout>
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/text_black_16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="模拟app崩溃"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView4"
+                    app:layout_constraintLeft_toRightOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@id/imageView4" />
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip492}">
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="蓝牙开发" />
-                    </RelativeLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        style="@style/Layouts.normal_RelativeLayout"
-                        android:onClick="@{event::skip493}">
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/text_black_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="1dp"
+                        android:text="VideoRecord"
+                        app:layout_constraintBottom_toTopOf="@+id/textView6"
+                        app:layout_constraintVertical_chainStyle="spread_inside" />
 
-                        <TextView
-                            style="@style/text_black_16sp"
-                            android:layout_centerVertical="true"
-                            android:text="低功耗蓝牙开发" />
-                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        style="@style/text_black_16sp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="VoiceRecord"
+                        app:layout_constraintBottom_toTopOf="@+id/textView7"
+                        app:layout_constraintEnd_toEndOf="@+id/textView5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        style="@style/text_black_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="SocketTest"
+                        app:layout_constraintBottom_toTopOf="@+id/textView8"
+                        app:layout_constraintStart_toStartOf="@+id/textView6"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        style="@style/text_black_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="1dp"
+                        android:text="事件管理器"
+                        app:layout_constraintBottom_toTopOf="@+id/textView9"
+                        app:layout_constraintStart_toStartOf="@+id/textView7"
+                        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        style="@style/text_black_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="蓝牙开发"
+                        app:layout_constraintBottom_toTopOf="@+id/textView10"
+                        app:layout_constraintStart_toStartOf="@+id/textView8"
+                        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        style="@style/text_black_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="低功耗蓝牙开发"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_webservice"
+                        app:layout_constraintStart_toStartOf="@+id/textView9"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
                     <TextView
                         android:id="@+id/btn_webservice"
                         style="@style/text_home_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="1dp"
                         android:onClick="@{event::skip11}"
-                        android:text="1.1.5 release常规更新http请求webservice" />
-                </LinearLayout>
+                        android:text="1.1.5 release常规更新http请求webservice"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView10"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-            </LinearLayout>
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

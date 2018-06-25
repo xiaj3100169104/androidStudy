@@ -10,6 +10,11 @@
 
         <include layout="@layout/title_bar_normal" />
 
+        <Button
+            android:id="@+id/btn_local"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="本地网页"/>
         <include
             android:id="@+id/progress"
             layout="@layout/webview_progress" />

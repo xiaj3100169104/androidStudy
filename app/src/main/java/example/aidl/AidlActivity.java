@@ -17,16 +17,23 @@ import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
+import java.util.concurrent.TimeUnit;
+
 import aidl.IRemoteService;
+import example.home.MainActivity;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 public class AidlActivity extends BaseActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_aidl;
     }
+
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
@@ -90,5 +97,14 @@ public class AidlActivity extends BaseActivity {
         //如果没有进行过绑定操作，解绑会报错
         if (remoteService != null)
             unbindService(conn);
+    }
+
+    public void moveAppToFront(View v) {
+        Observable.timer(5, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                sendBroadcast(new Intent(MainActivity.ACTION_OPEN_APP));
+            }
+        });
     }
 }

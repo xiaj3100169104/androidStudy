@@ -25,7 +25,6 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.app.LogManager;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
-import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.InputMethodUtil;
 

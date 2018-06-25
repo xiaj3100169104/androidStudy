@@ -3,13 +3,28 @@ package com.style.utils;
 import android.text.InputFilter;
 import android.text.Spanned;
 
+import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
  * 格式验证工具类
  * Created by xiajun on 2017/1/9.
  */
 public class FormatUtil {
+    public static String getUUID() {
+        String UUID = java.util.UUID.randomUUID().toString();
+        return new String(UUID.getBytes(), Charset.forName("UTF-8"));
+    }
+
+    public static int getSmallInt(float value) {
+        return (int) Math.floor(value);
+    }
+
+    public static int getBigInt(float value) {
+        return (int) Math.ceil(value);
+    }
+
     /**
      * 产生随机数，首位不为0
      *
@@ -33,7 +48,8 @@ public class FormatUtil {
 
     public static boolean isEmail(CharSequence s) {
         //Pattern p = Pattern.compile("/^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$/");
-        Pattern p=Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");;
+        Pattern p = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+        ;
         Matcher m = p.matcher(s);
         return m.matches();
     }
@@ -95,8 +111,8 @@ public class FormatUtil {
         };
     }
 
-    public static boolean isNumeric(String str){
-        if(str.isEmpty()) return false;
+    public static boolean isNumeric(String str) {
+        if (str.isEmpty()) return false;
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }

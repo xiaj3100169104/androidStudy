@@ -85,24 +85,14 @@
         <activity android:name="example.dialog.WheelActivity" />
         <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
-        <activity android:name="example.web.UserAgreeActivity" />
         <activity android:name="example.web.WebViewFeedbackActivity" />
         <activity android:name="example.web.WebViewAndJSActivity" />
         <activity android:name="example.vlayout.MultiTypeActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
-        <!--
-                <activity android:name="example.home.MainActivity" />
-        -->
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
-
-        <receiver android:name="com.style.broadcast.NetWorkChangeBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name="example.ble.BlueToothActivity" />
         <activity android:name="example.ble.BLEActivity" />

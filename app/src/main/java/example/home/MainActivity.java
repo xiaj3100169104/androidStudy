@@ -1,6 +1,10 @@
 package example.home;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,11 +24,13 @@ import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
 import com.style.data.prefs.AccountManager;
+import com.style.utils.AppInfoUtil;
 
 import org.simple.eventbus.EventBus;
 
 
 public class MainActivity extends BaseActivity {
+    public static final String ACTION_OPEN_APP = "com.style.action.OPEN_APP";
     ActivityMainBinding bd;
     public static final int REQUEST_ENABLE_BT = 6;
 
@@ -39,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private TextView[] mTabs;
     public int currentTabIndex = 0;
     public Fragment[] fragments;
+    private AppStateBroadcastReceiver appStateReceiver;
 
     /**
      * 解决方案为以下两种：
@@ -64,6 +72,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
+        appStateReceiver = new AppStateBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(ACTION_OPEN_APP);
+        registerReceiver(appStateReceiver, intentFilter);
         EventBus.getDefault().register(this);
         setToolbarTitle(titles[0]);
         /*Intent i = new Intent(this, MQTTService.class);
@@ -207,8 +218,20 @@ public class MainActivity extends BaseActivity {
         //取消事件注册
         EventBus.getDefault().unregister(this);
         //BleManager.getInstance().close();
+        if (appStateReceiver != null) {
+            unregisterReceiver(appStateReceiver);
+            appStateReceiver = null;
+        }
         super.onDestroy();
 
     }
 
+    public class AppStateBroadcastReceiver extends BroadcastReceiver {
+        public final String TAG = this.getClass().getSimpleName();
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AppInfoUtil.launchApp(MainActivity.this);
+        }
+    }
 }

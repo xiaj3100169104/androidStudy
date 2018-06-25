@@ -44,19 +44,19 @@ public class HomeFragment4 extends BaseFragment {
 
     public class EventListener {
 
-        public void skip415(View v) {
+        public void testRX(View v) {
             skip(TestRxActivity.class);
         }
 
-        public void skip416(View v) {
+        public void testGreenDao(View v) {
             skip(GreenDaoActivity.class);
         }
 
-        public void skip417(View v) {
+        public void testGlide(View v) {
             skip(GlideDealActivity.class);
         }
 
-        public void skip418(View v) {
+        public void testAppCrash(View v) {
             String test = null;
             logE(TAG, test.toString());
         }

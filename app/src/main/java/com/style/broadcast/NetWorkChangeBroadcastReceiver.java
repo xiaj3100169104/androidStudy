@@ -1,8 +1,10 @@
 package com.style.broadcast;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.style.app.AppManager;
 import com.style.utils.NetWorkUtil;
@@ -18,9 +20,13 @@ public class NetWorkChangeBroadcastReceiver extends BroadcastReceiver {
     public static final String TAG = "NetWorkChangeBroadcastReceiver";
     public static final String NET_CHANGE = "net_change";
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!NetWorkUtil.isNetWorkActive(context))
             AppManager.getInstance().showToast("网络不可用");
+        else
+            Log.e(TAG, "网络连接");
+
     }
 }

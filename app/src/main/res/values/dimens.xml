@@ -31,15 +31,4 @@
     <dimen name="divider_1px_width">1px</dimen>
     <!-- text行间距大小 -->
     <dimen name="line_Spacing_Extra">3dp</dimen>
-    <!-- image size -->
-    <dimen name="image_size_17dp">17dp</dimen>
-    <dimen name="image_size_20dp">20dp</dimen>
-    <dimen name="image_size_25dp">25dp</dimen>
-    <dimen name="image_size_30dp">30dp</dimen>
-    <dimen name="image_size_35dp">35dp</dimen>
-    <dimen name="image_size_40dp">40dp</dimen>
-    <dimen name="image_size_50dp">50dp</dimen>
-    <dimen name="image_size_60dp">60dp</dimen>
-    <dimen name="image_size_75dp">75dp</dimen>
-    <dimen name="image_size_80dp">80dp</dimen>
 </resources>

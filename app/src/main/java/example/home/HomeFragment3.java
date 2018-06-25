@@ -8,22 +8,21 @@ import android.view.ViewGroup;
 
 import com.style.base.BaseFragment;
 import com.style.bean.User;
+import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome3Binding;
-import com.style.data.prefs.AccountManager;
 
-import example.db.EncryptActivity;
-import example.activity.ReadAssetsActivity;
-import example.aidl.AidlActivity;
 import example.activity.AnimatorActivity;
 import example.activity.DataBindingActivity;
-import example.web.UserAgreeActivity;
 import example.activity.MsgToSubActivity;
+import example.activity.ReadAssetsActivity;
 import example.activity.TestDBActivity;
+import example.aidl.AidlActivity;
+import example.db.EncryptActivity;
+import example.ndk.JniTestActivity;
 import example.web.WebViewActivity;
 import example.web.WebViewAndJSActivity;
 import example.web.WebViewFeedbackActivity;
-import example.ndk.JniTestActivity;
 
 
 public class HomeFragment3 extends BaseFragment {
@@ -63,10 +62,6 @@ public class HomeFragment3 extends BaseFragment {
 
         public void skip7(View v) {
             skip(WebViewActivity.class);
-        }
-
-        public void skip71(View v) {
-            skip(UserAgreeActivity.class);
         }
 
         public void skip8(View v) {

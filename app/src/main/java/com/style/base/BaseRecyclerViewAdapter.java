@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.style.app.LogManager;
-import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;

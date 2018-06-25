@@ -9,7 +9,6 @@ import android.view.View;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.style.app.LogManager;
 import com.style.base.BaseActivity;
-import com.style.utils.CommonUtil;
 import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;

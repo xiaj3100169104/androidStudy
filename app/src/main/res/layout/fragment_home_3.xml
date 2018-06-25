@@ -60,14 +60,7 @@
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip7}"
 
-                    android:text="远程网页" />
-
-                <TextView
-                    android:id="@+id/btn_web_view2"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip71}"
-
-                    android:text="本地网页" />
+                    android:text="远程或本地网页" />
 
                 <TextView
                     android:id="@+id/btn_web_view_js"

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.style.app.LogManager;
-import com.style.utils.CommonUtil;
 
 import org.simple.eventbus.EventBus;
 

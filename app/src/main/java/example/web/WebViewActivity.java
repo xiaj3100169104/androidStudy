@@ -19,6 +19,8 @@ public class WebViewActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "http://www.baidu.com";
+    private String urlLocal = "file:///android_asset/useragree.html";
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_h5_remote;
@@ -32,7 +34,12 @@ public class WebViewActivity extends BaseActivity {
     public void initData() {
         bd = getBinding();
         setToolbarTitle("");
-
+        bd.btnLocal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bd.webView.loadUrl(urlLocal);
+            }
+        });
         bd.webView.getSettings().setJavaScriptEnabled(true);
         bd.webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
@@ -54,7 +61,6 @@ public class WebViewActivity extends BaseActivity {
                 super.onPageStarted(view, url, favicon);
             }
         });
-        //webView.loadUrl("file:///android_asset/index.html");//加载本地网页文件
         bd.webView.loadUrl(url);
     }
 

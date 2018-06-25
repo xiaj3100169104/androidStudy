@@ -39,7 +39,6 @@ public class DeviceInfoUtil {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 
-
     public static int getScreenWidth(Context context) {
         return getMetrics(context).widthPixels;
     }
@@ -49,8 +48,7 @@ public class DeviceInfoUtil {
     }
 
     public static Display getDisplay(Context context) {
-        WindowManager wm = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay();
     }
 

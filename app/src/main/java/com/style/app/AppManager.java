@@ -52,7 +52,7 @@ public class AppManager {
 
     public void init(Context context) {
         this.context = context;
-        Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new AppCrashHandler());
         addComponentCallbacks2();
 
         initReceiver();

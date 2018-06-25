@@ -4,7 +4,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:divider="@drawable/divider_gray_horizontal"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
         <include layout="@layout/title_bar_normal" />
 
@@ -12,19 +15,26 @@
             android:id="@+id/tv_send"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="#f00"
+            android:background="@drawable/bg_pressed_default"
             android:gravity="center"
-            android:text="给其他app发消息"
-            android:onClick="send"/>
+            android:onClick="send"
+            android:text="给其他app发消息" />
 
         <TextView
             android:id="@+id/tv_launch"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="#0f0"
+            android:background="@drawable/bg_pressed_default"
             android:gravity="center"
-            android:text="启动其他app"
-            android:onClick="launch"/>
-
+            android:onClick="launch"
+            android:text="启动其他app" />
+        <TextView
+            android:id="@+id/tv_move_to_front"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_pressed_default"
+            android:gravity="center"
+            android:onClick="moveAppToFront"
+            android:text="打开当前app" />
     </LinearLayout>
 </layout>

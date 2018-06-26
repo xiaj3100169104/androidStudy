@@ -85,11 +85,6 @@ android {
         variant.outputs.all { output ->
             def fileDir = "${project.rootDir.absolutePath}/publish/${variant.flavorName}/${variant.buildType.name}"
             //variant.getPackageApplication().outputDirectory = new File(fileDir)
-            //要被替换的源字符串
-            /*def sourceFile = "app-${variant.flavorName}-${variant.buildType.name}"
-            //替换的字符串
-            def replaceFile = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}"
-            outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)*/
             outputFileName = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}.apk"
         }
     }
@@ -132,6 +127,10 @@ android {
           }
       }*/
 
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -146,6 +145,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.alibaba:fastjson:1.1.68.android'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'

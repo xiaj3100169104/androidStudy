@@ -7,13 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.constant.ConfigUtil;
+import com.style.app.ConfigUtil;
 import com.style.framework.R;
 import com.style.lib.media.video.PlayVideoActivity;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LocalVideoActivity extends AppCompatActivity {
     LocalVideoAdapter adapter;

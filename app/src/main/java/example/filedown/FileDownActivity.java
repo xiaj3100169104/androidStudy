@@ -1,12 +1,10 @@
 package example.filedown;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
-import com.style.constant.ConfigUtil;
+import com.style.app.ConfigUtil;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityFileDownBinding;
 import com.style.data.net.file.FileCallback;

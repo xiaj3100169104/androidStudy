@@ -31,6 +31,13 @@
             android:onClick="skip420"
             android:text="处理矩形边框" />
 
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selAvatar"
+            android:text="选择头像" />
+
         <ImageView
             android:id="@+id/iv_1"
             android:layout_width="100dp"
@@ -48,6 +55,13 @@
 
         <ImageView
             android:id="@+id/iv_3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/empty_photo" />
+        <ImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"

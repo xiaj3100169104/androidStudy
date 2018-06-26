@@ -11,6 +11,7 @@ import com.style.data.net.response.TokenResponse;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -30,8 +31,8 @@ public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivit
             }
         }, new Consumer<Throwable>() {
             @Override
-            public void accept(Throwable e) throws Exception {
-                handleHttpError(e);
+            public void accept(Throwable throwable) throws Exception {
+                handleHttpError(throwable);
                 getActivity().showToast("查询天气失败");
             }
         });
@@ -72,6 +73,11 @@ public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivit
                 getActivity().setKuaiDiInfo(s);
 
             }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                handleHttpError(throwable);
+            }
         });
         addTask(d);
     }
@@ -95,8 +101,13 @@ public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivit
             }
         }, new Consumer<Throwable>() {
             @Override
-            public void accept(Throwable e) throws Exception {
-                handleHttpError(e);
+            public void accept(Throwable throwable) throws Exception {
+                handleHttpError(throwable);
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+                Log.e(TAG, "sfdfsd");
             }
         });
         addTask(d);

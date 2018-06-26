@@ -1,5 +1,6 @@
 package com.style.utils;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,6 +12,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
@@ -21,70 +25,70 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class PictureUtils {
-	
-	private static Bitmap compressImage(Bitmap image) {
+
+    private static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;  
-        while ( baos.toByteArray().length / 1024>2048) {  //循环判断如果压缩后图片是否大于2048kb,大于继续压缩         
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 2048) {  //循环判断如果压缩后图片是否大于2048kb,大于继续压缩
             baos.reset();//重置baos即清空baos  
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10  
-        }  
+        }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
-        return bitmap;  
+        return bitmap;
     }
-	
-	public static void compressImage(String srcPath, String desPath) {
-		Log.v("PictureUtils", "compressImage");
+
+    public static void compressImage(String srcPath, String desPath) {
+        Log.v("PictureUtils", "compressImage");
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了  
-        newOpts.inJustDecodeBounds = true;  
-        Bitmap bitmap = BitmapFactory.decodeFile(srcPath,newOpts);//此时返回bm为空
-          
-        newOpts.inJustDecodeBounds = false;  
-        int w = newOpts.outWidth;  
-        int h = newOpts.outHeight;  
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);//此时返回bm为空
+
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
         //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为  
         float hh = 1024f;//这里设置高度为1024f  
         float ww = 768f;//这里设置宽度为768f  
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可  
         int be = 1;//be=1表示不缩放  
         if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放  
-            be = (int) (newOpts.outWidth / ww);  
+            be = (int) (newOpts.outWidth / ww);
         } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放  
-            be = (int) (newOpts.outHeight / hh);  
-        }  
-        if (be <= 0)  
-            be = 1;  
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
         newOpts.inSampleSize = be;//设置缩放比例  
         //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了  
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
         bitmap = compressImage(bitmap);//压缩好比例大小后再进行质量压缩  
-        
+
         File f = new File(desPath);
         try {
-        	if (f.exists()) {
-        		f.delete();
-        	}
-			f.createNewFile();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}  
+            if (f.exists()) {
+                f.delete();
+            }
+            f.createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         FileOutputStream fOut = null;
-        try {  
-        	fOut = new FileOutputStream(f);
+        try {
+            fOut = new FileOutputStream(f);
         } catch (FileNotFoundException e) {
-        	e.printStackTrace();  
-        }  
+            e.printStackTrace();
+        }
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-        try {  
-        	fOut.flush();  
-        	fOut.close();  
+        try {
+            fOut.flush();
+            fOut.close();
         } catch (IOException e) {
-        	e.printStackTrace();  
-        }  
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -215,11 +219,9 @@ public class PictureUtils {
     }
 
     /**
-     *
      * 读取图片属性：旋转的角度
      *
-     * @param path
-     *            图片绝对路径
+     * @param path 图片绝对路径
      * @return degree旋转的角度
      */
 
@@ -247,27 +249,10 @@ public class PictureUtils {
     }
 
     /**
-     * 旋转图片一定角度 rotaingImageView
-     *
-     * @return Bitmap
-     * @throws
-     */
-    public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
-        // 旋转图片 动作
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        // 创建新的图片
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return resizedBitmap;
-    }
-
-    /**
      * 将图片变为圆角
      *
-     * @param bitmap
-     *            原Bitmap图片
-     * @param pixels
-     *            图片圆角的弧度(单位:像素(px))
+     * @param bitmap 原Bitmap图片
+     * @param pixels 图片圆角的弧度(单位:像素(px))
      * @return 带有圆角的图片(Bitmap 类型)
      */
     public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
@@ -294,8 +279,8 @@ public class PictureUtils {
     /**
      * 将图片转化为圆形头像
      *
-     * @Title: toRoundBitmap
      * @throws
+     * @Title: toRoundBitmap
      */
     public static Bitmap toRoundBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.activity.GreenDaoActivity;
-import example.activity.GlideDealActivity;
+import example.album.GlideDealActivity;
 import example.activity.TestRxActivity;
 
 import com.style.base.BaseFragment;

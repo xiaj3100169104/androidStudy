@@ -1,11 +1,10 @@
 package example.album;
 
+import android.Manifest;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
+import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
@@ -13,18 +12,19 @@ import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
-import com.style.constant.ConfigUtil;
-import com.style.constant.Skip;
+import com.style.app.ConfigUtil;
+import com.style.app.Skip;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.DeviceInfoUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import example.viewpager.ImageScanActivity;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -41,10 +41,12 @@ public class SelectLocalPictureActivity extends BaseActivity {
     private SelAvatarDialog dialog;
 
     private boolean haveImg;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_select_local_picture;
     }
+
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
@@ -69,7 +71,7 @@ public class SelectLocalPictureActivity extends BaseActivity {
                 int count = adapter.getItemCount();
                 if (position == count - 1) {
                     showSelPicPopupWindow();
-                }else {
+                } else {
                     ArrayList<Media> cacheList = new ArrayList<>();
                     if (count > 1) {
                         for (int i = 0; i < count - 1; i++) {
@@ -148,28 +150,12 @@ public class SelectLocalPictureActivity extends BaseActivity {
             dialog.setOnItemClickListener(new SelAvatarDialog.OnItemClickListener() {
                 @Override
                 public void OnClickCamera() {
-                    photoFile = Skip.takePhoto(SelectLocalPictureActivity.this, ConfigUtil.DIR_APP_IMAGE_CAMERA, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
+                    initPermission();
                 }
 
                 @Override
                 public void OnClickPhoto() {
-                    int newCount = adapter.getItemCount();
-                    ArrayList<Media> cacheList = new ArrayList<>();
-                    if (newCount > 1) {
-                        for (int i = 0; i < newCount - 1; i++) {
-                            cacheList.add(paths.get(i));
-                        }
-                    }
-
-                    Intent intent = new Intent(SelectLocalPictureActivity.this, PickerActivity.class);
-                    intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
-                    long maxSize = 188743680L;//long long long
-                    intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
-                    intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)
-                    intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, cacheList); // (Optional)
-                    SelectLocalPictureActivity.this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
-
+                    selectPhotos();
                 }
 
                 @Override
@@ -179,5 +165,47 @@ public class SelectLocalPictureActivity extends BaseActivity {
             });
         }
         dialog.show();
+    }
+
+    private void selectPhotos() {
+        int newCount = adapter.getItemCount();
+        ArrayList<Media> cacheList = new ArrayList<>();
+        if (newCount > 1) {
+            for (int i = 0; i < newCount - 1; i++) {
+                cacheList.add(paths.get(i));
+            }
+        }
+
+        Intent intent = new Intent(SelectLocalPictureActivity.this, PickerActivity.class);
+        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
+        long maxSize = 188743680L;//long long long
+        intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
+        intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)
+        intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, cacheList); // (Optional)
+        SelectLocalPictureActivity.this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
+    }
+
+    private void initPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.CAMERA)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(grated -> {
+                        if (grated) {
+                            takePhoto();
+                        } else {
+                            //onError("请开启相机权限");
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });
+        } else {
+            takePhoto();
+        }
+    }
+
+    private void takePhoto() {
+        photoFile = Skip.takePhoto(SelectLocalPictureActivity.this, ConfigUtil.DIR_APP_IMAGE_CAMERA, String.valueOf(System.currentTimeMillis()) + ".jpg");
+
     }
 }

@@ -1,21 +1,18 @@
-package example.activity;
+package example.album;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
-import com.style.framework.R;
-import com.style.framework.databinding.ActivityGlideDealBinding;
 import com.style.data.glide.GlideCircleTransform;
 import com.style.data.glide.GlideRectBoundTransform;
 import com.style.data.glide.GlideRoundTransform;
+import com.style.framework.R;
+import com.style.framework.databinding.ActivityGlideDealBinding;
 
 
-public class GlideDealActivity extends BaseActivity {
+public class GlideDealActivity extends BaseAvatarActivity {
 
     private ActivityGlideDealBinding bd;
 
@@ -48,5 +45,16 @@ public class GlideDealActivity extends BaseActivity {
     public void skip420(View v) {
         RequestOptions myOptions = new RequestOptions().transform(new GlideRectBoundTransform(4, 0xFFFF6347)).skipMemoryCache(true);
         Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv3);
+    }
+    public void selAvatar(View v) {
+        showSelPicPopupWindow();
+    }
+
+    @Override
+    protected void onAvatarCropped(String savePath) {
+        super.onAvatarCropped(savePath);
+        RequestOptions myOptions = new RequestOptions();
+        Glide.with(this).load(savePath).apply(myOptions).into(bd.ivAvatar);
+
     }
 }

@@ -19,13 +19,13 @@ public class WebServiceActivity extends BaseActivity {
 
     @Override
     protected BaseActivityPresenter getPresenter() {
-        presenter = new WebServicePresenter(this);
         return presenter;
     }
 
     @Override
     public void initData() {
         bd = getBinding();
+        presenter = new WebServicePresenter(this);
     }
 
     public void searchMobile(View v) {

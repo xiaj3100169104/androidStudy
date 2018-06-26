@@ -1,0 +1,11 @@
+<!--说明：
+external-path中，name：可以随意写，只是一个名字path：表示文件路径，.表示所有paths下可以有一下节点：
+<external-cache-path name="name" path="path" />对应Context.getExternalCacheDir()得到的目录
+<external-files-path name="name" path="path" />对应Context#getExternalFilesDir(String) Context.getExternalFilesDir(null)
+<external-path name="name" path="path" /> 对应Environment.getExternalStorageDirectory()
+<cache-path name="name" path="path" />对应 getCacheDir()得到的目录
+<files-path name="name" path="path" />对应Context.getFilesDir() 目录-->
+
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="external_files" path="."/>
+</paths>

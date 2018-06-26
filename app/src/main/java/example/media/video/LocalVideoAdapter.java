@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.constant.ConfigUtil;
+import com.style.app.ConfigUtil;
 import com.style.framework.R;
 import com.style.framework.databinding.AdapterLocalVideoBinding;
 import com.style.utils.BitmapUtil;
@@ -49,7 +49,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
             retriever.setDataSource(f.getAbsolutePath());
             b = retriever.getFrameAtTime(1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST);
             try {
-                BitmapUtil.saveBitmap(path, b, 100);
+                BitmapUtil.saveBitmap(path, b);
             } catch (IOException e) {
                 e.printStackTrace();
             }

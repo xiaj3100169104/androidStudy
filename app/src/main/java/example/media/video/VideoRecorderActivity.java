@@ -15,10 +15,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.style.constant.ConfigUtil;
+import com.style.app.ConfigUtil;
 import com.style.framework.R;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.style.constant;
+package com.style.app;
 
 
 /**

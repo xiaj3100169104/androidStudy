@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
-import com.style.constant.ConfigUtil;
+import com.style.app.ConfigUtil;
 import com.style.framework.R;
 import com.style.lib.media.camera2video.Camera2Activity;
 import com.style.lib.media.video.PlayVideoActivity;
@@ -106,7 +106,7 @@ public class VideoTestActivity extends AppCompatActivity implements View.OnClick
         Bitmap bitmap = retriever.getFrameAtTime(1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST);
         ivVideoPreview.setImageBitmap(bitmap);
         try {
-            BitmapUtil.saveBitmap(ConfigUtil.DIR_CACHE + "/.thumbnail", bitmap, 100);
+            BitmapUtil.saveBitmap(ConfigUtil.DIR_CACHE + "/.thumbnail", bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }

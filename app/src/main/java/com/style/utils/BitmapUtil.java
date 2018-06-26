@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LruCache;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -177,13 +179,28 @@ public class BitmapUtil {
     }
 
     /**
+     * 旋转图片一定角度
+     *
+     * @return Bitmap
+     * @throws
+     */
+    public static Bitmap rotaingImageView(Bitmap bitmap, int angle) {
+        // 旋转图片 动作
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        // 创建新的图片
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        return resizedBitmap;
+    }
+
+    /**
      * @param path    --文件路径
      * @param bitmap
      * @param quality 图片质量：30 表示压缩70%; 100表示压缩率为0
      * @return void
      * @throws
      */
-    public static void saveBitmap(String path, Bitmap bitmap, int quality) throws IOException {
+    public static void saveBitmap(String path, Bitmap bitmap) throws IOException {
         FileOutputStream out;
         File f = new File(path);
         if (f.exists()) {
@@ -193,7 +210,7 @@ public class BitmapUtil {
             f.getParentFile().mkdirs();
         }
         out = new FileOutputStream(f);//JPEG:以什么格式压缩
-        if (bitmap.compress(Bitmap.CompressFormat.JPEG, quality, out)) {
+        if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)) {
             out.flush();
         }
         if (out != null) {
@@ -201,6 +218,26 @@ public class BitmapUtil {
             recycle(bitmap);
         }
     }
+
+    /**
+     * @param image
+     * @param maxSize 单位kb
+     * @return
+     */
+    public static Bitmap compressImage(Bitmap image, int maxSize) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length > 1024 * maxSize) {  //循环判断如果压缩后图片是否大于2048kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            options -= 10;//每次都减少10
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+        return bitmap;
+    }
+
 
     public static void recycle(Bitmap bitmap) {
         if (bitmap != null && bitmap.isRecycled()) {

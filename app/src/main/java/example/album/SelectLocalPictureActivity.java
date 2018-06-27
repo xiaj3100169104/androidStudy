@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
@@ -94,6 +95,9 @@ public class SelectLocalPictureActivity extends BaseActivity {
             }
         });
 
+    }
+    public void selAvatar(View v) {
+        showSelPicPopupWindow();
     }
 
     @Override

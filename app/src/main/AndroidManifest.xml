@@ -156,9 +156,10 @@
         <activity
             android:name="example.customview.activity.ScanViewActivity"
             android:label="ScanView" />
-        <activity android:name="fussen.cc.barchart.activity.CustomScrollMainActivity">
-
-        </activity>
+        <activity android:name="fussen.cc.barchart.activity.CustomScrollMainActivity" />
+        <activity
+            android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
+            android:screenOrientation="portrait" />
         <activity android:name="fussen.cc.barchart.activity.ScrollBarActivity" />
         <activity android:name="fussen.cc.barchart.activity.NormalBarActivity"></activity>
         <!-- 语音悬浮服务 -->
@@ -198,7 +199,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <!--阿里热修复-->

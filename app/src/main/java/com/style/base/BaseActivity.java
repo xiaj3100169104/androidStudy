@@ -175,8 +175,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissProgressDialog();
-        //if (getPresenter() != null)
-           // getPresenter().onDestroy();
+        if (getPresenter() != null)
+            getPresenter().onDestroy();
     }
 
     public Context getContext() {

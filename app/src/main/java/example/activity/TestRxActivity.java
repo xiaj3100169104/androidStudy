@@ -65,53 +65,31 @@ public class TestRxActivity extends BaseActivity {
         //Flowable是RxJava2.x中新增的，专门用于应对背压（Backpressure）问题。所谓背压，即生产者的速度大于消费者的速度带来的问题，
         // 比如在Android中常见的点击事件，点击过快则经常会造成点击两次的效果。其中，Flowable默认队列大小为128.
 
+        //错误处理消费者
         Flowable.just("hello1", "hello2", "hello3", "hello4", "hello5", "hello6")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        System.out.println(s);
-                    }
-                }, new Consumer<Throwable>() {//错误处理消费者
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        /**
-                         * Consumer是简易版的Observer，他有多重重载，可以自定义你需要处理的信息，我这里调用的是只接受onNext消息的方法，
-                         * 他只提供一个回调接口accept，由于没有onError和onCompete，无法再 接受到onError或者onCompete之后，实现函数回调。
-                         * 无法回调，并不代表不接收，他还是会接收到onCompete和onError之后做出默认操作，也就是监听者（Consumer）不在接收
-                         * Observable发送的消息，下方的代码测试了该效果。
-                         */
-                        //do something when error!
-                        //code B
-                        //注意：当mDisposable.isCanceled()时抛出的异常，这里不会补货，因为已经取消了订阅
-                    }
+                .subscribe(s -> System.out.println(s), throwable -> {
+                    /**
+                     * Consumer是简易版的Observer，他有多重重载，可以自定义你需要处理的信息，我这里调用的是只接受onNext消息的方法，
+                     * 他只提供一个回调接口accept，由于没有onError和onCompete，无法再 接受到onError或者onCompete之后，实现函数回调。
+                     * 无法回调，并不代表不接收，他还是会接收到onCompete和onError之后做出默认操作，也就是监听者（Consumer）不在接收
+                     * Observable发送的消息，下方的代码测试了该效果。
+                     */
+                    //do something when error!
+                    //code B
+                    //注意：当mDisposable.isCanceled()时抛出的异常，这里不会补货，因为已经取消了订阅
                 });
     }
 
     public void skip2(View v) {
         Flowable.just("hello RxJava 2")
                 .subscribeOn(Schedulers.newThread())
-                .map(new Function<String, Integer>() {
-                    @Override
-                    public Integer apply(String s) throws Exception {
-                        return s.hashCode();
-                    }
-                })
+                .map(s -> s.hashCode())
                 .observeOn(Schedulers.io())
-                .map(new Function<Integer, String>() {
-                    @Override
-                    public String apply(Integer value) throws Exception {
-                        return "hashCode=" + value;
-                    }
-                })
+                .map(value -> "hashCode=" + value)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        System.out.println(s);
-                    }
-                });
+                .subscribe(s -> System.out.println(s));
     }
 
     public void skip3(View v) {

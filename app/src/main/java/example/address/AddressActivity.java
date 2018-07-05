@@ -119,9 +119,14 @@ public class AddressActivity extends BaseActivity {
         //getData2();
     }
     public void setData(List<UploadPhone> data) {
-        Log.e(AddressActivity.this.TAG, data.toString());
         dataList.addAll(data);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.stopPlay();
     }
 
     private void getData2() {

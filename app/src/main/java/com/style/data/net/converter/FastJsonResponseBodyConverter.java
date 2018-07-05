@@ -48,16 +48,13 @@ public class FastJsonResponseBodyConverter<T> implements Converter<ResponseBody,
         BaseHttpResponse baseRes = JSON.parseObject(tempStr, BaseHttpResponse.class);
         if (baseRes == null) {
             throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
-        } else {
-            //如果只需要解析成功时，不需要关心或者解析数据
-            if (type == BaseHttpResponse.class && baseRes.isSuccess()) {
-                return (T) baseRes;
-            }
-            if (!baseRes.isSuccess()) {
-                throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
-            }
+        } else if (!baseRes.isSuccess()) {
+            throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
         }
-
+        //如果只需要解析成功时，不需要关心或者解析数据
+        if (type == BaseHttpResponse.class && baseRes.isSuccess()) {
+            return (T) baseRes;
+        }
         data = JSON.parseObject(baseRes.getData(), type);
         //数据为空时，防止rxjava接受null
         if (data == null)

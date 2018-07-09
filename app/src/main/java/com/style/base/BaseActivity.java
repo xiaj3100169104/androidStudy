@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -74,13 +75,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(View mContentView) {
+        if (isGeneralTitleBar()) {
+            customTitleOptions(mContentView);
+        }
         Window window = getWindow();
         switch (getStatusBarStyle()) {
             case STATUS_BAR_TRANSPARENT:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //防止之前加了这个标志
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    if (isLightStatusBar())
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isLightStatusBar())
                         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                     else
@@ -88,28 +92,31 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                     //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     //window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                } else {
+                    setTransparentStatusBarHeight(0);
                 }
                 mContentView.setFitsSystemWindows(false);
                 break;
             case STATUS_BAR_TRANSLUCENT:
+                setTransparentStatusBarHeight(getStatusHeight());
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 mContentView.setFitsSystemWindows(false);
                 break;
             case STATUS_BAR_COLOR:
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                setTransparentStatusBarHeight(0);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(getResources().getColor(R.color.orange));
+                }
                 mContentView.setFitsSystemWindows(true);
                 break;
             default:
+                setTransparentStatusBarHeight(0);
                 mContentView.setFitsSystemWindows(true);
                 break;
 
         }
         super.setContentView(mContentView);
-        if (isGeneralTitleBar()) {
-            customTitleOptions(mContentView);
-        }
         initData();
     }
 
@@ -125,20 +132,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initData();
 
-    private LinearLayout titlebar;
     private View statusBar;
     private TextView tvTitleBase;
-    private ImageView ivBaseToolbarReturn;
 
     protected void customTitleOptions(View mContentView) {
-        titlebar = mContentView.findViewById(R.id.title_bar);
         statusBar = mContentView.findViewById(R.id.status_bar);
-        ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
+        ImageView ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
-        if (getStatusBarStyle() == STATUS_BAR_TRANSLUCENT || getStatusBarStyle() == STATUS_BAR_TRANSPARENT)
-            statusBar.getLayoutParams().height = getStatusHeight();
-        else
-            statusBar.getLayoutParams().height = 0;
         ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +147,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
+    protected void setTransparentStatusBarHeight(int height){
+        statusBar.getLayoutParams().height = height;
+
+    }
     protected void onClickTitleBack() {
         onBackPressed();
     }

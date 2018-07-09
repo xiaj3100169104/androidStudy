@@ -46,6 +46,10 @@ public class AddressPresenter extends BaseActivityPresenter<AddressActivity> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(list -> getActivity().setData(list));
         addTask(d);
+
+    }
+
+    public void getRingtone() {
         List<MyRingtone> list = ContactHelper.getRingtone(getActivity());
         player = new MediaPlayer();
         try {

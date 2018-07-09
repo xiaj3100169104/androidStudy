@@ -153,7 +153,6 @@ dependencies {
     //compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    //compile 'com.squareup.retrofit2:converter-scalars:2.2.0'
     implementation 'org.simple:androideventbus:1.0.5.1'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'android.arch.lifecycle:extensions:1.1.1'

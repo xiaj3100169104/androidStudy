@@ -36,6 +36,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected static final int STATUS_BAR_TRANSPARENT = 0;//全透明状态栏
     protected static final int STATUS_BAR_TRANSLUCENT = 1;//半透明状态栏
     protected static final int STATUS_BAR_COLOR = 2;//自定义状态栏颜色
+    protected static final int STATUS_BAR_THEME = 3;//主题配置状态栏颜色
+
     private Context context;
     private LoadingDialog progressDialog;
     private View contentView;
@@ -60,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         if (isScreenPortrait())
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
-        contentView = LayoutInflater.from(context).inflate(getLayoutResId(), null);
+        contentView = getLayoutInflater().inflate(getLayoutResId(), null);
         setContentView(getContentView());
 
     }
@@ -82,16 +84,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (getStatusBarStyle()) {
             case STATUS_BAR_TRANSPARENT:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    setTransparentStatusBarHeight(getStatusHeight());
                     //防止之前加了这个标志
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isLightStatusBar())
-                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                     else
-                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-                    //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    //window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                    window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
                 } else {
                     setTransparentStatusBarHeight(0);
                 }
@@ -110,7 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
                 mContentView.setFitsSystemWindows(true);
                 break;
-            default:
+            case STATUS_BAR_THEME:
                 setTransparentStatusBarHeight(0);
                 mContentView.setFitsSystemWindows(true);
                 break;
@@ -147,10 +147,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
-    protected void setTransparentStatusBarHeight(int height){
+    protected void setTransparentStatusBarHeight(int height) {
         statusBar.getLayoutParams().height = height;
 
     }
+
     protected void onClickTitleBack() {
         onBackPressed();
     }

@@ -41,5 +41,11 @@
             android:onClick="@{onItemClickListener::skip4}"
             android:text="DialogFragment" />
 
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="#000"
+            android:src="@drawable/ic_launcher" />
     </LinearLayout>
 </layout>

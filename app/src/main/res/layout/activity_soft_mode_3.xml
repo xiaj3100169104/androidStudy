@@ -1,36 +1,34 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include layout="@layout/title_bar_normal" />
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/layout_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
+                android:id="@+id/et_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="并没有覆盖，只是被缩减了高度，需要重新滚动到底部" />
+                android:hint="用户名"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <EditText
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="用户名" />
-
-        </LinearLayout>
-    </LinearLayout>
+                app:layout_constraintBottom_toTopOf="@+id/et_content" />
+        </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 </layout>
 

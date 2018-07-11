@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 
 import com.style.framework.R;
 
-import example.customview.popupwindow.LoginPopupWindow;
+import example.customview.popupwindow.CustomKeyboardWindow;
 
 
 public class KeyboardActivity extends AppCompatActivity {
 
-    private LoginPopupWindow mLoginPop;
+    private CustomKeyboardWindow mLoginPop;
     private ViewGroup rootView;
 
     @Override
@@ -24,8 +24,7 @@ public class KeyboardActivity extends AppCompatActivity {
 
     public void open(View cbLogin) {
         if (mLoginPop == null) {
-            View view = getLayoutInflater().inflate(R.layout.dlg_keyboard, rootView, false);
-            mLoginPop = new LoginPopupWindow(KeyboardActivity.this, view);
+            mLoginPop = new CustomKeyboardWindow.Builder(this).create();
             //mLoginPop.setBackgroundDrawable(getResources().getDrawable(R.drawable.divider_transparent));
             mLoginPop.bt_positive.setOnClickListener(new View.OnClickListener() {
                 @Override

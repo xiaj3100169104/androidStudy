@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -18,17 +19,43 @@ import com.style.view.CallKeyboard;
 /**
  * Created by xiajun on 2016/6/28.
  */
-public class LoginPopupWindow extends PopupWindow {
+public class CustomKeyboardWindow extends PopupWindow {
     private Context mContext;
     private ImageView btDelete;
     private EditText et_content;
     private CallKeyboard callKeyboard;
     public Button bt_positive;
 
-    public LoginPopupWindow(Context context, View contentView) {
-        super(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+    public CustomKeyboardWindow(Context context, View contentView) {
+        this(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mContext = context;
         init(contentView);
+    }
+
+    public CustomKeyboardWindow(View contentView, int width, int height, boolean focusable) {
+        super(contentView, width, height, focusable);
+    }
+
+    //此类用来装载一些变量逻辑在super操作之前，因为构造super语句之前不能有其他语句
+    public static class Builder {
+        private Context context;
+        private CustomKeyboardWindow dialog;
+
+        /**
+         * 构造函数
+         *
+         * @param context 上下文对象
+         */
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public CustomKeyboardWindow create() {
+            View contentView = LayoutInflater.from(context).inflate(R.layout.dlg_keyboard, null);
+            dialog = new CustomKeyboardWindow(context, contentView);
+            return dialog;
+        }
+
     }
 
     private void init(View contentView) {

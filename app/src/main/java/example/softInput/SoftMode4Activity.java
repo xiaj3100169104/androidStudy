@@ -27,7 +27,7 @@ import example.adapter.StringAdapter;
 
 
 public class SoftMode4Activity extends BaseActivity {
-    private String TAG = "SoftMode3Activity";
+    private String TAG = "SoftMode4Activity";
 
     ActivitySoftMode4Binding bd;
 

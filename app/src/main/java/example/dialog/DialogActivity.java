@@ -3,6 +3,7 @@ package example.dialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.View;
 
 import com.style.base.BaseActivity;
@@ -22,6 +23,7 @@ public class DialogActivity extends BaseActivity {
     private FragmentManager fm;
     private FragmentTransaction bt;
     private MaterialProgressDialog materialDialog;
+    private ScaleTestWindow popWindow;
 
     @Override
     public int getLayoutResId() {
@@ -42,6 +44,12 @@ public class DialogActivity extends BaseActivity {
 
         materialDialog = new MaterialProgressDialog(this);
         materialDialog.show();
+        popWindow = new ScaleTestWindow.Builder(this).create();
+
+        bd.ivLogo.setOnClickListener(v -> {
+            popWindow.showAsDropDown(v, 0, -v.getHeight());
+
+        });
     }
 
     public class OnItemClickListener {
@@ -75,11 +83,9 @@ public class DialogActivity extends BaseActivity {
         }
 
         public void skip4(View v) {
-            String test = null;
-            logE(TAG, test.toString());
-            DialogFragment df= new DialogFragment();
+            /*DialogFragment df= new DialogFragment();
             fm.beginTransaction().add(R.id.layout_root, df , "dialog").commit();
-
+*/
         }
     }
 }

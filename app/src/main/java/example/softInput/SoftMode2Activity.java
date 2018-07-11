@@ -18,7 +18,7 @@ public class SoftMode2Activity extends BaseActivity {
 
     @Override
     protected int getStatusBarStyle() {
-        return STATUS_BAR_COLOR;
+        return STATUS_BAR_THEME;
     }
 
     @Override

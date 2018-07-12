@@ -3,32 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <include layout="@layout/title_bar_normal" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layout_root"
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:background="#3000ff00"
+            android:fitsSystemWindows="true">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#000"
+                android:src="@drawable/ic_launcher" />
 
             <EditText
                 android:id="@+id/et_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="用户名"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_below="@id/image"
+                android:hint="密码" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/et_content" />
-        </android.support.constraint.ConstraintLayout>
+                android:layout_height="40dp"
+                android:layout_below="@+id/et_content"
+                android:text="如果需要移动的区域高度太高会把标题栏给顶出去" />
+        </RelativeLayout>
     </RelativeLayout>
+
 </layout>
 

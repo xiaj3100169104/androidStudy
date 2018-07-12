@@ -1,23 +1,20 @@
 package example.softInput;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
+import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseActivity;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivitySoftMode3Binding;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
 import com.style.view.DividerItemDecoration;
 
@@ -46,7 +43,7 @@ public class SoftMode4Activity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("布局调整");
+        setToolbarTitle("全透明状态栏下只移动编辑框布局");
 
     }
 
@@ -67,9 +64,9 @@ public class SoftMode4Activity extends BaseActivity {
             }
         });
         getData();
-
+        WindowInsets
         //addListener();
-        resetSendMsgRl();
+        //resetSendMsgRl();
     }
 
     private void resetSendMsgRl() {
@@ -139,7 +136,7 @@ public class SoftMode4Activity extends BaseActivity {
     }
 
     private void getData() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             dataList.add(i + "");
         }
         adapter.notifyDataSetChanged();

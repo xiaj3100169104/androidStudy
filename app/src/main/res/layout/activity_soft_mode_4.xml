@@ -1,36 +1,40 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <include layout="@layout/title_bar_normal" />
 
-        <LinearLayout
-            android:id="@+id/layout_root"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_bar" />
+
+
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#3000ff00"
+            android:fitsSystemWindows="true">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="密码" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="并没有覆盖，只是被缩减了高度，需要重新滚动到底部.fitsSystemWindows放在哪里就在那个地方顶部预留状态栏高度空间" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="用户名" />
-
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_height="40dp"
+                android:layout_below="@+id/et_content"
+                android:text="如果需要不变的区域容器是相对布局也会产生变动" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>
 

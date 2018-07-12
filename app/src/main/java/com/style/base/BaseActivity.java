@@ -99,6 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case STATUS_BAR_TRANSLUCENT:
                 setTransparentStatusBarHeight(getStatusHeight());
+                //看注释这个其实是在全透明的基础上多加了个半透明效果
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 mContentView.setFitsSystemWindows(false);
                 break;

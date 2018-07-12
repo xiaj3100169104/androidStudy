@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -8,10 +9,10 @@
 
         <include layout="@layout/title_bar_normal" />
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/title_bar"
             android:orientation="vertical">
 
@@ -20,26 +21,42 @@
                 android:layout_height="wrap_content"
                 android:text="调整编辑框位置其他布局不动" />
 
-            <TextView
+            <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="#f00"
-                android:text="视图1" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="#0f0"
+                android:layout_height="500dp"
+                android:background="#3000ff00"
                 android:gravity="bottom|center_horizontal"
+                android:src="@drawable/ic_launcher"
                 android:text="要此view尺寸不变高度值必须固定" />
 
-        </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:text="test"
+                app:layout_constraintBottom_toBottomOf="@id/image"
+                app:layout_constraintRight_toRightOf="@id/image" />
+        </android.support.constraint.ConstraintLayout>
 
-        <EditText
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:hint="密码" />
+            android:layout_alignParentBottom="true">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="密码" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/et_content"
+                android:text="如果需要不变的区域容器是相对布局也会产生变动" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </layout>

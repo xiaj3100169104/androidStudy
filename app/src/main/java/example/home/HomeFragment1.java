@@ -14,7 +14,6 @@ import com.style.framework.R;
 import com.style.framework.databinding.FragmentHome1Binding;
 
 import example.activity.MyRadioGroupActivity;
-import example.activity.ReadAssetsActivity;
 import example.customview.activity.CustomViewMainActivity;
 import example.gesture.SimpleGestureActivity;
 import example.gesture.TestGestureActivity;
@@ -26,7 +25,7 @@ import example.drag.DragActivity;
 import example.filedown.FileDownActivity;
 import example.music.MusicListActivity;
 import example.music.remote.RemotePlayActivity;
-import example.softInput.StatusbarStyleMainActivity;
+import example.softInput.StatusBarStyleMainActivity;
 import example.tablayout.TabLayoutActivity;
 import example.vlayout.MultiTypeActivity;
 import fussen.cc.barchart.activity.CustomScrollMainActivity;
@@ -105,7 +104,7 @@ public class HomeFragment1 extends BaseFragment {
         }
 
         public void skip11(View v) {
-            skip(StatusbarStyleMainActivity.class);
+            skip(StatusBarStyleMainActivity.class);
         }
 
         public void skip12(View v) {

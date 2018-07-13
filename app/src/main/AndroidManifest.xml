@@ -62,14 +62,18 @@
         android:theme="@style/BaseAppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
         <activity
-            android:name="example.home.MainActivity"
-            android:launchMode="standard">
+            android:name="example.login.LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="example.home.MainActivity"
+            android:launchMode="singleTask" />
+
         <activity android:name="example.activity.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
@@ -114,7 +118,7 @@
         <activity android:name="example.activity.GreenDaoActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity
-            android:name="example.softInput.StatusbarStyleMainActivity"
+            android:name="example.softInput.StatusBarStyleMainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode1Activity"

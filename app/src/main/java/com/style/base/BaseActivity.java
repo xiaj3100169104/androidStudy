@@ -1,28 +1,20 @@
 package com.style.base;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.app.LogManager;
 import com.style.dialog.LoadingDialog;
 import com.style.framework.R;
@@ -58,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        logI(TAG, "onCreate-------------");
         context = this;
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
         if (isScreenPortrait())
@@ -65,6 +58,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         contentView = getLayoutInflater().inflate(getLayoutResId(), null);
         setContentView(getContentView());
 
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public View getContentView() {
@@ -83,37 +80,43 @@ public abstract class BaseActivity extends AppCompatActivity {
         Window window = getWindow();
         switch (getStatusBarStyle()) {
             case STATUS_BAR_TRANSPARENT:
+                //默认属性可不写
+                mContentView.setFitsSystemWindows(false);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     setTransparentStatusBarHeight(getStatusHeight());
                     //防止之前加了这个标志
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    int visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    //系统版本大于6.0且需要设置状态栏图标颜色为深色
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isLightStatusBar())
-                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                    else
-                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                        visibility = visibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    window.getDecorView().setSystemUiVisibility(visibility);
+                    //设置状态栏颜色
                     window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
                 } else {
                     setTransparentStatusBarHeight(0);
                 }
-                mContentView.setFitsSystemWindows(false);
                 break;
             case STATUS_BAR_TRANSLUCENT:
+                //默认属性可不写
+                mContentView.setFitsSystemWindows(false);
                 setTransparentStatusBarHeight(getStatusHeight());
                 //看注释这个其实是在全透明的基础上多加了个半透明效果
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                mContentView.setFitsSystemWindows(false);
                 break;
             case STATUS_BAR_COLOR:
+                //这是前提
+                mContentView.setFitsSystemWindows(true);
                 setTransparentStatusBarHeight(0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(getResources().getColor(R.color.orange));
                 }
-                mContentView.setFitsSystemWindows(true);
                 break;
             case STATUS_BAR_THEME:
-                setTransparentStatusBarHeight(0);
+                //这是前提
                 mContentView.setFitsSystemWindows(true);
+                setTransparentStatusBarHeight(0);
                 break;
 
         }
@@ -140,16 +143,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         statusBar = mContentView.findViewById(R.id.status_bar);
         ImageView ivBaseToolbarReturn = mContentView.findViewById(R.id.iv_base_toolbar_Return);
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title);
-        ivBaseToolbarReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickTitleBack();
-            }
-        });
+        ivBaseToolbarReturn.setOnClickListener(v -> onClickTitleBack());
     }
 
     protected void setTransparentStatusBarHeight(int height) {
-        statusBar.getLayoutParams().height = height;
+        if (isGeneralTitleBar())
+            statusBar.getLayoutParams().height = height;
 
     }
 
@@ -166,31 +165,53 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        logI(TAG, "onStart-------------");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        logI(TAG, "onRestart-------------");
+    }
+
+    /*
+    //如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建
+     //finishAndRemoveTask()都不管用
+     */
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        logI(TAG, "onResume-------------");
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
+        logI(TAG, "onPause-------------");
         cancelToast();
         hideKeyboard();
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        logI(TAG, "onStop-------------");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        logI(TAG, "onDestroy-------------");
         dismissProgressDialog();
         if (getPresenter() != null)
             getPresenter().onDestroy();
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void skip(Class<?> cls) {
-        startActivity(new Intent(getContext(), cls));
     }
 
     public void showToast(CharSequence str) {
@@ -242,34 +263,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
     protected int getStatusHeight() {
-        int statusBarHeight = getStatusHeightDefault();
-        //获取status_bar_height资源的ID
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        }
-        Log.e(TAG, "状态栏-高度:" + statusBarHeight);
+        int statusBarHeight = DeviceInfoUtil.getStatusHeight(this);
         return statusBarHeight;
-    }
-
-    //获取状态栏高度(一般情况下)
-    protected int getStatusHeightDefault() {
-        return ScreenUtils.dp2px(this, 24f);
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public void requestPermissionsSafely(String[] permissions, int requestCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, requestCode);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public boolean hasPermission(String permission) {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-                checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     protected void logI(String tag, String msg) {

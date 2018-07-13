@@ -15,13 +15,14 @@
             android:layout_below="@+id/title_bar" />
 
 
-        <RelativeLayout
+        <example.softInput.InsetRelativeLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#3000ff00"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:paddingTop="10dp">
 
             <EditText
                 android:id="@+id/et_content"
@@ -34,7 +35,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/et_content"
                 android:text="如果需要不变的区域容器是相对布局也会产生变动" />
-        </RelativeLayout>
+        </example.softInput.InsetRelativeLayout>
     </RelativeLayout>
 </layout>
 

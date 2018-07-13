@@ -1,5 +1,6 @@
 package example.softInput;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.style.base.BaseActivity;
@@ -10,16 +11,18 @@ import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class StatusbarStyleMainActivity extends BaseActivity {
+public class StatusBarStyleMainActivity extends BaseActivity {
     StatusbarStyleActivityMainBinding bd;
 
     public boolean isLightStatusBar() {
         return true;
     }
+
     @Override
     public int getLayoutResId() {
         return R.layout.statusbar_style_activity_main;
     }
+
     @Override
     protected BaseActivityPresenter getPresenter() {
         return null;
@@ -35,19 +38,19 @@ public class StatusbarStyleMainActivity extends BaseActivity {
     public class OnItemClickListener {
 
         public void skip1(View v) {
-            skip(SoftMode1Activity.class);
+            startActivity(new Intent(getContext(), SoftMode1Activity.class));
         }
 
         public void skip2(View v) {
-            skip(SoftMode2Activity.class);
+            startActivity(new Intent(getContext(), SoftMode2Activity.class));
         }
 
         public void skip3(View v) {
-            skip(SoftMode3Activity.class);
+            startActivity(new Intent(getContext(), SoftMode3Activity.class));
         }
 
         public void skip4(View v) {
-            skip(SoftMode4Activity.class);
+            startActivity(new Intent(getContext(), SoftMode4Activity.class));
 
         }
     }

@@ -24,6 +24,7 @@ import java.util.Enumeration;
  */
 
 public class DeviceInfoUtil {
+    private static final String TAG = "DeviceInfoUtil";
 
     public static int dp2px(Context context, float dpValue) {
         float pxValue = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
@@ -60,6 +61,24 @@ public class DeviceInfoUtil {
         float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
         int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
         return metric;
+    }
+
+    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
+    public static int getStatusHeight(Context context) {
+        int statusBarHeight = getStatusHeightDefault(context);
+        //获取status_bar_height资源的ID
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        Log.i(TAG, "状态栏-高度:" + statusBarHeight);
+        return statusBarHeight;
+    }
+
+    //获取状态栏高度(一般情况下)
+    protected static int getStatusHeightDefault(Context context) {
+        return dp2px(context, 24f);
     }
 
     public static String getIMEI(Context context) {

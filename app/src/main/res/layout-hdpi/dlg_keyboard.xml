@@ -1,57 +1,67 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_gravity="center_horizontal"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="10dp">
 
-    <RelativeLayout
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:background="#121212">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="5dp"
-            android:text="号码："
-            android:textColor="@android:color/white"
-            android:textSize="15sp"/>
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="#121212"
+            android:elevation="4dp">
 
-        <EditText
-            android:id="@+id/et_call_number"
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="号码："
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/et_call_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/bt_delete"
+                android:layout_toRightOf="@+id/tag"
+                android:inputType="number"
+                android:maxLength="13"
+                android:textColor="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/bt_delete"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:src="@mipmap/ic_check_in_delete" />
+        </RelativeLayout>
+
+        <com.style.view.CallKeyboard
+            android:id="@+id/call_keyboard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textCursorDrawable="@null"
-            android:layout_toLeftOf="@+id/bt_delete"
-            android:layout_toRightOf="@+id/tag"
-            android:inputType="number"
-            android:maxLength="13"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/bt_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#121212"
+            android:text="确定"
             android:textColor="@android:color/white"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
-        <ImageView
-            android:id="@+id/bt_delete"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:padding="5dp"
-            android:src="@mipmap/ic_check_in_delete" />
-    </RelativeLayout>
-
-    <com.style.view.CallKeyboard
-        android:id="@+id/call_keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-    <Button
-        android:id="@+id/bt_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#121212"
-        android:text="确定"
-        android:textColor="@android:color/white"
-        android:textSize="15sp"/>
-
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

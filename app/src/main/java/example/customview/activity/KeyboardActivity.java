@@ -1,5 +1,6 @@
 package example.customview.activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +26,8 @@ public class KeyboardActivity extends AppCompatActivity {
     public void open(View cbLogin) {
         if (mLoginPop == null) {
             mLoginPop = new CustomKeyboardWindow.Builder(this).create();
-            //mLoginPop.setBackgroundDrawable(getResources().getDrawable(R.drawable.divider_transparent));
+            //某些版本手机上不设置这个属性点击窗口外和返回键没反应
+            mLoginPop.setBackgroundDrawable(new ColorDrawable());
             mLoginPop.bt_positive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

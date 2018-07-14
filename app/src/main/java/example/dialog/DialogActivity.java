@@ -1,9 +1,8 @@
 package example.dialog;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
+import android.support.v7.widget.PopupMenu;
 import android.view.View;
 
 import com.style.base.BaseActivity;
@@ -48,8 +47,26 @@ public class DialogActivity extends BaseActivity {
 
         bd.ivLogo.setOnClickListener(v -> {
             popWindow.showAsDropDown(v, 0, -v.getHeight());
-
         });
+        bd.btn3.setOnClickListener(v -> {
+            showPopupMenu(v);
+        });
+    }
+
+    private void showPopupMenu(View v) {
+        PopupMenu pop = new PopupMenu(this, v);//v是加号控件
+        pop.getMenuInflater().inflate(R.menu.user_info, pop.getMenu());
+        pop.show();
+        pop.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.edit:
+                    break;
+                case R.id.report:
+                    break;
+            }
+            return true;
+        });
+
     }
 
     public class OnItemClickListener {

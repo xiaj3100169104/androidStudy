@@ -2,26 +2,22 @@ package example.dialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.view.Gravity;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.style.framework.R;
-import com.style.view.CallKeyboard;
 
 public class ScaleTestWindow extends PopupWindow {
     private Context mContext;
 
     public ScaleTestWindow(Context context, View contentView) {
-        this(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        this(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mContext = context;
         init(contentView);
     }
@@ -42,6 +38,12 @@ public class ScaleTestWindow extends PopupWindow {
         public ScaleTestWindow create() {
             View contentView = LayoutInflater.from(context).inflate(R.layout.window_scale_test, null);
             popWindow = new ScaleTestWindow(context, contentView);
+            //某些版本手机上不设置这个属性点击窗口外和返回键没反应
+            popWindow.setBackgroundDrawable(new ColorDrawable());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //popupElevation这个属性在Api21及以上的默认的值是16dp
+                popWindow.setElevation(30);
+            }
             popWindow.setAnimationStyle(R.style.Anim_grow_from_view);
             return popWindow;
         }

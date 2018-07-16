@@ -89,9 +89,12 @@
 
 
     <style name="Anim_grow_from_view">
-        <!-- 当我们从 A1 启动 A2 时，A2 出现在屏幕上 -->
         <item name="android:windowEnterAnimation">@anim/grow_from_view</item>
-        <!-- 当我们从 A2 退出回到 A1 时，A2 从屏幕上消失 -->
         <item name="android:windowExitAnimation">@anim/grow_small_from_view</item>
+    </style>
+
+    <style name="Animations.GeneralListPopup">
+        <item name="android:windowEnterAnimation">@anim/general_list_popup_open</item>
+        <item name="android:windowExitAnimation">@anim/general_list_popup_close</item>
     </style>
 </resources>

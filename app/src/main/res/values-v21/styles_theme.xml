@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="listpopstyle"  parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">true</item>
+        <item name="android:popupElevation">16dp</item>
+        <item name="android:popupBackground">#ffffff</item>
+    </style>
+</resources>

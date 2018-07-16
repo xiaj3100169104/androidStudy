@@ -106,7 +106,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener mListener) {
+    public void setOnItemClickListener(OnItemClickListener<T> mListener) {
         if (mListener != null)
             this.onItemClickListener = mListener;
     }

@@ -1,18 +1,27 @@
 package example.dialog;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.View;
+import android.widget.Spinner;
 
 import com.style.base.BaseActivity;
 import com.style.base.BaseActivityPresenter;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.MaterialProgressDialog;
 import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
+
+import java.util.ArrayList;
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -22,7 +31,6 @@ public class DialogActivity extends BaseActivity {
     private FragmentManager fm;
     private FragmentTransaction bt;
     private MaterialProgressDialog materialDialog;
-    private ScaleTestWindow popWindow;
 
     @Override
     public int getLayoutResId() {
@@ -43,18 +51,34 @@ public class DialogActivity extends BaseActivity {
 
         materialDialog = new MaterialProgressDialog(this);
         materialDialog.show();
-        popWindow = new ScaleTestWindow.Builder(this).create();
 
-        bd.ivLogo.setOnClickListener(v -> {
-            popWindow.showAsDropDown(v, 0, -v.getHeight());
+        bd.ivLogo.setOnClickListener(v -> showPopupWindow(v));
+        bd.btn3.setOnClickListener(v -> showPopupMenu(v));
+        bd.btn4.setOnClickListener(v -> showListPopup(v));
+        bd.btn5.setOnClickListener(v -> showSpinner());
+    }
+
+    private void showPopupWindow(View v) {
+        ScaleTestWindow popWindow = new ScaleTestWindow(getContext());
+        popWindow.showAsDropDown(v, 0, -v.getHeight());
+    }
+
+    private void showSpinner() {
+        /*AppCompatSpinner spinner = new AppCompatSpinner(this);
+        spinner.*/
+    }
+
+    private void showListPopup(View v) {
+        GeneralListPopup popup = new GeneralListPopup(getContext());
+        popup.setOnItemClickListener((position, data) -> {
+            Log.e(TAG, position + "  " + data);
         });
-        bd.btn3.setOnClickListener(v -> {
-            showPopupMenu(v);
-        });
+        popup.showAsDropDown(v);
     }
 
     private void showPopupMenu(View v) {
-        PopupMenu pop = new PopupMenu(this, v);//v是加号控件
+        //莫法设置相对位置偏移量
+        PopupMenu pop = new PopupMenu(getContext(), v);
         pop.getMenuInflater().inflate(R.menu.user_info, pop.getMenu());
         pop.show();
         pop.setOnMenuItemClickListener(item -> {

@@ -4,16 +4,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
 import android.view.View;
-import android.widget.TextView;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
@@ -32,11 +28,6 @@ public class AidlActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_aidl;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

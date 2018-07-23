@@ -1,7 +1,5 @@
 package example.web;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
@@ -9,10 +7,8 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.Button;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
@@ -24,11 +20,6 @@ public class WebViewAndJSActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_web_view;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

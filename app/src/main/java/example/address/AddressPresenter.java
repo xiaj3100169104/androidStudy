@@ -1,37 +1,38 @@
 package example.address;
 
+import android.app.Application;
+import android.arch.lifecycle.MutableLiveData;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 
+import com.style.base.BaseAndroidViewModel;
 import com.style.utils.HanyuToPinyin;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import com.style.base.BaseActivityPresenter;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by xiajun on 2018/4/29.
  */
 
-public class AddressPresenter extends BaseActivityPresenter<AddressActivity> {
+public class AddressPresenter extends BaseAndroidViewModel {
+    MutableLiveData<List<UploadPhone>> contacts = new MutableLiveData<>();
     private MediaPlayer player;
 
-    public AddressPresenter(AddressActivity mActivity) {
-        super(mActivity);
+    public AddressPresenter(@NonNull Application application) {
+        super(application);
     }
 
     public void getData() {
 
         Disposable d = Observable.just("").map(param -> {
-            List<UploadPhone> list = ContactHelper.getContacts(getActivity());
+            List<UploadPhone> list = ContactHelper.getContacts(getApplication());
             if (null != list) {
                 int size = list.size();
                 for (int i = 0; i < size; i++) {
@@ -44,13 +45,13 @@ public class AddressPresenter extends BaseActivityPresenter<AddressActivity> {
             return list;
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(list -> getActivity().setData(list));
+                .subscribe(list -> contacts.postValue(list));
         addTask(d);
 
     }
 
     public void getRingtone() {
-        List<MyRingtone> list = ContactHelper.getRingtone(getActivity());
+        List<MyRingtone> list = ContactHelper.getRingtone(getApplication());
         player = new MediaPlayer();
         try {
             player.setDataSource(list.get(0).path);
@@ -75,8 +76,8 @@ public class AddressPresenter extends BaseActivityPresenter<AddressActivity> {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    protected void onCleared() {
+        super.onCleared();
         if (player != null && player.isPlaying()) {
             player.pause();
             player.stop();

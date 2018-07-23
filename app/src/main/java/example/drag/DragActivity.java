@@ -1,12 +1,9 @@
 package example.drag;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.DragActivityBinding;
@@ -26,10 +23,6 @@ public class DragActivity extends BaseActivity {
         return R.layout.drag_activity;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

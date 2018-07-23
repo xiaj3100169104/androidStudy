@@ -1,15 +1,20 @@
 package example.db;
 
-import com.style.base.BaseActivityPresenter;
+import android.app.Application;
+import android.support.annotation.NonNull;
+
+import com.style.base.BaseAndroidViewModel;
 import com.style.bean.User;
 
 /**
  * Created by xiajun on 2018/6/21.
  */
 
-public class EncryptPresenter extends BaseActivityPresenter<EncryptActivity> {
-    public EncryptPresenter(EncryptActivity mActivity) {
-        super(mActivity);
+public class EncryptPresenter extends BaseAndroidViewModel {
+
+
+    public EncryptPresenter(@NonNull Application application) {
+        super(application);
     }
 
     public void saveUser() {
@@ -18,10 +23,10 @@ public class EncryptPresenter extends BaseActivityPresenter<EncryptActivity> {
         user.setTelPhone("17364814713");
         user.setUserName("夏军");
         user.setSignKey("osfsnffnuj ekrfasfhaweoirwefnejfwefaslfheoifhefhnewfwfwfpenpnmsnmfnejfic");
-        getAccountManager().saveUserEncrypt(user);
+        getPreferences().saveUserEncrypt(user);
     }
 
     public void getUser() {
-        getAccountManager().getUserDecrypt();
+        getPreferences().getUserDecrypt();
     }
 }

@@ -1,10 +1,15 @@
 package com.style.app;
 
 import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
@@ -16,6 +21,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.data.db.user.UserDBManager;
 import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
@@ -28,7 +34,6 @@ import example.helper.DynamicTimeFormat;
 
 public class MyApp extends Application {
     protected final String TAG = getClass().getSimpleName();
-    protected static Context appContext;
     String rsaSecret = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC7d1IQLzGZaRGbPvuUDNfCWj/9OIUc5QuowMU8gq9zsf07rgL30bYJmjc15+Jvvu2sPI9o+WzYXzUj8I/N8kek61N/Lvn505+iDQxd1C/F65g+6xci3/aTXwNiOFuzMu1Sg4sFM5/Caln1UthwDedKue9BSy55zi73IEhWm5Xr4YRYPupCP2bTTOl7tOiOf5Mc+qG22hxbDZMxgcobCYGu341HkGnRP13BzD1CpxNmplJanxqCdkrtSd36+5qWJDfx7QTDfZprcDGlMuBKfyQyjXj47lG3uNFR3MtrNdyxY/4Paza06qyQyRxh4UozvmLc1lU8N82Texx2m3VAiesXAgMBAAECggEBAIIgEgt/5srZHsqHTnP28jFLGg24FNX4uz4ZCQ+2mvkQ/HlXkWHZ5KUHsfkuC4SLoEilBNrV/9K1S5q12ewXl9mHK78lqYjbd3wx2Hqs1bhpj5Vk8/tWQL8M/blI64YY/JkBDBfBPMzjq6vZJLmrPPgm1keZWxpbn0gU1YGgn9FJ1pIC7BoUekwGZszmtLH7E00p0hG9budVuas5+UXJHSiCbphJrNOMYzvLLxrYJCTdYdVZCr0o/sWvB/+2I9rsa1y9DOLelrrogv/noD+sP+qrEmNsF8S33V0iRZbpQ6918k1Y3mV13QIUyhnapZuVy23K5rBuOVHMKrlsH/8K+9ECgYEA/UBYR0TiFfbGloQ7kwrhcSy+05bYMUXfjAht+c8WhVqPMqhtrnMIjY7wxAexwMgaFRnUS4777kBACcnED8pcRMJi+llrAlDsKFbJ+4kloypyU+9JW8SCc+tu5I9+TJhtnHZps3MHiCOf7f8SKP8D/cKyVfADJnef8k2BYm6h9B8CgYEAvYAxPsliwtrGuGxGdUzI5l7ASrKSkykB7OLQijUqu1tEIWiWQJeF8r6qDEPe78ijcW7DjGeosBgOsszZlo0t6asx/sEwZ7uHLsE/EEg+SUOD9kDrpBI4zRPdaAfTe61JxUrmq8pRj+xIA18YrDhwoqhrIyGzplCyCq1U7dXM6gkCgYBayWRcOD9sbEkI0GKi9fWXotjN9XePQmM/Sg5SzYBfUfWfzW10alyYkrORMsjwOUvQYLAQXjPGV1YdrC0TFBI7vAvLf56y99uRInvKJoJNmfveRxvfP/UcJTxdx2sZflNdEb4WzJfYoBzHLveNps4BfHh+Akq+0YePT2WgqdR5NQKBgHxtZ+hqI0b+j+0Ya0sqF9/r5yclCclG69S3OWcGcgCDdMDbA4118KXrO4zCI+gePfOFXzEZ/1Fg+oW8rEKGgNclabZ082upXqH8kYQHa55/jm5rQk6BCHrfyEk+mkZjCkVZYQz704JFCyPrlS+//3VOUMrInkVeRwlrtpBUCjDBAoGBAK+HMwPXd+tAqGlomZ/7sSX3KjNzo4OCNsQ4Uj1m+XqotCxkb8vvQZ5OIwfUXjv4QB4EXh0qoQsW6/xU1KPQ91iDezPNyNR+A70C6RxBPRVK6fdDdHAxs8smN7uFobOnTuPtl70nwllZmxC5UxnuEm9G/Ot2io7qBYbIK0t1LX+M";
 
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）
@@ -42,12 +47,32 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appContext = this;
-        AppManager.getInstance().init(appContext);
-        AccountManager.getInstance().init(appContext);
-        UserDBManager.getInstance().initialize(appContext);
-        GreenDaoManager.getInstance().initialize(appContext);
+        AccountManager.getInstance().init(this);
+        UserDBManager.getInstance().initialize(this);
+        GreenDaoManager.getInstance().initialize(this);
+        initNetWorkReceiver(this);
         initRefreshView();
+    }
+
+    //      监听广播
+    private void initNetWorkReceiver(Context context) {
+        IntentFilter filter = new IntentFilter(NetWorkChangeBroadcastReceiver.NET_CHANGE);
+        context.registerReceiver(new NetWorkChangeBroadcastReceiver(), filter);
+    }
+
+    public void initRefreshView() {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);//启用矢量图兼容
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
+            layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
+            return new ClassicsHeader(context).setTimeFormat(new DynamicTimeFormat("更新于 %s"));
+        });
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
+            layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
+            //指定为经典Footer，默认是 BallPulseFooter
+            return new ClassicsFooter(context).setDrawableSize(20);
+        });
     }
 
     private void initHotfix() {
@@ -84,25 +109,18 @@ public class MyApp extends Application {
                 }).initialize();
     }
 
-    private void initRefreshView() {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);//启用矢量图兼容
-        //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
-            @NonNull
-            @Override
-            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
-                return new ClassicsHeader(context).setTimeFormat(new DynamicTimeFormat("更新于 %s"));
-            }
-        });
-        //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
-            @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
-                //指定为经典Footer，默认是 BallPulseFooter
-                return new ClassicsFooter(context).setDrawableSize(20);
-            }
-        });
+
+    //在application中使用//不让其他应用接收到广播
+    public void sendLocalBroadcast(Intent intent) {
+        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
     }
+
+    public void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+    }
+
+    public void unregisterLocalReceiver(BroadcastReceiver receiver) {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
+
 }

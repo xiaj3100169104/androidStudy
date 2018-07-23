@@ -3,7 +3,6 @@ package example.webservice;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
 
@@ -18,14 +17,10 @@ public class WebServiceActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseActivityPresenter getPresenter() {
-        return presenter;
-    }
-
-    @Override
     public void initData() {
         bd = getBinding();
-        presenter = new WebServicePresenter(this);
+        presenter = getViewModel(WebServicePresenter.class);
+        presenter.content.observe(this, s -> setContent(s));
     }
 
     public void searchMobile(View v) {
@@ -53,22 +48,7 @@ public class WebServiceActivity extends BaseActivity {
 
     }
 
-    public void searchWeatherSuccess(String s) {
-        logE(TAG, s);
-        bd.tvResult.setText(s);
-    }
-
-    public void setPhoneInfo(String s) {
-        logE(TAG, s);
-        bd.tvResult.setText(s);
-    }
-
-    public void setWeatherInfo(String s) {
-        logE(TAG, s);
-        bd.tvResult.setText(s);
-    }
-
-    public void setKuaiDiInfo(String s) {
+    public void setContent(String s) {
         logE(TAG, s.toString());
         bd.tvResult.setText(s.toString());
     }

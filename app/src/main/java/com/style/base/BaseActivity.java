@@ -1,11 +1,14 @@
 package com.style.base;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -45,8 +48,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract int getLayoutResId();
 
-    protected abstract BaseActivityPresenter getPresenter();
-
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -70,6 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public <T extends ViewDataBinding> T getBinding() {
         return DataBindingUtil.bind(getContentView());
+    }
+    public <T extends ViewModel> T getViewModel(@NonNull Class<T> modelClass) {
+        return ViewModelProviders.of(this).get(modelClass);
     }
 
     @Override
@@ -210,8 +214,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         logI(TAG, "onDestroy-------------");
         dismissProgressDialog();
-        if (getPresenter() != null)
-            getPresenter().onDestroy();
     }
 
     public void showToast(CharSequence str) {

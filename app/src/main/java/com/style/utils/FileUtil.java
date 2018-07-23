@@ -9,8 +9,6 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.Log;
 
-import com.style.app.AppManager;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

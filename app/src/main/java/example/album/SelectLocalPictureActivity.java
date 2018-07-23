@@ -10,11 +10,10 @@ import android.view.View;
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.BaseActivity;
 import com.style.app.ConfigUtil;
 import com.style.app.Skip;
+import com.style.base.BaseActivity;
+import com.style.base.BaseRecyclerViewAdapter;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
@@ -48,10 +47,6 @@ public class SelectLocalPictureActivity extends BaseActivity {
         return R.layout.activity_select_local_picture;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

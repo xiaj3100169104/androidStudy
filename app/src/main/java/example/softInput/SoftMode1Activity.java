@@ -1,7 +1,6 @@
 package example.softInput;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode1Binding;
 
@@ -12,10 +11,6 @@ public class SoftMode1Activity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_soft_mode_1;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

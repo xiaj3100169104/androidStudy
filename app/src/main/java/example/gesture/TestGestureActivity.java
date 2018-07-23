@@ -1,15 +1,12 @@
 package example.gesture;
 
 import android.animation.ValueAnimator;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
 
@@ -30,10 +27,7 @@ public class TestGestureActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_test_gesture;
     }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
+
 
     @Override
     public void initData() {

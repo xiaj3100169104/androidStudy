@@ -3,8 +3,6 @@ package example.ble;
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,12 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
 import com.style.framework.databinding.BleActivityScanBinding;
-import com.style.data.prefs.AccountManager;
 import com.style.view.DividerItemDecoration;
 
 import org.simple.eventbus.EventBus;
@@ -38,10 +35,6 @@ public class BLEActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.ble_activity_scan;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

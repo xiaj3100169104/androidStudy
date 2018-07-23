@@ -2,15 +2,11 @@ package example.address;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
@@ -36,14 +32,14 @@ public class AddressActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_address;
     }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return mPresenter;
-    }
+
     @Override
     public void initData() {
         bd = getBinding();
-        mPresenter = new AddressPresenter(this);
+        mPresenter = getViewModel(AddressPresenter.class);
+        mPresenter.contacts.observe(this, uploadPhones -> {
+            setData(uploadPhones);
+        });
 
         setToolbarTitle("通讯录");
         bd.sidebar.setTextView(bd.tvDialog);
@@ -54,22 +50,16 @@ public class AddressActivity extends BaseActivity {
         bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         bd.recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, Object data) {
-                UploadPhone up = (UploadPhone) data;
-                //AppDataHelper.openEditSms(PhoneActivity.this, up.getTelephone());
-            }
+        adapter.setOnItemClickListener((position, data) -> {
+            UploadPhone up = (UploadPhone) data;
+            //AppDataHelper.openEditSms(PhoneActivity.this, up.getTelephone());
         });
         // 设置右侧触摸监听
-        bd.sidebar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                // 该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    layoutManager.smoothScrollToPosition(bd.recyclerView, null, position);
-                }
+        bd.sidebar.setOnTouchingLetterChangedListener(s -> {
+            // 该字母首次出现的位置
+            int position = adapter.getPositionForSection(s.charAt(0));
+            if (position != -1) {
+                layoutManager.smoothScrollToPosition(bd.recyclerView, null, position);
             }
         });
         // Here, thisActivity is the current activity

@@ -1,21 +1,15 @@
 package example.dialog;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
+import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.dialog.BaseSingleWheelDialog;
 import com.style.dialog.ChangeAddressDialog;
 import com.style.dialog.ChangeBirthdayDialog;
-import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWheelBinding;
 import com.style.utils.StringUtil;
-
-import java.util.List;
-
-import example.helper.DataHelper;
 
 
 /**
@@ -34,11 +28,6 @@ public class WheelActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_wheel;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

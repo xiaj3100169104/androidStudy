@@ -4,31 +4,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
+import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.WifiActivityMainBinding;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import example.ble.BluetoothBean;
-import example.ble.BluetoothDeviceAdapter;
 
 
 public class WifiTestActivity extends BaseActivity {
@@ -47,11 +38,6 @@ public class WifiTestActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.wifi_activity_main;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

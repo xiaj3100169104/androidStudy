@@ -1,8 +1,6 @@
 package example.web;
 
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -10,7 +8,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
@@ -25,10 +22,7 @@ public class WebViewActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_h5_remote;
     }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
+
 
     @Override
     public void initData() {

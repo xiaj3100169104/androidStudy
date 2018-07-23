@@ -1,15 +1,11 @@
 package example.activity;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGreenDaoBinding;
 
-import example.bean.TestBean;
 import example.bean.TestGreenBean;
 import example.greendao.dao.GreenDaoManager;
 
@@ -22,10 +18,6 @@ public class GreenDaoActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_green_dao;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

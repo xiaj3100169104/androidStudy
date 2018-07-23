@@ -1,13 +1,9 @@
 package example.tablayout;
 
-import android.databinding.DataBindingUtil;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTabLayoutBinding;
 
@@ -24,10 +20,6 @@ public class TabLayoutActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_tab_layout;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

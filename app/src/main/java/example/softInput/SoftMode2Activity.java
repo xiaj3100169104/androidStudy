@@ -1,16 +1,8 @@
 package example.softInput;
 
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Toast;
-
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
-import com.style.helper.EditTextHelper;
 
 public class SoftMode2Activity extends BaseActivity {
 
@@ -26,10 +18,6 @@ public class SoftMode2Activity extends BaseActivity {
         return R.layout.activity_soft_mode_2;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

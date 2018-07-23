@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,9 +17,8 @@ import android.view.View;
 
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
+import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMusicListBinding;
 import com.style.view.DividerItemDecoration;
@@ -50,11 +46,6 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
     @Override
     public int getLayoutResId() {
         return R.layout.activity_music_list;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

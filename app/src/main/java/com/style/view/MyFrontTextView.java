@@ -1,12 +1,11 @@
 package com.style.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-import com.style.app.AppManager;
-
-public class MyFrontTextView extends TextView {
+public class MyFrontTextView extends AppCompatTextView {
 
 	public MyFrontTextView(Context context) {
 		super(context);
@@ -24,11 +23,12 @@ public class MyFrontTextView extends TextView {
 	}
 	
 	private void setTypeface(){
+		Typeface TEXT_TYPE = Typeface.createFromAsset(getContext().getAssets(), "fronts/black_simplified.TTF");
 		// 如果自定义typeface初始化失败，就用原生的typeface
-		if(AppManager.TEXT_TYPE == null){
+		if(TEXT_TYPE == null){
 			setTypeface(getTypeface()) ;
 		}else{
-			setTypeface(AppManager.TEXT_TYPE) ;
+			setTypeface(TEXT_TYPE) ;
 		}
 	}
 }

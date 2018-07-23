@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.style.app.MyApp;
 import com.style.bean.User;
 import com.style.data.db.user.UserDBManager;
 import com.style.utils.AESCipher;
@@ -13,6 +14,7 @@ import com.style.utils.AESCipher;
 public final class AccountManager {
     private String TAG = getClass().getSimpleName();
 
+    private static final String IS_FIRST_LOGIN = "isFirstLogin";
     private static final String LOGIN_INFO = "loginInfo";
     private static final String CURRENT_ACCOUNT = "currentAccount";
     private static final String ACCOUNT_All = "accountAll";
@@ -25,7 +27,7 @@ public final class AccountManager {
 
     private static final Object mLock = new Object();
     private static AccountManager mInstance;
-    private Context context;
+    private SharedPreferences sp;
 
     public static AccountManager getInstance() {
         synchronized (mLock) {
@@ -41,23 +43,21 @@ public final class AccountManager {
     }
 
     public void init(Context context) {
-        this.context = context;
+        sp = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    //当前登录账号和登录过的所有账号
     protected SharedPreferences getLoginSharedPreferences() {
-        SharedPreferences sp = getContext().getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE);
         return sp;
     }
 
-    //登录账户的其他信息
-    protected SharedPreferences getUserSharedPreferences(String account) {
-        SharedPreferences sp = getContext().getSharedPreferences(String.valueOf(account), Context.MODE_PRIVATE);
-        return sp;
+    public void putFirstOpen(boolean isFirstLogin) {
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
+        editor.putBoolean(IS_FIRST_LOGIN, isFirstLogin).apply();
+    }
+
+    public boolean isFirstOpen() {
+        boolean value = getLoginSharedPreferences().getBoolean(IS_FIRST_LOGIN, true);
+        return value;
     }
 
     public void setCurrentAccount(String account) {
@@ -134,13 +134,13 @@ public final class AccountManager {
         }
     }
 
-    public void setIsAutoLogin(String account, boolean value) {
-        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
+    public void setIsAutoLogin(boolean value) {
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
         editor.putBoolean(IS_AUTO_LOGIN, value).apply();
     }
 
-    public boolean getIsAutoLogin(String account) {
-        boolean value = getUserSharedPreferences(account).getBoolean(IS_AUTO_LOGIN, true);
+    public boolean getIsAutoLogin() {
+        boolean value = getLoginSharedPreferences().getBoolean(IS_AUTO_LOGIN, true);
         return value;
     }
 
@@ -156,12 +156,12 @@ public final class AccountManager {
     }
 
     public void setPassword(String account, String password) {
-        SharedPreferences.Editor editor = getUserSharedPreferences(account).edit();
+        SharedPreferences.Editor editor = getLoginSharedPreferences().edit();
         editor.putString(PASSWORD, password).apply();
     }
 
     public String getPassword(String account) {
-        String value = getUserSharedPreferences(account).getString(PASSWORD, "");
+        String value = getLoginSharedPreferences().getString(PASSWORD, "");
         return value;
     }
 

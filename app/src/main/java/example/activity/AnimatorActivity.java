@@ -6,17 +6,11 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 
@@ -31,10 +25,6 @@ public class AnimatorActivity extends BaseActivity {
         return R.layout.activity_second;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

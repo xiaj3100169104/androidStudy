@@ -2,14 +2,10 @@ package example.login;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
-import android.databinding.ObservableBoolean;
-import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityLoginBinding;
@@ -20,18 +16,11 @@ public class LoginActivity extends BaseActivity {
 
     private long userId = 18;
     private ActivityLoginBinding bd;
-    private LoginPresenter mPresenter;
     private LoginModel loginModel;
 
     @Override
     public int getLayoutResId() {
         return R.layout.activity_login;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        mPresenter = new LoginPresenter(this);
-        return mPresenter;
     }
 
     @Override
@@ -42,7 +31,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        //mPresenter.getLoginUser();
         loginModel = ViewModelProviders.of(this).get(LoginModel.class);
         loginModel.loginSucceed.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -57,6 +45,12 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 setUserView(loginModel.user.get());
+            }
+        });
+        loginModel.loginState.observe(this, aBoolean -> {
+            if (aBoolean){
+                startActivity(new Intent(getContext(), MainActivity.class));
+                finish();
             }
         });
         loginModel.login();

@@ -3,7 +3,6 @@ package example.softInput;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
@@ -26,11 +25,6 @@ public class SoftMode4Activity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_soft_mode_4;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

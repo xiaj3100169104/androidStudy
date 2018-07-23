@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.view.MyRadioGroup;
@@ -27,10 +26,6 @@ public class MyRadioGroupActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_my_radio_group;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

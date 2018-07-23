@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 
@@ -21,11 +20,6 @@ public class StatusBarStyleMainActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.statusbar_style_activity_main;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

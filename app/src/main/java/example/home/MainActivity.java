@@ -6,24 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.style.app.HotFixManager;
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
-import com.style.bean.User;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
-import com.style.data.prefs.AccountManager;
 import com.style.utils.AppInfoUtil;
 
 import org.simple.eventbus.EventBus;
@@ -64,10 +59,6 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

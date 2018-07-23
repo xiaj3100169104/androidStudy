@@ -1,12 +1,8 @@
 package example.activity;
 
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestDbBinding;
 
@@ -25,11 +21,6 @@ public class TestDBActivity extends BaseActivity {
     public void initData() {
         bd = getBinding();
         TestDBManager.getInstance().initialize(this);
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     public void skip418(View v) {

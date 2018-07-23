@@ -30,7 +30,7 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
         Log.e(TAG, errorReport);
         //重启app
         //AppManager.getInstance().exitApp();
-        AppManager.getInstance().reStartApp();
+        //AppManager.getInstance().reStartApp();
 
     }
 }

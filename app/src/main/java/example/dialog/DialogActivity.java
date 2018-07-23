@@ -1,18 +1,12 @@
 package example.dialog;
 
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
-import android.widget.Spinner;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.MaterialProgressDialog;
@@ -20,8 +14,6 @@ import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
-
-import java.util.ArrayList;
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -35,11 +27,6 @@ public class DialogActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.dialog_activity_dialog;
-    }
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

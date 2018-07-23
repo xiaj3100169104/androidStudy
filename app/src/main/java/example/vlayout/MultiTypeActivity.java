@@ -1,7 +1,5 @@
 package example.vlayout;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -10,7 +8,6 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMultiTypeBinding;
 
@@ -34,10 +31,7 @@ public class MultiTypeActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_multi_type;
     }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
+
     @Override
     public void initData() {
         bd = getBinding();

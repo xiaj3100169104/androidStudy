@@ -1,16 +1,22 @@
 package com.style.app;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import com.style.framework.BuildConfig;
 import com.style.utils.FileUtil;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * * 避免跳转传值的key和请求码重复混乱，最好统一放在这里
@@ -47,5 +53,53 @@ public class Skip {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         activity.startActivityForResult(intent, CODE_TAKE_ALBUM);
+    }
+
+    /**
+     * 退出到登录界面
+     */
+    public void exit2loginInterface(Context context) {
+        Intent intent = new Intent();
+        ComponentName componentName = new ComponentName("com.channelsoft.cdesk", "com.channelsoft.cdesk.activity.LoginActivity");
+        intent.setComponent(componentName);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 退出app
+     */
+    public void exitApp() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+
+    public Class<?> getTopActivity(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String className = manager.getRunningTasks(1).get(0).topActivity.getClassName();
+        Class<?> cls = null;
+        try {
+            cls = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cls;
+    }
+
+    public static boolean isBackground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
+                    Log.i("后台", appProcess.processName);
+                    return true;
+                } else {
+                    Log.i("前台", appProcess.processName);
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }

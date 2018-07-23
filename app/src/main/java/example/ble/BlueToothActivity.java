@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -23,24 +22,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseActivityPresenter;
-import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseActivity;
+import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
-import com.style.threadpool.GeneralThreadPoolManager;
-import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import example.address.ContactHelper;
-import example.address.UploadPhone;
-import example.address.UploadPhoneComparator;
 
 
 public class BlueToothActivity extends BaseActivity {
@@ -60,10 +51,7 @@ public class BlueToothActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.activity_bluetooth;
     }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
+
 
     @Override
     public void initData() {

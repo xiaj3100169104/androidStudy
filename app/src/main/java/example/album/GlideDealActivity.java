@@ -6,7 +6,6 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.app.ConfigUtil;
-import com.style.base.BaseActivityPresenter;
 import com.style.base.BaseCropActivity;
 import com.style.data.glide.GlideCircleTransform;
 import com.style.data.glide.GlideRectBoundTransform;
@@ -23,11 +22,6 @@ public class GlideDealActivity extends BaseCropActivity {
 
     private ActivityGlideDealBinding bd;
     private SelAvatarDialog dialog;
-
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public int getLayoutResId() {

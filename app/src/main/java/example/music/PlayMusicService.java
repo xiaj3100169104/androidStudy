@@ -9,8 +9,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.style.app.AppManager;
-
 import example.music.entity.MediaBean;
 
 /**
@@ -31,7 +29,6 @@ public class PlayMusicService extends Service {
             Application a = getApplication();
             Context c = a.getApplicationContext();
             Context c1 = getApplicationContext();
-            Context c2 = AppManager.getInstance().getContext();
         }
 
         public void stop(String s) {

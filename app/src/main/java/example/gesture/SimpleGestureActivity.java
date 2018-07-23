@@ -2,12 +2,9 @@ package example.gesture;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivitySoftMode2Binding;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 
 public class SimpleGestureActivity extends BaseActivity {
@@ -20,10 +17,6 @@ public class SimpleGestureActivity extends BaseActivity {
         return R.layout.gesture_simple_test;
     }
 
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
-    }
 
     @Override
     public void initData() {

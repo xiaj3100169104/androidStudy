@@ -1,11 +1,15 @@
 package example.webservice;
 
 
+import android.app.Application;
+import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.style.base.BaseActivityPresenter;
+import com.style.base.BaseAndroidViewModel;
 import com.style.data.net.bean.UserInfo;
+import com.style.data.net.exception.HttpThrowableUtil;
 import com.style.data.net.exception.ResultErrorException;
 import com.style.data.net.response.TokenResponse;
 
@@ -16,100 +20,55 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 
-public class WebServicePresenter extends BaseActivityPresenter<WebServiceActivity> {
+public class WebServicePresenter extends BaseAndroidViewModel {
 
-    public WebServicePresenter(WebServiceActivity mActivity) {
-        super(mActivity);
+    MutableLiveData<String> content = new MutableLiveData<>();
+
+    public WebServicePresenter(@NonNull Application application) {
+        super(application);
     }
 
     public void searchWeather(String code) {
-        Disposable d = getHttpApi().getWeather(code).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                getActivity().showToast("查询天气成功");
-                getActivity().searchWeatherSuccess(s);
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                handleHttpError(throwable);
-                getActivity().showToast("查询天气失败");
-            }
-        });
+        Disposable d = getHttpApi().getWeather(code).subscribe(s -> {
+            showToast("查询天气成功");
+            content.postValue(s);
+        }, throwable -> {
+            handleHttpError(throwable);
+            showToast("查询天气失败");
+        }
+        );
         addTask(d);
     }
 
     public void getPhoneInfo(String phone) {
-        Disposable d = getHttpApi().getPhoneInfo(phone).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                getActivity().setPhoneInfo(s);
-
-            }
-        });
+        Disposable d = getHttpApi().getPhoneInfo(phone).subscribe(s -> content.postValue(s));
         addTask(d);
     }
 
     public void getWeather(String code) {
-        Disposable d = getHttpApi().getWeather(code).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                getActivity().setWeatherInfo(s);
-
-            }
-        });
+        Disposable d = getHttpApi().getWeather(code).subscribe(s -> content.postValue(s));
         addTask(d);
     }
 
     public void getKuaiDi(String s, String s1) {
-        Disposable d = getHttpApi().getKuaiDi("", "").flatMap(new Function<String, ObservableSource<String>>() {
-            @Override
-            public ObservableSource<String> apply(String kuaiDis) throws Exception {
-                return getHttpApi().getKuaiDi("", "");
-            }
-        }).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                getActivity().setKuaiDiInfo(s);
-
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                handleHttpError(throwable);
-            }
-        });
+        Disposable d = getHttpApi().getKuaiDi("", "")
+                .flatMap(kuaiDis -> getHttpApi().getKuaiDi("", ""))
+                .subscribe(s2 -> content.postValue(s2)
+                        , throwable -> handleHttpError(throwable));
         addTask(d);
     }
 
     public void login(final String userName, final String pass) {
 
-        Disposable d = getHttpApi().getToken().flatMap(new Function<TokenResponse, ObservableSource<UserInfo>>() {
-            @Override
-            public ObservableSource<UserInfo> apply(TokenResponse tokenResponse) throws Exception {
-                if (TextUtils.isEmpty(tokenResponse.access_token))
-                    throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
-                Log.e(TAG, tokenResponse.access_token);
-                getAccountManager().setSignKey(tokenResponse.access_token);
-                return getHttpApi().login2(userName, pass);
-            }
-        }).subscribe(new Consumer<UserInfo>() {
-            @Override
-            public void accept(UserInfo userInfo) throws Exception {
-                Log.e(TAG, userInfo.toString());
-
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                handleHttpError(throwable);
-            }
-        }, new Action() {
-            @Override
-            public void run() throws Exception {
-                Log.e(TAG, "sfdfsd");
-            }
-        });
+        Disposable d = getHttpApi().getToken().flatMap(tokenResponse -> {
+            if (TextUtils.isEmpty(tokenResponse.access_token))
+                throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
+            Log.e(TAG, tokenResponse.access_token);
+            getPreferences().setSignKey(tokenResponse.access_token);
+            return getHttpApi().login2(userName, pass);
+        }).subscribe(userInfo -> Log.e(TAG, userInfo.toString())
+                , throwable -> handleHttpError(throwable)
+                , () -> Log.e(TAG, "sfdfsd"));
         addTask(d);
     }
 }

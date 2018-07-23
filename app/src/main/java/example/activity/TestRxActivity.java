@@ -1,11 +1,8 @@
 package example.activity;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
 
@@ -25,10 +22,6 @@ public class TestRxActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_test_rx;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

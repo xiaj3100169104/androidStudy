@@ -4,8 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
@@ -13,11 +11,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
-import com.style.app.AppManager;
+import com.style.utils.AppInfoUtil;
 
 public class RemotePlayActivity extends BaseActivity {
 
@@ -26,10 +23,6 @@ public class RemotePlayActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_remote_service;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override
@@ -49,7 +42,7 @@ public class RemotePlayActivity extends BaseActivity {
     }
 
     public void play(View v) {
-        String channelNumber = AppManager.getInstance().getAppMetaData();//获取app当前的渠道
+        String channelNumber = AppInfoUtil.getAppMetaData(this);//获取app当前的渠道
         logE("channelNumber", channelNumber);
         bd.tvFlavor.setText(channelNumber);
     }

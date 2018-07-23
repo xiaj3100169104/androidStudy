@@ -1,15 +1,11 @@
 package example.activity;
 
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
-import android.widget.TextView;
 
 import com.style.base.BaseActivity;
-import com.style.base.BaseActivityPresenter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 
@@ -21,10 +17,6 @@ public class MsgToSubActivity extends BaseActivity {
     @Override
     public int getLayoutResId() {
         return R.layout.activity_msg_to_sub;
-    }
-    @Override
-    protected BaseActivityPresenter getPresenter() {
-        return null;
     }
 
     @Override

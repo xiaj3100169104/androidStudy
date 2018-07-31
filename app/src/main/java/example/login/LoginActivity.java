@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        loginModel = ViewModelProviders.of(this).get(LoginModel.class);
+        loginModel = getViewModel(LoginModel.class);
         loginModel.loginSucceed.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {

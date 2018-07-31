@@ -27,6 +27,7 @@ import io.reactivex.disposables.Disposable;
 public class BaseAndroidViewModel extends AndroidViewModel {
     protected final String TAG = this.getClass().getSimpleName();
 
+    private MutableLiveData<Boolean> generalFinish = new MutableLiveData<>();
     private CompositeDisposable tasks = new CompositeDisposable();
 
     public BaseAndroidViewModel(@NonNull Application application) {
@@ -52,6 +53,10 @@ public class BaseAndroidViewModel extends AndroidViewModel {
 
     protected RetrofitImpl getHttpApi() {
         return RetrofitImpl.getInstance();
+    }
+
+    public MutableLiveData<Boolean> getGeneralFinish() {
+        return generalFinish;
     }
 
     protected void addTask(Disposable d) {

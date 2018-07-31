@@ -19,33 +19,6 @@ import java.util.List;
 public class AppInfoUtil {
     private final String TAG = this.getClass().getSimpleName();
 
-    public static boolean IsForeground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        List<ActivityManager.AppTask> appTasks;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            appTasks = am.getAppTasks();
-        }
-        if (tasks != null && !tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (topActivity.equals(context)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param rootActivity 目标任务栈的baseActivity
-     */
-    public static void launchApp(Activity rootActivity) {
-        if (IsForeground(rootActivity) == false) {
-            ActivityManager am = (ActivityManager) rootActivity.getSystemService(Context.ACTIVITY_SERVICE);
-            am.moveTaskToFront(rootActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-        }
-
-    }
-
     /**
      * 获取软件版本号
      *

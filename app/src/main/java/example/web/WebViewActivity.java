@@ -35,6 +35,24 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         bd.webView.getSettings().setJavaScriptEnabled(true);
+        // 设置支持本地存储
+        /*mWebView.getSettings().setDatabaseEnabled(true);
+        //取得缓存路径
+        String path = getActivity().getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
+        //设置路径
+        mWebView.getSettings().setDatabasePath(path);
+        //设置支持DomStorage
+        mWebView.getSettings().setDomStorageEnabled(true);
+        //设置存储模式
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        //设置适应屏幕
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setDisplayZoomControls(false);
+        //设置缓存
+        mWebView.getSettings().setAppCacheEnabled(true);*/
         bd.webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
                 // Activity和Webview根据加载程度决定进度条的进度大小

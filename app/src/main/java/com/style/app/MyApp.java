@@ -1,27 +1,19 @@
 package com.style.app;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.style.broadcast.NetWorkChangeBroadcastReceiver;
 import com.style.data.db.user.UserDBManager;
 import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
@@ -50,14 +42,7 @@ public class MyApp extends Application {
         AccountManager.getInstance().init(this);
         UserDBManager.getInstance().initialize(this);
         GreenDaoManager.getInstance().initialize(this);
-        initNetWorkReceiver(this);
         initRefreshView();
-    }
-
-    //      监听广播
-    private void initNetWorkReceiver(Context context) {
-        IntentFilter filter = new IntentFilter(NetWorkChangeBroadcastReceiver.NET_CHANGE);
-        context.registerReceiver(new NetWorkChangeBroadcastReceiver(), filter);
     }
 
     public void initRefreshView() {

@@ -44,6 +44,7 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -119,6 +120,7 @@
         <activity android:name="example.activity.TestRxActivity" />
         <activity
             android:name="example.softInput.StatusBarStyleMainActivity"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode1Activity"
@@ -165,7 +167,7 @@
             android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
             android:screenOrientation="portrait" />
         <activity android:name="fussen.cc.barchart.activity.ScrollBarActivity" />
-        <activity android:name="fussen.cc.barchart.activity.NormalBarActivity"></activity>
+        <activity android:name="fussen.cc.barchart.activity.NormalBarActivity" />
         <!-- 语音悬浮服务 -->
         <service android:name="example.customview.service.VoiceSuspendService" />
         <!-- 视频悬浮服务 -->

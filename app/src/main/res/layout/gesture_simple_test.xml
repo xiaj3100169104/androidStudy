@@ -27,7 +27,7 @@
                     android:gravity="bottom"
                     android:text="视图2" />
 
-                <example.gesture.MyHorizontalScrollView
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="150dp">
 
@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="和哈佛生活费ISO还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
-                </example.gesture.MyHorizontalScrollView>
+                </HorizontalScrollView>
 
                 <TextView
                     android:layout_width="match_parent"

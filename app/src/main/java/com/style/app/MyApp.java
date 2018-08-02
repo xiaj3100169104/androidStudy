@@ -101,6 +101,7 @@ public class MyApp extends Application {
     }
 
     public void registerLocalReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+        //只能接收到LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(bIntent);发送的广播。接收不到系统广播或其他app的广播
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
     }
 

@@ -63,8 +63,7 @@
         android:theme="@style/BaseAppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
         <activity
-            android:name="example.login.LoginActivity"
-            android:launchMode="singleTask">
+            android:name="example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,7 +82,9 @@
             android:name="example.gesture.TestGestureActivity"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.Translucent" />
+        <activity android:name="example.gesture.DispatchGestureActivity" />
         <activity android:name="example.gesture.SimpleGestureActivity" />
+
         <activity android:name="example.drag.DragActivity" />
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />

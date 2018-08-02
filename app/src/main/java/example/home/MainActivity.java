@@ -1,6 +1,7 @@
 package example.home;
 
 import android.Manifest;
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -152,15 +153,24 @@ public class MainActivity extends BaseActivity {
         });*/
         showSelectedTab();
 
-       /* Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && isLocked)
+        Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                /*int state = DeviceInfoUtil.getDisplay(getContext()).getState();
+                logE(TAG, "display state " + state);
+                if (state == Display.STATE_OFF) {
+                    onDisplayOff();
+                }
+                KeyguardManager mKeyguardManager = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
+                boolean flag = mKeyguardManager.isDeviceLocked();
+                logE(TAG, "isDeviceLocked " + flag);*/
                 return;
+            }
 
-            Intent i = new Intent(MainActivity.this, StatusBarStyleMainActivity.class);
+          /*  Intent i = new Intent(MainActivity.this, StatusBarStyleMainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             //锁屏状态下启动activity会崩溃
-            startActivity(i);
-        });*/
+            startActivity(i);*/
+        });
         /*ComponentName componentName = startService(new Intent(this, MQTTService.class));
         componentName.getClassName();*/
     }

@@ -7,6 +7,9 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Scroller;
+
+import com.dmcbig.mediapicker.utils.ScreenUtils;
 
 /**
  * Created by xiajun on 2018/6/16.
@@ -14,6 +17,8 @@ import android.widget.RelativeLayout;
 
 public class DispatchGestureFromScroll extends RelativeLayout {
     protected final String TAG = getClass().getSimpleName();
+    private Scroller scroller;
+    private int screenWidth;
     private ViewConfiguration viewConfiguration;
     private float xDown;
     private float yDown;
@@ -22,6 +27,9 @@ public class DispatchGestureFromScroll extends RelativeLayout {
     private boolean isStartSlide;
     private float xDistance;
     private float yDistance;
+    private float xLastMove;
+    private boolean isSlideToRight;
+    private boolean isSlideToLeft;
 
     public DispatchGestureFromScroll(Context context) {
         super(context);
@@ -30,6 +38,8 @@ public class DispatchGestureFromScroll extends RelativeLayout {
     public DispatchGestureFromScroll(Context context, AttributeSet attrs) {
         super(context, attrs);
         viewConfiguration = ViewConfiguration.get(context);
+        screenWidth = ScreenUtils.getScreenWidth(context);
+        scroller = new Scroller(context);
     }
 
     @Override
@@ -56,6 +66,7 @@ public class DispatchGestureFromScroll extends RelativeLayout {
                     if (xMove - xDown > viewConfiguration.getScaledTouchSlop() && xDistance > yDistance) {
                         isStartSlide = true;
                         Log.e(TAG, "start move");
+                        xLastMove = xMove;
                         return true;
                     }
                 } else {//处理当前容器滑动逻辑
@@ -88,6 +99,7 @@ public class DispatchGestureFromScroll extends RelativeLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "stop move");
+                autoScroll();
                 break;
 
         }
@@ -95,7 +107,39 @@ public class DispatchGestureFromScroll extends RelativeLayout {
         //return super.onTouchEvent(ev);
     }
 
+    private void autoScroll() {
+        if (xDistance >= screenWidth / 2) {
+            isSlideToRight = true;
+            isSlideToLeft = false;
+            scroller.startScroll((int) xMove, 0, -(screenWidth - (int) xMove), 0, 3000);
+            invalidate();
+        } else if (xDistance > 0 && xDistance < screenWidth / 2) {
+            isSlideToRight = false;
+            isSlideToLeft = true;
+            scroller.startScroll((int) xMove, 0, (int) xMove, 0, 3000);
+            invalidate();
+        }
+    }
+
     private void moveLayout(float xDistance) {
-        scrollTo((int) -xDistance, 0);
+        if (xDistance > 0)
+            scrollTo((int) -xDistance, 0);
+    }
+
+    @Override
+    public void computeScroll() {
+        Log.e(TAG, "computeScroll");
+        //super.computeScroll();
+        // 第三步，重写computeScroll()方法，并在其内部完成平滑滚动的逻辑
+        if (scroller.computeScrollOffset()) {
+            if (isSlideToLeft) {
+                scrollTo(0, 0);
+                invalidate();
+            }
+            if (isSlideToRight) {
+                scrollTo(screenWidth, 0);
+                invalidate();
+            }
+        }
     }
 }

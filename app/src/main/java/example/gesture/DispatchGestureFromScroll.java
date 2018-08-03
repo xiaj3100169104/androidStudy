@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 /**
  * Created by xiajun on 2018/6/16.
+ * 注意：如果用在activity销毁时，主题窗口背景设置半透明，去掉activity退出动画
  */
 
 public class DispatchGestureFromScroll extends RelativeLayout {

@@ -80,7 +80,6 @@ public class TestGestureActivity extends BaseActivity {
             case MotionEvent.ACTION_UP:
                 Log.e("v1", "dispatchTouchEvent--ACTION_UP");
                 if (isShouldFinish) {
-
                     finish();
                 } else {
                     ValueAnimator va = ValueAnimator.ofFloat(bd.getRoot().getTranslationY(), 0f);

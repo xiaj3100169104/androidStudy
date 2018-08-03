@@ -10,6 +10,7 @@ import com.style.framework.databinding.GestureDivideScrollBinding;
 public class DispatchGestureActivity extends BaseActivity {
 
     GestureDivideScrollBinding bd;
+    private boolean isDeleteExitAnim;
 
     @Override
     public int getLayoutResId() {
@@ -21,6 +22,21 @@ public class DispatchGestureActivity extends BaseActivity {
         bd = getBinding();
         bd.tvContent1.setOnClickListener(v -> logE(TAG, "111111111111"));
         bd.tv2.setOnClickListener(v -> logE(TAG, "22222222222222"));
+        bd.root.setOnSlideListener(() -> {
+            isDeleteExitAnim = true;
+            finish();
+        });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        if (isDeleteExitAnim)
+            overridePendingTransition(0, 0);
+        super.onPause();
+    }
 }

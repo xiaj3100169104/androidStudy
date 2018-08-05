@@ -24,6 +24,8 @@ import com.style.framework.R;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.InputMethodUtil;
 
+import example.gesture.BaseLeftSlideFinishActivity;
+
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();
@@ -72,6 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public <T extends ViewDataBinding> T getBinding() {
         return DataBindingUtil.bind(getContentView());
     }
+
     public <T extends ViewModel> T getViewModel(@NonNull Class<T> modelClass) {
         return ViewModelProviders.of(this).get(modelClass);
     }

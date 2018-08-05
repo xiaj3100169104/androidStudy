@@ -17,7 +17,6 @@ public class SimpleGestureActivity extends BaseActivity {
         return R.layout.gesture_simple_test;
     }
 
-
     @Override
     public void initData() {
         bd = getBinding();
@@ -52,7 +51,7 @@ public class SimpleGestureActivity extends BaseActivity {
                 return false;
             }
         });*/
-        bd.tvContent1.setOnTouchListener(new MyGestureListener(bd.nestedScrollView){
+        bd.tvContent1.setOnTouchListener(new MyGestureListener(bd.nestedScrollView) {
             @Override
             public void onSlideLeft() {
                 super.onSlideLeft();

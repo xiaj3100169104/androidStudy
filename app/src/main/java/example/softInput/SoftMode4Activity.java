@@ -12,9 +12,10 @@ import com.style.view.DividerItemDecoration;
 import java.util.ArrayList;
 
 import example.adapter.StringAdapter;
+import example.gesture.BaseLeftSlideFinishActivity;
 
 
-public class SoftMode4Activity extends BaseActivity {
+public class SoftMode4Activity extends BaseLeftSlideFinishActivity {
 
     ActivitySoftMode4Binding bd;
 

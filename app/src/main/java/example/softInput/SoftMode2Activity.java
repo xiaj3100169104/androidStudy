@@ -4,7 +4,9 @@ import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
 
-public class SoftMode2Activity extends BaseActivity {
+import example.gesture.BaseLeftSlideFinishActivity;
+
+public class SoftMode2Activity extends BaseLeftSlideFinishActivity {
 
     ActivitySoftMode2Binding bd;
 

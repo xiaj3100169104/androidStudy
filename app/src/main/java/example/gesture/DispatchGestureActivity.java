@@ -29,11 +29,6 @@ public class DispatchGestureActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onPause() {
         if (isDeleteExitAnim)
             overridePendingTransition(0, 0);

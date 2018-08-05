@@ -4,7 +4,8 @@
     <example.gesture.HorizontalSlideFinishActivityView
         android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FF000000">
 
         <LinearLayout
             android:layout_width="match_parent"

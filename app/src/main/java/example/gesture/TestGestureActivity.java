@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.base.BaseActivity;
@@ -16,39 +17,34 @@ import com.style.framework.databinding.ActivityTestGestureBinding;
 public class TestGestureActivity extends BaseActivity {
 
     ActivityTestGestureBinding bd;
-    private float mDownRawX;
-    private float mDownRawY;
+    private float xDown;
+    private float yDown;
     private boolean isShouldFinish;
+    private ViewConfiguration viewConfiguration;
+    private View rootView;
+    private boolean isStartSlide;
+    private float xMove;
+    private float yMove;
+    private float yLastMove;
+    private float yUp;
 
     protected boolean isGeneralTitleBar() {
         return false;
     }
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_test_gesture;
     }
 
-
     @Override
     public void initData() {
         bd = getBinding();
+        rootView = bd.getRoot();
+        viewConfiguration = ViewConfiguration.get(getContext());
 
-        bd.iv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.e("v2", "onTouchEvent--ACTION_DOWN");
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.e("v2", "onTouchEvent--ACTION_MOVE");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.e("v2", "onTouchEvent--ACTION_UP");
-                        break;
-                }
-                return false;
-            }
+        bd.iv.setOnClickListener(v -> {
+            logE(TAG, "iv");
         });
     }
 
@@ -60,29 +56,38 @@ public class TestGestureActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.e(TAG, "dispatchTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.e("v1", "dispatchTouchEvent--ACTION_DOWN");
-                mDownRawX = ev.getRawX();
-                mDownRawY = ev.getRawY();
+                isStartSlide = false;
+                xDown = ev.getRawX();
+                yDown = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e("v1", "dispatchTouchEvent--ACTION_MOVE");
-                //mDownRawX = ev.getRawX();
-                float translationY = (ev.getRawY() - mDownRawY);
-                bd.getRoot().setTranslationY(translationY);
-                if (translationY < -300) {
-                    isShouldFinish = true;
-                } else {
-                    isShouldFinish = false;
+                if (!isStartSlide) {
+                    xMove = ev.getRawX();
+                    yMove = ev.getRawY();
+                    float xDistance = Math.abs(xMove - xDown);
+                    float yDistance = Math.abs(yMove - yDown);
+                    //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
+                    if (yDistance > viewConfiguration.getScaledTouchSlop() && yDistance > xDistance) {
+                        isStartSlide = true;
+                        Log.e(TAG, "start move");
+                        yLastMove = yMove;
+                        return true;
+                    }
+                } else {//处理当前容器滑动逻辑
+                    yMove = ev.getRawY();
+                    float translationY = yMove - yLastMove;
+                    Log.e(TAG, "translationY  " + translationY);
+                    getRoot().setTranslationY(translationY);
+                    return true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                Log.e("v1", "dispatchTouchEvent--ACTION_UP");
-                if (isShouldFinish) {
-                    finish();
-                } else {
-                    ValueAnimator va = ValueAnimator.ofFloat(bd.getRoot().getTranslationY(), 0f);
+                if (isStartSlide) {
+                    yUp = ev.getRawY();
+                    ValueAnimator va = ValueAnimator.ofFloat(getRoot().getTranslationY(), 0f);
                     va.setDuration(300);
                     //插值器，表示值变化的规律，默认均匀变化
                     va.setInterpolator(new DecelerateInterpolator());
@@ -90,15 +95,27 @@ public class TestGestureActivity extends BaseActivity {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                             float v = (float) animation.getAnimatedValue();
-                            bd.getRoot().setTranslationY(v);
+                            getRoot().setTranslationY(v);
                             Log.d(TAG, "translationY:" + v);
                         }
                     });
                     va.start();
+                    return true;
                 }
                 break;
         }
         return super.dispatchTouchEvent(ev);
     }
 
+
+    //只要子view有任何点击或触摸事件便不会执行此方法。所以需慎用。
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        Log.e(TAG, "onTouchEvent   " + ev.getAction());
+        return super.onTouchEvent(ev);
+    }
+
+    public View getRoot() {
+        return rootView;
+    }
 }

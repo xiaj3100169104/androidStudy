@@ -7,10 +7,12 @@ import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 
+import example.gesture.BaseLeftSlideFinishActivity;
+
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class StatusBarStyleMainActivity extends BaseActivity {
+public class StatusBarStyleMainActivity extends BaseLeftSlideFinishActivity {
     StatusbarStyleActivityMainBinding bd;
 
     public boolean isLightStatusBar() {

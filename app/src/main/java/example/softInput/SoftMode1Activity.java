@@ -4,8 +4,10 @@ import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode1Binding;
 
+import example.gesture.BaseLeftSlideFinishActivity;
+
 //
-public class SoftMode1Activity extends BaseActivity {
+public class SoftMode1Activity extends BaseLeftSlideFinishActivity {
 
     ActivitySoftMode1Binding bd;
     @Override

@@ -4,8 +4,10 @@ import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode3Binding;
 
+import example.gesture.BaseLeftSlideFinishActivity;
 
-public class SoftMode3Activity extends BaseActivity {
+
+public class SoftMode3Activity extends BaseLeftSlideFinishActivity {
     private String TAG = "SoftMode3Activity";
 
     ActivitySoftMode3Binding bd;

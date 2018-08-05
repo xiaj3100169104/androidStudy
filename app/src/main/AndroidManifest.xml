@@ -123,19 +123,23 @@
         <activity
             android:name="example.softInput.StatusBarStyleMainActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name="example.softInput.SoftMode1Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/AppTheme.Translucent"/>
         <activity
             android:name="example.softInput.SoftMode2Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/AppTheme.Translucent"/>
         <activity
             android:name="example.softInput.SoftMode3Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/AppTheme.Translucent"/>
         <activity
             android:name="example.softInput.SoftMode4Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/AppTheme.Translucent"/>
         <activity android:name="example.customview.activity.CustomViewMainActivity" />
         <activity android:name="example.customview.activity.WriteWordActivity" />
         <activity

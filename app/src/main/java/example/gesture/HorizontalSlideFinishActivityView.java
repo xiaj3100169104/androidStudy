@@ -39,7 +39,6 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
     private float xDown;
     private float yDown;
     private float xMove;
-    private float yMove;
     private boolean isStartSlide;
     private float xDistance;
     private float yDistance;
@@ -60,23 +59,18 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.e(TAG, "onInterceptTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isStartSlide = false;
                 xDown = ev.getRawX();
-                yDown = ev.getY();
+                yDown = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!isStartSlide) {
                     xMove = ev.getRawX();
-                    yMove = ev.getY();
+                    float yMove = ev.getRawY();
                     float xDistance = Math.abs(xMove - xDown);
                     float yDistance = Math.abs(yMove - yDown);
                     //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
@@ -106,27 +100,25 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 xMove = ev.getRawX();
-                yMove = ev.getY();
-
-                xDistance = xMove - xLastMove;
+                float translationX = xMove - xLastMove;
                 //yDistance = Math.abs(yMove - yDown);
-                Log.e(TAG, "xDistance  " + xDistance);
+                Log.e(TAG, "translationX  " + translationX);
                 //Log.e(TAG, "yDistance  " + yDistance);
                 //move的x不能小于开始移动的x；不然就会向左滑出屏幕
                 if (xMove >= xLastMove) {
                     currentSlideState = SLIDE_STATE_WITH_TOUCH;
-                    setTranslationX(xDistance);
+                    setTranslationX(translationX);
                     //xLastMove = xMove;
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "stop move");
-                autoTranslationX();
+                if (isStartSlide)
+                    autoTranslationX();
                 break;
 
         }
-        return true;
-        //return super.onTouchEvent(ev);
+        return super.onTouchEvent(ev);
     }
 
     private void autoTranslationX() {

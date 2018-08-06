@@ -1,41 +1,44 @@
 package example.gesture;
 
 import android.animation.ValueAnimator;
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.RelativeLayout;
-import android.widget.Scroller;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.base.BaseActivity;
-import com.style.framework.R;
 
 /**
- * 左滑销毁activity基类，操作体验更好
+ * 右滑销毁activity基类，操作体验更好
  * Created by xiajun on 2018/8/1.
- * 注意：主题窗口背景设置半透明，去掉activity退出动画
+ * 注意：主题窗口背景设置半透明，滑动销毁时要去掉activity退出动画
  */
 
-public abstract class BaseLeftSlideFinishActivity extends BaseActivity {
+public abstract class BaseRightSlideFinishActivity extends BaseActivity {
+    //静止状态
+    private static final int SLIDE_STATE_IDLE = 0;
+    //第一个move事件为左滑
+    private static final int SLIDE_STATE_LEFT_FIRST = 1;
+    //第一个move事件为右滑
+    private static final int SLIDE_STATE_RIGHT_FIRST = 2;
+    //跟随触摸移动
+    private static final int SLIDE_STATE_MOVE_WITH_TOUCH = 3;
+    //自动向左完成移动
+    private static final int SLIDE_STATE_AUTO_TO_LEFT = 4;
+    //自动向右完成移动
+    private static final int SLIDE_STATE_AUTO_TO_TIGHT = 5;
+    private int currentSlideState = SLIDE_STATE_IDLE;
 
     protected final String TAG = getClass().getSimpleName();
     private int screenWidth;
     private ViewConfiguration viewConfiguration;
     private float xDown;
     private float yDown;
-    private boolean isCanSlide;
-    private boolean isStartSlide;
     private float xLastMove;
     private ValueAnimator autoMove;
     private boolean isDeleteExitAnim;
@@ -66,47 +69,50 @@ public abstract class BaseLeftSlideFinishActivity extends BaseActivity {
         Log.e(TAG, "dispatchTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                isCanSlide = true;
-                isStartSlide = false;
+                currentSlideState = SLIDE_STATE_IDLE;
                 xDown = ev.getRawX();
                 yDown = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (isCanSlide) {
-                    float xMove;
-                    if (!isStartSlide) {
-                        xMove = ev.getRawX();
-                        float yMove = ev.getRawY();
-                        float xDistance = Math.abs(xMove - xDown);
-                        float yDistance = Math.abs(yMove - yDown);
-                        //一旦向左滑便认为不触发左滑行为。
-                        if (xMove < xDown) {
-                            isCanSlide = false;
-                        }
-                        //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
-                        if (xMove - xDown > viewConfiguration.getScaledTouchSlop() && xDistance > yDistance) {
-                            isStartSlide = true;
-                            Log.e(TAG, "start move");
-                            xLastMove = xMove;
-                            return true;
-                        }
-                    } else {//处理当前容器滑动逻辑
-                        xMove = ev.getRawX();
-                        float translationX = xMove - xLastMove;
-                        //yDistance = Math.abs(yMove - yDown);
-                        Log.e(TAG, "translationX  " + translationX);
-                        //Log.e(TAG, "yDistance  " + yDistance);
-                        //move的x不能小于开始移动的x；不然就会向左滑出屏幕
-                        if (xMove >= xLastMove) {
-                            getContentView().setTranslationX(translationX);
-                            //xLastMove = xMove;
-                        }
+                float xMove = ev.getRawX();
+                float yMove = ev.getRawY();
+                float xDistance = Math.abs(xMove - xDown);
+                float yDistance = Math.abs(yMove - yDown);
+                //一旦向左滑便认为不触发滑动行为。
+                if (currentSlideState == SLIDE_STATE_IDLE) {
+                    if (xMove < xDown) {
+                        currentSlideState = SLIDE_STATE_LEFT_FIRST;
+                    }
+                    if (xMove > xDown) {
+                        currentSlideState = SLIDE_STATE_RIGHT_FIRST;
+                    }
+                }
+                if (currentSlideState == SLIDE_STATE_RIGHT_FIRST) {
+                    //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
+                    if (xMove - xDown > viewConfiguration.getScaledTouchSlop() && xDistance > yDistance) {
+                        currentSlideState = SLIDE_STATE_MOVE_WITH_TOUCH;
+                        Log.e(TAG, "start move");
+                        xLastMove = xMove;
                         return true;
                     }
                 }
+                //处理当前容器滑动逻辑
+                if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
+                    xMove = ev.getRawX();
+                    float translationX = xMove - xLastMove;
+                    //yDistance = Math.abs(yMove - yDown);
+                    Log.e(TAG, "translationX  " + translationX);
+                    //Log.e(TAG, "yDistance  " + yDistance);
+                    //move的x不能小于开始移动的x；不然就会向左滑出屏幕
+                    if (xMove >= xLastMove) {
+                        getContentView().setTranslationX(translationX);
+                        //xLastMove = xMove;
+                    }
+                    return true;
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                if (isCanSlide && isStartSlide) {
+                if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
                     Log.e(TAG, "stop move");
                     autoTranslationX();
                     return true;

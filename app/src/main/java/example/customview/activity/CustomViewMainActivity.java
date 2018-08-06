@@ -1,83 +1,45 @@
 package example.customview.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
+import com.style.base.BaseActivity;
 import com.style.framework.R;
+import com.style.framework.databinding.CustomViewMainBinding;
 
-public class CustomViewMainActivity extends AppCompatActivity {
+public class CustomViewMainActivity extends BaseActivity {
+
+    private CustomViewMainBinding bd;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.custom_view_main);
-
-        findViewById(R.id.bt_notify_point).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(CustomNotifyViewActivity.class);
-            }
-        });
-        findViewById(R.id.bt_progress1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(HorizontalProgressActivity.class);
-            }
-        });
-        findViewById(R.id.bt_progress2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(CircleProgressBarActivity.class);
-            }
-        });
-        findViewById(R.id.bt_write_word).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(WriteWordActivity.class);
-            }
-        });
-        findViewById(R.id.bt_water_polo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(WaterPoloActivity.class);
-            }
-        });
-        findViewById(R.id.bt_sound_wave).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(SoundWaveActivity.class);
-            }
-        });
-        findViewById(R.id.bt_suspend_window).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(SuspendWindowActivity.class);
-            }
-        });
-        findViewById(R.id.bt_keyboard).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(KeyboardActivity.class);
-            }
-        });
-        findViewById(R.id.bt_scan_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(ScanViewActivity.class);
-            }
-        });
-
-        findViewById(R.id.bt_curve).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skip(CurveActivity2.class);
-            }
-        });
+    protected boolean isGeneralTitleBar() {
+        return false;
     }
 
-    public void skip(Class<?> cls){
+    @Override
+    public int getLayoutResId() {
+        return R.layout.custom_view_main;
+    }
+
+    @Override
+    protected void initData() {
+        bd = getBinding();
+
+        bd.btNotifyPoint.setOnClickListener(v -> skip(CustomNotifyViewActivity.class));
+        bd.btProgress1.setOnClickListener(v -> skip(HorizontalProgressActivity.class));
+        bd.btProgress2.setOnClickListener(v -> skip(CircleProgressBarActivity.class));
+        bd.btWriteWord.setOnClickListener(v -> skip(WriteWordActivity.class));
+        bd.btWaterPolo.setOnClickListener(v -> skip(WaterPoloActivity.class));
+        bd.btSoundWave.setOnClickListener(v -> skip(SoundWaveActivity.class));
+        bd.btSuspendWindow.setOnClickListener(v -> skip(SuspendWindowActivity.class));
+        bd.btKeyboard.setOnClickListener(v -> skip(KeyboardActivity.class));
+        bd.btScanView.setOnClickListener(v -> skip(ScanViewActivity.class));
+        bd.btCurve.setOnClickListener(v -> skip(SleepWeekActivity.class));
+        bd.btTemp.setOnClickListener(v -> skip(TempActivity.class));
+        bd.btHeart.setOnClickListener(v -> skip(HeartLineActivity.class));
+
+    }
+
+    public void skip(Class<?> cls) {
         startActivity(new Intent(this, cls));
 
     }

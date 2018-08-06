@@ -17,7 +17,7 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 import javax.xml.xpath.XPath;
 
 /**
- * 左滑销毁activity的根容器，用于子view有scrollView的时候，操作体验更好
+ * 右滑销毁activity的根容器，用于子view有scrollView的时候，操作体验更便捷
  * Created by xiajun on 2018/8/1.
  * 注意：如果用在activity销毁时，主题窗口背景设置半透明，去掉activity退出动画
  */
@@ -31,6 +31,7 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
     private static final int SLIDE_STATE_AUTO_TO_LEFT = 2;
     //自动向右完成移动
     private static final int SLIDE_STATE_AUTO_TO_TIGHT = 3;
+    private int currentSlideState;
 
     protected final String TAG = getClass().getSimpleName();
     private Scroller scroller;
@@ -43,7 +44,6 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
     private float xDistance;
     private float yDistance;
     private float xLastMove;
-    private int currentSlideState;
     private ValueAnimator va;
     private OnSlideListener listener;
 

@@ -1,13 +1,12 @@
 package example.softInput;
 
-import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode1Binding;
 
-import example.gesture.BaseLeftSlideFinishActivity;
+import example.gesture.BaseRightSlideFinishActivity;
 
 //
-public class SoftMode1Activity extends BaseLeftSlideFinishActivity {
+public class SoftMode1Activity extends BaseRightSlideFinishActivity {
 
     ActivitySoftMode1Binding bd;
     @Override

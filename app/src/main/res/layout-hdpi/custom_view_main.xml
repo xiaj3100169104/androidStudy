@@ -1,75 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/bt_notify_point"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="通知小圆点" />
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_progress1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="水平进度条" />
+            <Button
+                android:id="@+id/bt_notify_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="通知小圆点" />
 
-        <Button
-            android:id="@+id/bt_progress2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="圆形进度条" />
+            <Button
+                android:id="@+id/bt_progress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="水平进度条" />
 
-        <Button
-            android:id="@+id/bt_write_word"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="写字板" />
+            <Button
+                android:id="@+id/bt_progress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="圆形进度条" />
 
-        <Button
-            android:id="@+id/bt_water_polo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="波浪球进度条" />
+            <Button
+                android:id="@+id/bt_write_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="写字板" />
 
-        <Button
-            android:id="@+id/bt_sound_wave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="声浪" />
+            <Button
+                android:id="@+id/bt_water_polo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="波浪球进度条" />
 
-        <Button
-            android:id="@+id/bt_suspend_window"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="悬浮窗" />
+            <Button
+                android:id="@+id/bt_sound_wave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="声浪" />
 
-        <Button
-            android:id="@+id/bt_keyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="自定义键盘" />
+            <Button
+                android:id="@+id/bt_suspend_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="悬浮窗" />
 
-        <Button
-            android:id="@+id/bt_scan_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="自定义扫描框" />
+            <Button
+                android:id="@+id/bt_keyboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义键盘" />
 
-        <Button
-            android:id="@+id/bt_curve"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="曲线，折线加虚线，柱状图" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/bt_scan_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="自定义扫描框" />
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/bt_curve"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="睡眠柱状图" />
+
+            <Button
+                android:id="@+id/bt_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="体温图" />
+
+            <Button
+                android:id="@+id/bt_heart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="心率图" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

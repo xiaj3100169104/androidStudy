@@ -3,16 +3,15 @@ package example.softInput;
 import android.content.Intent;
 import android.view.View;
 
-import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.StatusbarStyleActivityMainBinding;
 
-import example.gesture.BaseLeftSlideFinishActivity;
+import example.gesture.BaseRightSlideFinishActivity;
 
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class StatusBarStyleMainActivity extends BaseLeftSlideFinishActivity {
+public class StatusBarStyleMainActivity extends BaseRightSlideFinishActivity {
     StatusbarStyleActivityMainBinding bd;
 
     public boolean isLightStatusBar() {

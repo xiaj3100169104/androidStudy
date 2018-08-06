@@ -1,12 +1,11 @@
 package example.softInput;
 
-import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode2Binding;
 
-import example.gesture.BaseLeftSlideFinishActivity;
+import example.gesture.BaseRightSlideFinishActivity;
 
-public class SoftMode2Activity extends BaseLeftSlideFinishActivity {
+public class SoftMode2Activity extends BaseRightSlideFinishActivity {
 
     ActivitySoftMode2Binding bd;
 

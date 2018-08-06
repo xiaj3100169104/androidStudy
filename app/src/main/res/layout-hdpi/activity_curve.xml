@@ -37,9 +37,9 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="refresh"
                 android:text="刷新"
                 android:textStyle="bold" />
 
@@ -64,54 +64,6 @@
                             android:layout_height="280dp" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FF91c532">
-
-                        <com.style.view.TemperatureLineBg
-                            android:id="@+id/temperature_line_bg"
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:layerType="software" />
-
-                        <HorizontalScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginRight="40dp"
-                            android:layerType="software">
-
-                            <com.style.view.TemperatureLineNew
-                                android:id="@+id/temperature_line"
-                                android:layout_width="wrap_content"
-                                android:layout_height="300dp"
-                                android:visibility="visible" />
-                        </HorizontalScrollView>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFFFF">
-
-                        <com.style.view.HeartRateLineBg
-                            android:layout_width="match_parent"
-                            android:layout_height="270dp" />
-
-                        <HorizontalScrollView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginRight="40dp"
-                            android:layerType="software">
-
-                            <com.style.view.HeartRateLine
-                                android:id="@+id/heart_line"
-                                android:layout_width="wrap_content"
-                                android:layout_height="270dp" />
-                        </HorizontalScrollView>
-                    </RelativeLayout>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
         </LinearLayout>

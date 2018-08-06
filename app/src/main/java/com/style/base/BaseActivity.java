@@ -24,8 +24,6 @@ import com.style.framework.R;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.InputMethodUtil;
 
-import example.gesture.BaseLeftSlideFinishActivity;
-
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();

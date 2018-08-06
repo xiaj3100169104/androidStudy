@@ -2,7 +2,6 @@ package example.softInput;
 
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.style.base.BaseActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
@@ -12,10 +11,10 @@ import com.style.view.DividerItemDecoration;
 import java.util.ArrayList;
 
 import example.adapter.StringAdapter;
-import example.gesture.BaseLeftSlideFinishActivity;
+import example.gesture.BaseRightSlideFinishActivity;
 
 
-public class SoftMode4Activity extends BaseLeftSlideFinishActivity {
+public class SoftMode4Activity extends BaseRightSlideFinishActivity {
 
     ActivitySoftMode4Binding bd;
 

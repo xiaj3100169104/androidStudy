@@ -25,6 +25,7 @@ import com.style.app.ToastManager;
 import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMainBinding;
+import com.style.utils.AppInfoUtil;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.NetWorkUtil;
 
@@ -153,6 +154,8 @@ public class MainActivity extends BaseActivity {
         showSelectedTab();
 
         Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
+            boolean is = AppInfoUtil.isAppOnForeground(getContext());
+            logE(TAG, "" + is);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 /*int state = DeviceInfoUtil.getDisplay(getContext()).getState();
                 logE(TAG, "display state " + state);

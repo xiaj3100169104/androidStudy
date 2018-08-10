@@ -9,14 +9,14 @@
     <color name="colorPrimary">#FF00B2EE</color>
     <!-- 状态栏颜色 -->
     <color name="colorPrimaryDark">#FF1C86EE</color>
-    <!-- 文本颜色、日期等对话框字体颜色 -->
-    <color name="textColorPrimary">@color/text_color_black_light</color>
+    <!-- 主要字体颜色 -->
+    <color name="textColorPrimary">#333333</color>
     <!-- 控件选中后的颜色 -->
-    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccent">@color/pink</color>
     <!-- 表示控件默认时的色调 -->
     <color name="colorControlNormal">@color/gray</color>
     <!-- 表示控件激活时候的色调 -->
-    <color name="colorControlActivated">@color/colorPrimary</color>
+    <color name="colorControlActivated">@color/red_single</color>
     <!-- Button按钮正常状态颜色 -->
     <color name="colorButtonNormal">#44BF1A</color>
     <color name="colorButtonPressed">#337523</color>
@@ -27,7 +27,7 @@
     <color name="pull_refresh_text">#ff999999</color>
     <!-- font color -->
     <color name="text_color_white">#FFFFFF</color>
-    <color name="text_color_black_light">#333333</color>
+    <color name="text_color_black_light">@color/textColorPrimary</color>
     <color name="text_color_gray">#777777</color>
     <color name="text_color_gray_light">#ff9a9b9c</color>
     <color name="text_color_btn_uneable">#999999</color>

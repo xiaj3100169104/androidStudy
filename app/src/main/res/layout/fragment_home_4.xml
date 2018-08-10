@@ -130,7 +130,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@id/imageView4" />
 
-                <TextView
+                <Button
                     android:id="@+id/textView5"
                     style="@style/View.normal_item_horizontal"
                     android:layout_marginTop="20dp"

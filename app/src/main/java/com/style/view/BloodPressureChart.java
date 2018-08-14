@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 /**
  * 血压历史曲线图
@@ -55,16 +57,40 @@ public class BloodPressureChart extends View {
      * 坐标文本高度
      */
     private float labelXHeight, labelYHeight;
-    private float mOffset = 0, mVelocityX;
-    private int mViewHeight, mViewWidth, mMaxOffset;
-    private float mPadding, mYaxisHeight, mXaxisWidth, mYTextWidth, mXScale, mLastX;
+    private float mVelocityX;
+    private int mViewHeight, mViewWidth;
+    /**
+     * 偏移量最大值，最小值，当前偏移量,由于向左滑，所以最大值为0，如果最小值大于或等于0表示不需要移动
+     */
+    private float mMaxOffset = 0, mMinOffset = 0, mOffset = 0;
+    /**
+     * 边距
+     */
+    private float mPadding;
+    /**
+     * 网格宽高
+     */
+    private float mYaxisHeight, mXaxisWidth;
+    /**
+     * 纵坐标文本高度
+     */
+    private float mYTextWidth;
+    /**
+     * 柱子宽度
+     */
+    private float mItemWidth;
+    /**
+     * 柱子间间隔宽度
+     */
+    private float mXScale;
+    private float mLastX;
 
-    private List<Item> mItemList;
-    private SimpleDateFormat mDayFormat = TimeUtil.getSimpleDateFormat("HH");
+    private ArrayList<Item> mItemList = new ArrayList<>();
+    private SimpleDateFormat mDayFormat = new SimpleDateFormat("HH", Locale.getDefault());
     private boolean mCanScroll;
     private Scroller mScroller;
-    private int mItemWidth;
-    private int mDataSize = 0, mMaxValue = 0;
+    private float yMin = 0f;
+    private float yMax = 200f;
 
     public BloodPressureChart(Context context) {
         this(context, null);
@@ -76,12 +102,13 @@ public class BloodPressureChart extends View {
 
     public BloodPressureChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mScroller = new Scroller(getContext(), new DecelerateInterpolator());
+
         mPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
-        mXaxisWidth = mViewWidth - mPadding * 2 - mYTextWidth / 2;
-        mYaxisHeight = mViewHeight - mPadding * 2 - labelXHeight;
-        mXScale = mXaxisWidth / 10;
-        mItemWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, getResources().getDisplayMetrics());
+        mItemWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, getResources().getDisplayMetrics());
+        mXScale = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, getResources().getDisplayMetrics());
         init(context);
+        setData(getData());
     }
 
     private void init(Context context) {
@@ -143,6 +170,8 @@ public class BloodPressureChart extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         mViewWidth = MeasureSpec.getSize(widthMeasureSpec);
         mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
+        mXaxisWidth = mViewWidth - mPadding * 2 - mYTextWidth;
+        mYaxisHeight = mViewHeight - mPadding * 2 - labelXHeight;
         Log.e(TAG, "onMeasure--" + mViewWidth + "  " + mViewHeight);
         setMeasuredDimension(mViewWidth, heightMeasureSpec);
     }
@@ -158,59 +187,48 @@ public class BloodPressureChart extends View {
         canvas.save();
         float xGridWidth = mXaxisWidth / 4;
         float yGridHeight = mYaxisHeight / 4;
-        canvas.translate(mPadding, mPadding);
+        canvas.translate(mPadding + mYTextWidth, mPadding);
         for (int i = 0; i <= 4; i++) {
-            if (i < 4) {
-                canvas.drawLine(i * xGridWidth, 0, i * xGridWidth, mYaxisHeight, mAxisPaint);
-            } else {
-                canvas.drawLine(mXaxisWidth, labelYHeight / 2, mXaxisWidth, mYaxisHeight / 2 - labelYHeight / 2, mAxisPaint);
-                canvas.drawLine(mXaxisWidth, mYaxisHeight / 2 + labelYHeight / 2, mXaxisWidth, mYaxisHeight, mAxisPaint);
-            }
-            if (i == 0 || i == 2) {
-                canvas.drawLine(0, yGridHeight * i, mXaxisWidth - mYTextWidth / 2, yGridHeight * i, mAxisPaint);
-            } else {
-                canvas.drawLine(0, yGridHeight * i, mXaxisWidth, yGridHeight * i, mAxisPaint);
-            }
+            //画横线
+            canvas.drawLine(0, yGridHeight * i, mXaxisWidth, yGridHeight * i, mAxisPaint);
+            //画竖线
+            canvas.drawLine(xGridWidth * i, 0, xGridWidth * i, mYaxisHeight, mAxisPaint);
+            int yLabel = 200 - 50 * i;
+            canvas.drawText(String.valueOf(yLabel), -mYTextWidth, yGridHeight * i + labelYHeight / 2, mLabelYPaint);
 
-            Rect rect = new Rect((int) (mXaxisWidth - mYTextWidth / 2), (int) (-mYaxisHeight / 2),
-                    (int) (mXaxisWidth + mYTextWidth / 2), (int) (mYaxisHeight / 2));
-            canvas.drawText("200", rect.centerX(), getBaseLine(rect, mLabelYPaint.getFontMetricsInt()), mLabelYPaint);
-            rect = new Rect((int) (mXaxisWidth - mYTextWidth / 2), (int) (mYaxisHeight / 2 - mYaxisHeight / 2),
-                    (int) (mXaxisWidth + mYTextWidth / 2), (int) (mYaxisHeight / 2 + mYaxisHeight / 2));
-            canvas.drawText("100", rect.centerX(), getBaseLine(rect, mLabelYPaint.getFontMetricsInt()), mLabelYPaint);
         }
         canvas.restore();
     }
 
     private void drawPolyAndXLabel(Canvas canvas) {
-        if (mItemList == null || mItemList.isEmpty() || mMaxValue == 0) {
+        if (mItemList == null || mItemList.isEmpty()) {
             //drawEmpty(canvas);
             return;
         }
         canvas.save();
-        canvas.translate(mPadding, mPadding + mYaxisHeight);
-//        mFillPath.rewind();
-//        mPolyPath.rewind();
+        canvas.translate(mPadding + mYTextWidth, mPadding + mYaxisHeight);
+
         Item item;
-        Rect rect;
-        int nowX;
+        //内部边距，防止柱子超出y轴网格线
+        float innerPadding = 50f;
+        float originalX;
+        float nowX;
         //LinearGradient gradient;
-        for (int i = 0; i < mDataSize; i++) {
+        for (int i = 0; i < mItemList.size(); i++) {
             item = mItemList.get(i);
-            nowX = (int) (item.x + mOffset);
-            if (nowX >= 0 && nowX <= mXaxisWidth - mItemWidth / 2) {
-                if (item.sbp > 0 && item.dbp > 0) {
+            originalX = (int) (innerPadding + (mItemWidth + mXScale) * i);
+            nowX = (int) (originalX + mOffset);
+            if (nowX >= 0 && nowX <= mXaxisWidth - innerPadding) {
+                if (item.yLow > 0 && item.yHigh < 200) {
                     //gradient = new LinearGradient(nowX, item.sY, nowX, item.dY, new int[]{0xff4fa213, 0xff91c532}, null, Shader.TileMode.MIRROR);
-                    rect = new Rect(nowX - mItemWidth / 2, item.sY, nowX + mItemWidth / 2, item.dY);
                     //mChartPaint.setShader(gradient);
-                    canvas.drawRect(rect, mChartPaint);
-                    canvas.drawText(String.valueOf(item.sbp), nowX, getBaseLine((int) (item.sY - labelXHeight), item.sY,
-                            mValuePaint.getFontMetricsInt()), mValuePaint);
-                    canvas.drawText(String.valueOf(item.dbp), nowX, getBaseLine(item.dY, (int) (item.dY + labelXHeight),
-                            mValuePaint.getFontMetricsInt()), mValuePaint);
+                    float top = -(mYaxisHeight * (item.yHigh - yMin)) / (yMax - yMin);
+                    float bottom = -(mYaxisHeight * (item.yLow - yMin)) / (yMax - yMin);
+                    canvas.drawRect(nowX - mItemWidth / 2, top, nowX + mItemWidth / 2, bottom, mChartPaint);
+                    //canvas.drawText(String.valueOf(item.sbp), nowX, getBaseLine((int) (item.sY - labelXHeight), item.sY, mValuePaint.getFontMetricsInt()), mValuePaint);
+                    //canvas.drawText(String.valueOf(item.dbp), nowX, getBaseLine(item.dY, (int) (item.dY + labelXHeight), mValuePaint.getFontMetricsInt()), mValuePaint);
                 }
-                canvas.drawText(item.hour, nowX, getBaseLine(0, (int) (labelXHeight + mPadding),
-                        mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
+                canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
             }
         }
         canvas.restore();
@@ -231,7 +249,7 @@ public class BloodPressureChart extends View {
                     mScroller.forceFinished(true);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (mDataSize > 7) {
+                if (mMinOffset < 0) {
                     // 计算偏移量
                     float offsetX = rawX - mLastX;
                     // 在当前偏移量的基础上增加偏移量
@@ -245,19 +263,19 @@ public class BloodPressureChart extends View {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                int scrollX;
+                Log.i(TAG, "mVelocityX = " + mVelocityX + " px/s");
+                int dx;//速度越大滚动距离理应越大
                 if (mVelocityX > 0) {
-                    scrollX = -mMaxOffset / 60;
+                    dx = 100;
                 } else {
-                    scrollX = mMaxOffset / 60;
+                    dx = -100;
                 }
                 if (Math.abs(mVelocityX) > 500) {
-                    mScroller.startScroll(getScrollX(), 0, scrollX, 0, 2000);
+                    //scroller.getCurrX() = mStartX + Math.round(x * dx);  x等于从0逐渐增大到1.
+                    mScroller.startScroll((int) mOffset, 0, dx, 0, 2000);
                     invalidate();
                 }
                 mVelocityX = 0;
-
-                Log.i("PPP", "mVelocityX = " + mVelocityX + "---------------");
                 break;
         }
         // 计算完成后回收内存
@@ -269,49 +287,45 @@ public class BloodPressureChart extends View {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if (mScroller == null) {
-            mScroller = new Scroller(getContext(), new DecelerateInterpolator());
-        }
+
         if (mScroller.computeScrollOffset()) {
-            mOffset += mScroller.getCurrX();
-            setOffsetRange();
-            postInvalidate();
+            int x = mScroller.getCurrX();
+            if (x >= mMinOffset && x <= mMaxOffset) {
+                mOffset = x;
+                setOffsetRange();
+                postInvalidate();
+            }
         }
+    }
+
+    public void setData(List<Item> list) {
+        mItemList.clear();
+        if (list != null && !list.isEmpty()) {
+            mItemList.addAll(list);
+            mMinOffset = -((mItemWidth + mXScale) * mItemList.size() - mXaxisWidth);
+        }
+        //invalidate();
+    }
+
+    private List<Item> getData() {
+        ArrayList<Item> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            Item b = new Item(random.nextInt(50) + 20, random.nextInt(90) + 30, String.valueOf(i));
+            list.add(b);
+        }
+        return list;
     }
 
     /**
      * 对偏移量进行边界值判定
      */
     private void setOffsetRange() {
-        if (mItemList != null && mItemList.size() > 7) {
-            mMaxOffset = (int) (-mXScale * 1.5 * mDataSize + mXScale * 7 * 1.5);
-            int offsetMin = 0;
-            if (mOffset > offsetMin) {
-                mCanScroll = false;
-                mOffset = offsetMin;
-            } else if (mOffset < mMaxOffset) {// 如果划出最大值范围
-                mCanScroll = false;
-                mOffset = mMaxOffset;
-            } else {
-                mCanScroll = true;
-            }
+        if (mOffset >= mMinOffset && mOffset <= mMaxOffset) {
+            mCanScroll = true;
         } else {
-            mOffset = 0;
             mCanScroll = false;
         }
-        if (mOffset > mXScale && mOffset % mXScale != 0) {
-            mOffset = mMaxOffset - mOffset % mXScale;
-        }
-    }
-
-    /**
-     * 根据矩形区域换算文字的BaseLine
-     *
-     * @param rect
-     * @return
-     */
-    private int getBaseLine(Rect rect, Paint.FontMetricsInt metricsInt) {
-        return (rect.top + rect.bottom - metricsInt.bottom - metricsInt.top) / 2;
     }
 
     /**
@@ -324,12 +338,14 @@ public class BloodPressureChart extends View {
     }
 
     private class Item {
-        int sbp;
-        int dbp;
-        int x;
-        int sY;
-        int dY;
-        String hour;
-//        boolean select;
+        public int yLow;
+        public int yHigh;
+        public String xLabel;
+
+        public Item(int yLow, int yHigh, String xLabel) {
+            this.yLow = yLow;
+            this.yHigh = yHigh;
+            this.xLabel = xLabel;
+        }
     }
 }

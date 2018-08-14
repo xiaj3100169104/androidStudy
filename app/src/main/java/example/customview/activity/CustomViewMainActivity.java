@@ -36,6 +36,7 @@ public class CustomViewMainActivity extends BaseActivity {
         bd.btCurve.setOnClickListener(v -> skip(SleepWeekActivity.class));
         bd.btTemp.setOnClickListener(v -> skip(TempActivity.class));
         bd.btHeart.setOnClickListener(v -> skip(HeartLineActivity.class));
+        bd.btBp.setOnClickListener(v -> skip(BpActivity.class));
 
     }
 

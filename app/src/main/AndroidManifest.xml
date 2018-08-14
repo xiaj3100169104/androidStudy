@@ -157,6 +157,7 @@
         <activity android:name="example.customview.activity.SleepWeekActivity" />
         <activity android:name="example.customview.activity.HeartLineActivity" />
         <activity android:name="example.customview.activity.TempActivity" />
+        <activity android:name="example.customview.activity.BpActivity" />
 
         <activity
             android:name="example.customview.activity.CircleProgressBarActivity"

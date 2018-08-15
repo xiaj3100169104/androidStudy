@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBpBinding;
 import com.style.framework.databinding.ActivityTempBinding;
+import com.style.view.BloodPressureChart;
 import com.style.view.TemperatureLineNew;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BpActivity extends AppCompatActivity {
@@ -27,8 +29,16 @@ public class BpActivity extends AppCompatActivity {
     }
 
     public void refresh() {
-        //bd.bpLine.setData(getTemperatureData());
+        bd.bpLine.setData(getData());
     }
 
-
+    private List<BloodPressureChart.Item> getData() {
+        ArrayList<BloodPressureChart.Item> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            BloodPressureChart.Item b = new BloodPressureChart.Item(random.nextInt(30) + 50, random.nextInt(30) + 90, String.valueOf(i));
+            list.add(b);
+        }
+        return list;
+    }
 }

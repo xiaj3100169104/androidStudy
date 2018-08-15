@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
- * 血压历史曲线图
+ * 自定义部分滚动View
  */
 
 public class BloodPressureChart extends View {
@@ -86,11 +86,12 @@ public class BloodPressureChart extends View {
     private float mLastX;
 
     private ArrayList<Item> mItemList = new ArrayList<>();
-    private SimpleDateFormat mDayFormat = new SimpleDateFormat("HH", Locale.getDefault());
-    private boolean mCanScroll;
+    private boolean mCanRefresh;
     private Scroller mScroller;
     private float yMin = 0f;
     private float yMax = 200f;
+    // 速度追踪
+    private VelocityTracker velocityTracker = VelocityTracker.obtain();
 
     public BloodPressureChart(Context context) {
         this(context, null);
@@ -108,7 +109,7 @@ public class BloodPressureChart extends View {
         mItemWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, getResources().getDisplayMetrics());
         mXScale = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, getResources().getDisplayMetrics());
         init(context);
-        setData(getData());
+        //setData(getData());
     }
 
     private void init(Context context) {
@@ -194,7 +195,7 @@ public class BloodPressureChart extends View {
             //画竖线
             canvas.drawLine(xGridWidth * i, 0, xGridWidth * i, mYaxisHeight, mAxisPaint);
             int yLabel = 200 - 50 * i;
-            canvas.drawText(String.valueOf(yLabel), -mYTextWidth, yGridHeight * i + labelYHeight / 2, mLabelYPaint);
+            canvas.drawText(String.valueOf(yLabel), -mYTextWidth, yGridHeight * i + labelYHeight / 3, mLabelYPaint);
 
         }
         canvas.restore();
@@ -209,7 +210,7 @@ public class BloodPressureChart extends View {
         canvas.translate(mPadding + mYTextWidth, mPadding + mYaxisHeight);
 
         Item item;
-        //内部边距，防止柱子超出y轴网格线
+        //内部边距，防止柱子与y轴左右边界线重合
         float innerPadding = 50f;
         float originalX;
         float nowX;
@@ -225,8 +226,8 @@ public class BloodPressureChart extends View {
                     float top = -(mYaxisHeight * (item.yHigh - yMin)) / (yMax - yMin);
                     float bottom = -(mYaxisHeight * (item.yLow - yMin)) / (yMax - yMin);
                     canvas.drawRect(nowX - mItemWidth / 2, top, nowX + mItemWidth / 2, bottom, mChartPaint);
-                    //canvas.drawText(String.valueOf(item.sbp), nowX, getBaseLine((int) (item.sY - labelXHeight), item.sY, mValuePaint.getFontMetricsInt()), mValuePaint);
-                    //canvas.drawText(String.valueOf(item.dbp), nowX, getBaseLine(item.dY, (int) (item.dY + labelXHeight), mValuePaint.getFontMetricsInt()), mValuePaint);
+                    canvas.drawText(String.valueOf(item.yHigh), nowX, getBaseLine((int) (top - labelXHeight), (int) top, mValuePaint.getFontMetricsInt()), mValuePaint);
+                    canvas.drawText(String.valueOf(item.yLow), nowX, getBaseLine((int) bottom, (int) (bottom + labelXHeight), mValuePaint.getFontMetricsInt()), mValuePaint);
                 }
                 canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
             }
@@ -236,51 +237,56 @@ public class BloodPressureChart extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float rawX = event.getRawX();
-        // 计算当前速度
-        VelocityTracker velocityTracker = VelocityTracker.obtain();
         velocityTracker.addMovement(event);
-        // 计算速度的单位时间
-        velocityTracker.computeCurrentVelocity(1000);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mLastX = rawX;
+                mLastX = event.getRawX();
                 if (mScroller.computeScrollOffset())
                     mScroller.forceFinished(true);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mMinOffset < 0) {
+                    float rawXMove = event.getRawX();
                     // 计算偏移量
-                    float offsetX = rawX - mLastX;
+                    float offsetX = rawXMove - mLastX;
                     // 在当前偏移量的基础上增加偏移量
                     mOffset = mOffset + offsetX;
-                    setOffsetRange();
+                    setCanRefresh();
                     // 偏移量修改后下次重绘会有变化
-                    mLastX = rawX;
-                    mVelocityX = velocityTracker.getXVelocity();
-                    if (mCanScroll)
+                    mLastX = rawXMove;
+                    if (mCanRefresh)
                         invalidate();
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                Log.i(TAG, "mVelocityX = " + mVelocityX + " px/s");
-                int dx;//速度越大滚动距离理应越大
-                if (mVelocityX > 0) {
-                    dx = 100;
-                } else {
-                    dx = -100;
-                }
-                if (Math.abs(mVelocityX) > 500) {
-                    //scroller.getCurrX() = mStartX + Math.round(x * dx);  x等于从0逐渐增大到1.
-                    mScroller.startScroll((int) mOffset, 0, dx, 0, 2000);
-                    invalidate();
+                // 计算速度的单位时间,最大速度为5px/ms
+                velocityTracker.computeCurrentVelocity(1, 5);
+                mVelocityX = velocityTracker.getXVelocity();
+                // 计算完成后回收内存
+                velocityTracker.clear();
+                //velocityTracker.recycle();
+                Log.e(TAG, "mVelocityX = " + mVelocityX + " px/ms");
+                //偏移量已经是边界时不用再计算滚动逻辑
+                if (mOffset > mMinOffset && mOffset < mMaxOffset && mVelocityX != 0) {
+                    float dx;//速度越大滚动距离理应越大,假设速度为5px/ms时，最大滑动位移5000px，设置花费时间为3000ms。以此为标准.速度越大，位移越大，时间越长。
+                    int duration;
+                    dx = mVelocityX / (5f / 5000f);
+                    duration = (int) Math.abs(mVelocityX / (5f / 3000f));
+                    Log.e(TAG, "dx = " + dx + " px" + "  duration = " + duration + " ms");
+                    /*if (mVelocityX > 0) {//向右滑
+                        duration = (dx / mVelocityX);
+                    } else {//左滑，内容左移，偏移量应该减小，这里设置负数
+                        duration = (dx / mVelocityX);
+                    }*/
+                    if (dx != 0) {
+                        //scroller.getCurrX() = mStartX + Math.round(x * dx);  x等于从0逐渐增大到1.
+                        mScroller.startScroll((int) mOffset, 0, (int) dx, 0, duration < 500 ? 500 : duration);//duration太小会有跳动效果，不平滑
+                        invalidate();
+                    }
                 }
                 mVelocityX = 0;
                 break;
         }
-        // 计算完成后回收内存
-        velocityTracker.clear();
-        velocityTracker.recycle();
         return true;
     }
 
@@ -292,9 +298,12 @@ public class BloodPressureChart extends View {
             int x = mScroller.getCurrX();
             if (x >= mMinOffset && x <= mMaxOffset) {
                 mOffset = x;
-                setOffsetRange();
-                postInvalidate();
+                setCanRefresh();
+                if (mCanRefresh)
+                    postInvalidate();
             }
+        } else {
+            mScroller.forceFinished(true);
         }
     }
 
@@ -304,7 +313,7 @@ public class BloodPressureChart extends View {
             mItemList.addAll(list);
             mMinOffset = -((mItemWidth + mXScale) * mItemList.size() - mXaxisWidth);
         }
-        //invalidate();
+        invalidate();
     }
 
     private List<Item> getData() {
@@ -320,16 +329,20 @@ public class BloodPressureChart extends View {
     /**
      * 对偏移量进行边界值判定
      */
-    private void setOffsetRange() {
+    private void setCanRefresh() {
+        mOffset = mOffset >= mMaxOffset ? mMaxOffset : mOffset;
+        mOffset = mOffset <= mMinOffset ? mMinOffset : mOffset;
+        //Log.i(TAG, "mOffset = " + mOffset);
         if (mOffset >= mMinOffset && mOffset <= mMaxOffset) {
-            mCanScroll = true;
+            mCanRefresh = true;
         } else {
-            mCanScroll = false;
+            mCanRefresh = false;
         }
     }
 
     /**
      * 根据矩形区域换算文字的BaseLine
+     * 绘制在top与bottom中间的文字
      *
      * @return
      */
@@ -337,7 +350,7 @@ public class BloodPressureChart extends View {
         return (top + bottom - metricsInt.bottom - metricsInt.top) / 2;
     }
 
-    private class Item {
+    public static class Item {
         public int yLow;
         public int yHigh;
         public String xLabel;

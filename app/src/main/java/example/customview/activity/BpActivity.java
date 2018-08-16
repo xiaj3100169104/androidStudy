@@ -32,11 +32,11 @@ public class BpActivity extends AppCompatActivity {
         bd.bpLine.setData(getData());
     }
 
-    private List<BloodPressureChart.Item> getData() {
-        ArrayList<BloodPressureChart.Item> list = new ArrayList<>();
+    private List<BloodPressureChart.BloodItem> getData() {
+        ArrayList<BloodPressureChart.BloodItem> list = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            BloodPressureChart.Item b = new BloodPressureChart.Item(random.nextInt(30) + 50, random.nextInt(30) + 90, String.valueOf(i));
+            BloodPressureChart.BloodItem b = new BloodPressureChart.BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, String.valueOf(i));
             list.add(b);
         }
         return list;

@@ -4,8 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.support.annotation.NonNull;
+import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -17,26 +16,30 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;
 
-import java.text.SimpleDateFormat;
+import com.style.view.util.Utils;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 /**
  * 自定义部分滚动View
  */
 
-public class BloodPressureChart extends View {
+public class HeartLineChart extends View {
     private final String TAG = this.getClass().getSimpleName();
 
-    private Paint mAxisPaint;
-    private TextPaint mLabelYPaint;
-    private TextPaint mLabelXPaint;
+    //图表线宽度
+    private int lineWidth = 2;
+    private Path mLinePath;
+
     private Paint mChartPaint;
-    private TextPaint mValuePaint;
-    private int colorChart = 0xFF45CE7B;
+    private Paint mAxisPaint;
+    private TextPaint mLabelXPaint;
+    private TextPaint mLabelYPaint;
+
+    //图表线颜色
+    private int lineColor = 0xFF45CE7B;
     private int colorLabelY = 0xffaaaaaa;
     private int colorGrid = 0x99CCCCCC;
     private int colorChartText = 0xff666666;
@@ -45,7 +48,6 @@ public class BloodPressureChart extends View {
      */
     private float labelXHeight, labelYHeight;
     private int mViewHeight, mViewWidth;
-
     /**
      * 边距
      */
@@ -61,14 +63,14 @@ public class BloodPressureChart extends View {
     /**
      * 柱子宽度
      */
-    private float mItemWidth;
+    private float mItemWidth = 0;
     /**
      * 柱子间间隔宽度
      */
     private float mIntervalWidth;
-    private ArrayList<BloodItem> mItemList = new ArrayList<>();
+    private ArrayList<HeartLineItem> mItemList = new ArrayList<>();
     private static final float DEFAULT_MIN = 40F;
-    private static final float DEFAULT_MAX = 160F;
+    private static final float DEFAULT_MAX = 120F;
     private static final float DEFAULT_MIN_SECOND = 0F;
     private static final float DEFAULT_MAX_SECOND = 200F;
     private float yMin = DEFAULT_MIN;
@@ -76,31 +78,33 @@ public class BloodPressureChart extends View {
     // 速度追踪
     private VelocityTracker velocityTracker = VelocityTracker.obtain();
 
-    public BloodPressureChart(Context context) {
+    public HeartLineChart(Context context) {
         this(context, null);
     }
 
-    public BloodPressureChart(Context context, @Nullable AttributeSet attrs) {
+    public HeartLineChart(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BloodPressureChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public HeartLineChart(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(getContext(), new DecelerateInterpolator());
 
         mPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics());
-        mItemWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, getResources().getDisplayMetrics());
-        mIntervalWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, getResources().getDisplayMetrics());
-        init(context);
+        //mItemWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, getResources().getDisplayMetrics());
+        mIntervalWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20f, getResources().getDisplayMetrics());
+        lineWidth = Utils.dp2px(getContext(), lineWidth);
+        mLinePath = new Path();
+        initPaint(context);
         //setData(getData());
     }
 
-    private void init(Context context) {
+    private void initPaint(Context context) {
         mAxisPaint = new Paint();
         mAxisPaint.setAntiAlias(true);
         mAxisPaint.setStyle(Paint.Style.STROKE);
-        mAxisPaint.setDither(true);//防抖动
-        mAxisPaint.setShader(null);//设置渐变色
+        mAxisPaint.setDither(true);
+        mAxisPaint.setShader(null);
         mAxisPaint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0.5f, getResources().getDisplayMetrics()));
         mAxisPaint.setColor(colorGrid);
 
@@ -113,20 +117,17 @@ public class BloodPressureChart extends View {
         mYTextWidth = mLabelYPaint.measureText("200");
 
         mLabelXPaint = new TextPaint(mLabelYPaint);
+        mLabelXPaint.setColor(colorLabelY);
         labelXHeight = mLabelXPaint.getFontMetrics().bottom - mLabelXPaint.getFontMetrics().top;
 
-        mValuePaint = new TextPaint(mLabelYPaint);
-        mValuePaint.setColor(colorChartText);
-
-        mChartPaint = new Paint();
-        mChartPaint.setAntiAlias(true);
-        mChartPaint.setStyle(Paint.Style.FILL);
-        //mChartPaint.setStrokeJoin(Paint.Join.ROUND);// 笔刷图形样式
-        //mChartPaint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔转弯的连接风格
+        mChartPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mChartPaint.setStrokeJoin(Paint.Join.ROUND);// 笔刷图形样式
+        mChartPaint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔转弯的连接风格
         mChartPaint.setDither(true);//防抖动
         mChartPaint.setShader(null);//设置渐变色
-        mChartPaint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, getResources().getDisplayMetrics()));
-        mChartPaint.setColor(colorChart);
+        mChartPaint.setStyle(Paint.Style.STROKE);
+        mChartPaint.setColor(lineColor);
+        mChartPaint.setStrokeWidth(lineWidth);
     }
 
     @Override
@@ -173,27 +174,32 @@ public class BloodPressureChart extends View {
         canvas.save();
         canvas.translate(mPadding + mYTextWidth, mPadding + mYaxisHeight);
 
-        BloodItem item;
+        HeartLineItem item;
+        HeartLineItem nextItem;
         //内部边距，防止柱子与y轴左右边界线重合
-        float innerPadding = 50f;
+        float innerPadding = 0f;
         float originalX;
         float nowX;
-        //LinearGradient gradient;
+        float nextOriginalX;
+        float nextX;
         for (int i = 0; i < mItemList.size(); i++) {
-            item = mItemList.get(i);
-            originalX = (innerPadding + (mItemWidth + mIntervalWidth) * i);
-            nowX = (originalX + mOffset);
-            if (nowX >= 0 && nowX <= mXaxisWidth - innerPadding) {
-                if (item.yLow > yMin && item.yHigh < yMax) {
-                    //gradient = new LinearGradient(nowX, item.sY, nowX, item.dY, new int[]{0xff4fa213, 0xff91c532}, null, Shader.TileMode.MIRROR);
-                    //mChartPaint.setShader(gradient);
-                    float top = -(mYaxisHeight * (item.yHigh - yMin)) / (yMax - yMin);
-                    float bottom = -(mYaxisHeight * (item.yLow - yMin)) / (yMax - yMin);
-                    canvas.drawRect(nowX - mItemWidth / 2, top, nowX + mItemWidth / 2, bottom, mChartPaint);
-                    canvas.drawText(String.valueOf(item.yHigh), nowX, getBaseLine((int) (top - labelXHeight), (int) top, mValuePaint.getFontMetricsInt()), mValuePaint);
-                    canvas.drawText(String.valueOf(item.yLow), nowX, getBaseLine((int) bottom, (int) (bottom + labelXHeight), mValuePaint.getFontMetricsInt()), mValuePaint);
+            if ((i + 1) <= mItemList.size() - 1) {
+                item = mItemList.get(i);
+                originalX = (innerPadding + (mItemWidth + mIntervalWidth) * i);
+                nowX = (originalX + mOffset);
+
+                nextItem = mItemList.get(i + 1);
+                nextOriginalX = (innerPadding + (mItemWidth + mIntervalWidth) * (i + 1));
+                nextX = (nextOriginalX + mOffset);
+                if (nowX >= innerPadding && nowX <= mXaxisWidth - innerPadding && nextX >= innerPadding && nextX <= mXaxisWidth - innerPadding) {
+                    if (item.yValue >= yMin && item.yValue <= yMax) {
+                        float y = -(mYaxisHeight * (item.yValue - yMin)) / (yMax - yMin);
+                        float y2 = -(mYaxisHeight * (nextItem.yValue - yMin)) / (yMax - yMin);
+                        canvas.drawLine(nowX, y, nextX, y2, mChartPaint);
+                    }
+                    if (i % 5 == 0)
+                        canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
                 }
-                canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
             }
         }
         canvas.restore();
@@ -209,13 +215,13 @@ public class BloodPressureChart extends View {
         return (top + bottom - metricsInt.bottom - metricsInt.top) / 2;
     }
 
-    public void setData(List<BloodItem> list) {
+    public void setData(List<HeartLineItem> list) {
         mItemList.clear();
         yMin = DEFAULT_MIN;
         yMax = DEFAULT_MAX;
         if (list != null && !list.isEmpty()) {
-            for (BloodItem item : list) {
-                if (item.yHigh > DEFAULT_MAX || item.yLow < DEFAULT_MIN) {
+            for (HeartLineItem item : list) {
+                if (item.yValue > DEFAULT_MAX || item.yValue < DEFAULT_MIN) {
                     yMax = DEFAULT_MAX_SECOND;
                     yMin = DEFAULT_MIN_SECOND;
                 }
@@ -226,11 +232,11 @@ public class BloodPressureChart extends View {
         invalidate();
     }
 
-    private List<BloodItem> getData() {
-        ArrayList<BloodItem> list = new ArrayList<>();
+    private List<HeartLineItem> getData() {
+        ArrayList<HeartLineItem> list = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 20; i++) {
-            BloodItem b = new BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, String.valueOf(i));
+            HeartLineItem b = new HeartLineItem(random.nextInt(40) + 60, String.valueOf(i));
             list.add(b);
         }
         return list;
@@ -329,14 +335,12 @@ public class BloodPressureChart extends View {
         }
     }
 
-    public static class BloodItem {
-        public int yLow;
-        public int yHigh;
+    public static class HeartLineItem {
+        public int yValue;
         public String xLabel;
 
-        public BloodItem(int yLow, int yHigh, String xLabel) {
-            this.yLow = yLow;
-            this.yHigh = yHigh;
+        public HeartLineItem(int yValue, String xLabel) {
+            this.yValue = yValue;
             this.xLabel = xLabel;
         }
     }

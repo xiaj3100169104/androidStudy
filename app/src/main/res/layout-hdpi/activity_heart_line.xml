@@ -39,7 +39,7 @@
             </HorizontalScrollView>
         </RelativeLayout>
 
-        <com.style.view.HeartRateLineView
+        <com.style.view.HeartLineChart
             android:id="@+id/heart_line_new"
             android:layout_width="match_parent"
             android:layout_height="270dp"

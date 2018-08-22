@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:circleProgress_centerTextSize="25sp"
+            custom:circleProgress_indeterminate="false"
             custom:circleProgress_percent="15"
             custom:circleProgress_radius="50dp"
-            custom:circleProgress_stripeWidth="10dp"
-            custom:circleProgress_indeterminate="false"/>
+            custom:circleProgress_stripeWidth="10dp" />
 
         <com.style.view.progressbar.CirclePercentView
             android:id="@+id/circleView2"
@@ -29,10 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             custom:circleProgress_centerTextSize="35sp"
+            custom:circleProgress_indeterminate="false"
             custom:circleProgress_percent="75"
             custom:circleProgress_radius="60dp"
-            custom:circleProgress_stripeWidth="10dp"
-            custom:circleProgress_indeterminate="false"/>
+            custom:circleProgress_stripeWidth="10dp" />
 
         <com.style.view.progressbar.CirclePercentView
             android:id="@+id/circleView3"
@@ -42,8 +46,7 @@
             custom:circleProgress_centerTextSize="15sp"
             custom:circleProgress_percent="75"
             custom:circleProgress_radius="30dp"
-            custom:circleProgress_stripeWidth="8dp"
-            />
+            custom:circleProgress_stripeWidth="8dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +91,6 @@
 
         <com.style.view.progressbar.CircleProgress
             android:id="@+id/circle_progress2"
-
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="50dp"
@@ -100,9 +102,17 @@
             custom:circle_unfinished_color="#00ff00" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="change" />
+    <com.style.view.progressbar.SportDayCircleView
+        android:id="@+id/arc_progress8"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        custom:arc_bottom_text=""
+        custom:arc_finished_color="#FF45CE7B"
+        custom:arc_progress="40"
+        custom:arc_stroke_width="15dp"
+        custom:arc_suffix_text="#"
+        custom:arc_text_color="#ffffff"
+        custom:arc_unfinished_color="#ffe5e5e5" />
 </LinearLayout>

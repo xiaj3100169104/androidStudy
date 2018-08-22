@@ -11,6 +11,7 @@ import com.style.framework.databinding.ActivityCurveBinding;
 import com.style.framework.databinding.ActivityTempBinding;
 import com.style.view.HeartRateLine;
 import com.style.view.SleepWeekHistogram;
+import com.style.view.TemperatureChart;
 import com.style.view.TemperatureLineNew;
 
 import java.util.ArrayList;
@@ -33,6 +34,17 @@ public class TempActivity extends AppCompatActivity {
 
     public void refresh() {
         bd.temperatureLine.setData(getTemperatureData());
+        bd.temperatureChart.setData(getData());
+    }
+
+    private List<TemperatureChart.TempItem> getData() {
+        ArrayList<TemperatureChart.TempItem> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 200; i++) {
+            TemperatureChart.TempItem b = new TemperatureChart.TempItem(random.nextFloat() + 36.5f, String.valueOf(i));
+            list.add(b);
+        }
+        return list;
     }
 
     private ArrayList<TemperatureLineNew.PointItem> getTemperatureData() {

@@ -32,7 +32,6 @@ public class TemperatureChart extends View {
     //图表线宽度
     private int lineWidth = 2;
     private Path mLinePath;
-    ArrayList<TempItem> disList = new ArrayList<>();
 
     private Paint mChartPaint;
     private Paint mAxisPaint;
@@ -126,7 +125,7 @@ public class TemperatureChart extends View {
         mChartPaint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔转弯的连接风格
         mChartPaint.setDither(true);//防抖动
         mChartPaint.setShader(null);//设置渐变色
-        mChartPaint.setStyle(Paint.Style.STROKE);
+        mChartPaint.setStyle(Paint.Style.FILL);
         mChartPaint.setColor(lineColor);
         mChartPaint.setStrokeWidth(lineWidth);
     }
@@ -179,38 +178,37 @@ public class TemperatureChart extends View {
         float innerPadding = 0f;
         float originalX;
         float nowX;
-        disList.clear();
+        boolean hasFirst = false;
+        float firstX = 0;
+        float firstY = 0;
+        float lastX = 0;
+        float y;
         for (int i = 0; i < mItemList.size(); i++) {
             item = mItemList.get(i);
             originalX = (innerPadding + (mItemWidth + mIntervalWidth) * i);
             nowX = (originalX + mOffset);
             if (nowX >= innerPadding && nowX <= mXaxisWidth - innerPadding) {
                 if (item.yValue >= yMin && item.yValue <= yMax) {
-                    disList.add(item);
-                   /* float y = -(mYaxisHeight * (item.yValue - yMin)) / (yMax - yMin);
-                    float y2 = -(mYaxisHeight * (nextItem.yValue - yMin)) / (yMax - yMin);
-                    canvas.drawLine(nowX, y, nextX, y2, mChartPaint);*/
+                    lastX = nowX;
+                    y = -(mYaxisHeight * (item.yValue - yMin)) / (yMax - yMin);
+                    if (!hasFirst) {
+                        firstX = nowX;
+                        firstY = y;
+                        mLinePath.moveTo(nowX, y);
+                        hasFirst = true;
+                    } else {
+                        mLinePath.lineTo(nowX, y);
+                    }
                 }
                 if (i % 5 == 0)
                     canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
             }
         }
-        for (int i = 0; i < disList.size(); i++) {
-            item = mItemList.get(i);
-            originalX = (innerPadding + (mItemWidth + mIntervalWidth) * i);
-            nowX = (originalX + mOffset);
-            float y = -(mYaxisHeight * (item.yValue - yMin)) / (yMax - yMin);
-            if (i == 0) {
-                mLinePath.moveTo(nowX, y);
-            } else if (i == disList.size() - 1) {
-                mLinePath.lineTo(nowX, y);
-                mLinePath.lineTo(nowX, 0);
-                mLinePath.lineTo(nowX, y);
-                mLinePath.lineTo(nowX, y);
-            } else {
-                mLinePath.lineTo(nowX, y);
-            }
-        }
+
+        mLinePath.lineTo(lastX, 0);
+        mLinePath.lineTo(firstX, 0);
+        mLinePath.lineTo(firstX, firstY);
+        canvas.drawPath(mLinePath, mChartPaint);
         canvas.restore();
     }
 
@@ -353,4 +351,7 @@ public class TemperatureChart extends View {
             this.xLabel = xLabel;
         }
     }
+
+
+
 }

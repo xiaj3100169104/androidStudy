@@ -18,13 +18,8 @@ public class CustomScrollMainActivity extends AppCompatActivity implements View.
 
         Button more = (Button) findViewById(R.id.more);
         Button small = (Button) findViewById(R.id.small);
-
-
-
         more.setOnClickListener(this);
         small.setOnClickListener(this);
-
-
     }
 
     @Override

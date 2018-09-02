@@ -63,12 +63,12 @@ public class WebServicePresenter extends BaseAndroidViewModel {
         Disposable d = getHttpApi().getToken().flatMap(tokenResponse -> {
             if (TextUtils.isEmpty(tokenResponse.access_token))
                 throw new ResultErrorException(ResultErrorException.REQUEST_FAILED);
-            Log.e(TAG, tokenResponse.access_token);
+            Log.e(getTAG(), tokenResponse.access_token);
             getPreferences().setSignKey(tokenResponse.access_token);
             return getHttpApi().login2(userName, pass);
-        }).subscribe(userInfo -> Log.e(TAG, userInfo.toString())
+        }).subscribe(userInfo -> Log.e(getTAG(), userInfo.toString())
                 , throwable -> handleHttpError(throwable)
-                , () -> Log.e(TAG, "sfdfsd"));
+                , () -> Log.e(getTAG(), "sfdfsd"));
         addTask(d);
     }
 }

@@ -28,15 +28,15 @@ public class SimpleGestureActivity extends BaseActivity {
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                logE(TAG, "distance  " + (e2.getX() - e1.getX()) + "  velocityX  " + velocityX);
+                logE(getTAG(), "distance  " + (e2.getX() - e1.getX()) + "  velocityX  " + velocityX);
                 if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-                    logE(TAG, "向左手势");
+                    logE(getTAG(), "向左手势");
                 } else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE && Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-                    logE(TAG, "向右手势");
+                    logE(getTAG(), "向右手势");
                 } else if (e1.getY() - e2.getY() > FLING_MIN_DISTANCE && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
-                    logE(TAG, "向上手势");
+                    logE(getTAG(), "向上手势");
                 } else if (e2.getY() - e1.getY() > FLING_MIN_DISTANCE && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
-                    logE(TAG, "向下手势");
+                    logE(getTAG(), "向下手势");
                 }
                 return false;
             }

@@ -44,7 +44,7 @@ public class TestGestureActivity extends BaseActivity {
         viewConfiguration = ViewConfiguration.get(getContext());
 
         bd.iv.setOnClickListener(v -> {
-            logE(TAG, "iv");
+            logE(getTAG(), "iv");
         });
     }
 
@@ -56,7 +56,7 @@ public class TestGestureActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.e(TAG, "dispatchTouchEvent   " + ev.getAction());
+        Log.e(getTAG(), "dispatchTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isStartSlide = false;
@@ -72,14 +72,14 @@ public class TestGestureActivity extends BaseActivity {
                     //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
                     if (yDistance > viewConfiguration.getScaledTouchSlop() && yDistance > xDistance) {
                         isStartSlide = true;
-                        Log.e(TAG, "start move");
+                        Log.e(getTAG(), "start move");
                         yLastMove = yMove;
                         return true;
                     }
                 } else {//处理当前容器滑动逻辑
                     yMove = ev.getRawY();
                     float translationY = yMove - yLastMove;
-                    Log.e(TAG, "translationY  " + translationY);
+                    Log.e(getTAG(), "translationY  " + translationY);
                     getRoot().setTranslationY(translationY);
                     return true;
                 }
@@ -96,7 +96,7 @@ public class TestGestureActivity extends BaseActivity {
                         public void onAnimationUpdate(ValueAnimator animation) {
                             float v = (float) animation.getAnimatedValue();
                             getRoot().setTranslationY(v);
-                            Log.d(TAG, "translationY:" + v);
+                            Log.d(getTAG(), "translationY:" + v);
                         }
                     });
                     va.start();
@@ -111,7 +111,7 @@ public class TestGestureActivity extends BaseActivity {
     //只要子view有任何点击或触摸事件便不会执行此方法。所以需慎用。
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.e(TAG, "onTouchEvent   " + ev.getAction());
+        Log.e(getTAG(), "onTouchEvent   " + ev.getAction());
         return super.onTouchEvent(ev);
     }
 

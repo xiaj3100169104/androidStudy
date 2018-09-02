@@ -58,7 +58,7 @@ public class DialogActivity extends BaseActivity {
     private void showListPopup(View v) {
         GeneralListPopup popup = new GeneralListPopup(getContext());
         popup.setOnItemClickListener((position, data) -> {
-            Log.e(TAG, position + "  " + data);
+            Log.e(getTAG(), position + "  " + data);
         });
         popup.showAsDropDown(v);
     }

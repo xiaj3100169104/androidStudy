@@ -71,12 +71,12 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
         });
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            logE(TAG, "没有权限");
+            logE(getTAG(), "没有权限");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                logE(TAG, "上次拒绝");
+                logE(getTAG(), "上次拒绝");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
             } else {
-                logE(TAG, "请求权限");
+                logE(getTAG(), "请求权限");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_EXTERNAL_STORAGE);
             }
         } else {
@@ -90,11 +90,11 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(TAG, "权限允许");
+                logE(getTAG(), "权限允许");
                 getMediaData();
 
             } else {
-                logE(TAG, "权限拒绝");
+                logE(getTAG(), "权限拒绝");
                 // Permission Denied
                 showToast("Permission Denied");
             }
@@ -171,7 +171,7 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
     private ServiceConnection mConnection = new ServiceConnection() {
         // 当与service的连接建立后被调用
         public void onServiceConnected(ComponentName className, IBinder service) {
-            Log.e(TAG, "onServiceConnected");
+            Log.e(getTAG(), "onServiceConnected");
 
             // Because we have bound to an explicit service that is running in our own process, we can
             // cast its IBinder to a concrete class and directly access it.
@@ -182,7 +182,7 @@ public class MusicListActivity extends BaseActivity implements MediaDataCallback
 
         // 当与service的连接意外断开时被调用,调unbindservice不会触发此回调
         public void onServiceDisconnected(ComponentName className) {
-            Log.e(TAG, "onServiceDisconnected");
+            Log.e(getTAG(), "onServiceDisconnected");
 
         }
     };

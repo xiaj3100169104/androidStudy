@@ -49,7 +49,7 @@ public class WebServiceActivity extends BaseActivity {
     }
 
     public void setContent(String s) {
-        logE(TAG, s.toString());
+        logE(getTAG(), s.toString());
         bd.tvResult.setText(s.toString());
     }
 }

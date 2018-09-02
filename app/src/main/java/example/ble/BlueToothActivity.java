@@ -120,12 +120,12 @@ public class BlueToothActivity extends BaseActivity {
         });
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            logE(TAG, "没有权限");
+            logE(getTAG(), "没有权限");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                logE(TAG, "上次拒绝");
+                logE(getTAG(), "上次拒绝");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
             } else {
-                logE(TAG, "请求权限");
+                logE(getTAG(), "请求权限");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
             }
         } else {
@@ -139,10 +139,10 @@ public class BlueToothActivity extends BaseActivity {
 
         if (requestCode == REQUEST_ENABLE_BT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(TAG, "权限允许");
+                logE(getTAG(), "权限允许");
                 //getData2();
             } else {
-                logE(TAG, "权限拒绝");
+                logE(getTAG(), "权限拒绝");
                 // Permission Denied
                 showToast("Permission Denied");
             }

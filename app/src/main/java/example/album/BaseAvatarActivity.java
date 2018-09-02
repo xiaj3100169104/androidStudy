@@ -66,7 +66,7 @@ public abstract class BaseAvatarActivity extends BaseActivity {
 
     protected void onAvatarCropped(String savePath) {
         File f = new File(savePath);
-        logE(TAG, "文件大小   " + f.length() / 1024);
+        logE(getTAG(), "文件大小   " + f.length() / 1024);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -88,7 +88,7 @@ public class GlideDealActivity extends BaseCropActivity {
     @Override
     protected void onAvatarCropped(String targetPath) {
         File f = new File(targetPath);
-        Log.e(TAG, "文件大小   " + f.length() / 1024);
+        Log.e(getTAG(), "文件大小   " + f.length() / 1024);
         RequestOptions myOptions = new RequestOptions();
         Glide.with(this).load(targetPath).apply(myOptions).into(bd.ivAvatar);
 

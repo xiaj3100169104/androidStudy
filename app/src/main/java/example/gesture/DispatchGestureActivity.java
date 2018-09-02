@@ -20,8 +20,8 @@ public class DispatchGestureActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        bd.tvContent1.setOnClickListener(v -> logE(TAG, "111111111111"));
-        bd.tv2.setOnClickListener(v -> logE(TAG, "22222222222222"));
+        bd.tvContent1.setOnClickListener(v -> logE(getTAG(), "111111111111"));
+        bd.tv2.setOnClickListener(v -> logE(getTAG(), "22222222222222"));
         bd.root.setOnSlideListener(() -> {
             isDeleteExitAnim = true;
             finish();

@@ -56,7 +56,7 @@ public class RemotePlayActivity extends BaseActivity {
     }
 
     private void conn() {
-        Log.e(TAG, "begin bindService");
+        Log.e(getTAG(), "begin bindService");
         Intent intent = new Intent("action.remote.play");
         intent.setPackage("com.style.framework");
         this.bindService(intent, conn, Context.BIND_AUTO_CREATE);
@@ -66,7 +66,7 @@ public class RemotePlayActivity extends BaseActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.e(TAG, "onServiceDisconnected");
+            Log.e(getTAG(), "onServiceDisconnected");
         }
 
         @Override
@@ -79,9 +79,9 @@ public class RemotePlayActivity extends BaseActivity {
                 e.printStackTrace();
             }
             int currentPid = Process.myPid();
-            Log.e(TAG, "currentPID: " + currentPid + "  remotePID: " + pid);
+            Log.e(getTAG(), "currentPID: " + currentPid + "  remotePID: " + pid);
 
-            Log.e(TAG, "onServiceConnected");
+            Log.e(getTAG(), "onServiceConnected");
         }
     };
 

@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
 
         if (ContextCompat.checkSelfPermission(this.getApplication(), permissions[0]) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this.getApplication(), permissions[1]) != PackageManager.PERMISSION_GRANTED) {
-            logE(TAG, "没有权限");
+            logE(getTAG(), "没有权限");
             /*if (!mBluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(
                         BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -102,10 +102,10 @@ public class MainActivity extends BaseActivity {
             }*/
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[1])) {
-                logE(TAG, "上次拒绝");
+                logE(getTAG(), "上次拒绝");
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
             } else {
-                logE(TAG, "请求权限");
+                logE(getTAG(), "请求权限");
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
             }
         } else {
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity {
 
         Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
             boolean is = AppInfoUtil.isAppOnForeground(getContext());
-            logE(TAG, "" + is);
+            logE(getTAG(), "" + is);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 /*int state = DeviceInfoUtil.getDisplay(getContext()).getState();
                 logE(TAG, "display state " + state);
@@ -223,10 +223,10 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(TAG, "权限允许");
+                logE(getTAG(), "权限允许");
                 startBleService();
             } else {
-                logE(TAG, "权限拒绝");
+                logE(getTAG(), "权限拒绝");
                 // Permission Denied
                 showToast("权限拒绝");
             }

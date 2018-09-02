@@ -53,7 +53,7 @@ public class BLEActivity extends BaseActivity {
             @Override
             public void onItemClick(int position, BluetoothBean data) {
                 BluetoothDevice remoteDevice = data.device;
-                Log.e(TAG, "address-->" + remoteDevice.getAddress() + "   " + "type-->" + remoteDevice.getType());
+                Log.e(getTAG(), "address-->" + remoteDevice.getAddress() + "   " + "type-->" + remoteDevice.getType());
                 if (remoteDevice.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                     if (remoteDevice.getBondState() == BluetoothDevice.BOND_NONE) {
                         AccountManager.getInstance().saveBleAddress(remoteDevice.getAddress());
@@ -110,13 +110,13 @@ public class BLEActivity extends BaseActivity {
 
         if (ContextCompat.checkSelfPermission(this.getApplication(), permissions[0]) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this.getApplication(), permissions[1]) != PackageManager.PERMISSION_GRANTED) {
-            logE(TAG, "没有权限");
+            logE(getTAG(), "没有权限");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[1])) {
-                logE(TAG, "上次拒绝");
+                logE(getTAG(), "上次拒绝");
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
             } else {
-                logE(TAG, "请求权限");
+                logE(getTAG(), "请求权限");
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_ENABLE_BT);
             }
         } else {
@@ -128,10 +128,10 @@ public class BLEActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(TAG, "权限允许");
+                logE(getTAG(), "权限允许");
                 BleManager.getInstance().scan();
             } else {
-                logE(TAG, "权限拒绝");
+                logE(getTAG(), "权限拒绝");
                 // Permission Denied
                 showToast("权限拒绝");
             }

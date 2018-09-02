@@ -64,17 +64,17 @@ public class AddressActivity extends BaseActivity {
         });
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            logE(TAG, "检查权限");
+            logE(getTAG(), "检查权限");
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                logE(TAG, "上次拒绝");
+                logE(getTAG(), "上次拒绝");
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
 
             } else {
-                logE(TAG, "请求权限");
+                logE(getTAG(), "请求权限");
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
 
@@ -92,10 +92,10 @@ public class AddressActivity extends BaseActivity {
 
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(TAG, "权限允许");
+                logE(getTAG(), "权限允许");
                 getData();
             } else {
-                logE(TAG, "权限拒绝");
+                logE(getTAG(), "权限拒绝");
                 // Permission Denied
                 showToast("Permission Denied");
             }
@@ -120,7 +120,7 @@ public class AddressActivity extends BaseActivity {
     }
 
     private void getData2() {
-        GeneralThreadPoolManager.getInstance().runTask(TAG, new CustomFutureTask<List<UploadPhone>>() {
+        GeneralThreadPoolManager.getInstance().runTask(getTAG(), new CustomFutureTask<List<UploadPhone>>() {
             @Override
             public List<UploadPhone> doInBackground() {
                 List<UploadPhone> list = ContactHelper.getContacts(getContext());
@@ -143,7 +143,7 @@ public class AddressActivity extends BaseActivity {
 
             @Override
             public void onSuccess(List<UploadPhone> data) {
-                Log.e(AddressActivity.this.TAG, "OnSuccess");
+                Log.e(AddressActivity.this.getTAG(), "OnSuccess");
                 dismissProgressDialog();
                 if (data != null) {
                     setData(data);

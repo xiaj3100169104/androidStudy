@@ -63,7 +63,7 @@ public class AnimatorActivity extends BaseActivity {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float v = (float) animation.getAnimatedValue();
                 bd.ivProperty.setTranslationX(v);
-                Log.d(TAG, "v:" + v);
+                Log.d(getTAG(), "v:" + v);
             }
         });
         va.start();
@@ -98,7 +98,7 @@ public class AnimatorActivity extends BaseActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 bd.ivProperty.setAlpha(1.0f);
-                Log.d(TAG, "finish:" + bd.ivProperty.getAlpha());
+                Log.d(getTAG(), "finish:" + bd.ivProperty.getAlpha());
             }
         });
         as.start();

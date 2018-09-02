@@ -55,10 +55,10 @@ public class FileDownActivity extends BaseActivity {
 
 
     private void down2() {
-        MultiThreadDownloadManager.getInstance().down(TAG, url, targetPath, new FileCallback() {
+        MultiThreadDownloadManager.getInstance().down(getTAG(), url, targetPath, new FileCallback() {
             @Override
             public void start(int fileSize) {
-                logE(TAG, "下载开始，文件大小==" + fileSize);
+                logE(getTAG(), "下载开始，文件大小==" + fileSize);
             }
 
             @Override
@@ -68,7 +68,7 @@ public class FileDownActivity extends BaseActivity {
 
             @Override
             public void complete(String filePath) {
-                logE(TAG, "下载完成，文件路径==" + filePath);
+                logE(getTAG(), "下载完成，文件路径==" + filePath);
             }
         });
     }
@@ -81,6 +81,6 @@ public class FileDownActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MultiThreadDownloadManager.getInstance().cancelCallback(TAG);
+        MultiThreadDownloadManager.getInstance().cancelCallback(getTAG());
     }
 }

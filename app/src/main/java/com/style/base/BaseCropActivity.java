@@ -111,9 +111,9 @@ public abstract class BaseCropActivity extends BaseActivity {
         }
         boolean isCopy = FileUtil.copyfile(originalFile, copeFile, true);
         if (isCopy) {
-            Log.e(TAG, "图片复制后的路径-->" + copeFilePath);
+            Log.e(getTAG(), "图片复制后的路径-->" + copeFilePath);
             targetPath = getTargetFilePath();
-            Log.e(TAG, "图片裁剪后的路径-->" + targetPath);
+            Log.e(getTAG(), "图片裁剪后的路径-->" + targetPath);
             Intent intent = ImageCropActivity.createIntent(this, copeFilePath, targetPath, getCropAreaStr(), false, getMaxCropSize());
             startActivityForResult(intent, 3);
         } else {

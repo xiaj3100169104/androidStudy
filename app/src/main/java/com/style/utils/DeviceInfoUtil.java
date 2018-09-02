@@ -77,7 +77,7 @@ public class DeviceInfoUtil {
     }
 
     //获取状态栏高度(一般情况下)
-    protected static int getStatusHeightDefault(Context context) {
+    public static int getStatusHeightDefault(Context context) {
         return dp2px(context, 24f);
     }
 

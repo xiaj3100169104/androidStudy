@@ -68,6 +68,7 @@ public abstract class BaseAvatarActivity extends BaseActivity {
         File f = new File(savePath);
         logE(getTAG(), "文件大小   " + f.length() / 1024);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -139,7 +140,7 @@ public abstract class BaseAvatarActivity extends BaseActivity {
         boolean isCopy = FileUtil.copyfile(fromFile, f, true);
         if (isCopy) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri2 = FileProvider.getUriForFile(getContext(), BuildConfig.APPLICATION_ID + ".fileProvider", f);
+                uri2 = FileProvider.getUriForFile(getContext(), ConfigUtil.FILE_PROVIDER_AUTHORITY, f);
             } else {
                 uri2 = Uri.fromFile(f);
             }

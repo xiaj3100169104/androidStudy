@@ -3,6 +3,8 @@ package com.style.app;
 
 import android.os.Environment;
 
+import com.style.framework.BuildConfig;
+
 public class ConfigUtil {
 
     /**
@@ -32,5 +34,7 @@ public class ConfigUtil {
      * 视频录制保存目录
      */
     public static final String DIR_VIDEO = DIR_APP + "/video";
+
+    public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".file.provider";
 
 }

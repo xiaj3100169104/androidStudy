@@ -3,7 +3,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include layout="@layout/title_bar_normal" />
@@ -14,5 +14,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
 
+        <Button
+            android:id="@+id/btn_share_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="分享文本" />
+
+        <Button
+            android:id="@+id/btn_share_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="分享图片" />
     </LinearLayout>
 </layout>

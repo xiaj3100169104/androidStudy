@@ -2,6 +2,7 @@ package com.style.data.net.exception;
 
 import android.content.Context;
 
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
@@ -23,6 +24,8 @@ public class HttpThrowableUtil {
             showToast(context, "网络连接断开");
         } else if (e instanceof SocketTimeoutException) {
             showToast(context, "网络连接超时");
+        } else if (e instanceof ConnectException) {
+            showToast(context, "服务君跑去火星啦");
         } else if (e instanceof HttpException) {
             HttpException he = (HttpException) e;
             switch (he.code()) {
@@ -33,7 +36,7 @@ public class HttpThrowableUtil {
                     showToast(context, "服务器繁忙");
                     break;
                 case HttpsURLConnection.HTTP_NOT_FOUND:
-                    showToast(context, "跑去火星啦");
+                    showToast(context, "服务君跑去火星啦");
                     break;
             }
         } else if (e instanceof ResultErrorException) {

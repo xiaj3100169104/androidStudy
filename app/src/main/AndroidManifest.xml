@@ -62,6 +62,17 @@
         android:supportsRtl="false"
         android:theme="@style/BaseAppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
+        <!--自定义FileProvider来避免冲突, 对应的resource也要保证唯一-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity android:name="example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -126,20 +137,20 @@
             android:theme="@style/AppTheme.Translucent" />
         <activity
             android:name="example.softInput.SoftMode1Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/AppTheme.Translucent"/>
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode2Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/AppTheme.Translucent"/>
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode3Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/AppTheme.Translucent"/>
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode4Activity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/AppTheme.Translucent"/>
+            android:theme="@style/AppTheme.Translucent"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customview.activity.CustomViewMainActivity" />
         <activity android:name="example.customview.activity.WriteWordActivity" />
         <activity
@@ -207,15 +218,6 @@
                 <action android:name="action.remote.play" />
             </intent-filter>
         </service>
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
 
         <!--阿里热修复-->
         <meta-data

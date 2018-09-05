@@ -25,6 +25,7 @@ import javax.net.ssl.HttpsURLConnection
 import example.newwork.response.LoginBean
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
+import kotlin.experimental.and
 
 /**
  * Created by xiajun on 2018/7/13.
@@ -131,7 +132,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
             return null
         }
         for (i in src.indices) {
-            val v = src[i]// and 0xFF
+            val v = src[i].and(0xFF.toByte())
             val hv = Integer.toHexString(v.toInt())
             if (hv.length < 2) {
                 stringBuilder.append(0)

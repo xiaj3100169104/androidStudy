@@ -61,34 +61,29 @@ public class SelectLocalPictureActivity extends BaseActivity {
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
         bd.recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Media>() {
-            @Override
-            public void onItemClick(int position, Media data) {
-                int count = adapter.getItemCount();
-                if (position == count - 1) {
-                    showSelPicPopupWindow();
-                } else {
-                    ArrayList<Media> cacheList = new ArrayList<>();
-                    if (count > 1) {
-                        for (int i = 0; i < count - 1; i++) {
-                            cacheList.add(paths.get(i));
-                        }
+        adapter.setOnItemClickListener((position, data) -> {
+            int count = adapter.getItemCount();
+            if (position == count - 1) {
+                showSelPicPopupWindow();
+            } else {
+                ArrayList<Media> cacheList = new ArrayList<>();
+                if (count > 1) {
+                    for (int i = 0; i < count - 1; i++) {
+                        cacheList.add(paths.get(i));
                     }
-                    Intent intent = new Intent(SelectLocalPictureActivity.this, ImageScanActivity.class);
-                    intent.putExtra("list", cacheList); // (Optional)
-                    startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
                 }
+                Intent intent = new Intent(SelectLocalPictureActivity.this, ImageScanActivity.class);
+                intent.putExtra("list", cacheList); // (Optional)
+                startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
             }
         });
 
-        adapter.setOnDeleteClickListener(new DynamicPublishImageAdapter.OnDeleteClickListener() {
-            @Override
-            public void onItemClickDelete(int position) {
-                paths.remove(position);
-                adapter.notifyDataSetChanged();
-                setHaveDynamic();
-            }
+        adapter.setOnDeleteClickListener(position -> {
+            paths.remove(position);
+            adapter.notifyDataSetChanged();
+            setHaveDynamic();
         });
+
 
     }
     public void selAvatar(View v) {

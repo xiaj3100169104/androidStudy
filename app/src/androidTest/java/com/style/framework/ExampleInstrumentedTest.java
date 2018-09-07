@@ -30,8 +30,8 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void userId() throws Exception {
-        User u = AccountManager.getInstance().getCurrentUser();
-        Log.i("userId", u.userId);
-        assertEquals("18202823096",u.userId);
+        User u = AccountManager.Companion.getInstance().getCurrentUser();
+        Log.i("userId", u.getUserId());
+        assertEquals("18202823096", u.getUserId());
     }
 }

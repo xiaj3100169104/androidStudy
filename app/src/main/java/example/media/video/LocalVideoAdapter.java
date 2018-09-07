@@ -25,7 +25,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterLocalVideoBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_local_video, parent, false);
+        AdapterLocalVideoBinding bd = getBinding(R.layout.adapter_local_video, parent);
         return new ViewHolder(bd);
     }
 

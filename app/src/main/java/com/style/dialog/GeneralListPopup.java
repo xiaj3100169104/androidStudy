@@ -79,7 +79,7 @@ public class GeneralListPopup extends PopupWindow {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            GeneralPopupWindowAdapterItemBinding bd = DataBindingUtil.inflate(mInflater, R.layout.general_popup_window_adapter_item, parent, false);
+            GeneralPopupWindowAdapterItemBinding bd = getBinding(R.layout.general_popup_window_adapter_item, parent);
             return new ViewHolder(bd);
         }
 

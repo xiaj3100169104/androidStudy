@@ -20,7 +20,7 @@ public class DragAdapter extends BaseRecyclerViewAdapter<Integer> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        DragAdapterBinding bd = DataBindingUtil.inflate(mInflater, R.layout.drag_adapter, parent, false);
+        DragAdapterBinding bd = getBinding(R.layout.drag_adapter, parent);
         return new ViewHolder(bd);
     }
 

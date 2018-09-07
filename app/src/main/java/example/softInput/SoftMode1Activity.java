@@ -15,7 +15,7 @@ public class SoftMode1Activity extends BaseRightSlideFinishActivity {
     }
 
     @Override
-    protected int getStatusBarStyle() {
+    public int getStatusBarStyle() {
         return com.style.base.BaseActivity.STATUS_BAR_COLOR;
     }
 

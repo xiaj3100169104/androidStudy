@@ -56,7 +56,7 @@ public class BLEActivity extends BaseActivity {
                 Log.e(getTAG(), "address-->" + remoteDevice.getAddress() + "   " + "type-->" + remoteDevice.getType());
                 if (remoteDevice.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                     if (remoteDevice.getBondState() == BluetoothDevice.BOND_NONE) {
-                        AccountManager.getInstance().saveBleAddress(remoteDevice.getAddress());
+                        AccountManager.Companion.getInstance().saveBleAddress(remoteDevice.getAddress());
                         BleManager.getInstance().connect();
                     } else if (remoteDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
 

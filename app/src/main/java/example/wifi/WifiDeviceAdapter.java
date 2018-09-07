@@ -31,7 +31,7 @@ public class WifiDeviceAdapter extends BaseRecyclerViewAdapter<ScanResult> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        WifiMainAdapterBinding bd = DataBindingUtil.inflate(mInflater, R.layout.wifi_main_adapter, parent, false);
+        WifiMainAdapterBinding bd = getBinding(R.layout.wifi_main_adapter, parent);
         return new ViewHolder(bd);
     }
 
@@ -39,7 +39,7 @@ public class WifiDeviceAdapter extends BaseRecyclerViewAdapter<ScanResult> {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
         ScanResult data = getData(position);
-        logE(TAG, "新设备->" + data.toString());
+        logE(getTAG(), "新设备->" + data.toString());
 
         holder.bd.tvName.setText("");
         holder.bd.tvType.setText("" );

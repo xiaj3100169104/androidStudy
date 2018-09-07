@@ -35,7 +35,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
 
     internal var loginSucceed = ObservableBoolean(false)
     internal var user = ObservableField<User>()
-    internal var loginState = MutableLiveData<Boolean>()
+    var loginState = MutableLiveData<Boolean>()
 
     fun login() {
 
@@ -52,7 +52,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
 
         val u = User("sfsf", "fasfgasfg")
         user.set(u)
-        u.setPassword("123456")
+        u.password = "123456"
         //loginSucceed.set(true);
         loginState.value = true
 
@@ -64,7 +64,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
 
     fun login(userName: String, password: String) {
         val user = User(userName, password)
-        AccountManager.getInstance().currentUser = user
+        AccountManager.instance.setCurrentUser(user)
         synData()
         val d = httpApi.login(userName, password).subscribe({
             //getActivity().loginSuccess();

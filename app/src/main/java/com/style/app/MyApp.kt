@@ -40,7 +40,7 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AppManager.instance.init(this)
-        AccountManager.getInstance().init(this)
+        AccountManager.instance.init(this)
         UserDBManager.getInstance().initialize(this)
         GreenDaoManager.getInstance().initialize(this)
         initRefreshView()

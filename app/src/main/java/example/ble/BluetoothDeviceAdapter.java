@@ -26,7 +26,7 @@ public class BluetoothDeviceAdapter extends BaseRecyclerViewAdapter<BluetoothBea
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterBluetoothBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_bluetooth, parent, false);
+        AdapterBluetoothBinding bd = getBinding(R.layout.adapter_bluetooth, parent);
         return new ViewHolder(bd);
     }
 

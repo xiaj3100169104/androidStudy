@@ -10,7 +10,7 @@ public class SoftMode2Activity extends BaseRightSlideFinishActivity {
     ActivitySoftMode2Binding bd;
 
     @Override
-    protected int getStatusBarStyle() {
+    public int getStatusBarStyle() {
         return com.style.base.BaseActivity.STATUS_BAR_THEME;
     }
 

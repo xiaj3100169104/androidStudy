@@ -26,10 +26,15 @@ import com.style.utils.InputMethodUtil
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val TAG = javaClass.simpleName
-
-    lateinit var context: Context
+    companion object {
+        protected const val STATUS_BAR_TRANSPARENT = 0//全透明状态栏
+        protected const val STATUS_BAR_TRANSLUCENT = 1//半透明状态栏
+        protected const val STATUS_BAR_COLOR = 2//自定义状态栏颜色
+        protected const val STATUS_BAR_THEME = 3//主题配置状态栏颜色
+    }
+    protected lateinit var context: Context
     private var progressDialog: LoadingDialog? = null
-    private var contentView: View? = null
+    private lateinit var contentView: View
     private var toast: Toast? = null
 
     open fun isScreenPortrait(): Boolean {
@@ -40,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return STATUS_BAR_TRANSPARENT
     }
 
-    abstract fun getLayoutResId(): Int
+    protected abstract fun getLayoutResId(): Int
 
     //是否是一般标题栏布局
     open fun isGeneralTitleBar(): Boolean {
@@ -48,7 +53,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     //是否是亮色状态栏
-    protected fun isLightStatusBar(): Boolean {
+    open fun isLightStatusBar(): Boolean {
         return false
     }
 
@@ -73,7 +78,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun getContentView(): View? {
+    fun getContentView(): View {
         return contentView
     }
 
@@ -85,7 +90,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return ViewModelProviders.of(this).get(modelClass)
     }
 
-    override fun setContentView(mContentView: View?) {
+    override fun setContentView(mContentView: View) {
         if (isGeneralTitleBar()) {
             customTitleOptions(mContentView)
         }
@@ -93,7 +98,7 @@ abstract class BaseActivity : AppCompatActivity() {
         when (getStatusBarStyle()) {
             STATUS_BAR_TRANSPARENT -> {
                 //默认属性可不写
-                mContentView!!.fitsSystemWindows = false
+                mContentView.fitsSystemWindows = false
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     setTransparentStatusBarHeight(getStatusHeight())
                     //防止之前加了这个标志
@@ -111,14 +116,14 @@ abstract class BaseActivity : AppCompatActivity() {
             }
             STATUS_BAR_TRANSLUCENT -> {
                 //默认属性可不写
-                mContentView!!.fitsSystemWindows = false
+                mContentView.fitsSystemWindows = false
                 setTransparentStatusBarHeight(getStatusHeight())
                 //看注释这个其实是在全透明的基础上多加了个半透明效果
                 window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             }
             STATUS_BAR_COLOR -> {
                 //这是前提
-                mContentView!!.fitsSystemWindows = true
+                mContentView.fitsSystemWindows = true
                 setTransparentStatusBarHeight(0)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -127,7 +132,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
             STATUS_BAR_THEME -> {
                 //这是前提
-                mContentView!!.fitsSystemWindows = true
+                mContentView.fitsSystemWindows = true
                 setTransparentStatusBarHeight(0)
             }
         }
@@ -137,28 +142,28 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected abstract fun initData()
 
-    protected fun customTitleOptions(mContentView: View?) {
-        statusBar = mContentView!!.findViewById(R.id.status_bar)
+    open fun customTitleOptions(mContentView: View) {
+        statusBar = mContentView.findViewById(R.id.status_bar)
         val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
         ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
     }
 
-    protected fun setTransparentStatusBarHeight(height: Int) {
+    open fun setTransparentStatusBarHeight(height: Int) {
         if (isGeneralTitleBar())
             statusBar!!.layoutParams.height = height
 
     }
 
-    protected fun onClickTitleBack() {
+    open fun onClickTitleBack() {
         onBackPressed()
     }
 
-    protected fun setToolbarTitle(title: String) {
+    open fun setToolbarTitle(title: String) {
         tvTitleBase!!.text = title
     }
 
-    protected fun setToolbarTitle(@StringRes resId: Int) {
+    open fun setToolbarTitle(@StringRes resId: Int) {
         tvTitleBase!!.text = context!!.getString(resId)
     }
 
@@ -172,7 +177,7 @@ abstract class BaseActivity : AppCompatActivity() {
         logI(TAG, "onRestart-------------")
     }
 
-    /*
+    /**
     //如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建
      //finishAndRemoveTask()都不管用
      */
@@ -243,23 +248,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    protected fun dp2px(dpValue: Float): Int {
+    open fun dp2px(dpValue: Float): Int {
         return DeviceInfoUtil.dp2px(context, dpValue)
     }
 
-    protected fun logI(tag: String, msg: String) {
+    open fun logI(tag: String, msg: String) {
         LogManager.logI(tag, msg)
     }
 
-    protected fun logE(tag: String, msg: String) {
+    open fun logE(tag: String, msg: String) {
         LogManager.logE(tag, msg)
     }
 
-    companion object {
-
-        protected const val STATUS_BAR_TRANSPARENT = 0//全透明状态栏
-        protected const val STATUS_BAR_TRANSLUCENT = 1//半透明状态栏
-        protected const val STATUS_BAR_COLOR = 2//自定义状态栏颜色
-        protected const val STATUS_BAR_THEME = 3//主题配置状态栏颜色
-    }
 }

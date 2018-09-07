@@ -57,8 +57,8 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
         Log.e(TAG, "onMove");
         int from = viewHolder.getAdapterPosition();
         int to = target.getAdapterPosition();
-        Collections.swap(mAdapter.list, from, to);
-        for (Integer i : mAdapter.list) {
+        Collections.swap(mAdapter.getList(), from, to);
+        for (Integer i : mAdapter.getList()) {
             Log.e(TAG, "" + i);
         }
         //这个方法同时也会移动数据源在list集合中的位置
@@ -75,9 +75,9 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
         holder.bd.layoutFore.setTranslationX(0);
 
         int position = viewHolder.getAdapterPosition();
-        int temp = mAdapter.list.remove(position);
+        int temp = mAdapter.getList().remove(position);
         mAdapter.notifyDataSetChanged();
-        mAdapter.list.add(position, temp);
+        mAdapter.getList().add(position, temp);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -97,7 +97,7 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
         super.clearView(recyclerView, viewHolder);
         //拖动完成
         if (lastAction == ItemTouchHelper.ACTION_STATE_DRAG) {
-            for (Integer i : mAdapter.list) {
+            for (Integer i : mAdapter.getList()) {
                 Log.e(TAG, "" + i);
             }
         }

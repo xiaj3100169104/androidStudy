@@ -28,7 +28,8 @@ public class TestGestureActivity extends BaseActivity {
     private float yLastMove;
     private float yUp;
 
-    protected boolean isGeneralTitleBar() {
+    @Override
+    public boolean isGeneralTitleBar() {
         return false;
     }
 

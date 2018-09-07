@@ -15,7 +15,7 @@ import com.style.data.glide.ImageLoader;
 
 import java.util.ArrayList;
 
-public class GlideListAdapter extends BaseRecyclerViewAdapter {
+public class GlideListAdapter extends BaseRecyclerViewAdapter<Media> {
     public GlideListAdapter(Context context, ArrayList<Media> list) {
         super(context, list);
     }
@@ -23,7 +23,7 @@ public class GlideListAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterGlideListBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_glide_list, parent, false);
+        AdapterGlideListBinding bd = getBinding(R.layout.adapter_glide_list, parent);
         return new ViewHolder(bd);
     }
 

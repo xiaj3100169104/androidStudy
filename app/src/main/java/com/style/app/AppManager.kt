@@ -20,13 +20,13 @@ private constructor() {
 
     companion object {
         private val mLock = Any()
-        private var mInstance: AppManager? = null
+        private lateinit var mInstance: AppManager
         val instance: AppManager
             get() = synchronized(mLock) {
                 if (mInstance == null) {
                     mInstance = AppManager()
                 }
-                return mInstance as AppManager
+                return mInstance
             }
     }
 
@@ -37,7 +37,7 @@ private constructor() {
 
     private fun initBackgroundCallBack(app: Application?) {
         app!!.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 logActivityLifecycle(activity, "onActivityCreated")
             }
 

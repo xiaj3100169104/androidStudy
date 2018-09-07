@@ -14,6 +14,7 @@ import example.gesture.BaseRightSlideFinishActivity;
 public class StatusBarStyleMainActivity extends BaseRightSlideFinishActivity {
     StatusbarStyleActivityMainBinding bd;
 
+    @Override
     public boolean isLightStatusBar() {
         return true;
     }

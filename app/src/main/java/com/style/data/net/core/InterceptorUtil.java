@@ -34,7 +34,7 @@ public class InterceptorUtil {
                 Request original = chain.request();
                 Request.Builder newBuilder = original.newBuilder();
                 if (TextUtils.isEmpty(original.header("Authorization")))//这里没打印Authorization因为执行在日志拦截后
-                    newBuilder.addHeader("Authorization", AccountManager.getInstance().getSignKey());
+                    newBuilder.addHeader("Authorization", AccountManager.Companion.getInstance().getSignKey());
                 Request newRequest = newBuilder.build();
                 return chain.proceed(newRequest);
             }

@@ -25,7 +25,7 @@ public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter<Media> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterPublishDynamicPictureBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_publish_dynamic_picture, parent, false);
+        AdapterPublishDynamicPictureBinding bd = getBinding(R.layout.adapter_publish_dynamic_picture, parent);
         return new ViewHolder(bd);
     }
 
@@ -36,7 +36,7 @@ public class DynamicPublishImageAdapter extends BaseRecyclerViewAdapter<Media> {
         Media media = getData(position);
         if (position != getItemCount() - 1) {
             holder.bd.ivDelete.setVisibility(View.VISIBLE);
-            ImageLoader.loadNormalPicture((Activity) mContext, holder.bd.ivActiveImages, media.path);
+            ImageLoader.loadNormalPicture((Activity) getContext(), holder.bd.ivActiveImages, media.path);
 
         } else {
             holder.bd.ivDelete.setVisibility(View.GONE);

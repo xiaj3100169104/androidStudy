@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
         return false
     }
 
-    public override fun initData() {
+    override fun initData() {
         bd = getBinding()
         loginModel = getViewModel(LoginModel::class.java)
         loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
@@ -57,7 +57,7 @@ class LoginActivity : BaseActivity() {
                 if (t!!) {
                     startActivity(Intent(context, MainActivity::class.java))
                     finish()
-                } else{
+                } else {
 
                 }
             }
@@ -67,8 +67,13 @@ class LoginActivity : BaseActivity() {
             finish()
         })
 
-        bd.btSignIn.setOnClickListener { }
-        bd.btSignIn.setOnClickListener({})
+        bd.btSignIn.setOnClickListener {}
+        bd.btSignIn.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View) {
+
+            }
+
+        })
         bd.btSignIn.setOnClickListener { view ->
             view.visibility = View.VISIBLE
             view.visibility = View.VISIBLE

@@ -97,7 +97,7 @@ public class BleService extends Service {
     //
     public void connectByScan() {
         logE(TAG, "先扫描，再连接");
-        String address = AccountManager.getInstance().getBleAddress();
+        String address = AccountManager.Companion.getInstance().getBleAddress();
         /*if (TextUtils.isEmpty(address)) {
             logE(TAG, "address-->   " + address);
             return;
@@ -114,7 +114,7 @@ public class BleService extends Service {
     //只有扫描到周围有与保存的蓝牙地址相同的蓝牙设备，才能进行连接
     public void connect() {
         logE(TAG, "开始连接");
-        String address = AccountManager.getInstance().getBleAddress();
+        String address = AccountManager.Companion.getInstance().getBleAddress();
         //处于连接断开时才进行连接
         if (mState == STATE_DISCONNECTED) {
             isAutoConnect = true;

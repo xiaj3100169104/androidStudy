@@ -30,7 +30,7 @@ open class BaseAndroidViewModel(application: Application) : AndroidViewModel(app
     private val tasks = CompositeDisposable()
 
     protected val preferences: AccountManager
-        get() = AccountManager.getInstance()
+        get() = AccountManager.instance
 
     protected val httpApi: RetrofitImpl
         get() = RetrofitImpl.getInstance()

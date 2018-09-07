@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import example.music.entity.MediaBean;
 
-public class AudioAdapter extends BaseRecyclerViewAdapter {
+public class AudioAdapter extends BaseRecyclerViewAdapter<MediaBean> {
     public AudioAdapter(Context context, ArrayList<MediaBean> list) {
         super(context, list);
     }
@@ -21,7 +21,7 @@ public class AudioAdapter extends BaseRecyclerViewAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterMusicBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_music, parent, false);
+        AdapterMusicBinding bd = getBinding(R.layout.adapter_music, parent);
         return new ViewHolder(bd);
     }
 

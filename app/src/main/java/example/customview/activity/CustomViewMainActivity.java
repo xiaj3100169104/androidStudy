@@ -11,7 +11,7 @@ public class CustomViewMainActivity extends BaseActivity {
     private CustomViewMainBinding bd;
 
     @Override
-    protected boolean isGeneralTitleBar() {
+    public boolean isGeneralTitleBar() {
         return false;
     }
 

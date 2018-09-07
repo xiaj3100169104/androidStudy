@@ -19,7 +19,7 @@ public class StringAdapter extends BaseRecyclerViewAdapter<String> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterFriendBinding bd = DataBindingUtil.inflate(mInflater, R.layout.adapter_friend, parent, false);
+        AdapterFriendBinding bd = getBinding(R.layout.adapter_friend, parent);
         return new ViewHolder(bd);
     }
 

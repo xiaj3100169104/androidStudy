@@ -12,7 +12,7 @@ public class SoftMode3Activity extends BaseRightSlideFinishActivity {
     ActivitySoftMode3Binding bd;
 
     @Override
-    protected int getStatusBarStyle() {
+    public int getStatusBarStyle() {
         return com.style.base.BaseActivity.STATUS_BAR_TRANSLUCENT;
     }
 

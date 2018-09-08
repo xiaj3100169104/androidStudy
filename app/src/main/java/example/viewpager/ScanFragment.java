@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dmcbig.mediapicker.entity.Media;
+import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentImageScanBinding;
 import com.style.data.glide.ImageLoader;
@@ -18,7 +19,7 @@ import com.style.data.glide.ImageLoader;
  * Created by dmcBig on 2017/8/16.
  */
 
-public class ScanFragment extends Fragment {
+public class ScanFragment extends BaseFragment {
     FragmentImageScanBinding bd;
 
     public static ScanFragment newInstance(Media media, String label) {
@@ -30,15 +31,13 @@ public class ScanFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        //setRetainInstance(true);
-        super.onCreate(savedInstanceState);
+    protected int getLayoutResId() {
+        return R.layout.fragment_image_scan;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_image_scan, container, false);
-        return bd.getRoot();
+    protected void initData() {
+        bd = getBinding();
     }
 
     @Override
@@ -63,6 +62,5 @@ public class ScanFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 
 }

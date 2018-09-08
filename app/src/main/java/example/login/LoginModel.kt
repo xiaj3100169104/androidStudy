@@ -64,7 +64,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
 
     fun login(userName: String, password: String) {
         val user = User(userName, password)
-        AccountManager.instance.setCurrentUser(user)
+        AccountManager.getInstance().setCurrentUser(user)
         synData()
         val d = httpApi.login(userName, password).subscribe({
             //getActivity().loginSuccess();

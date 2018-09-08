@@ -4,31 +4,38 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 
 /**
  * Created by xiajun on 2018/8/7.
  */
 
-class AppManager
-/* 私有构造方法，防止被JAVA默认的构造函数实例化 */
-private constructor() {
+class AppManager {
+
     val TAG = "AppManager"
     private var activityCount: Int = 0
     private var isRunInBackground: Boolean = false
     private var app: Application? = null
 
+
     companion object {
         private val mLock = Any()
-        private lateinit var mInstance: AppManager
-        val instance: AppManager
-            get() = synchronized(mLock) {
+        private var mInstance: AppManager? = null
+
+        fun getInstance(): AppManager {
+            synchronized(mLock) {
                 if (mInstance == null) {
                     mInstance = AppManager()
                 }
-                return mInstance
+                return mInstance as AppManager
             }
+        }
+
     }
+
+    /* 私有构造方法，防止被JAVA默认的构造函数实例化 */
+    private constructor()
 
     fun init(app: Application) {
         this.app = app

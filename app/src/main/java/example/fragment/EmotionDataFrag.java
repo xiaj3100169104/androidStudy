@@ -16,19 +16,16 @@ public class EmotionDataFrag extends BaseFragment {
     FragEmotionInfoBinding bd;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //rootView = inflater.inflate(R.layout.frag_emotion_info, null);
-        bd = DataBindingUtil.inflate(inflater, R.layout.frag_emotion_info, container, false);
-        return bd.getRoot();
+    protected int getLayoutResId() {
+        return R.layout.frag_emotion_info;
     }
 
     @Override
     protected void initData() {
-
+        bd = getBinding();
     }
 
     protected void initListener() {
     }
-
 
 }

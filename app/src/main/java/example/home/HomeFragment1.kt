@@ -36,12 +36,12 @@ class HomeFragment1 : BaseFragment() {
 
     private lateinit var bd: FragmentHome1Binding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_1, container, false)
-        return bd.root
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_home_1
     }
 
     override fun initData() {
+        bd = getBinding()
         bd.onItemClickListener = OnItemClickListener()
         bd.refreshLayout.setOnRefreshListener { refreshlayout ->
             refreshlayout.finishRefresh(2000/*,false*/)//传入false表示刷新失败

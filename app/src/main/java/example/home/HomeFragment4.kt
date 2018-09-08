@@ -28,13 +28,12 @@ class HomeFragment4 : BaseFragment() {
 
     private lateinit var bd: FragmentHome4Binding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_4, container, false)
-        return bd.root
-
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_home_4
     }
 
     override fun initData() {
+        bd = getBinding()
         bd.event = EventListener()
         logE(TAG, "initData")
 

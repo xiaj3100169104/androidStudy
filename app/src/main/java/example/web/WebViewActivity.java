@@ -15,7 +15,7 @@ import com.style.framework.databinding.ActivityH5RemoteBinding;
 public class WebViewActivity extends BaseActivity {
 
     ActivityH5RemoteBinding bd;
-    private String url = "http://www.baidu.com";
+    private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";
     private String urlLocal = "file:///android_asset/useragree.html";
 
     @Override
@@ -31,10 +31,12 @@ public class WebViewActivity extends BaseActivity {
         bd.btnLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bd.webView.loadUrl(urlLocal);
+                bd.webView.loadUrl("https://watch.lemonnc.com/Content/wap-guardian");
             }
         });
         bd.webView.getSettings().setJavaScriptEnabled(true);
+        bd.webView.getSettings().setAppCacheEnabled(false);
+
         // 设置支持本地存储
         /*mWebView.getSettings().setDatabaseEnabled(true);
         //取得缓存路径
@@ -57,10 +59,9 @@ public class WebViewActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int progress) {
                 // Activity和Webview根据加载程度决定进度条的进度大小
                 setWebViewProgress(progress);
-
             }
         });
-        //设置WebViewClient
+        //设置WebViewClient就不会调用系统浏览器
         bd.webView.setWebViewClient(new WebViewClient() {
 
             public void onPageFinished(WebView view, String url) {
@@ -74,6 +75,13 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         bd.webView.loadUrl(url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bd.webView.clearHistory();
+        bd.webView.clearCache(true);
     }
 
     @Override

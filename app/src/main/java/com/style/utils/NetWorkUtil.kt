@@ -32,8 +32,6 @@ object NetWorkUtil {
 
     private fun isNetWorkActiveByType(context: Context, type: Int): Boolean {
         val activeNetworkInfo = getActiveNetworkInfo(context)
-        return if (activeNetworkInfo != null && activeNetworkInfo.type == type) {
-            true
-        } else false
+        return activeNetworkInfo != null && activeNetworkInfo.type == type
     }
 }

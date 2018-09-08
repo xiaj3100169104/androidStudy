@@ -28,13 +28,12 @@ class HomeFragment2 : BaseFragment() {
 
     private lateinit var myTableManager: UserDBManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_2, container, false)
-        return bd.root
-
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_home_2
     }
 
     override fun initData() {
+        bd = getBinding()
         myTableManager = UserDBManager.getInstance()
 
         dataList = ArrayList()

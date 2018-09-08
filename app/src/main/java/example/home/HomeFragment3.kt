@@ -28,12 +28,12 @@ import example.web.WebViewFeedbackActivity
 class HomeFragment3 : BaseFragment() {
     private lateinit var bd: FragmentHome3Binding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        bd = DataBindingUtil.inflate(inflater, R.layout.fragment_home_3, container, false)
-        return bd.root
+    override fun getLayoutResId(): Int {
+        return R.layout.fragment_home_3
     }
 
     override fun initData() {
+        bd = getBinding()
         bd.onItemClickListener = OnItemClickListener()
         bd.refreshLayout.isEnableLoadMore = false
     }

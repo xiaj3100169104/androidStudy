@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@android:color/darker_gray"
-            custom:horizontalProgressColor="@color/colorAccent"
-            custom:horizontalProgress="30" />
+            app:horizontalProgress="30"
+            app:horizontalProgressColor="@color/colorAccent" />
     </LinearLayout>
 </layout>
 

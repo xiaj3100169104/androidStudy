@@ -24,15 +24,16 @@ class AccountManager/* 私有构造方法，防止被JAVA默认的构造函数�
         private val SIGN_KEY = "signKey"
 
         private val mLock = Any()
-        private lateinit var mInstance: AccountManager
+        private var mInstance: AccountManager? = null
 
-        val instance: AccountManager
-            get() = synchronized(mLock) {
+        fun getInstance(): AccountManager {
+            synchronized(mLock) {
                 if (mInstance == null) {
                     mInstance = AccountManager()
                 }
-                return mInstance
+                return mInstance as AccountManager
             }
+        }
     }
 
     private constructor()
@@ -44,7 +45,7 @@ class AccountManager/* 私有构造方法，防止被JAVA默认的构造函数�
         loginSharedPreferences = context.getSharedPreferences(LOGIN_INFO, Context.MODE_PRIVATE)
     }
 
-    fun isFirstOpen(): Boolean{
+    fun isFirstOpen(): Boolean {
         val value = loginSharedPreferences.getBoolean(IS_FIRST_LOGIN, true)
         return loginSharedPreferences.getBoolean(IS_FIRST_LOGIN, true)
     }

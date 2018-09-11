@@ -12,10 +12,7 @@ import android.util.AttributeSet;
 import com.style.framework.R;
 import com.style.utils.Utils;
 
-/**
- * 类似仪表盘百分比进度 View
- */
-public class SportDayCircleView extends BaseProgressBar {
+public class CircleArcProgressBar extends BaseProgressBar {
     private Paint paint;
     protected Paint textPaint;
 
@@ -26,8 +23,6 @@ public class SportDayCircleView extends BaseProgressBar {
     private int max;
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
-    private int smallCircleStrokeColor = 0x99CCCCCC;
-    private int smallCircleColor = 0xFFFFFFFF;
     private float arcFinishedStartAngle;
 
     private final int default_finished_color = Color.WHITE;
@@ -37,16 +32,18 @@ public class SportDayCircleView extends BaseProgressBar {
     private final int default_max = 100;
 
     private float radius;
+    private boolean mIndeterminate = true;
+    private int mStartAngle;
 
-    public SportDayCircleView(Context context) {
+    public CircleArcProgressBar(Context context) {
         this(context, null);
     }
 
-    public SportDayCircleView(Context context, AttributeSet attrs) {
+    public CircleArcProgressBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SportDayCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircleArcProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         default_stroke_width = Utils.dp2px(context, 4);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
@@ -57,6 +54,7 @@ public class SportDayCircleView extends BaseProgressBar {
     }
 
     protected void initByAttributes(TypedArray attributes) {
+        mIndeterminate = attributes.getBoolean(R.styleable.ArcProgress_arc_indeterminate, mIndeterminate);
         finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, default_finished_color);
         unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, default_unfinished_color);
         arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
@@ -113,29 +111,22 @@ public class SportDayCircleView extends BaseProgressBar {
         canvas.save();
         //以画布中心点旋转坐标系
         canvas.rotate(arcFinishedStartAngle, getWidth() / 2, getHeight() / 2);
-        float finishedSweepAngle = getProgress() / (float) getMax() * 360;
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(unfinishedStrokeColor);
         canvas.drawArc(rectF, 0, 360, false, paint);
         paint.setColor(finishedStrokeColor);
+        //不确定进度，不断改变起始角度mSweepAngle
+        if (mIndeterminate) {
+            mStartAngle += 5;
+            if (mStartAngle > 359)//超过最大角度置0
+                mStartAngle = 0;
+            canvas.drawArc(rectF, 0, 60, false, paint);
+            invalidate();
+            return;
+        }
+        //进度确定时
+        float finishedSweepAngle = getProgress() / (float) getMax() * 360;
         canvas.drawArc(rectF, 0, finishedSweepAngle, false, paint);
-
-        canvas.translate(radius, radius);
-        float r = radius - strokeWidth / 2;
-        //弧度，单位π
-        double radian = Math.toRadians(finishedSweepAngle);
-        float x = (float) (r * Math.cos(radian));
-        float y = (float) (r * Math.sin(radian));
-        float r2 = strokeWidth / 2 + strokeWidth / 3;
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(smallCircleColor);
-        canvas.drawCircle(x, y, r2, paint);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(2);
-        paint.setColor(smallCircleStrokeColor);
-        canvas.drawCircle(x, y, r2, paint);
-        canvas.restore();
-
     }
 }

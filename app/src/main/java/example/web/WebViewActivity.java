@@ -35,7 +35,7 @@ public class WebViewActivity extends BaseActivity {
             }
         });
         bd.webView.getSettings().setJavaScriptEnabled(true);
-        bd.webView.getSettings().setAppCacheEnabled(false);
+        bd.webView.getSettings().setDomStorageEnabled(true);
 
         // 设置支持本地存储
         /*mWebView.getSettings().setDatabaseEnabled(true);
@@ -82,6 +82,8 @@ public class WebViewActivity extends BaseActivity {
         super.onDestroy();
         bd.webView.clearHistory();
         bd.webView.clearCache(true);
+        bd.webView.removeAllViews();
+        bd.webView.destroy();
     }
 
     @Override

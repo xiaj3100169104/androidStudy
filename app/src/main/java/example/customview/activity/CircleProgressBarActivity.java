@@ -1,56 +1,39 @@
 package example.customview.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.style.framework.R;
-import com.style.view.progressbar.ArcProgress;
-import com.style.view.progressbar.CirclePercentView;
+import com.style.framework.databinding.ActivityCircleProgressBinding;
+import com.style.view.progressbar.CircleArcProgressBar;
 import com.style.view.progressbar.CircleProgress;
 
 
 public class CircleProgressBarActivity extends AppCompatActivity {
-    private CirclePercentView mCirclePercentView;
-    private CircleProgress circleProgress;
-    private ArcProgress arcProgress;
-    private Button mButton;
-    private CirclePercentView mCirclePercentView2;
-    private CircleProgress circleProgress2;
-    private ArcProgress arcProgress2;
-    private CirclePercentView mCirclePercentView3;
+
+    private ActivityCircleProgressBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_circle_progress);
-        mCirclePercentView = (CirclePercentView) findViewById(R.id.circleView);
-        mCirclePercentView2 = (CirclePercentView) findViewById(R.id.circleView2);
-        mCirclePercentView3 = (CirclePercentView) findViewById(R.id.circleView3);
+        bd = DataBindingUtil.setContentView(this, R.layout.activity_circle_progress);
 
-        circleProgress = (CircleProgress) findViewById(R.id.circle_progress);
-        arcProgress = (ArcProgress) findViewById(R.id.arc_progress);
-        circleProgress2 = (CircleProgress) findViewById(R.id.circle_progress2);
-        arcProgress2 = (ArcProgress) findViewById(R.id.arc_progress2);
-        mButton = (Button) findViewById(R.id.button);
-        mCirclePercentView2.setCurPercent(0);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int n = (int)(Math.random()*100);
-
-                mCirclePercentView.setCurPercent(n);
-                arcProgress.setProgress(n);
-                circleProgress.setProgress(n);
-
-                mCirclePercentView2.setPercentWithAnimation(n);
-                arcProgress2.setPercentWithAnimation(n);
-                circleProgress2.setPercentWithAnimation(n);
-            }
+        bd.button.setOnClickListener(v -> {
+            int n = (int) (Math.random() * 100);
+            bd.progressBar.setProgress(n);
+            bd.circleProgress.setProgress(n);
+            bd.arcProgress.setProgress(n);
+        });
+        bd.button2.setOnClickListener(v -> {
+            int n = (int) (Math.random() * 100);
+            bd.progressBar.setPercentWithAnimation(n);
+            bd.circleProgress.setPercentWithAnimation(n);
+            bd.arcProgress.setPercentWithAnimation(n);
         });
 
-        //mCirclePercentView3.startAnimation();
     }
 
 }

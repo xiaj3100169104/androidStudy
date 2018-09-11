@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Scroller;
 
-import com.style.view.util.Utils;
+import com.style.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.style.framework.R;
-import com.style.view.util.Utils;
+import com.style.utils.Utils;
 
 /**
  * 自定义组件实现,扫描功能

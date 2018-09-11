@@ -12,7 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.style.view.util.Utils;
+import com.style.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.style.dialog.Utils;
 import com.style.framework.R;
+import com.style.utils.Utils;
 
 /**
  * Created by xiajun on 2018/6/8.

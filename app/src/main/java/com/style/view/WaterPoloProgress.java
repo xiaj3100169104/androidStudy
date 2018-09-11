@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.framework.R;
-import com.style.view.util.Utils;
+import com.style.utils.Utils;
 
 /**
  * Created by xiajun on 2017/7/21.

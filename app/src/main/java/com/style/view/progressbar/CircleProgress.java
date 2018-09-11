@@ -6,13 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.style.framework.R;
+import com.style.utils.Utils;
 
 /**
  * 球形液体百分比进度 View
@@ -34,17 +33,6 @@ public class CircleProgress extends BaseProgressBar {
     private final int default_text_color = Color.WHITE;
     private final int default_max = 100;
     private final float default_text_size;
-    private final int min_size;
-
-    private static final String INSTANCE_STATE = "saved_instance";
-    private static final String INSTANCE_TEXT_COLOR = "text_color";
-    private static final String INSTANCE_TEXT_SIZE = "text_size";
-    private static final String INSTANCE_FINISHED_STROKE_COLOR = "finished_stroke_color";
-    private static final String INSTANCE_UNFINISHED_STROKE_COLOR = "unfinished_stroke_color";
-    private static final String INSTANCE_MAX = "max";
-    private static final String INSTANCE_PROGRESS = "progress";
-    private static final String INSTANCE_SUFFIX = "suffix";
-    private static final String INSTANCE_PREFIX = "prefix";
 
     private Paint paint = new Paint();
 
@@ -58,10 +46,7 @@ public class CircleProgress extends BaseProgressBar {
 
     public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         default_text_size = Utils.sp2px(context, 18);
-        min_size = (int) Utils.dp2px(context, 100);
-
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();
@@ -93,12 +78,6 @@ public class CircleProgress extends BaseProgressBar {
         textPaint.setAntiAlias(true);
 
         paint.setAntiAlias(true);
-    }
-
-    @Override
-    public void invalidate() {
-        initPainters();
-        super.invalidate();
     }
 
     public int getProgress() {
@@ -181,16 +160,6 @@ public class CircleProgress extends BaseProgressBar {
         return getPrefixText() + getProgress() + getSuffixText();
     }
 
-    @Override
-    protected int getSuggestedMinimumHeight() {
-        return min_size;
-    }
-
-    @Override
-    protected int getSuggestedMinimumWidth() {
-        return min_size;
-    }
-
     public float getProgressPercentage() {
         return getProgress() / (float) getMax();
     }
@@ -217,48 +186,10 @@ public class CircleProgress extends BaseProgressBar {
         canvas.drawArc(rectF, 270 - angle, angle * 2, false, paint);
         canvas.restore();
 
-        // Also works.
-//        paint.setColor(getFinishedColor());
-//        canvas.drawArc(rectF, 90 - angle, angle * 2, false, paint);
-
         String text = getDrawText();
         if (!TextUtils.isEmpty(text)) {
             float textHeight = textPaint.descent() + textPaint.ascent();
             canvas.drawText(text, (getWidth() - textPaint.measureText(text)) / 2.0f, (getWidth() - textHeight) / 2.0f, textPaint);
         }
-    }
-
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        final Bundle bundle = new Bundle();
-        bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
-        bundle.putInt(INSTANCE_TEXT_COLOR, getTextColor());
-        bundle.putFloat(INSTANCE_TEXT_SIZE, getTextSize());
-        bundle.putInt(INSTANCE_FINISHED_STROKE_COLOR, getFinishedColor());
-        bundle.putInt(INSTANCE_UNFINISHED_STROKE_COLOR, getUnfinishedColor());
-        bundle.putInt(INSTANCE_MAX, getMax());
-        bundle.putInt(INSTANCE_PROGRESS, getProgress());
-        bundle.putString(INSTANCE_SUFFIX, getSuffixText());
-        bundle.putString(INSTANCE_PREFIX, getPrefixText());
-        return bundle;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            final Bundle bundle = (Bundle) state;
-            textColor = bundle.getInt(INSTANCE_TEXT_COLOR);
-            textSize = bundle.getFloat(INSTANCE_TEXT_SIZE);
-            finishedColor = bundle.getInt(INSTANCE_FINISHED_STROKE_COLOR);
-            unfinishedColor = bundle.getInt(INSTANCE_UNFINISHED_STROKE_COLOR);
-            initPainters();
-            setMax(bundle.getInt(INSTANCE_MAX));
-            setProgress(bundle.getInt(INSTANCE_PROGRESS));
-            prefixText = bundle.getString(INSTANCE_PREFIX);
-            suffixText = bundle.getString(INSTANCE_SUFFIX);
-            super.onRestoreInstanceState(bundle.getParcelable(INSTANCE_STATE));
-            return;
-        }
-        super.onRestoreInstanceState(state);
     }
 }

@@ -121,12 +121,14 @@ public class CircleArcProgressBar extends BaseProgressBar {
             mStartAngle += 5;
             if (mStartAngle > 359)//超过最大角度置0
                 mStartAngle = 0;
-            canvas.drawArc(rectF, 0, 60, false, paint);
+            canvas.drawArc(rectF, mStartAngle, 60, false, paint);
+            canvas.restore();
             invalidate();
             return;
         }
         //进度确定时
         float finishedSweepAngle = getProgress() / (float) getMax() * 360;
         canvas.drawArc(rectF, 0, finishedSweepAngle, false, paint);
+        canvas.restore();
     }
 }

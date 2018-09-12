@@ -1,6 +1,7 @@
 package com.style.view.progressbar;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -89,5 +90,19 @@ public abstract class BaseProgressBar extends View {
         }
         percentThread = null;
         System.gc();
+    }
+
+    /**
+     * 计算绘制文字时的基线到中轴线的距离
+     *
+     * @param fontMetrics
+     * @return 基线和centerY的距离
+     */
+    public static float getBaseLine2CenterY(Paint.FontMetrics fontMetrics) {
+        return (fontMetrics.descent - fontMetrics.ascent) / 2 - fontMetrics.descent;
+    }
+
+    public float getTextHeight(Paint.FontMetrics fontMetrics) {
+        return Math.abs(fontMetrics.descent - fontMetrics.ascent);
     }
 }

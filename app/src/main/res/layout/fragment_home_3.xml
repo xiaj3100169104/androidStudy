@@ -98,6 +98,22 @@
                     android:onClick="@{onItemClickListener::skip12}"
                     android:text="加密解密" />
 
+                <TextView
+                    android:id="@+id/btn_file_down"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip6}"
+                    android:text="文件下载" />
+                <TextView
+                    android:id="@+id/btn_8"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip14}"
+                    android:text="音频列表" />
+
+                <TextView
+                    android:id="@+id/btn_9"
+                    style="@style/text_home_item"
+                    android:onClick="@{onItemClickListener::skip15}"
+                    android:text="单独进程服务" />
             </LinearLayout>
         </ScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

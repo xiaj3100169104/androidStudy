@@ -19,6 +19,9 @@ import example.activity.ReadAssetsActivity
 import example.activity.TestDBActivity
 import example.aidl.AidlActivity
 import example.db.EncryptActivity
+import example.filedown.FileDownActivity
+import example.music.MusicListActivity
+import example.music.remote.RemotePlayActivity
 import example.ndk.JniTestActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity
@@ -82,6 +85,20 @@ class HomeFragment3 : BaseFragment() {
 
         fun skip12(v: View) {
             skip(EncryptActivity::class.java)
+        }
+
+        fun skip6(v: View) {
+            skip(FileDownActivity::class.java)
+        }
+
+        fun skip14(v: View) {
+            skip(MusicListActivity::class.java)
+        }
+
+        fun skip15(v: View) {
+
+            skip(RemotePlayActivity::class.java)
+
         }
     }
 }

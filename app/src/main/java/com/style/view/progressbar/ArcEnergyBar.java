@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 
@@ -22,28 +23,18 @@ import com.style.utils.Utils;
 public class ArcEnergyBar extends BaseProgressBar {
     private Paint paint;
     protected Paint textPaint;
-
     private RectF rectF = new RectF();
-
-    private float strokeWidth;
-
-    private int max;
-    private int finishedStrokeColor;
-    private int unfinishedStrokeColor;
-    private int smallCircleStrokeColor = 0x99CCCCCC;
-    private int smallCircleColor = 0xFFFFFFFF;
+    private float strokeWidth = 20;
+    private int max = 100;
+    private String mBottomText = "剩余能量";
     private float arcFinishedStartAngle;
+    private int finishedStrokeColor = Color.RED;
+    private int unfinishedStrokeColor = Color.rgb(72, 106, 176);
 
-    private final int default_finished_color = Color.WHITE;
-    private final int default_unfinished_color = Color.rgb(72, 106, 176);
-
-    private final float default_stroke_width;
-    private final int default_max = 100;
-
-    private float radius;
     private int arcTotalSweepAngle = 300;
     private SweepGradient mShader;
     private Paint mFinishPaint;
+    private TextPaint mCenterTextPaint;
 
     public ArcEnergyBar(Context context) {
         this(context, null);
@@ -55,30 +46,25 @@ public class ArcEnergyBar extends BaseProgressBar {
 
     public ArcEnergyBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        default_stroke_width = Utils.dp2px(context, 4);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
-        finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, default_finished_color);
-        unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, default_unfinished_color);
+        finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, finishedStrokeColor);
+        unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, unfinishedStrokeColor);
         arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
         arcTotalSweepAngle = attributes.getInt(R.styleable.ArcProgress_arc_total_sweep_angle, arcTotalSweepAngle);
-        setMax(attributes.getInt(R.styleable.ArcProgress_arc_max, default_max));
-        setProgress(attributes.getInt(R.styleable.ArcProgress_arc_progress, 0));
-        strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, default_stroke_width);
+        progress = attributes.getInt(R.styleable.ArcProgress_arc_progress, 0);
+        strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, strokeWidth);
         attributes.recycle();
 
         initPainters(context);
     }
 
     protected void initPainters(Context context) {
-        textPaint = new TextPaint();
-        textPaint.setAntiAlias(true);
-
         paint = new Paint();
         paint.setColor(unfinishedStrokeColor);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Paint.Style.STROKE);
-        //paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
 
         mFinishPaint = new Paint(paint);
         mFinishPaint.setColor(finishedStrokeColor);
@@ -88,6 +74,16 @@ public class ArcEnergyBar extends BaseProgressBar {
         gradientMatrix.preRotate(90, Utils.dp2px(context, 150) / 2, Utils.dp2px(context, 150) / 2);
         mShader.setLocalMatrix(gradientMatrix);*/
         mFinishPaint.setShader(mShader);
+
+        textPaint = new TextPaint();
+        textPaint.setAntiAlias(true);
+        textPaint.setColor(finishedStrokeColor);
+        textPaint.setTextSize(Utils.sp2px(context, 12));
+
+
+        mCenterTextPaint = new TextPaint(textPaint);
+        mCenterTextPaint.setTextSize(Utils.sp2px(context, 15));
+        mCenterTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     public int getProgress() {
@@ -116,9 +112,6 @@ public class ArcEnergyBar extends BaseProgressBar {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         rectF.set(strokeWidth / 2f, strokeWidth / 2f, width - strokeWidth / 2f, MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f);
 
-        radius = width / 2f;
-        float angle = 180;
-        float arcBottomHeight = radius * (float) (1 - Math.cos(Math.toRadians(angle)));
     }
 
     @Override
@@ -132,5 +125,17 @@ public class ArcEnergyBar extends BaseProgressBar {
         canvas.drawArc(rectF, 0, finishedSweepAngle, false, mFinishPaint);
         canvas.restore();
 
+        canvas.save();
+        canvas.translate(0, getHeight());
+        float mBottomTextHeight = getTextHeight(textPaint.getFontMetrics());
+        float mBottomTextWidth = textPaint.measureText(mBottomText);
+        canvas.drawText(mBottomText, getWidth() / 2 - mBottomTextWidth / 2, -(mBottomTextHeight / 2 - getBaseLine2CenterY(textPaint.getFontMetrics())) - Utils.dp2px(getContext(), 10), textPaint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.translate(0, 0);
+        float mCenterTextWidth = mCenterTextPaint.measureText(mBottomText);
+        canvas.drawText(mBottomText, getWidth() / 2 - mCenterTextWidth / 2, getHeight() / 2 + getBaseLine2CenterY(mCenterTextPaint.getFontMetrics()), mCenterTextPaint);
+        canvas.restore();
     }
 }

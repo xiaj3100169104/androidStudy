@@ -3,6 +3,7 @@ package com.style.base
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -26,12 +27,14 @@ import com.style.utils.InputMethodUtil
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val TAG = javaClass.simpleName
+
     companion object {
         protected const val STATUS_BAR_TRANSPARENT = 0//全透明状态栏
         protected const val STATUS_BAR_TRANSLUCENT = 1//半透明状态栏
         protected const val STATUS_BAR_COLOR = 2//自定义状态栏颜色
         protected const val STATUS_BAR_THEME = 3//主题配置状态栏颜色
     }
+
     protected lateinit var context: Context
     private var progressDialog: LoadingDialog? = null
     private lateinit var contentView: View
@@ -179,7 +182,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     /**
     //如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建
-     //finishAndRemoveTask()都不管用
+    //finishAndRemoveTask()都不管用
      */
     override fun onBackPressed() {
         super.onBackPressed()
@@ -260,4 +263,7 @@ abstract class BaseActivity : AppCompatActivity() {
         LogManager.logE(tag, msg)
     }
 
+    fun skip(cls: Class<*>) {
+        startActivity(Intent(this, cls))
+    }
 }

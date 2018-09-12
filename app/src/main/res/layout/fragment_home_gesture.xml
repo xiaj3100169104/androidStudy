@@ -1,5 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="onItemClickListener"
+            type="example.home.GestureFragment.OnItemClickListener" />
+    </data>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -20,49 +27,35 @@
                 android:showDividers="middle">
 
                 <TextView
-                    android:id="@+id/btn_system_widget"
+                    android:id="@+id/btn_3"
                     style="@style/text_home_item"
-                    android:text="系统资源及小部件" />
+                    android:onClick="@{onItemClickListener::skip9}"
+                    android:text="监听在view上手势滑动方向" />
 
                 <TextView
-                    android:id="@+id/btn_radio_group"
+                    android:id="@+id/btn_31"
                     style="@style/text_home_item"
-                    android:text="radio group" />
+                    android:onClick="@{onItemClickListener::skip91}"
+                    android:text="不让scrollView处理水平滑动操作" />
 
                 <TextView
-                    android:id="@+id/view_write_word"
+                    android:id="@+id/btn_4"
                     style="@style/text_home_item"
-                    android:text="写字板" />
+                    android:onClick="@{onItemClickListener::skip10}"
+                    android:text="手势上下滑动移动布局并销毁activity" />
 
                 <TextView
-                    android:id="@+id/view_suspend"
+                    android:id="@+id/btn_5"
                     style="@style/text_home_item"
-                    android:text="悬浮窗" />
+                    android:onClick="@{onItemClickListener::skip11}"
+                    android:text="状态栏风格" />
+
 
                 <TextView
-                    android:id="@+id/btn_custom_view"
+                    android:id="@+id/btn_7"
                     style="@style/text_home_item"
-                    android:text="自定义view" />
-
-                <TextView
-                    android:id="@+id/btn_heart"
-                    style="@style/text_home_item"
-                    android:text="心率图" />
-
-                <TextView
-                    android:id="@+id/btn_temp"
-                    style="@style/text_home_item"
-                    android:text="体温图" />
-
-                <TextView
-                    android:id="@+id/btn_bp"
-                    style="@style/text_home_item"
-                    android:text="血压图" />
-
-                <TextView
-                    android:id="@+id/btn_sleep"
-                    style="@style/text_home_item"
-                    android:text="睡眠图" />
+                    android:onClick="@{onItemClickListener::skip13}"
+                    android:text="recycler_view拖拽测试" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

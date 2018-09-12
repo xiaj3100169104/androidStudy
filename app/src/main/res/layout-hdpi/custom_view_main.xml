@@ -1,95 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/title_bar_normal" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:layout_height="50dp"
+            android:textAllCaps="false"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="#FF4081"
+            app:tabTextColor="#000" />
 
-            <Button
-                android:id="@+id/bt_notify_point"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="通知小圆点" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none" />
 
-            <Button
-                android:id="@+id/bt_progress1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="水平进度条" />
-
-            <Button
-                android:id="@+id/bt_progress2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="圆形进度条" />
-
-            <Button
-                android:id="@+id/bt_write_word"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="写字板" />
-
-            <Button
-                android:id="@+id/bt_water_polo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="波浪球进度条" />
-
-            <Button
-                android:id="@+id/bt_sound_wave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="声浪" />
-
-            <Button
-                android:id="@+id/bt_suspend_window"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="悬浮窗" />
-
-            <Button
-                android:id="@+id/bt_keyboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="自定义键盘" />
-
-            <Button
-                android:id="@+id/bt_scan_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="自定义扫描框" />
-
-            <Button
-                android:id="@+id/bt_curve"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="睡眠柱状图" />
-
-            <Button
-                android:id="@+id/bt_temp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="体温图" />
-
-            <Button
-                android:id="@+id/bt_heart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="心率图" />
-            <Button
-                android:id="@+id/bt_bp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="血压图" />
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

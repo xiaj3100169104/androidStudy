@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.style.utils.Utils;
+
 /**
  * Created by xiajun on 2017/7/21.
  */
@@ -20,14 +22,15 @@ public class WriteWordView extends View {
 
     public WriteWordView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initPaint();
+        initPaint(context);
     }
 
-    private void initPaint() {
+    private void initPaint(Context context) {
         paint = new Paint();
+        paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.GREEN);
-        paint.setStrokeWidth(2);
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(Utils.sp2px(context,5));
 
     }
 

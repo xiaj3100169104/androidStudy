@@ -58,7 +58,7 @@ class BottomSheetDialogFragment : BaseFragment() {
         bd.tvContent.text = param
         bd.tvContent.setOnClickListener {
             var dialog = BottomSheetDialog(context!!)
-            dialog.setContentView(layoutInflater.inflate(R.layout.custom_view_main, null))
+            dialog.setContentView(layoutInflater.inflate(R.layout.fragment_home_3, null))
             dialog.show()
         }
     }

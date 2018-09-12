@@ -45,18 +45,19 @@ class MainActivity : BaseActivity() {
         const val REQUEST_ENABLE_BT = 6
         const val NET_CHANGE = "net_change"
 
-        private val fragTags = arrayOf("tag1", "tag2", "tag3", "tag4", "tag5")
-        private val titles = arrayOf("View相关", "列表", "原生相关", "其他框架", "客户")
+        private val fragTags = arrayOf("tag1", "tag20", "tag2", "tag3", "tag4", "tag5")
+        private val titles = arrayOf("View相关", "手势", "列表", "原生相关", "其他框架", "客户")
     }
 
     private lateinit var homeFragment1: HomeFragment1
+    private lateinit var homeFragment20: GestureFragment
     private lateinit var homeFragment2: HomeFragment2
     private lateinit var homeFragment3: HomeFragment3
     private lateinit var homeFragment4: HomeFragment4
     private lateinit var fm: FragmentManager
     private lateinit var bt: FragmentTransaction
     private lateinit var mTabs: Array<TextView>
-    var currentTabIndex = 0
+    private var currentTabIndex = 0
     lateinit var fragments: Array<Fragment>
     private var appStateReceiver: DeviceStateBroadcastReceiver? = null
     //默认屏幕处于解锁状态
@@ -110,13 +111,14 @@ class MainActivity : BaseActivity() {
             startBleService()
         }
 
-        mTabs = arrayOf(bd.viewHomeTap1, bd.viewHomeTap2, bd.viewHomeTap3, bd.viewHomeTap4)
+        mTabs = arrayOf(bd.viewHomeTap1, bd.viewHomeTap20, bd.viewHomeTap2, bd.viewHomeTap3, bd.viewHomeTap4)
         homeFragment1 = HomeFragment1()
+        homeFragment20 = GestureFragment()
         homeFragment2 = HomeFragment2()
         homeFragment3 = HomeFragment3()
         homeFragment4 = HomeFragment4()
 
-        fragments = arrayOf<Fragment>(homeFragment1, homeFragment2, homeFragment3, homeFragment4)
+        fragments = arrayOf<Fragment>(homeFragment1, homeFragment20, homeFragment2, homeFragment3, homeFragment4)
         fm = supportFragmentManager
         bt = fm.beginTransaction()
         for (i in fragments.indices) {
@@ -147,25 +149,6 @@ class MainActivity : BaseActivity() {
         });*/
         showSelectedTab()
 
-        Observable.interval(3, TimeUnit.SECONDS).subscribe { aLong ->
-            val `is` = AppInfoUtil.isAppOnForeground(context)
-            logE(TAG, "" + `is`)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                /*int state = DeviceInfoUtil.getDisplay(getContext()).getState();
-                logE(TAG, "display state " + state);
-                if (state == Display.STATE_OFF) {
-                    onDisplayOff();
-                }
-                KeyguardManager mKeyguardManager = (KeyguardManager) getContext().getSystemService(Context.KEYGUARD_SERVICE);
-                boolean flag = mKeyguardManager.isDeviceLocked();
-                logE(TAG, "isDeviceLocked " + flag);*/
-            }
-
-            /*  Intent i = new Intent(MainActivity.this, StatusBarStyleMainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //锁屏状态下启动activity会崩溃
-            startActivity(i);*/
-        }
         /*ComponentName componentName = startService(new Intent(this, MQTTService.class));
         componentName.getClassName();*/
     }
@@ -196,9 +179,10 @@ class MainActivity : BaseActivity() {
         var index = 0
         when (view.id) {
             R.id.layout_home_tap_1 -> index = 0
-            R.id.layout_home_tap_2 -> index = 1
-            R.id.layout_home_tap_3 -> index = 2
-            R.id.layout_home_tap_4 -> index = 3
+            R.id.layout_home_tap_20 -> index = 1
+            R.id.layout_home_tap_2 -> index = 2
+            R.id.layout_home_tap_3 -> index = 3
+            R.id.layout_home_tap_4 -> index = 4
         }
         currentTabIndex = index
         showSelectedTab()

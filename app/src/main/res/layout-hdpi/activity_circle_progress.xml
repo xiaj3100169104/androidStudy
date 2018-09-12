@@ -29,6 +29,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="20dp"
+                app:arc_indeterminate="false"
                 app:arc_finished_color="#FF45CE7B"
                 app:arc_finished_start_angle="90"
                 app:arc_stroke_width="15dp"

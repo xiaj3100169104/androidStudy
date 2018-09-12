@@ -1,4 +1,4 @@
-package example.customview.activity;
+package example.customview;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

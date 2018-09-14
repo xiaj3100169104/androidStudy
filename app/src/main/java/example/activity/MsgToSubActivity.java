@@ -5,12 +5,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 
 
-public class MsgToSubActivity extends BaseActivity {
+public class MsgToSubActivity extends BaseTitleBarActivity {
     ActivityMsgToSubBinding bd;
 
     Handler mHandler;

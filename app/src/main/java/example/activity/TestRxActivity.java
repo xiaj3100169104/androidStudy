@@ -2,7 +2,7 @@ package example.activity;
 
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
 
@@ -16,7 +16,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class TestRxActivity extends BaseActivity {
+public class TestRxActivity extends BaseTitleBarActivity {
 
     ActivityTestRxBinding bd;
     @Override

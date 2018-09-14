@@ -12,9 +12,8 @@ import android.util.Log;
 
 import com.style.app.ConfigUtil;
 import com.style.app.Skip;
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
-import com.style.framework.BuildConfig;
 import com.style.framework.R;
 import com.style.utils.BitmapUtil;
 import com.style.utils.DeviceInfoUtil;
@@ -25,7 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public abstract class BaseAvatarActivity extends BaseActivity {
+public abstract class BaseAvatarActivity extends BaseTitleBarActivity {
 
     private File photoFile;
     private boolean isFromCamera;

@@ -3,7 +3,7 @@ package example.customview
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 
-import com.style.base.BaseActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.CustomViewMainBinding
 
@@ -11,7 +11,7 @@ import example.customview.fragment.*
 import example.tablayout.FindTabAdapter
 import java.util.ArrayList
 
-class CustomViewMainActivity : BaseActivity() {
+class CustomViewMainActivity : BaseTitleBarActivity() {
 
     private lateinit var bd: CustomViewMainBinding
     private lateinit var fAdapter: FindTabAdapter                            //定义adapter

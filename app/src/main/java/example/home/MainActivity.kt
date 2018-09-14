@@ -1,7 +1,6 @@
 package example.home
 
 import android.Manifest
-import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,7 +8,6 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -22,22 +20,16 @@ import android.widget.TextView
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
-import com.style.base.BaseActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
-import com.style.utils.AppInfoUtil
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.NetWorkUtil
 
 import org.simple.eventbus.EventBus
 
-import java.util.concurrent.TimeUnit
 
-import example.softInput.StatusBarStyleMainActivity
-import io.reactivex.Observable
-
-
-class MainActivity : BaseActivity() {
+class MainActivity : BaseTitleBarActivity() {
     private lateinit var bd: ActivityMainBinding
 
     companion object {

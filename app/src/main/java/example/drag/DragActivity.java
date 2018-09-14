@@ -3,7 +3,7 @@ package example.drag;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.DragActivityBinding;
@@ -12,7 +12,7 @@ import com.style.view.DividerItemDecoration;
 import java.util.ArrayList;
 
 
-public class DragActivity extends BaseActivity {
+public class DragActivity extends BaseTitleBarActivity {
     DragActivityBinding bd;
     private ArrayList<Integer> dataList;
     private LinearLayoutManager layoutManager;
@@ -22,7 +22,6 @@ public class DragActivity extends BaseActivity {
     public int getLayoutResId() {
         return R.layout.drag_activity;
     }
-
 
     @Override
     public void initData() {
@@ -40,12 +39,7 @@ public class DragActivity extends BaseActivity {
         ItemTouchHelper helper = new ItemTouchHelper(new DragAdapterCallback(adapter));
         helper.attachToRecyclerView(bd.recyclerView);
 
-        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Integer>() {
-            @Override
-            public void onItemClick(int position, Integer data) {
-                showToast(position + "-->  data-->" + data + "-->getdata-->" + dataList.get(position));
-            }
-        });
+        adapter.setOnItemClickListener((position, data) -> showToast(position + "-->  data-->" + data + "-->getdata-->" + dataList.get(position)));
 
         refresh();
     }

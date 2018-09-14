@@ -1,0 +1,73 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <HorizontalScrollView
+        android:id="@+id/layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp">
+
+            <LinearLayout
+                android:id="@+id/layout_fore"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/view_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注" />
+
+                    <TextView
+                        android:id="@+id/view_nick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="昵称" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/layout_fore"
+                android:background="@color/gray"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/view_edit"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="编辑"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/view_delete"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="删除"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </HorizontalScrollView>
+</layout>

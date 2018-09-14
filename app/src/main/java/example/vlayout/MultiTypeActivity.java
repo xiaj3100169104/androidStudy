@@ -7,14 +7,14 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMultiTypeBinding;
 
 import java.util.ArrayList;
 
 
-public class MultiTypeActivity extends BaseActivity {
+public class MultiTypeActivity extends BaseTitleBarActivity {
 
     ActivityMultiTypeBinding bd;
 

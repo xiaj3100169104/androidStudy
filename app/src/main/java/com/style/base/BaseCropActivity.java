@@ -8,18 +8,9 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.style.app.ConfigUtil;
-import com.style.data.glide.GlideCircleTransform;
-import com.style.data.glide.GlideRectBoundTransform;
-import com.style.data.glide.GlideRoundTransform;
-import com.style.dialog.SelAvatarDialog;
 import com.style.framework.BuildConfig;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityGlideDealBinding;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.FileUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -30,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import tech.gaolinfeng.imagecrop.lib.ImageCropActivity;
 
 
-public abstract class BaseCropActivity extends BaseActivity {
+public abstract class BaseCropActivity extends BaseTitleBarActivity {
 
     private File photoFile;
     private String targetPath;

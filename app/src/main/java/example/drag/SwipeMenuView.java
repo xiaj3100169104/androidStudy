@@ -1,4 +1,4 @@
-package example.gesture;
+package example.drag;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -7,14 +7,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
-
-import javax.xml.xpath.XPath;
+import com.style.utils.Utils;
 
 /**
  * 右滑销毁activity的根容器，用于子view有scrollView的时候，操作体验更便捷
@@ -22,7 +20,7 @@ import javax.xml.xpath.XPath;
  * 注意：如果用在activity销毁时，主题窗口背景设置半透明，去掉activity退出动画
  */
 
-public class HorizontalSlideFinishActivityView extends RelativeLayout {
+public class SwipeMenuView extends RelativeLayout {
     //静止状态
     private static final int SLIDE_STATE_IDLE = 0;
     //第一个move事件为左滑
@@ -50,32 +48,28 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
     private ValueAnimator va;
     private OnSlideListener listener;
 
-    public HorizontalSlideFinishActivityView(Context context) {
+    public SwipeMenuView(Context context) {
         super(context);
     }
 
-    public HorizontalSlideFinishActivityView(Context context, AttributeSet attrs) {
+    public SwipeMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
         viewConfiguration = ViewConfiguration.get(context);
-        xMaxOffset = ScreenUtils.getScreenWidth(context);
+        xMaxOffset = Utils.dp2px(context, 200);
         scroller = new Scroller(context);
     }
 
-    /**
-     * 如果子view没有拦截down事件(比如设置了点击事件这里也能收到move事件)，这里便收不到move事件，
-     *
-     * @param ev
-     * @return
-     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        getParent().requestDisallowInterceptTouchEvent(true);
         Log.e(TAG, "onInterceptTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 currentSlideState = SLIDE_STATE_IDLE;
                 xDown = ev.getRawX();
                 yDown = ev.getRawY();
-                break;
+                return true;
+            //break;
             case MotionEvent.ACTION_MOVE:
                 if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
                     return true;
@@ -108,7 +102,7 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
                 break;
 
         }
-        return super.onInterceptTouchEvent(ev);
+        return true;
     }
 
     @Override
@@ -116,16 +110,17 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
         Log.e(TAG, "onTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                break;
+                return true;
+            //break;
             case MotionEvent.ACTION_MOVE:
                 if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
                     float xMove = ev.getRawX();
                     float translationX = xMove - xLastMove;
                     //yDistance = Math.abs(yMove - yDown);
-                    Log.e(TAG, "translationX  " + translationX);
+                    Log.i(TAG, "translationX  " + translationX);
                     //Log.e(TAG, "yDistance  " + yDistance);
                     //move的x不能小于开始移动的x；不然就会向左滑出屏幕
-                    if (xMove >= xLastMove) {
+                    if (xMove >= xLastMove && translationX <= xMaxOffset) {
                         setTranslationX(translationX);
                         //xLastMove = xMove;
                     }
@@ -139,7 +134,7 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
                 }
                 break;
         }
-        return super.onTouchEvent(ev);
+        return true;
     }
 
     private void autoTranslationX() {
@@ -154,7 +149,7 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
         va.setInterpolator(new DecelerateInterpolator());
         va.addUpdateListener(animation -> {
             float v = (float) animation.getAnimatedValue();
-            Log.d(TAG, "translationY:" + v);
+            Log.d(TAG, "translationX:" + v);
             setTranslationX(v);
             if (v >= xMaxOffset)
                 onViewSlideToScreen();
@@ -175,54 +170,4 @@ public class HorizontalSlideFinishActivityView extends RelativeLayout {
         void onShouldFinish();
 
     }
-
-
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-    }
-/*
-    @Override
-    public void computeScroll() {
-        Log.e(TAG, "computeScroll getCurrX  " + scroller.getCurrX());
-        //super.computeScroll();
-        //为true代表滚动数值还在变化
-        if (currentSlideState == SLIDE_STATE_AUTO_TO_LEFT) {
-            if (scroller.computeScrollOffset())
-                scrollTo(scroller.getCurrX(), 0);
-            //postInvalidate();//重绘
-            //invalidate();
-        }
-        if (currentSlideState == SLIDE_STATE_AUTO_TO_TIGHT) {
-            if (scroller.computeScrollOffset())
-                scrollTo(scroller.getCurrX(), 0);
-            ///invalidate();
-        }
-    }
-
-
-    private void autoScroll() {
-        Log.e(TAG, "autoScroll getScrollX " + getScrollX() + " xMove " + xMove);
-
-        //自动向右滚动,
-        if (getScrollX() <= -screenWidth / 2) {
-            currentSlideState = SLIDE_STATE_AUTO_TO_TIGHT;
-
-            scroller.startScroll(getScrollX(), 0, -screenWidth - getScrollX(), 0, 1000);
-            invalidate();
-        } else if (getScrollX() <= 0 && getScrollX() > -screenWidth / 2) {
-            //自动向左滚动
-            currentSlideState = SLIDE_STATE_AUTO_TO_LEFT;
-            //startX 表示起点在水平方向到原点的距离，正值向左滑，负值向右滑。
-            //scroller.getCurrX() = mStartX + Math.round(x * dx);  x等于从0逐渐增大到1.
-            scroller.startScroll(getScrollX(), 0, -getScrollX(), 0, 1000);
-            invalidate();
-        }
-    }
-
-    private void moveLayout(float xDistance) {
-        if (xDistance > 0)
-            scrollTo((int) -xDistance, 0);
-    }
-    */
 }

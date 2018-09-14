@@ -7,12 +7,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
 
-public class WebViewActivity extends BaseActivity {
+public class WebViewActivity extends BaseTitleBarActivity {
 
     ActivityH5RemoteBinding bd;
     private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";

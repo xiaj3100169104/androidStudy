@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMyRadioGroupBinding;
 import com.style.view.MyRadioGroup;
@@ -15,7 +15,7 @@ import example.fragment.EmotionDataFrag;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class MyRadioGroupActivity extends BaseActivity {
+public class MyRadioGroupActivity extends BaseTitleBarActivity {
     ActivityMyRadioGroupBinding bd;
     private MyRadioGroup rg_emotion;
     private FragmentManager fm;

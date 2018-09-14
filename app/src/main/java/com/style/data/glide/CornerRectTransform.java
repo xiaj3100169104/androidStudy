@@ -16,11 +16,11 @@ import java.security.MessageDigest;
  * Created by xiajun on 2017/12/23.
  */
 
-public class GlideRectBoundTransform extends BitmapTransformation {
+public class CornerRectTransform extends BitmapTransformation {
     private float roundWidth = 0f;
     private int roundColor;
 
-    public GlideRectBoundTransform(int roundWidth_dp, int roundColor) {
+    public CornerRectTransform(int roundWidth_dp, int roundColor) {
         this.roundWidth = (Resources.getSystem().getDisplayMetrics().density * roundWidth_dp);
         this.roundColor = roundColor;
     }

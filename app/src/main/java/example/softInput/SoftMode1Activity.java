@@ -5,7 +5,6 @@ import com.style.framework.databinding.ActivitySoftMode1Binding;
 
 import example.gesture.BaseRightSlideFinishActivity;
 
-//
 public class SoftMode1Activity extends BaseRightSlideFinishActivity {
 
     ActivitySoftMode1Binding bd;
@@ -16,7 +15,7 @@ public class SoftMode1Activity extends BaseRightSlideFinishActivity {
 
     @Override
     public int getStatusBarStyle() {
-        return com.style.base.BaseActivity.STATUS_BAR_COLOR;
+        return STATUS_BAR_COLOR;
     }
 
     @Override

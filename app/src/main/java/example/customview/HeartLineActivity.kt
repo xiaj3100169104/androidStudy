@@ -1,7 +1,7 @@
 package example.customview
 
 import com.style.base.BaseActivity
-import com.style.base.BaseFragment
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
 import com.style.view.HeartLineChart
@@ -16,10 +16,6 @@ class HeartLineActivity : BaseActivity() {
 
     override fun getLayoutResId(): Int {
         return R.layout.activity_heart_line
-    }
-
-    override fun isGeneralTitleBar(): Boolean {
-        return false
     }
 
     override fun initData() {

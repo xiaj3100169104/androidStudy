@@ -8,11 +8,11 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
-public class WebViewFeedbackActivity extends BaseActivity {
+public class WebViewFeedbackActivity extends BaseTitleBarActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/user_feedback.html";

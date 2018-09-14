@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.data.prefs.AccountManager;
 import com.style.framework.R;
@@ -23,7 +23,7 @@ import org.simple.eventbus.Subscriber;
 import java.util.ArrayList;
 
 
-public class BLEActivity extends BaseActivity {
+public class BLEActivity extends BaseTitleBarActivity {
     public static final int REQUEST_ENABLE_BT = 6;
 
     BleActivityScanBinding bd;

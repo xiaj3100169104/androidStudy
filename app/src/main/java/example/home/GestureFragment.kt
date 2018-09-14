@@ -5,6 +5,7 @@ import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHomeGestureBinding
 import example.drag.DragActivity
+import example.drag.SwipeMenuActivity
 import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
 import example.gesture.TestGestureActivity
@@ -27,6 +28,7 @@ class GestureFragment : BaseFragment() {
         bd.refreshLayout.setOnLoadMoreListener { refreshLayout ->
             refreshLayout.finishLoadMore(2000/*,false*/)//传入false表示加载失败
         }
+        bd.btnSwipeMenu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
     }
 
     inner class OnItemClickListener {
@@ -46,7 +48,6 @@ class GestureFragment : BaseFragment() {
         fun skip11(v: View) {
             skip(StatusBarStyleMainActivity::class.java)
         }
-
 
         fun skip13(v: View) {
             skip(DragActivity::class.java)

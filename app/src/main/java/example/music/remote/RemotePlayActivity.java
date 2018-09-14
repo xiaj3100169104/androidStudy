@@ -10,13 +10,13 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
 import com.style.utils.AppInfoUtil;
 
-public class RemotePlayActivity extends BaseActivity {
+public class RemotePlayActivity extends BaseTitleBarActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;

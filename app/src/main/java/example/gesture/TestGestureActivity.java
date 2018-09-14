@@ -8,6 +8,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
 
@@ -27,11 +28,6 @@ public class TestGestureActivity extends BaseActivity {
     private float yMove;
     private float yLastMove;
     private float yUp;
-
-    @Override
-    public boolean isGeneralTitleBar() {
-        return false;
-    }
 
     @Override
     public int getLayoutResId() {

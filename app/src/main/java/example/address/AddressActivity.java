@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.threadpool.GeneralThreadPoolManager;
@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class AddressActivity extends BaseActivity {
+public class AddressActivity extends BaseTitleBarActivity {
 
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;

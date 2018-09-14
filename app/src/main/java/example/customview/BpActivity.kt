@@ -1,7 +1,7 @@
 package example.customview
 
 import com.style.base.BaseActivity
-import com.style.base.BaseFragment
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
 import com.style.view.BloodPressureChart
@@ -19,9 +19,7 @@ class BpActivity : BaseActivity() {
     override fun getLayoutResId(): Int {
         return R.layout.activity_bp
     }
-    override fun isGeneralTitleBar(): Boolean {
-        return false
-    }
+
     override fun initData() {
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }

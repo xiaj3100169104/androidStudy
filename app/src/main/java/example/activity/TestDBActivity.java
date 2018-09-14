@@ -2,14 +2,14 @@ package example.activity;
 
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestDbBinding;
 
 import example.bean.TestBean;
 import example.db.TestDBManager;
 
-public class TestDBActivity extends BaseActivity {
+public class TestDBActivity extends BaseTitleBarActivity {
 
     ActivityTestDbBinding bd;
     @Override

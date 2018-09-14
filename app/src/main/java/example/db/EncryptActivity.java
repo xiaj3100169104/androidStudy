@@ -2,11 +2,11 @@ package example.db;
 
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTemperatureBinding;
 
-public class EncryptActivity extends BaseActivity {
+public class EncryptActivity extends BaseTitleBarActivity {
 
     ActivityTemperatureBinding bd;
     EncryptPresenter presenter;

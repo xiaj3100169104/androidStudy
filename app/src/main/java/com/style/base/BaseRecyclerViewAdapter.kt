@@ -107,6 +107,10 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
             this.onItemClickListener = mListener
     }
 
+    fun getOnItemClickListener(): OnItemClickListener<T>? {
+        return this.onItemClickListener
+    }
+
     interface OnItemClickListener<T> {
         fun onItemClick(position: Int, data: T)
     }
@@ -121,7 +125,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun showToast(str: CharSequence) {
-        (context as BaseActivity).showToast(str)
+        (context as BaseTitleBarActivity).showToast(str)
     }
 
     fun showToast(@StringRes resId: Int) {

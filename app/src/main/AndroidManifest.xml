@@ -98,6 +98,8 @@
         <activity android:name="example.gesture.SimpleGestureActivity" />
 
         <activity android:name="example.drag.DragActivity" />
+        <activity android:name="example.drag.SwipeMenuActivity" />
+
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.dialog.WheelActivity" />

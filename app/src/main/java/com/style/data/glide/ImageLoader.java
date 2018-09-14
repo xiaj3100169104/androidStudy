@@ -8,8 +8,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.framework.R;
+import com.style.utils.Utils;
 
 public class ImageLoader {
     public static void loadNormalAvatar(Context context, ImageView imageView, String url) {
@@ -21,7 +23,9 @@ public class ImageLoader {
     public static void loadNormalPicture(Activity context, ImageView imageView, String url) {
         if (!TextUtils.isEmpty(url)) {
             RequestOptions options = new RequestOptions()
-                    .centerCrop()
+                    //.circleCrop()
+                    //.transform(new GlideCircleTransform(10,0xFFFFAEB9))
+                    .transform(new GlideCircleTransform(Utils.dp2px(context, 3), 0xFFFFAEB9))
                     .placeholder(R.mipmap.empty_photo)
                     .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);

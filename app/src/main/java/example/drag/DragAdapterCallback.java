@@ -110,10 +110,8 @@ public class DragAdapterCallback extends ItemTouchHelper.Callback {
             DragAdapter.ViewHolder holder = (DragAdapter.ViewHolder) viewHolder;
             //if (Math.abs(dX) <= DeviceInfoUtil.dp2px(recyclerView.getContext(), 200))
             holder.bd.layoutFore.setTranslationX(dX);
-            // else
-            //  holder.bd.layoutFore.setTranslationX(0.0f);
+            //holder.bd.layoutFore.setTranslationX(0.0f);
             super.onChildDraw(c, recyclerView, viewHolder, 0, dY, actionState, isCurrentlyActive);
-
         } else {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }

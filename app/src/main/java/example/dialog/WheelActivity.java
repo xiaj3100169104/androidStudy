@@ -2,7 +2,7 @@ package example.dialog;
 
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.dialog.BaseSingleWheelDialog;
 import com.style.dialog.ChangeAddressDialog;
@@ -15,7 +15,7 @@ import com.style.utils.StringUtil;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class WheelActivity extends BaseActivity {
+public class WheelActivity extends BaseTitleBarActivity {
 
     ActivityWheelBinding bd;
 

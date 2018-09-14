@@ -2,8 +2,8 @@ package example.customview
 
 import android.util.Log
 import com.style.base.BaseActivity
+import com.style.base.BaseTitleBarActivity
 
-import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.ActivityCurveBinding
 import com.style.view.SleepWeekHistogram
@@ -19,9 +19,7 @@ class SleepWeekActivity : BaseActivity() {
     override fun getLayoutResId(): Int {
         return R.layout.activity_curve
     }
-    override fun isGeneralTitleBar(): Boolean {
-        return false
-    }
+
     override fun initData() {
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }

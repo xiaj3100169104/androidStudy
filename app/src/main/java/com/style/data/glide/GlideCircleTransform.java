@@ -6,27 +6,29 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 
 import java.security.MessageDigest;
 
 /**
  * Created by xiajun on 2017/12/23.
+ * 更改VERSION可刷新缓存数据
  */
 
 public class GlideCircleTransform extends BitmapTransformation {
+    private static final int VERSION = 2;
+    private static final String ID = "com.bumptech.glide.load.resource.bitmap.GlideCircleTransform." + VERSION;
+    private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
     private float roundWidth = 0;
     private int roundColor;
 
-    public GlideCircleTransform(int roundWidth_dp, int roundColor) {
-        this.roundWidth = (Resources.getSystem().getDisplayMetrics().density * roundWidth_dp);
+    public GlideCircleTransform(int roundWidthPx, int roundColor) {
+        this.roundWidth = roundWidthPx;
         this.roundColor = roundColor;
-    }
-
-    public GlideCircleTransform() {
-
     }
 
     @Override
@@ -62,13 +64,23 @@ public class GlideCircleTransform extends BitmapTransformation {
             paint.setStyle(Paint.Style.STROKE);  //绘制空心
             paint.setColor(roundColor);
             paint.setStrokeWidth(roundWidth);
-            canvas.drawCircle(r, r, r - 5, paint);
+            canvas.drawCircle(r, r, r - roundWidth / 2, paint);
         }
         return result;
     }
 
     @Override
-    public void updateDiskCacheKey(MessageDigest messageDigest) {
+    public boolean equals(Object o) {
+        return o instanceof GlideCircleTransform;
+    }
 
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
+    @Override
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
     }
 }

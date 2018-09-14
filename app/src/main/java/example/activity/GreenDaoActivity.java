@@ -2,14 +2,14 @@ package example.activity;
 
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGreenDaoBinding;
 
 import example.bean.TestGreenBean;
 import example.greendao.dao.GreenDaoManager;
 
-public class GreenDaoActivity extends BaseActivity {
+public class GreenDaoActivity extends BaseTitleBarActivity {
 
     ActivityGreenDaoBinding bd;
     GreenDaoManager manager;

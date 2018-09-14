@@ -1,7 +1,7 @@
 package example.customview
 
 import com.style.base.BaseActivity
-import com.style.base.BaseFragment
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityTempBinding
 import com.style.view.TemperatureChart
@@ -20,9 +20,7 @@ class TempActivity : BaseActivity() {
     override fun getLayoutResId(): Int {
         return R.layout.activity_temp
     }
-    override fun isGeneralTitleBar(): Boolean {
-        return false
-    }
+
     override fun initData() {
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }

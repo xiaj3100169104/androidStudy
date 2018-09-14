@@ -4,7 +4,6 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.style.app.LogManager
-import com.style.framework.R
 
 import org.simple.eventbus.EventBus
 
@@ -98,10 +96,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun showToast(str: CharSequence) {
-        (activity as BaseActivity).showToast(str)
+        (activity as BaseTitleBarActivity).showToast(str)
     }
 
     fun showToast(@StringRes resId: Int) {
-        (activity as BaseActivity).showToast(resId)
+        (activity as BaseTitleBarActivity).showToast(resId)
     }
 }

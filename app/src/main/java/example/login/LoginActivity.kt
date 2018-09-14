@@ -1,14 +1,12 @@
 package example.login
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
 import android.databinding.Observable
-import android.databinding.ViewDataBinding
 import android.view.View
-
 import com.style.base.BaseActivity
+
+import com.style.base.BaseTitleBarActivity
 import com.style.bean.User
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
@@ -21,13 +19,8 @@ class LoginActivity : BaseActivity() {
     private lateinit var bd: ActivityLoginBinding
     private lateinit var loginModel: LoginModel
 
-
     override fun getLayoutResId(): Int {
         return R.layout.activity_login
-    }
-
-    override fun isGeneralTitleBar(): Boolean {
-        return false
     }
 
     override fun initData() {

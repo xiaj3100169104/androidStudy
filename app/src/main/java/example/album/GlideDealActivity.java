@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.style.app.ConfigUtil;
 import com.style.base.BaseCropActivity;
 import com.style.data.glide.GlideCircleTransform;
-import com.style.data.glide.GlideRectBoundTransform;
+import com.style.data.glide.CornerRectTransform;
 import com.style.data.glide.GlideRoundTransform;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
@@ -46,7 +46,7 @@ public class GlideDealActivity extends BaseCropActivity {
     }
 
     public void skip420(View v) {
-        RequestOptions myOptions = new RequestOptions().transform(new GlideRectBoundTransform(4, 0xFFFF6347)).skipMemoryCache(true);
+        RequestOptions myOptions = new RequestOptions().transform(new CornerRectTransform(4, 0xFFFF6347)).skipMemoryCache(true);
         Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv3);
     }
 

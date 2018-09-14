@@ -9,7 +9,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.view.View;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
@@ -20,7 +20,7 @@ import example.home.MainActivity;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-public class AidlActivity extends BaseActivity {
+public class AidlActivity extends BaseTitleBarActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;

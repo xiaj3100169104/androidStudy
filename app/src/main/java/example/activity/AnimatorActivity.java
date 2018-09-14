@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 
 
-public class AnimatorActivity extends BaseActivity {
+public class AnimatorActivity extends BaseTitleBarActivity {
 
 
     private ActivitySecondBinding bd;

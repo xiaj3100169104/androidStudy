@@ -11,7 +11,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 
 /**
  * 右滑销毁activity基类，操作体验更好
@@ -19,7 +19,7 @@ import com.style.base.BaseActivity;
  * 注意：主题窗口背景设置半透明，滑动销毁时要去掉activity退出动画
  */
 
-public abstract class BaseRightSlideFinishActivity extends BaseActivity {
+public abstract class BaseRightSlideFinishActivity extends BaseTitleBarActivity {
     //静止状态
     private static final int SLIDE_STATE_IDLE = 0;
     //第一个move事件为左滑
@@ -35,6 +35,7 @@ public abstract class BaseRightSlideFinishActivity extends BaseActivity {
     private int currentSlideState = SLIDE_STATE_IDLE;
 
     protected final String TAG = getClass().getSimpleName();
+    //最大偏移
     private int screenWidth;
     private ViewConfiguration viewConfiguration;
     private float xDown;

@@ -30,19 +30,19 @@
                     android:id="@+id/btn_3"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip9}"
-                    android:text="监听在view上手势滑动方向" />
+                    android:text="监听在view上的上下左右滑动" />
 
                 <TextView
                     android:id="@+id/btn_31"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip91}"
-                    android:text="不让scrollView处理水平滑动操作" />
+                    android:text="左右滑动移动View并销毁activity" />
 
                 <TextView
                     android:id="@+id/btn_4"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip10}"
-                    android:text="手势上下滑动移动布局并销毁activity" />
+                    android:text="上下滑动移动View并销毁activity" />
 
                 <TextView
                     android:id="@+id/btn_5"
@@ -55,8 +55,12 @@
                     android:id="@+id/btn_7"
                     style="@style/text_home_item"
                     android:onClick="@{onItemClickListener::skip13}"
-                    android:text="recycler_view拖拽测试" />
+                    android:text="recyclerView拖拽测试" />
 
+                <TextView
+                    android:id="@+id/btn_swipe_menu"
+                    style="@style/text_home_item"
+                    android:text="recyclerView左滑菜单" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -3,11 +3,11 @@ package example.gesture;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 
-public class SimpleGestureActivity extends BaseActivity {
+public class SimpleGestureActivity extends BaseTitleBarActivity {
 
     GestureSimpleTestBinding bd;
     private GestureDetector mGestureDetector;
@@ -20,7 +20,7 @@ public class SimpleGestureActivity extends BaseActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("区分上下、左右滑动");
+        setToolbarTitle("区分上、下、左、右滑动");
 
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             public static final float FLING_MIN_VELOCITY = 2000f;

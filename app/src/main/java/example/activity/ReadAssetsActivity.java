@@ -2,14 +2,14 @@ package example.activity;
 
 import android.widget.TextView;
 
-import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityUserAgreeBinding;
 import com.style.utils.AssetsUtil;
 
 import java.io.IOException;
 
-public class ReadAssetsActivity extends BaseActivity {
+public class ReadAssetsActivity extends BaseTitleBarActivity {
 
     ActivityUserAgreeBinding bd;
     private TextView tv_agree;

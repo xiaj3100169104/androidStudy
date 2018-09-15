@@ -33,6 +33,9 @@ public class SwipeMenuView extends RelativeLayout {
     private static final int SLIDE_STATE_AUTO_TO_LEFT = 4;
     //自动向右完成移动
     private static final int SLIDE_STATE_AUTO_TO_TIGHT = 5;
+    private int screenWidth;
+    //滑动开始与点击事件的位移临界值
+    private int mTouchSlop;
     private int currentSlideState = SLIDE_STATE_IDLE;
 
     protected final String TAG = getClass().getSimpleName();
@@ -47,6 +50,8 @@ public class SwipeMenuView extends RelativeLayout {
     private float xLastMove;
     private ValueAnimator va;
     private OnSlideListener listener;
+    private boolean isMenuOpen;
+    private boolean isCanSlideToRight;
 
     public SwipeMenuView(Context context) {
         super(context);
@@ -55,25 +60,26 @@ public class SwipeMenuView extends RelativeLayout {
     public SwipeMenuView(Context context, AttributeSet attrs) {
         super(context, attrs);
         viewConfiguration = ViewConfiguration.get(context);
-        xMaxOffset = Utils.dp2px(context, 200);
+        mTouchSlop = viewConfiguration.getScaledTouchSlop();
+        screenWidth = ScreenUtils.getScreenWidth(context);
+        xMaxOffset = -Utils.dp2px(context, 200);
         scroller = new Scroller(context);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        getParent().requestDisallowInterceptTouchEvent(true);
         Log.e(TAG, "onInterceptTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                currentSlideState = SLIDE_STATE_IDLE;
                 xDown = ev.getRawX();
                 yDown = ev.getRawY();
-                return true;
+                //如果菜单已经打开并且再次按下在左边内容区
+                if (isMenuOpen && (xDown >= 0 && xDown <= screenWidth + xMaxOffset)) {
+                    isCanSlideToRight = true;
+                }
+                return false;
             //break;
             case MotionEvent.ACTION_MOVE:
-                if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
-                    return true;
-                }
                 float xMove = ev.getRawX();
                 float yMove = ev.getRawY();
                 float xDistance = Math.abs(xMove - xDown);
@@ -87,22 +93,29 @@ public class SwipeMenuView extends RelativeLayout {
                         currentSlideState = SLIDE_STATE_RIGHT_FIRST;
                     }
                 }
-                if (currentSlideState == SLIDE_STATE_RIGHT_FIRST) {
-                    //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
-                    if (xMove - xDown > viewConfiguration.getScaledTouchSlop() && xDistance > yDistance) {
-                        currentSlideState = SLIDE_STATE_MOVE_WITH_TOUCH;
-                        Log.e(TAG, "start move");
-                        xLastMove = xMove;
-                        return true;
-                    }
+                //菜单处于关闭状态，
+                if (!isMenuOpen && currentSlideState == SLIDE_STATE_LEFT_FIRST && (xMove - xDown < -mTouchSlop && xDistance > yDistance)) {
+                    currentSlideState = SLIDE_STATE_MOVE_WITH_TOUCH;
+                    Log.e(TAG, "start move");
+                    xLastMove = xMove;
+                    if (getParent() != null)
+                        getParent().requestDisallowInterceptTouchEvent(true);
+                    return true;
+                }
+                //菜单处于打开状态时，不管什么方向都拦截，避免列表上下滑动
+                if (isMenuOpen && isCanSlideToRight && (xDistance > mTouchSlop || yDistance > mTouchSlop)) {
+                    currentSlideState = SLIDE_STATE_MOVE_WITH_TOUCH;
+                    xLastMove = xMove;
+                    if (getParent() != null)
+                        getParent().requestDisallowInterceptTouchEvent(true);
+                    return true;
                 }
                 break;
-            //ACTION_MOVE被当前view或者子view消耗了这里就收不到ACTION_UP事件
             case MotionEvent.ACTION_UP:
                 break;
 
         }
-        return true;
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override
@@ -110,17 +123,25 @@ public class SwipeMenuView extends RelativeLayout {
         Log.e(TAG, "onTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                return true;
-            //break;
+                break;
             case MotionEvent.ACTION_MOVE:
-                if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
-                    float xMove = ev.getRawX();
-                    float translationX = xMove - xLastMove;
+                float xMove = ev.getRawX();
+                if (!isMenuOpen && currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
+                    float translationX = 0 + xMove - xLastMove;
                     //yDistance = Math.abs(yMove - yDown);
                     Log.i(TAG, "translationX  " + translationX);
                     //Log.e(TAG, "yDistance  " + yDistance);
-                    //move的x不能小于开始移动的x；不然就会向左滑出屏幕
-                    if (xMove >= xLastMove && translationX <= xMaxOffset) {
+                    if (translationX <= 0 && translationX >= xMaxOffset) {
+                        setTranslationX(translationX);
+                        //xLastMove = xMove;
+                    }
+                }
+                if (isMenuOpen && isCanSlideToRight && currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
+                    float translationX = xMaxOffset + xMove - xLastMove;
+                    //yDistance = Math.abs(yMove - yDown);
+                    Log.i(TAG, "translationX  " + translationX);
+                    //Log.e(TAG, "yDistance  " + yDistance);
+                    if (translationX <= 0 && translationX >= xMaxOffset) {
                         setTranslationX(translationX);
                         //xLastMove = xMove;
                     }
@@ -130,7 +151,6 @@ public class SwipeMenuView extends RelativeLayout {
                 if (currentSlideState == SLIDE_STATE_MOVE_WITH_TOUCH) {
                     Log.e(TAG, "stop move");
                     autoTranslationX();
-                    return true;
                 }
                 break;
         }
@@ -139,9 +159,9 @@ public class SwipeMenuView extends RelativeLayout {
 
     private void autoTranslationX() {
         float xOffset = getTranslationX();
-        if (xOffset >= xMaxOffset / 2)
+        if (xOffset <= xMaxOffset / 2)
             va = ValueAnimator.ofFloat(xOffset, xMaxOffset);
-        if (xOffset > 0 && xOffset < xMaxOffset / 2)
+        if (xOffset < 0 && xOffset > xMaxOffset / 2)
             va = ValueAnimator.ofFloat(xOffset, 0f);
 
         va.setDuration(300);
@@ -151,10 +171,24 @@ public class SwipeMenuView extends RelativeLayout {
             float v = (float) animation.getAnimatedValue();
             Log.d(TAG, "translationX:" + v);
             setTranslationX(v);
-            if (v >= xMaxOffset)
-                onViewSlideToScreen();
+
         });
         va.start();
+    }
+
+    @Override
+    public void setTranslationX(float translationX) {
+        super.setTranslationX(translationX);
+        if (translationX <= xMaxOffset) {
+            isMenuOpen = true;
+            currentSlideState = SLIDE_STATE_IDLE;
+            isCanSlideToRight = false;
+        }
+        if (translationX >= 0) {
+            currentSlideState = SLIDE_STATE_IDLE;
+            isMenuOpen = false;
+            isCanSlideToRight = false;
+        }
     }
 
     private void onViewSlideToScreen() {

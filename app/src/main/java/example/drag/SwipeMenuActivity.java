@@ -44,12 +44,15 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
         bd.recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
+                return true;
             }
 
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-                View v = rv.findChildViewUnder(e.getX(), e.getY());
+                View view = rv.findChildViewUnder(e.getX(), e.getY());//根据用户点击的坐标，找到RecyclerView下的子View，这里也就是每一个Item
+                SwipeMenuAdapter.ViewHolder viewHolder = (SwipeMenuAdapter.ViewHolder) rv.getChildViewHolder(view);//获得每一个Item的ViewHolder
+                SwipeMenuView itemLayout = viewHolder.bd.layoutRoot;//获得ViewHolder相应的布局
+                itemLayout.setTranslationX(-150);
             }
 
             @Override

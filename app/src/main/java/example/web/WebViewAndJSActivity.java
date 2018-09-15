@@ -34,7 +34,6 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
             @Override
             public void onProgressChanged(WebView view, int progress) {
                 // Activity和Webview根据加载程度决定进度条的进度大小
-
             }
 
             @Override

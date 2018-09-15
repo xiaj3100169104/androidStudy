@@ -1,5 +1,6 @@
 package example.gesture;
 
+import android.nfc.Tag;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -21,6 +22,8 @@ public class SimpleGestureActivity extends BaseTitleBarActivity {
     public void initData() {
         bd = getBinding();
         setToolbarTitle("区分上、下、左、右滑动");
+        bd.textView3.setOnClickListener(v -> logE(getTAG(), "textView3"));
+        bd.textView4.setOnClickListener(v -> logE(getTAG(), "textView4"));
 
         mGestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             public static final float FLING_MIN_VELOCITY = 2000f;

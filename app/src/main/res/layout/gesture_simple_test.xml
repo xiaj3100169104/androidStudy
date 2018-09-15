@@ -22,7 +22,7 @@
                 <TextView
                     android:id="@+id/tv_content1"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="200dp"
                     android:background="#0f0"
                     android:gravity="bottom"
                     android:text="视图2" />
@@ -32,10 +32,22 @@
                     android:layout_height="150dp">
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="和哈佛生活费ISO还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
+                        android:layout_height="50dp"
+                        android:text="HorizontalScrollView还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
                 </HorizontalScrollView>
+
+                <example.gesture.CustomHorizontalSlideView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="仿照HorizontalScrollView拦截父布局的水平滑动事件，不影响父布局的垂直滑动" />
+                </example.gesture.CustomHorizontalSlideView>
 
                 <TextView
                     android:layout_width="match_parent"

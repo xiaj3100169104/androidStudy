@@ -9,17 +9,18 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.DragAdapterBinding;
 import com.style.framework.databinding.SwipeMenuAdapterBinding;
+import com.style.utils.Utils;
 
 import java.util.ArrayList;
 
 public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
-
-
     private final int screenWidth;
+    private final int width;
 
     public SwipeMenuAdapter(Context context, ArrayList<String> dataList) {
         super(context, dataList);
         screenWidth = ScreenUtils.getScreenWidth(context);
+        width = screenWidth+ Utils.dp2px(getContext(), 200);
     }
 
     @Override
@@ -35,6 +36,7 @@ public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
         holder.bd.viewMark.setText(f);
         //holder.bd.viewNick.setText(f.getUser().getUserName());
         //super.setOnItemClickListener(holder.itemView, position);
+        holder.bd.layoutRoot.getLayoutParams().width = width;
         holder.bd.layoutFore.getLayoutParams().width = screenWidth;
         holder.bd.layoutFore.setOnClickListener(v -> {
             if (getOnItemClickListener() != null) {

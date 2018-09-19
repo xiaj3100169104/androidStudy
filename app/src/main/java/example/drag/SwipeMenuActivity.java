@@ -41,23 +41,19 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
                     showToast(position + "-->  data-->" + data);
                 }
         );
-        bd.recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        adapter.setOnSwipeMenuListener(new SwipeMenuAdapter.OnSwipeMenuListener<String>() {
             @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return true;
+            public void onMenuEdit(int position, String data) {
+                dataList.set(0, "新加");
+                bd.recyclerView.closeMenuFromOpen();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-                View view = rv.findChildViewUnder(e.getX(), e.getY());//根据用户点击的坐标，找到RecyclerView下的子View，这里也就是每一个Item
-                SwipeMenuAdapter.ViewHolder viewHolder = (SwipeMenuAdapter.ViewHolder) rv.getChildViewHolder(view);//获得每一个Item的ViewHolder
-                SwipeMenuView itemLayout = viewHolder.bd.layoutRoot;//获得ViewHolder相应的布局
-                itemLayout.setTranslationX(-150);
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
+            public void onMenuDelete(int position, String data) {
+                dataList.remove(position);
+                bd.recyclerView.closeMenuFromOpen();
+                adapter.notifyDataSetChanged();
             }
         });
         refresh();
@@ -65,7 +61,6 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
     }
 
     private void refresh() {
-
         dataList.clear();
         for (int i = 0; i < 25; i++) {
             dataList.add("数据" + i);

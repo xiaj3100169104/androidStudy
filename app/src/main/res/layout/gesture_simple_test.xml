@@ -25,7 +25,7 @@
                     android:layout_height="200dp"
                     android:background="#0f0"
                     android:gravity="bottom"
-                    android:text="视图2" />
+                    android:text="系统手势识别不灵敏，不如自己写" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -46,9 +46,33 @@
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="仿照HorizontalScrollView拦截父布局的水平滑动事件，不影响父布局的垂直滑动" />
+                        android:text="自定义ViewGroup拦截水平拖拽，不影响父布局的垂直滑动" />
                 </example.gesture.CustomHorizontalSlideView>
 
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="以下是自定义view在ACTION_DOWN拦截事件" />
+
+                <example.gesture.CustomSlideView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/gray">
+
+                </example.gesture.CustomSlideView>
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="以下是自定义view在ACTION_MOVE拦截事件" />
+
+                <example.gesture.HorizontalSlideView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/gray">
+
+                </example.gesture.HorizontalSlideView>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="400dp"

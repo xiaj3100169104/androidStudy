@@ -2,6 +2,7 @@ package example.drag;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
@@ -13,14 +14,17 @@ import com.style.utils.Utils;
 
 import java.util.ArrayList;
 
+import static android.support.v7.widget.RecyclerView.NO_POSITION;
+
 public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
     private final int screenWidth;
     private final int width;
+    private OnSwipeMenuListener listener;
 
     public SwipeMenuAdapter(Context context, ArrayList<String> dataList) {
         super(context, dataList);
         screenWidth = ScreenUtils.getScreenWidth(context);
-        width = screenWidth+ Utils.dp2px(getContext(), 200);
+        width = screenWidth + Utils.dp2px(getContext(), 200);
     }
 
     @Override
@@ -40,16 +44,22 @@ public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
         holder.bd.layoutFore.getLayoutParams().width = screenWidth;
         holder.bd.layoutFore.setOnClickListener(v -> {
             if (getOnItemClickListener() != null) {
-                getOnItemClickListener().onItemClick(position, getData(position));
+                getOnItemClickListener().onItemClick(position, f);
             }
         });
         holder.bd.viewEdit.setOnClickListener(v -> {
             logE("SwipeMenuAdapter", position + "  编辑");
+            if (listener != null) {
+                listener.onMenuEdit(position, f);
+            }
         });
         holder.bd.viewDelete.setOnClickListener(v -> {
             logE("SwipeMenuAdapter", position + "  删除");
+            if (listener != null)
+                listener.onMenuDelete(position, f);
         });
         holder.bd.executePendingBindings();
+        holder.setIsRecyclable(false);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -59,5 +69,16 @@ public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
             super(bd.getRoot());
             this.bd = bd;
         }
+    }
+
+    public void setOnSwipeMenuListener(OnSwipeMenuListener<String> listener) {
+        this.listener = listener;
+    }
+
+    public interface OnSwipeMenuListener<String> {
+
+        void onMenuEdit(int position, String data);
+
+        void onMenuDelete(int position, String data);
     }
 }

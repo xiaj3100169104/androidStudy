@@ -8,79 +8,86 @@
 
         <include layout="@layout/title_bar_normal" />
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        <example.gesture.VerticalElasticScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:id="@+id/tv_content1"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="#0f0"
-                    android:gravity="bottom"
-                    android:text="系统手势识别不灵敏，不如自己写" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tv_content1"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="HorizontalScrollView还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
-                </HorizontalScrollView>
+                        android:layout_height="200dp"
+                        android:background="#0f0"
+                        android:gravity="bottom"
+                        android:text="系统手势识别不灵敏，不如自己写" />
 
-                <example.gesture.CustomHorizontalSlideView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="HorizontalScrollView还是of时好时坏送佛节脸皮厚金黄色的佛手机会很舒服董事局覅石佛寺监事会对水电费is几乎是奇偶is道具" />
+                    </HorizontalScrollView>
+
+                    <example.gesture.CustomHorizontalSlideView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp">
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="自定义ViewGroup拦截水平拖拽，不影响父布局的垂直滑动" />
+                    </example.gesture.CustomHorizontalSlideView>
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView5"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="自定义ViewGroup拦截水平拖拽，不影响父布局的垂直滑动" />
-                </example.gesture.CustomHorizontalSlideView>
+                        android:layout_height="wrap_content"
+                        android:text="以下是自定义view在ACTION_DOWN拦截事件" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="以下是自定义view在ACTION_DOWN拦截事件" />
+                    <example.gesture.CustomSlideView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/gray">
 
-                <example.gesture.CustomSlideView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/gray">
+                    </example.gesture.CustomSlideView>
 
-                </example.gesture.CustomSlideView>
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="以下是自定义view在ACTION_MOVE拦截事件" />
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="以下是自定义view在ACTION_MOVE拦截事件" />
 
-                <example.gesture.HorizontalSlideView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/gray">
+                    <example.gesture.HorizontalSlideView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/gray">
 
-                </example.gesture.HorizontalSlideView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:background="#0ff"
-                    android:gravity="bottom"
-                    android:text="视图2" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+                    </example.gesture.HorizontalSlideView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="#0ff"
+                        android:gravity="bottom"
+                        android:text="视图2" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </example.gesture.VerticalElasticScrollView>
     </LinearLayout>
 
 </layout>

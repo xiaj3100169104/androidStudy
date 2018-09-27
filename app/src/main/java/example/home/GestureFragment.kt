@@ -5,6 +5,8 @@ import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHomeGestureBinding
 import example.drag.DragActivity
+import example.drag.ScrollingActivity
+import example.drag.ScrollingParallaxActivity
 import example.drag.SwipeMenuActivity
 import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
@@ -29,6 +31,9 @@ class GestureFragment : BaseFragment() {
             refreshLayout.finishLoadMore(2000/*,false*/)//传入false表示加载失败
         }
         bd.btnSwipeMenu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
+        bd.btnCollapseModePin.setOnClickListener { skip(ScrollingActivity::class.java) }
+        bd.btnCollapseModeParallax.setOnClickListener { skip(ScrollingParallaxActivity::class.java) }
+
     }
 
     inner class OnItemClickListener {

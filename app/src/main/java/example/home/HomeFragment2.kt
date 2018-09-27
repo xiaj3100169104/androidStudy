@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 
 import com.style.base.BaseFragment
 import com.style.base.BaseRecyclerViewAdapter
@@ -48,17 +49,19 @@ class HomeFragment2 : BaseFragment() {
                 showToast(position.toString() + "")
             }
         })
+        var header =  CustomClassicsHeader(context)
+        header.setSpinnerStyle(SpinnerStyle.FixedFront)
+        bd.refreshLayout.setRefreshHeader(header)
         bd.refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
-        bd.refreshLayout.setOnRefreshListener { refreshLayout -> refreshLayout.layout.postDelayed({ refresh() }, 2000) }
+        bd.refreshLayout.setOnRefreshListener { refreshLayout ->
+            refreshLayout.layout.postDelayed({
+                refresh()
+            }, 1000)
+        }
         bd.refreshLayout.setOnLoadMoreListener { refreshLayout ->
             refreshLayout.layout.postDelayed({
-                if (adapter.itemCount > 20) {
-                    Toast.makeText(context, "数据全部加载完毕", Toast.LENGTH_SHORT).show()
-                    refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件
-                } else {
-                    loadMore()
-                }
-            }, 2000)
+                loadMore()
+            }, 1000)
         }
 
         //触发自动刷新
@@ -74,6 +77,8 @@ class HomeFragment2 : BaseFragment() {
         adapter.notifyDataSetChanged()
 
         bd.refreshLayout.finishLoadMore()
+        if (dataList.size > 20)
+            bd.refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
     }
 
     private fun refresh() {

@@ -61,6 +61,16 @@
                     android:id="@+id/btn_swipe_menu"
                     style="@style/text_home_item"
                     android:text="recyclerView左滑菜单" />
+
+                <TextView
+                    android:id="@+id/btn_collapseMode_pin"
+                    style="@style/text_home_item"
+                    android:text="先滚动标题栏" />
+
+                <TextView
+                    android:id="@+id/btn_collapseMode_parallax"
+                    style="@style/text_home_item"
+                    android:text="缩放标题栏" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

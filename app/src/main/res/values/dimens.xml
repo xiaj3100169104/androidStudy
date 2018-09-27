@@ -31,4 +31,7 @@
     <dimen name="divider_1px_width">1px</dimen>
     <!-- text行间距大小 -->
     <dimen name="line_Spacing_Extra">3dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

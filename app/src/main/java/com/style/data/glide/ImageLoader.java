@@ -29,7 +29,7 @@ public class ImageLoader {
                     .placeholder(R.mipmap.empty_photo)
                     .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);
-            Glide.with(context).load(url).apply(options).into(imageView);
+            GlideApp.with(context).load(url).apply(options).into(imageView);
         }
     }
 

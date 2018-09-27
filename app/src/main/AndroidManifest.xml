@@ -49,9 +49,9 @@
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
-    <!--粗略位置-->
+    <!-- 粗略位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--精确位置-->
+    <!-- 精确位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -62,7 +62,8 @@
         android:supportsRtl="false"
         android:theme="@style/BaseAppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
-        <!--自定义FileProvider来避免冲突, 对应的resource也要保证唯一-->
+
+        <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.file.provider"
@@ -83,7 +84,6 @@
         <activity
             android:name="example.home.MainActivity"
             android:launchMode="singleTask" />
-
         <activity android:name="example.activity.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
@@ -96,10 +96,8 @@
             android:name="example.gesture.DispatchGestureActivity"
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.gesture.SimpleGestureActivity" />
-
         <activity android:name="example.drag.DragActivity" />
         <activity android:name="example.drag.SwipeMenuActivity" />
-
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.dialog.WheelActivity" />
@@ -113,21 +111,18 @@
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
-
         <activity android:name="example.ble.BlueToothActivity" />
         <activity android:name="example.ble.BLEActivity" />
 
         <service android:name="example.ble.BleService" />
 
         <activity android:name="example.wifi.WifiTestActivity" />
-
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.activity.DataBindingActivity" />
         <activity android:name="example.activity.MsgToSubActivity" />
         <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="example.aidl.AidlActivity" />
         <activity android:name="example.db.EncryptActivity" />
-
         <activity android:name="example.webservice.WebServiceActivity" />
         <activity android:name="example.activity.TestDBActivity" />
         <activity android:name="example.album.GlideDealActivity" />
@@ -160,7 +155,6 @@
         <activity android:name="example.customview.TempActivity" />
         <activity android:name="example.customview.BpActivity" />
         <activity android:name="example.customview.SleepWeekActivity" />
-
         <activity
             android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
             android:screenOrientation="portrait" />
@@ -170,7 +164,6 @@
         <service android:name="example.customview.service.VideoSuspendService" />
         <!-- 来电悬浮服务 -->
         <service android:name="example.customview.service.CallInSuspendService" />
-
 
         <meta-data
             android:name="UMENG_CHANNEL"
@@ -182,11 +175,13 @@
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.viewpager.GlideListActivity" />
         <activity android:name="example.music.MusicListActivity" />
-        <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。          -->
+        <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->
         <service
             android:name="example.music.PlayMusicService"
             android:exported="false" />
+
         <activity android:name="example.music.remote.RemotePlayActivity" />
+
         <service
             android:name="example.music.remote.RemotePlayService"
             android:process="com.offline.message">
@@ -195,7 +190,7 @@
             </intent-filter>
         </service>
 
-        <!--阿里热修复-->
+        <!-- 阿里热修复 -->
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
             android:value="24874332" />
@@ -205,6 +200,15 @@
         <meta-data
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="RSA密钥" />
+
+        <activity
+            android:name="example.drag.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/BaseAppTheme"></activity>
+        <activity
+            android:name="example.drag.ScrollingParallaxActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/BaseAppTheme"></activity>
     </application>
 
 </manifest>

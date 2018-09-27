@@ -1,6 +1,7 @@
 package com.dmcbig.mediapicker.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -80,10 +81,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Media media = medias.get(position);
         Uri mediaUri = Uri.parse("file://" + media.path);
-
-        Glide.with(context)
-                .load(mediaUri)
-                .into(holder.media_image);
+        Glide.with((Activity) context).load(mediaUri).into(holder.media_image);
 
         if (media.mediaType == MediaType.VIDEO) {
             holder.video_info.setVisibility(View.VISIBLE);

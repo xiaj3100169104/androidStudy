@@ -14,7 +14,7 @@ import com.bumptech.glide.module.AppGlideModule;
  * Created by xiajun on 2018/1/7.
  */
 @GlideModule
-public class MyGlideModule extends AppGlideModule {
+public class MyAppGlideModule extends AppGlideModule {
     @Override
     public boolean isManifestParsingEnabled() {
         return false;
@@ -54,8 +54,8 @@ public class MyGlideModule extends AppGlideModule {
         Log.e("defaultMemoryCacheSize", defaultMemoryCacheSize / 1024 / 1024 + "");
         Log.e("defaultBitmapPoolSize", defaultBitmapPoolSize / 1024 / 1024 + "");*/
 
-        long memoryCacheSizeBytes = Runtime.getRuntime().maxMemory() / 8;
-        long defaultBitmapPoolSize = Runtime.getRuntime().maxMemory() / 8;
+        long memoryCacheSizeBytes = Runtime.getRuntime().maxMemory() / 16;
+        long defaultBitmapPoolSize = Runtime.getRuntime().maxMemory() / 16;
 
         builder.setMemoryCache(new LruResourceCache(memoryCacheSizeBytes));
         builder.setBitmapPool(new LruBitmapPool(defaultBitmapPoolSize));

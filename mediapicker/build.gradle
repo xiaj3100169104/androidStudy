@@ -10,9 +10,9 @@ android {
     dependencies {
         implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
         implementation "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_VERSION"
-        implementation 'com.github.bumptech.glide:glide:4.5.0'
-        annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
-
+        implementation 'com.github.bumptech.glide:glide:4.7.1'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+        implementation 'com.github.bumptech.glide:okhttp3-integration:4.3.1'
         compile 'com.chensl.rotatephotoview:rotatephotoview:1.0.5'
     }
 }

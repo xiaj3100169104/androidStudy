@@ -17,7 +17,7 @@ public class SystemShareUtil {
     public static void shareText(Context context, String value) {
         Intent textIntent = new Intent(Intent.ACTION_SEND);
         textIntent.setType("text/plain");
-        textIntent.putExtra(Intent.EXTRA_TEXT, "来自系统分享");
+        textIntent.putExtra(Intent.EXTRA_TEXT, value);
         context.startActivity(Intent.createChooser(textIntent, "文章"));
     }
 
@@ -27,6 +27,5 @@ public class SystemShareUtil {
         Uri uri = FileProvider.getUriForFile(context, ConfigUtil.FILE_PROVIDER_AUTHORITY, new File(path));
         imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
         context.startActivity(Intent.createChooser(imageIntent, "图片"));
-
     }
 }

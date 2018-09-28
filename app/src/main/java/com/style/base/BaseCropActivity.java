@@ -9,6 +9,7 @@ import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.style.app.ConfigUtil;
 import com.style.framework.BuildConfig;
 import com.style.framework.R;
 import com.style.utils.DeviceInfoUtil;
@@ -149,7 +150,7 @@ public abstract class BaseCropActivity extends BaseTitleBarActivity {
         }
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileProvider", photoFile);
+            uri = FileProvider.getUriForFile(this, ConfigUtil.FILE_PROVIDER_AUTHORITY, photoFile);
         } else {
             uri = Uri.fromFile(photoFile);
         }

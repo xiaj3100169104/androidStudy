@@ -34,7 +34,7 @@ public class Skip {
         File f = FileUtil.create(dir, name);
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".fileProvider", f);
+            uri = FileProvider.getUriForFile(activity, ConfigUtil.FILE_PROVIDER_AUTHORITY, f);
         } else {
             uri = Uri.fromFile(f);
         }

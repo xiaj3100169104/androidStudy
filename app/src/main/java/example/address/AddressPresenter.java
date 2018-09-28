@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 
 import com.style.base.BaseAndroidViewModel;
-import com.style.utils.HanyuToPinyin;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -36,7 +35,7 @@ public class AddressPresenter extends BaseAndroidViewModel {
             if (null != list) {
                 int size = list.size();
                 for (int i = 0; i < size; i++) {
-                    String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
+                    String sortLetter = ContactsUtils.getAbbreviation(list.get(i).getName()).substring(0, 1);
                     list.get(i).setSortLetters(sortLetter);
                 }
                 // 根据a-z进行排序源数据

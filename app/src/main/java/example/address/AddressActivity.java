@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
@@ -17,6 +18,7 @@ import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -25,9 +27,11 @@ public class AddressActivity extends BaseTitleBarActivity {
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
     private ArrayList<UploadPhone> dataList;
+    private LinkedHashMap<Integer, String> mHeaderList = new LinkedHashMap<>();
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
     private AddressPresenter mPresenter;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_address;
@@ -42,12 +46,12 @@ public class AddressActivity extends BaseTitleBarActivity {
         });
 
         setToolbarTitle("通讯录");
-        bd.sidebar.setTextView(bd.tvDialog);
         dataList = new ArrayList<>();
         adapter = new UploadPhoneAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
         bd.recyclerView.setLayoutManager(layoutManager);
         bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        bd.recyclerView.addItemDecoration(new FloatingBarItemDecoration(this, mHeaderList));
         bd.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((position, data) -> {
@@ -55,11 +59,28 @@ public class AddressActivity extends BaseTitleBarActivity {
             //AppDataHelper.openEditSms(PhoneActivity.this, up.getTelephone());
         });
         // 设置右侧触摸监听
-        bd.sidebar.setOnTouchingLetterChangedListener(s -> {
-            // 该字母首次出现的位置
-            int position = adapter.getPositionForSection(s.charAt(0));
-            if (position != -1) {
-                layoutManager.smoothScrollToPosition(bd.recyclerView, null, position);
+        bd.indexBar.setOnTouchingLetterChangedListener(new IndexBar.OnTouchingLetterChangeListener() {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                showLetterHint(s);
+                for (Integer position : mHeaderList.keySet()) {
+                    if (mHeaderList.get(position).equals(s)) {
+                        //layoutManager.smoothScrollToPosition(bd.recyclerView, null, position);
+                        //移动到屏幕顶端， 距离屏幕顶端offset
+                        layoutManager.scrollToPositionWithOffset(position, 0);
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onTouchingStart(String s) {
+                showLetterHint(s);
+            }
+
+            @Override
+            public void onTouchingEnd(String s) {
+                hideLetterHint();
             }
         });
         // Here, thisActivity is the current activity
@@ -87,6 +108,15 @@ public class AddressActivity extends BaseTitleBarActivity {
         }
     }
 
+    private void hideLetterHint() {
+        bd.tvDialog.setVisibility(View.INVISIBLE);
+    }
+
+    private void showLetterHint(String s) {
+        bd.tvDialog.setText(s);
+        bd.tvDialog.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
@@ -108,53 +138,29 @@ public class AddressActivity extends BaseTitleBarActivity {
         mPresenter.getData();
         //getData2();
     }
+
     public void setData(List<UploadPhone> data) {
         dataList.addAll(data);
+        mHeaderList.clear();
+        addHeaderToList(0, dataList.get(0).getSortLetters());
+        for (int i = 1; i < dataList.size(); i++) {
+            if (!dataList.get(i - 1).getSortLetters().equalsIgnoreCase(dataList.get(i).getSortLetters())) {
+                addHeaderToList(i, dataList.get(i).getSortLetters());
+            }
+        }
         adapter.notifyDataSetChanged();
+
+        bd.indexBar.setNavigators(new ArrayList<>(mHeaderList.values()));
     }
+
+    private void addHeaderToList(int index, String header) {
+        mHeaderList.put(index, header);
+    }
+
 
     @Override
     protected void onPause() {
         super.onPause();
         mPresenter.stopPlay();
-    }
-
-    private void getData2() {
-        GeneralThreadPoolManager.getInstance().runTask(getTAG(), new CustomFutureTask<List<UploadPhone>>() {
-            @Override
-            public List<UploadPhone> doInBackground() {
-                List<UploadPhone> list = ContactHelper.getContacts(getContext());
-                if (null != list) {
-                    int size = list.size();
-                    for (int i = 0; i < size; i++) {
-                        String sortLetter = HanyuToPinyin.hanziToCapital(list.get(i).getName());
-                        list.get(i).setSortLetters(sortLetter);
-                    }
-                }
-                // 根据a-z进行排序源数据
-                Collections.sort(list, new UploadPhoneComparator());
-                return list;
-            }
-
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(List<UploadPhone> data) {
-                Log.e(AddressActivity.this.getTAG(), "OnSuccess");
-                dismissProgressDialog();
-                if (data != null) {
-                    setData(data);
-                }
-            }
-
-            @Override
-            public void onFailed(String message) {
-                dismissProgressDialog();
-
-            }
-        });
     }
 }

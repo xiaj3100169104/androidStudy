@@ -8,15 +8,6 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/catalog"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@color/gray_light"
-            android:paddingLeft="@dimen/paddingLeft_normal"
-            android:text="A"
-            android:textColor="#454545" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_first_name"
-                    android:elevation="8dp"
+                    android:elevation="0dp"
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="瑶"

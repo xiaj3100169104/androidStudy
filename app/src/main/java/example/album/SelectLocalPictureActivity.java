@@ -17,6 +17,8 @@ import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.DeviceInfoUtil;
+import com.style.utils.SystemShareUtil;
+import com.style.view.diviver.GridFullDividerDecoration;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -59,6 +61,7 @@ public class SelectLocalPictureActivity extends BaseTitleBarActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
+        bd.recyclerView.addItemDecoration(new GridFullDividerDecoration(getContext(), 4));
         bd.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((position, data) -> {
             int count = adapter.getItemCount();
@@ -83,7 +86,12 @@ public class SelectLocalPictureActivity extends BaseTitleBarActivity {
             setHaveDynamic();
         });
 
-
+        bd.btnShareText.setOnClickListener(v -> {
+            SystemShareUtil.shareText(getContext(), "来自系统分享");
+        });
+        bd.btnShareImage.setOnClickListener(v -> {
+            SystemShareUtil.shareImage(getContext(), paths.get(0).path);
+        });
     }
     public void selAvatar(View v) {
         showSelPicPopupWindow();

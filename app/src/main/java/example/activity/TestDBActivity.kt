@@ -9,40 +9,39 @@ import com.style.framework.databinding.ActivityTestDbBinding;
 import example.bean.TestBean;
 import example.db.TestDBManager;
 
-public class TestDBActivity extends BaseTitleBarActivity {
+public class TestDBActivity : BaseTitleBarActivity() {
 
-    ActivityTestDbBinding bd;
-    @Override
-    public int getLayoutResId() {
+    lateinit var bd:ActivityTestDbBinding ;
+    override fun getLayoutResId():Int {
         return R.layout.activity_test_db;
     }
 
-    @Override
-    public void initData() {
+    override fun initData() {
         bd = getBinding();
         TestDBManager.getInstance().initialize(this);
     }
 
-    public void skip418(View v) {
-        for (int i = 0; i < 10; i++) {
-            TestBean bean = new TestBean();
+    public fun skip418(v: View) {
+        for (i in 0..10) {
+            var bean = TestBean();
             bean.setName("name=" + i);
             bean.setPhone("phone=" + i);
             TestDBManager.getInstance().insertUser(bean);
         }
     }
 
-    public void skip419(View v) {
+    public fun skip419(v: View) {
         TestDBManager.getInstance().queryAll();
     }
 
-    public void skip42(View v) {
+    public fun skip42(v: View) {
         TestDBManager.getInstance().clearTable();
     }
 
-    public void skip43(View v) {
-        for (int i = 0; i < 10; i++) {
-            TestBean bean = new TestBean();
+    public fun skip43(v: View) {
+
+        for (i in 0 until 10) {
+            var bean = TestBean();
             bean.setName("name=" + i);
             bean.setPhone("phone=" + i);
             bean.setAge(i);

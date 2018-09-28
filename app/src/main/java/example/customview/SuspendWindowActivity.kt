@@ -21,43 +21,45 @@ import example.customview.service.VoiceSuspendService;
  * Created by xiajun on 2017/8/1.
  */
 
-public class SuspendWindowActivity extends AppCompatActivity {
+public class SuspendWindowActivity : AppCompatActivity() {
 
 
-
-    @Override
-    protected void onCreate(Bundle arg0) {
+    override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_suspend_window);
-        openService(VoiceSuspendService.class);
+        openService(VoiceSuspendService::class.java);
     }
 
-    public void test(View v){
-        switch (v.getId()){
-            case R.id.btn1:
+    fun test(v: View) {
+        when (v.getId()) {
+            R.id.btn1 -> {
                 //openService(VoiceSuspendService.class);
-                sendBroadcast(new Intent(Constants.ACTION_CALL_TIME_UPDATE));
-                break;
-            case R.id.btn2:
-                openService(VideoSuspendService.class);
-                break;
-            case R.id.btn3:
-                openService(CallInSuspendService.class);
-                break;
+                sendBroadcast(Intent(Constants.ACTION_CALL_TIME_UPDATE));
+            }
+            R.id.btn2 -> {
+                openService(VideoSuspendService::class.java);
+            }
+            R.id.btn3 -> {
+                openService(CallInSuspendService::class.java);
+            }
         }
     }
-    private void openService(Class cls){
-        startService(new Intent(this, cls));
+
+    fun openService(cls: Class<*>) {
+        startService(Intent(this, cls));
     }
 
-    //参考自http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6
-    public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
+    companion object {
+        //参考自http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6
+        const val OVERLAY_PERMISSION_REQ_CODE = 1234;
+
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void requestDrawOverLays() {
+    fun requestDrawOverLays() {
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "can not DrawOverlays", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + this.getPackageName()));
+            var intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + this.getPackageName()));
             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
         } else {
             // Already hold the SYSTEM_ALERT_WINDOW permission, do addview or something.
@@ -65,8 +67,8 @@ public class SuspendWindowActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
             if (!Settings.canDrawOverlays(this)) {
                 // SYSTEM_ALERT_WINDOW permission not granted...

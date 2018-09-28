@@ -50,7 +50,7 @@ class HomeFragment2 : BaseFragment() {
             }
         })
         var header =  CustomClassicsHeader(context)
-        header.setSpinnerStyle(SpinnerStyle.FixedFront)
+        header.setSpinnerStyle(SpinnerStyle.Scale)
         bd.refreshLayout.setRefreshHeader(header)
         bd.refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
         bd.refreshLayout.setOnRefreshListener { refreshLayout ->

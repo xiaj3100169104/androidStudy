@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TestRxActivity extends BaseTitleBarActivity {
 
     ActivityTestRxBinding bd;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_test_rx;

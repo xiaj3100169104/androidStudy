@@ -110,7 +110,7 @@ class MainActivity : BaseTitleBarActivity() {
         homeFragment3 = HomeFragment3()
         homeFragment4 = HomeFragment4()
 
-        fragments = arrayOf<Fragment>(homeFragment1, homeFragment20, homeFragment2, homeFragment3, homeFragment4)
+        fragments = arrayOf(homeFragment1, homeFragment20, homeFragment2, homeFragment3, homeFragment4)
         fm = supportFragmentManager
         bt = fm.beginTransaction()
         for (i in fragments.indices) {

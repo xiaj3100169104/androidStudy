@@ -68,4 +68,16 @@
         <attr name="xj_scan_speed" format="integer" />
         <attr name="xj_refresh_time" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="Heart_View">
+        <attr name="background_color" format="color" />
+        <attr name="progress_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="IndexBar">
+        <attr name="letterSize" format="dimension" />
+        <attr name="letterColor" format="color" />
+        <attr name="focusLetterColor" format="color" />
+        <attr name="letterSpacingExtra" format="float" />
+    </declare-styleable>
 </resources>

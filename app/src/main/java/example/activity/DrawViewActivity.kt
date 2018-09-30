@@ -19,5 +19,6 @@ class DrawViewActivity : Activity() {
                 this@DrawViewActivity.runOnUiThread { }
             }
         }
+
     }
 }

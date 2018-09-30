@@ -50,23 +50,23 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         }
     }
 
-    open fun setTransparentStatusBarHeight(height: Int) {
+    fun setTransparentStatusBarHeight(height: Int) {
         statusBar.layoutParams.height = height
     }
 
-    open fun onClickTitleBack() {
+    fun onClickTitleBack() {
         onBackPressed()
     }
 
-    open fun setToolbarTitle(title: String) {
+    fun setToolbarTitle(title: String) {
         tvTitleBase.text = title
     }
 
-    open fun setToolbarTitle(@StringRes resId: Int) {
-        tvTitleBase.text = context.getString(resId)
+    fun setToolbarTitle(@StringRes resId: Int) {
+        tvTitleBase.text = getContext().getString(resId)
     }
 
-    open fun getTitleBar(): LinearLayout {
+    fun getTitleBar(): LinearLayout {
         return titleBar;
     }
 }

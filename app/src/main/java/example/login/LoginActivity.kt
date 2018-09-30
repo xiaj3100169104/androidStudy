@@ -29,7 +29,7 @@ class LoginActivity : BaseActivity() {
         loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 if (loginModel.loginSucceed.get()) {
-                    startActivity(Intent(context, MainActivity::class.java))
+                    startActivity(Intent(getContext(), MainActivity::class.java))
                     finish()
                 }
             }
@@ -41,27 +41,25 @@ class LoginActivity : BaseActivity() {
         })
         loginModel.loginState.observe(this, object : Observer<Boolean> {
             override fun onChanged(t: Boolean?) {
-                startActivity(Intent(context, MainActivity::class.java))
+                startActivity(Intent(getContext(), MainActivity::class.java))
                 finish()
             }
         })
-        loginModel.loginState.observe(this, object : Observer<Boolean> {
-            override fun onChanged(t: Boolean?) {
-                if (t!!) {
-                    startActivity(Intent(context, MainActivity::class.java))
-                    finish()
-                } else {
+        loginModel.loginState.observe(this, Observer<Boolean> { t ->
+            if (t!!) {
+                startActivity(Intent(getContext(), MainActivity::class.java))
+                finish()
+            } else {
 
-                }
             }
         })
         loginModel.loginState.observe(this, Observer<Boolean> {
-            startActivity(Intent(context, MainActivity::class.java))
+            startActivity(Intent(getContext(), MainActivity::class.java))
             finish()
         })
 
         bd.btSignIn.setOnClickListener {}
-        bd.btSignIn.setOnClickListener(object : View.OnClickListener{
+        bd.btSignIn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
 
             }

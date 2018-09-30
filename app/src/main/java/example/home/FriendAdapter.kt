@@ -29,7 +29,7 @@ class FriendAdapter : BaseRecyclerViewAdapter<Int> {
         holder.bd.executePendingBindings()
     }
 
-    inner class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : RecyclerView.ViewHolder {
         var bd: AdapterFriendBinding
 
         constructor(bd: AdapterFriendBinding) : super(bd.root) {

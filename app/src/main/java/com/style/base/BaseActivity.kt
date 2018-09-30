@@ -35,28 +35,32 @@ abstract class BaseActivity : AppCompatActivity() {
         const val STATUS_BAR_THEME = 3//主题配置中的状态栏颜色
     }
 
-    protected lateinit var context: Context
+    private lateinit var context: Context
     private var progressDialog: LoadingDialog? = null
     private lateinit var contentView: View
     private var toast: Toast? = null
 
-    open fun isScreenPortrait(): Boolean {
+    fun getContext(): Context {
+        return context;
+    }
+
+    fun isScreenPortrait(): Boolean {
         return true
     }
 
-    open fun getStatusBarStyle(): Int {
+    fun getStatusBarStyle(): Int {
         return STATUS_BAR_TRANSPARENT
     }
 
     protected abstract fun getLayoutResId(): Int
 
     //是否是亮色状态栏
-    open fun isLightStatusBar(): Boolean {
+    fun isLightStatusBar(): Boolean {
         return false
     }
 
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
-    open fun getStatusHeight(): Int {
+    fun getStatusHeight(): Int {
         val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
         return statusBarHeight
     }
@@ -184,15 +188,15 @@ abstract class BaseActivity : AppCompatActivity() {
         InputMethodUtil.hiddenSoftInput(this)
     }
 
-    open fun dp2px(dpValue: Float): Int {
+    fun dp2px(dpValue: Float): Int {
         return DeviceInfoUtil.dp2px(context, dpValue)
     }
 
-    open fun logI(tag: String, msg: String) {
+    fun logI(tag: String, msg: String) {
         LogManager.logI(tag, msg)
     }
 
-    open fun logE(tag: String, msg: String) {
+    fun logE(tag: String, msg: String) {
         LogManager.logE(tag, msg)
     }
 

@@ -34,5 +34,6 @@ class HomeFragment1 : BaseFragment() {
         bd.btnBp.setOnClickListener { skip(BpActivity::class.java) }
         bd.btnSleep.setOnClickListener { skip(SleepWeekActivity::class.java) }
 
+
     }
 }

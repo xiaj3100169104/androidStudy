@@ -1,6 +1,7 @@
 package example.activity;
 
 import android.view.View;
+import com.style.app.ConfigUtil
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
@@ -9,28 +10,24 @@ import com.style.framework.databinding.ActivityGreenDaoBinding;
 import example.bean.TestGreenBean;
 import example.greendao.dao.GreenDaoManager;
 
-public class GreenDaoActivity extends BaseTitleBarActivity {
+public class GreenDaoActivity : BaseTitleBarActivity() {
 
-    ActivityGreenDaoBinding bd;
-    GreenDaoManager manager;
+    lateinit var bd: ActivityGreenDaoBinding;
+    lateinit var manager: GreenDaoManager;
 
-
-    @Override
-    public int getLayoutResId() {
+    override fun getLayoutResId(): Int {
         return R.layout.activity_green_dao;
     }
 
-    @Override
-    public void initData() {
+    override fun initData() {
         bd = getBinding();
-
         manager = GreenDaoManager.getInstance();
     }
 
-    public void skip418(View v) {
-        for (int i = 0; i < 10; i++) {
-            TestGreenBean bean = new TestGreenBean();
-            bean.setId(i + "");
+    fun skip418(v: View) {
+        for (i in 0 until 10) {
+            var bean = TestGreenBean();
+            bean.setId(i.toString());
             bean.setName("name=" + i);
             bean.setPhone("phone=" + i);
             bean.setExtra("extra=" + i);
@@ -38,12 +35,12 @@ public class GreenDaoActivity extends BaseTitleBarActivity {
         }
     }
 
-    public void skip42(View v) {
+    fun skip42(v: View) {
         manager.clearGreenTable();
     }
 
-    public void skip44(View v) {
-        TestGreenBean bean = new TestGreenBean();
+    fun skip44(v: View) {
+        var bean = TestGreenBean();
         bean.setId("9");
         //bean.setName("name=" + i);
         //bean.setPhone("phone=" + i);
@@ -51,34 +48,33 @@ public class GreenDaoActivity extends BaseTitleBarActivity {
         manager.update(bean);
     }
 
-    public void skip419(View v) {
+    fun skip419(v: View) {
         manager.queryAll();
     }
 
-
-    public void skip420(View v) {
+    fun skip420(v: View) {
         manager.queryAsc();
     }
 
-    public void skip421(View v) {
+    fun skip421(v: View) {
         manager.queryDesc();
     }
 
-    public void skip422(View v) {
+    fun skip422(v: View) {
         manager.queryWhereAnd();
     }
 
-    public void skip423(View v) {
+    fun skip423(v: View) {
         manager.queryWhereOr();
     }
 
-    public void skip424(View v) {
+    fun skip424(v: View) {
         manager.queryWhereBetween();
     }
 
-    public void skip43(View v) {
-        for (int i = 0; i < 10; i++) {
-            TestGreenBean bean = new TestGreenBean();
+    fun skip43(v: View) {
+        for (i in 0 until 10) {
+            var bean = TestGreenBean();
             bean.setName("name" + i);
             bean.setPhone("phone" + i);
             bean.setAge(i);

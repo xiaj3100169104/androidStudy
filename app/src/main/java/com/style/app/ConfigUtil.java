@@ -5,8 +5,10 @@ import android.os.Environment;
 
 import com.style.framework.BuildConfig;
 
+/**
+ * 不用改成kotlin，多很多麻烦
+ */
 public class ConfigUtil {
-
     /**
      * app服务器路径
      */
@@ -36,5 +38,4 @@ public class ConfigUtil {
     public static final String DIR_VIDEO = DIR_APP + "/video";
 
     public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".file.provider";
-
 }

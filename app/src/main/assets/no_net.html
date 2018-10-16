@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>404</title>
+    <style>
+      html, body{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #offline{
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .offline-background{
+        position: absolute;
+        width: 100%;
+        max-width: 780px;
+        max-height: 780px;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        background-size: cover;
+        background-image: url('./no_net_3x.png');
+      }
+      @media screen and (max-width: 520px) {
+        .offline-background{
+          background-image: url('./no_net_2x.png');
+        }
+      }
+      .offline-text{
+        font-size: 14px;
+        color: #04092a;
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="offline">
+      <div class="offline-background">
+        <span class="offline-text"></span>
+      </div>
+    </div>
+    <script type="text/javascript">
+      window.onload = function() {
+        let elem = document.querySelector('.offline-background')
+        elem.style.height = window.innerWidth + 'px'
+        let text = document.querySelector('.offline-text')
+        let language = navigator.language || navigator.systemLanguage || navigator.userLanguage || navigator.browserLanguage || 'zh'
+        if (language.toLowerCase().slice(0, 2) === 'zh') {
+          text.innerText = '没网啦，快去检查下网络吧！'
+        } else {
+          text.innerText = 'No net. Check the Internet!'
+        }
+      }
+    </script>
+  </body>
+</html>

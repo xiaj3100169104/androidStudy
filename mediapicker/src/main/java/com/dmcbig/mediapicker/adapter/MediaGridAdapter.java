@@ -4,6 +4,8 @@ package com.dmcbig.mediapicker.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,6 +78,14 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.MyVi
         MyViewHolder vh = new MyViewHolder(view);
         return vh;
     }
+
+   /* @Override
+    public void onViewRecycled(@NonNull MyViewHolder holder) {
+        super.onViewRecycled(holder);
+        ImageView imageView = (ImageView) holder.media_image;
+        if (imageView != null)
+            Glide.with((Activity) context).clear(imageView);
+    }*/
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {

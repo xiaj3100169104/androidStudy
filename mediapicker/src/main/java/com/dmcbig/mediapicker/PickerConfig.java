@@ -43,7 +43,7 @@ public class PickerConfig {
     public static final int PICKER_IMAGE = 100;
     public static final int PICKER_VIDEO = 102;
     public static final int PICKER_IMAGE_VIDEO = 101;
-    public static int GridSpanCount = 3;
+    public static int GridSpanCount = 4;
     public static int GridSpace = 4;
 
     public static final int CODE_TAKE_ALBUM = 200;// 从相册中选择

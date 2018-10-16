@@ -44,23 +44,23 @@ abstract class BaseActivity : AppCompatActivity() {
         return context;
     }
 
-    fun isScreenPortrait(): Boolean {
+    open fun isScreenPortrait(): Boolean {
         return true
     }
 
-    fun getStatusBarStyle(): Int {
+    open fun getStatusBarStyle(): Int {
         return STATUS_BAR_TRANSPARENT
     }
 
     protected abstract fun getLayoutResId(): Int
 
     //是否是亮色状态栏
-    fun isLightStatusBar(): Boolean {
+    open fun isLightStatusBar(): Boolean {
         return false
     }
 
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
-    fun getStatusHeight(): Int {
+    open fun getStatusHeight(): Int {
         val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
         return statusBarHeight
     }

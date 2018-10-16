@@ -88,10 +88,6 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
             }
         })
 
-        adapter.setOnDeleteClickListener({
-
-        })
-
         bd.btnShareText.setOnClickListener({ v ->
             SystemShareUtil.shareText(getContext(), "来自系统分享");
         });
@@ -178,7 +174,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
         var maxSize = 188743680L;//long long long
         intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
-        intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 9);  //default 40 (Optional)
+        intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 40);  //default 40 (Optional)
         intent.putExtra(PickerConfig.DEFAULT_SELECTED_LIST, cacheList); // (Optional)
         this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
     }

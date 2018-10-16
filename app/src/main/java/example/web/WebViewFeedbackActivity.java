@@ -16,6 +16,8 @@ public class WebViewFeedbackActivity extends BaseTitleBarActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/user_feedback.html";
+    //private String url = "file:///android_asset/no_net.html";
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_web_view;

@@ -28,7 +28,7 @@ import example.web.WebViewAndJSActivity
 import example.web.WebViewFeedbackActivity
 
 
-class HomeFragment3 : BaseFragment() {
+class OriginalAPIFragment : BaseFragment() {
     private lateinit var bd: FragmentHome3Binding
 
     override fun getLayoutResId(): Int {

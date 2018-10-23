@@ -35,23 +35,16 @@ public class AppInfoUtil {
         return false;
     }
 
-    /**
-     * 获取软件版本号
-     *
-     * @param context
-     * @return
-     */
-    public static int getVersionCode(Context context) {
-        int verCode = -1;
-        try {
-            // 注意："com.example.try_downloadfile_progress"对应AndroidManifest.xml里的package="……"部分
-            int pid = android.os.Process.myPid();
-            String processAppName = getAppName(context, pid);
-            PackageInfo info = context.getPackageManager().getPackageInfo(processAppName, 0);
-            verCode = info.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
+    public static boolean isTaskRunning(Context context, int taskId) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> appTasks = activityManager.getRunningTasks(5);
+        if (appTasks == null && appTasks.size() > 0) {
+            for (ActivityManager.RunningTaskInfo task : appTasks) {
+                if (taskId == task.id)
+                    return true;
+            }
         }
-        return verCode;
+        return false;
     }
 
     /**
@@ -65,35 +58,9 @@ public class AppInfoUtil {
         try {
             verName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
+
         }
         return verName;
-    }
-
-    /**
-     * check the application process name if process name is not qualified, then we think it is a service process and we will not init SDK
-     *
-     * @param pID
-     * @return
-     */
-    private static String getAppName(Context context, int pID) {
-        String processName = null;
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List l = am.getRunningAppProcesses();
-        Iterator i = l.iterator();
-        PackageManager pm = context.getPackageManager();
-        while (i.hasNext()) {
-            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
-            try {
-                if (info.pid == pID) {
-                    CharSequence c = pm.getApplicationLabel(pm.getApplicationInfo(info.processName, PackageManager.GET_META_DATA));
-                    processName = info.processName;
-                    return processName;
-                }
-            } catch (Exception e) {
-                // Log.d("Process", "Error>> :"+ e.toString());
-            }
-        }
-        return processName;
     }
 
     /**
@@ -105,13 +72,9 @@ public class AppInfoUtil {
         String channelNumber = null;
         try {
             PackageManager packageManager = context.getPackageManager();
-            if (packageManager != null) {
-                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-                if (applicationInfo != null) {
-                    if (applicationInfo.metaData != null) {
-                        channelNumber = applicationInfo.metaData.getString("UMENG_CHANNEL");
-                    }
-                }
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            if (applicationInfo != null && applicationInfo.metaData != null) {
+                channelNumber = applicationInfo.metaData.getString("UMENG_CHANNEL");
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

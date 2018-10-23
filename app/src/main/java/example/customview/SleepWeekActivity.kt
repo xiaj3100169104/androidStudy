@@ -11,7 +11,7 @@ import com.style.view.SleepWeekHistogram
 import java.util.ArrayList
 import java.util.Random
 
-class SleepWeekActivity : BaseActivity() {
+class SleepWeekActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityCurveBinding
     private var mWeeks: Array<String>? = null

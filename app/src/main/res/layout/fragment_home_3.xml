@@ -5,7 +5,7 @@
 
         <variable
             name="onItemClickListener"
-            type="example.home.HomeFragment3.OnItemClickListener" />
+            type="example.home.OriginalAPIFragment.OnItemClickListener" />
     </data>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

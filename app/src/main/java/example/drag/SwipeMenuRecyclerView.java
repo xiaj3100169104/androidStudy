@@ -23,13 +23,13 @@ import com.style.utils.Utils;
  * 方案二：在确定要打开菜单时在子布局上动态添加菜单布局，是否可行待验证
  */
 public class SwipeMenuRecyclerView extends RecyclerView {
+    protected final String TAG = getClass().getSimpleName();
+
     private int screenWidth;
     //滑动开始与点击事件的位移临界值
     private int mTouchSlop;
     //是否处于手指拖动中
     private boolean mIsBeingDragged = false;
-
-    protected final String TAG = getClass().getSimpleName();
     //最大偏移，正值代表向右，负值代表向左，绝对值就是菜单宽度
     private int xMaxOffset;
     private ViewConfiguration viewConfiguration;

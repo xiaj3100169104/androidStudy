@@ -24,7 +24,7 @@ import example.media.VideoTestActivity
 import example.webservice.WebServiceActivity
 
 
-class HomeFragment4 : BaseFragment() {
+class OtherFrameworkFragment : BaseFragment() {
 
     private lateinit var bd: FragmentHome4Binding
 

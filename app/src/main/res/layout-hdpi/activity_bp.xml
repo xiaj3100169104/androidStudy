@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:background="@color/windows_color"
         android:orientation="vertical">
+        <include layout="@layout/title_bar_normal"/>
 
         <Button
             android:id="@+id/btn_refresh"

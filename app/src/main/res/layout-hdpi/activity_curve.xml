@@ -9,12 +9,7 @@
         android:background="@color/windows_color"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/colorPrimary">
-
-        </android.support.v7.widget.Toolbar>
+        <include layout="@layout/title_bar_normal"/>
 
         <LinearLayout
             android:layout_width="match_parent"

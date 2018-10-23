@@ -155,6 +155,8 @@
         <activity android:name="example.customview.TempActivity" />
         <activity android:name="example.customview.BpActivity" />
         <activity android:name="example.customview.SleepWeekActivity" />
+        <activity android:name="example.gesture.XXRefreshActivity" />
+
         <activity
             android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
             android:screenOrientation="portrait" />

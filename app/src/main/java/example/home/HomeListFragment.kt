@@ -21,7 +21,7 @@ import com.style.view.DividerItemDecoration
 import java.util.ArrayList
 
 
-class HomeFragment2 : BaseFragment() {
+class HomeListFragment : BaseFragment() {
     private lateinit var bd: FragmentHome2Binding
     private lateinit var dataList: ArrayList<Int>
     private lateinit var layoutManager: LinearLayoutManager

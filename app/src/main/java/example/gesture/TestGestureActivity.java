@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
+import com.style.app.AppManager;
 import com.style.base.BaseActivity;
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
+import com.style.utils.AppInfoUtil;
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -43,12 +45,19 @@ public class TestGestureActivity extends BaseActivity {
         bd.iv.setOnClickListener(v -> {
             logE(getTAG(), "iv");
         });
+        AppManager.Companion.getInstance().setTestTaskId(getTaskId());
     }
 
     @Override
     protected void onPause() {
         overridePendingTransition(0, 0);
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.Companion.getInstance().setTestTaskId(-1);
     }
 
     @Override

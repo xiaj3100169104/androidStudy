@@ -10,7 +10,7 @@ import com.style.view.HeartRateLine
 import java.util.ArrayList
 import java.util.Random
 
-class HeartLineActivity : BaseActivity() {
+class HeartLineActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityHeartLineBinding
 

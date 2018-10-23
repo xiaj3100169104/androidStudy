@@ -10,7 +10,7 @@ import com.style.view.TemperatureLineNew
 import java.util.ArrayList
 import java.util.Random
 
-class TempActivity : BaseActivity() {
+class TempActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityTempBinding
     internal var max: Float = 0.toFloat()

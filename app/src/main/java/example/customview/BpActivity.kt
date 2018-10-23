@@ -9,7 +9,7 @@ import com.style.view.BloodPressureChart
 import java.util.ArrayList
 import java.util.Random
 
-class BpActivity : BaseActivity() {
+class BpActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityBpBinding
     internal var max: Float = 0.toFloat()

@@ -1,14 +1,14 @@
 package example.home
 
-import android.view.View
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
 import example.activity.MyRadioGroupActivity
 import example.customview.*
+import example.gesture.XXRefreshActivity
 import example.tablayout.TabLayoutActivity
 
-class HomeFragment1 : BaseFragment() {
+class CustomViewFragment : BaseFragment() {
 
     private lateinit var bd: FragmentHome1Binding
 
@@ -33,6 +33,7 @@ class HomeFragment1 : BaseFragment() {
         bd.btnTemp.setOnClickListener { skip(TempActivity::class.java) }
         bd.btnBp.setOnClickListener { skip(BpActivity::class.java) }
         bd.btnSleep.setOnClickListener { skip(SleepWeekActivity::class.java) }
+        bd.btnExpandableText.setOnClickListener { skip(XXRefreshActivity::class.java) }
 
 
     }

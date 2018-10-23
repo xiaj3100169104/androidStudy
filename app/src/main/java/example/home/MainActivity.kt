@@ -17,6 +17,7 @@ import android.util.Log
 import android.view.Display
 import android.view.View
 import android.widget.TextView
+import com.style.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
@@ -41,11 +42,11 @@ class MainActivity : BaseTitleBarActivity() {
         private val titles = arrayOf("View相关", "手势", "列表", "原生相关", "其他框架", "客户")
     }
 
-    private lateinit var homeFragment1: HomeFragment1
+    private lateinit var homeFragment1: CustomViewFragment
     private lateinit var homeFragment20: GestureFragment
-    private lateinit var homeFragment2: HomeFragment2
-    private lateinit var homeFragment3: HomeFragment3
-    private lateinit var homeFragment4: HomeFragment4
+    private lateinit var homeFragment2: HomeListFragment
+    private lateinit var homeFragment3: OriginalAPIFragment
+    private lateinit var homeFragment4: OtherFrameworkFragment
     private lateinit var fm: FragmentManager
     private lateinit var bt: FragmentTransaction
     private lateinit var mTabs: Array<TextView>
@@ -69,6 +70,7 @@ class MainActivity : BaseTitleBarActivity() {
     }
 
     override fun initData() {
+        AppManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
         appStateReceiver = DeviceStateBroadcastReceiver()
         val filter = IntentFilter(NET_CHANGE)
@@ -104,11 +106,11 @@ class MainActivity : BaseTitleBarActivity() {
         }
 
         mTabs = arrayOf(bd.viewHomeTap1, bd.viewHomeTap20, bd.viewHomeTap2, bd.viewHomeTap3, bd.viewHomeTap4)
-        homeFragment1 = HomeFragment1()
+        homeFragment1 = CustomViewFragment()
         homeFragment20 = GestureFragment()
-        homeFragment2 = HomeFragment2()
-        homeFragment3 = HomeFragment3()
-        homeFragment4 = HomeFragment4()
+        homeFragment2 = HomeListFragment()
+        homeFragment3 = OriginalAPIFragment()
+        homeFragment4 = OtherFrameworkFragment()
 
         fragments = arrayOf(homeFragment1, homeFragment20, homeFragment2, homeFragment3, homeFragment4)
         fm = supportFragmentManager
@@ -209,7 +211,7 @@ class MainActivity : BaseTitleBarActivity() {
             appStateReceiver = null
         }
         super.onDestroy()
-
+        AppManager.getInstance().setMainTaskId(-1)
     }
 
     inner class DeviceStateBroadcastReceiver : BroadcastReceiver() {

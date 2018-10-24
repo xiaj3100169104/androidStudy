@@ -1,4 +1,4 @@
-package example.gesture;
+package com.style.view.refresh;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -19,9 +19,14 @@ import com.style.utils.Utils;
  */
 
 public class XXRefreshView extends LinearLayout {
+    public static final int STATE_HEADER_IDLE = 0;
+    public static final int STATE_HEADER_PULL_DOWN_NOT_CAN_REFRESH = 1;
+    public static final int STATE_HEADER_PULL_DOWN_RELEASE_CAN_REFRESH = 2;
+    public static final int STATE_HEADER_REFRESH = 3;
+    private int state = STATE_HEADER_IDLE;
 
     protected final String TAG = getClass().getSimpleName();
-    private View header;
+    private XXRefreshHeader header;
     //下拉触发刷新临界点
     private int mRefreshPaddingTopSlop;
     private int screenWidth;
@@ -31,11 +36,11 @@ public class XXRefreshView extends LinearLayout {
     private int maxOffset;
     private ViewConfiguration viewConfiguration;
     private boolean mIsBeingDragged;
-    private float yLastMove;
+    private int yLastMove;
     private ValueAnimator va;
-    private OnSlideListener listener;
-    private float xDown;
-    private float yDown;
+    private OnRefreshListener listener;
+    private int xDown;
+    private int yDown;
 
     public XXRefreshView(Context context) {
         super(context);
@@ -46,20 +51,19 @@ public class XXRefreshView extends LinearLayout {
         viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = viewConfiguration.getScaledTouchSlop();
         screenWidth = ScreenUtils.getScreenWidth(context);
+        XXRefreshDefaultHeader header = new XXRefreshDefaultHeader(context);
+        addView(header, 0);
     }
+
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        header = getChildAt(0);
-        maxOffset = -header.getLayoutParams().height;
+        View child = getChildAt(0);
+        maxOffset = -child.getLayoutParams().height;
         mRefreshPaddingTopSlop = maxOffset / 2;
         setPaddingTop(maxOffset);
-    }
-
-    public void setPaddingTop(float paddingTop) {
-        if (paddingTop <= 0 && paddingTop >= maxOffset)
-            setPadding(0, (int) paddingTop, 0, 0);
+        header = (XXRefreshHeader) child;
     }
 
     @Override
@@ -78,14 +82,14 @@ public class XXRefreshView extends LinearLayout {
         Log.e(TAG, "onInterceptTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                xDown = ev.getRawX();
-                yDown = ev.getRawY();
+                xDown = (int) ev.getRawX();
+                yDown = (int) ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                float xMove = ev.getRawX();
-                float yMove = ev.getRawY();
-                float xDistance = Math.abs(xMove - xDown);
-                float yDistance = Math.abs(yMove - yDown);
+                int xMove = (int) ev.getRawX();
+                int yMove = (int) ev.getRawY();
+                int xDistance = Math.abs(xMove - xDown);
+                int yDistance = Math.abs(yMove - yDown);
                 //当横向滑动超过指定值时，拦截move、up事件，触发ViewGroup横向滑动逻辑
                 if (yMove - yDown > mTouchSlop && yDistance > xDistance) {
                     if (!isCanPullDown()) {
@@ -109,14 +113,14 @@ public class XXRefreshView extends LinearLayout {
         Log.e(TAG, "onTouchEvent   " + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                xDown = ev.getRawX();
-                yDown = ev.getRawY();
+                xDown = (int) ev.getRawX();
+                yDown = (int) ev.getRawY();
                 return true;
             case MotionEvent.ACTION_MOVE:
-                float xMove = ev.getRawX();
-                float yMove = ev.getRawY();
+                int xMove = (int) ev.getRawX();
+                int yMove = (int) ev.getRawY();
                 if (!mIsBeingDragged) {
-                    float xDistance = Math.abs(xMove - xDown);
+                    int xDistance = Math.abs(xMove - xDown);
                     float yDistance = Math.abs(yMove - yDown);
                     //当横向滑动超过指定值时，拦截move、up事件，触发ViewGroup横向滑动逻辑
                     if (yMove - yDown > mTouchSlop && yDistance > xDistance) {
@@ -133,9 +137,9 @@ public class XXRefreshView extends LinearLayout {
                     if (yMove < yLastMove) {
                         yMove = yLastMove;
                     }
-                    float yDistance = Math.abs(yMove - yLastMove) + maxOffset;
+                    int yDistance = Math.abs(yMove - yLastMove) + maxOffset;
                     Log.e(TAG, "yDistance  " + yDistance);
-                    setPaddingTop(yDistance);
+                    beingDrag(yDistance);
                     return true;
                 }
                 break;
@@ -149,37 +153,32 @@ public class XXRefreshView extends LinearLayout {
         return true;
     }
 
-    public void setHeaderHeight(float h) {
-        if (h >= maxOffset) {
-            //this.header.getLayoutParams().height = (int) h;
-            //this.header.requestLayout();
-            setPaddingTop(h);
-        }
+    public void beingDrag(int yDistance) {
+        int paddingTop = yDistance / 2;
+        setPaddingTop(paddingTop);
+        if (paddingTop <= maxOffset)
+            setState(STATE_HEADER_PULL_DOWN_NOT_CAN_REFRESH);
+        if (paddingTop > maxOffset)
+            setState(STATE_HEADER_PULL_DOWN_RELEASE_CAN_REFRESH);
     }
 
     private void autoMove() {
-        float xOffset = getPaddingTop();
+        int xOffset = getPaddingTop();
         if (xOffset <= mRefreshPaddingTopSlop && xOffset >= maxOffset) {
-            va = ValueAnimator.ofFloat(xOffset, maxOffset);
-            va.setDuration(300);
-            //插值器，表示值变化的规律，默认均匀变化
-            va.setInterpolator(new DecelerateInterpolator());
-            va.addUpdateListener(animation -> {
-                float v = (float) animation.getAnimatedValue();
-                Log.d(TAG, "translationY:" + v);
-                setPaddingTop(v);
-            });
-            va.start();
+            closeHeader();
         } else {
             va = ValueAnimator.ofFloat(xOffset, mRefreshPaddingTopSlop);
             va.setDuration(100);
             //插值器，表示值变化的规律，默认均匀变化
             va.setInterpolator(new DecelerateInterpolator());
             va.addUpdateListener(animation -> {
-                float v = (float) animation.getAnimatedValue();
-                Log.d(TAG, "translationY:" + v);
+                int v = (int) animation.getAnimatedValue();
+                Log.d(TAG, "paddingTop:" + v);
                 setPaddingTop(v);
-                startRefresh();
+                if (v == mRefreshPaddingTopSlop) {
+                    setState(STATE_HEADER_REFRESH);
+                    startRefresh();
+                }
             });
             va.start();
         }
@@ -191,36 +190,64 @@ public class XXRefreshView extends LinearLayout {
         }, 2000);
     }
 
-    private void finishRefresh() {
-        float xOffset = getPaddingTop();
-        va = ValueAnimator.ofFloat(xOffset, maxOffset);
-        va.setDuration(100);
+    public void finishRefresh() {
+        closeHeader();
+    }
+
+    private void closeHeader() {
+        int xOffset = getPaddingTop();
+        va = ValueAnimator.ofInt(xOffset, maxOffset);
+        va.setDuration(getAnimatorTimeByDistance(xOffset - maxOffset));
         //插值器，表示值变化的规律，默认均匀变化
         va.setInterpolator(new DecelerateInterpolator());
         va.addUpdateListener(animation -> {
-            float v = (float) animation.getAnimatedValue();
-            Log.d(TAG, "translationY:" + v);
+            int v = (int) animation.getAnimatedValue();
+            Log.d(TAG, "paddingTop:" + v);
             setPaddingTop(v);
+            setState(STATE_HEADER_PULL_DOWN_NOT_CAN_REFRESH);
         });
         va.start();
     }
 
-    private void onViewSlideToScreen() {
-        if (listener != null)
-            listener.onShouldFinish();
-    }
-
-    public void setOnSlideListener(OnSlideListener listener) {
-        this.listener = listener;
+    //默认一百像素一百毫秒
+    public int getAnimatorTimeByDistance(int distance) {
+        return Math.abs(distance);
     }
 
     public boolean isCanPullDown() {
         return getChildAt(1).canScrollVertically(-1);
     }
 
+    public void setPaddingTop(int paddingTop) {
+        if (paddingTop <= 0 && paddingTop >= maxOffset) {
+            setPadding(0, paddingTop, 0, 0);
+            if (header != null) {
+                header.onVisibleHeight(Math.abs(maxOffset) - Math.abs(paddingTop), Math.abs(maxOffset));
+            }
+        }
+    }
 
-    public interface OnSlideListener {
-        void onShouldFinish();
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+        if (header != null)
+            header.onState(this.state);
+    }
+
+    private void onRefresh() {
+        if (listener != null)
+            listener.onRefresh();
+    }
+
+    public void setOnSlideListener(OnRefreshListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnRefreshListener {
+        void onRefresh();
     }
 
 }

@@ -60,6 +60,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="false"
+        android:resizeableActivity="false"
         android:theme="@style/BaseAppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
 

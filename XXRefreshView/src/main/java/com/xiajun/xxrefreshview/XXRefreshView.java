@@ -1,4 +1,4 @@
-package com.style.view.refresh;
+package com.xiajun.xxrefreshview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -7,15 +7,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.dmcbig.mediapicker.utils.ScreenUtils;
-import com.style.utils.Utils;
+import com.xiajun.xxrefreshview.header.XXRefreshDefaultHeader;
 
 /**
- * 垂直弹性滑动View
+ * 自定义刷新View
  */
 
 public class XXRefreshView extends LinearLayout {
@@ -27,12 +26,11 @@ public class XXRefreshView extends LinearLayout {
 
     protected final String TAG = getClass().getSimpleName();
     private XXRefreshHeader header;
-    //下拉触发刷新临界点
-    private int mRefreshPaddingTopSlop;
-    private int screenWidth;
+    //下拉触发刷新高度
+    private int mRefreshSlop;
     //滑动开始与点击事件的位移临界值
     private int mTouchSlop;
-    //最大下拉偏移
+    //最大下拉距离
     private int maxOffset;
     private ViewConfiguration viewConfiguration;
     private boolean mIsBeingDragged;
@@ -50,9 +48,11 @@ public class XXRefreshView extends LinearLayout {
         super(context, attrs);
         viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = viewConfiguration.getScaledTouchSlop();
-        screenWidth = ScreenUtils.getScreenWidth(context);
+        maxOffset = Utils.dp2px(context, 300);
+        mRefreshSlop = Utils.dp2px(context, 80);
         XXRefreshDefaultHeader header = new XXRefreshDefaultHeader(context);
-        addView(header, 0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, maxOffset);
+        addView(header, 0, params);
     }
 
 
@@ -60,10 +60,9 @@ public class XXRefreshView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         View child = getChildAt(0);
-        maxOffset = -child.getLayoutParams().height;
-        mRefreshPaddingTopSlop = maxOffset / 2;
-        setPaddingTop(maxOffset);
+        setPaddingTop(-maxOffset);
         header = (XXRefreshHeader) child;
+        header.initHeight(mRefreshSlop, maxOffset);
     }
 
     @Override
@@ -137,8 +136,9 @@ public class XXRefreshView extends LinearLayout {
                     if (yMove < yLastMove) {
                         yMove = yLastMove;
                     }
-                    int yDistance = Math.abs(yMove - yLastMove) + maxOffset;
-                    Log.e(TAG, "yDistance  " + yDistance);
+                    //拖拽距离除以2有阻力效果
+                    int yDistance = Math.abs(yMove - yLastMove) / 2;
+                    Log.e(TAG, "pullDownDistance  " + yDistance);
                     beingDrag(yDistance);
                     return true;
                 }
@@ -154,28 +154,35 @@ public class XXRefreshView extends LinearLayout {
     }
 
     public void beingDrag(int yDistance) {
-        int paddingTop = yDistance / 2;
+        int paddingTop = pullDownDistance2paddingTop(yDistance);
         setPaddingTop(paddingTop);
-        if (paddingTop <= maxOffset)
+        if (yDistance <= mRefreshSlop)
             setState(STATE_HEADER_PULL_DOWN_NOT_CAN_REFRESH);
-        if (paddingTop > maxOffset)
+        if (yDistance > mRefreshSlop)
             setState(STATE_HEADER_PULL_DOWN_RELEASE_CAN_REFRESH);
     }
 
     private void autoMove() {
-        int xOffset = getPaddingTop();
-        if (xOffset <= mRefreshPaddingTopSlop && xOffset >= maxOffset) {
+        //下拉距离
+        int pullDownDistance = getPullDownDistance();
+        //小于临界值直接关闭header
+        if (pullDownDistance <= mRefreshSlop) {
             closeHeader();
         } else {
-            va = ValueAnimator.ofFloat(xOffset, mRefreshPaddingTopSlop);
-            va.setDuration(100);
+            //超过了临界值，回滚到临界值
+            int paddingTop = getPaddingTop();
+            //触发刷新临界点的paddingTop值
+            int mRefreshSlopPaddingTop = pullDownDistance2paddingTop(mRefreshSlop);
+            va = ValueAnimator.ofInt(paddingTop, mRefreshSlopPaddingTop);
+            va.setDuration(getAnimatorTimeByDistance(Math.abs(mRefreshSlopPaddingTop) - Math.abs(paddingTop)));
             //插值器，表示值变化的规律，默认均匀变化
             va.setInterpolator(new DecelerateInterpolator());
             va.addUpdateListener(animation -> {
                 int v = (int) animation.getAnimatedValue();
                 Log.d(TAG, "paddingTop:" + v);
                 setPaddingTop(v);
-                if (v == mRefreshPaddingTopSlop) {
+                //回滚到临界值时触发刷新
+                if (v == mRefreshSlopPaddingTop) {
                     setState(STATE_HEADER_REFRESH);
                     startRefresh();
                 }
@@ -194,10 +201,11 @@ public class XXRefreshView extends LinearLayout {
         closeHeader();
     }
 
+    //关闭header，此时header可见高度小于触发刷新的临界值
     private void closeHeader() {
-        int xOffset = getPaddingTop();
-        va = ValueAnimator.ofInt(xOffset, maxOffset);
-        va.setDuration(getAnimatorTimeByDistance(xOffset - maxOffset));
+        int paddingTop = getPaddingTop();
+        va = ValueAnimator.ofInt(paddingTop, -maxOffset);
+        va.setDuration(getAnimatorTimeByDistance(maxOffset - Math.abs(paddingTop)));
         //插值器，表示值变化的规律，默认均匀变化
         va.setInterpolator(new DecelerateInterpolator());
         va.addUpdateListener(animation -> {
@@ -207,6 +215,14 @@ public class XXRefreshView extends LinearLayout {
             setState(STATE_HEADER_PULL_DOWN_NOT_CAN_REFRESH);
         });
         va.start();
+    }
+
+    public int pullDownDistance2paddingTop(int distance) {
+        return -(maxOffset - Math.abs(distance));
+    }
+
+    public int getPullDownDistance() {
+        return maxOffset - Math.abs(getPaddingTop());
     }
 
     //默认一百像素一百毫秒
@@ -219,10 +235,10 @@ public class XXRefreshView extends LinearLayout {
     }
 
     public void setPaddingTop(int paddingTop) {
-        if (paddingTop <= 0 && paddingTop >= maxOffset) {
+        if (paddingTop <= 0 && paddingTop >= -maxOffset) {
             setPadding(0, paddingTop, 0, 0);
             if (header != null) {
-                header.onVisibleHeight(Math.abs(maxOffset) - Math.abs(paddingTop), Math.abs(maxOffset));
+                header.onVisibleHeightChanged(getPullDownDistance());
             }
         }
     }

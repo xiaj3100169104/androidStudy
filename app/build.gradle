@@ -181,6 +181,7 @@ dependencies {
     implementation project(':mediapicker')
     implementation project(':libVideoRecord')
     implementation project(':WheelPicker')
+    implementation project(':XXRefreshView')
 }
 greendao {
     schemaVersion 1

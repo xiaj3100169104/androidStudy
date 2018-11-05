@@ -82,7 +82,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun <T : ViewDataBinding> getBinding(): T {
-        return DataBindingUtil.bind(getContentView())
+        return DataBindingUtil.bind(getContentView())!!
     }
 
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {

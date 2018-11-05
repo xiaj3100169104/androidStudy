@@ -42,7 +42,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun <T : ViewDataBinding> getBinding(): T {
-        return DataBindingUtil.bind(contentView)
+        return DataBindingUtil.bind(contentView)!!
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

@@ -92,7 +92,7 @@ public class XXRefreshDefaultHeader extends RelativeLayout implements XXRefreshH
         if (state != XXRefreshView.STATE_HEADER_REFRESH) {
             Log.e(TAG, "--" + height);
             progressBar.setmIndeterminate(false);
-            mStartAngle = height / distanceOfAngle % 360;
+            mStartAngle = -height / distanceOfAngle % 360;
             progressBar.setStartAngle(mStartAngle);
 
         }

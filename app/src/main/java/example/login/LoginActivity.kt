@@ -36,7 +36,7 @@ class LoginActivity : BaseActivity() {
         })
         loginModel.user.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
-                setUserView(loginModel.user.get())
+                setUserView(loginModel.user.get()!!)
             }
         })
         loginModel.loginState.observe(this, object : Observer<Boolean> {

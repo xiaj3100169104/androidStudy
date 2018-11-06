@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.Nullable
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -82,7 +83,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun <T : ViewDataBinding> getBinding(): T {
-        return DataBindingUtil.bind(getContentView())
+        return DataBindingUtil.bind(getContentView())!!
     }
 
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {

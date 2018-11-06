@@ -1,4 +1,4 @@
-package example.fragment;
+package example.radioGroup;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -26,6 +26,7 @@ public class EmotionDataFrag extends BaseFragment {
     }
 
     protected void initListener() {
+
     }
 
 }

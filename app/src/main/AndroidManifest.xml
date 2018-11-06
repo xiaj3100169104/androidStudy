@@ -85,7 +85,7 @@
         <activity
             android:name="example.home.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name="example.activity.MyRadioGroupActivity" />
+        <activity android:name="example.radioGroup.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />

@@ -3,7 +3,7 @@ package example.home
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
-import example.activity.MyRadioGroupActivity
+import example.radioGroup.MyRadioGroupActivity
 import example.customview.*
 import example.gesture.XXRefreshActivity
 import example.tablayout.TabLayoutActivity

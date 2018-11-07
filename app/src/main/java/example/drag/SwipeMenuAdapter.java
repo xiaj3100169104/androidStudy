@@ -19,12 +19,21 @@ import static android.support.v7.widget.RecyclerView.NO_POSITION;
 public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
     private final int screenWidth;
     private final int width;
+    private final SwipeMenuRecyclerView recyclerView;
     private OnSwipeMenuListener listener;
 
-    public SwipeMenuAdapter(Context context, ArrayList<String> dataList) {
+    public SwipeMenuAdapter(Context context, ArrayList<String> dataList, SwipeMenuRecyclerView recyclerView) {
         super(context, dataList);
+        this.recyclerView = recyclerView;
         screenWidth = ScreenUtils.getScreenWidth(context);
-        width = screenWidth + Utils.dp2px(getContext(), 200);
+        int menuWidth = Utils.dp2px(getContext(), 200);
+        width = screenWidth + menuWidth;
+        this.recyclerView.setMenuMaxOffset(menuWidth);
+    }
+
+    public void notifyDataChanged() {
+        this.recyclerView.closeMenuFromOpen();
+        notifyDataSetChanged();
     }
 
     @Override

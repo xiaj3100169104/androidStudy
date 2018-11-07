@@ -1,30 +1,16 @@
 package example.login
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import android.util.Log
-
-import com.style.app.MyApp
 import com.style.base.BaseAndroidViewModel
 import com.style.bean.User
-import com.style.data.net.bean.UserInfo
-import com.style.data.net.response.BaseResult
 import com.style.data.prefs.AccountManager
-
 import java.net.URL
 import java.security.MessageDigest
-import java.security.cert.Certificate
 import java.security.cert.X509Certificate
-
 import javax.net.ssl.HttpsURLConnection
-
-import example.newwork.response.LoginBean
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import kotlin.experimental.and
 
 /**
@@ -59,14 +45,14 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
     }
 
     fun getLoginUser() {
-        val a = preferences.currentAccount
+        val a = getPreferences().currentAccount
     }
 
     fun login(userName: String, password: String) {
         val user = User(userName, password)
         AccountManager.getInstance().setCurrentUser(user)
         synData()
-        val d = httpApi.login(userName, password).subscribe({
+        val d = getHttpApi().login(userName, password).subscribe({
             //getActivity().loginSuccess();
         }) {
             //getActivity().loginFailed();

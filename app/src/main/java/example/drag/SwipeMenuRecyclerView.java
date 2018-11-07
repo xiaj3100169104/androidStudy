@@ -32,7 +32,6 @@ public class SwipeMenuRecyclerView extends RecyclerView {
     private boolean mIsBeingDragged = false;
     //最大偏移，正值代表向右，负值代表向左，绝对值就是菜单宽度
     private int xMaxOffset;
-    private ViewConfiguration viewConfiguration;
     private float xDown;
     private float yDown;
     private float xLastMove;
@@ -46,10 +45,14 @@ public class SwipeMenuRecyclerView extends RecyclerView {
 
     public SwipeMenuRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        viewConfiguration = ViewConfiguration.get(context);
+        ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = viewConfiguration.getScaledTouchSlop();
         screenWidth = ScreenUtils.getScreenWidth(context);
         xMaxOffset = -Utils.dp2px(context, 200);
+    }
+
+    public void setMenuMaxOffset(int xMaxOffset) {
+        this.xMaxOffset = -xMaxOffset;
     }
 
     @Override

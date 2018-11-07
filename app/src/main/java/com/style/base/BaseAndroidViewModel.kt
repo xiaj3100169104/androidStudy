@@ -3,19 +3,14 @@ package com.style.base
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
 import android.support.annotation.StringRes
 import android.util.Log
-
 import com.style.app.LogManager
-import com.style.app.MyApp
 import com.style.app.ToastManager
-import com.style.bean.User
 import com.style.data.net.core.RetrofitImpl
 import com.style.data.net.exception.HttpThrowableUtil
 import com.style.data.prefs.AccountManager
-
+import example.db.roomDao.TestRoomDataBase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -29,11 +24,17 @@ open class BaseAndroidViewModel(application: Application) : AndroidViewModel(app
     val generalFinish = MutableLiveData<Boolean>()
     private val tasks = CompositeDisposable()
 
-    protected val preferences: AccountManager
-        get() = AccountManager.getInstance()
+    protected fun getPreferences(): AccountManager {
+        return AccountManager.getInstance()
+    }
 
-    protected val httpApi: RetrofitImpl
-        get() = RetrofitImpl.getInstance()
+    protected fun getHttpApi(): RetrofitImpl {
+        return RetrofitImpl.getInstance()
+    }
+
+    protected fun getAppDataBase(): TestRoomDataBase {
+        return TestRoomDataBase.getInstance(getApplication())
+    }
 
     override fun onCleared() {
         super.onCleared()

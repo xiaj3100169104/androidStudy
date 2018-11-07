@@ -1,29 +1,34 @@
-package example.activity;
+package example.db;
 
 import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivityTestDbBinding;
 
 import example.bean.TestBean;
-import example.db.TestDBManager;
+import kotlinx.android.synthetic.main.activity_test_db.*
 
-public class TestDBActivity : BaseTitleBarActivity() {
+class TestDBActivity : BaseTitleBarActivity() {
 
-    lateinit var bd:ActivityTestDbBinding ;
     override fun getLayoutResId():Int {
         return R.layout.activity_test_db;
     }
 
+    private lateinit var mViewModel: TestRoomViewModel
+
     override fun initData() {
-        bd = getBinding();
-        TestDBManager.getInstance().initialize(this);
+        mViewModel = getViewModel(TestRoomViewModel::class.java)
+        TestDBManager.getInstance().initialize(this)
+        btn_room_insert_one.setOnClickListener { mViewModel.saveOne() }
+        btn_room_insert_list.setOnClickListener { mViewModel.saveList() }
+        btn_room_query_all.setOnClickListener { mViewModel.queryAll() }
+        btn_room_clear_table.setOnClickListener { mViewModel.deleteAll() }
+        btn_room_query_by_id.setOnClickListener { mViewModel.findById() }
     }
 
     public fun skip418(v: View) {
         for (i in 0..10) {
-            var bean = TestBean();
+            val bean = TestBean();
             bean.setName("name=" + i);
             bean.setPhone("phone=" + i);
             TestDBManager.getInstance().insertUser(bean);

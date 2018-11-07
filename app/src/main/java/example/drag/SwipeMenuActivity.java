@@ -40,7 +40,7 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
         xOffset = -dp2px(50);
 
         dataList = new ArrayList<>();
-        adapter = new SwipeMenuAdapter(getContext(), dataList);
+        adapter = new SwipeMenuAdapter(getContext(), dataList, bd.recyclerView);
         layoutManager = new LinearLayoutManager(getContext());
         bd.recyclerView.setLayoutManager(layoutManager);
         bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
@@ -54,14 +54,14 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
             public void onMenuEdit(int position, String data) {
                 dataList.set(0, "新加");
                 bd.recyclerView.closeMenuFromOpen();
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataChanged();
             }
 
             @Override
             public void onMenuDelete(int position, String data) {
                 dataList.remove(position);
                 bd.recyclerView.closeMenuFromOpen();
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataChanged();
             }
         });
         bd.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -152,7 +152,7 @@ public class SwipeMenuActivity extends BaseTitleBarActivity {
         for (int i = 0; i < 25; i++) {
             dataList.add("数据" + i);
         }
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataChanged();
     }
 
 }

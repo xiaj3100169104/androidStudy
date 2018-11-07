@@ -1,14 +1,8 @@
 package example.home
 
-import android.databinding.DataBindingUtil
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 
 import com.style.base.BaseFragment
-import com.style.bean.User
-import com.style.data.prefs.AccountManager
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome3Binding
 
@@ -16,7 +10,7 @@ import example.activity.AnimatorActivity
 import example.activity.DataBindingActivity
 import example.activity.MsgToSubActivity
 import example.activity.ReadAssetsActivity
-import example.activity.TestDBActivity
+import example.db.TestDBActivity
 import example.aidl.AidlActivity
 import example.db.EncryptActivity
 import example.filedown.FileDownActivity

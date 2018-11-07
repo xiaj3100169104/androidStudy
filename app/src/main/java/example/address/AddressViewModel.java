@@ -20,11 +20,11 @@ import io.reactivex.schedulers.Schedulers;
  * Created by xiajun on 2018/4/29.
  */
 
-public class AddressPresenter extends BaseAndroidViewModel {
+public class AddressViewModel extends BaseAndroidViewModel {
     MutableLiveData<List<UploadPhone>> contacts = new MutableLiveData<>();
     private MediaPlayer player;
 
-    public AddressPresenter(@NonNull Application application) {
+    public AddressViewModel(@NonNull Application application) {
         super(application);
     }
 

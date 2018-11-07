@@ -5,19 +5,14 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
-import com.style.threadpool.GeneralThreadPoolManager;
-import com.style.threadpool.callback.CustomFutureTask;
-import com.style.utils.HanyuToPinyin;
 import com.style.view.DividerItemDecoration;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -30,7 +25,7 @@ public class AddressActivity extends BaseTitleBarActivity {
     private LinkedHashMap<Integer, String> mHeaderList = new LinkedHashMap<>();
     private LinearLayoutManager layoutManager;
     private UploadPhoneAdapter adapter;
-    private AddressPresenter mPresenter;
+    private AddressViewModel mPresenter;
 
     @Override
     public int getLayoutResId() {
@@ -40,7 +35,7 @@ public class AddressActivity extends BaseTitleBarActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        mPresenter = getViewModel(AddressPresenter.class);
+        mPresenter = getViewModel(AddressViewModel.class);
         mPresenter.contacts.observe(this, uploadPhones -> {
             setData(uploadPhones);
         });

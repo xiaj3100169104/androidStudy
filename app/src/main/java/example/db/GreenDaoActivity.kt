@@ -1,7 +1,6 @@
-package example.activity;
+package example.db;
 
 import android.view.View;
-import com.style.app.ConfigUtil
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;

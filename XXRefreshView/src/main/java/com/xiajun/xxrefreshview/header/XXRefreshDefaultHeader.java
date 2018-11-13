@@ -31,30 +31,27 @@ public class XXRefreshDefaultHeader extends RelativeLayout implements XXRefreshH
 
     public XXRefreshDefaultHeader(@NonNull Context context) {
         super(context);
-        initD(context);
+        initView(context);
     }
 
 
     public XXRefreshDefaultHeader(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initD(context);
-
+        initView(context);
     }
 
     public XXRefreshDefaultHeader(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initD(context);
-
+        initView(context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public XXRefreshDefaultHeader(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        initD(context);
-
+        initView(context);
     }
 
-    private void initD(Context context) {
+    private void initView(Context context) {
         RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.xxrefresh_default_header, null);
         progressBar = popView.findViewById(R.id.xxrefresh_default_progress_bar);
         tvHeader = popView.findViewById(R.id.xxrefresh_default_header_tv);

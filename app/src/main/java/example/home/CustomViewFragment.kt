@@ -18,12 +18,6 @@ class CustomViewFragment : BaseFragment() {
 
     override fun initData() {
         bd = getBinding()
-        bd.refreshLayout.setOnRefreshListener { refreshlayout ->
-            refreshlayout.finishRefresh(2000/*,false*/)//传入false表示刷新失败
-        }
-        bd.refreshLayout.setOnLoadMoreListener { refreshLayout ->
-            refreshLayout.finishLoadMore(2000/*,false*/)//传入false表示加载失败
-        }
         bd.btnSystemWidget.setOnClickListener { skip(TabLayoutActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(MyRadioGroupActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }
@@ -33,6 +27,7 @@ class CustomViewFragment : BaseFragment() {
         bd.btnTemp.setOnClickListener { skip(TempActivity::class.java) }
         bd.btnBp.setOnClickListener { skip(BpActivity::class.java) }
         bd.btnSleep.setOnClickListener { skip(SleepWeekActivity::class.java) }
+        bd.btnEcg.setOnClickListener { skip(EcgActivity::class.java) }
         bd.btnExpandableText.setOnClickListener { skip(XXRefreshActivity::class.java) }
 
 

@@ -6,6 +6,7 @@ import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
 import com.style.view.HeartLineChart
 import com.style.view.HeartRateLine
+import java.io.FileReader
 
 import java.util.ArrayList
 import java.util.Random
@@ -21,6 +22,7 @@ class HeartLineActivity : BaseTitleBarActivity() {
     override fun initData() {
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
+
     }
 
     fun refresh() {

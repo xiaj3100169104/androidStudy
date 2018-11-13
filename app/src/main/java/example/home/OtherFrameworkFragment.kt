@@ -32,7 +32,6 @@ class OtherFrameworkFragment : BaseFragment() {
         bd = getBinding()
         bd.event = EventListener()
         logE(TAG, "initData")
-
     }
 
     inner class EventListener {

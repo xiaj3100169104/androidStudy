@@ -23,13 +23,8 @@ class GestureFragment : BaseFragment() {
 
     override fun initData() {
         bd = getBinding()
+        bd.refreshLayout.setEnablePureScrollMode(true)
         bd.onItemClickListener = OnItemClickListener()
-        bd.refreshLayout.setOnRefreshListener { refreshlayout ->
-            refreshlayout.finishRefresh(2000/*,false*/)//传入false表示刷新失败
-        }
-        bd.refreshLayout.setOnLoadMoreListener { refreshLayout ->
-            refreshLayout.finishLoadMore(2000/*,false*/)//传入false表示加载失败
-        }
         bd.btnSwipeMenu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
         bd.btnCollapseModePin.setOnClickListener { skip(ScrollingActivity::class.java) }
         bd.btnCollapseModeParallax.setOnClickListener { skip(ScrollingParallaxActivity::class.java) }

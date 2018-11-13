@@ -39,6 +39,7 @@ class CustomViewMainActivity : BaseTitleBarActivity() {
         fragments.add(KeyboardFragment())
         fAdapter = FindTabAdapter(this.supportFragmentManager, fragments, titles)
         bd.viewPager.adapter = fAdapter
+        bd.viewPager.offscreenPageLimit = fragments.size
         bd.tabLayout.setupWithViewPager(bd.viewPager)
         bd.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

@@ -1,33 +1,18 @@
 package example.home
 
-import android.databinding.DataBindingUtil
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle
-
 import com.style.base.BaseFragment
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.bean.User
-import com.style.data.db.user.UserDBManager
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome2Binding
-import com.style.data.prefs.AccountManager
 import com.style.view.DividerItemDecoration
-
-import java.util.ArrayList
+import java.util.*
 
 
 class HomeListFragment : BaseFragment() {
     private lateinit var bd: FragmentHome2Binding
     private lateinit var dataList: ArrayList<Int>
-    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: FriendAdapter
-
-    private lateinit var myTableManager: UserDBManager
 
     override fun getLayoutResId(): Int {
         return R.layout.fragment_home_2
@@ -35,23 +20,18 @@ class HomeListFragment : BaseFragment() {
 
     override fun initData() {
         bd = getBinding()
-        myTableManager = UserDBManager.getInstance()
-
         dataList = ArrayList()
         adapter = FriendAdapter(context, dataList)
-        layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
         bd.recyclerView.layoutManager = layoutManager
         bd.recyclerView.addItemDecoration(DividerItemDecoration(context))
         bd.recyclerView.adapter = adapter
-
+        //bd.refreshLayout.setRefreshHeader( SimpleRefreshHeader(context))
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Int> {
             override fun onItemClick(position: Int, data: Int) {
                 showToast(position.toString() + "")
             }
         })
-        var header =  CustomClassicsHeader(context)
-        header.setSpinnerStyle(SpinnerStyle.Scale)
-        bd.refreshLayout.setRefreshHeader(header)
         bd.refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
         bd.refreshLayout.setOnRefreshListener { refreshLayout ->
             refreshLayout.layout.postDelayed({
@@ -63,9 +43,8 @@ class HomeListFragment : BaseFragment() {
                 loadMore()
             }, 1000)
         }
-
         //触发自动刷新
-        bd.refreshLayout.autoRefresh()
+        //bd.refreshLayout.autoRefresh()
         //getData();
     }
 
@@ -75,21 +54,18 @@ class HomeListFragment : BaseFragment() {
             dataList.add(i)
         }
         adapter.notifyDataSetChanged()
-
-        bd.refreshLayout.finishLoadMore()
+        bd.refreshLayout.complete()
         if (dataList.size > 20)
             bd.refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
     }
 
     private fun refresh() {
-
         dataList.clear()
         for (i in 0..4) {
             dataList.add(i)
         }
         adapter.notifyDataSetChanged()
-
-        bd.refreshLayout.finishRefresh()
+        bd.refreshLayout.complete()
         bd.refreshLayout.setNoMoreData(false)
     }
 
@@ -103,9 +79,4 @@ class HomeListFragment : BaseFragment() {
 
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        myTableManager.closeDB()
-    }
 }

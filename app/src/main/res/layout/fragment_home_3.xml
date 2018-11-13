@@ -8,13 +8,6 @@
             type="example.home.OriginalAPIFragment.OnItemClickListener" />
     </data>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableFooterFollowWhenLoadFinished="true"
-        app:srlEnableScrollContentWhenLoaded="true">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -116,6 +109,4 @@
                     android:text="单独进程服务" />
             </LinearLayout>
         </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
 </layout>

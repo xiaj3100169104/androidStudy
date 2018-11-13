@@ -32,7 +32,6 @@ class OriginalAPIFragment : BaseFragment() {
     override fun initData() {
         bd = getBinding()
         bd.onItemClickListener = OnItemClickListener()
-        bd.refreshLayout.isEnableLoadMore = false
     }
 
     inner class OnItemClickListener {

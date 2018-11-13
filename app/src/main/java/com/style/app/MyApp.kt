@@ -1,5 +1,9 @@
 package com.style.app
 
+/*import com.taobao.sophix.PatchStatus
+import com.taobao.sophix.SophixManager
+import com.taobao.sophix.listener.PatchLoadStatusListener*/
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,21 +13,11 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
-
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.style.data.db.user.UserDBManager
 import com.style.data.prefs.AccountManager
-import com.style.framework.R
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
-/*import com.taobao.sophix.PatchStatus
-import com.taobao.sophix.SophixManager
-import com.taobao.sophix.listener.PatchLoadStatusListener*/
-
 import example.greendao.dao.GreenDaoManager
-import example.helper.DynamicTimeFormat
 
 class MyApp : MultiDexApplication() {
     val TAG = javaClass.simpleName
@@ -44,18 +38,9 @@ class MyApp : MultiDexApplication() {
         initRefreshView()
     }
 
-    fun initRefreshView() {
+    private fun initRefreshView() {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)//启用矢量图兼容
-        //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text)//全局设置主题颜色
-            ClassicsHeader(context).setTimeFormat(DynamicTimeFormat("更新于 %s"))
-        }
-        //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            //指定为经典Footer，默认是 BallPulseFooter
-            ClassicsFooter(context).setDrawableSize(20f)
-        }
+        MyAppRefreshLayout.init()
     }
 
     private fun initHotfix() {

@@ -1,74 +1,73 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/windows_color">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/windows_color">
+            android:background="@color/white"
+            android:divider="@drawable/divider_gray_horizontal"
+            android:dividerPadding="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:divider="@drawable/divider_gray_horizontal"
-                android:dividerPadding="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:showDividers="middle">
+            <TextView
+                android:id="@+id/btn_system_widget"
+                style="@style/text_home_item"
+                android:text="系统资源及小部件" />
 
-                <TextView
-                    android:id="@+id/btn_system_widget"
-                    style="@style/text_home_item"
-                    android:text="系统资源及小部件" />
+            <TextView
+                android:id="@+id/btn_radio_group"
+                style="@style/text_home_item"
+                android:text="radio group" />
 
-                <TextView
-                    android:id="@+id/btn_radio_group"
-                    style="@style/text_home_item"
-                    android:text="radio group" />
+            <TextView
+                android:id="@+id/view_write_word"
+                style="@style/text_home_item"
+                android:text="写字板" />
 
-                <TextView
-                    android:id="@+id/view_write_word"
-                    style="@style/text_home_item"
-                    android:text="写字板" />
+            <TextView
+                android:id="@+id/view_suspend"
+                style="@style/text_home_item"
+                android:text="悬浮窗" />
 
-                <TextView
-                    android:id="@+id/view_suspend"
-                    style="@style/text_home_item"
-                    android:text="悬浮窗" />
+            <TextView
+                android:id="@+id/btn_custom_view"
+                style="@style/text_home_item"
+                android:text="自定义view" />
 
-                <TextView
-                    android:id="@+id/btn_custom_view"
-                    style="@style/text_home_item"
-                    android:text="自定义view" />
+            <TextView
+                android:id="@+id/btn_heart"
+                style="@style/text_home_item"
+                android:text="心率图" />
 
-                <TextView
-                    android:id="@+id/btn_heart"
-                    style="@style/text_home_item"
-                    android:text="心率图" />
+            <TextView
+                android:id="@+id/btn_temp"
+                style="@style/text_home_item"
+                android:text="体温图" />
 
-                <TextView
-                    android:id="@+id/btn_temp"
-                    style="@style/text_home_item"
-                    android:text="体温图" />
+            <TextView
+                android:id="@+id/btn_bp"
+                style="@style/text_home_item"
+                android:text="血压图" />
 
-                <TextView
-                    android:id="@+id/btn_bp"
-                    style="@style/text_home_item"
-                    android:text="血压图" />
+            <TextView
+                android:id="@+id/btn_sleep"
+                style="@style/text_home_item"
+                android:text="睡眠图" />
 
-                <TextView
-                    android:id="@+id/btn_sleep"
-                    style="@style/text_home_item"
-                    android:text="睡眠图" />
-                <TextView
-                    android:id="@+id/btn_expandable_text"
-                    style="@style/text_home_item"
-                    android:text="自定义下拉刷新" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <TextView
+                android:id="@+id/btn_ecg"
+                style="@style/text_home_item"
+                android:text="心电图" />
 
+            <TextView
+                android:id="@+id/btn_expandable_text"
+                style="@style/text_home_item"
+                android:text="自定义下拉刷新" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

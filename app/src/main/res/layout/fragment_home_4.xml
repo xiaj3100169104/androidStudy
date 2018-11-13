@@ -10,172 +10,164 @@
             type="example.home.OtherFrameworkFragment.EventListener" />
     </data>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnablePureScrollMode="true">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/windows_color">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/linearLayout3"
+            <android.support.constraint.Group
+                android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/windows_color">
+                app:constraint_referenced_ids="textView,imageView"
+                app:layout_constraintBottom_toTopOf="@+id/view1" />
 
-                <android.support.constraint.Group
-                    android:id="@+id/group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:constraint_referenced_ids="textView,imageView"
-                    app:layout_constraintBottom_toTopOf="@+id/view1" />
+            <View
+                android:id="@+id/view1"
+                style="@style/View.normal_item_horizontal"
+                android:onClick="@{event::testRX}" />
 
-                <View
-                    android:id="@+id/view1"
-                    style="@style/View.normal_item_horizontal"
-                    android:onClick="@{event::testRX}"/>
+            <ImageView
+                android:id="@+id/imageView"
+                style="@style/layout_item_right_image"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/view1"
+                app:layout_constraintStart_toStartOf="@id/view1"
+                app:layout_constraintTop_toTopOf="@id/view1" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    style="@style/layout_item_right_image"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintBottom_toBottomOf="@id/view1"
-                    app:layout_constraintStart_toStartOf="@id/view1"
-                    app:layout_constraintTop_toTopOf="@id/view1" />
+            <TextView
+                android:id="@+id/textView"
+                style="@style/text_black_16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rx测试"
+                app:layout_constraintBottom_toBottomOf="@id/imageView"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@id/imageView" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/text_black_16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="rx测试"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@id/imageView" />
+            <View
+                android:id="@+id/view2"
+                style="@style/View.normal_item_horizontal"
+                android:onClick="@{event::testGreenDao}"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
 
-                <View
-                    android:id="@+id/view2"
-                    style="@style/View.normal_item_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/view1"
-                    android:onClick="@{event::testGreenDao}"/>
+            <ImageView
+                android:id="@+id/imageView2"
+                style="@style/layout_item_right_image"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/view2"
+                app:layout_constraintStart_toStartOf="@id/view2"
+                app:layout_constraintTop_toTopOf="@id/view2" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    style="@style/layout_item_right_image"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintBottom_toBottomOf="@id/view2"
-                    app:layout_constraintStart_toStartOf="@id/view2"
-                    app:layout_constraintTop_toTopOf="@id/view2" />
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/text_black_16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="GreenDao测试"
+                app:layout_constraintBottom_toBottomOf="@id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@id/imageView2" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    style="@style/text_black_16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:text="GreenDao测试"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView2"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="@id/imageView2" />
+            <View
+                android:id="@+id/view3"
+                style="@style/View.normal_item_horizontal"
+                android:onClick="@{event::testGlide}"
+                app:layout_constraintTop_toBottomOf="@id/view2" />
 
-                <View
-                    android:id="@+id/view3"
-                    style="@style/View.normal_item_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/view2"
-                    android:onClick="@{event::testGlide}"/>
+            <ImageView
+                android:id="@+id/imageView3"
+                style="@style/layout_item_right_image"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/view3"
+                app:layout_constraintStart_toStartOf="@id/view3"
+                app:layout_constraintTop_toTopOf="@id/view3" />
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    style="@style/layout_item_right_image"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintBottom_toBottomOf="@id/view3"
-                    app:layout_constraintStart_toStartOf="@id/view3"
-                    app:layout_constraintTop_toTopOf="@id/view3" />
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/text_black_16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Glide特殊处理"
+                app:layout_constraintBottom_toBottomOf="@id/imageView3"
+                app:layout_constraintLeft_toRightOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@id/imageView3" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/text_black_16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Glide特殊处理"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView3"
-                    app:layout_constraintLeft_toRightOf="@+id/imageView3"
-                    app:layout_constraintTop_toTopOf="@id/imageView3" />
+            <View
+                android:id="@+id/view4"
+                style="@style/View.normal_item_horizontal"
+                android:onClick="@{event::testAppCrash}"
+                app:layout_constraintTop_toBottomOf="@id/view3" />
 
-                <View
-                    android:id="@+id/view4"
-                    style="@style/View.normal_item_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/view3"
-                    android:onClick="@{event::testAppCrash}"/>
+            <ImageView
+                android:id="@+id/imageView4"
+                style="@style/layout_item_right_image"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintBottom_toBottomOf="@id/view4"
+                app:layout_constraintStart_toStartOf="@id/view4"
+                app:layout_constraintTop_toTopOf="@id/view4" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    style="@style/layout_item_right_image"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintBottom_toBottomOf="@id/view4"
-                    app:layout_constraintStart_toStartOf="@id/view4"
-                    app:layout_constraintTop_toTopOf="@id/view4" />
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/text_black_16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="模拟app崩溃"
+                app:layout_constraintBottom_toBottomOf="@id/imageView4"
+                app:layout_constraintLeft_toRightOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@id/imageView4" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    style="@style/text_black_16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="模拟app崩溃"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView4"
-                    app:layout_constraintLeft_toRightOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="@id/imageView4" />
+            <Button
+                android:id="@+id/textView5"
+                style="@style/View.normal_item_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="VideoRecord"
+                app:layout_constraintTop_toBottomOf="@id/view4" />
 
-                <Button
-                    android:id="@+id/textView5"
-                    style="@style/View.normal_item_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="VideoRecord"
-                    app:layout_constraintTop_toBottomOf="@id/view4" />
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/View.normal_item_horizontal"
+                android:text="VoiceRecord"
+                app:layout_constraintTop_toBottomOf="@id/textView5" />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    style="@style/View.normal_item_horizontal"
-                    android:text="VoiceRecord"
-                    app:layout_constraintTop_toBottomOf="@id/textView5" />
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/View.normal_item_horizontal"
+                android:text="SocketTest"
+                app:layout_constraintTop_toBottomOf="@id/textView6" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    style="@style/View.normal_item_horizontal"
-                    android:text="SocketTest"
-                    app:layout_constraintTop_toBottomOf="@id/textView6" />
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/View.normal_item_horizontal"
+                android:text="事件管理器"
+                app:layout_constraintTop_toBottomOf="@id/textView7" />
 
-                <TextView
-                    android:id="@+id/textView8"
-                    style="@style/View.normal_item_horizontal"
-                    android:text="事件管理器"
-                    app:layout_constraintTop_toBottomOf="@id/textView7" />
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/View.normal_item_horizontal"
+                android:text="蓝牙开发"
+                app:layout_constraintTop_toBottomOf="@id/textView8" />
 
-                <TextView
-                    android:id="@+id/textView9"
-                    style="@style/View.normal_item_horizontal"
-                    android:text="蓝牙开发"
-                    app:layout_constraintTop_toBottomOf="@id/textView8" />
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/View.normal_item_horizontal"
+                android:text="低功耗蓝牙开发"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    style="@style/View.normal_item_horizontal"
-                    android:text="低功耗蓝牙开发"
-                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <TextView
+                android:id="@+id/btn_webservice"
+                style="@style/View.normal_item_horizontal"
+                android:onClick="@{event::skip11}"
+                android:text="1.1.5 release常规更新http请求webservice"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-                <TextView
-                    android:id="@+id/btn_webservice"
-                    style="@style/View.normal_item_horizontal"
-                    android:onClick="@{event::skip11}"
-                    android:text="1.1.5 release常规更新http请求webservice"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-            </android.support.constraint.ConstraintLayout>
-        </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>

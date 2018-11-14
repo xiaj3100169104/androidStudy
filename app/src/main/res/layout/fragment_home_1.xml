@@ -60,6 +60,11 @@
                 android:text="睡眠图" />
 
             <TextView
+                android:id="@+id/btn_sport"
+                style="@style/text_home_item"
+                android:text="运动图" />
+
+            <TextView
                 android:id="@+id/btn_ecg"
                 style="@style/text_home_item"
                 android:text="心电图" />

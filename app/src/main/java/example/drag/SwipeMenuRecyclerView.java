@@ -9,10 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.RelativeLayout;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * 左滑菜单RecyclerView：
@@ -48,7 +47,7 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = viewConfiguration.getScaledTouchSlop();
         screenWidth = ScreenUtils.getScreenWidth(context);
-        xMaxOffset = -Utils.dp2px(context, 200);
+        xMaxOffset = -DeviceInfoUtil.dp2px(context, 200);
     }
 
     public void setMenuMaxOffset(int xMaxOffset) {

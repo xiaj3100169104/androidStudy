@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatDelegate
 import android.util.Log
 import com.style.data.db.user.UserDBManager
 import com.style.data.prefs.AccountManager
+import com.style.view.refresh.MyAppRefreshLayout
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 import example.greendao.dao.GreenDaoManager

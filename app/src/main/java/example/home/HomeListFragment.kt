@@ -5,7 +5,7 @@ import com.style.base.BaseFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome2Binding
-import com.style.view.DividerItemDecoration
+import com.style.view.systemHelper.DividerItemDecoration
 import java.util.*
 
 
@@ -32,6 +32,7 @@ class HomeListFragment : BaseFragment() {
                 showToast(position.toString() + "")
             }
         })
+        bd.refreshLayout.isEnableLoadMore = false
         bd.refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
         bd.refreshLayout.setOnRefreshListener { refreshLayout ->
             refreshLayout.layout.postDelayed({
@@ -57,6 +58,12 @@ class HomeListFragment : BaseFragment() {
         bd.refreshLayout.complete()
         if (dataList.size > 20)
             bd.refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
+        //列表为空的时候显示文字不太友好，使用一下方法
+       /* if (dataList.isEmpty()) {
+            bd.refreshLayout.isEnableLoadMore = false
+        } else {
+            bd.refreshLayout.isEnableLoadMore = true
+        }*/
     }
 
     private fun refresh() {
@@ -66,7 +73,10 @@ class HomeListFragment : BaseFragment() {
         }
         adapter.notifyDataSetChanged()
         bd.refreshLayout.complete()
-        bd.refreshLayout.setNoMoreData(false)
+        if (dataList.size > 0)
+            bd.refreshLayout.setNoMoreData(false)
+        else
+            bd.refreshLayout.setNoMoreData(true)
     }
 
     private fun getData() {

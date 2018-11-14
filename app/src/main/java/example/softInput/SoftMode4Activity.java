@@ -6,7 +6,7 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
 import com.style.helper.InputMethodStateListener;
-import com.style.view.DividerItemDecoration;
+import com.style.view.systemHelper.DividerItemDecoration;
 
 import java.util.ArrayList;
 

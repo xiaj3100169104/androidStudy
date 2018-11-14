@@ -27,6 +27,8 @@ class CustomViewFragment : BaseFragment() {
         bd.btnTemp.setOnClickListener { skip(TempActivity::class.java) }
         bd.btnBp.setOnClickListener { skip(BpActivity::class.java) }
         bd.btnSleep.setOnClickListener { skip(SleepWeekActivity::class.java) }
+        bd.btnSport.setOnClickListener { skip(SportWeekActivity::class.java) }
+
         bd.btnEcg.setOnClickListener { skip(EcgActivity::class.java) }
         bd.btnExpandableText.setOnClickListener { skip(XXRefreshActivity::class.java) }
 

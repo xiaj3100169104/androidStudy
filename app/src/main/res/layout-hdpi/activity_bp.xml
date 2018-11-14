@@ -8,7 +8,8 @@
         android:layout_height="match_parent"
         android:background="@color/windows_color"
         android:orientation="vertical">
-        <include layout="@layout/title_bar_normal"/>
+
+        <include layout="@layout/title_bar_normal" />
 
         <Button
             android:id="@+id/btn_refresh"
@@ -17,14 +18,32 @@
             android:text="刷新" />
 
         <RelativeLayout
+            android:id="@+id/view_4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp">
 
-            <com.style.view.BloodPressureChart
-                android:id="@+id/bp_line"
+            <com.style.view.healthy.BloodPressureLineBg
+                android:id="@+id/bp_line_bg"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:visibility="visible" />
+                android:background="@color/white"
+                android:layerType="software" />
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="20dp"
+                android:layerType="software">
+
+                <com.style.view.healthy.BloodPressureLine
+                    android:id="@+id/bp_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:visibility="visible" />
+            </HorizontalScrollView>
         </RelativeLayout>
 
     </LinearLayout>

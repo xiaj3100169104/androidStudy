@@ -54,18 +54,6 @@
 
         </LinearLayout>
 
-        <com.style.view.progressbar.SportDayCircleView
-            android:id="@+id/arc_progress"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            app:arc_finished_color="#FF45CE7B"
-            app:arc_finished_start_angle="90"
-            app:arc_progress="40"
-            app:arc_stroke_width="15dp"
-            app:arc_unfinished_color="#ffe5e5e5" />
-
         <com.style.view.progressbar.ArcEnergyBar
             android:id="@+id/arc_energy"
             android:layout_width="150dp"

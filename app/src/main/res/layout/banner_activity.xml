@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.style.view.MyRadioGroup
+            <com.style.view.systemHelper.MyRadioGroup
                 android:id="@+id/banner_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,10 +54,10 @@
                     android:button="@null"
                     android:checked="false" />
 
-            </com.style.view.MyRadioGroup>
+            </com.style.view.systemHelper.MyRadioGroup>
         </RelativeLayout>
 
-        <com.style.view.MyRadioGroup
+        <com.style.view.systemHelper.MyRadioGroup
             android:id="@+id/rg_emotion_card_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:gravity="center"
                 android:text="tab2"
                 android:textColor="@color/sel_emo_card" />
-        </com.style.view.MyRadioGroup>
+        </com.style.view.systemHelper.MyRadioGroup>
 
         <FrameLayout
             android:id="@+id/rl_container"

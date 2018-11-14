@@ -58,7 +58,8 @@
         android:supportsRtl="false"
         android:resizeableActivity="false"
         android:theme="@style/BaseAppTheme"
-        tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
+        tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
         <provider
@@ -152,6 +153,8 @@
         <activity android:name="example.customview.TempActivity" />
         <activity android:name="example.customview.BpActivity" />
         <activity android:name="example.customview.SleepWeekActivity" />
+        <activity android:name="example.customview.SportWeekActivity" />
+
         <activity android:name="example.customview.EcgActivity" />
         <activity android:name="example.gesture.XXRefreshActivity" />
 

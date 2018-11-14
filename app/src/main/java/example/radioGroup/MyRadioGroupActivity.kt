@@ -8,8 +8,7 @@ import android.support.v4.view.ViewPager
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.BannerActivityBinding
-import com.style.view.MyRadioGroup;
-import example.tablayout.FindTabAdapter
+import com.style.view.systemHelper.MyRadioGroup;
 
 /**
  * Created by xiajun on 2016/10/8.

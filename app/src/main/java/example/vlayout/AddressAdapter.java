@@ -8,11 +8,8 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.style.framework.R;
-import com.style.framework.databinding.AdapterAddressBinding;
 import com.style.framework.databinding.HolderAddressBinding;
-import com.style.framework.databinding.HolderBannerBinding;
-import com.style.framework.databinding.HolderHeaderBinding;
-import com.style.view.DividerItemDecoration;
+import com.style.view.systemHelper.DividerItemDecoration;
 
 import java.util.ArrayList;
 

@@ -9,7 +9,8 @@
         android:background="@color/windows_color"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_normal"/>
+        <include layout="@layout/title_bar_normal" />
+
         <Button
             android:id="@+id/btn_refresh"
             android:layout_width="match_parent"
@@ -17,35 +18,6 @@
             android:text="刷新"
             android:textStyle="bold" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFFFF">
-
-            <com.style.view.HeartRateLineBg
-                android:layout_width="match_parent"
-                android:layout_height="270dp" />
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layerType="software">
-
-                <com.style.view.HeartRateLine
-                    android:id="@+id/heart_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="270dp" />
-            </HorizontalScrollView>
-        </RelativeLayout>
-
-        <com.style.view.HeartLineChart
-            android:id="@+id/heart_line_new"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:layout_marginTop="20dp"
-            android:background="#FFFFFFFF" />
 
     </LinearLayout>
 </layout>

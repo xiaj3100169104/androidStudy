@@ -13,7 +13,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.style.framework.R;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * Created by xiajun on 2018/6/8.
@@ -52,7 +52,7 @@ public abstract class BaseCenterDialog extends Dialog {
         window.setGravity(Gravity.CENTER);
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(Utils.dp2px(getContext(), 300), window.getAttributes().height);
+        window.setLayout(DeviceInfoUtil.dp2px(getContext(), 300), window.getAttributes().height);
 
         btnSure = (TextView) findViewById(R.id.btn_ok);
         btnCancel = (TextView) findViewById(R.id.btn_cancel);

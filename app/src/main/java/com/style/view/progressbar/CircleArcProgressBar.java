@@ -10,7 +10,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 
 import com.style.framework.R;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 public class CircleArcProgressBar extends BaseProgressBar {
     private Paint paint;
@@ -45,7 +45,7 @@ public class CircleArcProgressBar extends BaseProgressBar {
 
     public CircleArcProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        default_stroke_width = Utils.dp2px(context, 4);
+        default_stroke_width = DeviceInfoUtil.dp2px(context, 4);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();

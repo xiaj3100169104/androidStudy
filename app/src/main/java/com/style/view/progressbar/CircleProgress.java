@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.style.framework.R;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * 球形液体百分比进度 View
@@ -46,7 +46,7 @@ public class CircleProgress extends BaseProgressBar {
 
     public CircleProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        default_text_size = Utils.sp2px(context, 18);
+        default_text_size = DeviceInfoUtil.sp2px(context, 18);
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.style.view.ScanView
+    <com.style.view.other.ScanView
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_centerInParent="true"

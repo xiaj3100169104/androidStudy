@@ -7,7 +7,7 @@
             type="example.home.GestureFragment.OnItemClickListener" />
     </data>
 
-    <com.style.app.MyAppRefreshLayout
+    <com.style.view.refresh.MyAppRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -73,6 +73,6 @@
                     android:text="缩放标题栏" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.style.app.MyAppRefreshLayout>
+    </com.style.view.refresh.MyAppRefreshLayout>
 
 </layout>

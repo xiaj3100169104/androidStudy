@@ -1,13 +1,10 @@
 package example.customview
 
-import com.style.base.BaseActivity
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
-import com.style.view.BloodPressureChart
-
-import java.util.ArrayList
-import java.util.Random
+import com.style.view.healthy.BloodPressureLine
+import java.util.*
 
 class BpActivity : BaseTitleBarActivity() {
 
@@ -21,22 +18,25 @@ class BpActivity : BaseTitleBarActivity() {
     }
 
     override fun initData() {
+        setToolbarTitle("血压曲线图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
 
     }
 
     fun refresh() {
+        bd.bpLineBg.setData(getData())
         bd.bpLine.setData(getData())
     }
 
-    private fun getData(): List<BloodPressureChart.BloodItem> {
-        val list = ArrayList<BloodPressureChart.BloodItem>()
+    private fun getData(): List<BloodPressureLine.BloodItem> {
+        val list = ArrayList<BloodPressureLine.BloodItem>()
         val random = Random()
         for (i in 0..99) {
-            val b = BloodPressureChart.BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, i.toString())
+            val b = BloodPressureLine.BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, "00:00")
             list.add(b)
         }
         return list
     }
+
 }

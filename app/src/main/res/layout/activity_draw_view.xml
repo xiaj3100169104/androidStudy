@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.style.view.DrawView
+    <com.style.view.other.DrawView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

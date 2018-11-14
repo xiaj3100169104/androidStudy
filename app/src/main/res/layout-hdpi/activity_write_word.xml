@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.style.framework.com.example.MainActivity">
 
-   <com.style.view.WriteWordView
+   <com.style.view.other.WriteWordView
        android:id="@+id/custom_view"
        android:layout_width="match_parent"
        android:layout_height="match_parent"

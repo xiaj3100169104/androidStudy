@@ -8,7 +8,8 @@
         android:layout_height="match_parent"
         android:background="@color/windows_color"
         android:orientation="vertical">
-        <include layout="@layout/title_bar_normal"/>
+
+        <include layout="@layout/title_bar_normal" />
 
         <Button
             android:id="@+id/btn_refresh"
@@ -19,34 +20,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FF91c532">
+            android:layout_height="wrap_content">
 
-            <com.style.view.TemperatureLineBg
+            <com.style.view.healthy.TemperatureLineBg
                 android:id="@+id/temperature_line_bg"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layerType="software" />
 
             <HorizontalScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="20dp"
                 android:layerType="software">
 
-                <com.style.view.TemperatureLineNew
+                <com.style.view.healthy.TemperatureLineNew
                     android:id="@+id/temperature_line"
                     android:layout_width="wrap_content"
                     android:layout_height="300dp"
                     android:visibility="visible" />
             </HorizontalScrollView>
         </RelativeLayout>
-
-        <com.style.view.TemperatureChart
-            android:id="@+id/temperature_chart"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="10dp" />
     </LinearLayout>
 </layout>

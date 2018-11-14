@@ -62,7 +62,7 @@
                         android:layout_centerInParent="true"
                         android:background="@drawable/tab_chat_bg" />
 
-                    <com.style.view.CustomNotifyView
+                    <com.style.view.other.CustomNotifyView
                         android:id="@+id/view_notify_msg"
                         android:layout_width="20dp"
                         android:layout_height="20dp"

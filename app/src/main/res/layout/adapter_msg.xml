@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="内容" />
 
-                <com.style.view.CustomNotifyView
+                <com.style.view.other.CustomNotifyView
                     android:id="@+id/view_unread"
                     android:layout_width="20dp"
                     android:layout_height="20dp"

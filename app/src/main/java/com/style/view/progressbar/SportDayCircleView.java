@@ -10,7 +10,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 
 import com.style.framework.R;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * 类似仪表盘百分比进度 View
@@ -18,24 +18,22 @@ import com.style.utils.Utils;
 public class SportDayCircleView extends BaseProgressBar {
     private Paint paint;
     protected Paint textPaint;
-
     private RectF rectF = new RectF();
 
     private float strokeWidth;
-
     private int max;
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
     private int smallCircleStrokeColor = 0x99CCCCCC;
     private int smallCircleColor = 0xFFFFFFFF;
-    private float arcFinishedStartAngle;
+    private final float smallCircleRasius;
+
+    private float arcFinishedStartAngle = 0;
 
     private final int default_finished_color = Color.WHITE;
     private final int default_unfinished_color = Color.rgb(72, 106, 176);
-
     private final float default_stroke_width;
     private final int default_max = 100;
-
     private float radius;
 
     public SportDayCircleView(Context context) {
@@ -48,18 +46,19 @@ public class SportDayCircleView extends BaseProgressBar {
 
     public SportDayCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        default_stroke_width = Utils.dp2px(context, 4);
+        default_stroke_width = DeviceInfoUtil.dp2px(context, 4);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ArcProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();
+        smallCircleRasius = strokeWidth / 2 + strokeWidth / 3;
 
         initPainters();
     }
 
     protected void initByAttributes(TypedArray attributes) {
+        arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
         finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, default_finished_color);
         unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, default_unfinished_color);
-        arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
         setMax(attributes.getInt(R.styleable.ArcProgress_arc_max, default_max));
         setProgress(attributes.getInt(R.styleable.ArcProgress_arc_progress, 0));
         strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, default_stroke_width);
@@ -101,10 +100,11 @@ public class SportDayCircleView extends BaseProgressBar {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        rectF.set(strokeWidth / 2f, strokeWidth / 2f, width - strokeWidth / 2f, MeasureSpec.getSize(heightMeasureSpec) - strokeWidth / 2f);
-        radius = width / 2f;
-        float angle = 180;
-        float arcBottomHeight = radius * (float) (1 - Math.cos(Math.toRadians(angle)));
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        //饼状图矩形区域,注意这里的矩形边界是指矩形边框的中间位置
+        rectF.set(strokeWidth / 1f, strokeWidth / 1f, width - strokeWidth / 1f, height - strokeWidth / 1f);
+        //小圆中心点到饼状图中心点距离，注意这里半径，不然小圆在90度的倍数时显示不全
+        radius = width / 2f - strokeWidth;
     }
 
     @Override
@@ -121,20 +121,18 @@ public class SportDayCircleView extends BaseProgressBar {
         paint.setColor(finishedStrokeColor);
         canvas.drawArc(rectF, 0, finishedSweepAngle, false, paint);
 
-        canvas.translate(radius, radius);
-        float r = radius - strokeWidth / 2;
+        canvas.translate(getWidth() / 2f, getWidth() / 2f);
         //弧度，单位π
-        double radian = Math.toRadians(finishedSweepAngle);
-        float x = (float) (r * Math.cos(radian));
-        float y = (float) (r * Math.sin(radian));
-        float r2 = strokeWidth / 2 + strokeWidth / 3;
+        double radian = finishedSweepAngle / 180f * Math.PI;
+        float x = (float) (radius * Math.cos(radian));
+        float y = (float) (radius * Math.sin(radian));
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(smallCircleColor);
-        canvas.drawCircle(x, y, r2, paint);
+        canvas.drawCircle(x, y, smallCircleRasius, paint);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         paint.setColor(smallCircleStrokeColor);
-        canvas.drawCircle(x, y, r2, paint);
+        canvas.drawCircle(x, y, smallCircleRasius, paint);
         canvas.restore();
 
     }

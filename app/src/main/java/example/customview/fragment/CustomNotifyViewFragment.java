@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;
-import com.style.view.CustomNotifyView;
+import com.style.view.other.CustomNotifyView;
 
 
 public class CustomNotifyViewFragment extends BaseFragment {

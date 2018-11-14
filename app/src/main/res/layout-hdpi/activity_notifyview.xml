@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="20dp"
         android:layout_height="20dp"
         app:notifyText="0" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:notifyBackgroundColor="#00ff00"
@@ -17,19 +17,19 @@
         app:notifyTextColor="#ff0000"
         />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerInParent="true"
         app:notifyText="2" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="35dp"
         android:layout_height="35dp"
         app:notifyBackgroundColor="#0000ff"
         app:notifyText="3" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:id="@+id/customNotifyView"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -37,13 +37,13 @@
         app:notifyText="4"
         app:notifyTextSize="25sp" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:notifyBackgroundColor="#000000"
         app:notifyText="20" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:id="@+id/view_change"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -52,55 +52,55 @@
         app:notifyText="6"
         app:notifyTextSize="35sp" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:notifyBackgroundColor="@color/colorAccent" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerInParent="true"
         app:notifyText="8" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="35dp"
         android:layout_height="35dp"
         app:notifyBackgroundColor="#0000ff" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="30dp"
         android:layout_height="30dp" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="25dp"
         android:layout_height="25dp"
         app:notifyBackgroundColor="#00ff00" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="10dp"
         android:layout_height="10dp" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="15dp"
         android:layout_height="15dp" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_centerInParent="true" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_centerInParent="true" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:layout_width="10dp"
         android:layout_height="10dp"
         android:layout_centerInParent="true" />
 
-    <com.style.view.CustomNotifyView
+    <com.style.view.other.CustomNotifyView
         android:id="@+id/custom"
         android:layout_width="30dp"
         android:layout_height="30dp"

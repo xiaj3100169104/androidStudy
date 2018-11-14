@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.style.app.ConfigUtil;
 import com.style.base.BaseActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 
 import java.io.BufferedReader;
@@ -11,7 +12,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EcgActivity extends BaseActivity {
+public class EcgActivity extends BaseTitleBarActivity {
 
     List<Integer> strings = new ArrayList<>();
     int max = 0, min = 0;

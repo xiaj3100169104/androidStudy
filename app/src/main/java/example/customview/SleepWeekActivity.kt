@@ -1,50 +1,54 @@
 package example.customview
 
-import android.util.Log
-import com.style.base.BaseActivity
 import com.style.base.BaseTitleBarActivity
-
 import com.style.framework.R
-import com.style.framework.databinding.ActivityCurveBinding
-import com.style.view.SleepWeekHistogram
-
-import java.util.ArrayList
-import java.util.Random
+import com.style.framework.databinding.ActivityWeekSleepBinding
+import com.style.view.healthy.SleepWeekHistogram
+import java.util.*
 
 class SleepWeekActivity : BaseTitleBarActivity() {
 
-    lateinit var bd: ActivityCurveBinding
+    lateinit var bd: ActivityWeekSleepBinding
     private var mWeeks: Array<String>? = null
 
     override fun getLayoutResId(): Int {
-        return R.layout.activity_curve
+        return R.layout.activity_week_sleep
     }
 
     override fun initData() {
+        setToolbarTitle("睡眠柱状图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
-
         mWeeks = resources.getStringArray(R.array.week_array)
-        bd.sleepHistogram.setOnSelectionChangeListener { selected -> Log.e("CurveActivity2", selected.toString() + "") }
+        bd.sleepHistogram.setOnSelectionChangeListener(object : SleepWeekHistogram.OnSelectionChangeListener {
+            override fun onSelectionChanged(selected: Int) {
+                showToast(selected.toString())
+            }
+
+            override fun onSlideLeft() {
+                refresh()
+            }
+
+            override fun onSlideRight() {
+                refresh()
+            }
+        })
         bd.sleepHistogram.setData(null, false)
     }
 
     fun refresh() {
-        bd.sleepHistogram.setData(histogramData, true)
+        bd.sleepHistogram.setData(getData(), true)
     }
 
-    val histogramData: List<SleepWeekHistogram.PointItem>
-        get() {
-            val mValueList = ArrayList<SleepWeekHistogram.PointItem>()
-            val random = Random()
-            var y: Int
-            var item: SleepWeekHistogram.PointItem
-            for (i in 0..6) {
-                y = random.nextInt(180) + 360
-                item = SleepWeekHistogram.PointItem(mWeeks!![i], y)
-                mValueList.add(item)
-            }
-            return mValueList
+    fun getData(): List<SleepWeekHistogram.PointItem> {
+        val list = ArrayList<SleepWeekHistogram.PointItem>()
+        var item: SleepWeekHistogram.PointItem
+        val random = Random()
+        for (i in 0..6) {
+            item = SleepWeekHistogram.PointItem("", random.nextInt(500) + 60)
+            list.add(item)
         }
+        return list
+    }
 
 }

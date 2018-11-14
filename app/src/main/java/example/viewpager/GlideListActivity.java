@@ -10,7 +10,7 @@ import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.GlideListTestBinding;
-import com.style.view.DividerItemDecoration;
+import com.style.view.systemHelper.DividerItemDecoration;
 
 import java.util.ArrayList;
 

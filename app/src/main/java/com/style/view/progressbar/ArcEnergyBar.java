@@ -4,18 +4,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 
 import com.style.framework.R;
-import com.style.utils.Utils;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * 类似仪表盘百分比进度 View
@@ -69,7 +66,7 @@ public class ArcEnergyBar extends BaseProgressBar {
         mFinishPaint = new Paint(paint);
         mFinishPaint.setColor(finishedStrokeColor);
         //这个东西有bug，边角为圆角时渐变色有问题
-        mShader = new SweepGradient(Utils.dp2px(context, 150) / 2, Utils.dp2px(context, 150) / 2, finishedStrokeColor, Color.rgb(66, 145, 241));
+        mShader = new SweepGradient(DeviceInfoUtil.dp2px(context, 150) / 2, DeviceInfoUtil.dp2px(context, 150) / 2, finishedStrokeColor, Color.rgb(66, 145, 241));
         /*Matrix gradientMatrix = new Matrix();
         gradientMatrix.preRotate(90, Utils.dp2px(context, 150) / 2, Utils.dp2px(context, 150) / 2);
         mShader.setLocalMatrix(gradientMatrix);*/
@@ -78,11 +75,11 @@ public class ArcEnergyBar extends BaseProgressBar {
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
         textPaint.setColor(finishedStrokeColor);
-        textPaint.setTextSize(Utils.sp2px(context, 12));
+        textPaint.setTextSize(DeviceInfoUtil.sp2px(context, 12));
 
 
         mCenterTextPaint = new TextPaint(textPaint);
-        mCenterTextPaint.setTextSize(Utils.sp2px(context, 15));
+        mCenterTextPaint.setTextSize(DeviceInfoUtil.sp2px(context, 15));
         mCenterTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
@@ -129,7 +126,7 @@ public class ArcEnergyBar extends BaseProgressBar {
         canvas.translate(0, getHeight());
         float mBottomTextHeight = getTextHeight(textPaint.getFontMetrics());
         float mBottomTextWidth = textPaint.measureText(mBottomText);
-        canvas.drawText(mBottomText, getWidth() / 2 - mBottomTextWidth / 2, -(mBottomTextHeight / 2 - getBaseLine2CenterY(textPaint.getFontMetrics())) - Utils.dp2px(getContext(), 10), textPaint);
+        canvas.drawText(mBottomText, getWidth() / 2 - mBottomTextWidth / 2, -(mBottomTextHeight / 2 - getBaseLine2CenterY(textPaint.getFontMetrics())) - DeviceInfoUtil.dp2px(getContext(), 10), textPaint);
         canvas.restore();
 
         canvas.save();

@@ -48,7 +48,7 @@
                 android:src="@mipmap/ic_check_in_delete" />
         </RelativeLayout>
 
-        <com.style.view.CallKeyboard
+        <com.style.view.systemHelper.CallKeyboard
             android:id="@+id/call_keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

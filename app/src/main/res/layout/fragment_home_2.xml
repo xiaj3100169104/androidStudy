@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <com.style.app.MyAppRefreshLayout
+    <com.style.view.refresh.MyAppRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,5 +17,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-    </com.style.app.MyAppRefreshLayout>
+    </com.style.view.refresh.MyAppRefreshLayout>
 </layout>

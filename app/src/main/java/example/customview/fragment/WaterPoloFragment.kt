@@ -5,7 +5,7 @@ import android.widget.Button
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.view.WaterPoloProgress
+import com.style.view.progressbar.WaterPoloProgress
 
 class WaterPoloFragment : BaseFragment() {
 

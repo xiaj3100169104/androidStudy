@@ -12,18 +12,6 @@ import java.util.regex.Pattern;
  * Created by xiajun on 2017/1/9.
  */
 public class FormatUtil {
-    public static String getUUID() {
-        String UUID = java.util.UUID.randomUUID().toString();
-        return new String(UUID.getBytes(), Charset.forName("UTF-8"));
-    }
-
-    public static int getSmallInt(float value) {
-        return (int) Math.floor(value);
-    }
-
-    public static int getBigInt(float value) {
-        return (int) Math.ceil(value);
-    }
 
     /**
      * 产生随机数，首位不为0
@@ -83,9 +71,9 @@ public class FormatUtil {
     public static boolean isPassword(CharSequence password) {
         /*
          * Pattern p =
-		 * Pattern.compile("(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,})$");
-		 * Matcher m = p.matcher(password); return m.matches();
-		 */
+         * Pattern.compile("(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{6,})$");
+         * Matcher m = p.matcher(password); return m.matches();
+         */
         if (password.length() >= 6 && password.length() <= 15) {
             return true;
         } else {
@@ -101,8 +89,7 @@ public class FormatUtil {
         return new InputFilter() {
 
             @Override
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
                 if (" ".equals(source)) {
                     return "";
                 }

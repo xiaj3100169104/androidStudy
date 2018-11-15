@@ -7,35 +7,57 @@ import android.util.Log;
 import android.view.View;
 
 /**
+ * 进度相关view基类
  * Created by xiajun on 2017/7/31.
  */
 
 public abstract class BaseProgressBar extends View {
     private static final String TAG = "BaseProgressBar";
-
+    protected static final int DEFAULT_MAX = 100;
+    private int max = DEFAULT_MAX;
     //进度
-    protected int progress = 0;
+    private int progress = 0;
     private PercentThread percentThread;
 
     public BaseProgressBar(Context context) {
         super(context);
     }
+
     public BaseProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        if (this.progress > getMax()) {
+            throw new IllegalArgumentException("progress must less than the max!");
+        }
+        this.progress = progress;
+        invalidate();
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
     //带动画渐进到指定进度
-    public void setPercentWithAnimation(int percent) {
-        if (percent > 100) {
-            throw new IllegalArgumentException("percent must less than 100!");
+    public void setProgressWithAnimation(int progress) {
+        if (progress > getMax()) {
+            throw new IllegalArgumentException("progress must less than the max!");
         }
         if (percentThread != null && percentThread.isAlive()) {
             //停止上一次绘制线程，否则之前可能还在绘制
             percentThread.setStop();
             percentThread.interrupt();
         }
-        percentThread = new PercentThread(percent);
-        percentThread.setPercent(percent);
+        percentThread = new PercentThread(progress);
         percentThread.start();
     }
 
@@ -47,26 +69,23 @@ public abstract class BaseProgressBar extends View {
             this.percent = percent;
         }
 
-        public void setPercent(int percent) {
-            this.percent = percent;
-        }
-
         @Override
         public void run() {
-            int sleepTime = 1;
-            for (int i = 0; i <= percent; i++) {
-                if (canContinue) {
-                    if (i % 20 == 0) {
-                        sleepTime += 2;
-                    }
-                    try {
+            try {
+                //间隔时间太短根本看不出动画效果
+                int sleepTime = 0;
+                for (int i = 0; i <= percent; i++) {
+                    if (canContinue) {
+                        if (i % 20 == 0) {
+                            sleepTime += 2;
+                        }
                         Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        progress = i;
+                        postInvalidate();
                     }
-                    progress = i;
-                    postInvalidate();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 

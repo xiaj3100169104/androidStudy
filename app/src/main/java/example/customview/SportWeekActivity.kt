@@ -43,8 +43,8 @@ class SportWeekActivity : BaseTitleBarActivity() {
     private fun setStepsProgress(selected: Int) {
         if (weekSportData != null && selected >= 0 && selected <= weekSportData!!.size - 1) {
             val b = weekSportData!![selected]
-            val percent = b.yValue * 100 / 5000
-            bd.progressSteps.setPercentWithAnimation(if (percent > 100) 100 else percent)
+            val progress: Int = (b.yValue / 5000f * bd.progressSteps.max).toInt()
+            bd.progressSteps.setProgressWithAnimation(progress)
         }
     }
 

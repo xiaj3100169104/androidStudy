@@ -24,9 +24,9 @@ class CircleProgressBarFragment : BaseFragment() {
         }
         bd.button2.setOnClickListener { v ->
             val n = (Math.random() * 100).toInt()
-            bd.progressBar.setPercentWithAnimation(n)
-            bd.circleProgress.setPercentWithAnimation(n)
-            bd.arcEnergy.setPercentWithAnimation(n)
+            bd.progressBar.setProgressWithAnimation(n)
+            bd.circleProgress.setProgressWithAnimation(n)
+            bd.arcEnergy.setProgressWithAnimation(n)
         }
 
     }

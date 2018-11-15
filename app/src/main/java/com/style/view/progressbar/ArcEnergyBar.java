@@ -22,7 +22,6 @@ public class ArcEnergyBar extends BaseProgressBar {
     protected Paint textPaint;
     private RectF rectF = new RectF();
     private float strokeWidth = 20;
-    private int max = 100;
     private String mBottomText = "剩余能量";
     private float arcFinishedStartAngle;
     private int finishedStrokeColor = Color.RED;
@@ -48,7 +47,8 @@ public class ArcEnergyBar extends BaseProgressBar {
         unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, unfinishedStrokeColor);
         arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
         arcTotalSweepAngle = attributes.getInt(R.styleable.ArcProgress_arc_total_sweep_angle, arcTotalSweepAngle);
-        progress = attributes.getInt(R.styleable.ArcProgress_arc_progress, 0);
+        int progress = attributes.getInt(R.styleable.ArcProgress_arc_progress, 0);
+        setProgress(progress);
         strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, strokeWidth);
         attributes.recycle();
 
@@ -77,30 +77,9 @@ public class ArcEnergyBar extends BaseProgressBar {
         textPaint.setColor(finishedStrokeColor);
         textPaint.setTextSize(DeviceInfoUtil.sp2px(context, 12));
 
-
         mCenterTextPaint = new TextPaint(textPaint);
         mCenterTextPaint.setTextSize(DeviceInfoUtil.sp2px(context, 15));
         mCenterTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress) {
-        this.progress = progress;
-        invalidate();
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        if (max > 0) {
-            this.max = max;
-            invalidate();
-        }
     }
 
     @Override

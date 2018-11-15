@@ -25,6 +25,9 @@ class CustomViewMainActivity : BaseTitleBarActivity() {
     override fun initData() {
         bd = getBinding()
         setToolbarTitle("tabLayout")
+
+        titles.add("自定义饼状图")
+        fragments.add(PieChartFragment())
         titles.add("自定义通知小圆点")
         fragments.add(CustomNotifyViewFragment())
         titles.add("圆环进度条")

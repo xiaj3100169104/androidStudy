@@ -7,7 +7,7 @@
 ## 其他
   -------------
 <img src="screenshots/customNotifyView.png" height="400" alt="Screenshot"/>        <img src="screenshots/sound_wave.gif" height="400" alt="Screenshot"/>          <img src="screenshots/scan_view.gif" height="400" alt="Screenshot"/>
-<img src="screenshots/scan_view2.gif" height="400" alt="Screenshot"/>
+<img src="screenshots/recycler_view_swipe_menu.gif" height="400" alt="Screenshot"/>          <img src="screenshots/scan_view2.gif" height="400" alt="Screenshot"/>        <img src="screenshots/pie_chart.gif" height="400" alt="Screenshot"/>
 
 ## 折线、曲线图
   -------------

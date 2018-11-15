@@ -22,7 +22,6 @@ public class CircleProgress extends BaseProgressBar {
 
     private float textSize;
     private int textColor;
-    private int max;
     private int finishedColor;
     private int unfinishedColor;
     private String prefixText = "";
@@ -31,7 +30,6 @@ public class CircleProgress extends BaseProgressBar {
     private final int default_finished_color = Color.rgb(66, 145, 241);
     private final int default_unfinished_color = Color.rgb(204, 204, 204);
     private final int default_text_color = Color.WHITE;
-    private final int default_max = 100;
     private final float default_text_size;
 
     private Paint paint = new Paint();
@@ -60,7 +58,7 @@ public class CircleProgress extends BaseProgressBar {
         textColor = attributes.getColor(R.styleable.CircleProgress_circle_text_color, default_text_color);
         textSize = attributes.getDimension(R.styleable.CircleProgress_circle_text_size, default_text_size);
 
-        setMax(attributes.getInt(R.styleable.CircleProgress_circle_max, default_max));
+        setMax(attributes.getInt(R.styleable.CircleProgress_circle_max, DEFAULT_MAX));
         setProgress(attributes.getInt(R.styleable.CircleProgress_circle_progress, 0));
 
         if (attributes.getString(R.styleable.CircleProgress_circle_prefix_text) != null) {
@@ -78,28 +76,6 @@ public class CircleProgress extends BaseProgressBar {
         textPaint.setAntiAlias(true);
 
         paint.setAntiAlias(true);
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress) {
-        if (this.progress <= getMax()) {
-            this.progress = progress;
-            invalidate();
-        }
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        if (max > 0) {
-            this.max = max;
-            invalidate();
-        }
     }
 
     public float getTextSize() {

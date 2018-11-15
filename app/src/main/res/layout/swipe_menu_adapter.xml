@@ -8,7 +8,7 @@
 
         <LinearLayout
             android:id="@+id/layout_fore"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="horizontal">
@@ -58,6 +58,7 @@
                 android:id="@+id/view_delete"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
+                android:background="#ff0000"
                 android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:text="删除"

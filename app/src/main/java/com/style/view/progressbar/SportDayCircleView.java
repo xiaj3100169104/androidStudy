@@ -21,7 +21,6 @@ public class SportDayCircleView extends BaseProgressBar {
     private RectF rectF = new RectF();
 
     private float strokeWidth;
-    private int max;
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
     private int smallCircleStrokeColor = 0x99CCCCCC;
@@ -33,7 +32,6 @@ public class SportDayCircleView extends BaseProgressBar {
     private final int default_finished_color = Color.WHITE;
     private final int default_unfinished_color = Color.rgb(72, 106, 176);
     private final float default_stroke_width;
-    private final int default_max = 100;
     private float radius;
 
     public SportDayCircleView(Context context) {
@@ -59,7 +57,7 @@ public class SportDayCircleView extends BaseProgressBar {
         arcFinishedStartAngle = attributes.getFloat(R.styleable.ArcProgress_arc_finished_start_angle, arcFinishedStartAngle);
         finishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_finished_color, default_finished_color);
         unfinishedStrokeColor = attributes.getColor(R.styleable.ArcProgress_arc_unfinished_color, default_unfinished_color);
-        setMax(attributes.getInt(R.styleable.ArcProgress_arc_max, default_max));
+        setMax(attributes.getInt(R.styleable.ArcProgress_arc_max, DEFAULT_MAX));
         setProgress(attributes.getInt(R.styleable.ArcProgress_arc_progress, 0));
         strokeWidth = attributes.getDimension(R.styleable.ArcProgress_arc_stroke_width, default_stroke_width);
     }
@@ -74,26 +72,6 @@ public class SportDayCircleView extends BaseProgressBar {
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress) {
-        this.progress = progress;
-        invalidate();
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        if (max > 0) {
-            this.max = max;
-            invalidate();
-        }
     }
 
     @Override

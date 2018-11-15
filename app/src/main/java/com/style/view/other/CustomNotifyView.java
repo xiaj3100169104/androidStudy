@@ -20,7 +20,7 @@ public class CustomNotifyView extends View {
     /**
      * 背景颜色
      */
-    private int mBackgroundColor = Color.RED;
+    private int mBackgroundColor = Color.parseColor("#FF4040");
     /**
      * 文本
      */
@@ -33,7 +33,7 @@ public class CustomNotifyView extends View {
      * 文本的大小
      */
     // 默认设置为12sp
-    private int mTitleTextSize = (int) sp2px(12);
+    private int mTitleTextSize = sp2px(12);
 
     private Paint mCirclePaint;
     private Paint mTextPaint;
@@ -108,16 +108,21 @@ public class CustomNotifyView extends View {
         mTextPaint.setColor(mTitleTextColor);
     }
 
-    private float sp2px(int sp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
-    }
-
     /**
      * 显示数字，默认超过99显示"..."
      *
      * @param count
      */
     public void setNotifyCount(int count) {
+        setNotifyCount(count, "...");
+    }
+
+    /**
+     * 智能模式，根据数字位数调整文字大小
+     * @param count
+     */
+    public void setNotifyCountSmart(int count) {
+
         setNotifyCount(count, "...");
     }
 
@@ -146,7 +151,7 @@ public class CustomNotifyView extends View {
     }
 
     public void setNotifyTextSize(int spSize) {
-        mTitleTextSize = (int) sp2px(spSize);
+        mTitleTextSize = sp2px(spSize);
         mTextPaint.setTextSize(mTitleTextSize);
         invalidate();
     }
@@ -204,7 +209,7 @@ public class CustomNotifyView extends View {
     /**
      * 文本改变重新计算文本位置
      */
-    private void onTextChanged(){
+    private void onTextChanged() {
         if (!TextUtils.isEmpty(mTitleText)) {
             int height = getHeight();
             int width = getWidth();
@@ -216,4 +221,9 @@ public class CustomNotifyView extends View {
             }
         }
     }
+
+    private int sp2px(int sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
+    }
+
 }

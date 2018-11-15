@@ -7,6 +7,8 @@ import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.view.other.CustomNotifyView;
 
+import java.util.Random;
+
 
 public class CustomNotifyViewFragment extends BaseFragment {
 
@@ -17,16 +19,8 @@ public class CustomNotifyViewFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        CustomNotifyView customNotifyView = (CustomNotifyView) getView().findViewById(R.id.custom);
-        customNotifyView.setNotifyText("99");
-        customNotifyView.setNotifyTextColor(Color.BLACK);
-
-        final CustomNotifyView view2 = (CustomNotifyView) getView().findViewById(R.id.view_change);
-        view2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view2.setNotifyCount(10);
-            }
-        });
+        Random random = new Random();
+        CustomNotifyView customNotifyView = getView().findViewById(R.id.custom);
+        customNotifyView.setOnClickListener(view -> customNotifyView.setNotifyCount(random.nextInt(99)));
     }
 }

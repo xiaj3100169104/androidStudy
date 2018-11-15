@@ -14,8 +14,7 @@
         android:layout_height="25dp"
         app:notifyBackgroundColor="#00ff00"
         app:notifyText="1"
-        app:notifyTextColor="#ff0000"
-        />
+        app:notifyTextColor="#ff0000" />
 
     <com.style.view.other.CustomNotifyView
         android:layout_width="30dp"
@@ -78,31 +77,8 @@
         app:notifyBackgroundColor="#00ff00" />
 
     <com.style.view.other.CustomNotifyView
-        android:layout_width="10dp"
-        android:layout_height="10dp" />
-
-    <com.style.view.other.CustomNotifyView
-        android:layout_width="15dp"
-        android:layout_height="15dp" />
-
-    <com.style.view.other.CustomNotifyView
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_centerInParent="true" />
-
-    <com.style.view.other.CustomNotifyView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_centerInParent="true" />
-
-    <com.style.view.other.CustomNotifyView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_centerInParent="true" />
-
-    <com.style.view.other.CustomNotifyView
         android:id="@+id/custom"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true" />
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:notifyText="99" />
 </LinearLayout>

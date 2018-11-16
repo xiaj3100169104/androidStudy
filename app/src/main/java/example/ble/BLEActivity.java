@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.data.prefs.AccountManager;
+import com.style.data.prefs.AppPrefsManager;
 import com.style.framework.R;
 import com.style.framework.databinding.BleActivityScanBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
@@ -56,7 +56,7 @@ public class BLEActivity extends BaseTitleBarActivity {
                 Log.e(getTAG(), "address-->" + remoteDevice.getAddress() + "   " + "type-->" + remoteDevice.getType());
                 if (remoteDevice.getType() == BluetoothDevice.DEVICE_TYPE_LE) {
                     if (remoteDevice.getBondState() == BluetoothDevice.BOND_NONE) {
-                        AccountManager.Companion.getInstance().saveBleAddress(remoteDevice.getAddress());
+                        AppPrefsManager.Companion.getInstance().saveBleAddress(remoteDevice.getAddress());
                         BleManager.getInstance().connect();
                     } else if (remoteDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
 

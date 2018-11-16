@@ -12,29 +12,25 @@
             android:id="@+id/btn_value_animator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="value_animator"
-            android:onClick="skip414"/>
+            android:text="value_animator" />
 
         <Button
             android:id="@+id/btn_object_animator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="object_animator"
-            android:onClick="skip415"/>
+            android:text="object_animator" />
 
         <Button
             android:id="@+id/btn_animator_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="animator_set"
-            android:onClick="skip416"/>
+            android:text="animator_set" />
 
         <Button
             android:id="@+id/btn_animator_xml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="animator_xml"
-            android:onClick="skip417"/>
+            android:text="animator_xml" />
 
         <ImageView
             android:id="@+id/iv_property"

@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 
-import com.style.base.BaseAndroidViewModel;
+import com.style.base.BaseViewModel;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by xiajun on 2018/4/29.
  */
 
-public class AddressViewModel extends BaseAndroidViewModel {
+public class AddressViewModel extends BaseViewModel {
     MutableLiveData<List<UploadPhone>> contacts = new MutableLiveData<>();
     private MediaPlayer player;
 

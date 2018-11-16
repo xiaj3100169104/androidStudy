@@ -26,7 +26,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.io.File;
 import java.util.ArrayList;
 
-import example.viewpager.ImageScanActivity;
+import example.view_pager.ImageScanActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**

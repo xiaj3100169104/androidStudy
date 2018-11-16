@@ -13,12 +13,11 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
-import com.style.data.db.user.UserDBManager
-import com.style.data.prefs.AccountManager
+import com.style.data.db.AppDatabase
+import com.style.data.prefs.AppPrefsManager
 import com.style.view.refresh.MyAppRefreshLayout
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
-import example.greendao.dao.GreenDaoManager
 
 class MyApp : MultiDexApplication() {
     val TAG = javaClass.simpleName
@@ -33,9 +32,8 @@ class MyApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         AppManager.getInstance().init(this)
-        AccountManager.getInstance().init(this)
-        UserDBManager.getInstance().initialize(this)
-        GreenDaoManager.getInstance().initialize(this)
+        AppPrefsManager.getInstance().init(this)
+        AppDatabase.getInstance(this).testRoomDao.getCount()
         initRefreshView()
     }
 

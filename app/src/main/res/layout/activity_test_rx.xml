@@ -17,34 +17,20 @@
                 android:id="@+id/btn_just"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="skip1"
                 android:text="just" />
 
             <Button
                 android:id="@+id/btn_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="skip2"
                 android:text="map" />
 
             <Button
                 android:id="@+id/btn_flat_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="skip3"
                 android:text="flatMap" />
 
-            <Button
-                android:id="@+id/btn_insert_new_db"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="插入新数据库" />
-
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="bablalbabab" />
         </LinearLayout>
     </ScrollView>
 </layout>

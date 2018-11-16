@@ -1,78 +1,63 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.style.view.refresh.MyAppRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-
-        <variable
-            name="onItemClickListener"
-            type="example.home.GestureFragment.OnItemClickListener" />
-    </data>
-
-    <com.style.view.refresh.MyAppRefreshLayout
-        android:id="@+id/refreshLayout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/windows_color">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/windows_color">
+            android:background="@color/white"
+            android:divider="@drawable/divider_gray_horizontal"
+            android:dividerPadding="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:divider="@drawable/divider_gray_horizontal"
-                android:dividerPadding="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:showDividers="middle">
+            <TextView
+                android:id="@+id/view_gesture_direction"
+                style="@style/text_home_item"
+                android:text="监听在view上的上下左右滑动" />
 
-                <TextView
-                    android:id="@+id/btn_3"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip9}"
-                    android:text="监听在view上的上下左右滑动" />
+            <TextView
+                android:id="@+id/view_slide_finish"
+                style="@style/text_home_item"
+                android:text="左右滑动移动View并销毁activity" />
 
-                <TextView
-                    android:id="@+id/btn_31"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip91}"
-                    android:text="左右滑动移动View并销毁activity" />
+            <TextView
+                android:id="@+id/view_slide_bottom_finish"
+                style="@style/text_home_item"
+                android:text="上下滑动移动View并销毁activity" />
 
-                <TextView
-                    android:id="@+id/btn_4"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip10}"
-                    android:text="上下滑动移动View并销毁activity" />
-
-                <TextView
-                    android:id="@+id/btn_5"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip11}"
-                    android:text="状态栏风格" />
+            <TextView
+                android:id="@+id/view_status_bar_style"
+                style="@style/text_home_item"
+                android:text="状态栏风格" />
 
 
-                <TextView
-                    android:id="@+id/btn_7"
-                    style="@style/text_home_item"
-                    android:onClick="@{onItemClickListener::skip13}"
-                    android:text="recyclerView拖拽测试" />
+            <TextView
+                android:id="@+id/view_drag_recycler_view"
+                style="@style/text_home_item"
+                android:text="recyclerView拖拽测试" />
 
-                <TextView
-                    android:id="@+id/btn_swipe_menu"
-                    style="@style/text_home_item"
-                    android:text="recyclerView左滑菜单" />
+            <TextView
+                android:id="@+id/btn_swipe_menu"
+                style="@style/text_home_item"
+                android:text="recyclerView左滑菜单" />
 
-                <TextView
-                    android:id="@+id/btn_collapseMode_pin"
-                    style="@style/text_home_item"
-                    android:text="先滚动标题栏" />
+            <TextView
+                android:id="@+id/btn_collapseMode_pin"
+                style="@style/text_home_item"
+                android:text="先滚动标题栏" />
 
-                <TextView
-                    android:id="@+id/btn_collapseMode_parallax"
-                    style="@style/text_home_item"
-                    android:text="缩放标题栏" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </com.style.view.refresh.MyAppRefreshLayout>
+            <TextView
+                android:id="@+id/btn_collapseMode_parallax"
+                style="@style/text_home_item"
+                android:text="缩放标题栏" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</com.style.view.refresh.MyAppRefreshLayout>
 
-</layout>

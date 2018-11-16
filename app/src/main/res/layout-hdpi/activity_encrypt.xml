@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="onViewClickListener"
+            type="example.encrypt.EncryptActivity.OnViewClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/windows_color"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_bar_normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{onViewClickListener::AESEncrypt}"
+                android:text="AES加密"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{onViewClickListener::AESDecrypt}"
+                android:text="AES解密"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

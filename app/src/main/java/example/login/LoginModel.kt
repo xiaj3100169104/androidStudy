@@ -4,9 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import com.style.base.BaseAndroidViewModel
+import com.style.base.BaseViewModel
 import com.style.bean.User
-import com.style.data.prefs.AccountManager
+import com.style.data.prefs.AppPrefsManager
 import java.net.URL
 import java.security.MessageDigest
 import java.security.cert.X509Certificate
@@ -17,7 +17,7 @@ import kotlin.experimental.and
  * Created by xiajun on 2018/7/13.
  */
 
-class LoginModel(application: Application) : BaseAndroidViewModel(application) {
+class LoginModel(application: Application) : BaseViewModel(application) {
 
     internal var loginSucceed = ObservableBoolean(false)
     internal var user = ObservableField<User>()
@@ -50,7 +50,7 @@ class LoginModel(application: Application) : BaseAndroidViewModel(application) {
 
     fun login(userName: String, password: String) {
         val user = User(userName, password)
-        AccountManager.getInstance().setCurrentUser(user)
+        AppPrefsManager.getInstance().setCurrentUser(user)
         synData()
         val d = getHttpApi().login(userName, password).subscribe({
             //getActivity().loginSuccess();

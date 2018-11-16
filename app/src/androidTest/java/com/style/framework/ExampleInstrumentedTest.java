@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.style.bean.User;
-import com.style.data.prefs.AccountManager;
+import com.style.data.prefs.AppPrefsManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void userId() throws Exception {
-        User u = AccountManager.Companion.getInstance().getCurrentUser();
+        User u = AppPrefsManager.Companion.getInstance().getCurrentUser();
         Log.i("userId", u.getUserId());
         assertEquals("18202823096", u.getUserId());
     }

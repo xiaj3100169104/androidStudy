@@ -28,26 +28,10 @@ public class StatusBarStyleMainActivity extends BaseRightSlideFinishActivity {
     public void initData() {
         bd = getBinding();
         setToolbarTitle("全透明浅色标题栏");
-        bd.setOnItemClickListener(new OnItemClickListener());
+        bd.viewCustomColor.setOnClickListener(v -> startActivity(new Intent(getContext(), SoftMode1Activity.class)));
+        bd.viewThemeColor.setOnClickListener(v -> startActivity(new Intent(getContext(), SoftMode2Activity.class)));
+        bd.viewTranslucentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), SoftMode3Activity.class)));
+        bd.viewTransparentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), SoftMode4Activity.class)));
     }
 
-    public class OnItemClickListener {
-
-        public void skip1(View v) {
-            startActivity(new Intent(getContext(), SoftMode1Activity.class));
-        }
-
-        public void skip2(View v) {
-            startActivity(new Intent(getContext(), SoftMode2Activity.class));
-        }
-
-        public void skip3(View v) {
-            startActivity(new Intent(getContext(), SoftMode3Activity.class));
-        }
-
-        public void skip4(View v) {
-            startActivity(new Intent(getContext(), SoftMode4Activity.class));
-
-        }
-    }
 }

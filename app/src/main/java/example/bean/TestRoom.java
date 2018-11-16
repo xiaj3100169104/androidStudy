@@ -16,6 +16,8 @@ public class TestRoom {
     public String name;
     @ColumnInfo(name = "phone")
     public String phone;
+    @ColumnInfo(name = "sex")
+    public int sex;
     @ColumnInfo(name = "updateTime")
     public long updateTime;
     @Ignore
@@ -24,10 +26,11 @@ public class TestRoom {
     public TestRoom() {
     }
 
-    public TestRoom(String id, String name, String phone, long updateTime, int age) {
+    public TestRoom(@NonNull String id, String name, String phone, int sex, long updateTime, int age) {
         this.id = id;
         this.name = name;
         this.phone = phone;
+        this.sex = sex;
         this.updateTime = updateTime;
         this.age = age;
     }
@@ -38,7 +41,8 @@ public class TestRoom {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
-                ", updateTime='" + updateTime + '\'' +
+                ", sex=" + sex +
+                ", updateTime=" + updateTime +
                 ", age=" + age +
                 '}';
     }

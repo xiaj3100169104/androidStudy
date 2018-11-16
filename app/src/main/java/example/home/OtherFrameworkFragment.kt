@@ -1,15 +1,10 @@
 package example.home
 
-import android.view.View
-
-import example.db.GreenDaoActivity
-import example.album.GlideDealActivity
+import example.activity.GlideDealActivity
 import example.activity.TestRxActivity
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.framework.databinding.FragmentHome4Binding
-
 
 import example.ble.BLEActivity
 import example.ble.BlueToothActivity
@@ -17,69 +12,30 @@ import example.media.socket.chat.SocketTestActivity
 import example.media.AudioRecordActivity
 import example.queue.QueueTestActivity
 import example.media.VideoTestActivity
-import example.webservice.WebServiceActivity
+import example.web_service.WebServiceActivity
+import kotlinx.android.synthetic.main.fragment_home_4.*
 
 
 class OtherFrameworkFragment : BaseFragment() {
-
-    private lateinit var bd: FragmentHome4Binding
 
     override fun getLayoutResId(): Int {
         return R.layout.fragment_home_4
     }
 
     override fun initData() {
-        bd = getBinding()
-        bd.event = EventListener()
-        logE(TAG, "initData")
-    }
-
-    inner class EventListener {
-
-        fun testRX(v: View) {
-            skip(TestRxActivity::class.java)
-        }
-
-        fun testGreenDao(v: View) {
-            skip(GreenDaoActivity::class.java)
-        }
-
-        fun testGlide(v: View) {
-            skip(GlideDealActivity::class.java)
-        }
-
-        fun testAppCrash(v: View) {
+        view_rx_java.setOnClickListener { skip(TestRxActivity::class.java) }
+        view_glide_deal.setOnClickListener { skip(GlideDealActivity::class.java) }
+        view_app_crash.setOnClickListener {
             val test: String? = null
             logE(TAG, test!!.toString())
         }
-
-        fun skip46(v: View) {
-            skip(VideoTestActivity::class.java)
-        }
-
-        fun skip48(v: View) {
-            skip(AudioRecordActivity::class.java)
-        }
-
-        fun skip49(v: View) {
-            skip(SocketTestActivity::class.java)
-        }
-
-        fun skip491(v: View) {
-            skip(QueueTestActivity::class.java)
-        }
-
-        fun skip492(v: View) {
-            skip(BlueToothActivity::class.java)
-        }
-
-        fun skip493(v: View) {
-            skip(BLEActivity::class.java)
-        }
-
-        fun skip11(v: View) {
-            skip(WebServiceActivity::class.java)
-        }
+        view_video_record.setOnClickListener { skip(VideoTestActivity::class.java) }
+        view_voice_record.setOnClickListener { skip(AudioRecordActivity::class.java) }
+        view_socket.setOnClickListener { skip(SocketTestActivity::class.java) }
+        view_event_manager.setOnClickListener { skip(QueueTestActivity::class.java) }
+        view_blue_tooth.setOnClickListener { skip(BlueToothActivity::class.java) }
+        view_ble.setOnClickListener { skip(BLEActivity::class.java) }
+        view_webservice.setOnClickListener { skip(WebServiceActivity::class.java) }
 
     }
 }

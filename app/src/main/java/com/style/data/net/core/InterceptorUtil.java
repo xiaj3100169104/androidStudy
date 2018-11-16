@@ -3,7 +3,7 @@ package com.style.data.net.core;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.style.data.prefs.AccountManager;
+import com.style.data.prefs.AppPrefsManager;
 import com.style.framework.BuildConfig;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class InterceptorUtil {
                 Request original = chain.request();
                 Request.Builder newBuilder = original.newBuilder();
                 if (TextUtils.isEmpty(original.header("Authorization")))//这里没打印Authorization因为执行在日志拦截后
-                    newBuilder.addHeader("Authorization", AccountManager.Companion.getInstance().getSignKey());
+                    newBuilder.addHeader("Authorization", AppPrefsManager.Companion.getInstance().getSignKey());
                 Request newRequest = newBuilder.build();
                 return chain.proceed(newRequest);
             }

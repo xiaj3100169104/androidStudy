@@ -1,5 +1,6 @@
 package example.activity;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
@@ -28,9 +29,14 @@ public class TestRxActivity extends BaseTitleBarActivity {
     @Override
     public void initData() {
         bd = getBinding();
+        bd.btnJust.setOnClickListener(v -> testJust());
+        bd.btnMap.setOnClickListener(v -> testMap());
+        bd.btnFlatMap.setOnClickListener(v -> testFlatMap());
+
     }
 
-    public void skip1(View v) {
+    @SuppressLint("CheckResult")
+    public void testJust() {
         String[] str = {"one", "two", "three", "four", "five"};
         Observable.fromArray(str)
                 .subscribeOn(Schedulers.io())
@@ -76,7 +82,8 @@ public class TestRxActivity extends BaseTitleBarActivity {
                 });
     }
 
-    public void skip2(View v) {
+    @SuppressLint("CheckResult")
+    public void testMap() {
         Flowable.just("hello RxJava 2")
                 .subscribeOn(Schedulers.newThread())
                 .map(s -> s.hashCode())
@@ -86,7 +93,8 @@ public class TestRxActivity extends BaseTitleBarActivity {
                 .subscribe(s -> System.out.println(s));
     }
 
-    public void skip3(View v) {
+    @SuppressLint("CheckResult")
+    public void testFlatMap() {
         Student[] students = new Student[3];
         for (int i = 0; i < 3; i++) {
             students[i] = new Student();

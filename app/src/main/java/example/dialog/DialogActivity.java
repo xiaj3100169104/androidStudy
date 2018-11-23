@@ -1,7 +1,9 @@
 package example.dialog;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +12,6 @@ import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.MaterialProgressDialog;
-import com.style.dialog.PromptDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
@@ -34,15 +35,16 @@ public class DialogActivity extends BaseTitleBarActivity {
         bd = getBinding();
         setToolbarTitle("弹出框");
         fm = getSupportFragmentManager();
-        bd.setOnItemClickListener(new OnItemClickListener());
-
         materialDialog = new MaterialProgressDialog(this);
         materialDialog.show();
 
+        bd.viewSystemPromptDialog.setOnClickListener(v -> showSystemPromptDialog());
+        bd.viewCustomLoadingDialog.setOnClickListener(v -> showCustomLoadingDialog());
+        bd.viewSelectAvatarDialog.setOnClickListener(v -> showSelectAvatar());
+        bd.viewPopupMenu.setOnClickListener(v -> showPopupMenu(v));
+        bd.viewListPopupWindow.setOnClickListener(v -> showListPopup(v));
+        bd.viewSpinner.setOnClickListener(v -> showSpinner());
         bd.ivLogo.setOnClickListener(v -> showPopupWindow(v));
-        bd.btn3.setOnClickListener(v -> showPopupMenu(v));
-        bd.btn4.setOnClickListener(v -> showListPopup(v));
-        bd.btn5.setOnClickListener(v -> showSpinner());
     }
 
     private void showPopupWindow(View v) {
@@ -80,40 +82,28 @@ public class DialogActivity extends BaseTitleBarActivity {
 
     }
 
-    public class OnItemClickListener {
 
-        public void skip1(View v) {
-            PromptDialog promptDialog = new PromptDialog(getContext());
-            promptDialog.setTitle("提示");
-            promptDialog.setMessage("这是提示信息");
-            promptDialog.setListener(new PromptDialog.OnPromptListener() {
-                @Override
-                public void onPositiveButton() {
+    public void showSystemPromptDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                .setTitle("系统默认风格")
+                .setMessage("这是提示信息")
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
 
-                }
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
 
-                @Override
-                public void onNegativeButton() {
-
-                }
-            });
-            promptDialog.show();
-        }
-
-        public void skip2(View v) {
-            LoadingDialog loadingDialog = new LoadingDialog(getContext());
-            loadingDialog.show();
-        }
-
-        public void skip3(View v) {
-            SelAvatarDialog selAvatarDialog = new SelAvatarDialog(getContext());
-            selAvatarDialog.show();
-        }
-
-        public void skip4(View v) {
-            /*DialogFragment df= new DialogFragment();
-            fm.beginTransaction().add(R.id.layout_root, df , "dialog").commit();
-*/
-        }
+                }).create();
+        alertDialog.show();
     }
+
+    public void showCustomLoadingDialog() {
+        LoadingDialog loadingDialog = new LoadingDialog(getContext());
+        loadingDialog.show();
+    }
+
+    public void showSelectAvatar() {
+        SelAvatarDialog selAvatarDialog = new SelAvatarDialog(getContext());
+        selAvatarDialog.show();
+    }
+
 }

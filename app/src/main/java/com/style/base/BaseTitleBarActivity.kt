@@ -2,6 +2,7 @@ package com.style.base
 
 import android.os.Build
 import android.support.annotation.StringRes
+import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -68,5 +69,6 @@ abstract class BaseTitleBarActivity : BaseActivity() {
 
     fun getTitleBar(): LinearLayout {
         return titleBar;
+
     }
 }

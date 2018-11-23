@@ -158,7 +158,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showToast(@StringRes resId: Int) {
-        showToast(getText(resId))
+        showToast(getString(resId))
     }
 
     private fun cancelToast() {
@@ -167,7 +167,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showProgressDialog(@StringRes msgId: Int) {
-        showProgressDialog(getText(msgId))
+        showProgressDialog(getString(msgId))
     }
 
     @JvmOverloads

@@ -20,7 +20,6 @@
 
                 <include layout="@layout/title_bar_normal" />
 
-
                 <FrameLayout
                     android:id="@+id/content"
                     android:layout_width="match_parent"

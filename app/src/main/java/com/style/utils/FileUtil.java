@@ -12,6 +12,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 文件相关工具类
@@ -19,25 +20,63 @@ import java.io.FileOutputStream;
  */
 public class FileUtil {
 
-    public static File create(String dirPath, String fileName) {
-        File dir = new File(dirPath);
-        return createFile(dir, fileName);
+    public static boolean isNewFileCanWrite(File file) {
+        try {
+            //父文件夹不存在时
+            if (!file.getParentFile().exists()) {
+                boolean mkdirs = file.getParentFile().mkdirs();
+                return mkdirs && file.createNewFile() && file.canWrite();
+            }
+            //父文件夹存在时且文件存在时
+            if (file.exists()) {
+                return file.delete() && file.createNewFile() && file.canWrite();
+            }
+            //父文件夹存在时但文件不存在时
+            return file.createNewFile() && file.canWrite();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    public static File create(File dir, String fileName) {
-        return createFile(dir, fileName);
-    }
-
-    private static File createFile(File dir, String fileName) {
-        boolean isMkdirs = true;
-        if (!dir.exists()) {
-            isMkdirs = dir.mkdirs();
+    public static boolean copyFile(File fromFile, String targetPath) {
+        boolean isFile = fromFile.isFile();
+        boolean canRead = fromFile.canRead();
+        if (!isFile || !canRead)
+            return false;
+        File copeFile = new File(targetPath);
+        if (!isNewFileCanWrite(copeFile)) {
+            return false;
         }
-        if (isMkdirs) {
-            File file = new File(dir, fileName);
-            return file;
+        FileInputStream fosfrom = null;
+        FileOutputStream fosto = null;
+        try {
+            fosfrom = new FileInputStream(fromFile);
+            fosto = new FileOutputStream(copeFile);
+            byte b[] = new byte[1024];
+            int len;
+            while ((len = fosfrom.read(b)) > 0) {
+                fosto.write(b, 0, len); // 将内容写到新文件当中
+            }
+            fosfrom.close();
+            fosto.close();
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            try {
+                if (fosfrom != null)
+                    fosfrom.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (fosto != null)
+                    fosto.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
-        return null;
     }
 
     public static void delete(String dir, String name) {
@@ -76,45 +115,6 @@ public class FileUtil {
         return false;
     }
 
-    public static boolean copyfile(File fromFile, File toFile, Boolean rewrite) {
-        if (!fromFile.exists()) {
-            return false;
-        }
-        if (!fromFile.isFile()) {
-            return false;
-        }
-        if (!fromFile.canRead()) {
-            return false;
-        }
-        if (!toFile.getParentFile().exists()) {
-            toFile.getParentFile().mkdirs();
-        }
-        if (toFile.exists() && rewrite) {
-            toFile.delete();
-        }
-        // 当文件不存时，canWrite一直返回的都是false
-        // if (!toFile.canWrite()) {
-        // MessageDialog.openError(new Shell(),"错误信息","不能够写将要复制的目标文件" +
-        // toFile.getPath());
-        // Toast.makeText(this,"不能够写将要复制的目标文件", Toast.LENGTH_SHORT);
-        // return ;
-        // }
-        try {
-            FileInputStream fosfrom = new FileInputStream(fromFile);
-            FileOutputStream fosto = new FileOutputStream(toFile);
-            byte bt[] = new byte[1024];
-            int c;
-            while ((c = fosfrom.read(bt)) > 0) {
-                fosto.write(bt, 0, c); // 将内容写到新文件当中
-            }
-            fosfrom.close();
-            fosto.close();
-            return true;
-        } catch (Exception ex) {
-            Log.e("readfile", ex.getMessage());
-            return false;
-        }
-    }
 
     public static String getRealFilePath(final Context context, final Uri uri) {
         if (null == uri)
@@ -158,24 +158,6 @@ public class FileUtil {
         cursor.close();
         Log.e("uritopath", res);
         return res;
-    }
-
-    public static Uri FileToUri(String dirStr, String name) {
-        File dir = new File(dirStr);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        // 原图
-        File file = new File(dir, name);
-        Uri imageUri = Uri.fromFile(file);
-        return imageUri;
-    }
-
-    public static boolean isExist(String path) {
-        File file = new File(path);
-        if (file.exists())
-            return true;
-        return false;
     }
 
     public static void openFile(Context context, String filePath) {

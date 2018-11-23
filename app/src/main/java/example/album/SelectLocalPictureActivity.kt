@@ -1,9 +1,13 @@
 package example.album;
 
 import android.Manifest;
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent;
+import android.net.Uri
 import android.os.Build;
+import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -11,8 +15,7 @@ import android.view.View;
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.app.ConfigUtil;
-import com.style.app.Skip;
+import com.style.app.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
@@ -26,7 +29,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.io.File;
 import java.util.ArrayList;
 
-import example.view_pager.ImageScanActivity;
+import example.viewPager.ImageScanActivity;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
@@ -91,7 +94,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         bd.btnShareText.setOnClickListener({ v ->
             SystemShareUtil.shareText(getContext(), "来自系统分享");
         });
-        bd.btnShareImage.setOnClickListener{ v ->
+        bd.btnShareImage.setOnClickListener { v ->
             SystemShareUtil.shareImage(getContext(), paths.get(0).path);
         }
     }
@@ -99,6 +102,8 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
     fun selAvatar(v: View) {
         showSelPicPopupWindow();
     }
+
+    val CODE_TAKE_CAMERA = 997// 拍照
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -112,7 +117,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                         paths.add(TAG_ADD);
                         adapter.notifyDataSetChanged();
                     }
-                Skip.CODE_TAKE_CAMERA ->
+                CODE_TAKE_CAMERA ->
                     if (photoFile!!.exists()) {
                         DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
                         var filePath = photoFile?.getAbsolutePath();// 获取相片的保存路径
@@ -130,7 +135,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                             adapter.notifyDataSetChanged();
                         }
                     } else {
-                        showToast(R.string.File_does_not_exist);
+                        showToast(R.string.file_does_not_exist);
                     }
             }
             setHaveDynamic();
@@ -179,10 +184,12 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
     }
 
+    @SuppressLint("CheckResult")
     private fun initPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var rxPermissions = RxPermissions(this);
-            rxPermissions.request(Manifest.permission.CAMERA)
+            //拍照之前首先需要读写SD卡权限
+            rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ grated ->
                         if (grated) {
@@ -199,7 +206,15 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
     }
 
     private fun takePhoto() {
-        photoFile = Skip.takePhoto(getContext() as Activity, ConfigUtil.DIR_APP_IMAGE_CAMERA, "${System.currentTimeMillis()}.jpg");
-
+        photoFile = File(FileDirConfig.DIR_APP_IMAGE_CAMERA, "${System.currentTimeMillis()}.jpg")
+        val uri: Uri
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile!!)
+        } else {
+            uri = Uri.fromFile(photoFile)
+        }
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+        startActivityForResult(intent, CODE_TAKE_CAMERA)
     }
 }

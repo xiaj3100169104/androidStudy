@@ -1,7 +1,6 @@
 package example.media.video;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.app.ConfigUtil;
+import com.style.app.FileDirConfig;
 import com.style.framework.R;
 import com.style.framework.databinding.AdapterLocalVideoBinding;
 import com.style.utils.BitmapUtil;
@@ -41,7 +40,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
     }
 
     private void setImageResource(File f, ImageView imageView) {
-        String path = ConfigUtil.DIR_CACHE + "/" + f.getName() + ".thumbnail";
+        String path = FileDirConfig.DIR_CACHE + "/" + f.getName() + ".thumbnail";
 
         Bitmap b = BitmapUtil.revitionImageSize(path, 1080, 640, 640);
         if (b == null) {
@@ -49,7 +48,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
             retriever.setDataSource(f.getAbsolutePath());
             b = retriever.getFrameAtTime(1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST);
             try {
-                BitmapUtil.saveBitmap(path, b);
+                BitmapUtil.saveBitmap(path, b, 100);
             } catch (IOException e) {
                 e.printStackTrace();
             }

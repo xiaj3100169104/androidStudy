@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.app.ConfigUtil;
+import com.style.app.FileDirConfig;
 import com.style.framework.R;
 import com.style.lib.media.video.PlayVideoActivity;
 
@@ -40,7 +40,7 @@ public class LocalVideoActivity extends AppCompatActivity {
     }
 
     public void getData() {
-        String path = ConfigUtil.DIR_VIDEO;
+        String path = FileDirConfig.DIR_VIDEO;
 
         File[] allFiles = new File(path).listFiles();
         if (allFiles != null)

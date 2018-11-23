@@ -122,15 +122,15 @@ public class BitmapUtil {
             // 计算 inSampleSize 的值
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
             // Log.e("options.inSampleSize", String.valueOf(options.inSampleSize));
-        /*
-         * ALPHA_8：每个像素占用1byte内存 ARGB_4444：每个像素占用2byte内存 ARGB_8888：每个像素占用4byte内存
-		 * （默认） RGB_565：每个像素占用2byte内存
-		 */
+            /*
+             * ALPHA_8：每个像素占用1byte内存 ARGB_4444：每个像素占用2byte内存 ARGB_8888：每个像素占用4byte内存
+             * （默认） RGB_565：每个像素占用2byte内存
+             */
             // options.inPreferredConfig = Bitmap.Config.RGB_565;
             options.inPreferredConfig = null; /* 设置让解码器以最佳方式解码 */
             options.inJustDecodeBounds = false;// 是否只读取边界
             options.inDither = false; /* 不进行图片抖动处理 */
-        /* 下面两个字段需要组合使用 */
+            /* 下面两个字段需要组合使用 */
             options.inPurgeable = true;
             options.inInputShareable = true;
             bitmap = BitmapFactory.decodeStream(in, null, options);
@@ -184,13 +184,16 @@ public class BitmapUtil {
      * @return Bitmap
      * @throws
      */
-    public static Bitmap rotaingImageView(Bitmap bitmap, int angle) {
-        // 旋转图片 动作
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        // 创建新的图片
-        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return resizedBitmap;
+    public static Bitmap rotateImageView(Bitmap bitmap, int angle) {
+        if (bitmap != null && angle != 0) {// 旋转图片 动作
+
+            // 旋转图片 动作
+            Matrix matrix = new Matrix();
+            matrix.postRotate(angle);
+            // 创建新的图片
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        }
+        return bitmap;
     }
 
     /**
@@ -200,7 +203,7 @@ public class BitmapUtil {
      * @return void
      * @throws
      */
-    public static void saveBitmap(String path, Bitmap bitmap) throws IOException {
+    public static void saveBitmap(String path, Bitmap bitmap, int quality) throws IOException {
         FileOutputStream out;
         File f = new File(path);
         if (f.exists()) {
@@ -210,13 +213,11 @@ public class BitmapUtil {
             f.getParentFile().mkdirs();
         }
         out = new FileOutputStream(f);//JPEG:以什么格式压缩
-        if (bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)) {
+        if (bitmap.compress(Bitmap.CompressFormat.JPEG, quality, out)) {
             out.flush();
         }
-        if (out != null) {
-            out.close();
-            recycle(bitmap);
-        }
+        out.close();
+        recycle(bitmap);
     }
 
     /**

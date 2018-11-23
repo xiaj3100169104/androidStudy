@@ -56,6 +56,7 @@
     <style name="View.normal_item_horizontal" parent="View.normal_item_base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/height_normal</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
     <!-- 普通水平布局元素左边图片尺寸风格 -->
     <style name="layout_item_right_image">

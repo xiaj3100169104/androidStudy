@@ -1,5 +1,4 @@
-package com.example.db.room
-
+package com.style.data.db
 
 import android.arch.persistence.room.*
 import example.bean.TestRoom

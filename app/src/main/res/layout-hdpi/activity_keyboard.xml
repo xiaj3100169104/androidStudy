@@ -6,8 +6,14 @@
     android:id="@+id/root">
 
    <Button
+       android:id="@+id/view_custom_keyboard"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="自定义键盘"
-       android:onClick="open"/>
+       android:text="自定义键盘"/>
+
+   <TextView
+       android:id="@+id/view_suspend"
+       style="@style/text_home_item"
+       android:text="悬浮窗" />
+
 </LinearLayout>

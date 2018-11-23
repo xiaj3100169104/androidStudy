@@ -1,78 +1,80 @@
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windows_color"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/windows_color">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:divider="@drawable/divider_gray_horizontal"
-                android:dividerPadding="@dimen/activity_horizontal_margin"
-                android:orientation="vertical"
-                android:showDividers="middle">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:divider="@drawable/divider_gray_horizontal"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
-                <TextView
-                    android:id="@+id/view_main_msg_to_sub"
-                    style="@style/text_home_item"
-                    android:text="主线程给子线程发消息" />
+        <TextView
+            android:id="@+id/view_main_msg_to_sub"
+            style="@style/text_home_item"
+            android:text="主线程给子线程发消息" />
 
-                <TextView
-                    android:id="@+id/view_test_room"
-                    style="@style/text_home_item"
-                    android:text="room数据库操作" />
+        <TextView
+            android:id="@+id/view_test_room"
+            style="@style/text_home_item"
+            android:text="room数据库操作" />
 
-                <TextView
-                    android:id="@+id/view_animator"
-                    style="@style/text_home_item"
-                    android:text="属性动画" />
+        <TextView
+            android:id="@+id/view_animator"
+            style="@style/text_home_item"
+            android:text="属性动画" />
 
-                <TextView
-                    android:id="@+id/view_remote_web"
-                    style="@style/text_home_item"
-                    android:text="远程或本地网页" />
+        <TextView
+            android:id="@+id/view_remote_web"
+            style="@style/text_home_item"
+            android:text="远程或本地网页" />
 
-                <TextView
-                    android:id="@+id/view_web_with_js"
-                    style="@style/text_home_item"
-                    android:text="与js交互" />
+        <TextView
+            android:id="@+id/view_web_with_js"
+            style="@style/text_home_item"
+            android:text="与js交互" />
 
-                <TextView
-                    android:id="@+id/view_feedback"
-                    style="@style/text_home_item"
-                    android:text="用户反馈" />
+        <TextView
+            android:id="@+id/view_feedback"
+            style="@style/text_home_item"
+            android:text="用户反馈" />
 
-                <TextView
-                    android:id="@+id/view_jni"
-                    style="@style/text_home_item"
-                    android:text="jni测试" />
+        <TextView
+            android:id="@+id/view_jni"
+            style="@style/text_home_item"
+            android:text="jni测试" />
 
-                <TextView
-                    android:id="@+id/view_aidl"
-                    style="@style/text_home_item"
-                    android:text="aidl测试" />
-                <TextView
-                    android:id="@+id/view_read_assets"
-                    style="@style/text_home_item"
-                    android:text="读取assets文本文件" />
+        <TextView
+            android:id="@+id/view_aidl"
+            style="@style/text_home_item"
+            android:text="aidl测试" />
 
-                <TextView
-                    android:id="@+id/view_encrypt"
-                    style="@style/text_home_item"
-                    android:text="加密解密" />
+        <TextView
+            android:id="@+id/view_read_assets"
+            style="@style/text_home_item"
+            android:text="读取assets文本文件" />
 
-                <TextView
-                    android:id="@+id/view_file_down"
-                    style="@style/text_home_item"
-                    android:text="文件下载" />
-                <TextView
-                    android:id="@+id/view_voice"
-                    style="@style/text_home_item"
-                    android:text="音频列表" />
+        <TextView
+            android:id="@+id/view_encrypt"
+            style="@style/text_home_item"
+            android:text="加密解密" />
 
-                <TextView
-                    android:id="@+id/view_other_process"
-                    style="@style/text_home_item"
-                    android:text="单独进程服务" />
-            </LinearLayout>
-        </ScrollView>
+        <TextView
+            android:id="@+id/view_file_down"
+            style="@style/text_home_item"
+            android:text="文件下载" />
+
+        <TextView
+            android:id="@+id/view_voice"
+            style="@style/text_home_item"
+            android:text="音频列表" />
+
+        <TextView
+            android:id="@+id/view_other_process"
+            style="@style/text_home_item"
+            android:text="单独进程服务" />
+    </LinearLayout>
+</ScrollView>

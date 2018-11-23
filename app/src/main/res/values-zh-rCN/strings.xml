@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="error_no_camera_permission">请开启相机权限</string>
+    <string name="error_no_external_storage_permission">请开启存储卡权限</string>
+    <string name="error_no_camera_and_external_storage_permission">请开启相机与存储卡权限</string>
+    <string name="please_open_contacts_permission">请开启读取通讯录权限</string>
+    <string name="error_no_voice_or_sdcard_permission">请开启录音与存储卡权限</string>
+    <string name="please_open_location_permission">请开启定位权限</string>
+
     <string name="loading">加载中&#8230;</string>
 
 </resources>

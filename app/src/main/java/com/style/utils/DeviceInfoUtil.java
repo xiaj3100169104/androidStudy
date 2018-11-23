@@ -116,7 +116,11 @@ public class DeviceInfoUtil {
         return locations;
     }
 
-
+    /**
+     * 需要先判断SD卡权限，再判断是否可用
+     *
+     * @return
+     */
     public static boolean isSDcardWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {

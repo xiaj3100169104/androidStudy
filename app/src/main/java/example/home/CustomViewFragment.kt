@@ -3,8 +3,8 @@ package example.home
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
-import example.radio_group.MyRadioGroupActivity
-import example.custom_view.*
+import example.radioGroup.MyRadioGroupActivity
+import example.customView.*
 import example.gesture.XXRefreshActivity
 import example.tablayout.TabLayoutActivity
 
@@ -21,7 +21,6 @@ class CustomViewFragment : BaseFragment() {
         bd.btnSystemWidget.setOnClickListener { skip(TabLayoutActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(MyRadioGroupActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }
-        bd.viewSuspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
         bd.btnCustomView.setOnClickListener { skip(CustomViewMainActivity::class.java) }
         bd.btnHeart.setOnClickListener { skip(HeartLineActivity::class.java) }
         bd.btnTemp.setOnClickListener { skip(TempActivity::class.java) }

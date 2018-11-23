@@ -5,6 +5,7 @@ import example.activity.TestRxActivity
 
 import com.style.base.BaseFragment
 import com.style.framework.R
+import example.activity.QRCodeActivity
 
 import example.ble.BLEActivity
 import example.ble.BlueToothActivity
@@ -23,6 +24,7 @@ class OtherFrameworkFragment : BaseFragment() {
     }
 
     override fun initData() {
+        view_qr_code.setOnClickListener { skip(QRCodeActivity::class.java) }
         view_rx_java.setOnClickListener { skip(TestRxActivity::class.java) }
         view_glide_deal.setOnClickListener { skip(GlideDealActivity::class.java) }
         view_app_crash.setOnClickListener {

@@ -2,14 +2,13 @@ package example.home
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.framework.databinding.FragmentHome3Binding
 import example.activity.AnimatorActivity
 import example.activity.MsgToSubActivity
 import example.activity.ReadAssetsActivity
 import example.aidl.AidlActivity
 import example.db.TestRoomActivity
 import example.encrypt.EncryptActivity
-import example.file_down.FileDownActivity
+import example.filedown.FileDownActivity
 import example.music.MusicListActivity
 import example.music.remote.RemotePlayActivity
 import example.ndk.JniTestActivity
@@ -20,14 +19,12 @@ import kotlinx.android.synthetic.main.fragment_home_3.*
 
 
 class OriginalAPIFragment : BaseFragment() {
-    private lateinit var bd: FragmentHome3Binding
 
     override fun getLayoutResId(): Int {
         return R.layout.fragment_home_3
     }
 
     override fun initData() {
-        bd = getBinding()
         view_main_msg_to_sub.setOnClickListener { skip(MsgToSubActivity::class.java) }
         view_test_room.setOnClickListener { skip(TestRoomActivity::class.java) }
         view_animator.setOnClickListener { skip(AnimatorActivity::class.java) }

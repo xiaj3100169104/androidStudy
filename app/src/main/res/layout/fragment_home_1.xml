@@ -30,11 +30,6 @@
                 android:text="写字板" />
 
             <TextView
-                android:id="@+id/view_suspend"
-                style="@style/text_home_item"
-                android:text="悬浮窗" />
-
-            <TextView
                 android:id="@+id/btn_custom_view"
                 style="@style/text_home_item"
                 android:text="自定义view" />

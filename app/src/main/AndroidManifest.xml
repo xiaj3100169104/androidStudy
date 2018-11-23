@@ -82,7 +82,7 @@
         <activity
             android:name="example.home.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name="example.radio_group.MyRadioGroupActivity" />
+        <activity android:name="example.radioGroup.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
@@ -99,11 +99,10 @@
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.dialog.WheelActivity" />
-        <activity android:name="example.file_down.FileDownActivity" />
+        <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
         <activity android:name="example.web.WebViewFeedbackActivity" />
         <activity android:name="example.web.WebViewAndJSActivity" />
-        <activity android:name="example.vlayout.MultiTypeActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
@@ -124,6 +123,7 @@
         <activity android:name="example.web_service.WebServiceActivity" />
         <activity android:name="example.activity.GlideDealActivity" />
         <activity android:name="example.activity.TestRxActivity" />
+        <activity android:name="example.activity.QRCodeActivity" />
         <activity
             android:name="example.softInput.StatusBarStyleMainActivity"
             android:launchMode="singleTop"
@@ -144,27 +144,24 @@
             android:name="example.softInput.SoftMode4Activity"
             android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name="example.custom_view.CustomViewMainActivity" />
-        <activity android:name="example.custom_view.WriteWordActivity" />
-        <activity android:name="example.custom_view.SuspendWindowActivity" />
-        <activity android:name="example.custom_view.HeartLineActivity" />
-        <activity android:name="example.custom_view.TempActivity" />
-        <activity android:name="example.custom_view.BpActivity" />
-        <activity android:name="example.custom_view.SleepWeekActivity" />
-        <activity android:name="example.custom_view.SportWeekActivity" />
+        <activity android:name="example.customView.CustomViewMainActivity" />
+        <activity android:name="example.customView.WriteWordActivity" />
+        <activity android:name="example.customView.SuspendWindowActivity" />
+        <activity android:name="example.customView.HeartLineActivity" />
+        <activity android:name="example.customView.TempActivity" />
+        <activity android:name="example.customView.BpActivity" />
+        <activity android:name="example.customView.SleepWeekActivity" />
+        <activity android:name="example.customView.SportWeekActivity" />
 
-        <activity android:name="example.custom_view.EcgActivity" />
+        <activity android:name="example.customView.EcgActivity" />
         <activity android:name="example.gesture.XXRefreshActivity" />
 
-        <activity
-            android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
-            android:screenOrientation="portrait" />
         <!-- 语音悬浮服务 -->
-        <service android:name="example.custom_view.service.VoiceSuspendService" />
+        <service android:name="example.customView.service.VoiceSuspendService" />
         <!-- 视频悬浮服务 -->
-        <service android:name="example.custom_view.service.VideoSuspendService" />
+        <service android:name="example.customView.service.VideoSuspendService" />
         <!-- 来电悬浮服务 -->
-        <service android:name="example.custom_view.service.CallInSuspendService" />
+        <service android:name="example.customView.service.CallInSuspendService" />
 
         <meta-data
             android:name="UMENG_CHANNEL"
@@ -172,9 +169,9 @@
 
         <activity android:name="example.tablayout.TabLayoutActivity" />
         <activity
-            android:name="example.view_pager.ImageScanActivity"
+            android:name="example.viewPager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent" />
-        <activity android:name="example.view_pager.GlideListActivity" />
+        <activity android:name="example.viewPager.GlideListActivity" />
         <activity android:name="example.music.MusicListActivity" />
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->
         <service
@@ -205,11 +202,11 @@
         <activity
             android:name="example.drag.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/BaseAppTheme"></activity>
+            android:theme="@style/BaseAppTheme" />
         <activity
             android:name="example.drag.ScrollingParallaxActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/BaseAppTheme"></activity>
+            android:theme="@style/BaseAppTheme" />
     </application>
 
 </manifest>

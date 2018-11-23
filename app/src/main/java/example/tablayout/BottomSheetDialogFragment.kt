@@ -14,7 +14,6 @@ import com.style.base.BaseFragment
 
 import com.style.framework.R
 import com.style.framework.databinding.FragmentBottomSheetDialogBinding
-import com.style.framework.databinding.FragmentTablayoutBinding
 
 
 class BottomSheetDialogFragment : BaseFragment() {

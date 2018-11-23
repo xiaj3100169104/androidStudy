@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 
-import com.style.app.ConfigUtil;
+import com.style.app.FileDirConfig;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ public class SystemShareUtil {
     public static void shareImage(Context context, String path) {
         Intent imageIntent = new Intent(Intent.ACTION_SEND);
         imageIntent.setType("image/jpeg");
-        Uri uri = FileProvider.getUriForFile(context, ConfigUtil.FILE_PROVIDER_AUTHORITY, new File(path));
+        Uri uri = FileProvider.getUriForFile(context, FileDirConfig.FILE_PROVIDER_AUTHORITY, new File(path));
         imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
         context.startActivity(Intent.createChooser(imageIntent, "图片"));
     }

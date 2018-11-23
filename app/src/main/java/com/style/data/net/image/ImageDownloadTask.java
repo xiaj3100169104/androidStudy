@@ -90,8 +90,8 @@ public class ImageDownloadTask extends Thread {
                 if (is == null) {
                     sendMsg2Failed("文件获取失败");
                 } else {
-                    File file = FileUtil.create(dir, fileName);
-                    if (file == null) {
+                    File file = new File(dir, fileName);
+                    if (!FileUtil.isNewFileCanWrite(file)) {
                         sendMsg2Failed("文件创建失败");
                     } else {
                         sendMsg2Start();

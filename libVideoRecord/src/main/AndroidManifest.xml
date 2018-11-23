@@ -1,11 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.style.lib.media.video">
 
-    <application
-        android:theme="@style/AppTheme" >
-        <activity android:name=".PlayVideoActivity" />
-        <activity android:name=".VideoRecordOldActivity"></activity>
-        <activity android:name="com.style.lib.media.camera2video.Camera2Activity"></activity>
+    <application>
+        <activity
+            android:name=".PlayVideoActivity"
+            android:theme="@style/LibVideoRecordTheme" />
+        <activity android:name=".VideoRecordOldActivity" />
+        <activity
+            android:name="com.style.lib.media.camera2video.Camera2Activity"
+            android:theme="@style/LibVideoRecordTheme" />
 
     </application>
 

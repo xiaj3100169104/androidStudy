@@ -5,7 +5,6 @@ import android.view.View;
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
-import com.style.framework.databinding.ActivityEncrytBinding;
 
 public class EncryptActivity extends BaseTitleBarActivity {
 

@@ -1,4 +1,11 @@
-include ':app', ':XXRefreshView'
-include ':mediapicker'
+include ':app'
+include ':libImageCrop'
+include ':libMediaPicker'
+include ':libRefreshView'
 include ':libVideoRecord'
-include ':WheelPicker'
+include ':libWheelPicker'
+include ':libWheelView'
+include ':libZxing'
+
+
+

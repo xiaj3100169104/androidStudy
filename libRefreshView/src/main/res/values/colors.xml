@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="pull_refresh_bg">#FFF5F5F5</color>
+    <color name="pull_refresh_text">#ff999999</color>
+</resources>

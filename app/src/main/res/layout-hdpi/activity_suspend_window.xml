@@ -5,6 +5,8 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <include layout="@layout/title_bar_normal" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,27 +14,24 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/btn_voice_suspend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="test"
             android:text="语音悬浮" />
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/btn_video_suspend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="test"
             android:text="视频悬浮" />
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/btn_incoming_calling"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="test"
             android:text="来电悬浮" />
     </LinearLayout>
 </RelativeLayout>

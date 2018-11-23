@@ -1,4 +1,15 @@
 <resources>
+
+    <string name="error_no_camera_permission">please open camera permission</string>
+    <string name="error_no_external_storage_permission">please open sdcard permission</string>
+    <string name="error_no_camera_and_external_storage_permission">please open camera and sdcard permission</string>
+    <string name="please_open_contacts_permission">please open contacts permission</string>
+    <string name="error_no_voice_or_sdcard_permission">please open record audio and sdcard permission</string>
+    <string name="please_open_location_permission">please open location permission</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="loading">加载中&#8230;</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="app_name">androidStudy</string>
@@ -14,7 +25,7 @@
     <string name="clear">清空</string>
     <string name="sd_card_unavailable">SD不可用</string>
     <string name="cant_find_pictures">找不到图片</string>
-    <string name="File_does_not_exist">文件不存在</string>
+    <string name="file_does_not_exist">文件不存在</string>
     <string name="back">返回</string>
     <string name="save">保存</string>
     <string name="album">相册</string>
@@ -175,7 +186,5 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="action_settings">Settings</string>
-    <string name="loading">加载中&#8230;</string>
 
 </resources>

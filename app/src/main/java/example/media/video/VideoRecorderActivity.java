@@ -15,7 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.style.app.ConfigUtil;
+import com.style.app.FileDirConfig;
 import com.style.framework.R;
 
 import java.util.Collections;
@@ -166,7 +166,7 @@ public class VideoRecorderActivity extends AppCompatActivity implements SurfaceH
             //设置记录会话的最大持续时间（毫秒）
             mRecorder.setMaxDuration(60 * 1000);
             mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
-            String path = ConfigUtil.DIR_VIDEO + "/" + System.currentTimeMillis() + ".mp4";
+            String path = FileDirConfig.DIR_VIDEO + "/" + System.currentTimeMillis() + ".mp4";
             //设置输出文件的路径
             mRecorder.setOutputFile(path);
             //准备录制

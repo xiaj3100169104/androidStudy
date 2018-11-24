@@ -1,7 +1,9 @@
 package example.web;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,8 +17,11 @@ import com.style.framework.databinding.ActivityH5RemoteBinding;
 public class WebViewActivity extends BaseTitleBarActivity {
 
     ActivityH5RemoteBinding bd;
-    private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";
-    private String urlLocal = "file:///android_asset/useragree.html";
+    //private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";
+    private String url = "http://wap.gd.10086.cn/nwap/wlw/wlwrealName/index.jsps";
+
+    //private String urlLocal = "file:///android_asset/useragree.html";
+    private String urlLocal = "https://watch.lemonnc.com/Content/wap-guardian";
 
     @Override
     public int getLayoutResId() {
@@ -31,7 +36,7 @@ public class WebViewActivity extends BaseTitleBarActivity {
         bd.btnLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bd.webView.loadUrl("https://watch.lemonnc.com/Content/wap-guardian");
+                bd.webView.loadUrl(urlLocal);
             }
         });
         bd.webView.getSettings().setJavaScriptEnabled(true);
@@ -61,12 +66,25 @@ public class WebViewActivity extends BaseTitleBarActivity {
                 setWebViewProgress(progress);
             }
         });
+        String name = "25225272";
+        String number = "1111";
+        final String js = "javascript:document.getElementById('iccid').value = '" + name + "';document.getElementById('puk').value='" + number + "';";
         //设置WebViewClient就不会调用系统浏览器
         bd.webView.setWebViewClient(new WebViewClient() {
 
             public void onPageFinished(WebView view, String url) {
                 Toast.makeText(WebViewActivity.this, "load finish", Toast.LENGTH_SHORT).show();
                 setToolbarTitle(view.getTitle());
+                if (Build.VERSION.SDK_INT >= 19) {
+                    bd.webView.evaluateJavascript(js, new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String s) {
+                            logE(getTAG(), s);
+                        }
+                    });
+                } else {
+                    bd.webView.loadUrl(js);
+                }
             }
 
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -75,6 +93,8 @@ public class WebViewActivity extends BaseTitleBarActivity {
             }
         });
         bd.webView.loadUrl(url);
+
+
     }
 
     @Override

@@ -152,7 +152,6 @@ public class AddressActivity extends BaseTitleBarActivity {
         mHeaderList.put(index, header);
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();

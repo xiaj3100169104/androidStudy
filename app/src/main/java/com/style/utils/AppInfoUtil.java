@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 
 import java.util.Iterator;
@@ -20,19 +23,17 @@ import java.util.List;
 public class AppInfoUtil {
     private final String TAG = this.getClass().getSimpleName();
 
-    public static boolean isAppOnForeground(Context context) {
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        if (appProcesses == null) {
-            return false;
-        }
-        final String packageName = context.getPackageName();
-        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
-                return true;
-            }
-        }
-        return false;
+    /**
+     * 跳到设置应用信息界面
+     *
+     * @param activity
+     */
+    public static void skipToAppInfo(Activity activity) {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        intent.setData(uri);
+        activity.startActivity(intent);
     }
 
     public static boolean isTaskRunning(Context context, int taskId) {
@@ -66,7 +67,7 @@ public class AppInfoUtil {
     /**
      * 获取app当前的渠道号或application中指定的meta-data
      *
-     * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
+     * @return 如果没有获取成功(没有对应值 ， 或者异常)，则返回值为空
      */
     public static String getAppMetaData(Context context) {
         String channelNumber = null;

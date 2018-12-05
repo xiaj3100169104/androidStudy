@@ -6,16 +6,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_pressed_default"
         android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_light"
-            android:paddingLeft="@dimen/paddingLeft_normal"
-            android:text="name"
-            android:textColor="#0000ff" />
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,24 +17,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_type"
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:paddingLeft="@dimen/paddingLeft_normal"
-                android:singleLine="true"
-                android:text="type"
-                android:textColor="#ff0000" />
+                android:text="名称:" />
 
-            <Button
-                android:id="@+id/tv_bondState"
+            <TextView
+                android:id="@+id/tv_name"
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="state" />
+                android:layout_marginLeft="10dp"
+                android:singleLine="true"
+                android:text="" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -52,19 +42,15 @@
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
                 android:singleLine="true"
-                android:text="address:" />
+                android:text="地址:" />
 
             <TextView
                 android:id="@+id/tv_address"
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:hint="00000"
                 android:singleLine="true"
                 android:text="" />
 
@@ -79,11 +65,10 @@
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="rssi:" />
+                android:text="信号强度:" />
 
             <TextView
-                android:id="@+id/tv_rssi"
+                android:id="@+id/tv_level"
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,11 +85,10 @@
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="ssid:" />
+                android:text="加密类型:" />
 
             <TextView
-                android:id="@+id/tv_ssid"
+                android:id="@+id/encrypt_type"
                 style="@style/text_black_15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

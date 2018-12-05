@@ -13,36 +13,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_start"
+                android:id="@+id/btn_scan"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:onClick="openBluetooth"
-                android:text="开启" />
-
-            <Button
-                android:id="@+id/btn_bind"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:onClick="scan"
                 android:text="扫描" />
 
-            <Button
-                android:id="@+id/btn_unbind"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:onClick="stopScan"
-                android:text="停止扫描" />
-
-            <Button
-                android:id="@+id/btn_stop"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:onClick="close"
-                android:text="关闭" />
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"

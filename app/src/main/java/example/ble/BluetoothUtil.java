@@ -3,6 +3,13 @@ package example.ble;
 import android.bluetooth.BluetoothDevice;
 import android.util.Log;
 
+import com.style.app.FileDirConfig;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
@@ -159,16 +166,15 @@ public class BluetoothUtil {
         return b;
     }
 
-    public static String byte2hex(byte [] buffer){
+    public static String byte2hex(byte[] buffer) {
         String h = "";
-        for(int i = 0; i < buffer.length; i++){
+        for (int i = 0; i < buffer.length; i++) {
             String temp = Integer.toHexString(buffer[i] & 0xFF);
-            if(temp.length() == 1){
+            if (temp.length() == 1) {
                 temp = "0" + temp;
             }
             h = h + temp;
         }
         return h;
     }
-
 }

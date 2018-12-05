@@ -1,5 +1,6 @@
 package example.dialog;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.style.base.BaseTitleBarActivity;
@@ -9,7 +10,6 @@ import com.style.dialog.ChangeAddressDialog;
 import com.style.dialog.ChangeBirthdayDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWheelBinding;
-import com.style.utils.StringUtil;
 
 
 /**
@@ -72,12 +72,12 @@ public class WheelActivity extends BaseTitleBarActivity {
     private void showAgeScreenDialog(String str) {
         String province = null;
         String city = null;
-        String[] s = StringUtil.getStringArray(str, " - ");
-        if (s != null) {
-            if (s.length == 2) {
-                province = s[0];
-                city = s[1];
-            }
+        String[] s = null;
+        if (!TextUtils.isEmpty(str))
+            s = str.split(" - ");
+        if (s != null && s.length == 2) {
+            province = s[0];
+            city = s[1];
         }
         if (twoChoiceDialog == null) {
             twoChoiceDialog = new AgeScreenDialog(this);
@@ -112,12 +112,12 @@ public class WheelActivity extends BaseTitleBarActivity {
         String province = null;
         String city = null;
         String str = bd.viewHometown.getText().toString();
-        String[] s = StringUtil.getStringArray(str, " ");
-        if (s != null) {
-            if (s.length == 2) {
-                province = s[0];
-                city = s[1];
-            }
+        String[] s = null;
+        if (!TextUtils.isEmpty(str))
+            s = str.split(" ");
+        if (s != null && s.length == 2) {
+            province = s[0];
+            city = s[1];
         }
         if (mChangeAddressDialog == null) {
             mChangeAddressDialog = new ChangeAddressDialog(this);

@@ -32,6 +32,7 @@ public class BLEActivity extends BaseTitleBarActivity {
     private BluetoothDeviceAdapter adapter;
     private Handler leScanHandler = new Handler();
     private boolean isScanning;
+
     @Override
     public int getLayoutResId() {
         return R.layout.ble_activity_scan;
@@ -64,7 +65,12 @@ public class BLEActivity extends BaseTitleBarActivity {
                 }
             }
         });
-
+        bd.btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scan();
+            }
+        });
     }
 
     @Subscriber(tag = BleService.SCAN_START)
@@ -105,7 +111,7 @@ public class BLEActivity extends BaseTitleBarActivity {
         BleManager.getInstance().disconnect();
     }
 
-    public void scan(View v) {
+    public void scan() {
         String[] permissions = {Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
 
         if (ContextCompat.checkSelfPermission(this.getApplication(), permissions[0]) != PackageManager.PERMISSION_GRANTED

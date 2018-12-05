@@ -14,6 +14,7 @@ import example.media.AudioRecordActivity
 import example.queue.QueueTestActivity
 import example.media.VideoTestActivity
 import example.web_service.WebServiceActivity
+import example.wifi.WifiTestActivity
 import kotlinx.android.synthetic.main.fragment_home_4.*
 
 
@@ -37,6 +38,7 @@ class OtherFrameworkFragment : BaseFragment() {
         view_event_manager.setOnClickListener { skip(QueueTestActivity::class.java) }
         view_blue_tooth.setOnClickListener { skip(BlueToothActivity::class.java) }
         view_ble.setOnClickListener { skip(BLEActivity::class.java) }
+        view_wifi.setOnClickListener { skip(WifiTestActivity::class.java) }
         view_webservice.setOnClickListener { skip(WebServiceActivity::class.java) }
 
     }

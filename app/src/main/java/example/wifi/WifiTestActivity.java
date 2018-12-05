@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -33,7 +34,6 @@ public class WifiTestActivity extends BaseTitleBarActivity {
     private boolean isScanning;
     private WifiManager mWifiManager;
     private WifiStateReceiver mReceiver;
-    private List<ScanResult> mScanResults;//扫描结果
 
     @Override
     public int getLayoutResId() {
@@ -43,71 +43,82 @@ public class WifiTestActivity extends BaseTitleBarActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("蓝牙测试");
+        setToolbarTitle("wifi");
         dataList = new ArrayList<>();
         adapter = new WifiDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());
         bd.recyclerView.setLayoutManager(layoutManager);
         bd.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         bd.recyclerView.setAdapter(adapter);
-
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ScanResult>() {
             @Override
             public void onItemClick(int position, ScanResult data) {
 
             }
         });
-        openWifi();
+        bd.btnScan.setOnClickListener(v -> {
+            scan();
+        });
         registerWifiRecv();
-
+        scan();
     }
 
-
-    public void openBluetooth(View v) {
-        openWifi();
-    }
-
-    private void openWifi() {
+    public void scan() {
+        //扫描开始后再打开定位也可以收到wifi扫描结果,wifi会定时发送广播
+        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            // 未打开位置开关，可能导致定位失败或定位不准，提示用户或做相应处理
+            showToast("请打开位置开关以便扫描周围wifi设备");
+        }
         //如果使用activity的context则不能访问存储空间，在版本大于Android N时,因此使用全局的Context
         mWifiManager = (WifiManager) this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (!mWifiManager.isWifiEnabled()) {
             mWifiManager.setWifiEnabled(true);
         }
-
+        mWifiManager.startScan();
     }
+
+    /**
+     * 刷新列表
+     *
+     * @param list
+     */
+    private void onScanResult(List<ScanResult> list) {
+        dataList.clear();
+        if (list != null && list.size() > 0) {
+            dataList.addAll(list);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
 
     private void registerWifiRecv() {
         //注册广播
         mReceiver = new WifiStateReceiver();
         IntentFilter mFilter = new IntentFilter();
-        mFilter.addAction(WifiManager.RSSI_CHANGED_ACTION); //信号强度变化
+        mFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION); //获取扫描结果
+        /*mFilter.addAction(WifiManager.RSSI_CHANGED_ACTION); //信号强度变化
         mFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION); //网络状态变化
         mFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION); //wifi状态，是否连上，密码
         mFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION); //是不是正在获得IP地址
         mFilter.addAction(WifiManager.NETWORK_IDS_CHANGED_ACTION);
-        mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);*/
         this.registerReceiver(mReceiver, mFilter);
-    }
-
-    public void close(View v) {
-    }
-
-    public void scan(View v) {
-        mWifiManager.startScan();
-        mScanResults = mWifiManager.getScanResults();
-        dataList.addAll(mScanResults);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void dealData() {
-
     }
 
     class WifiStateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            /*String action = intent.getAction();
+            String action = intent.getAction();
+            logE(getTAG(), action);
             switch (action) {
+                case WifiManager.SCAN_RESULTS_AVAILABLE_ACTION:
+                    //信号强度变化
+                    List<ScanResult> list = mWifiManager.getScanResults();
+                    onScanResult(list);
+                    break;
+            }
+            /*switch (action) {
                 case WifiManager.RSSI_CHANGED_ACTION:
                     //信号强度变化
                     mWifiStateChangeListener.onSignalStrengthChanged(getStrength(context));
@@ -189,12 +200,6 @@ public class WifiTestActivity extends BaseTitleBarActivity {
 
     public WifiInfo getConnectInfo() {
         return mWifiManager.getConnectionInfo();
-    }
-
-
-    public void stopScan(View v) {
-
-        isScanning = false;
     }
 
     @Override

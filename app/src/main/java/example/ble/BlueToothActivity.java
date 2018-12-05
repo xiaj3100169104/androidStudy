@@ -22,14 +22,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.style.app.FileDirConfig;
 import com.style.base.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +53,9 @@ public class BlueToothActivity extends BaseTitleBarActivity {
     private ArrayList<BluetoothBean> dataList;
     private LinearLayoutManager layoutManager;
     private BluetoothDeviceAdapter adapter;
+    private File f;
+    private BufferedWriter bufferedReader;
+
     @Override
     public int getLayoutResId() {
         return R.layout.activity_bluetooth;
@@ -162,12 +171,13 @@ public class BlueToothActivity extends BaseTitleBarActivity {
     }
 
     public void scan(View v) {
-      /*  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             startLeScan();
         } else {
             startLeScan();
-        }*/
-        startDiscovery();
+            //startScan();
+        }
+        //startDiscovery();
     }
 
     private void startDiscovery() {
@@ -188,6 +198,132 @@ public class BlueToothActivity extends BaseTitleBarActivity {
         super.onDestroy();
         unregisterReceiver(mReceiver);
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void startScan() {
+        mScanner = mBluetoothAdapter.getBluetoothLeScanner();
+        if (mScanner == null) {
+            showToast("蓝牙不可用");
+            return;
+        }
+        mScanCallback = new ScanCallback() {
+            @Override
+            public void onScanResult(int callbackType, ScanResult result) {
+                logE("ScanCallback", "onScanResult==" + result.toString());
+                //ParsedAd ad = BluetoothUtil.parseData(result.getScanRecord().getBytes());
+                //dealData(result.getDevice(), ad.localName, result.getRssi());
+            }
+
+            @Override
+            public void onBatchScanResults(List<ScanResult> results) {
+                logE("ScanCallback", "onBatchScanResults");
+                //logResult(results);
+            }
+
+            private void logResult(List<ScanResult> results) {
+                if (results != null && results.size() > 0) {
+                    for (ScanResult result : results) {
+                        result.toString();
+                    }
+                }
+            }
+
+            @Override
+            public void onScanFailed(int errorCode) {
+                logE("ScanCallback", "onScanFailed==" + errorCode);
+            }
+        };
+        mScanner.startScan(mScanCallback);
+    }
+
+    private void startLeScan() {
+        String name = "blueInfo" + new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date()) + ".csv";
+        f = new File(FileDirConfig.DIR_APP + "/" + name);
+        if (!f.getParentFile().exists())
+            f.getParentFile().mkdirs();
+        FileWriter fileReader = null;
+        try {
+            fileReader = new FileWriter(f, true);
+            bufferedReader = new BufferedWriter(fileReader);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+        mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
+            @Override
+            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+                logE("LeScanCallback", device.toString() + "  " + rssi);
+                String macAddress = device.toString().replace(":", "");
+                if (macAddress.startsWith("1918")) {
+                    String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+                    saveAndNewLine(s);
+                }
+                //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
+                //dealData(device, ad.localName, rssi);
+            }
+        };
+        mBluetoothAdapter.startLeScan(mLeScanCallback);
+    }
+
+    public void saveAndNewLine(String s) {
+
+        try {
+            bufferedReader.newLine();
+            bufferedReader.write(s);
+            bufferedReader.flush();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void stopScan(View v) {
+        mBluetoothAdapter.stopLeScan(mLeScanCallback);
+
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        } else {
+            if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON)
+                mScanner.stopScan(mScanCallback);
+        }*/
+    }
+
+    private void dealData(BluetoothDevice device, String deviceName, int rssi) {
+        BluetoothBean b = new BluetoothBean();
+        b.device = device;
+        b.deviceName = deviceName;
+        b.rssi = rssi;
+        boolean isExist = false;
+        for (int i = 0; i < dataList.size(); i++) {
+            if (device.getAddress().equals(dataList.get(i).device.getAddress())) {
+                isExist = true;
+                dataList.set(i, b);
+                adapter.notifyItemChanged(i);
+                break;
+            }
+        }
+        if (!isExist) {
+            dataList.add(b);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    //scanRecords的格式转换
+    static final char[] hexArray = "0123456789ABCDEF".toCharArray();
+
+    private static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    public void close(View v) {
+    }
+
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
@@ -233,99 +369,4 @@ public class BlueToothActivity extends BaseTitleBarActivity {
             }
         }
     };
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void startScan() {
-        mScanner = mBluetoothAdapter.getBluetoothLeScanner();
-        if (mScanner == null) {
-            showToast("蓝牙不可用");
-            return;
-        }
-        mScanCallback = new ScanCallback() {
-            @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                logE("ScanCallback", "onScanResult==" + result.toString());
-                ParsedAd ad = BluetoothUtil.parseData(result.getScanRecord().getBytes());
-                dealData(result.getDevice(), ad.localName, result.getRssi());
-            }
-
-            @Override
-            public void onBatchScanResults(List<ScanResult> results) {
-                logE("ScanCallback", "onBatchScanResults");
-                logResult(results);
-            }
-
-            private void logResult(List<ScanResult> results) {
-                if (results != null && results.size() > 0) {
-                    for (ScanResult result : results) {
-                        result.toString();
-                    }
-                }
-            }
-
-            @Override
-            public void onScanFailed(int errorCode) {
-                logE("ScanCallback", "onScanFailed==" + errorCode);
-            }
-        };
-        mScanner.startScan(mScanCallback);
-    }
-
-    private void startLeScan() {
-        mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
-            @Override
-            public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                //logE("LeScanCallback", "onLeScan=" + scanRecord.length);
-                ParsedAd ad = BluetoothUtil.parseData(scanRecord);
-                dealData(device, ad.localName, rssi);
-            }
-        };
-        mBluetoothAdapter.startLeScan(mLeScanCallback);
-    }
-
-    private void dealData(BluetoothDevice device, String deviceName, int rssi) {
-        BluetoothBean b = new BluetoothBean();
-        b.device = device;
-        b.deviceName = deviceName;
-        b.rssi = rssi;
-        boolean isExist = false;
-        for (int i = 0; i < dataList.size(); i++) {
-            if (device.getAddress().equals(dataList.get(i).device.getAddress())) {
-                isExist = true;
-                dataList.set(i, b);
-                adapter.notifyItemChanged(i);
-                break;
-            }
-        }
-        if (!isExist) {
-            dataList.add(b);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    //scanRecords的格式转换
-    static final char[] hexArray = "0123456789ABCDEF".toCharArray();
-
-    private static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
-    }
-
-    public void stopScan(View v) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mBluetoothAdapter.stopLeScan(mLeScanCallback);
-        } else {
-            if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON)
-                mScanner.stopScan(mScanCallback);
-        }
-
-    }
-
-    public void close(View v) {
-    }
 }

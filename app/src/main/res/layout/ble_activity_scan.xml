@@ -14,11 +14,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_bind"
+                android:id="@+id/btn_scan"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:onClick="scan"
                 android:text="扫描" />
 
             <Button

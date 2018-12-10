@@ -11,6 +11,8 @@ import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
 import example.gesture.TestGestureActivity
 import example.softInput.StatusBarStyleMainActivity
+import example.viewPagerCards.fragments.CardFragmentActivity
+import example.viewPagerCards.views.CardActivity
 import kotlinx.android.synthetic.main.fragment_home_gesture.*
 
 class GestureFragment : BaseFragment() {
@@ -29,6 +31,7 @@ class GestureFragment : BaseFragment() {
         btn_swipe_menu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
         btn_collapseMode_pin.setOnClickListener { skip(ScrollingActivity::class.java) }
         btn_collapseMode_parallax.setOnClickListener { skip(ScrollingParallaxActivity::class.java) }
-
+        btn_view_pager_card_views.setOnClickListener { skip(CardActivity::class.java) }
+        btn_view_pager_card_fragments.setOnClickListener { skip(CardFragmentActivity::class.java) }
     }
 }

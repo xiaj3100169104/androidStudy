@@ -83,7 +83,7 @@
         <activity
             android:name="example.home.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name="example.radioGroup.MyRadioGroupActivity" />
+        <activity android:name="example.viewPagerBanner.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
@@ -166,7 +166,7 @@
             android:name="UMENG_CHANNEL"
             android:value="${ENVIRONMENT}" />
 
-        <activity android:name="example.tablayout.TabLayoutActivity" />
+        <activity android:name="example.viewPagerTabLayout.TabLayoutActivity" />
         <activity
             android:name="example.viewPager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent" />
@@ -200,12 +200,12 @@
 
         <activity
             android:name="example.drag.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/BaseAppTheme" />
+            android:label="@string/title_activity_scrolling" />
         <activity
             android:name="example.drag.ScrollingParallaxActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/BaseAppTheme" />
+            android:label="@string/title_activity_scrolling"/>
+        <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
+        <activity android:name="example.viewPagerCards.views.CardActivity" />
     </application>
 
 </manifest>

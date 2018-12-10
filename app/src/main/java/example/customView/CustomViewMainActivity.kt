@@ -8,7 +8,7 @@ import com.style.framework.R
 import com.style.framework.databinding.CustomViewMainBinding
 
 import example.customView.fragment.*
-import example.tablayout.FindTabAdapter
+import example.viewPagerTabLayout.FindTabAdapter
 import java.util.ArrayList
 
 class CustomViewMainActivity : BaseTitleBarActivity() {

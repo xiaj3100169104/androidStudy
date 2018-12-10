@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_bar_normal" />
+
+        <com.style.view.systemHelper.AutoHeightViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:paddingBottom="10dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Scale" />
+
+        <Button
+            android:id="@+id/cardTypeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最后一页" />
+
+
+    </LinearLayout>
+</layout>

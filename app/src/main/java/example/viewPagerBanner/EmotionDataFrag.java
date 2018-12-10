@@ -1,4 +1,4 @@
-package example.radioGroup;
+package example.viewPagerBanner;
 
 import com.style.base.BaseFragment;
 import com.style.framework.R;

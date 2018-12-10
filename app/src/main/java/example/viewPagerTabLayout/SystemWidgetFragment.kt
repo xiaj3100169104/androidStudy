@@ -1,6 +1,5 @@
-package example.tablayout
+package example.viewPagerTabLayout
 
-import android.view.View
 import com.style.base.BaseFragment
 import com.style.framework.R
 import example.address.AddressActivity

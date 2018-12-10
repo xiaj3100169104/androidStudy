@@ -1,4 +1,4 @@
-package example.radioGroup;
+package example.viewPagerBanner;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

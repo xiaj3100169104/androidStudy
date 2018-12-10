@@ -57,6 +57,16 @@
                 android:id="@+id/btn_collapseMode_parallax"
                 style="@style/text_home_item"
                 android:text="缩放标题栏" />
+
+            <TextView
+                android:id="@+id/btn_view_pager_card_views"
+                style="@style/text_home_item"
+                android:text="ViewPager views卡片" />
+
+            <TextView
+                android:id="@+id/btn_view_pager_card_fragments"
+                style="@style/text_home_item"
+                android:text="ViewPager fragments卡片" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </com.style.view.refresh.MyAppRefreshLayout>

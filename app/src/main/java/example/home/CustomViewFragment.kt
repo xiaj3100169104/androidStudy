@@ -3,10 +3,10 @@ package example.home
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
-import example.radioGroup.MyRadioGroupActivity
+import example.viewPagerBanner.MyRadioGroupActivity
 import example.customView.*
 import example.gesture.XXRefreshActivity
-import example.tablayout.TabLayoutActivity
+import example.viewPagerTabLayout.TabLayoutActivity
 
 class CustomViewFragment : BaseFragment() {
 

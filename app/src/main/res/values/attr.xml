@@ -8,13 +8,11 @@
         <attr name="notifyTextSize" format="dimension" />
     </declare-styleable>
     <!--水平条形进度条-->
-    <attr name="horizontalProgressColor" format="color" />
-    <attr name="horizontalProgress" format="integer" />
-
     <declare-styleable name="HorizontalProgressBar">
-        <attr name="horizontalBackgroundColor" />
-        <attr name="horizontalProgressColor" />
-        <attr name="horizontalProgress" />
+        <attr name="horizontalProgressBackgroundColor" format="color" />
+        <attr name="horizontalProgressColor" format="color" />
+        <attr name="horizontalProgress" format="integer" />
+        <attr name="horizontalProgressRoundCornerRadius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="CircleProgress">

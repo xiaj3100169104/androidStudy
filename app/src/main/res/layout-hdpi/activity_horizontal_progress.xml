@@ -1,12 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress"
@@ -17,29 +18,52 @@
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress2"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="10dp"
             android:layout_marginTop="50dp"
-            custom:horizontalBackgroundColor="@android:color/darker_gray"
-            custom:horizontalProgress="30"
-            custom:horizontalProgressColor="@color/colorAccent" />
+            app:horizontalProgress="30"
+            app:horizontalProgressBackgroundColor="@android:color/darker_gray"
+            app:horizontalProgressColor="@color/colorAccent"
+            app:horizontalProgressRoundCornerRadius="5dp" />
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress3"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="20dp"
             android:layout_marginTop="50dp"
-            custom:horizontalBackgroundColor="@android:color/darker_gray"
-            custom:horizontalProgress="50"
-            custom:horizontalProgressColor="@android:color/holo_green_light" />
+            app:horizontalProgress="50"
+            app:horizontalProgressBackgroundColor="@color/gray"
+            app:horizontalProgressColor="@android:color/holo_green_light"
+            app:horizontalProgressRoundCornerRadius="10dp" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress5"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="50dp"
+            app:horizontalProgress="50"
+            app:horizontalProgressBackgroundColor="@color/colorAccent"
+            app:horizontalProgressColor="@android:color/holo_green_light"
+            app:horizontalProgressRoundCornerRadius="5dp" />
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress4"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="30dp"
             android:layout_marginTop="50dp"
-            custom:horizontalBackgroundColor="@android:color/darker_gray"
-            custom:horizontalProgress="80"
-            custom:horizontalProgressColor="@color/colorPrimaryDark" />
+            app:horizontalProgress="80"
+            app:horizontalProgressBackgroundColor="@android:color/darker_gray"
+            app:horizontalProgressColor="@color/colorPrimaryDark"
+            app:horizontalProgressRoundCornerRadius="15dp" />
+
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress6"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="50dp"
+            app:horizontalProgress="80"
+            app:horizontalProgressBackgroundColor="@color/popbg_color"
+            app:horizontalProgressColor="@color/colorAccent"
+            app:horizontalProgressRoundCornerRadius="5dp" />
     </LinearLayout>
 
     <LinearLayout

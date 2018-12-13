@@ -13,15 +13,13 @@ import android.view.View;
 
 import com.style.framework.R;
 
-/**
- * 自定义通知提醒view(小圆点)
- */
 public class HorizontalProgressBar extends View {
     private static final String TAG = "HorizontalProgressBar";
+    private final float roundCornerRadius;
     private int mBackgroundColor = Color.GRAY;
     private int mProgressColor = Color.GREEN;
-    private Paint mPaint;
     private int progress = 50;
+    private Paint mPaint;
     private final RectF allRect;
     private RectF progressRect;
     private int width;
@@ -38,9 +36,10 @@ public class HorizontalProgressBar extends View {
     public HorizontalProgressBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.HorizontalProgressBar, defStyle, 0);
-        mBackgroundColor = a.getColor(R.styleable.HorizontalProgressBar_horizontalBackgroundColor, mBackgroundColor);
+        mBackgroundColor = a.getColor(R.styleable.HorizontalProgressBar_horizontalProgressBackgroundColor, mBackgroundColor);
         mProgressColor = a.getColor(R.styleable.HorizontalProgressBar_horizontalProgressColor, mProgressColor);
         progress = a.getInteger(R.styleable.HorizontalProgressBar_horizontalProgress, progress);
+        roundCornerRadius = a.getDimension(R.styleable.HorizontalProgressBar_horizontalProgressRoundCornerRadius, 0);
         a.recycle();
         initPaint();
         allRect = new RectF();
@@ -50,7 +49,6 @@ public class HorizontalProgressBar extends View {
     private void initPaint() {
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);//设置填满
-        //mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setColor(mProgressColor);
         mPaint.setAntiAlias(true);
         //mPaint.setFilterBitmap(true);
@@ -87,15 +85,14 @@ public class HorizontalProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
-        float rx = height / 2.0f;
         //画背景
         allRect.set(0, 0, width, height);
         mPaint.setColor(mBackgroundColor);
-        canvas.drawRoundRect(allRect, rx, rx, mPaint);
+        canvas.drawRoundRect(allRect, roundCornerRadius, roundCornerRadius, mPaint);
         //画进度
         float progressRight = progress / 100f * width;
         progressRect.set(0, 0, progressRight, height);
         mPaint.setColor(mProgressColor);
-        canvas.drawRoundRect(progressRect, rx, rx, mPaint);
+        canvas.drawRoundRect(progressRect, roundCornerRadius, roundCornerRadius, mPaint);
     }
 }

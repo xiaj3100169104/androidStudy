@@ -71,8 +71,13 @@ abstract class BaseActivity : AppCompatActivity() {
         logI(TAG, "onCreate-------------")
         context = this
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
-        if (isScreenPortrait())
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT  //竖屏
+        //8.0bug:主题为透明时不能设置屏幕方向属性,不在主题里面定义透明属性则无影响
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O && (getStatusBarStyle() == STATUS_BAR_TRANSPARENT)) {
+
+        }else{
+            if (isScreenPortrait())
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT  //竖屏
+        }
         contentView = layoutInflater.inflate(getLayoutResId(), null)
         setContentView(getContentView())
         initData()

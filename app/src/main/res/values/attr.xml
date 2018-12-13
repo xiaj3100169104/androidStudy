@@ -12,6 +12,7 @@
     <attr name="horizontalProgress" format="integer" />
 
     <declare-styleable name="HorizontalProgressBar">
+        <attr name="horizontalBackgroundColor" />
         <attr name="horizontalProgressColor" />
         <attr name="horizontalProgress" />
     </declare-styleable>

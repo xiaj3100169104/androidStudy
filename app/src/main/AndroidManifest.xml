@@ -125,8 +125,7 @@
         <activity android:name="example.activity.QRCodeActivity" />
         <activity
             android:name="example.softInput.StatusBarStyleMainActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Translucent" />
+            android:launchMode="singleTop" />
         <activity
             android:name="example.softInput.SoftMode1Activity"
             android:theme="@style/AppTheme.Translucent"
@@ -137,7 +136,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode3Activity"
-            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode4Activity"

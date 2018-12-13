@@ -12,17 +12,14 @@
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_marginTop="50dp"
-            android:background="@android:color/darker_gray"
-            custom:horizontalProgress="30"
-            custom:horizontalProgressColor="@color/colorAccent" />
+            android:layout_marginTop="50dp" />
 
         <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress2"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="20dp"
             android:layout_marginTop="50dp"
-            android:background="@android:color/darker_gray"
+            custom:horizontalBackgroundColor="@android:color/darker_gray"
             custom:horizontalProgress="30"
             custom:horizontalProgressColor="@color/colorAccent" />
 
@@ -31,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_marginTop="50dp"
-            android:background="@android:color/darker_gray"
+            custom:horizontalBackgroundColor="@android:color/darker_gray"
             custom:horizontalProgress="50"
             custom:horizontalProgressColor="@android:color/holo_green_light" />
 
@@ -40,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginTop="50dp"
-            android:background="@android:color/darker_gray"
+            custom:horizontalBackgroundColor="@android:color/darker_gray"
             custom:horizontalProgress="80"
             custom:horizontalProgressColor="@color/colorPrimaryDark" />
     </LinearLayout>

@@ -13,11 +13,11 @@ import android.widget.Toast;
 import com.google.zxing.WriterException;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.encoding.EncodingHandler;
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityQrCodeScanBinding;
 
-public class QRCodeActivity extends BaseTitleBarActivity {
+public class QRCodeActivity extends BaseDefaultTitleBarActivity {
     public static final String url = "https://github.com/xj913492952";
     private ActivityQrCodeScanBinding bd;
 

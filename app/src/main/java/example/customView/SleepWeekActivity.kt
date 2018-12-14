@@ -1,12 +1,12 @@
 package example.customView
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSleepBinding
 import com.style.view.healthy.SleepWeekHistogram
 import java.util.*
 
-class SleepWeekActivity : BaseTitleBarActivity() {
+class SleepWeekActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivityWeekSleepBinding
     private var mWeeks: Array<String>? = null

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.SwipeMenuActivityBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
@@ -14,7 +14,7 @@ import com.style.view.systemHelper.DividerItemDecoration;
 import java.util.ArrayList;
 
 
-public class SwipeMenuActivity extends BaseTitleBarActivity {
+public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
     SwipeMenuActivityBinding bd;
     private ArrayList<String> dataList;
     private LinearLayoutManager layoutManager;

@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.BannerActivityBinding
 import com.style.view.systemHelper.MyRadioGroup;
@@ -13,7 +13,7 @@ import com.style.view.systemHelper.MyRadioGroup;
 /**
  * Created by xiajun on 2016/10/8.
  */
-class MyRadioGroupActivity : BaseTitleBarActivity() {
+class MyRadioGroupActivity : BaseDefaultTitleBarActivity() {
     private lateinit var bd: BannerActivityBinding
     private lateinit var rg_emotion: MyRadioGroup;
     private lateinit var fm: FragmentManager;

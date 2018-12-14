@@ -3,7 +3,7 @@ package example.customView;
 import android.text.TextUtils;
 
 import com.style.app.FileDirConfig;
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EcgActivity extends BaseTitleBarActivity {
+public class EcgActivity extends BaseDefaultTitleBarActivity {
 
     List<Integer> strings = new ArrayList<>();
     int max = 0, min = 0;

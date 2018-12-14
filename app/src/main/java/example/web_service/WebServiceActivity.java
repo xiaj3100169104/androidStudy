@@ -2,11 +2,11 @@ package example.web_service;
 
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
 
-public class WebServiceActivity extends BaseTitleBarActivity {
+public class WebServiceActivity extends BaseDefaultTitleBarActivity {
 
     ActivityWebserviceBinding bd;
     WebServicePresenter presenter;

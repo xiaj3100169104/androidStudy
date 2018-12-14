@@ -10,13 +10,13 @@
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:background="@color/windows_color" />
+        android:background="@color/white" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
-        android:background="@color/windows_color"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <ImageView

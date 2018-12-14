@@ -13,7 +13,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.WifiActivityMainBinding;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WifiTestActivity extends BaseTitleBarActivity {
+public class WifiTestActivity extends BaseDefaultTitleBarActivity {
     private static int REQUEST_ENABLE_BT = 6;
     WifiActivityMainBinding bd;
 

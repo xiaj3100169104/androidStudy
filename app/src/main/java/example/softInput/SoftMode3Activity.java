@@ -1,20 +1,16 @@
 package example.softInput;
 
+import com.style.base.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode3Binding;
 
 import example.gesture.BaseRightSlideFinishActivity;
 
 
-public class SoftMode3Activity extends BaseRightSlideFinishActivity {
+public class SoftMode3Activity extends BaseWhiteTitleBarActivity {
     private String TAG = "SoftMode3Activity";
 
     ActivitySoftMode3Binding bd;
-
-    @Override
-    public int getStatusBarStyle() {
-        return STATUS_BAR_TRANSLUCENT;
-    }
 
     @Override
     public int getLayoutResId() {

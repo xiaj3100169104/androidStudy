@@ -28,17 +28,9 @@ import com.style.utils.InputMethodUtil
 
 abstract class BaseActivity : AppCompatActivity() {
     protected val TAG = javaClass.simpleName
-
-    companion object {
-        const val STATUS_BAR_TRANSPARENT = 0//全透明状态栏
-        const val STATUS_BAR_TRANSLUCENT = 1//半透明状态栏
-        const val STATUS_BAR_COLOR = 2//自定义状态栏颜色
-        const val STATUS_BAR_THEME = 3//主题配置中的状态栏颜色
-    }
-
     private lateinit var context: Context
     private var progressDialog: LoadingDialog? = null
-    private lateinit var contentView: View
+    private lateinit var mContentView: View
     private var toast: Toast? = null
 
     fun getContext(): Context {
@@ -49,16 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return true
     }
 
-    open fun getStatusBarStyle(): Int {
-        return STATUS_BAR_TRANSPARENT
-    }
-
     protected abstract fun getLayoutResId(): Int
-
-    //是否是亮色状态栏
-    open fun isLightStatusBar(): Boolean {
-        return false
-    }
 
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
     open fun getStatusHeight(): Int {
@@ -71,20 +54,20 @@ abstract class BaseActivity : AppCompatActivity() {
         logI(TAG, "onCreate-------------")
         context = this
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
-        //8.0bug:主题为透明时不能设置屏幕方向属性,不在主题里面定义透明属性则无影响
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O && (getStatusBarStyle() == STATUS_BAR_TRANSPARENT)) {
+        //target=8.0且系统为8.0不能设置屏幕方向
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
 
-        }else{
+        } else {
             if (isScreenPortrait())
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT  //竖屏
         }
-        contentView = layoutInflater.inflate(getLayoutResId(), null)
+        mContentView = layoutInflater.inflate(getLayoutResId(), null)
         setContentView(getContentView())
         initData()
     }
 
     fun getContentView(): View {
-        return contentView
+        return mContentView
     }
 
     fun <T : ViewDataBinding> getBinding(): T {
@@ -93,43 +76,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
         return ViewModelProviders.of(this).get(modelClass)
-    }
-
-    override fun setContentView(contentView: View) {
-        when (getStatusBarStyle()) {
-            STATUS_BAR_TRANSPARENT -> {
-                contentView.fitsSystemWindows = false
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    //防止之前加了这个标志
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                    var visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    //系统版本大于6.0且需要设置状态栏图标颜色为深色
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isLightStatusBar())
-                        visibility = visibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                    window.decorView.systemUiVisibility = visibility
-                    //设置状态栏颜色
-                    window.statusBarColor = resources.getColor(android.R.color.transparent)
-                }
-            }
-            STATUS_BAR_TRANSLUCENT -> {
-                contentView.fitsSystemWindows = false
-                //看注释这个其实是在全透明的基础上多加了个半透明效果
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            }
-            STATUS_BAR_COLOR -> {
-                //这是前提
-                contentView.fitsSystemWindows = true
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                    window.statusBarColor = resources.getColor(R.color.orange)
-                }
-            }
-            STATUS_BAR_THEME -> {
-                //这是前提
-                contentView.fitsSystemWindows = true
-            }
-        }
-        super.setContentView(contentView)
     }
 
     protected abstract fun initData()

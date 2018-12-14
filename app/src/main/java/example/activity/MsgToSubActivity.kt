@@ -5,12 +5,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 
 
-public class MsgToSubActivity : BaseTitleBarActivity() {
+public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
     lateinit var bd: ActivityMsgToSubBinding;
 
     lateinit var mHandler: Handler;

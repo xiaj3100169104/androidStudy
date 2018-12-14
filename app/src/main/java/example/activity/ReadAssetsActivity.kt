@@ -2,13 +2,13 @@ package example.activity;
 
 import android.widget.TextView;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.utils.AssetsUtil;
 import kotlinx.android.synthetic.main.activity_user_agree.*
 import java.io.IOException
 
-public class ReadAssetsActivity : BaseTitleBarActivity() {
+public class ReadAssetsActivity : BaseDefaultTitleBarActivity() {
 
     override fun getLayoutResId(): Int {
         return R.layout.activity_user_agree;

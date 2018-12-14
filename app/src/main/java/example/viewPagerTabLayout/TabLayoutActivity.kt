@@ -3,13 +3,13 @@ package example.viewPagerTabLayout
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityTabLayoutBinding
 
 import java.util.ArrayList
 
-class TabLayoutActivity : BaseTitleBarActivity() {
+class TabLayoutActivity : BaseDefaultTitleBarActivity() {
 
     private lateinit var bd: ActivityTabLayoutBinding
     private lateinit var fAdapter: FindTabAdapter                            //定义adapter

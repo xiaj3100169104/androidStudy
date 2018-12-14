@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.widget.Toast
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import example.customView.service.CallInSuspendService
 import example.customView.service.VideoSuspendService
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_suspend_window.*
 /**
  * Created by xiajun on 2017/8/1.
  */
-class SuspendWindowActivity : BaseTitleBarActivity() {
+class SuspendWindowActivity : BaseDefaultTitleBarActivity() {
     override fun getLayoutResId(): Int {
         return R.layout.activity_suspend_window
     }

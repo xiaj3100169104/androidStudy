@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_light" />
+        <include layout="@layout/title_bar_white" />
 
         <Button
             android:id="@+id/view_custom_color"

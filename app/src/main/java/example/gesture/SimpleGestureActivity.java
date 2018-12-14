@@ -5,11 +5,11 @@ import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 
-public class SimpleGestureActivity extends BaseTitleBarActivity {
+public class SimpleGestureActivity extends BaseDefaultTitleBarActivity {
 
     GestureSimpleTestBinding bd;
     private GestureDetector mGestureDetector;

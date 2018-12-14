@@ -17,11 +17,6 @@ import org.simple.eventbus.EventBus
 abstract class BaseFragment : Fragment() {
     protected var TAG = javaClass.simpleName
 
-    private var isViewCreated: Boolean = false
-    private var isInit: Boolean = false
-    private var isVisible2: Boolean = false
-    private var isLazyData: Boolean = false
-
     protected abstract fun getLayoutResId(): Int
     private lateinit var contentView: View
     protected abstract fun initData()
@@ -37,43 +32,11 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isViewCreated = true
-        init()
+        initData()
     }
 
     fun <T : ViewDataBinding> getBinding(): T {
         return DataBindingUtil.bind(contentView)!!
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            isVisible2 = true
-        }
-        init()
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            isVisible2 = true
-        }
-        init()
-    }
-
-    private fun init() {
-        if (isViewCreated && !isInit) {
-            initData()
-            isInit = true
-        }
-        if (isViewCreated && isVisible && isInit && !isLazyData) {
-            lazyData()
-            isLazyData = true
-        }
-    }
-
-    open fun lazyData() {
-
     }
 
     override fun onDestroy() {
@@ -96,10 +59,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun showToast(str: CharSequence) {
-        (activity as BaseTitleBarActivity).showToast(str)
+        (activity as BaseDefaultTitleBarActivity).showToast(str)
     }
 
     fun showToast(@StringRes resId: Int) {
-        (activity as BaseTitleBarActivity).showToast(resId)
+        (activity as BaseDefaultTitleBarActivity).showToast(resId)
     }
 }

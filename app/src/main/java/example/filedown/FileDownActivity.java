@@ -3,13 +3,13 @@ package example.filedown;
 import android.view.View;
 
 import com.style.app.FileDirConfig;
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.data.net.file.FileCallback;
 import com.style.data.net.file.MultiThreadDownloadManager;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityFileDownBinding;
 
-public class FileDownActivity extends BaseTitleBarActivity {
+public class FileDownActivity extends BaseDefaultTitleBarActivity {
 
     ActivityFileDownBinding bd;
 

@@ -21,41 +21,19 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         initTitleBar(contentView)
     }
 
-    private fun initTitleBar(mContentView: View) {
+    open fun initTitleBar(mContentView: View) {
         titleBar = mContentView.findViewById(R.id.title_bar)
         statusBar = mContentView.findViewById(R.id.status_bar)
         val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
         ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
-        initStatusBarHeight()
-    }
-
-    private fun initStatusBarHeight() {
-        when (getStatusBarStyle()) {
-            STATUS_BAR_TRANSPARENT -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    setTransparentStatusBarHeight(getStatusHeight())
-                } else {
-                    setTransparentStatusBarHeight(0)
-                }
-            }
-            STATUS_BAR_TRANSLUCENT -> {
-                setTransparentStatusBarHeight(getStatusHeight())
-            }
-            STATUS_BAR_COLOR -> {
-                setTransparentStatusBarHeight(0)
-            }
-            STATUS_BAR_THEME -> {
-                setTransparentStatusBarHeight(0)
-            }
-        }
     }
 
     fun setTransparentStatusBarHeight(height: Int) {
         statusBar.layoutParams.height = height
     }
 
-    fun onClickTitleBack() {
+    open fun onClickTitleBack() {
         onBackPressed()
     }
 
@@ -65,10 +43,5 @@ abstract class BaseTitleBarActivity : BaseActivity() {
 
     fun setToolbarTitle(@StringRes resId: Int) {
         tvTitleBase.text = getContext().getString(resId)
-    }
-
-    fun getTitleBar(): LinearLayout {
-        return titleBar;
-
     }
 }

@@ -8,7 +8,7 @@ import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.MaterialProgressDialog;
@@ -19,7 +19,7 @@ import com.style.framework.databinding.DialogActivityDialogBinding;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class DialogActivity extends BaseTitleBarActivity {
+public class DialogActivity extends BaseDefaultTitleBarActivity {
     DialogActivityDialogBinding bd;
     private FragmentManager fm;
     private FragmentTransaction bt;

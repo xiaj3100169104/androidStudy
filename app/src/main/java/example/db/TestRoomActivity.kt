@@ -1,11 +1,11 @@
 package example.db;
 
 import android.os.Bundle
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_test_room.*
 
-class TestRoomActivity : BaseTitleBarActivity() {
+class TestRoomActivity : BaseDefaultTitleBarActivity() {
     private lateinit var mViewModel: TestRoomViewModel
 
     override fun getLayoutResId(): Int {

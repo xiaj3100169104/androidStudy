@@ -23,7 +23,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.style.app.FileDirConfig;
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class BlueToothActivity extends BaseTitleBarActivity {
+public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private static int REQUEST_ENABLE_BT = 6;
 
     ActivityBluetoothBinding bd;

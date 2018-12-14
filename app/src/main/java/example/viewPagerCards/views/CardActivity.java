@@ -3,13 +3,13 @@ package example.viewPagerCards.views;
 import android.databinding.ViewDataBinding;
 import android.widget.CompoundButton;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsViewsActivityBinding;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardActivity extends BaseTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
+public class CardActivity extends BaseDefaultTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
 
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;

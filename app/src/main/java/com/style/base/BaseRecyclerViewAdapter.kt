@@ -125,7 +125,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun showToast(str: CharSequence) {
-        (context as BaseTitleBarActivity).showToast(str)
+        (context as BaseActivity).showToast(str)
     }
 
     fun showToast(@StringRes resId: Int) {

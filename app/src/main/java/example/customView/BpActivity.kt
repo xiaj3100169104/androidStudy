@@ -1,12 +1,12 @@
 package example.customView
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
 import com.style.view.healthy.BloodPressureLine
 import java.util.*
 
-class BpActivity : BaseTitleBarActivity() {
+class BpActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivityBpBinding
     internal var max: Float = 0.toFloat()

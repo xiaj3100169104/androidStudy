@@ -1,12 +1,12 @@
 package example.customView
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSportBinding
 import com.style.view.healthy.SportWeekHistogram
 import java.util.*
 
-class SportWeekActivity : BaseTitleBarActivity() {
+class SportWeekActivity : BaseDefaultTitleBarActivity() {
     lateinit var bd: ActivityWeekSportBinding
 
     override fun getLayoutResId(): Int {

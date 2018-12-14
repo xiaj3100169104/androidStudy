@@ -3,7 +3,7 @@ package example.activity;
 import android.annotation.SuppressLint;
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
 
@@ -17,7 +17,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class TestRxActivity extends BaseTitleBarActivity {
+public class TestRxActivity extends BaseDefaultTitleBarActivity {
 
     ActivityTestRxBinding bd;
 

@@ -1,12 +1,12 @@
 package example.customView
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityTempBinding
 import com.style.view.healthy.TemperatureLineNew
 import java.util.*
 
-class TempActivity : BaseTitleBarActivity() {
+class TempActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivityTempBinding
     internal var max: Float = 36.5.toFloat()

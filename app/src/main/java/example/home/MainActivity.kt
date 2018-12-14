@@ -21,7 +21,7 @@ import com.style.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
@@ -30,7 +30,7 @@ import com.style.utils.NetWorkUtil
 import org.simple.eventbus.EventBus
 
 
-class MainActivity : BaseTitleBarActivity() {
+class MainActivity : BaseDefaultTitleBarActivity() {
     private lateinit var bd: ActivityMainBinding
 
     companion object {

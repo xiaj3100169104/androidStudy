@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsFragmentsActivityBinding;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardFragmentActivity extends BaseTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
+public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
 
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;

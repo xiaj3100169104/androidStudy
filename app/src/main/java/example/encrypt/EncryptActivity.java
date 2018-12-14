@@ -2,11 +2,11 @@ package example.encrypt;
 
 import android.view.View;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
 
-public class EncryptActivity extends BaseTitleBarActivity {
+public class EncryptActivity extends BaseDefaultTitleBarActivity {
 
     ActivityEncryptBinding bd;
     EncryptPresenter presenter;

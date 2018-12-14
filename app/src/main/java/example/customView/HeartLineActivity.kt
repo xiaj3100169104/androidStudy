@@ -1,12 +1,12 @@
 package example.customView
 
-import com.style.base.BaseTitleBarActivity
+import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
 import com.style.view.healthy.HeartLineChart
 import java.util.*
 
-class HeartLineActivity : BaseTitleBarActivity() {
+class HeartLineActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivityHeartLineBinding
 

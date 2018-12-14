@@ -17,7 +17,7 @@ import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.app.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
@@ -35,7 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class SelectLocalPictureActivity : BaseTitleBarActivity() {
+public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivitySelectLocalPictureBinding;
     private lateinit var TAG_ADD: Media;

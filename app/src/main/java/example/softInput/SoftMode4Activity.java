@@ -3,6 +3,7 @@ package example.softInput;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
+import com.style.base.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySoftMode4Binding;
 import com.style.helper.InputMethodStateListener;
@@ -14,7 +15,7 @@ import example.adapter.StringAdapter;
 import example.gesture.BaseRightSlideFinishActivity;
 
 
-public class SoftMode4Activity extends BaseRightSlideFinishActivity {
+public class SoftMode4Activity extends BaseWhiteTitleBarActivity {
 
     ActivitySoftMode4Binding bd;
 
@@ -30,7 +31,7 @@ public class SoftMode4Activity extends BaseRightSlideFinishActivity {
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("全透明状态栏下只移动编辑框布局");
+        setToolbarTitle("只移动编辑框布局");
 
     }
 

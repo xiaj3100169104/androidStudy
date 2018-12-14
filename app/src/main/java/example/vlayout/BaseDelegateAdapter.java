@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.style.app.LogManager;
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseActivity;
 import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public abstract class BaseDelegateAdapter<T> extends DelegateAdapter.Adapter<Rec
     }
 
     public void showToast(CharSequence str) {
-        ((BaseTitleBarActivity)mContext).showToast(str);
+        ((BaseActivity)mContext).showToast(str);
     }
 
     public void showToast(@StringRes int resId) {

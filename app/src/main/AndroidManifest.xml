@@ -128,18 +128,15 @@
             android:launchMode="singleTop" />
         <activity
             android:name="example.softInput.SoftMode1Activity"
-            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode2Activity"
-            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode3Activity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode4Activity"
-            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />

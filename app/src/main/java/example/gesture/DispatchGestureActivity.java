@@ -1,13 +1,13 @@
 package example.gesture;
 
-import com.style.base.BaseTitleBarActivity;
+import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureDivideScrollBinding;
 
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class DispatchGestureActivity extends BaseTitleBarActivity {
+public class DispatchGestureActivity extends BaseDefaultTitleBarActivity {
 
     GestureDivideScrollBinding bd;
     private boolean isDeleteExitAnim;

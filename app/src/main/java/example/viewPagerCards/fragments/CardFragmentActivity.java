@@ -9,6 +9,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsFragmentsActivityBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,9 @@ public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements
     private ViewPagerCardsFragmentsActivityBinding bd;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.view_pager_cards_fragments_activity;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.view_pager_cards_fragments_activity);
     }
 
     @Override

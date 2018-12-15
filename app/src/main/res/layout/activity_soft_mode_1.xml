@@ -2,61 +2,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_white" />
+        <include layout="@layout/title_bar_normal" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title_bar"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="调整编辑框位置其他布局不动" />
+                android:layout_below="@+id/title_bar"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:background="#3000ff00"
-                android:gravity="bottom|center_horizontal"
-                android:src="@drawable/ic_launcher"
-                android:text="要此view尺寸不变高度值必须固定" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="调整编辑框位置其他布局不动" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="15dp"
-                android:text="test"
-                app:layout_constraintBottom_toBottomOf="@id/image"
-                app:layout_constraintRight_toRightOf="@id/image" />
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="#3000ff00"
+                    android:gravity="bottom|center_horizontal"
+                    android:src="@drawable/ic_launcher"
+                    android:text="要此view尺寸不变高度值必须固定" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="test"
+                    app:layout_constraintBottom_toBottomOf="@id/image"
+                    app:layout_constraintRight_toRightOf="@id/image" />
 
-            <EditText
-                android:id="@+id/et_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="密码" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/et_content"
-                android:text="如果需要不变的区域容器是相对布局也会产生变动" />
-        </RelativeLayout>
-    </RelativeLayout>
+                    <EditText
+                        android:id="@+id/et_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="密码" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/et_content"
+                        android:text="如果需要不变的区域容器是相对布局也会产生变动" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
 </layout>

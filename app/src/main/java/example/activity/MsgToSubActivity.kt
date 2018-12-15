@@ -1,5 +1,6 @@
 package example.activity;
 
+import android.os.Bundle
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -15,8 +16,9 @@ public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var mHandler: Handler;
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_msg_to_sub;
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_msg_to_sub)
     }
 
     override fun initData() {

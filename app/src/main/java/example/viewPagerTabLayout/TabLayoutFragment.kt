@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 
 import com.style.framework.R
@@ -38,17 +40,13 @@ class TabLayoutFragment : BaseFragment() {
         Log.e(param, "onCreate")
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_tablayout
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_tablayout, container, false)
     }
-
-    override fun initData() {
-        bd = getBinding()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.e(param, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        bd = getBinding(view)
         bd.tvContent.text = param
         val behavior = BottomSheetBehavior.from(bd.scroll)
         behavior.peekHeight = 50

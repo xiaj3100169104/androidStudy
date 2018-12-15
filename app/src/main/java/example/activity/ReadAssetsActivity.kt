@@ -1,5 +1,6 @@
 package example.activity;
 
+import android.os.Bundle
 import android.widget.TextView;
 
 import com.style.base.BaseDefaultTitleBarActivity;
@@ -8,10 +9,11 @@ import com.style.utils.AssetsUtil;
 import kotlinx.android.synthetic.main.activity_user_agree.*
 import java.io.IOException
 
-public class ReadAssetsActivity : BaseDefaultTitleBarActivity() {
+ class ReadAssetsActivity : BaseDefaultTitleBarActivity() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_user_agree;
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_user_agree);
     }
 
     override fun initData() {

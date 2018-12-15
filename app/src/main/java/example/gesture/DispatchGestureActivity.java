@@ -1,20 +1,27 @@
 package example.gesture;
 
+import android.os.Bundle;
+
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureDivideScrollBinding;
 
-/**
- * Created by xiajun on 2016/10/8.
- */
+import org.jetbrains.annotations.Nullable;
+
 public class DispatchGestureActivity extends BaseDefaultTitleBarActivity {
 
     GestureDivideScrollBinding bd;
     private boolean isDeleteExitAnim;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.gesture_divide_scroll;
+    public void setRequestedOrientation(int requestedOrientation) {
+        return;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.gesture_divide_scroll);
     }
 
     @Override

@@ -127,16 +127,16 @@
             android:name="example.softInput.StatusBarStyleMainActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="example.softInput.SoftMode1Activity"
+            android:name="example.softInput.MoveEditLayoutToTopActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.softInput.SoftMode2Activity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.softInput.SoftMode3Activity"
+            android:name="example.softInput.HideStatusBarBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.softInput.SoftMode4Activity"
+            android:name="example.softInput.FullScreenBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />

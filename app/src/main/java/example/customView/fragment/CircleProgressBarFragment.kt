@@ -1,5 +1,9 @@
 package example.customView.fragment
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.ActivityCircleProgressBinding
@@ -9,12 +13,13 @@ class CircleProgressBarFragment : BaseFragment() {
 
     private lateinit var bd: ActivityCircleProgressBinding
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_circle_progress
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_circle_progress, container, false)
     }
 
-    override fun initData() {
-        bd = getBinding()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bd = getBinding(view)
 
         bd.button.setOnClickListener { v ->
             val n = (Math.random() * 100).toInt()

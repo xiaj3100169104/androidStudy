@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
@@ -14,6 +15,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 
 public class AnimatorActivity extends BaseDefaultTitleBarActivity {
 
@@ -21,8 +24,9 @@ public class AnimatorActivity extends BaseDefaultTitleBarActivity {
     private ActivitySecondBinding bd;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_second;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_second);
     }
 
 

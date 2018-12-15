@@ -29,6 +29,8 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -57,10 +59,10 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private BufferedWriter bufferedReader;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_bluetooth;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_bluetooth);
     }
-
 
     @Override
     public void initData() {

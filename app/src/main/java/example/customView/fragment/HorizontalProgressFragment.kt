@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 
 import com.style.base.BaseFragment
 import com.style.framework.R
@@ -31,11 +33,11 @@ class HorizontalProgressFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_horizontal_progress
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_horizontal_progress, container, false)
     }
-
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         progressBar = view!!.findViewById<View>(R.id.progress) as HorizontalProgressBar
         progressBar2 = view!!.findViewById<View>(R.id.progress2) as HorizontalProgressBar

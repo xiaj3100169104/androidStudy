@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
 import com.style.base.BaseDefaultTitleBarActivity
@@ -17,8 +18,10 @@ import kotlinx.android.synthetic.main.activity_suspend_window.*
  * Created by xiajun on 2017/8/1.
  */
 class SuspendWindowActivity : BaseDefaultTitleBarActivity() {
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_suspend_window
+
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_suspend_window)
     }
 
     override fun initData() {

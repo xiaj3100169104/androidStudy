@@ -2,13 +2,18 @@ package example.viewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseFragment;
 import com.style.framework.R;
 import com.style.framework.databinding.FragmentImageScanBinding;
 import com.style.data.glide.ImageLoader;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by dmcBig on 2017/8/16.
@@ -25,14 +30,10 @@ public class ScanFragment extends BaseFragment {
         return f;
     }
 
+    @Nullable
     @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_image_scan;
-    }
-
-    @Override
-    protected void initData() {
-        bd = getBinding();
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_image_scan, container, false);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,13 +18,16 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityQrCodeScanBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 public class QRCodeActivity extends BaseDefaultTitleBarActivity {
     public static final String url = "https://github.com/xj913492952";
     private ActivityQrCodeScanBinding bd;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_qr_code_scan;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_qr_code_scan);
     }
 
     @Override

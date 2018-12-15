@@ -37,12 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return context;
     }
 
-    open fun isScreenPortrait(): Boolean {
-        return true
-    }
-
-    protected abstract fun getLayoutResId(): Int
-
     //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
     open fun getStatusHeight(): Int {
         val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
@@ -53,16 +47,13 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(arg0)
         logI(TAG, "onCreate-------------")
         context = this
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
-        //target=8.0且系统为8.0不能设置屏幕方向
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
+        //bug:主题窗口背景为透明且target=26(8.0)以上且系统为8.0时不能设置屏幕方向，8.1已修复，在子类重写判断即可
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
 
-        } else {
-            if (isScreenPortrait())
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT  //竖屏
-        }
-        mContentView = layoutInflater.inflate(getLayoutResId(), null)
-        setContentView(getContentView())
+    override fun setContentView(layoutResID: Int) {
+        mContentView = layoutInflater.inflate(layoutResID, null)
+        setContentView(mContentView)
         initData()
     }
 

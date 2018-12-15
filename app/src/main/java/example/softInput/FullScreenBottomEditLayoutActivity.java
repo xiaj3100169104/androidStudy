@@ -1,5 +1,6 @@
 package example.softInput;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
@@ -9,13 +10,15 @@ import com.style.framework.databinding.ActivitySoftMode4Binding;
 import com.style.helper.InputMethodStateListener;
 import com.style.view.systemHelper.DividerItemDecoration;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 import example.adapter.StringAdapter;
 import example.gesture.BaseRightSlideFinishActivity;
 
 
-public class SoftMode4Activity extends BaseWhiteTitleBarActivity {
+public class FullScreenBottomEditLayoutActivity extends BaseWhiteTitleBarActivity {
 
     ActivitySoftMode4Binding bd;
 
@@ -24,14 +27,15 @@ public class SoftMode4Activity extends BaseWhiteTitleBarActivity {
     private StringAdapter adapter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_soft_mode_4;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_soft_mode_4);
     }
 
     @Override
     public void initData() {
         bd = getBinding();
-        setToolbarTitle("只移动编辑框布局");
+        setToolbarTitle("调整编辑布局");
 
     }
 

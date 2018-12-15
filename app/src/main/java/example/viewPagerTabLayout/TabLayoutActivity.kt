@@ -1,5 +1,6 @@
 package example.viewPagerTabLayout
 
+import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 
@@ -16,8 +17,9 @@ class TabLayoutActivity : BaseDefaultTitleBarActivity() {
     private val fragments = ArrayList<Fragment>()                                //定义要装fragment的列表
     private val titles = ArrayList<String>()
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_tab_layout
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_tab_layout)
     }
 
     override fun initData() {

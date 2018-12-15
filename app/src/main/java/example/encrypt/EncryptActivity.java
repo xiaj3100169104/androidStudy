@@ -1,10 +1,13 @@
 package example.encrypt;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 public class EncryptActivity extends BaseDefaultTitleBarActivity {
 
@@ -12,8 +15,9 @@ public class EncryptActivity extends BaseDefaultTitleBarActivity {
     EncryptPresenter presenter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_encrypt;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_encrypt);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package example.filedown;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.style.app.FileDirConfig;
@@ -8,6 +9,8 @@ import com.style.data.net.file.FileCallback;
 import com.style.data.net.file.MultiThreadDownloadManager;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityFileDownBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 public class FileDownActivity extends BaseDefaultTitleBarActivity {
 
@@ -18,9 +21,11 @@ public class FileDownActivity extends BaseDefaultTitleBarActivity {
     private String url3 = "http://wdl1.cache.wps.cn/wps/download/W.P.S.50.391.exe";
 
     private String targetPath = FileDirConfig.DIR_APP_FILE + "/apache-tomcat-8.0.24_multi_thread.exe";
+
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_file_down;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_file_down);
     }
 
     @Override

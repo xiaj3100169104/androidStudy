@@ -8,8 +8,9 @@ import kotlinx.android.synthetic.main.activity_test_room.*
 class TestRoomActivity : BaseDefaultTitleBarActivity() {
     private lateinit var mViewModel: TestRoomViewModel
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_test_room
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_test_room)
     }
 
     override fun initData() {

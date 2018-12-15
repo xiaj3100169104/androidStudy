@@ -6,37 +6,21 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-
 import com.style.app.LogManager
-
+import com.style.app.ToastManager
 import org.simple.eventbus.EventBus
 
 abstract class BaseFragment : Fragment() {
     protected var TAG = javaClass.simpleName
 
-    protected abstract fun getLayoutResId(): Int
-    private lateinit var contentView: View
-    protected abstract fun initData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        contentView = inflater.inflate(getLayoutResId(), container, false)
-        return contentView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initData()
-    }
-
-    fun <T : ViewDataBinding> getBinding(): T {
-        return DataBindingUtil.bind(contentView)!!
+    fun <T : ViewDataBinding> getBinding(view: View): T {
+        return DataBindingUtil.bind(view)!!
     }
 
     override fun onDestroy() {
@@ -52,17 +36,11 @@ abstract class BaseFragment : Fragment() {
         LogManager.logE(tag, msg)
     }
 
-    interface OnGiveUpEditDialogListener {
-        fun onPositiveButton()
-
-        fun onNegativeButton()
-    }
-
     fun showToast(str: CharSequence) {
-        (activity as BaseDefaultTitleBarActivity).showToast(str)
+        ToastManager.showToast(context, str)
     }
 
     fun showToast(@StringRes resId: Int) {
-        (activity as BaseDefaultTitleBarActivity).showToast(resId)
+        ToastManager.showToast(context, resId)
     }
 }

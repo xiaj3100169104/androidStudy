@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.WifiActivityMainBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +39,9 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
     private WifiStateReceiver mReceiver;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.wifi_activity_main;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.wifi_activity_main);
     }
 
     @Override

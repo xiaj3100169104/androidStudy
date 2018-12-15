@@ -1,6 +1,9 @@
 package example.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import example.drag.DragActivity
@@ -17,11 +20,11 @@ import kotlinx.android.synthetic.main.fragment_home_gesture.*
 
 class GestureFragment : BaseFragment() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_home_gesture
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_gesture, container, false)
     }
-
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         refreshLayout.setEnablePureScrollMode(true)
         view_gesture_direction.setOnClickListener { skip(SimpleGestureActivity::class.java) }
         view_slide_finish.setOnClickListener { skip(DispatchGestureActivity::class.java) }

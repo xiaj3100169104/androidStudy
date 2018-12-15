@@ -13,7 +13,7 @@
             android:id="@+id/view_custom_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="自定义状态栏颜色" />
+            android:text="整体上移" />
 
         <Button
             android:id="@+id/view_theme_color"
@@ -25,13 +25,13 @@
             android:id="@+id/view_translucent_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="半状态栏透明且内容延伸到状态栏" />
+            android:text="状态栏不可用调整编辑布局" />
 
         <Button
             android:id="@+id/view_transparent_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="全透明状态栏且内容延伸到状态栏" />
+            android:text="全透明状态栏调整编辑布局" />
 
     </LinearLayout>
 </layout>

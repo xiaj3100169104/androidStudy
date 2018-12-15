@@ -1,6 +1,10 @@
 package example.home
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
@@ -13,11 +17,12 @@ class HomeListFragment : BaseFragment() {
     private lateinit var dataList: ArrayList<Int>
     private lateinit var adapter: FriendAdapter
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_home_2
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_2, container, false)
     }
 
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         dataList = ArrayList()
         adapter = FriendAdapter(context, dataList)
         val layoutManager = LinearLayoutManager(context)

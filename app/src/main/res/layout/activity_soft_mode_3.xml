@@ -14,8 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#3000ff00"
-            android:fitsSystemWindows="true">
+            android:background="#3000ff00">
 
             <ImageView
                 android:id="@+id/image"

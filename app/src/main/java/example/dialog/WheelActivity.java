@@ -1,5 +1,6 @@
 package example.dialog;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -10,6 +11,8 @@ import com.style.dialog.ChangeAddressDialog;
 import com.style.dialog.ChangeBirthdayDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWheelBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 
 /**
@@ -26,8 +29,9 @@ public class WheelActivity extends BaseDefaultTitleBarActivity {
     private ChangeAddressDialog mChangeAddressDialog;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_wheel;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_wheel);
     }
 
     @Override

@@ -2,6 +2,7 @@ package example.web;
 
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 
 public class WebViewActivity extends BaseDefaultTitleBarActivity {
@@ -24,8 +27,9 @@ public class WebViewActivity extends BaseDefaultTitleBarActivity {
     private String urlLocal = "https://watch.lemonnc.com/Content/wap-guardian";
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_h5_remote;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_h5_remote);
     }
 
 

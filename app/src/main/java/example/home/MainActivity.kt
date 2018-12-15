@@ -65,8 +65,9 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         //super.onSaveInstanceState(outState);//将super调用取消即可，表明当意外(比如系统内存吃紧将应用杀死)发生我不需要保存Fragment状态和数据等,当activity销毁时不保存其内部的view的状态
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_main
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_main)
     }
 
     override fun initData() {

@@ -35,7 +35,7 @@
             <TextView
                 android:id="@+id/view_status_bar_style"
                 style="@style/text_home_item"
-                android:text="状态栏风格" />
+                android:text="编辑布局调整" />
 
 
             <TextView

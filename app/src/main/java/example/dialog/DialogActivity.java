@@ -1,6 +1,7 @@
 package example.dialog;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +17,8 @@ import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Created by xiajun on 2016/10/8.
  */
@@ -26,8 +29,9 @@ public class DialogActivity extends BaseDefaultTitleBarActivity {
     private MaterialProgressDialog materialDialog;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.dialog_activity_dialog;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.dialog_activity_dialog);
     }
 
     @Override

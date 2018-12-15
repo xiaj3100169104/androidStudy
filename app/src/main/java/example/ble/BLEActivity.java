@@ -3,6 +3,7 @@ package example.ble;
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.BleActivityScanBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
 
+import org.jetbrains.annotations.Nullable;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
@@ -34,8 +36,9 @@ public class BLEActivity extends BaseDefaultTitleBarActivity {
     private boolean isScanning;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.ble_activity_scan;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.ble_activity_scan);
     }
 
     @Override

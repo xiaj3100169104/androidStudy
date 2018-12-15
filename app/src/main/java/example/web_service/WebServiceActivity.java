@@ -1,10 +1,13 @@
 package example.web_service;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 public class WebServiceActivity extends BaseDefaultTitleBarActivity {
 
@@ -12,8 +15,9 @@ public class WebServiceActivity extends BaseDefaultTitleBarActivity {
     WebServicePresenter presenter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_webservice;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_webservice);
     }
 
     @Override

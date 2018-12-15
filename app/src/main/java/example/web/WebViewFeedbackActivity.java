@@ -1,5 +1,6 @@
 package example.web;
 
+import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
@@ -12,6 +13,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 public class WebViewFeedbackActivity extends BaseDefaultTitleBarActivity {
 
     ActivityWebViewBinding bd;
@@ -19,8 +22,9 @@ public class WebViewFeedbackActivity extends BaseDefaultTitleBarActivity {
     //private String url = "file:///android_asset/no_net.html";
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_web_view;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_web_view);
     }
 
     @Override

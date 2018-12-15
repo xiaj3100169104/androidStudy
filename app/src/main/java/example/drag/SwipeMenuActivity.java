@@ -1,6 +1,7 @@
 package example.drag;
 
 import android.animation.ValueAnimator;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.SwipeMenuActivityBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -24,8 +27,9 @@ public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
     private int xOffset;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.swipe_menu_activity;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.swipe_menu_activity);
     }
 
 

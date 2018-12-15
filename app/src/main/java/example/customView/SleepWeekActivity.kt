@@ -1,5 +1,6 @@
 package example.customView
 
+import android.os.Bundle
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSleepBinding
@@ -11,8 +12,9 @@ class SleepWeekActivity : BaseDefaultTitleBarActivity() {
     lateinit var bd: ActivityWeekSleepBinding
     private var mWeeks: Array<String>? = null
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_week_sleep
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_week_sleep)
     }
 
     override fun initData() {

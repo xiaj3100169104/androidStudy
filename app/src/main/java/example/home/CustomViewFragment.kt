@@ -1,5 +1,9 @@
 package example.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
@@ -12,12 +16,13 @@ class CustomViewFragment : BaseFragment() {
 
     private lateinit var bd: FragmentHome1Binding
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_home_1
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_1, container, false)
     }
 
-    override fun initData() {
-        bd = getBinding()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bd = getBinding(view)
         bd.btnSystemWidget.setOnClickListener { skip(TabLayoutActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(MyRadioGroupActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }

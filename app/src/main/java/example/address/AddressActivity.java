@@ -2,6 +2,7 @@ package example.address;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,8 +31,9 @@ public class AddressActivity extends BaseDefaultTitleBarActivity {
     private AddressViewModel mPresenter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_address;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_address);
     }
 
     @Override

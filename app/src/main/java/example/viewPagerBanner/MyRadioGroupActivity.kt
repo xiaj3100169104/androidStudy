@@ -1,5 +1,6 @@
 package example.viewPagerBanner;
 
+import android.os.Bundle
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,9 +25,9 @@ class MyRadioGroupActivity : BaseDefaultTitleBarActivity() {
     private lateinit var bannerFrags: ArrayList<BannerFragment>;
     private lateinit var fAdapter: BannerAdapter                            //定义adapter
 
-
-    override fun getLayoutResId(): Int {
-        return R.layout.banner_activity
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.banner_activity)
     }
 
     override fun initData() {

@@ -1,6 +1,7 @@
 package example.gesture;
 
 import android.animation.ValueAnimator;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,9 +15,8 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
 import com.style.utils.AppInfoUtil;
 
-/**
- * Created by xiajun on 2016/10/8.
- */
+import org.jetbrains.annotations.Nullable;
+
 public class TestGestureActivity extends BaseActivity {
 
     ActivityTestGestureBinding bd;
@@ -32,8 +32,14 @@ public class TestGestureActivity extends BaseActivity {
     private float yUp;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_test_gesture;
+    public void setRequestedOrientation(int requestedOrientation) {
+        return;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_test_gesture);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package example.customView.fragment
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 
 import com.style.base.BaseFragment
@@ -11,11 +14,12 @@ class WaterPoloFragment : BaseFragment() {
 
     private var mButton: Button? = null
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_water_polo
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_water_polo, container, false)
     }
 
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val sineCurve = view!!.findViewById<View>(R.id.custom_view) as WaterPoloProgress
 

@@ -1,11 +1,14 @@
 package example.activity;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.view.View;
 
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestRxBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -22,8 +25,9 @@ public class TestRxActivity extends BaseDefaultTitleBarActivity {
     ActivityTestRxBinding bd;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_test_rx;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_test_rx);
     }
 
     @Override

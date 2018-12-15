@@ -1,5 +1,6 @@
 package example.drag;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
@@ -7,6 +8,8 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.DragActivityBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -18,8 +21,9 @@ public class DragActivity extends BaseDefaultTitleBarActivity {
     private DragAdapter adapter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.drag_activity;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.drag_activity);
     }
 
     @Override

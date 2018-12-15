@@ -1,10 +1,13 @@
 package example.customView;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.style.app.FileDirConfig;
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,8 +20,9 @@ public class EcgActivity extends BaseDefaultTitleBarActivity {
     int max = 0, min = 0;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_ecg;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_ecg);
     }
 
     @Override

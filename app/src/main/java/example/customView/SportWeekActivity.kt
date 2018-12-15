@@ -1,5 +1,6 @@
 package example.customView
 
+import android.os.Bundle
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSportBinding
@@ -9,8 +10,9 @@ import java.util.*
 class SportWeekActivity : BaseDefaultTitleBarActivity() {
     lateinit var bd: ActivityWeekSportBinding
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_week_sport
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_week_sport)
     }
 
     override fun initData() {

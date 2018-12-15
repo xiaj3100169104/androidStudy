@@ -1,5 +1,6 @@
 package example.customView
 
+import android.os.Bundle
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
@@ -12,9 +13,9 @@ class BpActivity : BaseDefaultTitleBarActivity() {
     internal var max: Float = 0.toFloat()
     internal var min: Float = 0.toFloat()
 
-
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_bp
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_bp)
     }
 
     override fun initData() {

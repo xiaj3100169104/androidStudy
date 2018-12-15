@@ -1,5 +1,6 @@
 package example.customView
 
+import android.os.Bundle
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
@@ -10,8 +11,9 @@ class HeartLineActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var bd: ActivityHeartLineBinding
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_heart_line
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_heart_line)
     }
 
     override fun initData() {

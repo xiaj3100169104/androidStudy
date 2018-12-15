@@ -4,7 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 
 import com.style.framework.R
@@ -38,17 +40,13 @@ class BottomSheetDialogFragment : BaseFragment() {
         Log.e(param, "onCreate")
     }
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_bottom_sheet_dialog
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false)
     }
-
-    override fun initData() {
-        bd = getBinding()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.e(param, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        bd = getBinding(view)
         bd.tvContent.text = param
         bd.tvContent.setOnClickListener {
             var dialog = BottomSheetDialog(context!!)

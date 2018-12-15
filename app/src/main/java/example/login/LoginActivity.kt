@@ -3,24 +3,27 @@ package example.login
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.Observable
+import android.os.Bundle
 import android.view.View
 import com.style.base.BaseActivity
 
 import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.BaseTransparentStatusBarActivity
 import com.style.bean.User
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
 
 import example.home.MainActivity
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseTransparentStatusBarActivity() {
 
     private val userId: Long = 18
     private lateinit var bd: ActivityLoginBinding
     private lateinit var loginModel: LoginModel
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_login
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.activity_login)
     }
 
     override fun initData() {

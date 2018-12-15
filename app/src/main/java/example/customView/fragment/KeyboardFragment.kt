@@ -1,7 +1,10 @@
 package example.customView.fragment
 
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 
 import com.style.base.BaseFragment
 import com.style.framework.R
@@ -15,11 +18,12 @@ class KeyboardFragment : BaseFragment() {
 
     private var mLoginPop: CustomKeyboardWindow? = null
 
-    override fun getLayoutResId(): Int {
-        return R.layout.activity_keyboard
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_keyboard, container, false)
     }
 
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         view_custom_keyboard.setOnClickListener { v -> showCustom(v) }
         view_suspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
 

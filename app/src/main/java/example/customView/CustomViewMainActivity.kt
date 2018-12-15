@@ -1,5 +1,6 @@
 package example.customView
 
+import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 
@@ -18,8 +19,9 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
     private val fragments = ArrayList<Fragment>()                                //定义要装fragment的列表
     private val titles = ArrayList<String>()
 
-    public override fun getLayoutResId(): Int {
-        return R.layout.custom_view_main
+    override fun onCreate(arg0: Bundle?) {
+        super.onCreate(arg0)
+        setContentView(R.layout.custom_view_main)
     }
 
     override fun initData() {

@@ -1,5 +1,9 @@
 package example.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import example.activity.AnimatorActivity
@@ -20,11 +24,12 @@ import kotlinx.android.synthetic.main.fragment_home_3.*
 
 class OriginalAPIFragment : BaseFragment() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_home_3
-    }
 
-    override fun initData() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_3, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         view_main_msg_to_sub.setOnClickListener { skip(MsgToSubActivity::class.java) }
         view_test_room.setOnClickListener { skip(TestRoomActivity::class.java) }
         view_animator.setOnClickListener { skip(AnimatorActivity::class.java) }

@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
@@ -12,6 +13,8 @@ import android.view.View;
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,8 +29,9 @@ public class AidlActivity extends BaseDefaultTitleBarActivity {
     private ActivityAidlBinding bd;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_aidl;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_aidl);
     }
 
     @Override

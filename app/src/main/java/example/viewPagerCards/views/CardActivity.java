@@ -1,11 +1,14 @@
 package example.viewPagerCards.views;
 
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.widget.CompoundButton;
 
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsViewsActivityBinding;
+
+import org.jetbrains.annotations.Nullable;
 
 import example.viewPagerCards.ShadowTransformer;
 
@@ -16,8 +19,9 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
     private ViewPagerCardsViewsActivityBinding bd;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.view_pager_cards_views_activity;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.view_pager_cards_views_activity);
     }
 
     @Override

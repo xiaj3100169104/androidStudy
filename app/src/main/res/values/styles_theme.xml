@@ -3,6 +3,7 @@
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 窗口颜色，位于activity之上，不设置activity也会有一层黑色背景 -->
         <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowAnimationStyle">@style/CustomEnterExitAnimation</item>
         <!-- toolbar（actionbar）颜色 -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- 状态栏颜色 -->
@@ -18,11 +19,6 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@color/textColorPrimary</item>
-        <item name="android:windowAnimationStyle">@style/CustomEnterExitAnimation</item>
-    </style>
-    <!--activity的Window窗口背景透明-->
-    <style name="AppTheme.Black_Status" parent="BaseAppTheme">
-        <item name="colorPrimaryDark">@color/orange</item>
     </style>
     <!--activity的Window窗口背景透明-->
     <style name="AppTheme.Translucent" parent="BaseAppTheme">

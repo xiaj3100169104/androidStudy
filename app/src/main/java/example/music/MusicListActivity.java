@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +23,8 @@ import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMusicListBinding;
 import com.style.view.systemHelper.DividerItemDecoration;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -44,8 +47,9 @@ public class MusicListActivity extends BaseDefaultTitleBarActivity implements Me
     AudioAdapter adapter;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_music_list;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_music_list);
     }
 
     @Override

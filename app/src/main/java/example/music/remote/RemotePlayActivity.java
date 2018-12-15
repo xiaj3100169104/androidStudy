@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
@@ -16,13 +17,16 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
 import com.style.utils.AppInfoUtil;
 
+import org.jetbrains.annotations.Nullable;
+
 public class RemotePlayActivity extends BaseDefaultTitleBarActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_remote_service;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_remote_service);
     }
 
     @Override

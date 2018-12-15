@@ -1,6 +1,7 @@
 package example.gesture;
 
 import android.nfc.Tag;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -9,14 +10,17 @@ import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 
+import org.jetbrains.annotations.Nullable;
+
 public class SimpleGestureActivity extends BaseDefaultTitleBarActivity {
 
     GestureSimpleTestBinding bd;
     private GestureDetector mGestureDetector;
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.gesture_simple_test;
+    protected void onCreate(@Nullable Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.gesture_simple_test);
     }
 
     @Override

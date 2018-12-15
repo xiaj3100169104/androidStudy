@@ -1,5 +1,9 @@
 package example.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import example.activity.GlideDealActivity
 import example.activity.TestRxActivity
 
@@ -20,11 +24,11 @@ import kotlinx.android.synthetic.main.fragment_home_4.*
 
 class OtherFrameworkFragment : BaseFragment() {
 
-    override fun getLayoutResId(): Int {
-        return R.layout.fragment_home_4
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_4, container, false)
     }
-
-    override fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         view_qr_code.setOnClickListener { skip(QRCodeActivity::class.java) }
         view_rx_java.setOnClickListener { skip(TestRxActivity::class.java) }
         view_glide_deal.setOnClickListener { skip(GlideDealActivity::class.java) }

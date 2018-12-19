@@ -19,7 +19,7 @@ import java.util.ArrayList
  * Created by xiajun on 2018/7/13.
  */
 
-open class BaseViewModel(application: Application) : AndroidViewModel(application) {
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     protected val TAG = this.javaClass.simpleName
 
     val generalFinish = MutableLiveData<Boolean>()

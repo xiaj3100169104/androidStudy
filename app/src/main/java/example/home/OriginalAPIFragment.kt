@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseFragment
+import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.AnimatorActivity
 import example.activity.MsgToSubActivity
@@ -22,7 +23,7 @@ import example.web.WebViewFeedbackActivity
 import kotlinx.android.synthetic.main.fragment_home_3.*
 
 
-class OriginalAPIFragment : BaseFragment() {
+class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

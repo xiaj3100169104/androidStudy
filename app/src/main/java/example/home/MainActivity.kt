@@ -117,7 +117,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         fm = supportFragmentManager
         bt = fm.beginTransaction()
         for (i in fragments.indices) {
-            bt.add(R.id.content, fragments[i], fragTags[i])
+            bt.add(R.id.content, fragments[i], fragTags[i]).hide(fragments[i])
         }
         bt.commit()
 

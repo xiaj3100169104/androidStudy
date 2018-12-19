@@ -124,19 +124,20 @@
         <activity android:name="example.activity.TestRxActivity" />
         <activity android:name="example.activity.QRCodeActivity" />
         <activity
-            android:name="example.softInput.StatusBarStyleMainActivity"
+            android:name="example.editLayout.EditLayoutChangeActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="example.softInput.MoveEditLayoutToTopActivity"
+            android:name="example.editLayout.MoveEditLayoutToTopActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.softInput.SoftMode2Activity"
+            android:name="example.editLayout.IndexFragmentActivity"/>
+        <activity
+            android:name="example.editLayout.StateFragmentActivity"/>
+        <activity
+            android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="example.softInput.HideStatusBarBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="example.softInput.FullScreenBottomEditLayoutActivity"
+            android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />

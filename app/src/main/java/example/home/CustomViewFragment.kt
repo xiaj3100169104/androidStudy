@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseFragment
+import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
 import example.viewPagerBanner.MyRadioGroupActivity
@@ -12,7 +13,7 @@ import example.customView.*
 import example.gesture.XXRefreshActivity
 import example.viewPagerTabLayout.TabLayoutActivity
 
-class CustomViewFragment : BaseFragment() {
+class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
 
     private lateinit var bd: FragmentHome1Binding
 

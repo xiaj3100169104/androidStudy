@@ -10,13 +10,12 @@ import com.style.framework.databinding.CustomViewMainBinding
 
 import example.customView.fragment.*
 import example.viewPagerTabLayout.FindTabAdapter
+import kotlinx.android.synthetic.main.custom_view_main.*
 import java.util.ArrayList
 
 class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
-
-    private lateinit var bd: CustomViewMainBinding
-    private lateinit var fAdapter: FindTabAdapter                            //定义adapter
-    private val fragments = ArrayList<Fragment>()                                //定义要装fragment的列表
+    private lateinit var fAdapter: CustomViewFragmentAdapter
+    private val fragments = ArrayList<Fragment>()
     private val titles = ArrayList<String>()
 
     override fun onCreate(arg0: Bundle?) {
@@ -25,9 +24,7 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
     }
 
     override fun initData() {
-        bd = getBinding()
         setToolbarTitle("tabLayout")
-
         titles.add("自定义饼状图")
         fragments.add(PieChartFragment())
         titles.add("自定义通知小圆点")
@@ -44,11 +41,10 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
         fragments.add(ScanViewFragment())
         titles.add("键盘")
         fragments.add(KeyboardFragment())
-        fAdapter = FindTabAdapter(this.supportFragmentManager, fragments, titles)
-        bd.viewPager.adapter = fAdapter
-        bd.viewPager.offscreenPageLimit = fragments.size
-        bd.tabLayout.setupWithViewPager(bd.viewPager)
-        bd.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        fAdapter = CustomViewFragmentAdapter(this.supportFragmentManager, fragments, titles)
+        viewPager.adapter = fAdapter
+        tabLayout.setupWithViewPager(viewPager)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
             }

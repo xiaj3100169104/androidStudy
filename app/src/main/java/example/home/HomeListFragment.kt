@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseFragment
+import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
 import com.style.view.systemHelper.DividerItemDecoration
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home_2.*
 import java.util.*
 
 
-class HomeListFragment : BaseFragment() {
+class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
     private lateinit var dataList: ArrayList<Int>
     private lateinit var adapter: FriendAdapter
 

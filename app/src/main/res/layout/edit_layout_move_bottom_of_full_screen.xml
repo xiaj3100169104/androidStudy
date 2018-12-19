@@ -15,7 +15,7 @@
             android:layout_below="@+id/title_bar" />
 
 
-        <example.softInput.InsetRelativeLayout
+        <example.editLayout.InsetRelativeLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/et_content"
                 android:text="如果需要不变的区域容器是相对布局也会产生变动" />
-        </example.softInput.InsetRelativeLayout>
+        </example.editLayout.InsetRelativeLayout>
     </RelativeLayout>
 </layout>
 

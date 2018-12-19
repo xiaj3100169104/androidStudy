@@ -16,12 +16,6 @@
             android:text="整体上移" />
 
         <Button
-            android:id="@+id/view_theme_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="状态栏显示为主题配置里的颜色" />
-
-        <Button
             android:id="@+id/view_translucent_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

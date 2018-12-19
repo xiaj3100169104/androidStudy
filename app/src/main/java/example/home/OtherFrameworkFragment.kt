@@ -8,6 +8,7 @@ import example.activity.GlideDealActivity
 import example.activity.TestRxActivity
 
 import com.style.base.BaseFragment
+import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.QRCodeActivity
 
@@ -22,11 +23,12 @@ import example.wifi.WifiTestActivity
 import kotlinx.android.synthetic.main.fragment_home_4.*
 
 
-class OtherFrameworkFragment : BaseFragment() {
+class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_4, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view_qr_code.setOnClickListener { skip(QRCodeActivity::class.java) }

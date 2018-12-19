@@ -1,10 +1,10 @@
-package example.viewPagerTabLayout
+package example.customView
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class FindTabAdapter : FragmentPagerAdapter {
+class CustomViewFragmentAdapter : FragmentPagerAdapter {
     private val fragments: List<Fragment>
     private val titles: List<String>
 

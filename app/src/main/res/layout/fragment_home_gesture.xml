@@ -67,6 +67,16 @@
                 android:id="@+id/btn_view_pager_card_fragments"
                 style="@style/text_home_item"
                 android:text="ViewPager fragments卡片" />
+
+            <TextView
+                android:id="@+id/view_fragment_adapter"
+                style="@style/text_home_item"
+                android:text="FragmentPagerAdapter" />
+
+            <TextView
+                android:id="@+id/view_fragment_state_adapter"
+                style="@style/text_home_item"
+                android:text="FragmentStatePagerAdapter" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </com.style.view.refresh.MyAppRefreshLayout>

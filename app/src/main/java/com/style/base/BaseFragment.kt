@@ -1,5 +1,9 @@
 package com.style.base
 
+import android.app.Activity
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -23,13 +27,18 @@ abstract class BaseFragment : Fragment() {
         return DataBindingUtil.bind(view)!!
     }
 
+    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
+        return ViewModelProviders.of(this).get(modelClass)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
     }
 
     protected fun skip(cls: Class<*>) {
-        startActivity(Intent(context, cls))
+        if (isAdded)
+            startActivity(Intent(context, cls))
     }
 
     fun logE(tag: String, msg: String) {
@@ -37,10 +46,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun showToast(str: CharSequence) {
-        ToastManager.showToast(context, str)
+        if (isAdded)
+            ToastManager.showToast(context, str)
     }
 
     fun showToast(@StringRes resId: Int) {
-        ToastManager.showToast(context, resId)
+        if (isAdded)
+            ToastManager.showToast(context, resId)
     }
 }

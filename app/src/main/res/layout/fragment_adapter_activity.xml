@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_normal" />
+        <include layout="@layout/title_bar_white" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
@@ -15,7 +15,7 @@
             android:layout_height="50dp"
             android:textAllCaps="false"
             app:tabGravity="fill"
-            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorHeight="2dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="#0ff"
             app:tabTextColor="#000" />
@@ -23,9 +23,19 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="200dp"
             android:scrollbars="none" />
 
+        <Button
+            android:id="@+id/btn_change_fragment_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="新增fragment" />
+
+        <Button
+            android:id="@+id/btn_change_fragment_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="减少fragment" />
     </LinearLayout>
 </layout>

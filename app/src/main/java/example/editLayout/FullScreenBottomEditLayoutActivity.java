@@ -1,4 +1,4 @@
-package example.softInput;
+package example.editLayout;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
-import com.style.framework.databinding.ActivitySoftMode4Binding;
+import com.style.framework.databinding.EditLayoutMoveBottomOfFullScreenBinding;
 import com.style.helper.InputMethodStateListener;
 import com.style.view.systemHelper.DividerItemDecoration;
 
@@ -15,12 +15,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 import example.adapter.StringAdapter;
-import example.gesture.BaseRightSlideFinishActivity;
 
 
 public class FullScreenBottomEditLayoutActivity extends BaseWhiteTitleBarActivity {
 
-    ActivitySoftMode4Binding bd;
+    EditLayoutMoveBottomOfFullScreenBinding bd;
 
     private ArrayList<String> dataList;
     private LinearLayoutManager layoutManager;
@@ -29,7 +28,7 @@ public class FullScreenBottomEditLayoutActivity extends BaseWhiteTitleBarActivit
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_soft_mode_4);
+        setContentView(R.layout.edit_layout_move_bottom_of_full_screen);
     }
 
     @Override

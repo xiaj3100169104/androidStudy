@@ -1,5 +1,6 @@
 package example.customView.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -11,24 +12,21 @@ import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.view.progressbar.HorizontalProgressBar
+import kotlinx.android.synthetic.main.activity_horizontal_progress.*
 
 
 class HorizontalProgressFragment : BaseFragment() {
 
-    private var progressBar: HorizontalProgressBar? = null
-    private var progressBar2: HorizontalProgressBar? = null
-    private var progressBar3: HorizontalProgressBar? = null
-    private var progressBar4: HorizontalProgressBar? = null
-
-    internal var handler: Handler = object : Handler() {
+    internal var handler: Handler = @SuppressLint("HandlerLeak")
+    object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            val progress = msg.data.getInt("progress")
+            val p = msg.data.getInt("progress")
             when (msg.what) {
-                1 -> progressBar!!.setProgress(progress)
-                2 -> progressBar2!!.setProgress(progress)
-                3 -> progressBar3!!.setProgress(progress)
-                4 -> progressBar4!!.setProgress(progress)
+                1 -> progress.setProgress(p)
+                2 -> progress2.setProgress(p)
+                3 -> progress3.setProgress(p)
+                4 -> progress4.setProgress(p)
             }
         }
     }
@@ -38,14 +36,8 @@ class HorizontalProgressFragment : BaseFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        progressBar = view!!.findViewById<View>(R.id.progress) as HorizontalProgressBar
-        progressBar2 = view!!.findViewById<View>(R.id.progress2) as HorizontalProgressBar
-        progressBar3 = view!!.findViewById<View>(R.id.progress3) as HorizontalProgressBar
-        progressBar4 = view!!.findViewById<View>(R.id.progress4) as HorizontalProgressBar
-
-        progressBar!!.setProgressColor(Color.BLACK)
-        progressBar!!.setProgress(100)
+        progress.setProgressColor(Color.BLACK)
+        progress.setProgress(100)
         view!!.findViewById<View>(R.id.bt_download).setOnClickListener { down() }
 
     }

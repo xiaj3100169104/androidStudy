@@ -39,6 +39,7 @@ public class ScanFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        bd = getBinding(view);
         Media media = getArguments().getParcelable("media");
         //jvm能申请的最大内存
         Log.e("maxMemory", Runtime.getRuntime().maxMemory() / 1024 / 1024 + "M");

@@ -13,9 +13,6 @@ class SportWeekActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_week_sport)
-    }
-
-    override fun initData() {
         setToolbarTitle("运动柱状图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }

@@ -28,9 +28,6 @@ class MyRadioGroupActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.banner_activity)
-    }
-
-    override fun initData() {
         bd = getBinding();
         setToolbarTitle("切换");
         rg_emotion = findViewById(R.id.rg_emotion_card_tab);

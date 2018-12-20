@@ -11,9 +11,6 @@ class TestRoomActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_room)
-    }
-
-    override fun initData() {
         setToolbarTitle("room test")
         mViewModel = getViewModel(TestRoomViewModel::class.java)
         btn_room_insert_one.setOnClickListener { mViewModel.saveOne() }

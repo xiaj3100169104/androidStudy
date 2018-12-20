@@ -13,10 +13,7 @@ class XXRefreshActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.xxrefresh_activity)
-    }
-
-    override fun initData() {
-        bd = getBinding();
+        bd = getBinding()
 
     }
 

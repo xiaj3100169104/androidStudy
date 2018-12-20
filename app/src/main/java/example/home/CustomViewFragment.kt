@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
+import example.address.AddressActivity
+import example.album.SelectLocalPictureActivity
 import example.viewPagerBanner.MyRadioGroupActivity
 import example.customView.*
+import example.dialog.DialogActivity
+import example.dialog.WheelActivity
 import example.gesture.XXRefreshActivity
-import example.viewPagerTabLayout.TabLayoutActivity
+import example.activity.BottomSheetBehaviorActivity
+import kotlinx.android.synthetic.main.fragment_home_1.*
 
 class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
 
@@ -24,7 +28,11 @@ class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bd = getBinding(view)
-        bd.btnSystemWidget.setOnClickListener { skip(TabLayoutActivity::class.java) }
+        btn_album.setOnClickListener { skip(SelectLocalPictureActivity::class.java) }
+        btn_address.setOnClickListener { skip(AddressActivity::class.java) }
+        btn_dialog.setOnClickListener { skip(DialogActivity::class.java) }
+        btn_wheel.setOnClickListener { skip(WheelActivity::class.java) }
+        view_suspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(MyRadioGroupActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }
         bd.btnCustomView.setOnClickListener { skip(CustomViewMainActivity::class.java) }

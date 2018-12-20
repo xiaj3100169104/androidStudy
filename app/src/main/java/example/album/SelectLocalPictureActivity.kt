@@ -51,9 +51,6 @@ public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_select_local_picture)
-    }
-
-    override fun initData() {
         bd = getBinding();
         setToolbarTitle("本地图片选择");
         paths = ArrayList();

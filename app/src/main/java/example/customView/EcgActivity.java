@@ -23,9 +23,9 @@ public class EcgActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_ecg);
+        initData();
     }
 
-    @Override
     protected void initData() {
         FileReader fileReader = null;
         try {

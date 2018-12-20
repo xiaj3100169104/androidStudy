@@ -27,11 +27,6 @@ public class AnimatorActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_second);
-    }
-
-
-    @Override
-    public void initData() {
         bd = getBinding();
         bd.btnValueAnimator.setOnClickListener(v -> valueAnimator());
         bd.btnObjectAnimator.setOnClickListener(v -> objectAnimator());

@@ -2,6 +2,7 @@ package example.dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,8 @@ import com.style.framework.databinding.DialogActivityDialogBinding;
 
 import org.jetbrains.annotations.Nullable;
 
+import example.activity.SafeKeyboardActivity;
+
 /**
  * Created by xiajun on 2016/10/8.
  */
@@ -32,10 +35,6 @@ public class DialogActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.dialog_activity_dialog);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("弹出框");
         fm = getSupportFragmentManager();
@@ -48,7 +47,15 @@ public class DialogActivity extends BaseDefaultTitleBarActivity {
         bd.viewPopupMenu.setOnClickListener(v -> showPopupMenu(v));
         bd.viewListPopupWindow.setOnClickListener(v -> showListPopup(v));
         bd.viewSpinner.setOnClickListener(v -> showSpinner());
+        bd.viewBottomSheetDialog.setOnClickListener(v -> showBottomSheetDialog());
+        bd.viewNumberSafeKeyboard.setOnClickListener(v -> skip(SafeKeyboardActivity.class));
         bd.ivLogo.setOnClickListener(v -> showPopupWindow(v));
+    }
+
+    private void showBottomSheetDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+        dialog.setContentView(getLayoutInflater().inflate(R.layout.fragment_home_3, null));
+        dialog.show();
     }
 
     private void showPopupWindow(View v) {

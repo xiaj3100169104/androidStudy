@@ -16,9 +16,6 @@ class TempActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_temp)
-    }
-
-    override fun initData() {
         setToolbarTitle("体温波动图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }

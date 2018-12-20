@@ -18,10 +18,6 @@ public class EncryptActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_encrypt);
-    }
-
-    @Override
-    protected void initData() {
         bd = getBinding();
         bd.setOnViewClickListener(new OnViewClickListener());
         presenter = getViewModel(EncryptPresenter.class);

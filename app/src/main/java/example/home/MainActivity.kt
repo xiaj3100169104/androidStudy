@@ -68,9 +68,14 @@ class MainActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_main)
+        initData()
     }
 
-    override fun initData() {
+    override fun onClickTitleBack() {
+        //super.onClickTitleBack()
+    }
+
+    fun initData() {
         AppManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
         appStateReceiver = DeviceStateBroadcastReceiver()

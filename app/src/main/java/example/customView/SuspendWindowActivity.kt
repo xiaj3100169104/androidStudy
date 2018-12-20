@@ -22,9 +22,6 @@ class SuspendWindowActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_suspend_window)
-    }
-
-    override fun initData() {
         requestDrawOverLays()
         btn_voice_suspend.setOnClickListener {
             openService(VoiceSuspendService::class.java);

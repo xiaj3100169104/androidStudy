@@ -13,11 +13,12 @@ class StateFragmentActivity : BaseWhiteTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.fragment_adapter_activity)
+        initData()
     }
 
     private lateinit var mViewModel: StateFragmentActivityViewModel
 
-    override fun initData() {
+    fun initData() {
         setToolbarTitle("fragmentStatePagerAdapter")
         mViewModel = getViewModel(StateFragmentActivityViewModel::class.java)
         val titles = mViewModel.getTitleData()

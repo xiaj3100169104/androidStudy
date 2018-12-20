@@ -22,10 +22,6 @@ public class DispatchGestureActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.gesture_divide_scroll);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         bd.tvContent1.setOnClickListener(v -> logE(getTAG(), "111111111111"));
         bd.tv2.setOnClickListener(v -> logE(getTAG(), "22222222222222"));

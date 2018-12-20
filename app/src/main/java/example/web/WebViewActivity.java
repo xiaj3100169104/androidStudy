@@ -30,13 +30,7 @@ public class WebViewActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_h5_remote);
-    }
-
-
-    @Override
-    public void initData() {
         bd = getBinding();
-        setToolbarTitle("");
         bd.btnLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

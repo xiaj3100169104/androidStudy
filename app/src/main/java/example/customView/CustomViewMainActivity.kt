@@ -3,15 +3,11 @@ package example.customView
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
-import com.style.framework.databinding.CustomViewMainBinding
-
 import example.customView.fragment.*
-import example.viewPagerTabLayout.FindTabAdapter
 import kotlinx.android.synthetic.main.custom_view_main.*
-import java.util.ArrayList
+import java.util.*
 
 class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
     private lateinit var fAdapter: CustomViewFragmentAdapter
@@ -21,9 +17,6 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.custom_view_main)
-    }
-
-    override fun initData() {
         setToolbarTitle("tabLayout")
         titles.add("自定义饼状图")
         fragments.add(PieChartFragment())
@@ -39,8 +32,6 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
         fragments.add(HorizontalProgressFragment())
         titles.add("扫描")
         fragments.add(ScanViewFragment())
-        titles.add("键盘")
-        fragments.add(KeyboardFragment())
         fAdapter = CustomViewFragmentAdapter(this.supportFragmentManager, fragments, titles)
         viewPager.adapter = fAdapter
         tabLayout.setupWithViewPager(viewPager)

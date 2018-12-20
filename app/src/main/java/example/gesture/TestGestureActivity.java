@@ -40,10 +40,6 @@ public class TestGestureActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_test_gesture);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         rootView = bd.getRoot();
         viewConfiguration = ViewConfiguration.get(getContext());

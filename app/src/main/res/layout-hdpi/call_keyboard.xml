@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="270dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <GridLayout
         android:id="@+id/gridlayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignMargins"
         android:background="@android:color/white"
@@ -70,7 +70,7 @@
         <Button
             android:id="@+id/mark"
             style="@style/bt_call_keyboard"
-            android:text="*" />
+            android:text="." />
 
         <Button
             android:id="@+id/zero"
@@ -80,6 +80,6 @@
         <Button
             android:id="@+id/asterisk"
             style="@style/bt_call_keyboard"
-            android:text="#" />
+            android:text="x" />
     </GridLayout>
 </LinearLayout>

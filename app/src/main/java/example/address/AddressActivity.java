@@ -34,17 +34,12 @@ public class AddressActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_address);
-    }
-
-    @Override
-    public void initData() {
+        setToolbarTitle("通讯录");
         bd = getBinding();
         mPresenter = getViewModel(AddressViewModel.class);
         mPresenter.contacts.observe(this, uploadPhones -> {
             setData(uploadPhones);
         });
-
-        setToolbarTitle("通讯录");
         dataList = new ArrayList<>();
         adapter = new UploadPhoneAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

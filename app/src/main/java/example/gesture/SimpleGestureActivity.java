@@ -21,10 +21,6 @@ public class SimpleGestureActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.gesture_simple_test);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("区分上、下、左、右滑动");
         bd.textView3.setOnClickListener(v -> logE(getTAG(), "textView3"));

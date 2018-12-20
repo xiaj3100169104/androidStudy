@@ -28,10 +28,6 @@ public class QRCodeActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_qr_code_scan);
-    }
-
-    @Override
-    protected void initData() {
         bd = getBinding();
         init();
         bd.btnScaner.setOnClickListener(v -> {

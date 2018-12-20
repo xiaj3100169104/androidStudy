@@ -50,13 +50,8 @@ public class MusicListActivity extends BaseDefaultTitleBarActivity implements Me
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_music_list);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("播放列表4");
-
         dataList = new ArrayList<>();
         adapter = new AudioAdapter(this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -42,10 +42,6 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.wifi_activity_main);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("wifi");
         dataList = new ArrayList<>();

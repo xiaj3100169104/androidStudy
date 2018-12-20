@@ -24,13 +24,8 @@ public class WebViewAndJSActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_web_view);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("与js交互测试");
-
         bd.webView.getSettings().setJavaScriptEnabled(true);
         bd.webView.addJavascriptInterface(new JsInterface(), "control");
 

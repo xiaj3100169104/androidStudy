@@ -24,14 +24,8 @@ public class DragActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.drag_activity);
-    }
-
-    @Override
-    public void initData() {
-        bd = getBinding();
-
         setToolbarTitle("拖拽测试");
-
+        bd = getBinding();
         dataList = new ArrayList<>();
         adapter = new DragAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

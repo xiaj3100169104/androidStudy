@@ -18,10 +18,6 @@ public class WebServiceActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_webservice);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         presenter = getViewModel(WebServicePresenter.class);
         presenter.content.observe(this, s -> setContent(s));

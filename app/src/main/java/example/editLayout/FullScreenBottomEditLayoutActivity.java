@@ -29,13 +29,8 @@ public class FullScreenBottomEditLayoutActivity extends BaseWhiteTitleBarActivit
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.edit_layout_move_bottom_of_full_screen);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("调整编辑布局");
-
     }
 
     @Override

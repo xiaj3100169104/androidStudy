@@ -37,12 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return context;
     }
 
-    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
-    open fun getStatusHeight(): Int {
-        val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
-        return statusBarHeight
-    }
-
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         logI(TAG, "onCreate-------------")
@@ -54,7 +48,6 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun setContentView(layoutResID: Int) {
         mContentView = layoutInflater.inflate(layoutResID, null)
         setContentView(mContentView)
-        initData()
     }
 
     fun getContentView(): View {
@@ -68,8 +61,6 @@ abstract class BaseActivity : AppCompatActivity() {
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
         return ViewModelProviders.of(this).get(modelClass)
     }
-
-    protected abstract fun initData()
 
     /**
     //如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建
@@ -141,6 +132,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun logE(tag: String, msg: String) {
         LogManager.logE(tag, msg)
+    }
+
+    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
+    open fun getStatusHeight(): Int {
+        val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
+        return statusBarHeight
     }
 
     fun skip(cls: Class<*>) {

@@ -30,15 +30,9 @@ public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.swipe_menu_activity);
-    }
-
-
-    @Override
-    public void initData() {
-        bd = getBinding();
         setToolbarTitle("左滑菜单测试");
+        bd = getBinding();
         xOffset = -dp2px(50);
-
         dataList = new ArrayList<>();
         adapter = new SwipeMenuAdapter(getContext(), dataList, bd.recyclerView);
         layoutManager = new LinearLayoutManager(getContext());

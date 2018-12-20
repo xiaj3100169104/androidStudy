@@ -19,9 +19,6 @@ public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_msg_to_sub)
-    }
-
-    override fun initData() {
         bd = getBinding();
         Thread(object : Runnable {
             override fun run() {

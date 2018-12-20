@@ -16,10 +16,6 @@ public class EditLayoutChangeActivity extends BaseWhiteTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.edit_layout_main_activity);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("编辑布局调整");
         bd.viewCustomColor.setOnClickListener(v -> startActivity(new Intent(getContext(), MoveEditLayoutToTopActivity.class)));

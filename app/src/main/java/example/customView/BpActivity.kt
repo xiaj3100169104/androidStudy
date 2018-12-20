@@ -16,13 +16,9 @@ class BpActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_bp)
-    }
-
-    override fun initData() {
         setToolbarTitle("血压曲线图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
-
     }
 
     fun refresh() {

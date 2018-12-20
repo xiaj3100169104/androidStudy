@@ -39,14 +39,9 @@ public class BLEActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.ble_activity_scan);
-    }
-
-    @Override
-    public void initData() {
-        bd = getBinding();
         setToolbarTitle("低功耗蓝牙连接测试");
+        bd = getBinding();
         EventBus.getDefault().register(this);
-
         dataList = new ArrayList<>();
         adapter = new BluetoothDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

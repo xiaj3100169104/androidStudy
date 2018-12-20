@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
+import example.activity.BottomSheetBehaviorActivity
 import example.drag.DragActivity
 import example.drag.ScrollingActivity
 import example.drag.ScrollingParallaxActivity
@@ -38,6 +39,8 @@ class GestureFragment : BaseNoPagerLazyRefreshFragment() {
         btn_swipe_menu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
         btn_collapseMode_pin.setOnClickListener { skip(ScrollingActivity::class.java) }
         btn_collapseMode_parallax.setOnClickListener { skip(ScrollingParallaxActivity::class.java) }
+        btn_BottomSheetBehavior.setOnClickListener { skip(BottomSheetBehaviorActivity::class.java) }
+
         btn_view_pager_card_views.setOnClickListener { skip(CardActivity::class.java) }
         btn_view_pager_card_fragments.setOnClickListener { skip(CardFragmentActivity::class.java) }
         view_fragment_adapter.setOnClickListener{ skip(IndexFragmentActivity::class.java) }

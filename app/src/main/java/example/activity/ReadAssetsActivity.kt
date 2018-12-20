@@ -13,10 +13,7 @@ import java.io.IOException
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_user_agree);
-    }
-
-    override fun initData() {
+        setContentView(R.layout.activity_user_agree)
         setToolbarTitle("用户协议");
         readData();
     }

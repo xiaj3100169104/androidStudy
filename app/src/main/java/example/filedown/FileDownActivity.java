@@ -26,14 +26,8 @@ public class FileDownActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_file_down);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
-
         setToolbarTitle("文件下载");
-
         bd.btHttpDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

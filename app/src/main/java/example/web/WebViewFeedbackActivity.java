@@ -25,13 +25,7 @@ public class WebViewFeedbackActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_web_view);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
-        setToolbarTitle("");
-
         bd.webView.getSettings().setJavaScriptEnabled(true);
         bd.webView.addJavascriptInterface(new JsInterface(), "control");
 

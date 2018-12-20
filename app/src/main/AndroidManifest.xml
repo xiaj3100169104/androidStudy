@@ -85,6 +85,8 @@
             android:launchMode="singleTask" />
         <activity android:name="example.viewPagerBanner.MyRadioGroupActivity" />
         <activity android:name="example.dialog.DialogActivity" />
+        <activity android:name="example.activity.SafeKeyboardActivity" />
+
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
         <activity
@@ -162,7 +164,7 @@
             android:name="UMENG_CHANNEL"
             android:value="${ENVIRONMENT}" />
 
-        <activity android:name="example.viewPagerTabLayout.TabLayoutActivity" />
+        <activity android:name="example.activity.BottomSheetBehaviorActivity" />
         <activity
             android:name="example.viewPager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent" />

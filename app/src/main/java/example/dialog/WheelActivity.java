@@ -32,13 +32,8 @@ public class WheelActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_wheel);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         setToolbarTitle("滚轮");
-
     }
 
     public void selOccupation(View v) {

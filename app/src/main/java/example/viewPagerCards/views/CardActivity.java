@@ -22,10 +22,6 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.view_pager_cards_views_activity);
-    }
-
-    @Override
-    protected void initData() {
         setToolbarTitle("views");
         bd = getBinding();
         bd.checkBox.setOnCheckedChangeListener(this);

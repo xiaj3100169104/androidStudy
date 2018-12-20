@@ -12,14 +12,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <include layout="@layout/title_bar_normal"/>
+
+            <Button
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="0"
+                android:text="BottomSheetBehavior"
                 android:textColor="@color/black_light"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 

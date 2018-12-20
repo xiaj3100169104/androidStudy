@@ -28,10 +28,6 @@ public class TestRxActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_test_rx);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         bd.btnJust.setOnClickListener(v -> testJust());
         bd.btnMap.setOnClickListener(v -> testMap());

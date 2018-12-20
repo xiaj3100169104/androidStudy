@@ -14,9 +14,6 @@ class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.fragment_adapter_activity)
-    }
-
-    override fun initData() {
         setToolbarTitle("fragmentPagerAdapter")
         for (i in 0..4) {
             titles.add(i.toString())

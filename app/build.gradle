@@ -195,6 +195,7 @@ dependencies {
     implementation project(':libImageCrop')
     implementation project(':libMediaPicker')
     implementation project(':libRefreshView')
+    implementation project(':libSafeKeyboard')
     implementation project(':libVideoRecord')
     implementation project(':libWheelPicker')
     implementation project(':libWheelView')

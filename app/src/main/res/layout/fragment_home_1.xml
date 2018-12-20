@@ -15,6 +15,31 @@
             android:showDividers="middle">
 
             <TextView
+                android:id="@+id/btn_address"
+                style="@style/text_home_item"
+                android:text="address" />
+
+            <TextView
+                android:id="@+id/btn_album"
+                style="@style/text_home_item"
+                android:text="album" />
+
+            <TextView
+                android:id="@+id/btn_dialog"
+                style="@style/text_home_item"
+                android:text="弹出框" />
+
+            <TextView
+                android:id="@+id/btn_wheel"
+                style="@style/text_home_item"
+                android:text="wheel" />
+
+            <TextView
+                android:id="@+id/view_suspend"
+                style="@style/text_home_item"
+                android:text="悬浮窗" />
+
+            <TextView
                 android:id="@+id/btn_system_widget"
                 style="@style/text_home_item"
                 android:text="系统资源及小部件" />

@@ -47,10 +47,6 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_glide_deal);
-    }
-
-    @Override
-    public void initData() {
         bd = getBinding();
         bd.btnCircle.setOnClickListener(v -> dealCircle());
         bd.btnRound.setOnClickListener(v -> dealRound());

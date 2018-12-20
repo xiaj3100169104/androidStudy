@@ -27,10 +27,6 @@ public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.view_pager_cards_fragments_activity);
-    }
-
-    @Override
-    protected void initData() {
         setToolbarTitle("fragments");
         bd = getBinding();
         bd.checkBox.setOnCheckedChangeListener(this);

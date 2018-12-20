@@ -24,9 +24,6 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_login)
-    }
-
-    override fun initData() {
         bd = getBinding()
         loginModel = getViewModel(LoginModel::class.java)
         loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {

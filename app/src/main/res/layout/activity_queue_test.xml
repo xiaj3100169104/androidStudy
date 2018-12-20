@@ -7,22 +7,49 @@
     android:orientation="vertical">
 
 
-    <TextView
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="订阅" />
+
+    <Button
+        android:id="@+id/btn_unregister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消订阅" />
+
+    <EditText
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"
         android:text="sdsds"
-        android:textSize="25sp"/>
-    <Button
-        android:id="@+id/button2"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试单例" />
+        android:hint="接收"
+        android:minHeight="50dp"
+        android:textSize="25sp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_send_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="发送事件" />
+
+    <Button
+        android:id="@+id/btn_hexString2Bytes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="十六进制字符串转bytes" />
+
+    <Button
+        android:id="@+id/btn_bytes2HexString"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="bytes转十六进制字符" />
 </LinearLayout>

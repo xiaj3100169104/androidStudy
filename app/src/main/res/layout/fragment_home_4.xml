@@ -53,7 +53,7 @@
         <TextView
             android:id="@+id/view_event_manager"
             style="@style/View.normal_item_horizontal"
-            android:text="事件管理器" />
+            android:text="事件管理" />
 
         <TextView
             android:id="@+id/view_blue_tooth"

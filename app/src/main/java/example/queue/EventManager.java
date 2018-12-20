@@ -2,25 +2,29 @@ package example.queue;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
 
 /**
  * Created by xiajun on 2017/7/5.
+ * 自定义事件订阅管理类，
  */
 
 public class EventManager {
     private static final String TAG = "EventManager";
     private static EventManager instance;
-    private HashMap<Object, LinkedHashSet<Integer>> subscriberMap = new HashMap<>();
+    /**
+     * 如果有1 2 3这3个Entry，那么访问了1，就把1移到尾部去，即2 3 1。
+     * 每次访问都把访问的那个数据移到双向队列的尾部去，那么每次要淘汰数据的时候，双向队列最头的那个数据不就是最不常访问的那个数据了吗？
+     * 换句话说，双向链表最头的那个数据就是要淘汰的数据。
+     * 其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
+     * <p>
+     * 有链表结构：查询慢，插入删除快。
+     * 无链表结构：查询快，插入删除慢。
+     * 这里需要查询快，所以使用无链表结构集合。
+     */
+    private HashMap<Object, HashSet<Integer>> subscriberMap = new HashMap<>();
 
     /**
      * ui handler
@@ -35,69 +39,41 @@ public class EventManager {
         return instance;
     }
 
-    public void register(Object subscriber, int code) {
+    /**
+     * 订阅事件
+     *
+     * @param subscriber
+     * @param code
+     */
+    public synchronized void register(Object subscriber, int code) {
         if (subscriber == null)
             return;
-        if (subscriberMap.containsKey(subscriber.getClass())){
-            LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
-
-        }
-        if (!subscriberMap.containsKey(subscriber))
-            subscriberMap.put(subscriber, new LinkedHashSet<Integer>());
-        subscriberMap.get(subscriber).add(code);
+        if (!subscriberMap.containsKey(subscriber)) {
+            HashSet<Integer> codes = new HashSet<>();
+            codes.add(code);
+            subscriberMap.put(subscriber, codes);
+        } else
+            subscriberMap.get(subscriber).add(code);
     }
 
-    public void unRegister(Object subscriber){
-        if (subscriberMap.containsKey(subscriber)){
+    /**
+     * 取消订阅
+     *
+     * @param subscriber
+     */
+    public synchronized void unRegister(Object subscriber) {
+        if (subscriberMap.containsKey(subscriber)) {
             subscriberMap.remove(subscriber);
         }
     }
 
+    /**
+     * 接收事件
+     *
+     * @param code
+     * @param data
+     */
     public void post(final int code, final Object data) {
-        ThreadPoolUtil.execute(new Runnable() {
-            @Override
-            public void run() {
-                for (Object subscriber : subscriberMap.keySet()) {
-                    LinkedHashSet<Integer> list = subscriberMap.get(subscriber);
-                    for (Integer eventCode : list) {
-                        if (eventCode.hashCode() == code) {
-                            EventElement event = new EventElement(subscriber.hashCode(), eventCode, data);
-                            dispatchEvent(event);
-                            break;
-                        }
-                    }
-                }
-            }
-        });
+        ThreadPoolUtil.execute(new ReceiveEventTask(code, data, subscriberMap, mUIHandler));
     }
-
-    private void dispatchEvent(EventElement event) {
-        for (Object subscriber : subscriberMap.keySet()) {
-            if (subscriber.hashCode() == event.subscriberHashCode) {
-                handleEventOnMainThread(subscriber, event);
-                break;
-            }
-        }
-    }
-
-    private void handleEventOnMainThread(final Object subscriber, final EventElement event) {
-        mUIHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Class<?> clazz = subscriber.getClass();
-                    Method method = clazz.getMethod("onMainThreadEvent", int.class, Object.class);
-                    method.invoke(subscriber, event.code, event.data);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }
-
 }

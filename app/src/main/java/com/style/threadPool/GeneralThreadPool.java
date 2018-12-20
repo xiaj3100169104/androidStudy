@@ -2,6 +2,7 @@ package com.style.threadPool;
 
 import android.util.Log;
 
+import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -9,6 +10,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import io.reactivex.internal.util.LinkedArrayList;
 
 /**
  * Created by xiajun on 2018/3/24.
@@ -26,7 +29,6 @@ public class GeneralThreadPool extends ThreadPoolExecutor {
     private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
     // 阻塞队列。当核心线程都被占用，且阻塞队列已满的情况下，才会开启额外线程。
     private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(7);
-
     private static ThreadFactory threadFactory = new ThreadFactory() {
         private final AtomicInteger atomicInteger = new AtomicInteger();
         @Override

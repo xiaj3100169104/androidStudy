@@ -40,11 +40,6 @@
                 android:text="悬浮窗" />
 
             <TextView
-                android:id="@+id/btn_system_widget"
-                style="@style/text_home_item"
-                android:text="系统资源及小部件" />
-
-            <TextView
                 android:id="@+id/btn_radio_group"
                 style="@style/text_home_item"
                 android:text="radio group" />

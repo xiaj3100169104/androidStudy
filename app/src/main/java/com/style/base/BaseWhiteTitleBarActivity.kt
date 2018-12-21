@@ -20,7 +20,7 @@ abstract class BaseWhiteTitleBarActivity : BaseTitleBarActivity() {
 
     override fun initTitleBar(mContentView: View) {
         super.initTitleBar(mContentView)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setTransparentStatusBarHeight(getStatusHeight())
         } else {
             setTransparentStatusBarHeight(0)

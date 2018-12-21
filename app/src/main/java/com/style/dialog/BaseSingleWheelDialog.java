@@ -34,10 +34,10 @@ public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_single_wheel_dialog);
+        initView();
     }
 
-    @Override
-    protected void init() {
+    protected void initView() {
         wheelCenter = findViewById(R.id.main_wheel_center);
         wheelCenter.setItemTextColor(0xffcccccc);
         wheelCenter.setSelectedItemTextColor(0xff666666);

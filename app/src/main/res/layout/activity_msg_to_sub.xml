@@ -14,16 +14,15 @@
             android:layout_height="50dp"
             android:text="给子线程发消息"
             android:gravity="center"
-            android:background="#f00"
-            android:onClick="send"/>
+            android:background="#3000"/>
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="视图2"
-            android:background="#0f0" />
+            android:text="message"
+            android:background="#2000" />
 
     </LinearLayout>
 </layout>

@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class AnimatorActivity extends BaseDefaultTitleBarActivity {
 
-
     private ActivitySecondBinding bd;
 
     @Override

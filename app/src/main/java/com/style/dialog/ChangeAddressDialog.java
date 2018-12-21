@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.style.base.BaseCenterDialog;
+import com.style.base.BaseCenterTitleDialog;
 import com.style.framework.R;
 import com.style.view.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.view.wheel.views.OnWheelChangedListener;
@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @author ywl
  */
-public class ChangeAddressDialog extends BaseCenterDialog {
+public class ChangeAddressDialog extends BaseCenterTitleDialog {
 
     private WheelView wvProvince;
     private WheelView wvCitys;
@@ -59,14 +59,12 @@ public class ChangeAddressDialog extends BaseCenterDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_change_address);
-
+        initView();
     }
 
-    @Override
-    protected void init() {
+    protected void initView() {
         wvProvince = (WheelView) findViewById(R.id.wv_address_province);
         wvCitys = (WheelView) findViewById(R.id.wv_address_city);
-
         initJsonData();
         initDatas();
         initProvinces();

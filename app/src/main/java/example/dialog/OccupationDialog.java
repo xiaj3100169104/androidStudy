@@ -1,6 +1,7 @@
 package example.dialog;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.style.dialog.BaseSingleWheelDialog;
 
@@ -13,12 +14,5 @@ import example.helper.DataHelper;
 public class OccupationDialog extends BaseSingleWheelDialog {
     public OccupationDialog(Context context) {
         super(context, DataHelper.getOccupationSelf(context));
-
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        //setMyTitle("选择职业");
     }
 }

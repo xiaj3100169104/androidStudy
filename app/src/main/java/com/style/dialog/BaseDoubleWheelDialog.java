@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.style.base.BaseCenterDialog;
+import com.style.base.BaseCenterTitleDialog;
 import com.style.framework.R;
 import com.style.view.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.view.wheel.views.OnWheelChangedListener;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class BaseDoubleWheelDialog extends BaseCenterDialog {
+public abstract class BaseDoubleWheelDialog extends BaseCenterTitleDialog {
     private static final String UNLIMITED = "不限";
     private WheelView wvProvince;
     private WheelView wvCitys;
@@ -52,15 +52,8 @@ public abstract class BaseDoubleWheelDialog extends BaseCenterDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_double_wheel_dialog);
-
-    }
-
-    @Override
-    protected void init() {
-
         wvProvince = findViewById(R.id.wv_address_province);
         wvCitys = findViewById(R.id.wv_address_city);
-
         strProvince = arrProvinces.get(0);
         strCity = arrCitys.get(0);
     }

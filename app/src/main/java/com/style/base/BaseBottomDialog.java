@@ -1,24 +1,21 @@
 package com.style.base;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
 import com.style.framework.R;
+import com.style.utils.DeviceInfoUtil;
 
 /**
  * Created by xiajun on 2018/6/8.
  */
 
-public abstract class BaseBottomDialog extends Dialog {
+public abstract class BaseBottomDialog extends BaseDialog {
     private TextView btnSure;
 
     public BaseBottomDialog(Context context) {
@@ -36,20 +33,16 @@ public abstract class BaseBottomDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Window window = getWindow();
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        window.setLayout(getScreenWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
+        window.setGravity(Gravity.BOTTOM);
     }
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        Window window = getWindow();
-        window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setGravity(Gravity.BOTTOM);
-        DisplayMetrics dm = new DisplayMetrics();
-        ((Activity) ((ContextThemeWrapper) getContext()).getBaseContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(dm.widthPixels, window.getAttributes().height);
-        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
-
         btnSure = (TextView) findViewById(R.id.btn_ok);
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +50,6 @@ public abstract class BaseBottomDialog extends Dialog {
                 onClickSure();
             }
         });
-
-        init();
     }
 
     protected void onClickCancel() {
@@ -69,5 +60,4 @@ public abstract class BaseBottomDialog extends Dialog {
         dismiss();
     }
 
-    protected abstract void init();
 }

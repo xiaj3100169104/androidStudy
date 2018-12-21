@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.style.base.BaseCenterDialog;
+import com.style.base.BaseCenterTitleDialog;
 import com.style.framework.R;
 import com.style.view.wheel.adapters.AbstractWheelTextAdapter;
 import com.style.view.wheel.views.OnWheelChangedListener;
@@ -21,7 +21,7 @@ import java.util.Calendar;
  *
  * @author ywl
  */
-public class ChangeBirthdayDialog extends BaseCenterDialog {
+public class ChangeBirthdayDialog extends BaseCenterTitleDialog {
 
     private Context context;
     private WheelView wvYear;
@@ -62,11 +62,10 @@ public class ChangeBirthdayDialog extends BaseCenterDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_change_birthday);
-
+        initView();
     }
 
-    @Override
-    protected void init() {
+    protected void initView() {
         wvYear = (WheelView) findViewById(R.id.wv_birth_year);
         wvMonth = (WheelView) findViewById(R.id.wv_birth_month);
         wvDay = (WheelView) findViewById(R.id.wv_birth_day);

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.style.framework">
 
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -73,7 +74,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="example.login.LoginActivity">
+        <activity android:name="example.ble.BlueToothActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -111,7 +112,9 @@
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
+<!--
         <activity android:name="example.ble.BlueToothActivity" />
+-->
         <activity android:name="example.ble.BLEActivity" />
         <service android:name="example.ble.BleService" />
         <activity android:name="example.wifi.WifiTestActivity" />

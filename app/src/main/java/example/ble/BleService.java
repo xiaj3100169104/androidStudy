@@ -46,6 +46,7 @@ public class BleService extends Service {
     private ArrayList<BluetoothBean> deviceList = new ArrayList<>();
     //是否自动连接,默认true
     private boolean isAutoConnect = true;
+    private boolean isRegisterBroadcastReceiver;
 
     @Nullable
     @Override
@@ -80,6 +81,7 @@ public class BleService extends Service {
         //filter.addAction(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);//扫描模式:比如是否能被发现
         //蓝牙广播是系统广播不能用本地广播
         registerReceiver(mReceiver, filter);
+        isRegisterBroadcastReceiver = true;
         initEnable();
         connectByScan();
     }
@@ -94,6 +96,7 @@ public class BleService extends Service {
             mBluetoothAdapter.enable();
         }
     }
+
     //
     public void connectByScan() {
         logE(TAG, "先扫描，再连接");
@@ -211,7 +214,7 @@ public class BleService extends Service {
                 mBluetoothAdapter.cancelDiscovery();
                 EventBus.getDefault().post("", SCAN_END);
                 connectAuto();
-            }else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
                 deviceList.clear();
                 EventBus.getDefault().post("", SCAN_START);
             }
@@ -239,8 +242,10 @@ public class BleService extends Service {
 
     @Override
     public void onDestroy() {
-        if (mReceiver != null) {
+        if (isRegisterBroadcastReceiver && mReceiver != null) {
             unregisterReceiver(mReceiver);
+            isRegisterBroadcastReceiver = false;
+            mReceiver = null;
         }
         disconnect();
         super.onDestroy();

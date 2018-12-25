@@ -1,6 +1,7 @@
 package example.encrypt;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 
 import com.style.base.BaseDefaultTitleBarActivity;
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class EncryptActivity extends BaseDefaultTitleBarActivity {
 
     ActivityEncryptBinding bd;
-    EncryptPresenter presenter;
+    EncryptViewModel presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -20,7 +21,9 @@ public class EncryptActivity extends BaseDefaultTitleBarActivity {
         setContentView(R.layout.activity_encrypt);
         bd = getBinding();
         bd.setOnViewClickListener(new OnViewClickListener());
-        presenter = getViewModel(EncryptPresenter.class);
+        presenter = getViewModel(EncryptViewModel.class);
+        String textStr = "本月已成功邀请 <strong><font color=\"#FF0000\">" + 100 + "</font></strong>人";
+        bd.tvHtml.setText(Html.fromHtml(textStr));
     }
 
     public class OnViewClickListener {

@@ -75,7 +75,9 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         //super.onClickTitleBack()
     }
 
-    fun initData() {
+    private var isRegisterBroadcastReceiver: Boolean = false
+
+    private fun initData() {
         AppManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
         appStateReceiver = DeviceStateBroadcastReceiver()
@@ -84,6 +86,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         filter.addAction(Intent.ACTION_SCREEN_OFF)//屏幕关闭,会有延迟，如果刚好这个时候启动activity也会造成崩溃
         filter.addAction(Intent.ACTION_USER_PRESENT)//用户解锁
         registerReceiver(appStateReceiver, filter)
+        isRegisterBroadcastReceiver = true
         EventBus.getDefault().register(this)
         setToolbarTitle(titles[0])
         /*Intent i = new Intent(this, MQTTService.class);
@@ -212,8 +215,9 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         //取消事件注册
         EventBus.getDefault().unregister(this)
         //BleManager.getInstance().close();
-        if (appStateReceiver != null) {
+        if (isRegisterBroadcastReceiver && appStateReceiver != null) {
             unregisterReceiver(appStateReceiver)
+            isRegisterBroadcastReceiver = false
             appStateReceiver = null
         }
         super.onDestroy()

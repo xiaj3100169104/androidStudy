@@ -11,13 +11,6 @@
 
         <include layout="@layout/title_bar_normal" />
 
-        <Button
-            android:id="@+id/btn_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="刷新"
-            android:textStyle="bold" />
-
 
     </LinearLayout>
 </layout>

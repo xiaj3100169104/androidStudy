@@ -36,6 +36,7 @@ public class CallInSuspendService extends Service {
     int statuaBarhight;
 
     private CallReceiver broadCast;
+    private boolean isRegisterBroadcastReceiver;
 
     @Override
     public void onCreate() {
@@ -45,6 +46,7 @@ public class CallInSuspendService extends Service {
         intentFilter.addAction(Constants.ACTION_CALL_HANGUP);
         broadCast = new CallReceiver();
         registerReceiver(broadCast, intentFilter);
+        isRegisterBroadcastReceiver = true;
         createFloatView();
         super.onCreate();
     }
@@ -122,7 +124,11 @@ public class CallInSuspendService extends Service {
 
     @Override
     public void onDestroy() {
-        unregisterReceiver(broadCast);
+        if (isRegisterBroadcastReceiver && broadCast != null) {
+            unregisterReceiver(broadCast);
+            isRegisterBroadcastReceiver = false;
+            broadCast = null;
+        }
         if (mFloatLayout != null) {
             //移除悬浮窗口
             mWindowManager.removeView(mFloatLayout);

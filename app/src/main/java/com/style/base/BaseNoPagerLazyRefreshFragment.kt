@@ -22,7 +22,7 @@ abstract class BaseNoPagerLazyRefreshFragment : BaseFragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (isViewCreated && !hidden) {
-            logE(TAG, showCount.toString())
+            logE(TAG, "第${showCount}次显示")
             onViewVisible(showCount)
             showCount++
         }

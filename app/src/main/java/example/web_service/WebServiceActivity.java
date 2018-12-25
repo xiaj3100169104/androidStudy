@@ -12,14 +12,14 @@ import org.jetbrains.annotations.Nullable;
 public class WebServiceActivity extends BaseDefaultTitleBarActivity {
 
     ActivityWebserviceBinding bd;
-    WebServicePresenter presenter;
+    WebServiceViewModel presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_webservice);
         bd = getBinding();
-        presenter = getViewModel(WebServicePresenter.class);
+        presenter = getViewModel(WebServiceViewModel.class);
         presenter.content.observe(this, s -> setContent(s));
     }
 

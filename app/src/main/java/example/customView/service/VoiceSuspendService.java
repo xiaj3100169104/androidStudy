@@ -45,6 +45,7 @@ public class VoiceSuspendService extends Service {
     private float mDownX;
     private float mDownY;
     private boolean isAdded;
+    private boolean isRegisterBroadcastReceiver;
 
     @Override
     public void onCreate() {
@@ -55,6 +56,7 @@ public class VoiceSuspendService extends Service {
         intentFilter.addAction(Constants.ACTION_CALL_HANGUP);
         broadCast = new CallReceiver();
         registerReceiver(broadCast, intentFilter);
+        isRegisterBroadcastReceiver = true;
         createFloatView();
         super.onCreate();
     }
@@ -150,7 +152,11 @@ public class VoiceSuspendService extends Service {
 
     @Override
     public void onDestroy() {
-        unregisterReceiver(broadCast);
+        if (isRegisterBroadcastReceiver && broadCast != null) {
+            unregisterReceiver(broadCast);
+            isRegisterBroadcastReceiver = false;
+            broadCast = null;
+        }
         if (mFloatLayout != null) {
             //移除悬浮窗口
             mWindowManager.removeView(mFloatLayout);

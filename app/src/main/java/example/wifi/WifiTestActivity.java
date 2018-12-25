@@ -37,6 +37,7 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
     private boolean isScanning;
     private WifiManager mWifiManager;
     private WifiStateReceiver mReceiver;
+    private boolean isRegisterBroadcastReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -104,6 +105,7 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
         mFilter.addAction(WifiManager.NETWORK_IDS_CHANGED_ACTION);
         mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);*/
         this.registerReceiver(mReceiver, mFilter);
+        isRegisterBroadcastReceiver = true;
     }
 
     class WifiStateReceiver extends BroadcastReceiver {
@@ -205,8 +207,10 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mReceiver != null) {
+        if (isRegisterBroadcastReceiver && mReceiver != null) {
             unregisterReceiver(mReceiver);
+            isRegisterBroadcastReceiver = false;
+            mReceiver = null;
         }
         leScanHandler.removeMessages(0);
 

@@ -10,10 +10,10 @@ import com.style.bean.User;
  * Created by xiajun on 2018/6/21.
  */
 
-public class EncryptPresenter extends BaseViewModel {
+public class EncryptViewModel extends BaseViewModel {
 
 
-    public EncryptPresenter(@NonNull Application application) {
+    public EncryptViewModel(@NonNull Application application) {
         super(application);
     }
 

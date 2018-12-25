@@ -52,7 +52,6 @@ public class BezierCurve extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //Log.e("mWaveCount", mWaveCount+"");
-
         mPath.reset();
         mPath.moveTo(0, mHeight / 2);
         mPath.quadTo(mWidth / 4, mHeight, mWidth / 2, mHeight / 2);

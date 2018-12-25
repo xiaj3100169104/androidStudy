@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.style.app.FileDirConfig;
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
+import kotlinx.android.synthetic.main.activity_ecg.*
 
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,7 @@ class EcgActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_ecg)
+
         initData()
     }
 

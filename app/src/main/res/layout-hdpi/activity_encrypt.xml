@@ -37,6 +37,13 @@
                 android:onClick="@{onViewClickListener::AESDecrypt}"
                 android:text="AES解密"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_html"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text=""/>
         </LinearLayout>
     </LinearLayout>
 </layout>

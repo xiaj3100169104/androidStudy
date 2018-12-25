@@ -1,7 +1,6 @@
 package example.home
 
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 
@@ -16,14 +15,15 @@ class FriendAdapter : BaseRecyclerViewAdapter<Int> {
     constructor(context: Context?, dataList: ArrayList<Int>) : super(context, dataList)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val bd : AdapterFriendBinding = getBinding(R.layout.adapter_friend, parent)
+        val bd: AdapterFriendBinding = getBinding(R.layout.adapter_friend, parent)
         return ViewHolder(bd)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
-        holder.bd.viewMark.text = "数据$f"
+        val s = "数据$f"
+        holder.bd.viewMark.text = s
         //holder.bd.viewNick.setText(f.getUser().getUserName());
         super.setOnItemClickListener(holder.itemView, position)
         holder.bd.executePendingBindings()

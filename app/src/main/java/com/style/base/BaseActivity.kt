@@ -86,8 +86,8 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showToast(str: CharSequence) {
         if (toast == null)
             toast = Toast.makeText(context, str, Toast.LENGTH_SHORT)
-        toast!!.setText(str)
-        toast!!.show()
+        toast?.setText(str)
+        toast?.show()
     }
 
     fun showToast(@StringRes resId: Int) {
@@ -95,8 +95,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun cancelToast() {
-        if (toast != null)
-            toast!!.cancel()
+        toast?.cancel()
     }
 
     fun showProgressDialog(@StringRes msgId: Int) {
@@ -107,15 +106,13 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showProgressDialog(msg: CharSequence = "") {
         if (progressDialog == null)
             progressDialog = LoadingDialog(context)
-        progressDialog!!.setCanceledOnTouchOutside(false)
-        progressDialog!!.setMessage(msg)
-        progressDialog!!.show()
+        progressDialog?.setCanceledOnTouchOutside(false)
+        progressDialog?.setMessage(msg)
+        progressDialog?.show()
     }
 
     fun dismissProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog!!.dismiss()
-        }
+        progressDialog?.dismiss()
     }
 
     fun hideKeyboard() {

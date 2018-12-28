@@ -40,14 +40,14 @@ public class SportWeekHistogram extends View {
     private float xStartOffset = 40;
     //X轴结束偏移宽度
     private float xEndOffset = 20;
-    //两边竖线距离最近柱状图距离
+    //两边竖线距离最近x刻度距离
     private float xOffset = 20;
     //view顶部距离最近横线距离
     private float yTopOffset = 30;
     //view底部距离最近横线距离
     private float yBottomOffset = 30;
-    //柱子与柱子间距离,柱子宽度
-    private float mInterval = 15, mHistogramWidth;
+    //柱子宽度
+    private float mHistogramWidth = 20;
     //网格宽高
     private float mYAxisHeight, mXAxisWidth;
 
@@ -97,7 +97,7 @@ public class SportWeekHistogram extends View {
         xOffset = dp2px(xOffset);
         yTopOffset = dp2px(yTopOffset);
         yBottomOffset = dp2px(yBottomOffset);
-        mInterval = dp2px(mInterval);
+        mHistogramWidth = dp2px(mHistogramWidth);
         mYTextSize = sp2px(12.0f);
         mXTextSize = sp2px(12.0f);
         mHistogramValueTextSize = sp2px(10.0f);
@@ -127,18 +127,12 @@ public class SportWeekHistogram extends View {
 
         mXAxisWidth = mViewWidth - xStartOffset - xEndOffset;
         mYAxisHeight = mViewHeight - yTopOffset - yBottomOffset;
-        mHistogramWidth = (mXAxisWidth - xOffset * 2 - mInterval * 6) / 7;
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawGrid(canvas);
-        drawHistogram(canvas);
-    }
-
-    private void drawGrid(Canvas canvas) {
         canvas.save();
         canvas.translate(xStartOffset, yTopOffset + mYAxisHeight);
         mGridPaint.setColor(COLOR_GRID);
@@ -187,29 +181,24 @@ public class SportWeekHistogram extends View {
         canvas.translate(xStartOffset + xOffset, yTopOffset + mYAxisHeight);
         mYPaint.setColor(COLOR_X_LABEL);
         mYPaint.setTextSize(mXTextSize);
+        float scaleWidth = (mXAxisWidth - xOffset * 2) / 6;
         for (int i = 0; i < 7; i++) {
-            canvas.drawText(mWeeks[i], i * mInterval + (mHistogramWidth + 1) * i + mHistogramWidth / 2, yBottomOffset / 2 + getBaseLine2CenterY(mYPaint.getFontMetrics()), mYPaint);
+            canvas.drawText(mWeeks[i], scaleWidth * i, Math.abs(mYPaint.getFontMetrics().top) + dp2px(5), mYPaint);
         }
-        canvas.restore();
-
-    }
-
-    private void drawHistogram(Canvas canvas) {
         if (mValueList == null || mValueList.isEmpty()) {
+            canvas.restore();
             //mYPaint.setColor(Color.WHITE);
             //canvas.drawText(getContext().getString(R.string.week_no_data), mViewWidth / 2, mViewHeight / 2, mYPaint);
             return;
         }
-
-        canvas.save();
-        canvas.translate(xStartOffset + xOffset, yTopOffset + mYAxisHeight);
+        //画柱状图
         Rect rect;
         int value;
         for (int i = 0; i < mValueList.size(); i++) {
             value = mValueList.get(i).yValue;
             if (value > 0) {
                 rect = new Rect();
-                rect.left = (int) (i * (mHistogramWidth + mInterval));
+                rect.left = (int) (scaleWidth * i - mHistogramWidth / 2);
                 rect.top = (int) (-mYAxisHeight * (value - mYMin) / (mYMax - mYMin) * percent / 100f);
                 rect.right = (int) (rect.left + mHistogramWidth);
                 rect.bottom = 0;
@@ -218,8 +207,7 @@ public class SportWeekHistogram extends View {
                     mYPaint.setColor(COLOR_HISTOGRAM_VALUE);
                     mYPaint.setTextSize(mHistogramValueTextSize);
                     if (percent == 100) {
-                        float mXTextHeight = getTextHeight(mYPaint.getFontMetrics());
-                        canvas.drawText(String.valueOf(value), rect.centerX(), rect.top - mXTextHeight / 4, mYPaint);
+                        canvas.drawText(String.valueOf(value), rect.centerX(), rect.top - mYPaint.getFontMetrics().bottom, mYPaint);
                     }
                 } else {
                     mHistogramPaint.setColor(COLOR_HISTOGRAM);
@@ -227,7 +215,6 @@ public class SportWeekHistogram extends View {
                 canvas.drawRect(rect, mHistogramPaint);
             }
         }
-
         canvas.restore();
     }
 
@@ -276,10 +263,6 @@ public class SportWeekHistogram extends View {
      */
     public static float getBaseLine2CenterY(Paint.FontMetrics fontMetrics) {
         return (fontMetrics.descent - fontMetrics.ascent) / 2 - fontMetrics.descent;
-    }
-
-    public float getTextHeight(Paint.FontMetrics fontMetrics) {
-        return Math.abs(fontMetrics.descent - fontMetrics.ascent);
     }
 
     private class PercentThread extends Thread {
@@ -375,9 +358,10 @@ public class SportWeekHistogram extends View {
             return false;
         Rect rect;
         int selected = -1;
+        float scaleWidth = (mXAxisWidth - xOffset * 2) / 6;
         for (int i = 0; i < mValueList.size(); i++) {
             rect = new Rect();
-            rect.left = (int) (xStartOffset + xOffset + (mHistogramWidth + mInterval) * i);
+            rect.left = (int) (xStartOffset + xOffset + (scaleWidth * i - mHistogramWidth / 2));
             rect.top = (int) yTopOffset;
             rect.right = (int) (rect.left + mHistogramWidth);
             rect.bottom = (int) (yTopOffset + mYAxisHeight);

@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/btn_radio_group"
                 style="@style/text_home_item"
-                android:text="radio group" />
+                android:text="banner" />
 
             <TextView
                 android:id="@+id/view_write_word"

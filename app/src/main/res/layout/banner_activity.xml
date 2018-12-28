@@ -1,104 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/title_bar_normal" />
-
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <com.style.view.systemHelper.MyRadioGroup
+        android:id="@+id/banner_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-            <com.style.view.systemHelper.MyRadioGroup
-                android:id="@+id/banner_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/banner_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/bg_banner_indicator"
+            android:button="@null"
+            android:checked="true" />
 
+        <RadioButton
+            android:id="@+id/banner_2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_banner_indicator"
+            android:button="@null"
+            android:checked="false" />
 
-                <RadioButton
-                    android:id="@+id/banner_1"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@drawable/bg_banner_indicator"
-                    android:button="@null"
-                    android:checked="true" />
+        <RadioButton
+            android:id="@+id/banner_3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_banner_indicator"
+            android:button="@null"
+            android:checked="false" />
 
-                <RadioButton
-                    android:id="@+id/banner_2"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_banner_indicator"
-                    android:button="@null"
-                    android:checked="false"/>
-
-                <RadioButton
-                    android:id="@+id/banner_3"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_banner_indicator"
-                    android:button="@null"
-                    android:checked="false" />
-
-            </com.style.view.systemHelper.MyRadioGroup>
-        </RelativeLayout>
-
-        <com.style.view.systemHelper.MyRadioGroup
-            android:id="@+id/rg_emotion_card_tab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <RadioButton
-                android:id="@+id/rb_base_data"
-                style="@style/text_black"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/sel_emotion_tab"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:text="tab1"
-                android:textColor="@color/sel_emo_card" />
-
-            <RadioButton
-                android:id="@+id/rb_emotion_data"
-                style="@style/text_black"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/sel_emotion_tab"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:text="tab2"
-                android:textColor="@color/sel_emo_card" />
-        </com.style.view.systemHelper.MyRadioGroup>
-
-        <FrameLayout
-            android:id="@+id/rl_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
-
-        </FrameLayout>
-
-    </LinearLayout>
-</layout>
+    </com.style.view.systemHelper.MyRadioGroup>
+</RelativeLayout>

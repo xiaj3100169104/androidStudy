@@ -25,6 +25,12 @@
         <item name="android:windowBackground">@color/windowBackground_translucent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+    <!--activity的Window窗口背景透明-->
+    <style name="AppTheme.Translucent.ImageScan" parent="BaseAppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/black_full</item>
+    </style>
+
     <style name="CustomEnterExitAnimation" parent="@android:style/Animation.Activity">
         <!-- 当我们从 A1 启动 A2 时，A2 出现在屏幕上 -->
         <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
@@ -35,6 +41,7 @@
         <!-- 当我们从 A2 回到 A1 时，A1进入屏幕的动画 -->
         <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
     </style>
+
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
         <!-- 菜单是否覆盖在ToolBar上-->
         <item name="overlapAnchor">false</item>
@@ -42,8 +49,7 @@
         <item name="android:popupBackground">@color/black_light</item>
     </style>
 
-    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
-    </style>
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView"></style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

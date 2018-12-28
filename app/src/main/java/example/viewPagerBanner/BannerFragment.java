@@ -1,6 +1,5 @@
 package example.viewPagerBanner;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +18,6 @@ public class BannerFragment extends Fragment {
 
     BannerFragmentBinding bd;
     private int imageResId = 0;
-    private String param;
 
     public static final BannerFragment newInstance(int resId) {
         BannerFragment instance = new BannerFragment();
@@ -29,22 +27,14 @@ public class BannerFragment extends Fragment {
         return instance;
     }
 
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.e(param, "onAttach");
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imageResId = getArguments().getInt("imageResId");
-        param = String.valueOf(imageResId);
-        Log.e(param, "onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e(param, "onCreateView");
         bd = DataBindingUtil.inflate(inflater, R.layout.banner_fragment, container, false);
         return bd.getRoot();
 
@@ -52,58 +42,8 @@ public class BannerFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.e(param, "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         bd.ivBanner.setImageResource(imageResId);
+        bd.ivBanner.setOnClickListener(v -> Log.e(getTag(), String.valueOf(imageResId)));
     }
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.e(param, "onActivityCreated");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.e(param, "onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e(param, "onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(param, "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.e(param, "onStop");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.e(param, "onDestroyView");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e(param, "onDestroy");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.e(param, "onDetach");
-    }
-
 }

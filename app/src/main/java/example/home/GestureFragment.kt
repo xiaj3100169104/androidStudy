@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.BottomSheetBehaviorActivity
@@ -14,7 +13,7 @@ import example.drag.ScrollingParallaxActivity
 import example.drag.SwipeMenuActivity
 import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
-import example.gesture.TestGestureActivity
+import example.gesture.VerticalSlideFinishActivity
 import example.editLayout.EditLayoutChangeActivity
 import example.editLayout.IndexFragmentActivity
 import example.editLayout.StateFragmentActivity
@@ -33,7 +32,7 @@ class GestureFragment : BaseNoPagerLazyRefreshFragment() {
         refreshLayout.setEnablePureScrollMode(true)
         view_gesture_direction.setOnClickListener { skip(SimpleGestureActivity::class.java) }
         view_slide_finish.setOnClickListener { skip(DispatchGestureActivity::class.java) }
-        view_slide_bottom_finish.setOnClickListener { skip(TestGestureActivity::class.java) }
+        view_slide_bottom_finish.setOnClickListener { skip(VerticalSlideFinishActivity::class.java) }
         view_status_bar_style.setOnClickListener { skip(EditLayoutChangeActivity::class.java) }
         view_drag_recycler_view.setOnClickListener { skip(DragActivity::class.java) }
         btn_swipe_menu.setOnClickListener { skip(SwipeMenuActivity::class.java) }

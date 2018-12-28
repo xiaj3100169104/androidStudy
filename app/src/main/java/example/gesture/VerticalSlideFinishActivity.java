@@ -17,7 +17,7 @@ import com.style.utils.AppInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 
-public class TestGestureActivity extends BaseActivity {
+public class VerticalSlideFinishActivity extends BaseActivity {
 
     ActivityTestGestureBinding bd;
     private float xDown;

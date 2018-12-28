@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
@@ -57,11 +57,11 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="false"
         android:resizeableActivity="false"
+        android:supportsRtl="false"
         android:theme="@style/BaseAppTheme"
-        tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
 
         <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
         <provider
@@ -74,7 +74,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="example.ble.BlueToothActivity">
+        <activity android:name="example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,14 +84,16 @@
         <activity
             android:name="example.home.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name="example.viewPagerBanner.MyRadioGroupActivity" />
+        <activity
+            android:name="example.viewPagerBanner.BannerActivity"
+            android:theme="@style/AppTheme.Translucent.ImageScan" />
         <activity android:name="example.dialog.DialogActivity" />
         <activity android:name="example.activity.SafeKeyboardActivity" />
 
         <activity android:name="example.album.SelectLocalPictureActivity" />
         <activity android:name="example.address.AddressActivity" />
         <activity
-            android:name="example.gesture.TestGestureActivity"
+            android:name="example.gesture.VerticalSlideFinishActivity"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.Translucent" />
         <activity
@@ -112,11 +114,12 @@
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
-<!--
-        <activity android:name="example.ble.BlueToothActivity" />
--->
+        <!--
+                <activity android:name="example.ble.BlueToothActivity" />
+        -->
         <activity android:name="example.ble.BLEActivity" />
         <service android:name="example.ble.BleService" />
+
         <activity android:name="example.wifi.WifiTestActivity" />
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.db.TestRoomActivity" />
@@ -134,10 +137,8 @@
         <activity
             android:name="example.editLayout.MoveEditLayoutToTopActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="example.editLayout.IndexFragmentActivity"/>
-        <activity
-            android:name="example.editLayout.StateFragmentActivity"/>
+        <activity android:name="example.editLayout.IndexFragmentActivity" />
+        <activity android:name="example.editLayout.StateFragmentActivity" />
         <activity
             android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -204,7 +205,7 @@
             android:label="@string/title_activity_scrolling" />
         <activity
             android:name="example.drag.ScrollingParallaxActivity"
-            android:label="@string/title_activity_scrolling"/>
+            android:label="@string/title_activity_scrolling" />
         <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
         <activity android:name="example.viewPagerCards.views.CardActivity" />
     </application>

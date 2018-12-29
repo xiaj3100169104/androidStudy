@@ -18,6 +18,11 @@
             android:showDividers="middle">
 
             <TextView
+                android:id="@+id/view_status_bar_style"
+                style="@style/text_home_item"
+                android:text="编辑布局调整" />
+
+            <TextView
                 android:id="@+id/view_gesture_direction"
                 style="@style/text_home_item"
                 android:text="监听在view上的上下左右滑动" />
@@ -31,12 +36,6 @@
                 android:id="@+id/view_slide_bottom_finish"
                 style="@style/text_home_item"
                 android:text="上下滑动移动View并销毁activity" />
-
-            <TextView
-                android:id="@+id/view_status_bar_style"
-                style="@style/text_home_item"
-                android:text="编辑布局调整" />
-
 
             <TextView
                 android:id="@+id/view_drag_recycler_view"

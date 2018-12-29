@@ -62,6 +62,7 @@ public class VerticalSlideFinishActivity extends BaseActivity {
         AppManager.Companion.getInstance().setTestTaskId(-1);
     }
 
+    //除非是顶级拖拽事件（不管ziview处于睡眠状态都拦截），否则不予轻易在此方法中拦截事件
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.e(getTAG(), "dispatchTouchEvent   " + ev.getAction());

@@ -30,10 +30,10 @@ class GestureFragment : BaseNoPagerLazyRefreshFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         refreshLayout.setEnablePureScrollMode(true)
+        view_status_bar_style.setOnClickListener { skip(EditLayoutChangeActivity::class.java) }
         view_gesture_direction.setOnClickListener { skip(SimpleGestureActivity::class.java) }
         view_slide_finish.setOnClickListener { skip(DispatchGestureActivity::class.java) }
         view_slide_bottom_finish.setOnClickListener { skip(VerticalSlideFinishActivity::class.java) }
-        view_status_bar_style.setOnClickListener { skip(EditLayoutChangeActivity::class.java) }
         view_drag_recycler_view.setOnClickListener { skip(DragActivity::class.java) }
         btn_swipe_menu.setOnClickListener { skip(SwipeMenuActivity::class.java) }
         btn_collapseMode_pin.setOnClickListener { skip(ScrollingActivity::class.java) }

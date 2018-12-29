@@ -14,7 +14,7 @@ import example.bean.TestRoom;
 /**
  * 单例和静态常量不用kotlin，写法麻烦
  */
-@Database(entities = {TestRoom.class}, version = 1)
+@Database(entities = {TestRoom.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "TestRoomDataBase";
 

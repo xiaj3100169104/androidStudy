@@ -28,7 +28,7 @@
     <!--activity的Window窗口背景透明-->
     <style name="AppTheme.Translucent.ImageScan" parent="BaseAppTheme">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/black_full</item>
+        <item name="android:windowBackground">@color/windowBackground_translucent</item>
     </style>
 
     <style name="CustomEnterExitAnimation" parent="@android:style/Animation.Activity">

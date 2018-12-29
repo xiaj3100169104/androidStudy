@@ -173,6 +173,8 @@ dependencies {
     //compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
     implementation 'org.simple:androideventbus:1.0.5.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     //java注解
@@ -182,10 +184,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.2'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
+    //implementation 'com.nineoldandroids:library:2.4.0'
     //compile fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/pinyin4j-2.5.0.jar')
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
     // optional - RxJava support for Room
     //implementation "android.arch.persistence.room:rxjava2:$room_version"
     // optional - Guava support for Room, including Optional and ListenableFuture

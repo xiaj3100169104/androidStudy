@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.github.chrisbanes.photoview.OnPhotoTapListener;
+import com.style.data.glide.ImageLoader;
 import com.style.framework.R;
 import com.style.framework.databinding.BannerFragmentBinding;
 
@@ -37,13 +40,23 @@ public class BannerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         bd = DataBindingUtil.inflate(inflater, R.layout.banner_fragment, container, false);
         return bd.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        bd.ivBanner.setImageResource(imageResId);
-        bd.ivBanner.setOnClickListener(v -> Log.e(getTag(), String.valueOf(imageResId)));
+        //bd.ivBanner.setImageResource(imageResId);
+        ImageLoader.load(this, getActivity().getResources().getDrawable(imageResId), bd.ivBanner);
+        bd.ivBanner.setOnClickListener(v -> Log.e(String.valueOf(imageResId), "OnClick"));
+        bd.ivBanner.setOnPhotoTapListener(new OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(ImageView view, float x, float y) {
+                Log.e(String.valueOf(imageResId), "onPhotoTap");
+            }
+        });
+        bd.ivBanner.setOnLongClickListener(v -> {
+            Log.e(String.valueOf(imageResId), "OnLongClick");
+            return true;
+        });
     }
 }

@@ -2,6 +2,7 @@ package com.style.data.glide;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -33,6 +34,13 @@ public class ImageLoader {
 
     public static void load(Fragment fragment, String url, ImageView iv) {
         if (!TextUtils.isEmpty(url)) {
+            //Glide.with(fragment).load(url).into(imageView);
+            GlideApp.with(fragment).load(url).into(iv);
+        }
+    }
+
+    public static void load(Fragment fragment, Drawable url, ImageView iv) {
+        if (url != null) {
             //Glide.with(fragment).load(url).into(imageView);
             GlideApp.with(fragment).load(url).into(iv);
         }

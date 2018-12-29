@@ -8,11 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter
  * Created by xiajun on 2018/1/6.
  */
 
-class BannerAdapter : FragmentPagerAdapter {//tab名的列表
+class BannerAdapter : FragmentPagerAdapter {
 
     private val list_fragment: List<Fragment>
 
-    //fragment列表
     constructor(fm: FragmentManager, list_fragment: List<Fragment>) : super(fm) {
         this.list_fragment = list_fragment
     }

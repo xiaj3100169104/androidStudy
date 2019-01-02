@@ -36,8 +36,21 @@ class BannerActivity : BaseTransparentStatusBarActivity() {
     private lateinit var bannerFrags: ArrayList<BannerFragment>
     private lateinit var fAdapter: BannerAdapter
 
+    private val fadeIn = R.anim.fade_in
+    private val fadeOut = R.anim.fade_out
+
     override fun setRequestedOrientation(requestedOrientation: Int) {
         return
+    }
+
+    override fun onStart() {
+        overridePendingTransition(fadeIn, fadeOut)
+        super.onStart()
+    }
+
+    override fun onPause() {
+        overridePendingTransition(fadeIn, fadeOut)
+        super.onPause()
     }
 
     override fun onCreate(arg0: Bundle?) {

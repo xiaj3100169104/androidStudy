@@ -3,12 +3,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FF000000">
+        android:layout_height="match_parent">
 
         <example.viewPagerBanner.FingerPanGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FF000000"
             android:orientation="vertical">
 
             <com.github.chrisbanes.photoview.PhotoView

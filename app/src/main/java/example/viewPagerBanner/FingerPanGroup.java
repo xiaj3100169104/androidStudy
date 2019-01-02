@@ -16,30 +16,30 @@ import android.widget.LinearLayout;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.style.framework.R;
+import com.style.utils.DeviceInfoUtil;
 
 /**
- * Created by sdj on 2018/1/18.
+ * 处理viewPager左右滑动浏览图片时可以上下滑动finish activity.
+ * Created by Style on 2018/12/29.
  */
 
 public class FingerPanGroup extends LinearLayout {
     private static final String TAG = FingerPanGroup.class.getSimpleName();
+    //背景由不透明渐变到透明需要拖拽的距离
+    private final int MAX_ALPHA_Y_OFFSET;
+    //退出activity偏移临界值，手指抬起时超过这个值就退出activity
+    private final int MAX_EXIT_Y_OFFSET;
+    private final static long DURATION = 150;
+    private final int mTouchSlop;
 
-    private PhotoView view3;
+    private boolean isAnimate = false;
+    private FingerPanGroup mContainer;
+    private PhotoView mPhotoView;
+    private onAlphaChangedListener mOnAlphaChangedListener;
 
     private float mDownY;
-    private float mTranslationY;
-    private float mLastTranslationY;
-    private static int MAX_TRANSLATE_Y = 500;
-    private final static int MAX_EXIT_Y = 300;
-    private final static long DURATION = 150;
-    private boolean isAnimate = false;
-    private int fadeIn = R.anim.fade_in;
-    private int fadeOut = R.anim.fade_out;
-    private int mTouchslop;
-    private onAlphaChangedListener mOnAlphaChangedListener;
     private float xDown;
-    private float xMove;
-    private float yMove;
+    private float yLastMove;
 
 
     public FingerPanGroup(Context context) {
@@ -52,17 +52,16 @@ public class FingerPanGroup extends LinearLayout {
 
     public FingerPanGroup(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initViews(context);
-    }
-
-    private void initViews(Context context) {
-        mTouchslop = ViewConfiguration.get(context).getScaledTouchSlop();
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        MAX_ALPHA_Y_OFFSET = DeviceInfoUtil.dp2px(context, 240);
+        MAX_EXIT_Y_OFFSET = DeviceInfoUtil.dp2px(context, 100);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        view3 = (PhotoView) getChildAt(0);
+        mContainer = this;
+        mPhotoView = (PhotoView) getChildAt(0);
     }
 
     @Override
@@ -74,13 +73,14 @@ public class FingerPanGroup extends LinearLayout {
                 xDown = ev.getRawX();
                 mDownY = ev.getRawY();
             case MotionEvent.ACTION_MOVE:
-                if (null != view3) {
-                    xMove = ev.getRawX();
-                    yMove = ev.getRawY();
+                if (null != mPhotoView) {
+                    float xMove = ev.getRawX();
+                    float yMove = ev.getRawY();
                     float xDistance = Math.abs(xMove - xDown);
                     float yDistance = Math.abs(yMove - mDownY);
                     //当横向滑动超过指定值并且横向滑动距离大于竖向滑动距离时，拦截move、up事件，触发ViewGroup横向滑动逻辑
-                    isIntercept = ev.getPointerCount() == 1 && view3.getScale() <= view3.getMinimumScale() && yDistance > mTouchslop && yDistance > xDistance;
+                    isIntercept = ev.getPointerCount() == 1 && mPhotoView.getScale() <= mPhotoView.getMinimumScale() && yDistance > mTouchSlop && yDistance > xDistance;
+                    yLastMove = yMove;
                 }
                 break;
         }
@@ -92,12 +92,10 @@ public class FingerPanGroup extends LinearLayout {
         Log.e(TAG, "onTouchEvent   " + event.getAction());
         int action = event.getAction() & event.getActionMasked();
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                mDownY = event.getRawY();
             case MotionEvent.ACTION_MOVE:
-                if (null != view3) {
-                    onOneFingerPanActionMove(event);
-                }
+                float yMove = event.getRawY();
+                float translationY = yMove - yLastMove;
+                setPhotoViewTranslationY(translationY);
                 break;
             case MotionEvent.ACTION_UP:
                 onActionUp();
@@ -106,124 +104,89 @@ public class FingerPanGroup extends LinearLayout {
         return true;
     }
 
-    private void onOneFingerPanActionMove(MotionEvent event) {
-        float moveY = event.getRawY();
-        mTranslationY = moveY - mDownY + mLastTranslationY;
-        float percent = Math.abs(mTranslationY / (MAX_TRANSLATE_Y + view3.getHeight()));
-        float mAlpha = (1 - percent);
-        if (mAlpha > 1) {
-            mAlpha = 1;
-        } else if (mAlpha < 0) {
-            mAlpha = 0;
-        }
-        ViewGroup linearLayout = (ViewGroup) getParent();
-        if (null != linearLayout) {
-            linearLayout.getBackground().mutate().setAlpha((int) (mAlpha * 255));
-        }
+    private void setPhotoViewTranslationY(float translationY) {
+        Log.e(TAG, "translationY  " + translationY);
+        mPhotoView.setTranslationY(translationY);
+        int a = 255;
+        int distance = (int) Math.abs(translationY);
+        a = (int) (255 - (distance * 255 + 0.0f) / MAX_ALPHA_Y_OFFSET);
+        a = a > 255 ? 255 : a;
+        a = a < 0 ? 0 : a;
+        Log.e("Alpha", "Alpha   " + a);
+        setWindowAlpha(a);
         //触发回调 根据距离处理其他控件的透明度 显示或者隐藏角标，文字信息等
         if (null != mOnAlphaChangedListener) {
-            mOnAlphaChangedListener.onTranslationYChanged(mTranslationY);
+            mOnAlphaChangedListener.onTranslationYChanged(translationY);
+            mOnAlphaChangedListener.onAlphaChanged(a);
         }
-        //ViewHelper.setScrollY(this, -(int) mTranslationY);
+    }
+
+    protected void setWindowAlpha(int alpha) {
+        mContainer.getBackground().mutate().setAlpha(alpha);
     }
 
     private void onActionUp() {
-        if (Math.abs(mTranslationY) > MAX_EXIT_Y) {
+        float mTranslationY = mPhotoView.getTranslationY();
+        if (Math.abs(mTranslationY) > MAX_EXIT_Y_OFFSET) {
             exitWithTranslation(mTranslationY);
         } else {
-            resetCallBackAnimation();
+            resetCallBackAnimation(mTranslationY);
         }
     }
 
-    public void exitWithTranslation(float currentY) {
-        if (currentY > 0) {
-            ValueAnimator animDown = ValueAnimator.ofFloat(mTranslationY, getHeight());
-            animDown.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float fraction = (float) animation.getAnimatedValue();
-                    //ViewHelper.setScrollY(FingerPanGroup.this, -(int) fraction);
-                }
-            });
-            animDown.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    reset();
-                    Activity activity = ((Activity) getContext());
-                    activity.finish();
-                    activity.overridePendingTransition(fadeIn, fadeOut);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            animDown.setDuration(DURATION);
-            animDown.setInterpolator(new LinearInterpolator());
-            animDown.start();
-        } else {
-            ValueAnimator animUp = ValueAnimator.ofFloat(mTranslationY, -getHeight());
-            animUp.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float fraction = (float) animation.getAnimatedValue();
-                    //ViewHelper.setScrollY(FingerPanGroup.this, -(int) fraction);
-                }
-            });
-            animUp.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    reset();
-                    ((Activity) getContext()).finish();
-                    ((Activity) getContext()).overridePendingTransition(fadeIn, fadeOut);
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            animUp.setDuration(DURATION);
-            animUp.setInterpolator(new LinearInterpolator());
-            animUp.start();
+    public void exitWithTranslation(float mTranslationY) {
+        ValueAnimator animExit;
+        //向下移动并离开
+        if (mTranslationY > 0) {
+            animExit = ValueAnimator.ofFloat(mTranslationY, getHeight());
+        } else {//向上移动并离开
+            animExit = ValueAnimator.ofFloat(mTranslationY, -getHeight());
         }
-    }
-
-    private void resetCallBackAnimation() {
-        ValueAnimator animatorY = ValueAnimator.ofFloat(mTranslationY, 0);
-        animatorY.setDuration(DURATION);
-        animatorY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        animExit.setDuration(DURATION);
+        animExit.setInterpolator(new LinearInterpolator());
+        animExit.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                if (isAnimate) {
-                    mTranslationY = (float) valueAnimator.getAnimatedValue();
-                    mLastTranslationY = mTranslationY;
-                    //ViewHelper.setScrollY(FingerPanGroup.this, -(int) mTranslationY);
-                }
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float v = (float) animation.getAnimatedValue();
+                setPhotoViewTranslationY(v);
             }
         });
-        animatorY.addListener(new Animator.AnimatorListener() {
+        animExit.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Activity activity = ((Activity) getContext());
+                activity.finish();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animExit.start();
+    }
+
+    private void resetCallBackAnimation(float mTranslationY) {
+        ValueAnimator animBack = ValueAnimator.ofFloat(mTranslationY, 0);
+        animBack.setDuration(DURATION);
+        animBack.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float v = (float) animation.getAnimatedValue();
+                setPhotoViewTranslationY(v);
+            }
+        });
+        animBack.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 isAnimate = true;
@@ -231,15 +194,6 @@ public class FingerPanGroup extends LinearLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (isAnimate) {
-                    mTranslationY = 0;
-                    ViewGroup linearLayout = (ViewGroup) getParent();
-                    if (null != linearLayout) {
-                        linearLayout.getBackground().mutate().setAlpha(255);
-                    }
-                    invalidate();
-                    reset();
-                }
                 isAnimate = false;
             }
 
@@ -253,14 +207,7 @@ public class FingerPanGroup extends LinearLayout {
 
             }
         });
-        animatorY.start();
-    }
-
-
-    public interface onAlphaChangedListener {
-        void onAlphaChanged(float alpha);
-
-        void onTranslationYChanged(float translationY);
+        animBack.start();
     }
 
     //暴露的回调方法（可根据位移距离或者alpha来改变主UI控件的透明度等
@@ -268,10 +215,9 @@ public class FingerPanGroup extends LinearLayout {
         mOnAlphaChangedListener = alphaChangeListener;
     }
 
-    private void reset() {
-        if (null != mOnAlphaChangedListener) {
-            mOnAlphaChangedListener.onTranslationYChanged(mTranslationY);
-            mOnAlphaChangedListener.onAlphaChanged(1);
-        }
+    public interface onAlphaChangedListener {
+        void onAlphaChanged(float alpha);
+
+        void onTranslationYChanged(float translationY);
     }
 }

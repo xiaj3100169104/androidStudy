@@ -1,10 +1,7 @@
-package example.editLayout
+package example.fragmentAdapter
 
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
 import android.view.ViewGroup
 
 /**

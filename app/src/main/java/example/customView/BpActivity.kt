@@ -27,7 +27,7 @@ class BpActivity : BaseDefaultTitleBarActivity() {
     }
 
     private fun getData(): List<BloodPressureLine.BloodItem> {
-        val list = ArrayList<BloodPressureLine.BloodItem>()
+        val list = ArrayList<BloodPressureLine.BloodItem>(100)
         val random = Random()
         for (i in 0..99) {
             val b = BloodPressureLine.BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, "00:00")

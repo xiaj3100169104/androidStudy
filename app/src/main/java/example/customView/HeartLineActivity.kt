@@ -24,7 +24,7 @@ class HeartLineActivity : BaseDefaultTitleBarActivity() {
     }
 
     private fun getData(): List<HeartLineChart.HeartLineItem> {
-        val list = ArrayList<HeartLineChart.HeartLineItem>()
+        val list = ArrayList<HeartLineChart.HeartLineItem>(100)
         val random = Random()
         for (i in 0..99) {
             val b = HeartLineChart.HeartLineItem(random.nextInt(40) + 60, "00:00")

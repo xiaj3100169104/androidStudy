@@ -59,10 +59,11 @@ public class HorizontalProgressBar extends View {
     }
 
     public void setProgress(int progress) {
-        if (progress >= 0 && progress <= 100) {
-            this.progress = progress;
-            invalidate();
+        if (progress < 0 || progress > 100) {
+            throw new IllegalArgumentException("progress must less than the max!");
         }
+        this.progress = progress;
+        invalidate();
     }
 
     public void setCacheColor(int color) {

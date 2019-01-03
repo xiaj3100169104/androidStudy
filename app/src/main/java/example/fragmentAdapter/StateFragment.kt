@@ -1,4 +1,4 @@
-package example.editLayout
+package example.fragmentAdapter
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

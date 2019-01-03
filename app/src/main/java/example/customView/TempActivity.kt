@@ -31,7 +31,7 @@ class TempActivity : BaseDefaultTitleBarActivity() {
     }
 
     private fun getData(): List<TemperatureLineNew.PointItem> {
-        val list = ArrayList<TemperatureLineNew.PointItem>()
+        val list = ArrayList<TemperatureLineNew.PointItem>(201)
         val random = Random()
         for (i in 0..200) {
             val y: Float = String.format("%.1f", random.nextFloat()).toFloat() + 36.5f

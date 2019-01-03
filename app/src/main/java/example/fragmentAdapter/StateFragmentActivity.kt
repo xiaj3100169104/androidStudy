@@ -1,4 +1,4 @@
-package example.editLayout;
+package example.fragmentAdapter;
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -6,23 +6,29 @@ import com.style.base.BaseWhiteTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
 
-class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
-    private lateinit var fAdapter: IndexFragmentAdapter
-    private val fragments = ArrayList<IndexFragment>()
-    private val titles = ArrayList<String>()
+class StateFragmentActivity : BaseWhiteTitleBarActivity() {
+    private lateinit var fAdapter: StateFragmentAdapter
+    private val fragments = ArrayList<StateFragment>()
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.fragment_adapter_activity)
-        setToolbarTitle("fragmentPagerAdapter")
-        for (i in 0..4) {
-            titles.add(i.toString())
-            fragments.add(IndexFragment.newInstance(i))
+        initData()
+    }
+
+    private lateinit var mViewModel: StateFragmentActivityViewModel
+
+    fun initData() {
+        setToolbarTitle("fragmentStatePagerAdapter")
+        mViewModel = getViewModel(StateFragmentActivityViewModel::class.java)
+        val titles = mViewModel.getTitleData()
+        val data = mViewModel.datas
+        titles.forEachIndexed { index, s ->
+            fragments.add(StateFragment.newInstance("title".plus(data[s].toString())))
         }
-        fAdapter = IndexFragmentAdapter(supportFragmentManager, fragments, titles)
+        fAdapter = StateFragmentAdapter(supportFragmentManager, fragments, titles)
         viewPager.adapter = fAdapter
         tabLayout.setupWithViewPager(viewPager, true)
-        viewPager.offscreenPageLimit = fragments.size - 1
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
@@ -36,11 +42,8 @@ class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
 
         })
         btn_change_fragment_index.setOnClickListener {
-
         }
         btn_change_fragment_next.setOnClickListener {
-
         }
     }
-
 }

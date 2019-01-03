@@ -63,16 +63,12 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
             override fun onClick(v: View) {
 
             }
-
         })
         bd.btSignIn.setOnClickListener { view ->
             view.visibility = View.VISIBLE
             view.visibility = View.VISIBLE
         }
-
-
         loginModel.login()
-
     }
 
     fun login(v: View) {

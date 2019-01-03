@@ -136,8 +136,8 @@
         <activity
             android:name="example.editLayout.MoveEditLayoutToTopActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name="example.editLayout.IndexFragmentActivity" />
-        <activity android:name="example.editLayout.StateFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.IndexFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
         <activity
             android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />

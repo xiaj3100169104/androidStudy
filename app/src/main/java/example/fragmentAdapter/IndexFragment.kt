@@ -1,4 +1,4 @@
-package example.editLayout
+package example.fragmentAdapter
 
 import android.os.Bundle
 import android.view.LayoutInflater

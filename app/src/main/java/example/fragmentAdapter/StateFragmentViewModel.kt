@@ -1,4 +1,4 @@
-package example.editLayout
+package example.fragmentAdapter
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData

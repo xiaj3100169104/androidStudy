@@ -8,8 +8,8 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * 多线程下载文件
@@ -76,61 +76,66 @@ public class MultiThreadDownloadTask extends Thread {
         msg.getData().putInt("fileSize", fileSize);
         mHandler.sendMessage(msg);
 
-        FileDownloadThread[] threads = new FileDownloadThread[threadNum];
+        FileDownloadRangeThread[] threads = new FileDownloadRangeThread[threadNum];
         try {
             URL url = new URL(downloadUrl);
             Log.e(TAG, "download file http path:" + downloadUrl);
-            URLConnection conn = url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("Charset", "UTF-8");
-            // 读取下载文件总大小
-            fileSize = conn.getContentLength();
-            if (fileSize <= 0) {
-                Log.e(TAG, "读取文件失败");
-                return;
-            }
-            // 计算每条线程下载的数据长度
-            blockSize = (fileSize % threadNum) == 0 ? fileSize / threadNum : fileSize / threadNum + 1;
-            Log.d(TAG, "fileSize:" + fileSize + "  blockSize:" + blockSize);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");//默认浏览器编码类型
+            //conn.addRequestProperty("Connection","Keep-Alive");//设置与服务器保持连接
+            int code = conn.getResponseCode();
+            if (code == HttpURLConnection.HTTP_OK) {
+                // 读取下载文件总大小
+                fileSize = conn.getContentLength();
+                if (fileSize <= 0) {
+                    Log.e(TAG, "读取文件失败");
+                    return;
+                }
+                // 计算每条线程下载的数据长度
+                blockSize = (fileSize % threadNum) == 0 ? fileSize / threadNum : fileSize / threadNum + 1;
+                Log.d(TAG, "fileSize:" + fileSize + "  blockSize:" + blockSize);
 
-            file = new File(filePath);
-            if (!file.getParentFile().exists())
-                file.getParentFile().mkdirs();
-            for (int i = 0; i < threads.length; i++) {
-                // 启动线程，分别下载每个线程需要下载的部分
-                int startPos = blockSize * (i);//开始位置
-                int endPos = blockSize * (i + 1) - 1;//结束位置
-                threads[i] = new FileDownloadThread(url, file, startPos, endPos);
-                threads[i].setName("Thread:" + i);
-                threads[i].start();
-            }
-
-            boolean isFinished = false;
-            // 当前所有线程下载总量
-            int downloadedAllSize = 0;
-            while (!isFinished) {
-                isFinished = true;
-                downloadedAllSize = 0;
+                file = new File(filePath);
+                if (!file.getParentFile().exists())
+                    file.getParentFile().mkdirs();
                 for (int i = 0; i < threads.length; i++) {
-                    downloadedAllSize += threads[i].getDownloadLength();
-                    if (!threads[i].isCompleted()) {
-                        isFinished = false;
+                    // 启动线程，分别下载每个线程需要下载的部分
+                    int startPos = blockSize * (i);//开始位置
+                    int endPos = blockSize * (i + 1) - 1;//结束位置
+                    threads[i] = new FileDownloadRangeThread(url, file, startPos, endPos);
+                    threads[i].setName("Thread:" + i);
+                    threads[i].start();
+                }
+
+                boolean isFinished = false;
+                // 当前所有线程下载总量
+                int downloadedAllSize = 0;
+                while (!isFinished) {
+                    isFinished = true;
+                    downloadedAllSize = 0;
+                    for (int i = 0; i < threads.length; i++) {
+                        downloadedAllSize += threads[i].getDownloadLength();
+                        if (!threads[i].isCompleted()) {
+                            isFinished = false;
+                        }
+                    }
+                    // 通知handler去更新视图组件
+                    Message msg2 = mHandler.obtainMessage(DOWN_PROGRESS);
+                    msg2.getData().putInt("currentDownSize", downloadedAllSize);
+                    msg2.getData().putInt("fileSize", fileSize);
+                    msg2.getData().putFloat("progress", downloadedAllSize * 1.0f / fileSize);
+                    mHandler.sendMessage(msg2);
+                    Log.e(TAG, "current downloadSize:" + downloadedAllSize);
+                    try {
+                        Thread.sleep(1000);// 休息1秒后再读取下载进度
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-                // 通知handler去更新视图组件
-                Message msg2 = mHandler.obtainMessage(DOWN_PROGRESS);
-                msg2.getData().putInt("currentDownSize", downloadedAllSize);
-                msg2.getData().putInt("fileSize", fileSize);
-                msg2.getData().putFloat("progress", downloadedAllSize * 1.0f / fileSize);
-                mHandler.sendMessage(msg2);
-                Log.e(TAG, "current downloadSize:" + downloadedAllSize);
-                try {
-                    Thread.sleep(1000);// 休息1秒后再读取下载进度
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Log.e(TAG, " all of downloadSize:" + downloadedAllSize);
             }
-            Log.e(TAG, " all of downloadSize:" + downloadedAllSize);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

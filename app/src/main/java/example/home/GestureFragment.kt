@@ -15,8 +15,8 @@ import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
 import example.gesture.VerticalSlideFinishActivity
 import example.editLayout.EditLayoutChangeActivity
-import example.editLayout.IndexFragmentActivity
-import example.editLayout.StateFragmentActivity
+import example.fragmentAdapter.IndexFragmentActivity
+import example.fragmentAdapter.StateFragmentActivity
 import example.viewPagerCards.fragments.CardFragmentActivity
 import example.viewPagerCards.views.CardActivity
 import kotlinx.android.synthetic.main.fragment_home_gesture.*

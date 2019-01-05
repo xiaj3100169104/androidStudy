@@ -7,9 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import com.style.app.FileDirConfig
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.data.net.file.FileCallback
 import com.style.data.net.file.MultiThreadDownloadManager
+import com.style.data.net.file.SingleFileDownloadTask
 import com.style.framework.R
+import com.style.threadPool.CustomFileDownloadManager
 import com.style.view.systemHelper.DividerItemDecoration
 import kotlinx.android.synthetic.main.file_down_list_activity.*
 import java.util.ArrayList
@@ -35,6 +36,7 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<CustomFileBean> {
             override fun onItemClick(position: Int, data: CustomFileBean) {
                 showToast(position.toString() + "")
+                cancelDownloadTask(data)
             }
         })
         mViewModel = getViewModel(FileDownListViewModel::class.java)
@@ -44,30 +46,42 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
         getData()
     }
 
-    private fun refreshData(list: ArrayList<CustomFileBean>?) {
-        dataList.clear()
-        dataList.addAll(list!!)
-        adapter.notifyDataSetChanged()
-    }
-
     private fun getData() {
         mViewModel.getData()
     }
 
-    private fun down2() {
-        MultiThreadDownloadManager.getInstance().down(TAG, url, targetPath, object : FileCallback() {
-            override fun start(fileSize: Int) {
-                logE(TAG, "下载开始，文件大小==$fileSize")
-            }
+    private fun refreshData(list: ArrayList<CustomFileBean>?) {
+        dataList.clear()
+        dataList.addAll(list!!)
+        adapter.notifyDataSetChanged()
+        downloadAll()
+    }
 
-            override fun inProgress(currentDownSize: Int, fileSize: Int, progress: Float) {
-                bd.progressBar4.setProgress((100 * progress).toInt())
-            }
+    private fun downloadAll() {
+        dataList.forEachIndexed { index, f ->
+            val task = SingleFileDownloadTask(f.url, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
+            CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
+        }
+    }
 
-            override fun complete(filePath: String) {
-                logE(TAG, "下载完成，文件路径==$filePath")
-            }
-        })
+    private fun cancelDownloadTask(data: CustomFileBean) {
+        CustomFileDownloadManager.getInstance().cancelDownloadTask(data.url)
+    }
+
+    private fun multiThreadDownload() {
+        /* MultiThreadDownloadManager.getInstance().down(TAG, url, targetPath, object : FileCallback() {
+             override fun start(fileSize: Int) {
+                 logE(TAG, "下载开始，文件大小==$fileSize")
+             }
+
+             override fun inProgress(currentDownSize: Int, fileSize: Int, progress: Float) {
+                 bd.progressBar4.setProgress((100 * progress).toInt())
+             }
+
+             override fun complete(filePath: String) {
+                 logE(TAG, "下载完成，文件路径==$filePath")
+             }
+         })*/
     }
 
     override fun onDestroy() {

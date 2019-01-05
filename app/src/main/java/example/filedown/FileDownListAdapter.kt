@@ -2,8 +2,11 @@ package example.filedown
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
+import com.hp.hpl.sparta.xpath.Step
 import com.style.base.BaseRecyclerViewAdapter
+import com.style.data.net.file.FileDownloadStateBean
 import com.style.framework.R
 import com.style.framework.databinding.FileDownListAdapterBinding
 import java.util.*
@@ -22,17 +25,24 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
-        holder.bd.viewName.text = f.name
-        var s = ""
-        when (f.status) {
-            CustomFileBean.Companion.DownStatus.NOT_DOWNLOAD -> s = "下载"
-            CustomFileBean.Companion.DownStatus.DOWNLOADING -> s = "暂停"
-            CustomFileBean.Companion.DownStatus.PAUSE_DOWNLOAD -> s = "继续"
-            CustomFileBean.Companion.DownStatus.DOWNLOAD_COMPLETED -> s = "打开"
+        holder.bd.progressBarDownSize.visibility = View.INVISIBLE
+        holder.bd.viewName.text = f.title
+        val state = f.fileStatus
+        var btnDescribe = ""
+        if (state != null) {
+            when (state.status) {
+                FileDownloadStateBean.Companion.DownStatus.NOT_DOWNLOAD -> btnDescribe = "下载"
+                FileDownloadStateBean.Companion.DownStatus.DOWNLOADING -> {
+                    btnDescribe = "暂停"
+                    holder.bd.progressBarDownSize.visibility = View.VISIBLE
+                    val progress = (state.downloadSize.toFloat() / f.totalSize.toFloat() * 100).toInt()
+                    holder.bd.progressBarDownSize.setProgress(progress)
+                }
+                FileDownloadStateBean.Companion.DownStatus.DOWNLOAD_PAUSE -> btnDescribe = "继续"
+                FileDownloadStateBean.Companion.DownStatus.DOWNLOAD_COMPLETED -> btnDescribe = "打开"
+            }
         }
-        holder.bd.btnOption.text = s
-        val progress = (f.downloadSize.toFloat() / f.totalSize.toFloat() * 100).toInt()
-        holder.bd.progressBarDownSize.setProgress(progress)
+        holder.bd.btnOption.text = btnDescribe
         holder.bd.btnOption.setOnClickListener {
             mOptionListener?.onClickOption(position, f)
         }

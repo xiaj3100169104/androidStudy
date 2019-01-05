@@ -11,6 +11,7 @@ import java.util.List;
 import example.newwork.response.LoginBean;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -48,4 +49,7 @@ public interface APIFunction {
 
     @POST("guardian/login")
     Observable<UserInfo> login2(@Body LoginRequest requestBody);
+
+    @POST("http://40.73.116.12:8009/LMService/Health/Medical/TCM_Callback")
+    Observable<ResponseBody> test();
 }

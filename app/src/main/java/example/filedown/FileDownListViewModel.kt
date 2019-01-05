@@ -14,7 +14,7 @@ class FileDownListViewModel(application: Application) : BaseViewModel(applicatio
             , "wps")
     private val fileNames = arrayListOf("apache-tomcat-8.0.24.exe"
             , "ChromeStandalone_55.0.2883.87_Setup.exe"
-            , "http://wdl1.cache.wps.cn/wps/download/W.P.S.50.391.exe")
+            , "W.P.S.50.391.exe")
 
     val files = MutableLiveData<ArrayList<CustomFileBean>>()
 

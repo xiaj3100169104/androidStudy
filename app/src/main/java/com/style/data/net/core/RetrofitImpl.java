@@ -6,7 +6,7 @@ import com.style.data.net.response.BaseResult;
 import com.style.data.net.response.TokenResponse;
 import com.style.data.net.bean.UserInfo;
 import com.style.data.net.converter.FastJsonConverterFactory;
-import com.style.data.net.converter.HttpConfig;
+import com.style.app.HttpConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +24,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -112,4 +113,7 @@ public final class RetrofitImpl {
         return mAPIFunction.login2(new LoginRequest(userName, passWord)).compose(transformer);
     }
 
+    public Observable<ResponseBody> test() {
+        return mAPIFunction.test().compose(transformer);
+    }
 }

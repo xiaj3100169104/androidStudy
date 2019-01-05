@@ -36,9 +36,9 @@ import java.net.URL;
  * 2、某些文件改变非常频繁（1s变化n次），后者只可以精确到秒
  * 3、某些服务器不能精确得到文件的修改时间
  */
-public class FileDownloadRangeThread extends Thread {
+public class PartFileDownloadRangeThread extends Thread {
 
-    private static final String TAG = FileDownloadRangeThread.class.getSimpleName();
+    private static final String TAG = PartFileDownloadRangeThread.class.getSimpleName();
 
     /**
      * 当前下载是否完成
@@ -65,7 +65,7 @@ public class FileDownloadRangeThread extends Thread {
      */
     private int endPos;
 
-    public FileDownloadRangeThread(URL url, File file, int startPos, int endPos) {
+    public PartFileDownloadRangeThread(URL url, File file, int startPos, int endPos) {
         this.url = url;
         this.file = file;
         this.startPos = startPos;

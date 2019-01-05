@@ -150,10 +150,10 @@ configurations.all {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //kapt 'com.android.databinding:compiler:3.1.4'
-    /*testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-    })*/
+    })
     implementation 'com.android.support:multidex-instrumentation:1.0.3'
     implementation 'com.android.support:multidex:1.0.3'
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"

@@ -1,6 +1,7 @@
 package example.web_service;
 
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
@@ -19,6 +20,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 
 public class WebServiceViewModel extends BaseViewModel {
@@ -41,9 +44,16 @@ public class WebServiceViewModel extends BaseViewModel {
         addTask(d);
     }
 
+    @SuppressLint("CheckResult")
     public void getPhoneInfo(String phone) {
-        Disposable d = getHttpApi().getPhoneInfo(phone).subscribe(s -> content.postValue(s));
-        addTask(d);
+        getHttpApi().test().subscribe(new Consumer<ResponseBody>() {
+            @Override
+            public void accept(ResponseBody responseBody) throws Exception {
+                long code = responseBody.contentLength();
+            }
+        });
+        /*Disposable d = getHttpApi().getPhoneInfo(phone).subscribe(s -> content.postValue(s));
+        addTask(d);*/
     }
 
     public void getWeather(String code) {

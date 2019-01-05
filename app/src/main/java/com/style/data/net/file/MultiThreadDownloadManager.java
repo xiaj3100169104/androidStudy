@@ -9,7 +9,7 @@ import java.util.Map;
 public class MultiThreadDownloadManager {
     protected String TAG = getClass().getSimpleName();
 
-    private Map<Object, MultiThreadDownloadTask> taskMap = new HashMap<>();
+    private Map<Object, MultiThreadDownloadFileTask> taskMap = new HashMap<>();
     private static MultiThreadDownloadManager instance;
 
     public synchronized static MultiThreadDownloadManager getInstance() {
@@ -20,9 +20,9 @@ public class MultiThreadDownloadManager {
     }
 
     public void down(Object tag, String url, String targetPath, FileCallback callback) {
-        MultiThreadDownloadTask task = taskMap.get(tag);
+        MultiThreadDownloadFileTask task = taskMap.get(tag);
         if (task == null) {
-            task = new MultiThreadDownloadTask(tag, url, 5, targetPath, callback);
+            task = new MultiThreadDownloadFileTask(tag, url, 5, targetPath, callback);
             task.start();
             taskMap.put(tag, task);
         }
@@ -31,7 +31,7 @@ public class MultiThreadDownloadManager {
     }
 
     public void cancelCallback(Object tag) {
-        MultiThreadDownloadTask task = taskMap.get(tag);
+        MultiThreadDownloadFileTask task = taskMap.get(tag);
         if (task != null)
             task.setCanCallback(false);
     }

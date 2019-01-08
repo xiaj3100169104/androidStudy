@@ -1,31 +1,34 @@
-package example.customView.service;
+package example.service.suspendWindow;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
-import android.media.AudioManager;
-import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
-import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.style.framework.R;
 
-public class VideoSuspendService extends Service{
-    //定义浮动窗口布局
+
+public class VoiceSuspendService extends Service {
+
+    //定义浮动窗口布局  
     RelativeLayout mFloatLayout;
     LayoutParams wmParams;
     //创建浮动窗口设置布局参数的对象  
     WindowManager mWindowManager;
+
+    Button mFloatView;
 
     private static final long ONCLICK_TIME = 100;//触摸100ms内认为是点击
     private static final long ONCLICK_DISTANCE = 275;//触摸距离小于275px认为是点击
@@ -38,53 +41,26 @@ public class VideoSuspendService extends Service{
     private float rawY;
     private long downTime;
     private long upTime;
+    private CallReceiver broadCast;
     private float mDownX;
     private float mDownY;
-
-    private SurfaceView surfaceRemote;
-    protected long startTime;
-    protected final String TAG = getClass().getSimpleName();
-    //默认屏幕当前位置
-    private int rorate_degree = 0;
-    //计数器,当 count%3==0才设置角度，降低设置频率。
-    private long count = 0;
-
-    /**
-     * audio mode in communication
-     */
-    public static final int AUDIO_MODE_IN_COMMUNICATION = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ? AudioManager.MODE_IN_CALL
-            : AudioManager.MODE_IN_COMMUNICATION;
-    Handler handler = new Handler();
+    private boolean isAdded;
+    private boolean isRegisterBroadcastReceiver;
 
     @Override
     public void onCreate() {
         statuaBarhight = (int) getResources().getDimension(R.dimen.status_bar_height);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.ACTION_CALL_TIME_UPDATE);
+        intentFilter.addAction(Constants.ACTION_CALL_HANGUP);
+        broadCast = new CallReceiver();
+        registerReceiver(broadCast, intentFilter);
+        isRegisterBroadcastReceiver = true;
         createFloatView();
         super.onCreate();
-//        surfaceRemote.setVisibility(View.VISIBLE);
-//        surfaceRemote.setFocusable(true);
-        //OnRemoteCameraEnabled(true);//延迟使远程surfaceview可见，不然刚进入不能显示画面
+    }
 
-    }
-    public void OnRemoteCameraEnabled(boolean bEnabled) {
-        if (!bEnabled) {
-            //对方关闭了摄像头
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    surfaceRemote.setVisibility(View.INVISIBLE);
-                }
-            });
-        } else if (bEnabled) {
-            //对方开启了摄像头
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    surfaceRemote.setVisibility(View.VISIBLE);
-                }
-            }, 1000);
-        }
-    }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
@@ -100,7 +76,7 @@ public class VideoSuspendService extends Service{
         wmParams = new LayoutParams();
         //获取的是WindowManagerImpl.CompatModeWrapper  
         mWindowManager = (WindowManager) getApplication().getSystemService(getApplication().WINDOW_SERVICE);
-        //设置window type
+        //设置window type;Unable to add window -- token null is not for an application错误
         wmParams.type = LayoutParams.TYPE_PHONE;
         //设置图片格式，效果为背景透明  
         wmParams.format = PixelFormat.RGBA_8888;
@@ -122,22 +98,18 @@ public class VideoSuspendService extends Service{
 
         final LayoutInflater inflater = LayoutInflater.from(getApplication());
         //获取浮动窗口视图所在布局  
-        mFloatLayout = (RelativeLayout) inflater.inflate(R.layout.layout_suspend_video, null);
-        //ButterKnife.bind(this);
-
-        //添加mFloatLayout
-        TranslateAnimation animation = new TranslateAnimation(0, 0, 1, 0);
-        //mFloatLayout.setAnimation(animation);
-        mWindowManager.addView(mFloatLayout, wmParams);
-        //浮动窗口按钮  i
-        surfaceRemote = (SurfaceView) mFloatLayout.findViewById(R.id.surface_remote);
-        surfaceRemote.setVisibility(View.INVISIBLE);
+        mFloatLayout = (RelativeLayout) inflater.inflate(R.layout.layout_suspend_voice, null);
+        //添加mFloatLayout  
+        //mWindowManager.addView(mFloatLayout, wmParams);
+        //浮动窗口按钮  
+        mFloatView = (Button) mFloatLayout.findViewById(R.id.btn_float);
+        mFloatView.setText("00");
         mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
                 .makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
         //设置监听浮动窗口的触摸移动  
-        mFloatLayout.setOnTouchListener(new OnTouchListener() {
+        mFloatView.setOnTouchListener(new OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -180,10 +152,36 @@ public class VideoSuspendService extends Service{
 
     @Override
     public void onDestroy() {
+        if (isRegisterBroadcastReceiver && broadCast != null) {
+            unregisterReceiver(broadCast);
+            isRegisterBroadcastReceiver = false;
+            broadCast = null;
+        }
         if (mFloatLayout != null) {
             //移除悬浮窗口
             mWindowManager.removeView(mFloatLayout);
         }
         super.onDestroy();
+    }
+
+    private void updateCallingTime() {
+        if (isAdded) {
+            mWindowManager.removeView(mFloatLayout);
+            isAdded = false;
+        }
+        mWindowManager.addView(mFloatLayout, wmParams);
+        isAdded = true;
+    }
+
+    class CallReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Constants.ACTION_CALL_HANGUP)) {
+                stopSelf();
+            } else if (action.equals(Constants.ACTION_CALL_TIME_UPDATE)) {
+                updateCallingTime();
+            }
+        }
     }
 }

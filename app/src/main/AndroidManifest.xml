@@ -61,20 +61,6 @@
         android:theme="@style/BaseAppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
-
-        <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.file.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-        <!-- APP新版本下载服务 -->
-        <service android:name="example.newAppVersion.DownNewAppService" />
-
         <activity android:name="example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -119,8 +105,6 @@
                 <activity android:name="example.ble.BlueToothActivity" />
         -->
         <activity android:name="example.ble.BLEActivity" />
-        <service android:name="example.ble.BleService" />
-
         <activity android:name="example.wifi.WifiTestActivity" />
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.db.TestRoomActivity" />
@@ -154,42 +138,82 @@
         <activity android:name="example.customView.BpActivity" />
         <activity android:name="example.customView.SleepWeekActivity" />
         <activity android:name="example.customView.SportWeekActivity" />
-
         <activity android:name="example.customView.EcgActivity" />
         <activity android:name="example.gesture.XXRefreshActivity" />
-
-        <!-- 语音悬浮服务 -->
-        <service android:name="example.customView.service.VoiceSuspendService" />
-        <!-- 视频悬浮服务 -->
-        <service android:name="example.customView.service.VideoSuspendService" />
-        <!-- 来电悬浮服务 -->
-        <service android:name="example.customView.service.CallInSuspendService" />
-
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${ENVIRONMENT}" />
-
         <activity android:name="example.activity.BottomSheetBehaviorActivity" />
         <activity
             android:name="example.viewPager.ImageScanActivity"
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.viewPager.GlideListActivity" />
         <activity android:name="example.music.MusicListActivity" />
+        <activity android:name="example.service.remote.RemotePlayActivity" />
+        <activity
+            android:name="example.drag.ScrollingActivity"
+            android:label="@string/title_activity_scrolling" />
+        <activity
+            android:name="example.drag.ScrollingParallaxActivity"
+            android:label="@string/title_activity_scrolling" />
+        <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
+        <activity android:name="example.viewPagerCards.views.CardActivity" />
+
+        <!--Service及其他-->
+        <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <!-- APP新版本下载服务 -->
+        <service
+            android:name="example.service.appNewVersion.DownNewAppService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="com.style.download.new.version" />
+            </intent-filter>
+        </service>
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->
+        <!--google大坑，不注册竟然不报错-->
         <service
-            android:name="example.music.PlayMusicService"
-            android:exported="false" />
-
-        <activity android:name="example.music.remote.RemotePlayActivity" />
+            android:name="example.service.music.PlayMusicService"
+            android:exported="false">
+            <intent-filter android:priority="998">
+                <action android:name="music.play.service" />
+            </intent-filter>
+        </service>
 
         <service
-            android:name="example.music.remote.RemotePlayService"
+            android:name="example.service.ble.BleService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="com.style.ble.connect" />
+            </intent-filter>
+        </service>
+        <!-- 语音悬浮服务 -->
+        <service android:name="example.service.suspendWindow.VoiceSuspendService" />
+        <!-- 视频悬浮服务 -->
+        <service android:name="example.service.suspendWindow.VideoSuspendService" />
+        <!-- 来电悬浮服务 -->
+        <service android:name="example.service.suspendWindow.CallInSuspendService" />
+        <!--单独进行播放音乐服务-->
+        <service
+            android:name="example.service.remote.RemotePlayService"
             android:process="com.offline.message">
-            <intent-filter>
+            <intent-filter android:priority="999">
                 <action android:name="action.remote.play" />
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59350c69c62dca17b8000f82" />
+        <!-- 友盟统计app渠道来源时需要的字段信息 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${ENVIRONMENT}" />
         <!-- 阿里热修复 -->
         <meta-data
             android:name="com.taobao.android.hotfix.IDSECRET"
@@ -201,14 +225,6 @@
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="RSA密钥" />
 
-        <activity
-            android:name="example.drag.ScrollingActivity"
-            android:label="@string/title_activity_scrolling" />
-        <activity
-            android:name="example.drag.ScrollingParallaxActivity"
-            android:label="@string/title_activity_scrolling" />
-        <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
-        <activity android:name="example.viewPagerCards.views.CardActivity" />
     </application>
 
 </manifest>

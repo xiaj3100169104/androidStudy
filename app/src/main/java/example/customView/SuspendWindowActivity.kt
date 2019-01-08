@@ -9,9 +9,9 @@ import android.provider.Settings
 import android.widget.Toast
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
-import example.customView.service.CallInSuspendService
-import example.customView.service.VideoSuspendService
-import example.customView.service.VoiceSuspendService
+import example.service.suspendWindow.CallInSuspendService
+import example.service.suspendWindow.VideoSuspendService
+import example.service.suspendWindow.VoiceSuspendService
 import kotlinx.android.synthetic.main.activity_suspend_window.*
 
 /**

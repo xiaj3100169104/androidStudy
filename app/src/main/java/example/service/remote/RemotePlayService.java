@@ -1,4 +1,4 @@
-package example.music.remote;
+package example.service.remote;
 
 import android.app.Service;
 import android.content.Intent;
@@ -54,21 +54,19 @@ public class RemotePlayService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.e(TAG, "onBind");
-
         return myBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.e(TAG, "onUnbind");
+        return super.onUnbind(intent);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        Log.e(TAG, "onUnbind");
-
-        return super.onUnbind(intent);
     }
 
     @Override

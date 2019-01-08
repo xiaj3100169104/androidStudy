@@ -24,6 +24,8 @@ import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 
+import example.service.ble.BleService;
+
 
 public class BLEActivity extends BaseDefaultTitleBarActivity {
     public static final int REQUEST_ENABLE_BT = 6;

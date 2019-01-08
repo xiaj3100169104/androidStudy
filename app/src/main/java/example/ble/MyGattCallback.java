@@ -10,6 +10,8 @@ import android.util.Log;
 
 import java.util.UUID;
 
+import example.service.ble.BleService;
+
 /**
  * Created by xiajun on 2018/3/11.
  */

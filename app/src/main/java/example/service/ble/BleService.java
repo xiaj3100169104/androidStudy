@@ -1,4 +1,4 @@
-package example.ble;
+package example.service.ble;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -20,6 +20,9 @@ import com.style.app.LogManager;
 import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
+
+import example.ble.BluetoothBean;
+import example.ble.MyGattCallback;
 
 /**
  * Created by xiajun on 2018/4/17.

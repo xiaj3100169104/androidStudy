@@ -14,7 +14,7 @@ import example.db.TestRoomActivity
 import example.encrypt.EncryptActivity
 import example.filedown.FileDownActivity
 import example.music.MusicListActivity
-import example.music.remote.RemotePlayActivity
+import example.service.remote.RemotePlayActivity
 import example.ndk.JniTestActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity

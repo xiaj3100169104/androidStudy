@@ -1,4 +1,4 @@
-package example.music.remote;
+package example.service.remote;
 
 import android.content.ComponentName;
 import android.content.Context;

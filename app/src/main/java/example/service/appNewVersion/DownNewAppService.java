@@ -1,4 +1,4 @@
-package example.newAppVersion;
+package example.service.appNewVersion;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -21,16 +21,6 @@ public class DownNewAppService extends IntentService {
     public void onCreate() {
         super.onCreate();
         mPresenter = new DownNewAppModel(getApplication());
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onStart(@Nullable Intent intent, int startId) {
-        super.onStart(intent, startId);
     }
 
     @Nullable

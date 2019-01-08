@@ -8,10 +8,10 @@ import android.bluetooth.BluetoothProfile;
  */
 
 public class BluetoothBean {
-    BluetoothDevice device;
-    String deviceName;
-    int profileState;
-    int rssi;
+    public BluetoothDevice device;
+    public String deviceName;
+    public int profileState;
+    public int rssi;
 
     @Override
     public String toString() {

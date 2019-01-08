@@ -1,4 +1,4 @@
-package example.newAppVersion;
+package example.service.appNewVersion;
 
 
 import android.annotation.SuppressLint;

@@ -1,4 +1,4 @@
-package example.customView.service;
+package example.service.suspendWindow;
 
 public class Constants {
 

@@ -1,4 +1,4 @@
-package example.customView.service;
+package example.service.suspendWindow;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

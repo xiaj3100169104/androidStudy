@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
@@ -16,12 +17,7 @@ import com.style.framework.databinding.ActivityAidlBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.TimeUnit;
-
 import aidl.IRemoteService;
-import example.home.MainActivity;
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 public class AidlActivity extends BaseDefaultTitleBarActivity {
 
@@ -34,19 +30,43 @@ public class AidlActivity extends BaseDefaultTitleBarActivity {
         setContentView(R.layout.activity_aidl);
         bd = getBinding();
         conn();
+        bd.tvOpenActivityWithMimeType.setOnClickListener(v -> openActivityWithMimeType());
+        bd.tvOpenOtherAppActivity.setOnClickListener(v -> openOtherAppActivity());
+        bd.tvLaunch.setOnClickListener(v -> launchOtherApp());
+        bd.tvSendToOtherApp.setOnClickListener(v -> sendMsgToOtherApp());
     }
 
-    public void launch(View v) {
-        //没有这个app没有任何反应
-        /*Intent intent = new Intent(Intent.ACTION_MAIN);
+    private void openActivityWithMimeType() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.putExtra("other", "other");
+        intent.setDataAndType(Uri.parse("content://www.google.com"), "application/pdf");
+        startActivity(intent);
+    }
+
+    public void openOtherAppActivity() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setComponent(new ComponentName("com.wifidemo.example.xiajun.myapplication.default", "com.example.WebViewActivity"));
+        intent.putExtra("other", "other");
+        intent.setData(Uri.parse("http://www.google.com"));
+        startActivity(intent);
+    }
+
+    /**
+     * 两种方式都可以，第二种貌似以singleInstance打开。
+     * 注：包名指applicationId
+     */
+    public void launchOtherApp() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setComponent(new ComponentName("com.xiajun.voicephone", "com.xiajun.voicephone.MainActivity"));
+        intent.setClassName("com.wifidemo.example.xiajun.myapplication.default", "com.example.MainActivity");
+        startActivity(intent);
+        /*Intent intent = getContext().getPackageManager().getLaunchIntentForPackage("com.wifidemo.example.xiajun.myapplication");
         startActivity(intent);*/
-        Intent intent = getContext().getPackageManager().getLaunchIntentForPackage("com.xiajun.voicephone");
-        getContext().startActivity(intent);
     }
 
-    public void send(View v) {
+    public void sendMsgToOtherApp() {
         try {
             remoteService.basicTypes(12, 1223, true, 12.2f, 12.3, "来自其他应用的消息");
         } catch (RemoteException e) {
@@ -85,17 +105,8 @@ public class AidlActivity extends BaseDefaultTitleBarActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //如果没有进行过绑定操作，解绑会报错
+        //如果没有进行过绑定操作，解绑会报错,绑定和解绑都要一一对应。
         if (remoteService != null)
             unbindService(conn);
-    }
-
-    public void moveAppToFront(View v) {
-        Observable.timer(5, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
-            @Override
-            public void accept(Long aLong) throws Exception {
-                sendBroadcast(new Intent(MainActivity.ACTION_OPEN_APP));
-            }
-        });
     }
 }

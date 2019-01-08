@@ -72,6 +72,7 @@ public final class CustomFileDownloadManager {
             if (task != null)
                 isCancelled = task.cancel(true);
         }
+        mTaskMap.remove(tag);
         return isCancelled;
     }
 

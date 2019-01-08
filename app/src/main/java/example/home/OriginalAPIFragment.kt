@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.AnimatorActivity
-import example.activity.MsgToSubActivity
+import example.subThreadLooper.MsgToSubActivity
 import example.activity.ReadAssetsActivity
 import example.aidl.AidlActivity
 import example.db.TestRoomActivity

@@ -9,14 +9,11 @@ import org.simple.eventbus.EventBus;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.style.data.net.file.FileDownloadStateBean.*;
-import static com.style.data.net.file.FileDownloadStateBean.Companion.DownStatus.DOWNLOAD_COMPLETED;
-import static com.style.data.net.file.FileDownloadStateBean.Companion.DownStatus.DOWNLOAD_PAUSE;
+import static com.style.data.net.file.FileDownloadStateBean.Companion.DownStatus;
 
 /**
  * 单线程下载文件
@@ -32,11 +29,13 @@ public class SingleFileDownloadTask implements Runnable {
     private String url;// 下载链接地址
     private String filePath;// 保存文件路径地址
     private int fileLength;//文件总大小
-    private int downloadLength;
+    private int downloadLength;//已下载了多少（包括之前下载过的）
     private File file;//目标文件
+    private int startPos;//起始下载位置
 
-    public SingleFileDownloadTask(String url, String filePath) {
+    public SingleFileDownloadTask(String url, int startPos, String filePath) {
         this.url = url;
+        this.startPos = startPos;
         this.filePath = filePath;
     }
 
@@ -55,24 +54,34 @@ public class SingleFileDownloadTask implements Runnable {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Charset", "UTF-8");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");//默认浏览器编码类型
+            conn.setRequestProperty("Range", "bytes=" + startPos + "-");
             //conn.addRequestProperty("Connection","Keep-Alive");//设置与服务器保持连接
             int code = conn.getResponseCode();
-            if (code == HttpURLConnection.HTTP_OK) {
-                // 读取下载文件总大小
-                fileLength = conn.getContentLength();
+            if (code == HttpURLConnection.HTTP_PARTIAL) {
+                // 读取下载文件总大小(注意区分是不是从头开始下载)
+                fileLength = conn.getContentLength() + startPos;
                 Log.e(TAG, "fileLength:" + fileLength);
-                onFileDownloading(0);
+                downloadLength = startPos;
+                onFileDownloading();
                 //保存数据库
                 byte[] buffer = new byte[1024];
                 bis = new BufferedInputStream(conn.getInputStream());
                 raf = new RandomAccessFile(file, "rwd");
-                raf.seek(0);
+                raf.seek(startPos);
+                //每读取这么多字节数据时才发送一次更新进度条事件
+                int perSendLength = fileLength / 100;
+                int perReadCount = 0;
                 int len;
                 while ((len = bis.read(buffer, 0, 1024)) != -1) {
                     raf.write(buffer, 0, len);
                     downloadLength += len;
-                    Log.e(TAG, "downloadLength:" + downloadLength);
-                    onFileDownloading(downloadLength);
+                    //最好不要让消息发送太频繁，根据进度条计算发送次数与时机
+                    perReadCount += len;
+                    if (perReadCount >= perSendLength) {
+                        Log.e(TAG, "downloadLength:" + downloadLength);
+                        onFileDownloading();
+                        perReadCount = 0;
+                    }
                 }
                 onFileDownloaded();
             }
@@ -102,7 +111,7 @@ public class SingleFileDownloadTask implements Runnable {
      */
     private void onFileDownloadInterrupted() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DOWNLOAD_PAUSE);
+        b.setStatus(DownStatus.DOWNLOAD_PAUSE);
         b.setTotalSize(this.fileLength);
         b.setDownloadSize(this.downloadLength);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
@@ -113,7 +122,7 @@ public class SingleFileDownloadTask implements Runnable {
      */
     private void onFileDownloaded() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DOWNLOAD_COMPLETED);
+        b.setStatus(DownStatus.DOWNLOAD_COMPLETED);
         b.setTotalSize(this.fileLength);
         b.setDownloadSize(this.downloadLength);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
@@ -121,10 +130,8 @@ public class SingleFileDownloadTask implements Runnable {
 
     /**
      * 下载中
-     *
-     * @param length
      */
-    private void onFileDownloading(int length) {
+    private void onFileDownloading() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
         b.setStatus(DownStatus.DOWNLOADING);
         b.setTotalSize(this.fileLength);

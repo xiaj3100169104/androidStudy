@@ -2,7 +2,10 @@ package example.filedown
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
+import com.style.app.FileDirConfig
 import com.style.base.BaseViewModel
+import com.style.data.net.file.SingleFileDownloadTask
+import com.style.threadPool.CustomFileDownloadManager
 
 class FileDownListViewModel(application: Application) : BaseViewModel(application) {
     private val urls = arrayListOf("http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.exe"
@@ -25,5 +28,28 @@ class FileDownListViewModel(application: Application) : BaseViewModel(applicatio
             da.add(f)
         }
         files.postValue(da)
+    }
+
+    fun downloadAll(dataList: ArrayList<CustomFileBean>) {
+        dataList.forEachIndexed { index, f ->
+            val task = SingleFileDownloadTask(f.url, 0, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
+            CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
+        }
+    }
+
+    fun pauseDownloadTask(data: CustomFileBean) {
+        CustomFileDownloadManager.getInstance().cancelDownloadTask(data.url)
+    }
+
+    //新下载任务
+    fun newDownloadFile(f: CustomFileBean) {
+        val task = SingleFileDownloadTask(f.url, 0, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
+        CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
+    }
+
+    //暂停后继续下载
+    fun continueDownload(f: CustomFileBean) {
+        val task = SingleFileDownloadTask(f.url, f.fileStatus?.downloadSize!!, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
+        CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
     }
 }

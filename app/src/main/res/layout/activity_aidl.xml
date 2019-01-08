@@ -12,13 +12,20 @@
         <include layout="@layout/title_bar_normal" />
 
         <TextView
-            android:id="@+id/tv_send"
-            android:layout_width="fill_parent"
+            android:id="@+id/tv_open_activity_with_mime_type"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_pressed_default"
             android:gravity="center"
-            android:onClick="send"
-            android:text="给其他app发消息" />
+            android:text="打开其他activity(mimeType)" />
+
+        <TextView
+            android:id="@+id/tv_open_other_app_activity"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_pressed_default"
+            android:gravity="center"
+            android:text="打开其他app activity(ACTION_VIEW)" />
 
         <TextView
             android:id="@+id/tv_launch"
@@ -26,15 +33,14 @@
             android:layout_height="50dp"
             android:background="@drawable/bg_pressed_default"
             android:gravity="center"
-            android:onClick="launch"
             android:text="启动其他app" />
+
         <TextView
-            android:id="@+id/tv_move_to_front"
+            android:id="@+id/tv_send_to_other_app"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_pressed_default"
             android:gravity="center"
-            android:onClick="moveAppToFront"
-            android:text="打开当前app" />
+            android:text="发消息给其他app" />
     </LinearLayout>
 </layout>

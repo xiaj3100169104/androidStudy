@@ -72,6 +72,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <!-- APP新版本下载服务 -->
+        <service android:name="example.newAppVersion.DownNewAppService" />
 
         <activity android:name="example.login.LoginActivity">
             <intent-filter>
@@ -122,7 +124,7 @@
         <activity android:name="example.wifi.WifiTestActivity" />
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.db.TestRoomActivity" />
-        <activity android:name="example.activity.MsgToSubActivity" />
+        <activity android:name="example.subThreadLooper.MsgToSubActivity" />
         <activity android:name="example.ndk.JniTestActivity" />
         <activity android:name="example.aidl.AidlActivity" />
         <activity android:name="example.encrypt.EncryptActivity" />

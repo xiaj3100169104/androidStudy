@@ -24,9 +24,5 @@ class ReadAssetsActivity : BaseDefaultTitleBarActivity() {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-
     }
-
-
 }

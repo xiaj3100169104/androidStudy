@@ -8,7 +8,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.BounceInterpolator;
 
 import com.style.base.BaseDefaultTitleBarActivity;

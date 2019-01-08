@@ -1,4 +1,4 @@
-package example.activity;
+package example.subThreadLooper;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_msg_to_sub.*
 public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
 
     lateinit var mHandler: Handler
-    private lateinit var subThread: Thread
+    private lateinit var subThread: MyHandlerThread
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
@@ -25,18 +25,15 @@ public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
     }
 
     private fun initThreadHandler() {
-        subThread = Thread(Runnable {
-            Looper.prepare()
-            //创建一个handler和当前线程绑定；handleMessage也是在当前线程中执行
-            mHandler = @SuppressLint("HandlerLeak")
-            object : Handler() {
-                override fun handleMessage(msg: Message?) {
-                    runOnUiThread { tv_content.setText("主线程发来新消息啦") }
-                }
-            }
-            Looper.loop()
-        })
+        subThread = MyHandlerThread()
         subThread.start()
+        //创建一个handler和当前线程绑定；handleMessage也是在当前线程中执行
+        mHandler = @SuppressLint("HandlerLeak")
+        object : Handler(subThread.getLooper()) {
+            override fun handleMessage(msg: Message?) {
+                runOnUiThread { tv_content.setText("主线程发来新消息啦") }
+            }
+        }
     }
 
     private fun send() {

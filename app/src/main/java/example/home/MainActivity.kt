@@ -34,7 +34,6 @@ class MainActivity : BaseDefaultTitleBarActivity() {
     private lateinit var bd: ActivityMainBinding
 
     companion object {
-        const val ACTION_OPEN_APP = "com.style.action.OPEN_APP"
         const val REQUEST_ENABLE_BT = 6
         const val NET_CHANGE = "net_change"
 

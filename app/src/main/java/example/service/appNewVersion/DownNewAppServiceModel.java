@@ -15,12 +15,12 @@ import com.style.utils.OpenFileUtil;
 
 import java.io.File;
 
-public class DownNewAppModel extends BaseServiceModel {
+public class DownNewAppServiceModel extends BaseServiceModel {
     MutableLiveData<Boolean> downLoadNewVersionSuccess = new MutableLiveData<>();
 
     private File mAppFile;
 
-    public DownNewAppModel(@NonNull Application application) {
+    public DownNewAppServiceModel(@NonNull Application application) {
         super();
     }
 

@@ -39,8 +39,12 @@ import java.util.concurrent.Future;
  */
 
 public final class CustomFileDownloadManager {
-    private Map<String, Future> mTaskMap = new HashMap();
+    public static final String FLAG_NEW_DOWNLOAD = "flag_new_download";
+    public static final String FLAG_PAUSE_DOWNLOAD = "flag_pause_download";
+    public static final String FLAG_CONTINUE_DOWNLOAD = "flag_continue_download";
+    public static final String FLAG_BATCH_DOWNLOAD = "flag_batch_download";
 
+    private Map<String, Future> mTaskMap = new HashMap();
     private CustomFileDownloadThreadPoolExecutor mThreadPool;
     private static final Object mLock = new Object();
     private static volatile CustomFileDownloadManager mInstance;
@@ -61,11 +65,21 @@ public final class CustomFileDownloadManager {
     }
 
     public void addDownloadTask(String tag, SingleFileDownloadTask task) {
-        Future ftask = getThreadPool().submit(task);
-        mTaskMap.put(tag, ftask);
+        Future oldTask = mTaskMap.get(tag);
+        if (oldTask == null) {
+            Future ftask = getThreadPool().submit(task);
+            mTaskMap.put(tag, ftask);
+        } else {
+            //已经完成或者取消就移除记录，否则说明该任务正在队列中，无须重复添加
+            if (oldTask.isDone() || oldTask.isCancelled()) {
+                mTaskMap.remove(tag);
+                Future ftask = getThreadPool().submit(task);
+                mTaskMap.put(tag, ftask);
+            }
+        }
     }
 
-    public boolean cancelDownloadTask(String tag) {
+    public boolean stopDownloadTask(String tag) {
         boolean isCancelled = false;
         if (!TextUtils.isEmpty(tag) && mTaskMap.containsKey(tag)) {
             Future task = mTaskMap.get(tag);

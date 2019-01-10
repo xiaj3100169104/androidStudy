@@ -7,9 +7,17 @@
 
     <include layout="@layout/title_bar_normal" />
 
+    <TextView
+        android:id="@+id/view_batch_download"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/gray_middle"
+        android:gravity="center"
+        android:text="全部开始(模拟断网重连)" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

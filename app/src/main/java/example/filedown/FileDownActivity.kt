@@ -1,6 +1,7 @@
 package example.filedown
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -23,6 +24,8 @@ import java.io.File
 import java.util.ArrayList
 import android.support.v7.widget.SimpleItemAnimator
 import com.style.data.net.exception.CustomRuntimeException
+import com.style.threadPool.CustomFileDownloadManager
+import example.service.fileDownload.FileDownloadService
 
 
 class FileDownActivity : BaseDefaultTitleBarActivity() {
@@ -58,19 +61,20 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
         adapter.setOnClickOptionListener(object : FileDownListAdapter.OnClickOptionListener<CustomFileBean> {
             override fun onClickOption(position: Int, data: CustomFileBean) {
                 logE("onClickOption", position.toString())
-                if (data.fileStatus == null) {
-                    mViewModel.newDownloadFile(data)
+                val state = data.fileStatus
+                if (state == null) {
+                    newDownloadFile(data)
                     return
                 }
-                val state = data.fileStatus
-                when (state?.status) {
-                    DownStatus.NOT_DOWNLOAD -> mViewModel.newDownloadFile(data)
+                when (state.status) {
+                    DownStatus.NOT_DOWNLOAD -> newDownloadFile(data)
                     DownStatus.DOWNLOAD_PREPARE -> {
                     }
-                    DownStatus.DOWNLOAD_PAUSE -> mViewModel.continueDownload(data)
-                    DownStatus.DOWNLOADING -> mViewModel.pauseDownloadTask(data)
+                    DownStatus.DOWNLOAD_PAUSE -> continueDownloadFile(data)
+                    DownStatus.DOWNLOADING -> pauseDownloadFile(data)
                     DownStatus.DOWNLOAD_COMPLETED -> {
                         val file = File(FileDirConfig.DIR_APP_FILE, data.fileName)
+                        //文件存在
                         if (file.parentFile.exists() && file.exists()) {
                             try {
                                 OpenFileUtil.openFile(getContext(), file)
@@ -87,12 +91,44 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
                 }
             }
         })
+        view_batch_download.setOnClickListener { batchDownload() }
         EventBus.getDefault().register(this)
         mViewModel = getViewModel(FileDownListViewModel::class.java)
         mViewModel.files.observe(this, Observer<ArrayList<CustomFileBean>> { t ->
             refreshData(t)
         })
         getData()
+    }
+
+    private fun batchDownload() {
+        val i = Intent(CustomFileDownloadManager.FLAG_BATCH_DOWNLOAD)
+        i.setClass(getContext(), FileDownloadService::class.java)
+        i.putExtra("fileBeanList", dataList)
+        startService(i)
+    }
+
+    //暂停下载
+    fun pauseDownloadFile(f: CustomFileBean) {
+        val i = Intent(CustomFileDownloadManager.FLAG_PAUSE_DOWNLOAD)
+        i.setClass(getContext(), FileDownloadService::class.java)
+        i.putExtra("fileBean", f)
+        startService(i)
+    }
+
+    //新下载任务
+    fun newDownloadFile(f: CustomFileBean) {
+        val i = Intent(CustomFileDownloadManager.FLAG_NEW_DOWNLOAD)
+        i.setClass(getContext(), FileDownloadService::class.java)
+        i.putExtra("fileBean", f)
+        startService(i)
+    }
+
+    //暂停后继续下载
+    fun continueDownloadFile(f: CustomFileBean) {
+        val i = Intent(CustomFileDownloadManager.FLAG_CONTINUE_DOWNLOAD)
+        i.setClass(getContext(), FileDownloadService::class.java)
+        i.putExtra("fileBean", f)
+        startService(i)
     }
 
     private fun getData() {

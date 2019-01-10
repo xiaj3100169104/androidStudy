@@ -34,7 +34,7 @@ public class CustomFileDownloadThreadPoolExecutor extends ThreadPoolExecutor {
     private static final String TAG = CustomFileDownloadThreadPoolExecutor.class.getSimpleName();
 
     // 线程池核心线程数
-    private static final int CORE_POOL_SIZE = 1;
+    private static final int CORE_POOL_SIZE = 5;
     // 线程池最大线程数
     private static final int MAX_POOL_SIZE = 10;
     // 额外线程空状态生存时间

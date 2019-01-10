@@ -1,9 +1,11 @@
 package com.style.data.net.file
 
+import java.io.Serializable
+
 /**
  * 文件下载状态事件实体
  */
-class FileDownloadStateBean {
+class FileDownloadStateBean : Serializable {
     var url: String? = null
     var status = DownStatus.NOT_DOWNLOAD
     var totalSize = 0

@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 public class DownNewAppService extends IntentService {
-    DownNewAppModel mPresenter;
+    DownNewAppServiceModel mPresenter;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -20,7 +20,7 @@ public class DownNewAppService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        mPresenter = new DownNewAppModel(getApplication());
+        mPresenter = new DownNewAppServiceModel(getApplication());
     }
 
     @Nullable

@@ -171,8 +171,15 @@
         <service
             android:name="example.service.appNewVersion.DownNewAppService"
             android:enabled="true">
-            <intent-filter android:priority="1000">
+            <intent-filter android:priority="888">
                 <action android:name="com.style.download.new.version" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="example.service.fileDownload.FileDownloadService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="com.style.file.download." />
             </intent-filter>
         </service>
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->

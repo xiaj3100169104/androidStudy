@@ -22,6 +22,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.style.app.FileDirConfig;
 import com.style.base.BaseDefaultTitleBarActivity;
@@ -70,10 +71,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private ArrayList<TestLineData> mModelList = new ArrayList<>();
     private boolean isRegisterBroadcastReceiver;
     private Disposable mLocationTask;
-    private boolean isCalculating;
-    private String[] macs = {"1918FC0989BD", "1918FC07D3EA", "1918FC07D743", "1918FC098B34"};
+    private volatile boolean isCalculating;
+    private String[] macs = {"1918FC07D743", "1918FC07D3EA", "1918FC0989BD", "1918FC098B34"};
     private HashMap<String, ArrayList<Integer>> mBleMap = new HashMap<>();
     private String fileName;
+    private TextView[] tvSignals = new TextView[4];
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -85,6 +87,10 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         mBleMap.put(macs[1], new ArrayList<>());
         mBleMap.put(macs[2], new ArrayList<>());
         mBleMap.put(macs[3], new ArrayList<>());
+        tvSignals[0] = bd.tvSignal1;
+        tvSignals[1] = bd.tvSignal2;
+        tvSignals[2] = bd.tvSignal3;
+        tvSignals[3] = bd.tvSignal4;
         initData();
         initModelData();
         bd.btnGetLocation.setOnClickListener(v -> {
@@ -144,7 +150,6 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
-
     }
 
     public void scan(View v) {
@@ -179,17 +184,23 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        startTimerTask();
+        //startCalculateLocationTask();
+        startCalculateRoomTask();
         mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-                logE("LeScanCallback", device.toString() + "  " + rssi);
                 String macAddress = device.toString().replace(":", "");
                 if (!isCalculating && macAddress.startsWith("1918")) {
-                    String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-                    saveAndNewLine(s);
-                    /*if (!isCalculating)
-                        saveList(macAddress, rssi);*/
+                    logE("LeScanCallback", device.toString() + "  " + rssi);
+                    //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+                    //saveAndNewLine(s);
+                    for (int i = 0; i < 4; i++) {
+                        if (macAddress.equals(macs[i])) {
+                            tvSignals[i].setText(rssi + "");
+                            break;
+                        }
+                    }
+                    saveList(macAddress, rssi);
                 }
                 //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
                 //dealData(device, ad.localName, rssi);
@@ -198,6 +209,12 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         mBluetoothAdapter.startLeScan(mLeScanCallback);
     }
 
+    /**
+     * 实时存取，不存SD卡
+     *
+     * @param macAddress
+     * @param rssi
+     */
     private void saveList(String macAddress, int rssi) {
         for (String key : mBleMap.keySet()) {
             if (key.equals(macAddress)) {
@@ -217,7 +234,46 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     }
 
     @SuppressLint("CheckResult")
-    private void startTimerTask() {
+    private void startCalculateRoomTask() {
+        mLocationTask = Observable.interval(1000, TimeUnit.MILLISECONDS).subscribe(aLong -> {
+            //正在计算，因为数据源不能边读边写。
+            isCalculating = true;
+            float[] mSignal = new float[]{-100, -100, -100, -100};
+            for (int i = 0; i < macs.length; i++) {
+                ArrayList<Integer> mList = mBleMap.get(macs[i]);
+                int total = 0, max = 0, min = 0, maxCount = 0, minCount = 0;
+                for (int j = 0; j < mList.size(); j++) {
+                    int v = mList.get(j);
+                    total += v;
+                    if (j == 0) {
+                        max = min = v;
+                    } else {
+                        max = v > max ? v : max;
+                        min = v < min ? v : min;
+                    }
+                }
+                for (Integer k : mList) {
+                    if (k == max) maxCount++;
+                    if (k == min) minCount++;
+                }
+                float a = (total + 0.0f) / (mList.size() + 0.01f);
+                mSignal[i] = a;
+                mList.clear();
+            }
+            if (mSignal[3] > -91 && mSignal[2] > -91 && mSignal[1] > -91 && mSignal[0] > -91) {
+                if (mSignal[3] + mSignal[2] - mSignal[1] - mSignal[0] > 0)
+                    bd.tvLocation.setText("校内");
+                else
+                    bd.tvLocation.setText("校外");
+            } else {
+                bd.tvLocation.setText("null");
+            }
+            isCalculating = false;
+        });
+    }
+
+    @SuppressLint("CheckResult")
+    private void startCalculateLocationTask() {
         mLocationTask = Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
             //正在计算，因为数据源不能边读边写。
             isCalculating = true;

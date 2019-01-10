@@ -10,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -49,7 +50,7 @@ public class SingleFileDownloadTask implements Runnable {
         RandomAccessFile raf = null;
         try {
             URL u = new URL(url);
-            Log.e(TAG, "file url:" + u);
+            Log.e(TAG, "prepare download file:" + u);
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Charset", "UTF-8");
@@ -87,6 +88,7 @@ public class SingleFileDownloadTask implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            //下载中断无论什么异常都一样
             onFileDownloadInterrupted();
         } finally {
             if (bis != null) {
@@ -112,8 +114,6 @@ public class SingleFileDownloadTask implements Runnable {
     private void onFileDownloadInterrupted() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
         b.setStatus(DownStatus.DOWNLOAD_PAUSE);
-        b.setTotalSize(this.fileLength);
-        b.setDownloadSize(this.downloadLength);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 

@@ -30,15 +30,15 @@ class FileDownListViewModel(application: Application) : BaseViewModel(applicatio
         files.postValue(da)
     }
 
-    fun downloadAll(dataList: ArrayList<CustomFileBean>) {
+    fun downloadAllFile(dataList: ArrayList<CustomFileBean>) {
         dataList.forEachIndexed { index, f ->
             val task = SingleFileDownloadTask(f.url, 0, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
             CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
         }
     }
 
-    fun pauseDownloadTask(data: CustomFileBean) {
-        CustomFileDownloadManager.getInstance().cancelDownloadTask(data.url)
+    fun pauseDownloadFile(data: CustomFileBean) {
+        CustomFileDownloadManager.getInstance().stopDownloadTask(data.url)
     }
 
     //新下载任务
@@ -48,7 +48,7 @@ class FileDownListViewModel(application: Application) : BaseViewModel(applicatio
     }
 
     //暂停后继续下载
-    fun continueDownload(f: CustomFileBean) {
+    fun continueDownloadFile(f: CustomFileBean) {
         val task = SingleFileDownloadTask(f.url, f.fileStatus?.downloadSize!!, FileDirConfig.DIR_APP_FILE.plus("/").plus(f.fileName))
         CustomFileDownloadManager.getInstance().addDownloadTask(f.url, task)
     }

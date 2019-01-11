@@ -3,6 +3,7 @@ package com.style.data.net.file;
 import android.util.Log;
 
 import com.style.data.event.EventBusEvent;
+import com.style.threadPool.CustomFileDownloadManager;
 
 import org.simple.eventbus.EventBus;
 
@@ -62,8 +63,11 @@ public class SingleFileDownloadTask implements Runnable {
                 // 读取下载文件总大小(注意区分是不是从头开始下载)
                 fileLength = conn.getContentLength() + startPos;
                 Log.e(TAG, "fileLength:" + fileLength);
+                //从起始位置下载时确定文件长度
+                if (startPos == 0) {
+                    onFileDownloadFromStart();
+                }
                 downloadLength = startPos;
-                onFileDownloading();
                 //保存数据库
                 byte[] buffer = new byte[1024];
                 bis = new BufferedInputStream(conn.getInputStream());
@@ -108,23 +112,21 @@ public class SingleFileDownloadTask implements Runnable {
         }
     }
 
-    /**
-     * 下载中断
-     */
-    private void onFileDownloadInterrupted() {
+    private void onFileDownloadFromStart() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DownStatus.DOWNLOAD_PAUSE);
+        b.setStatus(DownStatus.DOWNLOAD_FROM_START);
+        b.setTotalSize(fileLength);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 
     /**
-     * 下载完成
+     * 下载中断
      */
-    private void onFileDownloaded() {
+    private void onFileDownloadInterrupted() {
+        //移除任务记录
+        CustomFileDownloadManager.getInstance().removeTask(url);
         FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DownStatus.DOWNLOAD_COMPLETED);
-        b.setTotalSize(this.fileLength);
-        b.setDownloadSize(this.downloadLength);
+        b.setStatus(DownStatus.DOWNLOAD_PAUSE);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 
@@ -134,8 +136,17 @@ public class SingleFileDownloadTask implements Runnable {
     private void onFileDownloading() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
         b.setStatus(DownStatus.DOWNLOADING);
-        b.setTotalSize(this.fileLength);
         b.setDownloadSize(this.downloadLength);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
+
+    /**
+     * 下载完成
+     */
+    private void onFileDownloaded() {
+        FileDownloadStateBean b = new FileDownloadStateBean(url);
+        b.setStatus(DownStatus.DOWNLOAD_COMPLETED);
+        EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
+    }
+
 }

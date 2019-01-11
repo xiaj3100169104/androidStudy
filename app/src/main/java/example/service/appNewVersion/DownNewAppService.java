@@ -8,13 +8,8 @@ import android.support.annotation.Nullable;
 public class DownNewAppService extends IntentService {
     DownNewAppServiceModel mPresenter;
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public DownNewAppService(String name) {
-        super(name);
+    public DownNewAppService() {
+        super("balabalabala");
     }
 
     @Override

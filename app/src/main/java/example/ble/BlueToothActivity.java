@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import example.media.audio.Complex;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -72,10 +73,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private boolean isRegisterBroadcastReceiver;
     private Disposable mLocationTask;
     private volatile boolean isCalculating;
-    private String[] macs = {"1918FC07D743", "1918FC07D3EA", "1918FC0989BD", "1918FC098B34"};
+    private String[] macs = {"1918FC07D743", "1918FC07D3EA"};//, "1918FC0989BD", "1918FC098B34"};
     private HashMap<String, ArrayList<Integer>> mBleMap = new HashMap<>();
     private String fileName;
     private TextView[] tvSignals = new TextView[4];
+    private ArrayList<Integer> datas = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -85,8 +87,8 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         setToolbarTitle("蓝牙测试");
         mBleMap.put(macs[0], new ArrayList<>());
         mBleMap.put(macs[1], new ArrayList<>());
-        mBleMap.put(macs[2], new ArrayList<>());
-        mBleMap.put(macs[3], new ArrayList<>());
+        //mBleMap.put(macs[2], new ArrayList<>());
+        //mBleMap.put(macs[3], new ArrayList<>());
         tvSignals[0] = bd.tvSignal1;
         tvSignals[1] = bd.tvSignal2;
         tvSignals[2] = bd.tvSignal3;
@@ -194,7 +196,7 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                     logE("LeScanCallback", device.toString() + "  " + rssi);
                     //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
                     //saveAndNewLine(s);
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 2; i++) {
                         if (macAddress.equals(macs[i])) {
                             tvSignals[i].setText(rssi + "");
                             break;
@@ -235,10 +237,10 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
 
     @SuppressLint("CheckResult")
     private void startCalculateRoomTask() {
-        mLocationTask = Observable.interval(1000, TimeUnit.MILLISECONDS).subscribe(aLong -> {
+        mLocationTask = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
             //正在计算，因为数据源不能边读边写。
             isCalculating = true;
-            float[] mSignal = new float[]{-100, -100, -100, -100};
+            float[] mSignal = new float[]{-100, -100};
             for (int i = 0; i < macs.length; i++) {
                 ArrayList<Integer> mList = mBleMap.get(macs[i]);
                 int total = 0, max = 0, min = 0, maxCount = 0, minCount = 0;
@@ -260,11 +262,34 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                 mSignal[i] = a;
                 mList.clear();
             }
-            if (mSignal[3] > -91 && mSignal[2] > -91 && mSignal[1] > -91 && mSignal[0] > -91) {
-                if (mSignal[3] + mSignal[2] - mSignal[1] - mSignal[0] > 0)
-                    bd.tvLocation.setText("校内");
-                else
-                    bd.tvLocation.setText("校外");
+            if (mSignal[1] >= -91 || mSignal[0] >= -91) {
+                datas.add((int) (mSignal[0] - mSignal[1]));
+            }
+            if (mSignal[1] < -91 && mSignal[0] < -91) {
+                int offset = datas.size() / 3;
+                int startPlusCount = 0, startSubCont = 0, endPlusCount = 0, endSubCont = 0;
+                for (int i = 0; i < datas.size(); i++) {
+                    if (i <= offset) {
+                        if (datas.get(i) > 0) {
+                            startPlusCount++;
+                        } else {
+                            startSubCont++;
+                        }
+                    } else if (i >= datas.size() - offset) {
+                        if (datas.get(i) > 0) {
+                            endPlusCount++;
+                        } else {
+                            endSubCont++;
+                        }
+                    }
+                }
+                datas.clear();
+                int start = startPlusCount - startSubCont;
+                int end = endPlusCount - endSubCont;
+                if (start > 0 && end < 0)
+                    bd.tvLocation.setText("进门");
+                if (start < 0 && end > 0)
+                    bd.tvLocation.setText("出门");
             } else {
                 bd.tvLocation.setText("null");
             }

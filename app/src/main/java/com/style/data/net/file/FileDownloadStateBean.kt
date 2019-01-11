@@ -27,9 +27,10 @@ class FileDownloadStateBean : Serializable {
             companion object {
                 const val NOT_DOWNLOAD = 0
                 const val DOWNLOAD_PREPARE = 1//排队中
-                const val DOWNLOADING = 2
-                const val DOWNLOAD_PAUSE = 3
-                const val DOWNLOAD_COMPLETED = 4
+                const val DOWNLOAD_FROM_START = 2//从起始位置下载
+                const val DOWNLOADING = 3
+                const val DOWNLOAD_PAUSE = 4
+                const val DOWNLOAD_COMPLETED = 5
             }
         }
     }

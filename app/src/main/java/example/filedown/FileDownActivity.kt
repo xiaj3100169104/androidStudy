@@ -153,10 +153,28 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
     }
 
     @Subscriber(tag = EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED, mode = ThreadMode.MAIN)
-    private fun onFileDownloadStateChanged(data: FileDownloadStateBean) {
+    private fun onFileDownloadStateChanged(f: FileDownloadStateBean) {
         for (i in dataList.indices) {
-            if (data.url.equals(dataList[i].url)) {
-                dataList[i].fileStatus = data
+            if (dataList[i].url.equals(f.url)) {
+                var state = dataList[i].fileStatus
+                if (state == null)
+                    state = FileDownloadStateBean(dataList[i].url)
+                state.status = f.status
+                when (f.status) {
+                    DownStatus.DOWNLOAD_FROM_START -> {
+                        state.totalSize = f.totalSize
+                        state.downloadSize = 0
+                    }
+                    DownStatus.DOWNLOADING -> {
+                        state.downloadSize = f.downloadSize
+                    }
+                    DownStatus.DOWNLOAD_COMPLETED -> {
+                        state.downloadSize = state.totalSize
+                    }
+                    DownStatus.DOWNLOAD_PAUSE -> {
+                    }
+                }
+                dataList[i].fileStatus = state
                 adapter.notifyItemChanged(i)
                 break
             }

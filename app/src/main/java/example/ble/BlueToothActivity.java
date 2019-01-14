@@ -78,6 +78,8 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private String fileName;
     private TextView[] tvSignals = new TextView[4];
     private ArrayList<Integer> datas = new ArrayList<>();
+    private ArrayList<String> datas1 = new ArrayList<>(1000);
+    private ArrayList<String> datas2 = new ArrayList<>(1000);
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -187,27 +189,121 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
             e.printStackTrace();
         }
         //startCalculateLocationTask();
-        startCalculateRoomTask();
+        //startCalculateRoomTask();
         mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 String macAddress = device.toString().replace(":", "");
-                if (!isCalculating && macAddress.startsWith("1918")) {
-                    logE("LeScanCallback", device.toString() + "  " + rssi);
-                    //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-                    //saveAndNewLine(s);
+                if (!isCalculating && (macAddress.equals("1918FC07D743") || macAddress.equals("1918FC07D3EA"))) {
+                    //logE("LeScanCallback", device.toString() + "  " + rssi);
+                    String ss = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+                    saveAndNewLine(ss);
                     for (int i = 0; i < 2; i++) {
                         if (macAddress.equals(macs[i])) {
                             tvSignals[i].setText(rssi + "");
+                            //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+                            //saveAndNewLine(s);
                             break;
                         }
                     }
-                    saveList(macAddress, rssi);
+                    //saveList(macAddress, rssi);
+                    //开始采集
+                    if (rssi >= -94) {
+                        String s2 = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(String.valueOf(rssi)).toString();
+                        if (macAddress.equals("1918FC07D743")) {
+                            datas1.add(s2);
+                        } else {
+                            datas2.add(s2);
+                        }
+                    }
+                    //结束
+                    if (rssi < -94) {
+                        isCalculating = true;
+                        if (datas1.size() > 2 && datas2.size() > 2) {
+                            int index1 = 0;
+                            String[] s1 = datas1.get(index1).split(",");
+                            Integer max1 = Integer.valueOf(s1[1]);
+                            for (int j = 0; j < datas1.size(); j++) {
+                                Integer v = Integer.valueOf(datas1.get(j).split(",")[1]);
+                                if (v > max1) {
+                                    max1 = v;
+                                    index1 = j;
+                                }
+                            }
+                            Long maxTime1 = Long.valueOf(datas1.get(index1).split(",")[0]);
+
+                            int index2 = 0;
+                            String[] s2 = datas2.get(index2).split(",");
+                            Integer max2 = Integer.valueOf(s2[1]);
+                            for (int j = 0; j < datas2.size(); j++) {
+                                Integer v = Integer.valueOf(datas2.get(j).split(",")[1]);
+                                if (v > max2) {
+                                    max2 = v;
+                                    index2 = j;
+                                }
+                            }
+                            Long maxTime2 = Long.valueOf(datas2.get(index2).split(",")[0]);
+
+                            if (maxTime1 < maxTime2) {
+                                int total12 = 0;
+                                int count = 0;
+                                for (int j = 0; j < datas1.size(); j++) {
+                                    String[] s = datas1.get(j).split(",");
+                                    if (Long.valueOf(s[0]) > maxTime2) {
+                                        total12 += Integer.valueOf(s[1]);
+                                        count++;
+                                    }
+                                }
+                                float r1End = (total12 + 0.0f) / (count + 0.01f);
+
+                                int total21 = 0;
+                                for (int j = index2 + 1; j < datas2.size(); j++) {
+                                    total21 += Integer.valueOf(datas2.get(j).split(",")[1]);
+                                }
+                                float r2End = (total21 + 0.0f) / (datas2.size() - (index2 + 1) + 0.01f);
+                                if (r1End < r2End)
+                                    bd.tvLocation.setText("进门");
+                                else {
+                                    bd.tvLocation.setText("无法识别");
+                                }
+                            }
+                            if (maxTime1 > maxTime2) {
+                                int total12 = 0;
+                                for (int j = index1 + 1; j < datas1.size(); j++) {
+                                    total12 += Integer.valueOf(datas1.get(j).split(",")[1]);
+                                }
+                                float r1End = (total12 + 0.0f) / (datas1.size() - (index1 + 1) + 0.01f);
+
+                                int total21 = 0;
+                                int count = 0;
+                                for (int j = 0; j < datas2.size(); j++) {
+                                    String[] s = datas2.get(j).split(",");
+                                    if (Long.valueOf(s[0]) > maxTime1) {
+                                        total21 += Integer.valueOf(s[1]);
+                                        count++;
+                                    }
+                                }
+                                float r2End = (total21 + 0.0f) / (count + 0.01f);
+                                if (r1End > r2End)
+                                    bd.tvLocation.setText("出门");
+                                else {
+                                    bd.tvLocation.setText("无法识别");
+                                }
+                            }
+                        } else {
+                            bd.tvLocation.setText("不足3条数据");
+                        }
+                        datas1.clear();
+                        datas2.clear();
+                        isCalculating = false;
+                    }
                 }
                 //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
                 //dealData(device, ad.localName, rssi);
             }
-        };
+        }
+
+        ;
         mBluetoothAdapter.startLeScan(mLeScanCallback);
     }
 
@@ -218,10 +314,14 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
      * @param rssi
      */
     private void saveList(String macAddress, int rssi) {
-        for (String key : mBleMap.keySet()) {
-            if (key.equals(macAddress)) {
-                mBleMap.get(key).add(rssi);
+        if (macAddress.equals("1918FC07D743") || macAddress.equals("1918FC07D3EA")) {
+            for (int i = 0; i < 2; i++) {
+                if (macAddress.equals(macs[i])) {
+                    tvSignals[i].setText(rssi + "");
+                    break;
+                }
             }
+            mBleMap.get(macAddress).add(rssi);
         }
     }
 
@@ -240,58 +340,50 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         mLocationTask = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
             //正在计算，因为数据源不能边读边写。
             isCalculating = true;
-            float[] mSignal = new float[]{-100, -100};
+            float[] mSignal = new float[]{100, 100};
             for (int i = 0; i < macs.length; i++) {
                 ArrayList<Integer> mList = mBleMap.get(macs[i]);
-                int total = 0, max = 0, min = 0, maxCount = 0, minCount = 0;
-                for (int j = 0; j < mList.size(); j++) {
-                    int v = mList.get(j);
-                    total += v;
-                    if (j == 0) {
-                        max = min = v;
-                    } else {
-                        max = v > max ? v : max;
-                        min = v < min ? v : min;
+                if (mList.size() > 0) {
+                    int total = 0;
+                    for (int j = 0; j < mList.size(); j++) {
+                        int v = mList.get(j);
+                        total += v;
                     }
+                    float a = (total + 0.0f) / (mList.size() + 0.01f);
+                    mSignal[i] = a;
+                    mList.clear();
                 }
-                for (Integer k : mList) {
-                    if (k == max) maxCount++;
-                    if (k == min) minCount++;
+            }
+            if (mSignal[0] != 100 && mSignal[1] != 100) {
+                if (mSignal[1] >= -93 && mSignal[0] >= -93) {
+                    datas.add((int) (mSignal[0] - mSignal[1]));
                 }
-                float a = (total + 0.0f) / (mList.size() + 0.01f);
-                mSignal[i] = a;
-                mList.clear();
-            }
-            if (mSignal[1] >= -91 || mSignal[0] >= -91) {
-                datas.add((int) (mSignal[0] - mSignal[1]));
-            }
-            if (mSignal[1] < -91 && mSignal[0] < -91) {
-                int offset = datas.size() / 3;
-                int startPlusCount = 0, startSubCont = 0, endPlusCount = 0, endSubCont = 0;
-                for (int i = 0; i < datas.size(); i++) {
-                    if (i <= offset) {
-                        if (datas.get(i) > 0) {
-                            startPlusCount++;
-                        } else {
-                            startSubCont++;
-                        }
-                    } else if (i >= datas.size() - offset) {
-                        if (datas.get(i) > 0) {
-                            endPlusCount++;
-                        } else {
-                            endSubCont++;
+                if (datas.size() > 0 && mSignal[1] < -93 || mSignal[0] < -93) {
+                    int offset = datas.size() / 3;
+                    int startPlusCount = 0, startSubCont = 0, endPlusCount = 0, endSubCont = 0;
+                    for (int i = 0; i < datas.size(); i++) {
+                        if (i <= offset) {
+                            if (datas.get(i) > 0) {
+                                startPlusCount++;
+                            } else {
+                                startSubCont++;
+                            }
+                        } else if (i >= datas.size() - offset) {
+                            if (datas.get(i) > 0) {
+                                endPlusCount++;
+                            } else {
+                                endSubCont++;
+                            }
                         }
                     }
+                    datas.clear();
+                    int start = startPlusCount - startSubCont;
+                    int end = endPlusCount - endSubCont;
+                    if ((start > 0 && end < 0) || (start > 0 && end > 0))
+                        bd.tvLocation.setText("进门");
+                    if ((start < 0 && end > 0) || (start < 0 && end < 0))
+                        bd.tvLocation.setText("出门");
                 }
-                datas.clear();
-                int start = startPlusCount - startSubCont;
-                int end = endPlusCount - endSubCont;
-                if (start > 0 && end < 0)
-                    bd.tvLocation.setText("进门");
-                if (start < 0 && end > 0)
-                    bd.tvLocation.setText("出门");
-            } else {
-                bd.tvLocation.setText("null");
             }
             isCalculating = false;
         });
@@ -556,7 +648,8 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 logE(getTAG(), "权限允许");

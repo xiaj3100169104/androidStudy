@@ -54,13 +54,13 @@
         android:name="com.style.app.MyApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="校内外"
         android:resizeableActivity="false"
         android:supportsRtl="false"
         android:theme="@style/BaseAppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
-        <activity android:name="example.login.LoginActivity">
+        <activity android:name="example.ble.BlueToothActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

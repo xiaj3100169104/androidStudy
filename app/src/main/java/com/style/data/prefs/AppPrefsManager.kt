@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 
 import com.alibaba.fastjson.JSON
-import com.style.bean.User
+import com.style.entity.User
 import com.style.utils.AESCipher
 
 class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数实例化 */ {

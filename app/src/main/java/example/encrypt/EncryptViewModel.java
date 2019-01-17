@@ -4,7 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.style.base.BaseViewModel;
-import com.style.bean.User;
+import com.style.entity.User;
 
 /**
  * Created by xiajun on 2018/6/21.

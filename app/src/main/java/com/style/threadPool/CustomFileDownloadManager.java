@@ -65,18 +65,10 @@ public final class CustomFileDownloadManager {
     }
 
     public void addDownloadTask(String tag, SingleFileDownloadTask task) {
-        Future oldTask = mTaskMap.get(tag);
-        if (oldTask == null) {
-            Future ftask = getThreadPool().submit(task);
-            mTaskMap.put(tag, ftask);
-        } else {
-            //已经完成或者取消就移除记录，否则说明该任务正在队列中，无须重复添加
-            if (oldTask.isDone() || oldTask.isCancelled()) {
-                mTaskMap.remove(tag);
-                Future ftask = getThreadPool().submit(task);
-                mTaskMap.put(tag, ftask);
-            }
-        }
+        //如果中断并移除旧记录
+        stopDownloadTask(tag);
+        Future ftask = getThreadPool().submit(task);
+        mTaskMap.put(tag, ftask);
     }
 
     public boolean stopDownloadTask(String tag) {
@@ -102,5 +94,13 @@ public final class CustomFileDownloadManager {
         //关闭线程池
         if (mThreadPool != null)
             mThreadPool.shutdown();
+    }
+
+    public void shutdownNow() {
+        //关闭线程池
+        if (mThreadPool != null) {
+            mThreadPool.shutdownNow();
+            mThreadPool = null;
+        }
     }
 }

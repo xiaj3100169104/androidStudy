@@ -33,6 +33,7 @@ class MyApp : MultiDexApplication() {
         super.onCreate()
         AppManager.getInstance().init(this)
         AppPrefsManager.getInstance().init(this)
+        //room不会自动检查数据库版本升级，所以需要手动操作一次
         AppDatabase.getInstance(this).testRoomDao.getCount()
         initRefreshView()
     }

@@ -1,4 +1,4 @@
-package com.style.bean
+package com.style.entity
 
 
 import java.io.Serializable
@@ -9,16 +9,15 @@ import java.io.Serializable
  * 构造函数的主要作用 一是用来实例化该类。二是 让该类实例化的时候执行哪些方法，初始化哪些属性。
  * 当一个类声明了构造函数以后，JVM 是不会再给该类分配默认的构造函数。
  */
-class UserBean : Serializable {
+class User : Serializable {
 
-    private var id: Long = 0
-    lateinit var userId: String// 帐号
-    private var telPhone: String = ""
-    private var password: String = "" // 密码
-    private var userName: String = ""
-    private var sex: String = ""
-    private var signKey: String = ""
-
+    var id: Long? = null
+    var userId: String? = null// 帐号
+    var telPhone: String? = null
+    var password: String? = null // 密码
+    var userName: String? = null
+    var sex: String? = null
+    var signKey: String? = null
 
     constructor() {}
 
@@ -28,7 +27,7 @@ class UserBean : Serializable {
     }
 
     override fun toString(): String {
-        return "UserBean(id=$id, userId='$userId', telPhone='$telPhone', password='$password', userName='$userName', sex='$sex', signKey='$signKey')"
+        return "User(id=$id, userId='$userId', telPhone='$telPhone', password='$password', userName='$userName', sex='$sex', signKey='$signKey')"
     }
 
 

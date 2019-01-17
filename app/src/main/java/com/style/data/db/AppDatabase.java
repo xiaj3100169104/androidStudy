@@ -9,12 +9,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import example.bean.TestRoom;
+import com.style.data.net.file.FileDownloadStateBean;
+import com.style.entity.TestRoom;
 
 /**
  * 单例和静态常量不用kotlin，写法麻烦
  */
-@Database(entities = {TestRoom.class}, version = 1, exportSchema = false)
+@Database(entities = {TestRoom.class,FileDownloadStateBean.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "TestRoomDataBase";
 
@@ -40,13 +41,14 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE test_room ADD COLUMN sex INTEGER  NOT NULL DEFAULT 1");
+            //database.execSQL("ALTER TABLE test_room ADD COLUMN sex INTEGER  NOT NULL DEFAULT 1");
         }
     };
 
     /**
      * 处理跃迁：但用户从app版本1.0直接升级到4.0或者更高版本，这种几率很高。
-     * 会碰到 1 -> 10 , 2 -> 10 , 3 -> 10 , 4 -> 10 , 5 -> 10 , 6 -> 10 , 7 -> 10 , 8 -> 10 , 9 -> 10
+     * 会碰到 1 -> 4 , 2 -> 4 , 3 -> 4。
+     * 以前的每次升级应该都有记录.
      */
     static final Migration MIGRATION_1_4 = new Migration(1, 4) {
         @Override
@@ -65,4 +67,5 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TestRoomDao getTestRoomDao();
 
+    public abstract FileDownloadStateDao getFileDownloadDao();
 }

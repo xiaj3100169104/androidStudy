@@ -1,7 +1,7 @@
 package com.style.data.db
 
 import android.arch.persistence.room.*
-import example.bean.TestRoom
+import com.style.entity.TestRoom
 import java.util.*
 
 @Dao

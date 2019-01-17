@@ -1,8 +1,7 @@
 package example.newwork.response;
 
 
-import com.style.bean.Friend;
-import com.style.bean.User;
+import com.style.entity.User;
 
 import java.io.Serializable;
 

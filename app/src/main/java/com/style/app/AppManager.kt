@@ -44,6 +44,10 @@ class AppManager {
         initBackgroundCallBack(this.app)
     }
 
+    fun getContext(): Context {
+        return app as Context
+    }
+
     private fun initBackgroundCallBack(app: Application?) {
         app!!.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -135,4 +139,5 @@ class AppManager {
     fun setMainTaskId(taskId: Int) {
         this.mainTaskId = taskId
     }
+
 }

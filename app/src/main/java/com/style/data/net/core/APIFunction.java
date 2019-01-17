@@ -1,7 +1,7 @@
 package com.style.data.net.core;
 
-import com.style.data.net.bean.KuaiDi;
-import com.style.data.net.bean.UserInfo;
+import com.style.entity.KuaiDi;
+import com.style.entity.UserInfo;
 import com.style.data.net.request.LoginRequest;
 import com.style.data.net.response.BaseResult;
 import com.style.data.net.response.TokenResponse;

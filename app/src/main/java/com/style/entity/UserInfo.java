@@ -1,4 +1,4 @@
-package com.style.data.net.bean;
+package com.style.entity;
 
 import android.text.TextUtils;
 

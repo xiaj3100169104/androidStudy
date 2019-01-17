@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.style.base.BaseViewModel
-import com.style.bean.User
+import com.style.entity.User
 import com.style.data.prefs.AppPrefsManager
 import java.net.URL
 import java.security.MessageDigest

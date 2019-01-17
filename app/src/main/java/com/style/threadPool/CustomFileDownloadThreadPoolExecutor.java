@@ -2,6 +2,7 @@ package com.style.threadPool;
 
 import android.util.Log;
 
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -11,14 +12,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 从结果可以观察出：
- * 1、创建的线程池具体配置为：核心线程数量为5个；全部线程数量为10个；工作队列的长度为5。
- * 2、我们通过queue.size()的方法来获取工作队列中的任务数。
- * 3、运行原理：
- * 刚开始都是在创建新的线程，达到核心线程数量5个后，新的任务进来后不再创建新的线程，而是将任务加入工作队列，
- * 任务队列到达上线5个后，新的任务又会创建新的普通线程，直到达到线程池最大的线程数量10个，后面的任务则根据配置的饱和策略来处理。
- * 我们这里没有具体配置，使用的是默认的配置AbortPolicy:直接抛出异常。
- * 当然，为了达到我需要的效果，上述线程处理的任务都是利用休眠导致线程没有释放！！！
+ * 当提交一个新任务到线程池时首先线程池判断基本线程池(corePoolSize)是否已满？没满，创建一个工作线程来执行任务。
+ * 满了判断工作队列(workQueue)是否已满？没满，则将新提交的任务存储在工作队列里。
+ * 满了判断整个线程池(maximumPoolSize)是否已满？没满，则创建一个新的工作线程来执行任务。
+ * 满了，则交给饱和策略来处理这个任务；
+ * 如果线程池中的线程数量大于 corePoolSize 时，如果某线程空闲时间超过keepAliveTime，线程将被终止，
+ * 直至线程池中的线程数目不大于corePoolSize；如果允许为核心池中的线程设置存活时间，那么核心池中的线程空闲时间超过 keepAliveTime，线程也会被终止。
  * <p>
  * RejectedExecutionHandler：饱和策略
  * 当队列和线程池都满了，说明线程池处于饱和状态，那么必须对新提交的任务采用一种特殊的策略来进行处理。
@@ -44,7 +43,7 @@ public class CustomFileDownloadThreadPoolExecutor extends ThreadPoolExecutor {
     private static BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(5);
     //线程工厂
     private static ThreadFactory threadFactory = Executors.defaultThreadFactory();
-    //饱和策略
+    //饱和策略(可能线程池被关闭了)
     private static RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy() {
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
@@ -58,5 +57,27 @@ public class CustomFileDownloadThreadPoolExecutor extends ThreadPoolExecutor {
 
     public CustomFileDownloadThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
+    }
+
+    /**
+     * 当线程池调用该方法时,线程池的状态则立刻变成SHUTDOWN状态。此时，则不能再往线程池中添加任何任务，否则将会抛出RejectedExecutionException异常。
+     * 但是，此时线程池不会立刻退出，直到添加到线程池中的任务都已经处理完成，才会退出。
+     */
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+
+    /**
+     * 根据JDK文档描述，大致意思是：执行该方法，线程池的状态立刻变成STOP状态，
+     * 并试图停止所有正在执行的线程，不再处理还在池队列中等待的任务，当然，它会返回那些未执行的任务。
+     * 它试图终止线程的方法是通过调用Thread.interrupt()方法来实现的，但是大家知道，这种方法的作用有限，
+     * 如果线程中没有sleep 、wait、Condition、定时锁等应用, interrupt()方法是无法中断当前的线程的。所以，ShutdownNow()并不代表线程池就一定立即就能退出，
+     * 它可能必须要等待所有正在执行的任务都执行完成了才能退出。
+     * 返回正在等待执行的任务。
+     */
+    @Override
+    public List<Runnable> shutdownNow() {
+        return super.shutdownNow();
     }
 }

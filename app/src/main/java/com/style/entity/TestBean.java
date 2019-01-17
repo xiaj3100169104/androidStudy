@@ -1,4 +1,4 @@
-package example.bean;
+package com.style.entity;
 
 /**
  * Created by xiajun on 2016/10/8.

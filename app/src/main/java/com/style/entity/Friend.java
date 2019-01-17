@@ -1,9 +1,6 @@
-package com.style.bean;
-
-import android.text.TextUtils;
+package com.style.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Friend implements Serializable {
 

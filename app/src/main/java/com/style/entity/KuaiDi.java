@@ -1,4 +1,4 @@
-package com.style.data.net.bean;
+package com.style.entity;
 
 /**
  * Created by xiajun on 2017/12/21.

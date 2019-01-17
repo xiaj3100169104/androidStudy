@@ -2,6 +2,9 @@ package com.style.data.net.file;
 
 import android.util.Log;
 
+import com.style.app.AppManager;
+import com.style.data.db.AppDatabase;
+import com.style.data.db.FileDownloadStateDao;
 import com.style.data.event.EventBusEvent;
 import com.style.threadPool.CustomFileDownloadManager;
 
@@ -11,7 +14,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -63,11 +65,8 @@ public class SingleFileDownloadTask implements Runnable {
                 // 读取下载文件总大小(注意区分是不是从头开始下载)
                 fileLength = conn.getContentLength() + startPos;
                 Log.e(TAG, "fileLength:" + fileLength);
-                //从起始位置下载时确定文件长度
-                if (startPos == 0) {
-                    onFileDownloadFromStart();
-                }
                 downloadLength = startPos;
+                onFileDownloading();
                 //保存数据库
                 byte[] buffer = new byte[1024];
                 bis = new BufferedInputStream(conn.getInputStream());
@@ -80,7 +79,7 @@ public class SingleFileDownloadTask implements Runnable {
                 while ((len = bis.read(buffer, 0, 1024)) != -1) {
                     raf.write(buffer, 0, len);
                     downloadLength += len;
-                    //最好不要让消息发送太频繁，根据进度条计算发送次数与时机
+                    //最好不要让消息发送太频繁，根据进度条计算发送次数与时机(最后也不要更新数据库太频繁)
                     perReadCount += len;
                     if (perReadCount >= perSendLength) {
                         Log.e(TAG, "downloadLength:" + downloadLength);
@@ -112,10 +111,24 @@ public class SingleFileDownloadTask implements Runnable {
         }
     }
 
-    private void onFileDownloadFromStart() {
+    private FileDownloadStateDao getFileDownloadDao() {
+        return AppDatabase.getInstance(AppManager.Companion.getInstance().getContext()).getFileDownloadDao();
+    }
+
+    /**
+     * 下载中
+     */
+    private void onFileDownloading() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DownStatus.DOWNLOAD_FROM_START);
-        b.setTotalSize(fileLength);
+        b.setStatus(DownStatus.DOWNLOADING);
+        b.setTotalSize(this.fileLength);
+        b.setDownloadSize(this.downloadLength);
+        //从起始位置下载时插入数据
+        if (startPos == 0) {
+            getFileDownloadDao().save(b);
+        } else {//更新数据
+            getFileDownloadDao().update(b.getStatus(), b.getDownloadSize(), b.getUrl());
+        }
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 
@@ -127,16 +140,9 @@ public class SingleFileDownloadTask implements Runnable {
         CustomFileDownloadManager.getInstance().removeTask(url);
         FileDownloadStateBean b = new FileDownloadStateBean(url);
         b.setStatus(DownStatus.DOWNLOAD_PAUSE);
-        EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
-    }
-
-    /**
-     * 下载中
-     */
-    private void onFileDownloading() {
-        FileDownloadStateBean b = new FileDownloadStateBean(url);
-        b.setStatus(DownStatus.DOWNLOADING);
+        b.setTotalSize(this.fileLength);
         b.setDownloadSize(this.downloadLength);
+        getFileDownloadDao().update(b);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 
@@ -146,6 +152,9 @@ public class SingleFileDownloadTask implements Runnable {
     private void onFileDownloaded() {
         FileDownloadStateBean b = new FileDownloadStateBean(url);
         b.setStatus(DownStatus.DOWNLOAD_COMPLETED);
+        b.setTotalSize(this.fileLength);
+        b.setDownloadSize(this.fileLength);
+        getFileDownloadDao().update(b);
         EventBus.getDefault().post(b, EventBusEvent.FILE_DOWNLOAD_STATE_CHANGED);
     }
 

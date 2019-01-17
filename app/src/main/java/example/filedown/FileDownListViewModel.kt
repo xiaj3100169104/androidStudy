@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import com.style.app.FileDirConfig
 import com.style.base.BaseViewModel
+import com.style.data.net.file.FileDownloadStateBean
 import com.style.data.net.file.SingleFileDownloadTask
 import com.style.threadPool.CustomFileDownloadManager
 
@@ -22,12 +23,21 @@ class FileDownListViewModel(application: Application) : BaseViewModel(applicatio
     val files = MutableLiveData<ArrayList<CustomFileBean>>()
 
     fun getData() {
-        val da = arrayListOf<CustomFileBean>()
+        var locals = getDataBase().fileDownloadDao.getAll()
+        val dataList = arrayListOf<CustomFileBean>()
         urls.forEachIndexed { index, s ->
             val f = CustomFileBean(s, titles[index], fileNames[index])
-            da.add(f)
+            dataList.add(f)
         }
-        files.postValue(da)
+        for (i in dataList.indices) {
+            for (j in locals.indices) {
+                if (dataList[i].url.equals(locals[j].url)) {
+                    dataList[i].fileStatus = locals[j]
+                    break
+                }
+            }
+        }
+        files.postValue(dataList)
     }
 
     fun downloadAllFile(dataList: ArrayList<CustomFileBean>) {

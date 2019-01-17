@@ -33,7 +33,7 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
         if (state != null) {
             when (state.status) {
                 DownStatus.NOT_DOWNLOAD -> btnDescribe = "下载"
-                DownStatus.DOWNLOAD_FROM_START, DownStatus.DOWNLOADING -> {
+                DownStatus.DOWNLOADING -> {
                     btnDescribe = "暂停"
                     holder.bd.progressBarDownSize.visibility = View.VISIBLE
                     val progress = (state.downloadSize.toFloat() / state.totalSize.toFloat() * 100).toInt()

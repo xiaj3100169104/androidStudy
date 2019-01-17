@@ -138,14 +138,14 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
     private fun refreshData(list: ArrayList<CustomFileBean>?) {
         if (list != null) {
             dataList.clear()
-            list.forEachIndexed { index, b ->
+            /*list.forEachIndexed { index, b ->
                 val file = File(FileDirConfig.DIR_APP_FILE, b.fileName)
                 if (file.parentFile.exists() && file.exists()) {
                     if (b.fileStatus == null)
                         b.fileStatus = FileDownloadStateBean(b.url)
                     b.fileStatus?.status = DownStatus.DOWNLOAD_COMPLETED
                 }
-            }
+            }*/
             dataList.addAll(list)
             adapter.notifyDataSetChanged()
         }
@@ -156,25 +156,7 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
     private fun onFileDownloadStateChanged(f: FileDownloadStateBean) {
         for (i in dataList.indices) {
             if (dataList[i].url.equals(f.url)) {
-                var state = dataList[i].fileStatus
-                if (state == null)
-                    state = FileDownloadStateBean(dataList[i].url)
-                state.status = f.status
-                when (f.status) {
-                    DownStatus.DOWNLOAD_FROM_START -> {
-                        state.totalSize = f.totalSize
-                        state.downloadSize = 0
-                    }
-                    DownStatus.DOWNLOADING -> {
-                        state.downloadSize = f.downloadSize
-                    }
-                    DownStatus.DOWNLOAD_COMPLETED -> {
-                        state.downloadSize = state.totalSize
-                    }
-                    DownStatus.DOWNLOAD_PAUSE -> {
-                    }
-                }
-                dataList[i].fileStatus = state
+                dataList[i].fileStatus = f
                 adapter.notifyItemChanged(i)
                 break
             }

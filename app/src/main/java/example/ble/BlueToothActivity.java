@@ -73,7 +73,7 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private boolean isRegisterBroadcastReceiver;
     private Disposable mLocationTask;
     private volatile boolean isCalculating;
-    private String[] macs = {"1918FC07D743", "1918FC07D3EA"};//, "1918FC0989BD", "1918FC098B34"};
+    private String[] macs = {"1918FC0989BD", "1918FC098B34"};//"1918FC07D743", "1918FC07D3EA"};
     private HashMap<String, ArrayList<Integer>> mBleMap = new HashMap<>();
     private String fileName;
     private TextView[] tvSignals = new TextView[4];
@@ -194,8 +194,8 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 String macAddress = device.toString().replace(":", "");
-                if (!isCalculating && (macAddress.equals("1918FC07D743") || macAddress.equals("1918FC07D3EA"))) {
-                    //logE("LeScanCallback", device.toString() + "  " + rssi);
+                if (!isCalculating && (macAddress.equals("1918FC0989BD") || macAddress.equals("1918FC098B34"))) {
+                    logE("LeScanCallback", device.toString() + "  " + rssi);
                     String ss = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
                     saveAndNewLine(ss);
                     for (int i = 0; i < 2; i++) {
@@ -210,7 +210,7 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                     //开始采集
                     if (rssi >= -94) {
                         String s2 = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(String.valueOf(rssi)).toString();
-                        if (macAddress.equals("1918FC07D743")) {
+                        if (macAddress.equals("1918FC0989BD")) {
                             datas1.add(s2);
                         } else {
                             datas2.add(s2);
@@ -301,9 +301,7 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                 //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
                 //dealData(device, ad.localName, rssi);
             }
-        }
-
-        ;
+        };
         mBluetoothAdapter.startLeScan(mLeScanCallback);
     }
 

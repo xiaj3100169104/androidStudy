@@ -55,6 +55,6 @@ class FileDownloadServiceModel(application: Application) : BaseServiceModel() {
     }
 
     fun shutdown() {
-        CustomFileDownloadManager.getInstance().shutdown()
+        CustomFileDownloadManager.getInstance().shutdownNow()
     }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable
  * 文件下载状态事件实体
  */
 @Entity(tableName = "file_download")
-class FileDownloadStateBean : Serializable {
+open class FileDownloadStateBean : Serializable {
     @PrimaryKey
     @ColumnInfo(name = "url")
     @NonNull

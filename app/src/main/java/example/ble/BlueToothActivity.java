@@ -73,13 +73,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private boolean isRegisterBroadcastReceiver;
     private Disposable mLocationTask;
     private volatile boolean isCalculating;
-    private String[] macs = {"1918FC0989BD", "1918FC098B34"};//"1918FC07D743", "1918FC07D3EA"};
     private HashMap<String, ArrayList<Integer>> mBleMap = new HashMap<>();
     private String fileName;
     private TextView[] tvSignals = new TextView[4];
     private ArrayList<Integer> datas = new ArrayList<>();
-    private ArrayList<String> datas1 = new ArrayList<>(1000);
-    private ArrayList<String> datas2 = new ArrayList<>(1000);
+
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -194,115 +192,125 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 String macAddress = device.toString().replace(":", "");
-                if (!isCalculating && (macAddress.equals("1918FC0989BD") || macAddress.equals("1918FC098B34"))) {
-                    logE("LeScanCallback", device.toString() + "  " + rssi);
-                    String ss = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-                    saveAndNewLine(ss);
-                    for (int i = 0; i < 2; i++) {
-                        if (macAddress.equals(macs[i])) {
-                            tvSignals[i].setText(rssi + "");
-                            //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-                            //saveAndNewLine(s);
-                            break;
-                        }
-                    }
-                    //saveList(macAddress, rssi);
-                    //开始采集
-                    if (rssi >= -94) {
-                        String s2 = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(String.valueOf(rssi)).toString();
-                        if (macAddress.equals("1918FC0989BD")) {
-                            datas1.add(s2);
-                        } else {
-                            datas2.add(s2);
-                        }
-                    }
-                    //结束
-                    if (rssi < -94) {
-                        isCalculating = true;
-                        if (datas1.size() > 2 && datas2.size() > 2) {
-                            int index1 = 0;
-                            String[] s1 = datas1.get(index1).split(",");
-                            Integer max1 = Integer.valueOf(s1[1]);
-                            for (int j = 0; j < datas1.size(); j++) {
-                                Integer v = Integer.valueOf(datas1.get(j).split(",")[1]);
-                                if (v > max1) {
-                                    max1 = v;
-                                    index1 = j;
-                                }
-                            }
-                            Long maxTime1 = Long.valueOf(datas1.get(index1).split(",")[0]);
+                calculate(macAddress, rssi);
 
-                            int index2 = 0;
-                            String[] s2 = datas2.get(index2).split(",");
-                            Integer max2 = Integer.valueOf(s2[1]);
-                            for (int j = 0; j < datas2.size(); j++) {
-                                Integer v = Integer.valueOf(datas2.get(j).split(",")[1]);
-                                if (v > max2) {
-                                    max2 = v;
-                                    index2 = j;
-                                }
-                            }
-                            Long maxTime2 = Long.valueOf(datas2.get(index2).split(",")[0]);
 
-                            if (maxTime1 < maxTime2) {
-                                int total12 = 0;
-                                int count = 0;
-                                for (int j = 0; j < datas1.size(); j++) {
-                                    String[] s = datas1.get(j).split(",");
-                                    if (Long.valueOf(s[0]) > maxTime2) {
-                                        total12 += Integer.valueOf(s[1]);
-                                        count++;
-                                    }
-                                }
-                                float r1End = (total12 + 0.0f) / (count + 0.01f);
-
-                                int total21 = 0;
-                                for (int j = index2 + 1; j < datas2.size(); j++) {
-                                    total21 += Integer.valueOf(datas2.get(j).split(",")[1]);
-                                }
-                                float r2End = (total21 + 0.0f) / (datas2.size() - (index2 + 1) + 0.01f);
-                                if (r1End < r2End)
-                                    bd.tvLocation.setText("进门");
-                                else {
-                                    bd.tvLocation.setText("无法识别");
-                                }
-                            }
-                            if (maxTime1 > maxTime2) {
-                                int total12 = 0;
-                                for (int j = index1 + 1; j < datas1.size(); j++) {
-                                    total12 += Integer.valueOf(datas1.get(j).split(",")[1]);
-                                }
-                                float r1End = (total12 + 0.0f) / (datas1.size() - (index1 + 1) + 0.01f);
-
-                                int total21 = 0;
-                                int count = 0;
-                                for (int j = 0; j < datas2.size(); j++) {
-                                    String[] s = datas2.get(j).split(",");
-                                    if (Long.valueOf(s[0]) > maxTime1) {
-                                        total21 += Integer.valueOf(s[1]);
-                                        count++;
-                                    }
-                                }
-                                float r2End = (total21 + 0.0f) / (count + 0.01f);
-                                if (r1End > r2End)
-                                    bd.tvLocation.setText("出门");
-                                else {
-                                    bd.tvLocation.setText("无法识别");
-                                }
-                            }
-                        } else {
-                            bd.tvLocation.setText("不足3条数据");
-                        }
-                        datas1.clear();
-                        datas2.clear();
-                        isCalculating = false;
-                    }
-                }
                 //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
                 //dealData(device, ad.localName, rssi);
             }
         };
         mBluetoothAdapter.startLeScan(mLeScanCallback);
+    }
+
+    private String[] macs = {"1918FC0989BD", "1918FC098B34"};//"1918FC07D743", "1918FC07D3EA"};
+    private ArrayList<String> datas1 = new ArrayList<>(1000);
+    private ArrayList<String> datas2 = new ArrayList<>(1000);
+
+    private void calculate(String macAddress, int rssi) {
+        if (!isCalculating && (macAddress.equals(macs[0]) || macAddress.equals(macs[1]))) {
+            logE("LeScanCallback", macAddress + "  " + rssi);
+            String ss = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+            saveAndNewLine(ss);
+            for (int i = 0; i < 2; i++) {
+                if (macAddress.equals(macs[i])) {
+                    tvSignals[i].setText(rssi + "");
+                    //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
+                    //saveAndNewLine(s);
+                    break;
+                }
+            }
+            //saveList(macAddress, rssi);
+            //开始采集
+            if (rssi >= -94) {
+                String s2 = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(String.valueOf(rssi)).toString();
+                if (macAddress.equals(macs[0])) {
+                    datas1.add(s2);
+                } else {
+                    datas2.add(s2);
+                }
+            }
+            //结束
+            if (rssi < -94) {
+                isCalculating = true;
+                if (datas1.size() > 2 && datas2.size() > 2) {
+                    int index1 = 0;
+                    String[] s1 = datas1.get(index1).split(",");
+                    Integer max1 = Integer.valueOf(s1[1]);
+                    for (int j = 0; j < datas1.size(); j++) {
+                        Integer v = Integer.valueOf(datas1.get(j).split(",")[1]);
+                        if (v > max1) {
+                            max1 = v;
+                            index1 = j;
+                        }
+                    }
+                    Long maxTime1 = Long.valueOf(datas1.get(index1).split(",")[0]);
+
+                    int index2 = 0;
+                    String[] s2 = datas2.get(index2).split(",");
+                    Integer max2 = Integer.valueOf(s2[1]);
+                    for (int j = 0; j < datas2.size(); j++) {
+                        Integer v = Integer.valueOf(datas2.get(j).split(",")[1]);
+                        if (v > max2) {
+                            max2 = v;
+                            index2 = j;
+                        }
+                    }
+                    Long maxTime2 = Long.valueOf(datas2.get(index2).split(",")[0]);
+
+                    if (maxTime1 < maxTime2) {
+                        int total12 = 0;
+                        int count = 0;
+                        for (int j = 0; j < datas1.size(); j++) {
+                            String[] s = datas1.get(j).split(",");
+                            if (Long.valueOf(s[0]) > maxTime2) {
+                                total12 += Integer.valueOf(s[1]);
+                                count++;
+                            }
+                        }
+                        float r1End = (total12 + 0.0f) / (count + 0.01f);
+
+                        int total21 = 0;
+                        for (int j = index2 + 1; j < datas2.size(); j++) {
+                            total21 += Integer.valueOf(datas2.get(j).split(",")[1]);
+                        }
+                        float r2End = (total21 + 0.0f) / (datas2.size() - (index2 + 1) + 0.01f);
+                        if (r1End < r2End)
+                            bd.tvLocation.setText("进门");
+                        else {
+                            bd.tvLocation.setText("无法识别");
+                        }
+                    }
+                    if (maxTime1 > maxTime2) {
+                        int total12 = 0;
+                        for (int j = index1 + 1; j < datas1.size(); j++) {
+                            total12 += Integer.valueOf(datas1.get(j).split(",")[1]);
+                        }
+                        float r1End = (total12 + 0.0f) / (datas1.size() - (index1 + 1) + 0.01f);
+
+                        int total21 = 0;
+                        int count = 0;
+                        for (int j = 0; j < datas2.size(); j++) {
+                            String[] s = datas2.get(j).split(",");
+                            if (Long.valueOf(s[0]) > maxTime1) {
+                                total21 += Integer.valueOf(s[1]);
+                                count++;
+                            }
+                        }
+                        float r2End = (total21 + 0.0f) / (count + 0.01f);
+                        if (r1End > r2End)
+                            bd.tvLocation.setText("出门");
+                        else {
+                            bd.tvLocation.setText("无法识别");
+                        }
+                    }
+                } else {
+                    bd.tvLocation.setText("不足3条数据");
+                }
+                datas1.clear();
+                datas2.clear();
+                isCalculating = false;
+            }
+        }
     }
 
     /**

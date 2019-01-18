@@ -44,7 +44,7 @@ public final class CustomFileDownloadManager {
     public static final String FLAG_CONTINUE_DOWNLOAD = "flag_continue_download";
     public static final String FLAG_BATCH_DOWNLOAD = "flag_batch_download";
 
-    private Map<String, Future> mTaskMap = new HashMap();
+    private HashMap<String, Future> mTaskMap = new HashMap<>();
     private CustomFileDownloadThreadPoolExecutor mThreadPool;
     private static final Object mLock = new Object();
     private static volatile CustomFileDownloadManager mInstance;

@@ -1,9 +1,5 @@
 package com.style.entity;
 
-/**
- * Created by xiajun on 2017/12/21.
- */
-
 public class KuaiDi {
     public String time;
     public String ftime;

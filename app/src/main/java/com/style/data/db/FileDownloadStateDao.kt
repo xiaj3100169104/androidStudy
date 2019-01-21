@@ -2,8 +2,6 @@ package com.style.data.db
 
 import android.arch.persistence.room.*
 import com.style.data.net.file.FileDownloadStateBean
-import com.style.entity.TestRoom
-import java.util.ArrayList
 
 @Dao
 interface FileDownloadStateDao {

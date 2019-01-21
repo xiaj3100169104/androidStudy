@@ -14,14 +14,6 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_start"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:onClick="openBluetooth"
-                android:text="开启" />
-
-            <Button
                 android:id="@+id/btn_bind"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
@@ -37,73 +29,6 @@
                 android:onClick="stopScan"
                 android:text="停止扫描" />
 
-            <Button
-                android:id="@+id/btn_stop"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:onClick="close"
-                android:text="关闭" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_get_location"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="计算坐标" />
-
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="(x,y)" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_signal_1"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="(x,y)" />
-
-            <TextView
-                android:id="@+id/tv_signal_2"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="(x,y)" />
-
-            <TextView
-                android:id="@+id/tv_signal_3"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="(x,y)" />
-
-            <TextView
-                android:id="@+id/tv_signal_4"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="(x,y)" />
         </LinearLayout>
 
         <RelativeLayout

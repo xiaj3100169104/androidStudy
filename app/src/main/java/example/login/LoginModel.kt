@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.style.base.BaseViewModel
-import com.style.entity.User
+import com.style.entity.UserInfo
 import com.style.data.prefs.AppPrefsManager
 import java.net.URL
 import java.security.MessageDigest
@@ -20,7 +20,7 @@ import kotlin.experimental.and
 class LoginModel(application: Application) : BaseViewModel(application) {
 
     internal var loginSucceed = ObservableBoolean(false)
-    internal var user = ObservableField<User>()
+    internal var user = ObservableField<UserInfo>()
     var loginState = MutableLiveData<Boolean>()
 
     fun login() {
@@ -36,7 +36,7 @@ class LoginModel(application: Application) : BaseViewModel(application) {
                 }
             }).start();*/
 
-        val u = User("sfsf", "fasfgasfg")
+        val u = UserInfo("sfsf", "fasfgasfg")
         user.set(u)
         u.password = "123456"
         //loginSucceed.set(true);
@@ -49,7 +49,7 @@ class LoginModel(application: Application) : BaseViewModel(application) {
     }
 
     fun login(userName: String, password: String) {
-        val user = User(userName, password)
+        val user = UserInfo(userName, password)
         AppPrefsManager.getInstance().setCurrentUser(user)
         synData()
         val d = getHttpApi().login(userName, password).subscribe({

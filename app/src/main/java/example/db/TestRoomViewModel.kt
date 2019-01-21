@@ -3,22 +3,21 @@ package example.db
 import android.app.Application
 import android.util.Log
 import com.style.base.BaseViewModel
-import com.style.entity.TestRoom
-import com.style.data.db.AppDatabase
+import com.style.entity.UserBean
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TestRoomViewModel(application: Application) : BaseViewModel(application) {
 
     fun saveOne() {
-        val b = TestRoom(UUID.randomUUID().toString(), "one", "one", 1, System.currentTimeMillis(), 1)
+        val b = UserBean(UUID.randomUUID().toString(), "one", "one", 1, System.currentTimeMillis(), 1)
         getDataBase().testRoomDao.save(b)
     }
 
     fun saveList() {
-        val list = ArrayList<TestRoom>()
+        val list = ArrayList<UserBean>()
         for (i in 0..10) {
-            val b = TestRoom(UUID.randomUUID().toString(), i.toString(), i.toString(), i, System.currentTimeMillis(), i)
+            val b = UserBean(UUID.randomUUID().toString(), i.toString(), i.toString(), i, System.currentTimeMillis(), i)
             list.add(b)
         }
         getDataBase().testRoomDao.save(list)

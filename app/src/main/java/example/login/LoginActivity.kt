@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 
 import com.style.base.BaseTransparentStatusBarActivity
-import com.style.entity.User
+import com.style.entity.UserInfo
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
 
@@ -75,7 +75,7 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
         //mPresenter.login(userId, password);
     }
 
-    fun setUserView(user: User) {
+    fun setUserView(user: UserInfo) {
         bd.etAccount.setText(user.userName)
         bd.etPassword.setText(user.password)
     }

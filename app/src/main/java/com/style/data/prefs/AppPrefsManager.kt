@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 
 import com.alibaba.fastjson.JSON
-import com.style.entity.User
+import com.style.entity.UserInfo
 import com.style.utils.AESCipher
 
 class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数实例化 */ {
@@ -37,7 +37,7 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
 
     private constructor()
 
-    private var currentUser: User? = null
+    private var currentUser: UserInfo? = null
     lateinit var loginSharedPreferences: SharedPreferences
 
     fun init(context: Context) {
@@ -92,7 +92,7 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
     }
 
 
-    fun setCurrentUser(user: User?) {
+    fun setCurrentUser(user: UserInfo?) {
         if (user != null) {
             val account = user.userId
             currentAccount = user.userId
@@ -103,7 +103,7 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
     }
 
 
-    fun getCurrentUser(): User? {
+    fun getCurrentUser(): UserInfo? {
         if (currentUser == null) {
             val account = currentAccount
             if (!TextUtils.isEmpty(account))
@@ -112,8 +112,8 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
         return currentUser
     }
 
-    fun getUser(account: String?): User? {
-        val user: User? = null
+    fun getUser(account: String?): UserInfo? {
+        val user: UserInfo? = null
         if (user != null) {
             user.password = getPassword(account)
             user.signKey = signKey
@@ -127,7 +127,7 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
         signKey = ""
     }
 
-    fun saveUserEncrypt(user: User) {
+    fun saveUserEncrypt(user: UserInfo) {
         val beforeEncrypt = JSON.toJSONString(user)
         Log.e(TAG, "加密前 -> $beforeEncrypt")
         try {
@@ -146,7 +146,7 @@ class AppPrefsManager/* 私有构造方法，防止被JAVA默认的构造函数�
         try {
             val k = AESCipher.aesDecryptString(beforeDescrypt, "abcdabcdabcdabcd")
             Log.e(TAG, "解密后 -> $k")
-            val user = JSON.parseObject(k, User::class.java)
+            val user = JSON.parseObject(k, UserInfo::class.java)
             user.toString()
         } catch (e: Exception) {
             e.printStackTrace()

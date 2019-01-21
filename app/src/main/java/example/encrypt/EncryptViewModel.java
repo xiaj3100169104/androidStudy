@@ -4,7 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.style.base.BaseViewModel;
-import com.style.entity.User;
+import com.style.entity.UserInfo;
 
 /**
  * Created by xiajun on 2018/6/21.
@@ -18,7 +18,7 @@ public class EncryptViewModel extends BaseViewModel {
     }
 
     public void saveUser() {
-        User user = new User("123456789", "zxcvbnm");
+        UserInfo user = new UserInfo("123456789", "zxcvbnm");
         user.setSex("男");
         user.setTelPhone("17364814713");
         user.setUserName("夏军");

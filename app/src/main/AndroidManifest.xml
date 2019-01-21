@@ -54,7 +54,7 @@
         android:name="com.style.app.MyApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="study"
+        android:label="@string/app_name"
         android:resizeableActivity="false"
         android:supportsRtl="false"
         android:theme="@style/BaseAppTheme"
@@ -100,9 +100,7 @@
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
-        <!--
-                <activity android:name="example.ble.BlueToothActivity" />
-        -->
+        <activity android:name="example.ble.BlueToothActivity" />
         <activity android:name="example.ble.BLEActivity" />
         <activity android:name="example.wifi.WifiTestActivity" />
         <activity android:name="example.queue.QueueTestActivity" />

@@ -10,30 +10,34 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.style.data.net.file.FileDownloadStateBean;
-import com.style.entity.TestRoom;
+import com.style.entity.UserBean;
 
 /**
  * 单例和静态常量不用kotlin，写法麻烦
  */
-@Database(entities = {TestRoom.class,FileDownloadStateBean.class}, version = 2, exportSchema = false)
+@Database(entities = {UserBean.class, FileDownloadStateBean.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "TestRoomDataBase";
+    private static final String DB_NAME = "room_database.db";
 
     private static AppDatabase instance = null;
+    private static final Object mLock = new Object();
 
     public static AppDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context, AppDatabase.class, "room_database.db").addCallback(new RoomDatabase.Callback() {
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    Log.i(TAG, "onCreate:" + db.getPath());
-                }
+        synchronized (mLock) {
+            if (instance == null) {
+                instance = Room.databaseBuilder(context, AppDatabase.class, DB_NAME).addCallback(new RoomDatabase.Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        Log.i(TAG, "onCreate:" + db.getPath());
+                    }
 
-                @Override
-                public void onOpen(@NonNull SupportSQLiteDatabase db) {
-                    Log.i(TAG, "onOpen:" + db.getPath());
-                }
-            }).allowMainThreadQueries().addMigrations(MIGRATION_1_2).build();
+                    @Override
+                    public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                        Log.i(TAG, "onOpen:" + db.getPath());
+                    }
+                }).allowMainThreadQueries().addMigrations(MIGRATION_1_2).build();
+            }
         }
         return instance;
     }
@@ -65,7 +69,7 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
-    public abstract TestRoomDao getTestRoomDao();
+    public abstract UserBeanDao getTestRoomDao();
 
     public abstract FileDownloadStateDao getFileDownloadDao();
 }

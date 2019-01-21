@@ -1,13 +1,13 @@
 package example.newwork.response;
 
 
-import com.style.entity.User;
+import com.style.entity.UserInfo;
 
 import java.io.Serializable;
 
 public class LoginBean implements Serializable {
     public String token;
-    public User friend;
+    public UserInfo friend;
 
     public String getToken() {
         return token;

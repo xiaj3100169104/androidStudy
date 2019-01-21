@@ -24,7 +24,6 @@ import java.io.File
 import java.util.ArrayList
 import android.support.v7.widget.SimpleItemAnimator
 import com.style.data.net.exception.CustomRuntimeException
-import com.style.entity.UserTest
 import com.style.threadPool.CustomFileDownloadManager
 import example.service.fileDownload.FileDownloadService
 

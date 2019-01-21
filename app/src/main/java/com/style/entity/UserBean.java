@@ -6,8 +6,8 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "test_room")
-public class TestRoom {
+@Entity(tableName = "user_table")
+public class UserBean {
     @PrimaryKey
     @ColumnInfo(name = "id")
     @NonNull
@@ -23,10 +23,10 @@ public class TestRoom {
     @Ignore
     public int age;
 
-    public TestRoom() {
+    public UserBean() {
     }
 
-    public TestRoom(@NonNull String id, String name, String phone, int sex, long updateTime, int age) {
+    public UserBean(@NonNull String id, String name, String phone, int sex, long updateTime, int age) {
         this.id = id;
         this.name = name;
         this.phone = phone;

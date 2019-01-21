@@ -1,7 +1,6 @@
 package example.ble;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -22,9 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
-import com.style.app.FileDirConfig;
 import com.style.base.BaseDefaultTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
@@ -33,25 +30,10 @@ import com.style.view.systemHelper.DividerItemDecoration;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import example.media.audio.Complex;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 public class BlueToothActivity extends BaseDefaultTitleBarActivity {
@@ -61,23 +43,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothLeScanner mScanner;
     private ScanCallback mScanCallback;
-
     private BluetoothAdapter.LeScanCallback mLeScanCallback;
-
     private ArrayList<BluetoothBean> dataList;
     private LinearLayoutManager layoutManager;
     private BluetoothDeviceAdapter adapter;
-    private File f;
-    private BufferedWriter bufferedReader;
-    private ArrayList<TestLineData> mModelList = new ArrayList<>();
     private boolean isRegisterBroadcastReceiver;
-    private Disposable mLocationTask;
-    private volatile boolean isCalculating;
-    private HashMap<String, ArrayList<Integer>> mBleMap = new HashMap<>();
-    private String fileName;
-    private TextView[] tvSignals = new TextView[4];
-    private ArrayList<Integer> datas = new ArrayList<>();
-
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -85,67 +55,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         setContentView(R.layout.activity_bluetooth);
         bd = getBinding();
         setToolbarTitle("蓝牙测试");
-        mBleMap.put(macs[0], new ArrayList<>());
-        mBleMap.put(macs[1], new ArrayList<>());
-        //mBleMap.put(macs[2], new ArrayList<>());
-        //mBleMap.put(macs[3], new ArrayList<>());
-        tvSignals[0] = bd.tvSignal1;
-        tvSignals[1] = bd.tvSignal2;
-        tvSignals[2] = bd.tvSignal3;
-        tvSignals[3] = bd.tvSignal4;
         initData();
-        initModelData();
-        bd.btnGetLocation.setOnClickListener(v -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                calculateLocation(mModelList, new float[]{-60.92307692f, -68.43333333f, -71.64f, -62.04285714f});
-            }
-        });
+        openBluetooth();
     }
 
-    private void calculateLocation(List<TestLineData> data, float[] test) {
-        for (TestLineData d : data) {
-            //List<Float> fict = new ArrayList<>();
-            float mse = 0.0f;
-            for (int i = 0; i < 4; i++) {
-                mse += Math.pow(d.signals[i] - test[i], 2);
-                //fict.add(mse);
-            }
-            d.mse = mse;
-            //fict.sort((o1, o2) -> o1.compareTo(o2));
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            data.sort((o1, o2) -> o1.mse.compareTo(o2.mse));
-        }
-        TestLineData t1 = data.get(0);
-        TestLineData t2 = data.get(1);
-        TestLineData t3 = data.get(2);
-        float k = 1 / t1.mse + 1 / t2.mse + 1 / t3.mse;
-        float x = (1 / t1.mse * t1.d1 + 1 / t2.mse * t2.d1 + 1 / t3.mse * t3.d1) / k;
-        float y = (1 / t1.mse * t1.d4 + 1 / t2.mse * t2.d4 + 1 / t3.mse * t3.d4) / k;
-        x = x / 1000f;
-        y = y / 1000f;
-        String s = new StringBuilder("(").append(String.format("%.2f", x)).append(",").append(String.format("%.2f", y)).append(")").toString();
-        bd.tvLocation.setText(s);
-    }
-
-    private void initModelData() {
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(FileDirConfig.DIR_APP + "/" + "bledata.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] s = line.split(",");
-                TestLineData b = new TestLineData(s);
-                mModelList.add(b);
-            }
-            bufferedReader.close(); //关闭缓冲读取器
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void openBluetooth(View v) {
+    public void openBluetooth() {
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
         if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
@@ -175,275 +89,14 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
     }
 
     private void startLeScan() {
-        fileName = "blueInfo" + new SimpleDateFormat("yyyy-MM-dd_hh_mm_ss").format(new Date()) + ".csv";
-        f = new File(FileDirConfig.DIR_APP + "/" + fileName);
-        if (!f.getParentFile().exists())
-            f.getParentFile().mkdirs();
-        FileWriter fileReader = null;
-        try {
-            fileReader = new FileWriter(f, true);
-            bufferedReader = new BufferedWriter(fileReader);
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-        //startCalculateLocationTask();
-        //startCalculateRoomTask();
         mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
                 String macAddress = device.toString().replace(":", "");
-                calculate(macAddress, rssi);
-
-
-                //ParsedAd ad = BluetoothUtil.parseData(scanRecord);
-                //dealData(device, ad.localName, rssi);
+                logE("LeScanCallback", macAddress + "  " + rssi);
             }
         };
         mBluetoothAdapter.startLeScan(mLeScanCallback);
-    }
-
-    private String[] macs = {"1918FC0989BD", "1918FC098B34"};//"1918FC07D743", "1918FC07D3EA"};
-    private ArrayList<String> datas1 = new ArrayList<>(1000);
-    private ArrayList<String> datas2 = new ArrayList<>(1000);
-
-    private void calculate(String macAddress, int rssi) {
-        if (!isCalculating && (macAddress.equals(macs[0]) || macAddress.equals(macs[1]))) {
-            logE("LeScanCallback", macAddress + "  " + rssi);
-            String ss = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-            saveAndNewLine(ss);
-            for (int i = 0; i < 2; i++) {
-                if (macAddress.equals(macs[i])) {
-                    tvSignals[i].setText(rssi + "");
-                    //String s = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(macAddress).append(",").append(String.valueOf(rssi)).toString();
-                    //saveAndNewLine(s);
-                    break;
-                }
-            }
-            //saveList(macAddress, rssi);
-            //开始采集
-            if (rssi >= -94) {
-                String s2 = new StringBuffer().append(String.valueOf(System.currentTimeMillis())).append(",").append(String.valueOf(rssi)).toString();
-                if (macAddress.equals(macs[0])) {
-                    datas1.add(s2);
-                } else {
-                    datas2.add(s2);
-                }
-            }
-            //结束
-            if (rssi < -94) {
-                isCalculating = true;
-                if (datas1.size() > 2 && datas2.size() > 2) {
-                    int index1 = 0;
-                    String[] s1 = datas1.get(index1).split(",");
-                    Integer max1 = Integer.valueOf(s1[1]);
-                    for (int j = 0; j < datas1.size(); j++) {
-                        Integer v = Integer.valueOf(datas1.get(j).split(",")[1]);
-                        if (v > max1) {
-                            max1 = v;
-                            index1 = j;
-                        }
-                    }
-                    Long maxTime1 = Long.valueOf(datas1.get(index1).split(",")[0]);
-
-                    int index2 = 0;
-                    String[] s2 = datas2.get(index2).split(",");
-                    Integer max2 = Integer.valueOf(s2[1]);
-                    for (int j = 0; j < datas2.size(); j++) {
-                        Integer v = Integer.valueOf(datas2.get(j).split(",")[1]);
-                        if (v > max2) {
-                            max2 = v;
-                            index2 = j;
-                        }
-                    }
-                    Long maxTime2 = Long.valueOf(datas2.get(index2).split(",")[0]);
-
-                    if (maxTime1 < maxTime2) {
-                        int total12 = 0;
-                        int count = 0;
-                        for (int j = 0; j < datas1.size(); j++) {
-                            String[] s = datas1.get(j).split(",");
-                            if (Long.valueOf(s[0]) > maxTime2) {
-                                total12 += Integer.valueOf(s[1]);
-                                count++;
-                            }
-                        }
-                        float r1End = (total12 + 0.0f) / (count + 0.01f);
-
-                        int total21 = 0;
-                        for (int j = index2 + 1; j < datas2.size(); j++) {
-                            total21 += Integer.valueOf(datas2.get(j).split(",")[1]);
-                        }
-                        float r2End = (total21 + 0.0f) / (datas2.size() - (index2 + 1) + 0.01f);
-                        if (r1End < r2End)
-                            bd.tvLocation.setText("进门");
-                        else {
-                            bd.tvLocation.setText("无法识别");
-                        }
-                    }
-                    if (maxTime1 > maxTime2) {
-                        int total12 = 0;
-                        for (int j = index1 + 1; j < datas1.size(); j++) {
-                            total12 += Integer.valueOf(datas1.get(j).split(",")[1]);
-                        }
-                        float r1End = (total12 + 0.0f) / (datas1.size() - (index1 + 1) + 0.01f);
-
-                        int total21 = 0;
-                        int count = 0;
-                        for (int j = 0; j < datas2.size(); j++) {
-                            String[] s = datas2.get(j).split(",");
-                            if (Long.valueOf(s[0]) > maxTime1) {
-                                total21 += Integer.valueOf(s[1]);
-                                count++;
-                            }
-                        }
-                        float r2End = (total21 + 0.0f) / (count + 0.01f);
-                        if (r1End > r2End)
-                            bd.tvLocation.setText("出门");
-                        else {
-                            bd.tvLocation.setText("无法识别");
-                        }
-                    }
-                } else {
-                    bd.tvLocation.setText("不足3条数据");
-                }
-                datas1.clear();
-                datas2.clear();
-                isCalculating = false;
-            }
-        }
-    }
-
-    /**
-     * 实时存取，不存SD卡
-     *
-     * @param macAddress
-     * @param rssi
-     */
-    private void saveList(String macAddress, int rssi) {
-        if (macAddress.equals("1918FC07D743") || macAddress.equals("1918FC07D3EA")) {
-            for (int i = 0; i < 2; i++) {
-                if (macAddress.equals(macs[i])) {
-                    tvSignals[i].setText(rssi + "");
-                    break;
-                }
-            }
-            mBleMap.get(macAddress).add(rssi);
-        }
-    }
-
-    public void saveAndNewLine(String s) {
-        try {
-            bufferedReader.newLine();
-            bufferedReader.write(s);
-            bufferedReader.flush();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @SuppressLint("CheckResult")
-    private void startCalculateRoomTask() {
-        mLocationTask = Observable.interval(500, TimeUnit.MILLISECONDS).subscribe(aLong -> {
-            //正在计算，因为数据源不能边读边写。
-            isCalculating = true;
-            float[] mSignal = new float[]{100, 100};
-            for (int i = 0; i < macs.length; i++) {
-                ArrayList<Integer> mList = mBleMap.get(macs[i]);
-                if (mList.size() > 0) {
-                    int total = 0;
-                    for (int j = 0; j < mList.size(); j++) {
-                        int v = mList.get(j);
-                        total += v;
-                    }
-                    float a = (total + 0.0f) / (mList.size() + 0.01f);
-                    mSignal[i] = a;
-                    mList.clear();
-                }
-            }
-            if (mSignal[0] != 100 && mSignal[1] != 100) {
-                if (mSignal[1] >= -93 && mSignal[0] >= -93) {
-                    datas.add((int) (mSignal[0] - mSignal[1]));
-                }
-                if (datas.size() > 0 && mSignal[1] < -93 || mSignal[0] < -93) {
-                    int offset = datas.size() / 3;
-                    int startPlusCount = 0, startSubCont = 0, endPlusCount = 0, endSubCont = 0;
-                    for (int i = 0; i < datas.size(); i++) {
-                        if (i <= offset) {
-                            if (datas.get(i) > 0) {
-                                startPlusCount++;
-                            } else {
-                                startSubCont++;
-                            }
-                        } else if (i >= datas.size() - offset) {
-                            if (datas.get(i) > 0) {
-                                endPlusCount++;
-                            } else {
-                                endSubCont++;
-                            }
-                        }
-                    }
-                    datas.clear();
-                    int start = startPlusCount - startSubCont;
-                    int end = endPlusCount - endSubCont;
-                    if ((start > 0 && end < 0) || (start > 0 && end > 0))
-                        bd.tvLocation.setText("进门");
-                    if ((start < 0 && end > 0) || (start < 0 && end < 0))
-                        bd.tvLocation.setText("出门");
-                }
-            }
-            isCalculating = false;
-        });
-    }
-
-    @SuppressLint("CheckResult")
-    private void startCalculateLocationTask() {
-        mLocationTask = Observable.interval(3, TimeUnit.SECONDS).subscribe(aLong -> {
-            //正在计算，因为数据源不能边读边写。
-            isCalculating = true;
-            FileReader fileReader;
-            try {
-                fileReader = new FileReader(f.getAbsolutePath());
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    String[] strings = line.split(",");
-                    if (strings.length == 3)
-                        for (String key : mBleMap.keySet()) {
-                            if (key.equals(strings[1])) {
-                                mBleMap.get(key).add(Integer.valueOf(strings[2]));
-                            }
-                        }
-                }
-                bufferedReader.close(); //关闭缓冲读取器
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            float[] mSignal = new float[4];
-            for (int i = 0; i < macs.length; i++) {
-                ArrayList<Integer> mList = mBleMap.get(macs[i]);
-                int total = 0, max = 0, min = 0, maxCount = 0, minCount = 0;
-                for (int j = 0; j < mList.size(); j++) {
-                    int v = mList.get(j);
-                    total += v;
-                    if (j == 0) {
-                        max = min = v;
-                    } else {
-                        max = v > max ? v : max;
-                        min = v < min ? v : min;
-                    }
-                }
-                for (Integer k : mList) {
-                    if (k == max) maxCount++;
-                    if (k == min) minCount++;
-                }
-                float a = (total - max * maxCount - min * minCount + 0.0f) / (mList.size() - maxCount - minCount + 0.01f);
-                mSignal[i] = a;
-                mList.clear();
-            }
-            calculateLocation(mModelList, mSignal);
-            isCalculating = false;
-        });
     }
 
     public void stopScan(View v) {
@@ -474,9 +127,6 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
             dataList.add(b);
             adapter.notifyDataSetChanged();
         }
-    }
-
-    public void close(View v) {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -562,13 +212,6 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                 dealData(device, device.getName(), rssi);
             } else if (intent.getAction().equals(BluetoothDevice.ACTION_PAIRING_REQUEST)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                try {
-                    // 广播接收者的优先者为最高 收到广播后 停止广播向下传递
-                    device.setPairingConfirmation(true);
-                    abortBroadcast();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 mBluetoothAdapter.cancelDiscovery();
             }
@@ -595,13 +238,50 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                     if (d.getBondState() == BluetoothDevice.BOND_NONE) {
 
                     } else if (d.getBondState() == BluetoothDevice.BOND_BONDED) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    BluetoothSocket socket = d.createInsecureRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-                                    socket.connect();
-                                    socket.getOutputStream().write(5);
+                       createBlueSocket(d);
+                    }
+                }
+            }
+        });
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            logE(getTAG(), "没有权限");
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                logE(getTAG(), "上次拒绝");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
+            } else {
+                logE(getTAG(), "请求权限");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
+            }
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                logE(getTAG(), "权限允许");
+                //getData2();
+            } else {
+                logE(getTAG(), "权限拒绝");
+                // Permission Denied
+                showToast("Permission Denied");
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void createBlueSocket(BluetoothDevice d) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    BluetoothSocket socket = d.createInsecureRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                    socket.connect();
+                    socket.getOutputStream().write(5);
 
                                     /*BluetoothServerSocket server = mBluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("myServerSocket",
                                             UUID.fromString("84D1319C-FBAF-644C-901A-8F091F25AF04"));
@@ -628,46 +308,11 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
                                     }
                                     socket.getOutputStream().write(5);
                                     socket.close();*/
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        });
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            logE(getTAG(), "没有权限");
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                logE(getTAG(), "上次拒绝");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
-            } else {
-                logE(getTAG(), "请求权限");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ENABLE_BT);
-            }
-        } else {
-
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
-        if (requestCode == REQUEST_ENABLE_BT) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(getTAG(), "权限允许");
-                //getData2();
-            } else {
-                logE(getTAG(), "权限拒绝");
-                // Permission Denied
-                showToast("Permission Denied");
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }).start();
     }
 
 }

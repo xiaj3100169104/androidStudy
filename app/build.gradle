@@ -14,7 +14,7 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
     //buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
-
+    //每个产品公共属性
     defaultConfig {
         applicationId "com.style.framework"
         minSdkVersion ANDROID_MIN_SDK_VERSION
@@ -23,8 +23,6 @@ android {
         versionName '1.1.5'
         multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        //默认渠道,按渠道首字母排序第一个
-        //manifestPlaceholders = [ENVIRONMENT: "UMENG_CHANNEL"]
         /*externalNativeBuild {
             cmake {
                 cppFlags "-frtti -fexceptions"
@@ -34,54 +32,24 @@ android {
             moduleName "helloNDK"
             abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }*/
-
     }
-    signingConfigs {
-        debug {
-            storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
-            /*storePassword properties.getProperty("STORE_PASSWORD")
-               keyAlias project.KEY_ALIAS
-                keyPassword project.KEY_PASSWORD*/
-            v2SigningEnabled false
-
-        }
-        release {
-            //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
-            storeFile file(properties.getProperty("STORE_FILE"))
-            storePassword properties.getProperty("STORE_PASSWORD")
-            keyAlias properties.getProperty("KEY_ALIAS")
-            keyPassword properties.getProperty("KEY_PASSWORD")
-            v2SigningEnabled false
-
-        }
-    }
-
-    //改成如下配置,问题解决
-    /* flavorDimensions "tier"//新增的,值是数组
+    //多维度
+    flavorDimensions "model", "version"
     productFlavors {
-        //_xiaomi { dimension "tier" }
-        //_360 {dimension "tier"}
-        //_baidu { dimension "tier" }
-        _wandoujia { dimension "tier" }
-    }
-
-   productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [ENVIRONMENT: name]
-    }*/
-    // 多渠道 的不同配置
-    flavorDimensions "default"
-    productFlavors {
-        _wandoujia {
-            manifestPlaceholders = [ENVIRONMENT: "study"]
-            /*          ,
-                                              app_name   : "@string/app_name",
-                                              app_icon   : "@mipmap/ic_launcher"]*/
+        _sharp_s2 {
+            dimension "model"
         }
-        /* wxzn {
-             manifestPlaceholders = [ENVIRONMENT: "remote_wxzn",
-                                     app_name   : "@string/app_name_wxzn",
-                                     app_icon   : "@mipmap/ic_launcher_wxzn"]
-         }*/
+        _sharp_s3 {
+            dimension "model"
+        }
+        _9_0_0 {
+            dimension = "version"
+            manifestPlaceholders = [ENVIRONMENT: "豌豆荚"]
+        }
+        _8_1_0 {
+            dimension = "version"
+            manifestPlaceholders = [ENVIRONMENT: "360"]
+        }
     }
     android.applicationVariants.all { variant ->    //批量修改Apk名字
         variant.outputs.all { output ->
@@ -90,16 +58,24 @@ android {
             outputFileName = "${variant.flavorName}_v${variant.versionName}_${variant.buildType.name}_${releaseTime()}.apk"
         }
     }
-
-    buildTypes {
-        release {
-            buildConfigField("boolean", "LOG_ENABLE", "false")
-            debuggable false
-            jniDebuggable false
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+    signingConfigs {
+        debug {
+            storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
+            /*storePassword properties.getProperty("STORE_PASSWORD")
+              keyAlias project.KEY_ALIAS
+              keyPassword project.KEY_PASSWORD*/
+            v2SigningEnabled false
         }
+        release {
+            //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
+            storeFile file(properties.getProperty("STORE_FILE"))
+            storePassword properties.getProperty("STORE_PASSWORD")
+            keyAlias properties.getProperty("KEY_ALIAS")
+            keyPassword properties.getProperty("KEY_PASSWORD")
+            v2SigningEnabled false
+        }
+    }
+    buildTypes {
         debug {
             buildConfigField("boolean", "LOG_ENABLE", "true")
             debuggable true
@@ -111,24 +87,29 @@ android {
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
+        release {
+            buildConfigField("boolean", "LOG_ENABLE", "false")
+            debuggable false
+            jniDebuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
     }
-
     lintOptions {
         //  true--所有正式版构建执行规则生成崩溃的lint检查，如果有崩溃问题将停止构建
         checkReleaseBuilds true
         // true--错误发生后停止gradle构建
         abortOnError true
     }
-
     dataBinding {
         enabled = true
     }
-    /*  externalNativeBuild {
-          cmake {
-              path 'CMakeLists.txt'
-          }
-      }*/
-
+/*  externalNativeBuild {
+      cmake {
+          path 'CMakeLists.txt'
+      }
+  }*/
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

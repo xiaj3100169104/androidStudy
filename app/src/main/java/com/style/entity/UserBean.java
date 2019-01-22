@@ -6,6 +6,8 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.style.framework.BuildConfig;
+
 @Entity(tableName = "user_table")
 public class UserBean {
     @PrimaryKey

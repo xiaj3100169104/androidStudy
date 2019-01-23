@@ -9,7 +9,7 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import com.style.app.FileDirConfig;
-import com.style.data.net.exception.CustomRuntimeException;
+import com.style.data.http.exception.CustomRuntimeException;
 
 import java.io.File;
 

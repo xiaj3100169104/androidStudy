@@ -32,7 +32,7 @@ import example.music.data.AudioLoader;
 import example.music.data.MediaDataCallback;
 import example.music.entity.MediaBean;
 import example.music.entity.MediaFolder;
-import example.service.music.PlayMusicService;
+import com.style.service.music.PlayMusicService;
 
 
 /**

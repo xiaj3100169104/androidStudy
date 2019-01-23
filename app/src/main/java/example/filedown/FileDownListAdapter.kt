@@ -4,10 +4,9 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.hp.hpl.sparta.xpath.Step
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.data.net.file.FileDownloadStateBean
-import com.style.data.net.file.FileDownloadStateBean.Companion.DownStatus
+import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
+import com.style.entity.CustomFileBean
 import com.style.framework.R
 import com.style.framework.databinding.FileDownListAdapterBinding
 import java.util.*

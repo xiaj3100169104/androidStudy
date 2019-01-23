@@ -24,7 +24,7 @@ import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 
-import example.service.ble.BleService;
+import com.style.service.ble.BleService;
 
 
 public class BLEActivity extends BaseDefaultTitleBarActivity {

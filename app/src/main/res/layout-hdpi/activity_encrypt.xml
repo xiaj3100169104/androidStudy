@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="onViewClickListener"
-            type="example.encrypt.EncryptActivity.OnViewClickListener" />
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,16 +18,16 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_aes_encrypt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="@{onViewClickListener::AESEncrypt}"
                 android:text="AES加密"
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/btn_aes_decrypt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="@{onViewClickListener::AESDecrypt}"
                 android:text="AES解密"
                 android:textStyle="bold" />
 
@@ -43,7 +36,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:gravity="center"
-                android:text=""/>
+                android:text="" />
+
+            <Button
+                android:id="@+id/btn_hexString2Bytes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="十六进制字符串转bytes" />
+
+            <Button
+                android:id="@+id/btn_bytes2HexString"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="bytes转十六进制字符" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="HexString"
+                android:minHeight="50dp"
+                android:textSize="25sp" />
         </LinearLayout>
     </LinearLayout>
 </layout>

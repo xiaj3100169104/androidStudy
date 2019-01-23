@@ -4,25 +4,20 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
+import com.style.data.singlePriorityTask.PrioritizedTask
+import com.style.data.singlePriorityTask.SinglePriorityTaskManager
 
 import com.style.framework.R
 import com.style.utils.BytesHexStrTranslate
 import kotlinx.android.synthetic.main.activity_queue_test.*
+import java.util.*
 
 class QueueTestActivity : AppCompatActivity(), EventReceiver {
 
-    private var b22: ByteArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queue_test)
-        btn_hexString2Bytes.setOnClickListener {
-            b22 = BytesHexStrTranslate.hexString2Bytes("01")
-        }
-        btn_bytes2HexString.setOnClickListener {
-            var s11 = BytesHexStrTranslate.bytes2HexString(b22)
-            tv_result.text = s11
-        }
         btn_register.setOnClickListener {
             EventManager.getInstance().register(this, 1)
         }
@@ -31,6 +26,13 @@ class QueueTestActivity : AppCompatActivity(), EventReceiver {
         }
         btn_send_event.setOnClickListener {
             EventManager.getInstance().post(1, tv_content.text.toString())
+        }
+        val random = Random()
+        btn_priority_queue.setOnClickListener {
+            for (i in 0..10) {
+                val t = PrioritizedTask(i.toString(), random.nextInt(50))
+                SinglePriorityTaskManager.getInstance().addTask(t.id, t)
+            }
         }
     }
 

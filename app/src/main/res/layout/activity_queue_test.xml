@@ -42,14 +42,8 @@
         android:text="发送事件" />
 
     <Button
-        android:id="@+id/btn_hexString2Bytes"
+        android:id="@+id/btn_priority_queue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="十六进制字符串转bytes" />
-
-    <Button
-        android:id="@+id/btn_bytes2HexString"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bytes转十六进制字符" />
+        android:text="优先级队列" />
 </LinearLayout>

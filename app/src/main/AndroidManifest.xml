@@ -143,7 +143,7 @@
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.viewPager.GlideListActivity" />
         <activity android:name="example.music.MusicListActivity" />
-        <activity android:name="example.service.remote.RemotePlayActivity" />
+        <activity android:name="com.style.service.remote.RemotePlayActivity" />
         <activity
             android:name="example.drag.ScrollingActivity"
             android:label="@string/title_activity_scrolling" />
@@ -166,14 +166,14 @@
         </provider>
         <!-- APP新版本下载服务 -->
         <service
-            android:name="example.service.appNewVersion.DownNewAppService"
+            android:name="com.style.service.appNewVersion.DownNewAppService"
             android:enabled="true">
             <intent-filter android:priority="888">
                 <action android:name="com.style.download.new.version" />
             </intent-filter>
         </service>
         <service
-            android:name="example.service.fileDownload.FileDownloadService"
+            android:name="com.style.service.fileDownload.FileDownloadService"
             android:enabled="true">
             <intent-filter android:priority="1000">
                 <action android:name="com.style.file.download." />
@@ -182,7 +182,7 @@
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->
         <!--google大坑，不注册竟然不报错-->
         <service
-            android:name="example.service.music.PlayMusicService"
+            android:name="com.style.service.music.PlayMusicService"
             android:exported="false">
             <intent-filter android:priority="998">
                 <action android:name="music.play.service" />
@@ -190,21 +190,21 @@
         </service>
 
         <service
-            android:name="example.service.ble.BleService"
+            android:name="com.style.service.ble.BleService"
             android:enabled="true">
             <intent-filter android:priority="1000">
                 <action android:name="com.style.ble.connect" />
             </intent-filter>
         </service>
         <!-- 语音悬浮服务 -->
-        <service android:name="example.service.suspendWindow.VoiceSuspendService" />
+        <service android:name="com.style.service.suspendWindow.VoiceSuspendService" />
         <!-- 视频悬浮服务 -->
-        <service android:name="example.service.suspendWindow.VideoSuspendService" />
+        <service android:name="com.style.service.suspendWindow.VideoSuspendService" />
         <!-- 来电悬浮服务 -->
-        <service android:name="example.service.suspendWindow.CallInSuspendService" />
+        <service android:name="com.style.service.suspendWindow.CallInSuspendService" />
         <!--单独进行播放音乐服务-->
         <service
-            android:name="example.service.remote.RemotePlayService"
+            android:name="com.style.service.remote.RemotePlayService"
             android:process="com.offline.message">
             <intent-filter android:priority="999">
                 <action android:name="action.remote.play" />

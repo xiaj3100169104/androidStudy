@@ -5,22 +5,14 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.support.v4.text.HtmlCompat;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.base.BaseViewModel;
-import com.style.data.net.exception.ResultErrorException;
+import com.style.data.http.exception.ResultErrorException;
 
-import example.activity.TestRxActivity;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 

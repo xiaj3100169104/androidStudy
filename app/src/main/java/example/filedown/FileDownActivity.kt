@@ -10,9 +10,9 @@ import com.style.app.FileDirConfig
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.data.event.EventBusEvent
-import com.style.data.net.file.FileDownloadStateBean
-import com.style.data.net.file.FileDownloadStateBean.Companion.DownStatus
-import com.style.data.net.file.MultiThreadDownloadManager
+import com.style.data.fileDown.FileDownloadStateBean
+import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
+import com.style.data.fileDown.multiBlock.MultiThreadDownloadManager
 import com.style.framework.R
 import com.style.utils.OpenFileUtil
 import com.style.view.systemHelper.DividerItemDecoration
@@ -23,9 +23,10 @@ import org.simple.eventbus.ThreadMode
 import java.io.File
 import java.util.ArrayList
 import android.support.v7.widget.SimpleItemAnimator
-import com.style.data.net.exception.CustomRuntimeException
-import com.style.threadPool.CustomFileDownloadManager
-import example.service.fileDownload.FileDownloadService
+import com.style.data.http.exception.CustomRuntimeException
+import com.style.data.fileDown.CustomFileDownloadManager
+import com.style.entity.CustomFileBean
+import com.style.service.fileDownload.FileDownloadService
 
 
 class FileDownActivity : BaseDefaultTitleBarActivity() {

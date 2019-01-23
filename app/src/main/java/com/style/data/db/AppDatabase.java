@@ -9,7 +9,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.style.data.net.file.FileDownloadStateBean;
+import com.style.data.fileDown.FileDownloadStateBean;
 import com.style.entity.UserBean;
 
 /**

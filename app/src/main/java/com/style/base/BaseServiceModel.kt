@@ -1,17 +1,15 @@
 package com.style.base;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.Log
 
 import com.style.app.LogManager;
 import com.style.app.ToastManager;
 import com.style.data.db.AppDatabase
-import com.style.data.net.core.RetrofitImpl
-import com.style.data.net.exception.HttpThrowableUtil;
+import com.style.data.http.core.RetrofitImpl
+import com.style.data.http.exception.HttpThrowableUtil;
 import com.style.data.prefs.AppPrefsManager
 
 import io.reactivex.disposables.CompositeDisposable;

@@ -1,7 +1,7 @@
 package com.style.data.db
 
 import android.arch.persistence.room.*
-import com.style.data.net.file.FileDownloadStateBean
+import com.style.data.fileDown.FileDownloadStateBean
 
 @Dao
 interface FileDownloadStateDao {

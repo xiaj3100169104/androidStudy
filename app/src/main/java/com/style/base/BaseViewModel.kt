@@ -8,8 +8,8 @@ import android.util.Log
 import com.style.app.LogManager
 import com.style.app.ToastManager
 import com.style.data.db.AppDatabase
-import com.style.data.net.core.RetrofitImpl
-import com.style.data.net.exception.HttpThrowableUtil
+import com.style.data.http.core.RetrofitImpl
+import com.style.data.http.exception.HttpThrowableUtil
 import com.style.data.prefs.AppPrefsManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

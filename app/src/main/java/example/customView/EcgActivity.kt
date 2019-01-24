@@ -25,7 +25,6 @@ class EcgActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_ecg)
-
         initData()
     }
 
@@ -40,7 +39,7 @@ class EcgActivity : BaseDefaultTitleBarActivity() {
                 line = bufferedReader.readLine() ?: break
                 println(line)
                 if (!line.isNullOrEmpty()) {
-                    v = line.toInt()
+                    v = line.toFloat().toInt()
                     max = if (v > max) v else max
                     min = if (v < min) v else min
                     strings.add(v)

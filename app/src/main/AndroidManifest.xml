@@ -136,6 +136,7 @@
         <activity android:name="example.customView.SleepWeekActivity" />
         <activity android:name="example.customView.SportWeekActivity" />
         <activity android:name="example.customView.EcgActivity" />
+        <activity android:name="example.customView.RecordAudioViewActivity" />
         <activity android:name="example.gesture.XXRefreshActivity" />
         <activity android:name="example.activity.BottomSheetBehaviorActivity" />
         <activity

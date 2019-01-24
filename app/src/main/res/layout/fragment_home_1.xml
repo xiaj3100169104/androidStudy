@@ -85,6 +85,11 @@
                 android:text="心电图" />
 
             <TextView
+                android:id="@+id/btn_record_audio_view"
+                style="@style/text_home_item"
+                android:text="录音动画图" />
+
+            <TextView
                 android:id="@+id/btn_expandable_text"
                 style="@style/text_home_item"
                 android:text="自定义下拉刷新" />

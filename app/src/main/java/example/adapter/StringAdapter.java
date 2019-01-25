@@ -32,8 +32,8 @@ public class StringAdapter extends BaseRecyclerViewAdapter<String> {
         holder.bd.executePendingBindings();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        AdapterFriendBinding bd;
+    public final class ViewHolder extends RecyclerView.ViewHolder {
+        private AdapterFriendBinding bd;
 
         ViewHolder(AdapterFriendBinding bd) {
             super(bd.getRoot());

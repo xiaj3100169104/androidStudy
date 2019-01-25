@@ -4,6 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.view.View
 
@@ -24,12 +27,11 @@ class RecordAudioView : View {
     private var mMiddleIntervalWidth: Int
     private lateinit var mHistogramPaint: Paint
     private val COLOR_HISTOGRAM = 0xFF45CE7B
+    private var mData = arrayListOf<Float>()
+    private var  mRect = RectF()
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-
-    private var mData = arrayListOf<Float>()
-
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         mHistogramWidth = dp2px(3.0f)
         mHistogramMinHeight = dp2px(3.0f)
@@ -64,10 +66,17 @@ class RecordAudioView : View {
             var bottom = mHistogramMaxHeight / 2 * value
             bottom = if (bottom < mHistogramMinHeight / 2) (mHistogramMinHeight / 2).toFloat() else bottom
             val top = -bottom
-            //右端
-            canvas?.drawRect(left.toFloat(), top, right.toFloat(), bottom, mHistogramPaint)
-            //左端
-            canvas?.drawRect(-right.toFloat(), top, -left.toFloat(), bottom, mHistogramPaint)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //右端
+                canvas?.drawRoundRect(left.toFloat(), top, right.toFloat(), bottom, 3f, 3f, mHistogramPaint)
+                //左端
+                canvas?.drawRoundRect((-right).toFloat(), top, (-left).toFloat(), bottom, 3f, 3f, mHistogramPaint)
+            } else {
+                mRect.set(left.toFloat(), top, right.toFloat(), bottom)
+                canvas?.drawRoundRect(mRect, 3f, 3f, mHistogramPaint)
+                mRect.set((-right).toFloat(), top, (-left).toFloat(), bottom)
+                canvas?.drawRoundRect(mRect, 3f, 3f, mHistogramPaint)
+            }
         }
         canvas?.restore()
     }
@@ -75,6 +84,13 @@ class RecordAudioView : View {
     fun postValue(v: Float) {
         mData.add(v)
         mData.removeAt(0)
+        postInvalidate()
+    }
+
+    fun reset() {
+        for (i in mData.indices) {
+            mData[i] = 0.0f
+        }
         postInvalidate()
     }
 

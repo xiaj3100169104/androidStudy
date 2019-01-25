@@ -108,4 +108,24 @@ public class CustomFileDownloadThreadPoolExecutor extends ThreadPoolExecutor {
     public List<Runnable> shutdownNow() {
         return super.shutdownNow();
     }
+    /**
+     * 线程池中线程复用就是利用线程sleep来做超时检测。
+     * 1.public static boolean interrupted();
+     * // 检测当前线程是否已经中断，此方法会清除中断状态，也就是说，假设当前线程中断状态为true，
+     * 第一次调此方法，将返回true，表明的确已经中断了，但是第二次调用后，将会返回true，因为第一次调用的操作已将中断状态重新置为false了。
+     *
+     * 2.public boolean isInterrupted() ;
+     * // 检测当前线程是否已经中断，此方法与上一方法的区别在于此方法不会清除中断状态。
+     *
+     * 3.public void interrupt();
+     * //将线程中断状态设置为true，表明此线程目前是中断状态。此时如果调用isInterrupted方法，将会得到true的结果。
+     *
+     * 通过上述方法的解释，我们可以得出这样的一个结论：interrupt方法本质上不会进行线程的终止操作的，
+     * 它不过是改变了线程的中断状态。而改变了此状态带来的影响是，部分可中断的线程方法（比如Object.wait, Thread.sleep）会定期执行isInterrupted方法，
+     * 检测到此变化，随后会停止阻塞并抛出InterruptedException异常。但这是否意味着随后线程的退出呢？
+     * InterruptedException异常的抛出并不是意味着线程必须得终止，它只是提醒当前线程有中断操作发生了，接下来怎么处理完全取决于线程本身，一般有3种处理方式：
+     * 1.“吞并”异常，当做什么事都没发生过。
+     * 2.继续往外抛出异常。
+     * 3.其它方式处理异常。其它处理异常的方式就有很多种了，停止当前线程或者输出异常信息等等。
+     */
 }

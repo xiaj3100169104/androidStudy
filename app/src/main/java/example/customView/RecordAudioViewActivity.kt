@@ -19,21 +19,28 @@ class RecordAudioViewActivity : BaseDefaultTitleBarActivity() {
         btn_start_record.setOnClickListener { startRecord() }
     }
 
+    private var mThread: Thread? = null
+
     private fun startRecord() {
-        thread {
+        mThread = Thread {
             val random = Random()
-            try {
-                while (true) {
+            while (true) {
+                try {
                     Thread.sleep(100)
                     val v = random.nextInt(7000).toFloat() / 7000
                     logE("RecordAudioViewActivity", v.toString())
                     record_audio_view.postValue(v)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                    break
                 }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
             }
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mThread?.interrupt()
+    }
 
 }

@@ -46,6 +46,7 @@
                 android:layout_height="55dp"
                 android:layout_alignParentBottom="true"
                 android:background="@android:color/white"
+                android:clipChildren="false"
                 android:orientation="horizontal">
 
                 <RelativeLayout

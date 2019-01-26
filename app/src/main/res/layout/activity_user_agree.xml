@@ -1,28 +1,28 @@
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:clipChildren="false"
+    android:orientation="vertical">
 
-        <include layout="@layout/title_bar_normal" />
+    <include layout="@layout/title_bar_normal" />
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_0"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
-            <RelativeLayout
-                android:id="@+id/rl_0"
+            <TextView
+                android:id="@+id/tv_useragree"
+                style="@style/text_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:padding="5dp">
+                android:singleLine="false" />
+        </RelativeLayout>
+    </ScrollView>
 
-                <TextView
-                    android:id="@+id/tv_useragree"
-                    style="@style/text_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="false" />
-            </RelativeLayout>
-        </ScrollView>
-
-    </LinearLayout>
+</LinearLayout>

@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.banner_activity.*
 class BannerActivity : BaseTransparentStatusBarActivity() {
     private lateinit var bannerFrags: ArrayList<BannerFragment>
     private lateinit var fAdapter: BannerAdapter
+    private var mPageIndex: Int = 0
 
     private val fadeIn = R.anim.fade_in
     private val fadeOut = R.anim.fade_out
@@ -74,17 +75,14 @@ class BannerActivity : BaseTransparentStatusBarActivity() {
             }
 
             override fun onPageSelected(p0: Int) {
-                var id: Int = banner_group.getChildAt(p0).id
-                banner_group.setCheckWithoutNotif(id)
+                mPageIndex = p0
+                banner_group.changeSelected(mPageIndex)
                 resetPhotoView()
             }
         })
-        banner_group.setOnCheckedChangeListener { group, checkedId ->
-            when (banner_group.checkedRadioButtonId) {
-                banner_1.id -> viewPager.setCurrentItem(0, false)
-                banner_2.id -> viewPager.setCurrentItem(1, false)
-                banner_3.id -> viewPager.setCurrentItem(2, false)
-            }
+        banner_group.changeSelected(mPageIndex)
+        banner_group.setOnClickChildListener { p ->
+            viewPager.setCurrentItem(p, false)
         }
     }
 

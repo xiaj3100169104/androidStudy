@@ -14,7 +14,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <com.style.view.systemHelper.MyRadioGroup
+    <com.style.view.systemHelper.CustomSingleCheckContainer
         android:id="@+id/banner_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,31 +23,25 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
-        <RadioButton
+        <View
             android:id="@+id/banner_1"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:background="@drawable/bg_banner_indicator"
-            android:button="@null"
-            android:checked="true" />
+            android:background="@drawable/bg_banner_indicator" />
 
-        <RadioButton
+        <View
             android:id="@+id/banner_2"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/bg_banner_indicator"
-            android:button="@null"
-            android:checked="false" />
+            android:background="@drawable/bg_banner_indicator" />
 
-        <RadioButton
+        <View
             android:id="@+id/banner_3"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/bg_banner_indicator"
-            android:button="@null"
-            android:checked="false" />
+            android:background="@drawable/bg_banner_indicator" />
 
-    </com.style.view.systemHelper.MyRadioGroup>
+    </com.style.view.systemHelper.CustomSingleCheckContainer>
 </RelativeLayout>

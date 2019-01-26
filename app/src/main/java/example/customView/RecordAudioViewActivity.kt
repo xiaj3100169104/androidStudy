@@ -36,6 +36,7 @@ class RecordAudioViewActivity : BaseDefaultTitleBarActivity() {
                 }
             }
         }
+        mThread?.start()
     }
 
     override fun onDestroy() {

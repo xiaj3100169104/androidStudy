@@ -50,7 +50,7 @@
             <TextView
                 android:id="@+id/btn_collapseMode_pin"
                 style="@style/text_home_item"
-                android:text="先滚动标题栏" />
+                android:text="垂直滚动显示隐藏标题栏" />
 
             <TextView
                 android:id="@+id/btn_collapseMode_parallax"

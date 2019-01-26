@@ -64,7 +64,7 @@ public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
                 super.onScrollStateChanged(recyclerView, newState);
                 logE("onScrollStateChanged", newState + "");
                 if (recyclerView.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
-                    resetDy();
+
                 }
             }
 
@@ -78,67 +78,10 @@ public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 logE("onScrolled", recyclerView.getScrollState() + "   " + dy);
-                changeDy(dy);
             }
         });
         refresh();
 
-    }
-
-    private void resetDy() {
-        countDy = 0;
-    }
-
-    private void changeDy(int dy) {
-        countDy += dy;
-        if (countDy >= 150 && !isMoving && bd.view1.getTranslationY() != xOffset) {
-            logE(getTAG(), "关闭");
-            isMoving = true;
-            hideTitleBar();
-        } else if (countDy <= -50 && !isMoving && bd.view1.getTranslationY() != 0) {
-            logE(getTAG(), "打开");
-            isMoving = true;
-            showTitleBar();
-        }
-    }
-
-    private void hideTitleBar() {
-        ValueAnimator va = ValueAnimator.ofFloat(0f, xOffset);
-        va.setDuration(300);
-        //插值器，表示值变化的规律，默认均匀变化
-        va.setInterpolator(new DecelerateInterpolator());
-        va.addUpdateListener(animation -> {
-            float v = (float) animation.getAnimatedValue();
-            Log.d(getTAG(), "translationX:" + v);
-            translationTitleBarY(v);
-            if (v == xOffset) {
-                isMoving = false;
-                resetDy();
-            }
-        });
-        va.start();
-    }
-
-    private void showTitleBar() {
-        ValueAnimator va = ValueAnimator.ofFloat(xOffset, 0f);
-        va.setDuration(300);
-        //插值器，表示值变化的规律，默认均匀变化
-        va.setInterpolator(new DecelerateInterpolator());
-        va.addUpdateListener(animation -> {
-            float v = (float) animation.getAnimatedValue();
-            Log.d(getTAG(), "translationX:" + v);
-            translationTitleBarY(v);
-            if (v == 0) {
-                isMoving = false;
-                resetDy();
-            }
-        });
-        va.start();
-    }
-
-    private void translationTitleBarY(float v) {
-        bd.view1.setTranslationY(v);
-        bd.recyclerView.setTranslationY(v);
     }
 
     private void refresh() {

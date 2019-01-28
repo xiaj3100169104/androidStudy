@@ -26,6 +26,7 @@ import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.NetWorkUtil
+import kotlinx.android.synthetic.main.activity_main.*
 
 import org.simple.eventbus.EventBus
 
@@ -48,7 +49,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
     private lateinit var homeFragment4: OtherFrameworkFragment
     private lateinit var fm: FragmentManager
     private lateinit var bt: FragmentTransaction
-    private lateinit var mTabs: Array<TextView>
+    //private lateinit var mTabs: Array<TextView>
     private var currentTabIndex = 0
     lateinit var fragments: Array<Fragment>
     private var appStateReceiver: DeviceStateBroadcastReceiver? = null
@@ -98,8 +99,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         if (ContextCompat.checkSelfPermission(this.application, permissions[0]) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this.application, permissions[1]) != PackageManager.PERMISSION_GRANTED) {
             logE(TAG, "没有权限")
             /*if (!mBluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(
-                        BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }*/
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]) || ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[1])) {
@@ -113,7 +113,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
             startBleService()
         }
 
-        mTabs = arrayOf(bd.viewHomeTap1, bd.viewHomeTap20, bd.viewHomeTap2, bd.viewHomeTap3, bd.viewHomeTap4)
+        //mTabs = arrayOf(bd.viewHomeTap1, bd.viewHomeTap20, bd.viewHomeTap2, bd.viewHomeTap3, bd.viewHomeTap4)
         homeFragment1 = CustomViewFragment()
         homeFragment20 = GestureFragment()
         homeFragment2 = HomeListFragment()
@@ -127,7 +127,10 @@ class MainActivity : BaseDefaultTitleBarActivity() {
             bt.add(R.id.content, fragments[i], fragTags[i]).hide(fragments[i])
         }
         bt.commit()
-
+        changePage()
+        bottom_tap_holder.setOnClickChildListener { position ->
+            onBottomTapChecked(position)
+        }
         /*int num = fragments.length;
         pgAdapyer = new MyAdapter(getSupportFragmentManager());
         pager.setAdapter(pgAdapyer);
@@ -149,35 +152,40 @@ class MainActivity : BaseDefaultTitleBarActivity() {
 
             }
         });*/
-        showSelectedTab()
 
-        /*ComponentName componentName = startService(new Intent(this, MQTTService.class));
-        componentName.getClassName();*/
+    }
+
+    private fun onBottomTapChecked(position: Int) {
+        if (position == currentTabIndex)
+            return
+        currentTabIndex = position
+        changePage()
     }
 
     private fun startBleService() {
         //BleManager.getInstance().init(this);
-
     }
 
-    private fun showSelectedTab() {
+    private fun changePage() {
+        bottom_tap_holder.changeSelected(currentTabIndex)
+        setToolbarTitle(titles[currentTabIndex])
+
         bt = fm.beginTransaction()
         for (i in fragments.indices) {
             if (currentTabIndex != i) {
                 bt.hide(fragments[i])
-                mTabs[i].isSelected = false
+                //mTabs[i].isSelected = false
             } else {
                 bt.show(fragments[i])
                 // 把当前tab设为选中状态
-                mTabs[i].isSelected = true
+                //mTabs[i].isSelected = true
             }
         }
         bt.commitAllowingStateLoss()
-        setToolbarTitle(titles[currentTabIndex])
 
     }
 
-    fun onTabClicked(view: View) {
+    /*fun onTabClicked(view: View) {
         var index = 0
         when (view.id) {
             R.id.layout_home_tap_1 -> index = 0
@@ -188,7 +196,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         }
         currentTabIndex = index
         showSelectedTab()
-    }
+    }*/
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == REQUEST_ENABLE_BT) {

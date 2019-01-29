@@ -14,7 +14,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <com.style.view.systemHelper.CustomSingleCheckContainer
+    <com.style.view.systemHelper.CustomSingleCheckLayout
         android:id="@+id/banner_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,5 +43,5 @@
             android:layout_marginStart="10dp"
             android:background="@drawable/bg_banner_indicator" />
 
-    </com.style.view.systemHelper.CustomSingleCheckContainer>
+    </com.style.view.systemHelper.CustomSingleCheckLayout>
 </RelativeLayout>

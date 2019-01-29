@@ -79,4 +79,9 @@
         <attr name="focusLetterColor" format="color" />
         <attr name="letterSpacingExtra" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="CustomTagsLayout">
+        <attr name="tag_margin_horizontal" format="dimension" />
+        <attr name="tag_margin_vertical" format="dimension" />
+    </declare-styleable>
 </resources>

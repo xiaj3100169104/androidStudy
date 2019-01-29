@@ -41,7 +41,7 @@
                 <View style="@style/divider_horizontal_transparent_black" />
             </RelativeLayout>
 
-            <com.style.view.systemHelper.CustomSingleCheckContainer
+            <com.style.view.systemHelper.CustomSingleCheckLayout
                 android:id="@+id/bottom_tap_holder"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -129,7 +129,7 @@
 
                 </RelativeLayout>
 
-            </com.style.view.systemHelper.CustomSingleCheckContainer>
+            </com.style.view.systemHelper.CustomSingleCheckLayout>
 
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>

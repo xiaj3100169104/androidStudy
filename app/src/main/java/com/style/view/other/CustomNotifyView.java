@@ -48,40 +48,15 @@ public class CustomNotifyView extends View {
         this(context, null);
     }
 
-    /**
-     * 获得我自定义的样式属性
-     *
-     * @param context
-     * @param attrs
-     * @param defStyle
-     */
     public CustomNotifyView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        /**
-         * 获得我们所定义的自定义样式属性
-         */
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomNotifyView, defStyle, 0);
-        int n = a.getIndexCount();
-        for (int i = 0; i < n; i++) {
-            int attr = a.getIndex(i);
-            if (attr == R.styleable.CustomNotifyView_notifyBackgroundColor) {
-                mBackgroundColor = a.getColor(attr, mBackgroundColor);
-
-            } else if (attr == R.styleable.CustomNotifyView_notifyText) {
-                mTitleText = a.getString(attr);
-
-            } else if (attr == R.styleable.CustomNotifyView_notifyTextColor) {
-                mTitleTextColor = a.getColor(attr, mTitleTextColor);
-
-            } else if (attr == R.styleable.CustomNotifyView_notifyTextSize) {
-                mTitleTextSize = a.getDimensionPixelSize(attr, mTitleTextSize);
-
-            }
-
-        }
+        mBackgroundColor = a.getColor(R.styleable.CustomNotifyView_notifyBackgroundColor, mBackgroundColor);
+        mTitleText = a.getString(R.styleable.CustomNotifyView_notifyText);
+        mTitleTextColor = a.getColor(R.styleable.CustomNotifyView_notifyTextColor, mTitleTextColor);
+        mTitleTextSize = a.getDimensionPixelSize(R.styleable.CustomNotifyView_notifyTextSize, mTitleTextSize);
         a.recycle();
         initPaint();
-
       /*  this.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -89,7 +64,6 @@ public class CustomNotifyView extends View {
             }
 
         });*/
-
     }
 
     private void initPaint() {
@@ -119,6 +93,7 @@ public class CustomNotifyView extends View {
 
     /**
      * 智能模式，根据数字位数调整文字大小
+     *
      * @param count
      */
     public void setNotifyCountSmart(int count) {

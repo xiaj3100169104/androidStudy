@@ -9,20 +9,20 @@ import android.widget.LinearLayout;
 /**
  * 自定义单选中子view容器，状态改变用state_selected
  */
-public class CustomSingleCheckContainer extends LinearLayout {
+public class CustomSingleCheckLayout extends LinearLayout {
 
     private int count;
     private OnClickChildListener mOnClickChildListener;
 
-    public CustomSingleCheckContainer(Context context) {
+    public CustomSingleCheckLayout(Context context) {
         this(context, null);
     }
 
-    public CustomSingleCheckContainer(Context context, AttributeSet attrs) {
+    public CustomSingleCheckLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CustomSingleCheckContainer(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomSingleCheckLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -2,15 +2,22 @@ package com.style.view.other;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.style.framework.R;
 
+import java.util.ArrayList;
+
 public class CustomTagsLayout extends ViewGroup {
+    //标签间垂直间距
     private int mTagMarginVertical;
+    //标签间水平间距
     private int mTagMarginHorizontal;
+    private OnClickChildListener mOnClickChildListener;
 
     public CustomTagsLayout(Context context) {
         super(context);
@@ -41,23 +48,31 @@ public class CustomTagsLayout extends ViewGroup {
         // 计算出所有的childView的宽和高
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         final int count = getChildCount();
-        int mLineWidth = 0;          //每行子view宽度累加和
-        int mLineHeight = 0;
-        int mLineCount = 0;
         if (count > 0) {
-            mLineHeight = getChildAt(0).getMeasuredHeight() + mTagMarginVertical * 2;
-            mLineCount++;
-        }
-        for (int i = 0; i < count; i++) {
-            View child = getChildAt(i);
-            mLineWidth += child.getMeasuredWidth() + mTagMarginHorizontal * 2;
-            //排满后换行
-            if (mLineWidth + getPaddingLeft() + getPaddingRight() > mWidth) {
-                mLineCount++;
-                mLineWidth = child.getMeasuredWidth() + mTagMarginHorizontal * 2;
+            int mLineHeight = getChildAt(0).getMeasuredHeight();
+            int mLineIndex = -1;
+            int left, right = 0;
+            for (int i = 0; i < count; i++) {
+                View child = getChildAt(i);
+                //注意此处不能使用getWidth和getHeight，这两个方法必须在onLayout执行完，才能正确获取宽高
+                int childMeasureWidth = child.getMeasuredWidth();
+                if (i == 0) {
+                    mLineIndex = 0;
+                    left = getPaddingLeft();
+                } else {
+                    //当前行容不下当前子view时换行,注意此处容器不能使用getWidth,onMeasure执行完才能正确获取宽高
+                    if (right + mTagMarginHorizontal + childMeasureWidth + getPaddingRight() > mWidth) {
+                        mLineIndex++;
+                        left = getPaddingLeft();
+                    } else {
+                        left = right + mTagMarginHorizontal;
+                    }
+                }
+                right = left + childMeasureWidth;
             }
+            mHeight = mLineHeight * (mLineIndex + 1) + mTagMarginVertical * mLineIndex + getPaddingTop() + getPaddingBottom();
         }
-        setMeasuredDimension(mWidth, mLineHeight * mLineCount + getPaddingTop() + getPaddingBottom());
+        setMeasuredDimension(mWidth, mHeight);
     }
 
     /**
@@ -66,33 +81,43 @@ public class CustomTagsLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         final int count = getChildCount();
-        int childMeasureWidth = 0;
-        int mLineWidth = 0;
-        int mLineHeight = 0;
         if (count > 0) {
-            mLineHeight = getChildAt(0).getMeasuredHeight() + mTagMarginVertical * 2;
-        }
-        int mLineIndex = 0;
-        left = getPaddingLeft() + mTagMarginHorizontal;
-        for (int i = 0; i < count; i++) {
-            View child = getChildAt(i);
-            //注意此处不能使用getWidth和getHeight，这两个方法必须在onLayout执行完，才能正确获取宽高
-            childMeasureWidth = child.getMeasuredWidth();
-            //排满后换行
-            if (left + childMeasureWidth + mTagMarginHorizontal + getPaddingRight() > getWidth()) {
-                mLineIndex++;
-                left = getPaddingLeft() + mTagMarginHorizontal;
-            } else {
-                left += childMeasureWidth + mTagMarginHorizontal * 2;
+            int mLineHeight = getChildAt(0).getMeasuredHeight();
+            int mLineIndex = -1;
+            for (int i = 0; i < count; i++) {
+                View child = getChildAt(i);
+                //注意此处不能使用getWidth和getHeight，这两个方法必须在onLayout执行完，才能正确获取宽高
+                int childMeasureWidth = child.getMeasuredWidth();
+                int childMeasureHeight = child.getMeasuredHeight();
+                if (i == 0) {
+                    mLineIndex = 0;
+                    left = getPaddingLeft();
+                    top = getPaddingTop();
+                } else {
+                    //当前行容不下当前子view时换行
+                    if (right + mTagMarginHorizontal + childMeasureWidth + getPaddingRight() > getWidth()) {
+                        mLineIndex++;
+                        left = getPaddingLeft();
+                    } else {
+                        left = right + mTagMarginHorizontal;
+                    }
+                    top = getPaddingTop() + (mLineHeight + mTagMarginVertical) * mLineIndex;
+                }
+                right = left + childMeasureWidth;
+                bottom = top + childMeasureHeight;
+                child.layout(left, top, right, bottom);
+                child.setOnClickListener(v -> {
+                    if (mOnClickChildListener != null) {
+                        mOnClickChildListener.onClickChild(v);
+                    }
+                });
             }
-            if (i == 0) {
-                left = getPaddingLeft() + mTagMarginHorizontal;
-            }
-            right = left + childMeasureWidth;
-            top = getPaddingTop() + mLineHeight * mLineIndex + mTagMarginVertical;
-            bottom = top + child.getMeasuredHeight();
-            child.layout(left, top, right, bottom);
         }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
     }
 
     @Override
@@ -107,9 +132,15 @@ public class CustomTagsLayout extends ViewGroup {
 
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
-        return new CustomLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        return new CustomLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
+    /**
+     * 确认子View的LayoutParams是否合法, 如果不合法，调用generateLayoutParams(p).
+     *
+     * @param p
+     * @return
+     */
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
         return p instanceof CustomLayoutParams;
@@ -127,5 +158,20 @@ public class CustomTagsLayout extends ViewGroup {
         public CustomLayoutParams(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
+    }
+
+    public void setTags(ArrayList<TextView> tags) {
+        this.removeAllViews();
+        for (TextView tagView : tags) {
+            this.addView(tagView);
+        }
+    }
+
+    public void setOnClickChildListener(OnClickChildListener l) {
+        this.mOnClickChildListener = l;
+    }
+
+    public interface OnClickChildListener {
+        void onClickChild(View tag);
     }
 }

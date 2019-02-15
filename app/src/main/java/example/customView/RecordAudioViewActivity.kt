@@ -1,8 +1,11 @@
 package example.customView;
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
 import com.style.base.BaseDefaultTitleBarActivity
 import com.style.framework.R
+import com.style.utils.DeviceInfoUtil
 import kotlinx.android.synthetic.main.activity_record_audio_view.*
 import java.util.*
 import kotlin.concurrent.thread
@@ -16,7 +19,28 @@ class RecordAudioViewActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_record_audio_view)
+        tags_container.setOnClickChildListener { v ->
+            val tagView = v as TextView
+            showToast(tagView.text)
+        }
         btn_start_record.setOnClickListener { startRecord() }
+        btn_update_tags.setOnClickListener { updateTags() }
+    }
+
+    private fun updateTags() {
+        val list = arrayListOf("999999999", "88888888", "777777", "666666", "55555", "4444", "33333", "222222", "11111111", "00")
+        var tagView: TextView
+        val tags = arrayListOf<TextView>()
+        list.forEachIndexed { index, s ->
+            tagView = TextView(getContext())
+            tagView.background = getContext().resources.getDrawable(R.drawable.bg_custom_tag)
+            tagView.text = s
+            tagView.setTextColor(Color.GRAY)
+            tagView.textSize = 16f
+            tagView.setPadding(20, 5, 20, 5)
+            tags.add(tagView)
+        }
+        tags_container.setTags(tags)
     }
 
     private var mThread: Thread? = null

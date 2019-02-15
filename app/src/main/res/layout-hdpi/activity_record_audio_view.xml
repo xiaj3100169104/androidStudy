@@ -11,58 +11,78 @@
 
         <include layout="@layout/title_bar_normal" />
 
-        <com.style.view.other.CustomTagsLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title_bar"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary"
-            android:padding="0dp"
-            app:tag_margin_horizontal="5dp"
-            app:tag_margin_vertical="5dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.style.view.other.CustomTagsLayout
+                android:id="@+id/tags_container"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="111111" />
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary"
+                android:padding="10dp"
+                app:tag_margin_horizontal="5dp"
+                app:tag_margin_vertical="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="2222222222" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_custom_tag"
+                    android:text="111111"
+                    android:textSize="16sp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="333333" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="22222" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="444444444444" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="333333" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="55555555555555" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="4444444" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="666666" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="55555555555" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="6666" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:text="777" />
+            </com.style.view.other.CustomTagsLayout>
+
+            <Button
+                android:id="@+id/btn_update_tags"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:text="777" />
-        </com.style.view.other.CustomTagsLayout>
+                android:layout_marginTop="20dp"
+                android:text="更新标签" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

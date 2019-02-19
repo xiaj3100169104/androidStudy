@@ -112,7 +112,7 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker {
         //监听省份的滑轮,根据省份的滑轮滑动的数据来设置市跟地区的滑轮数据
         mWPProvince.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(WheelPicker picker, Object data, int position) {
+            public void onItemSelected(WheelPicker picker, String data, int position) {
                 //获得该省所有城市的集合
                 mCityList = mProvinceList.get(position).getCity();
                 setCityAndAreaData(position);
@@ -121,7 +121,7 @@ public class WheelAreaPicker extends LinearLayout implements IWheelAreaPicker {
 
         mWPCity.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(WheelPicker picker, Object data, int position) {
+            public void onItemSelected(WheelPicker picker, String data, int position) {
                 //获取城市对应的城区的名字
                 mWPArea.setData(mCityList.get(position).getArea());
             }

@@ -30,9 +30,9 @@ import java.util.List;
  *
  * @author AigeStudio 2015-12-12
  * @author AigeStudio 2016-06-17
- *         更新项目结构
- *         <p>
- *         New project structure
+ * 更新项目结构
+ * <p>
+ * New project structure
  * @version 1.1.0
  */
 public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable {
@@ -82,7 +82,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
     /**
      * 数据源
      */
-    private List mData;
+    private List<String> mData;
 
     /**
      * 最宽的文本
@@ -295,26 +295,20 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WheelPicker);
         int idData = a.getResourceId(R.styleable.WheelPicker_wheel_data, 0);
-        mData = Arrays.asList(getResources()
-                .getStringArray(idData == 0 ? R.array.WheelArrayDefault : idData));
-        mItemTextSize = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_item_text_size,
-                getResources().getDimensionPixelSize(R.dimen.WheelItemTextSize));
+        mData = Arrays.asList(getResources().getStringArray(idData == 0 ? R.array.WheelArrayDefault : idData));
+        mItemTextSize = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_item_text_size, getResources().getDimensionPixelSize(R.dimen.WheelItemTextSize));
         mVisibleItemCount = a.getInt(R.styleable.WheelPicker_wheel_visible_item_count, 7);
         mSelectedItemPosition = a.getInt(R.styleable.WheelPicker_wheel_selected_item_position, 0);
         hasSameWidth = a.getBoolean(R.styleable.WheelPicker_wheel_same_width, false);
-        mTextMaxWidthPosition =
-                a.getInt(R.styleable.WheelPicker_wheel_maximum_width_text_position, -1);
+        mTextMaxWidthPosition = a.getInt(R.styleable.WheelPicker_wheel_maximum_width_text_position, -1);
         mMaxWidthText = a.getString(R.styleable.WheelPicker_wheel_maximum_width_text);
-        mSelectedItemTextColor = a.getColor
-                (R.styleable.WheelPicker_wheel_selected_item_text_color, -1);
+        mSelectedItemTextColor = a.getColor(R.styleable.WheelPicker_wheel_selected_item_text_color, -1);
         mItemTextColor = a.getColor(R.styleable.WheelPicker_wheel_item_text_color, 0xFF888888);
-        mItemSpace = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_item_space,
-                getResources().getDimensionPixelSize(R.dimen.WheelItemSpace));
+        mItemSpace = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_item_space, getResources().getDimensionPixelSize(R.dimen.WheelItemSpace));
         isCyclic = a.getBoolean(R.styleable.WheelPicker_wheel_cyclic, false);
         hasIndicator = a.getBoolean(R.styleable.WheelPicker_wheel_indicator, false);
         mIndicatorColor = a.getColor(R.styleable.WheelPicker_wheel_indicator_color, 0xFFEE3333);
-        mIndicatorSize = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_indicator_size,
-                getResources().getDimensionPixelSize(R.dimen.WheelIndicatorSize));
+        mIndicatorSize = a.getDimensionPixelSize(R.styleable.WheelPicker_wheel_indicator_size, getResources().getDimensionPixelSize(R.dimen.WheelIndicatorSize));
         hasCurtain = a.getBoolean(R.styleable.WheelPicker_wheel_curtain, false);
         mCurtainColor = a.getColor(R.styleable.WheelPicker_wheel_curtain_color, 0x88FFFFFF);
         hasAtmospheric = a.getBoolean(R.styleable.WheelPicker_wheel_atmospheric, false);
@@ -379,15 +373,13 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
     private void computeTextSize() {
         mTextMaxWidth = mTextMaxHeight = 0;
         if (hasSameWidth) {
-            mTextMaxWidth = (int) mPaint.measureText(String.valueOf(mData.get(0)));
+            mTextMaxWidth = (int) mPaint.measureText(mData.get(0));
         } else if (isPosInRang(mTextMaxWidthPosition)) {
-            mTextMaxWidth = (int) mPaint.measureText
-                    (String.valueOf(mData.get(mTextMaxWidthPosition)));
+            mTextMaxWidth = (int) mPaint.measureText(mData.get(mTextMaxWidthPosition));
         } else if (!TextUtils.isEmpty(mMaxWidthText)) {
             mTextMaxWidth = (int) mPaint.measureText(mMaxWidthText);
         } else {
-            for (Object obj : mData) {
-                String text = String.valueOf(obj);
+            for (String text : mData) {
                 int width = (int) mPaint.measureText(text);
                 mTextMaxWidth = Math.max(mTextMaxWidth, width);
             }
@@ -852,30 +844,34 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
         setSelectedItemPosition(position, true);
     }
 
+    public void setSelectedItem(String text) {
+        setSelectedItemPosition(mData.indexOf(text), true);
+    }
+
     public void setSelectedItemPosition(int position, final boolean animated) {
-      isTouchTriggered = false;
-      if (animated && mScroller.isFinished()) { // We go non-animated regardless of "animated" parameter if scroller is in motion
-        int length = getData().size();
-        int itemDifference = position - mCurrentItemPosition;
-        if (itemDifference == 0)
-          return;
-        if (isCyclic && Math.abs(itemDifference) > (length / 2)) { // Find the shortest path if it's cyclic
-          itemDifference += (itemDifference > 0) ? -length : length;
+        isTouchTriggered = false;
+        if (animated && mScroller.isFinished()) { // We go non-animated regardless of "animated" parameter if scroller is in motion
+            int length = getData().size();
+            int itemDifference = position - mCurrentItemPosition;
+            if (itemDifference == 0)
+                return;
+            if (isCyclic && Math.abs(itemDifference) > (length / 2)) { // Find the shortest path if it's cyclic
+                itemDifference += (itemDifference > 0) ? -length : length;
+            }
+            mScroller.startScroll(0, mScroller.getCurrY(), 0, (-itemDifference) * mItemHeight);
+            mHandler.post(this);
+        } else {
+            if (!mScroller.isFinished())
+                mScroller.abortAnimation();
+            position = Math.min(position, mData.size() - 1);
+            position = Math.max(position, 0);
+            mSelectedItemPosition = position;
+            mCurrentItemPosition = position;
+            mScrollOffsetY = 0;
+            computeFlingLimitY();
+            requestLayout();
+            invalidate();
         }
-        mScroller.startScroll(0, mScroller.getCurrY(), 0, (-itemDifference) * mItemHeight);
-        mHandler.post(this);
-      } else {
-        if (!mScroller.isFinished())
-          mScroller.abortAnimation();
-        position = Math.min(position, mData.size() - 1);
-        position = Math.max(position, 0);
-        mSelectedItemPosition = position;
-        mCurrentItemPosition = position;
-        mScrollOffsetY = 0;
-        computeFlingLimitY();
-        requestLayout();
-        invalidate();
-      }
     }
 
     @Override
@@ -884,12 +880,12 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
     }
 
     @Override
-    public List getData() {
+    public List<String> getData() {
         return mData;
     }
 
     @Override
-    public void setData(List data) {
+    public void setData(List<String> data) {
         if (null == data)
             throw new NullPointerException("WheelPicker's data can not be null!");
         mData = data;
@@ -1118,7 +1114,7 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
      * 滚轮选择器Item项被选中时监听接口
      *
      * @author AigeStudio 2016-06-17
-     *         新项目结构
+     * 新项目结构
      * @version 1.1.0
      */
     public interface OnItemSelectedListener {
@@ -1130,16 +1126,16 @@ public class WheelPicker extends View implements IDebug, IWheelPicker, Runnable 
          * @param data     当前选中的数据
          * @param position 当前选中的数据在数据列表中的位置
          */
-        void onItemSelected(WheelPicker picker, Object data, int position);
+        void onItemSelected(WheelPicker picker, String data, int position);
     }
 
     /**
      * 滚轮选择器滚动时监听接口
      *
      * @author AigeStudio 2016-06-17
-     *         新项目结构
-     *         <p>
-     *         New project structure
+     * 新项目结构
+     * <p>
+     * New project structure
      * @since 2016-06-17
      */
     public interface OnWheelChangeListener {

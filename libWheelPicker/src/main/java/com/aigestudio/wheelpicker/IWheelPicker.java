@@ -145,7 +145,7 @@ public interface IWheelPicker {
      *
      * @return 数据列表
      */
-    List getData();
+    List<String> getData();
 
     /**
      * 设置数据列表
@@ -163,7 +163,7 @@ public interface IWheelPicker {
      *
      * @param data 数据列表
      */
-    void setData(List data);
+    void setData(List<String> data);
 
     /**
      * 设置数据项是否有相同的宽度

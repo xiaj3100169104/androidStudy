@@ -20,7 +20,7 @@ import java.util.Map;
  * @version 1
  */
 public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
-    private static final Map<Integer, List<Integer>> DAYS = new HashMap<>();
+    private static final Map<Integer, List<String>> DAYS = new HashMap<>();
 
     private Calendar mCalendar;
 
@@ -33,29 +33,28 @@ public class WheelDayPicker extends WheelPicker implements IWheelDayPicker {
 
     public WheelDayPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         mCalendar = Calendar.getInstance();
-
         mYear = mCalendar.get(Calendar.YEAR);
         mMonth = mCalendar.get(Calendar.MONTH);
-
         updateDays();
-
         mSelectedDay = mCalendar.get(Calendar.DAY_OF_MONTH);
-
         updateSelectedDay();
     }
 
     private void updateDays() {
         mCalendar.set(Calendar.YEAR, mYear);
         mCalendar.set(Calendar.MONTH, mMonth);
-
         int days = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        List<Integer> data = DAYS.get(days);
+        List<String> data = DAYS.get(days);
         if (null == data) {
             data = new ArrayList<>();
-            for (int i = 1; i <= days; i++)
-                data.add(i);
+            for (int i = 1; i <= days; i++) {
+                if (i <= 9) {
+                    data.add("0" + i);
+                    continue;
+                }
+                data.add(String.valueOf(i));
+            }
             DAYS.put(days, data);
         }
         super.setData(data);

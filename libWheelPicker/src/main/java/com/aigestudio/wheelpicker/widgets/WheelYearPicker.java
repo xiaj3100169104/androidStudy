@@ -34,9 +34,9 @@ public class WheelYearPicker extends WheelPicker implements IWheelYearPicker {
     }
 
     private void updateYears() {
-        List<Integer> data = new ArrayList<>();
+        List<String> data = new ArrayList<>();
         for (int i = mYearStart; i <= mYearEnd; i++)
-            data.add(i);
+            data.add(String.valueOf(i));
         super.setData(data);
     }
 
@@ -45,7 +45,7 @@ public class WheelYearPicker extends WheelPicker implements IWheelYearPicker {
     }
 
     @Override
-    public void setData(List data) {
+    public void setData(List<String> data) {
         throw new UnsupportedOperationException("You can not invoke setData in WheelYearPicker");
     }
 

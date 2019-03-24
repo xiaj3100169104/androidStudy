@@ -146,6 +146,9 @@ public class CustomTagsLayout extends ViewGroup {
         return p instanceof CustomLayoutParams;
     }
 
+    /**
+     * 注意：布局参数类只是用来定义与子view尺寸、位置相关的属性，不要掺杂其他属性。
+     */
     private class CustomLayoutParams extends LayoutParams {
         public CustomLayoutParams(LayoutParams p) {
             super(p);

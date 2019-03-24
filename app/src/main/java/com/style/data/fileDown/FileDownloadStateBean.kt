@@ -2,6 +2,7 @@ package com.style.data.fileDown
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.support.annotation.NonNull
 import java.io.Serializable
@@ -24,10 +25,12 @@ open class FileDownloadStateBean : Serializable {
 
     constructor()
 
+    @Ignore
     constructor(url: String?) {
         this.url = url!!
     }
 
+    @Ignore
     constructor(url: String?, status: Int, totalSize: Int, downloadSize: Int) {
         this.url = url!!
         this.status = status

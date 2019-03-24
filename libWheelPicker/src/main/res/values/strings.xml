@@ -3,4 +3,7 @@
     <string name="Year">Y</string>
     <string name="Month">M</string>
     <string name="Day">D</string>
+
+    <string name="divide_hour_minute">:</string>
+
 </resources>

@@ -18,6 +18,7 @@ import java.util.List;
  * @version 1
  */
 public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
+    //被选中的月份
     private int mSelectedMonth;
 
     public WheelMonthPicker(Context context) {
@@ -27,21 +28,26 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
     public WheelMonthPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        List<Integer> data = new ArrayList<>();
-        for (int i = 1; i <= 12; i++)
-            data.add(i);
+        List<String> data = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            if (i <= 9) {
+                data.add("0" + i);
+                continue;
+            }
+            data.add(String.valueOf(i));
+        }
         super.setData(data);
 
         mSelectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        updateSelectedYear();
+        updateSelectedMonth();
     }
 
-    private void updateSelectedYear() {
+    private void updateSelectedMonth() {
         setSelectedItemPosition(mSelectedMonth - 1);
     }
 
     @Override
-    public void setData(List data) {
+    public void setData(List<String> data) {
         throw new UnsupportedOperationException("You can not invoke setData in WheelMonthPicker");
     }
 
@@ -53,7 +59,7 @@ public class WheelMonthPicker extends WheelPicker implements IWheelMonthPicker {
     @Override
     public void setSelectedMonth(int month) {
         mSelectedMonth = month;
-        updateSelectedYear();
+        updateSelectedMonth();
     }
 
     @Override

@@ -9,6 +9,7 @@
     <application >
 
         <activity android:name="com.google.zxing.activity.CaptureActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/scaner"
             />

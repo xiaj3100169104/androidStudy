@@ -1,25 +1,18 @@
 package example.activity;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
-
-import com.google.zxing.WriterException;
-import com.google.zxing.activity.CaptureActivity;
-import com.google.zxing.encoding.EncodingHandler;
-import com.style.base.BaseDefaultTitleBarActivity;
-import com.style.framework.R;
-import com.style.framework.databinding.ActivityQrCodeScanBinding;
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.widget.Toast
+import com.google.zxing.activity.CaptureActivity
+import com.google.zxing.encoding.EncodingHandler
+import com.style.base.BaseDefaultTitleBarActivity
+import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_qr_code_scan.*
-
-import org.jetbrains.annotations.Nullable;
 
 class QRCodeActivity : BaseDefaultTitleBarActivity() {
     val url = "https://github.com/xj913492952"
@@ -28,7 +21,15 @@ class QRCodeActivity : BaseDefaultTitleBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_qr_code_scan)
         init()
-        btnScaner.setOnClickListener { checkCameraPermission() }
+        btnScaner.setOnClickListener {
+            checkCameraPermission()
+            //startActivity(Intent(getContext(), MainActivity::class.java))
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        logE(TAG, "onNewIntent")
     }
 
     private fun init() {

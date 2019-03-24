@@ -39,4 +39,9 @@ public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
     private fun send() {
         mHandler.sendEmptyMessage(1)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacksAndMessages(null)
+    }
 }

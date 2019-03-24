@@ -37,12 +37,12 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
                 setUserView(loginModel.user.get()!!)
             }
         })
-        loginModel.loginState.observe(this, object : Observer<Boolean> {
+        /*loginModel.loginState.observe(this, object : Observer<Boolean> {
             override fun onChanged(t: Boolean?) {
                 startActivity(Intent(getContext(), MainActivity::class.java))
                 finish()
             }
-        })
+        })*/
         loginModel.loginState.observe(this, Observer<Boolean> { t ->
             if (t!!) {
                 startActivity(Intent(getContext(), MainActivity::class.java))
@@ -51,10 +51,10 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
 
             }
         })
-        loginModel.loginState.observe(this, Observer<Boolean> {
+       /* loginModel.loginState.observe(this, Observer<Boolean> {
             startActivity(Intent(getContext(), MainActivity::class.java))
             finish()
-        })
+        })*/
 
         bd.btSignIn.setOnClickListener {}
         bd.btSignIn.setOnClickListener(object : View.OnClickListener {

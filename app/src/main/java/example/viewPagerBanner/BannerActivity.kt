@@ -23,12 +23,9 @@ package example.viewPagerBanner;
  *         佛祖保佑       永无BUG
  */
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.view.ViewPager
-import android.view.View
 import com.github.chrisbanes.photoview.PhotoView
-import com.github.chrisbanes.photoview.PhotoViewAttacher
-import com.style.base.BaseTransparentStatusBarActivity
+import com.style.base.activity.BaseTransparentStatusBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.banner_activity.*
 

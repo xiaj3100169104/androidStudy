@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.dialog.BaseSingleWheelDialog;
 import com.style.dialog.ChangeAddressDialog;

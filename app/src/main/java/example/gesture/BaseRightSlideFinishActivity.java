@@ -11,7 +11,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 
 /**
  * 右滑销毁activity基类，操作体验更好

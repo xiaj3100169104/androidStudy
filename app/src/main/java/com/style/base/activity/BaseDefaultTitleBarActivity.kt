@@ -1,8 +1,7 @@
-package com.style.base
+package com.style.base.activity
 
 import android.os.Build
 import android.view.View
-import android.view.WindowManager
 
 abstract class BaseDefaultTitleBarActivity : BaseTitleBarActivity() {
 

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.style.app.LogManager
+import com.style.base.activity.BaseActivity
 import com.style.utils.DeviceInfoUtil
 
 import java.util.ArrayList

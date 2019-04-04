@@ -2,7 +2,7 @@ package example.editLayout;
 
 import android.os.Bundle;
 
-import com.style.base.BaseHideStatusTitleBarActivity;
+import com.style.base.activity.BaseHideStatusTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomActivityBinding;
 

@@ -1,6 +1,5 @@
 package example.dialog;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,7 @@ import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.MaterialProgressDialog;

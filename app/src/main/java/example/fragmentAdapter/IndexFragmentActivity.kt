@@ -2,11 +2,11 @@ package example.fragmentAdapter;
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import com.style.base.BaseWhiteTitleBarActivity
+import com.style.base.activity.BaseLightStatusBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
 
-class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
+class IndexFragmentActivity : BaseLightStatusBarActivity() {
     private lateinit var fAdapter: IndexFragmentAdapter
     private val fragments = ArrayList<IndexFragment>()
     private val titles = ArrayList<String>()

@@ -1,7 +1,7 @@
 package example.db;
 
 import android.os.Bundle
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_test_room.*
 

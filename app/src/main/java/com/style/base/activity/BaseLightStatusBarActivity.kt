@@ -1,10 +1,10 @@
-package com.style.base
+package com.style.base.activity
 
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
 
-abstract class BaseWhiteTitleBarActivity : BaseTitleBarActivity() {
+abstract class BaseLightStatusBarActivity : BaseTitleBarActivity() {
 
     override fun setContentView(contentView: View) {
         when {

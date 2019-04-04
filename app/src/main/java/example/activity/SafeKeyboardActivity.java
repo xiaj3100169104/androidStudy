@@ -2,18 +2,17 @@ package example.activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.style.base.BaseWhiteTitleBarActivity;
+import com.style.base.activity.BaseLightStatusBarActivity;
 import com.style.framework.R;
 import com.xiajun.widget.libsafekeyboard.KeyboardPopupWindow;
 
-public class SafeKeyboardActivity extends BaseWhiteTitleBarActivity {
+public class SafeKeyboardActivity extends BaseLightStatusBarActivity {
     private static final String TAG = "MainActivity";
     private EditText numberEt;
     private KeyboardPopupWindow keyboardPopupWindow;

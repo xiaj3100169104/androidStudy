@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import android.view.View;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 

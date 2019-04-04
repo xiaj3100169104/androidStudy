@@ -1,13 +1,9 @@
 package example.viewPagerBanner;
 
 import android.animation.ValueAnimator;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +11,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.app.AppManager;
-import com.style.base.BaseTransparentStatusBarActivity;
+import com.style.base.activity.BaseTransparentStatusBarActivity;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -1,12 +1,10 @@
 package example.gesture;
 
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 

@@ -3,12 +3,10 @@ package example.customView;
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
-import com.style.utils.DeviceInfoUtil
 import kotlinx.android.synthetic.main.activity_record_audio_view.*
 import java.util.*
-import kotlin.concurrent.thread
 
 class RecordAudioViewActivity : BaseDefaultTitleBarActivity() {
 

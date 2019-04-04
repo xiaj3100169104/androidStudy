@@ -1,4 +1,4 @@
-package com.style.base
+package com.style.base.activity
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
@@ -7,21 +7,14 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 
 import com.style.app.LogManager
 import com.style.dialog.LoadingDialog
-import com.style.framework.R
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.InputMethodUtil
 

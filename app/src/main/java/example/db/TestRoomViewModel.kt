@@ -1,17 +1,29 @@
 package example.db
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import com.style.base.BaseViewModel
 import com.style.entity.UserBean
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TestRoomViewModel(application: Application) : BaseViewModel(application) {
 
+    @SuppressLint("CheckResult")
     fun saveOne() {
         val b = UserBean(UUID.randomUUID().toString(), "one", "one", 1, System.currentTimeMillis(), 1)
         getDataBase().testRoomDao.save(b)
+             /*   .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Consumer { id->
+
+                }, Consumer { e->
+
+                })*/
     }
 
     fun saveList() {

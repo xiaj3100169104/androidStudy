@@ -15,13 +15,11 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Display
-import android.view.View
-import android.widget.TextView
 import com.style.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil

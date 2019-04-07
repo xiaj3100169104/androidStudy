@@ -60,19 +60,19 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
+            //storeFile file(properties.getProperty("STORE_FILE_DEBUG"))
             /*storePassword properties.getProperty("STORE_PASSWORD")
               keyAlias project.KEY_ALIAS
               keyPassword project.KEY_PASSWORD*/
-            v2SigningEnabled false
+            //v2SigningEnabled false
         }
         release {
             //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
-            storeFile file(properties.getProperty("STORE_FILE"))
+            /*storeFile file(properties.getProperty("STORE_FILE"))
             storePassword properties.getProperty("STORE_PASSWORD")
             keyAlias properties.getProperty("KEY_ALIAS")
             keyPassword properties.getProperty("KEY_PASSWORD")
-            v2SigningEnabled false
+            v2SigningEnabled false*/
         }
     }
     buildTypes {

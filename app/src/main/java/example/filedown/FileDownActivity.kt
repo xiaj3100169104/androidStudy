@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 
 import com.style.app.FileDirConfig
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.data.event.EventBusEvent
 import com.style.data.fileDown.FileDownloadStateBean

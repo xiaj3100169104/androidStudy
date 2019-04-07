@@ -6,7 +6,7 @@ import android.databinding.Observable
 import android.os.Bundle
 import android.view.View
 
-import com.style.base.BaseTransparentStatusBarActivity
+import com.style.base.activity.BaseTransparentStatusBarActivity
 import com.style.entity.UserInfo
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding

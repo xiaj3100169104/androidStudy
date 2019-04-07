@@ -2,13 +2,13 @@ package example.activity;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.style.base.BaseDefaultTitleBarActivity
+import android.view.View
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test_rx.*
@@ -18,6 +18,9 @@ class TestRxActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_rx)
+        val menu = addRightTextMenu(R.string.ok, R.color.white, View.OnClickListener {
+            logE(TAG, "123456")
+        } )
         btn_just.setOnClickListener { testJust() }
         btn_map.setOnClickListener { testMap() }
         btn_flat_map.setOnClickListener { testFlatMap() }

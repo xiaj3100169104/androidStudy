@@ -3,10 +3,9 @@ package example.subThreadLooper;
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 import kotlinx.android.synthetic.main.activity_msg_to_sub.*

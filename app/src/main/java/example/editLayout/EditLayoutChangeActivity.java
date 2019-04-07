@@ -3,13 +3,13 @@ package example.editLayout;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.style.base.BaseWhiteTitleBarActivity;
+import com.style.base.activity.BaseLightStatusBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMainActivityBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class EditLayoutChangeActivity extends BaseWhiteTitleBarActivity {
+public class EditLayoutChangeActivity extends BaseLightStatusBarActivity {
     EditLayoutMainActivityBinding bd;
 
     @Override

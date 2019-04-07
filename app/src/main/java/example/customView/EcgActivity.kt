@@ -1,20 +1,14 @@
 package example.customView;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.style.app.FileDirConfig;
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
-import kotlinx.android.synthetic.main.activity_ecg.*
-
-import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException
-import java.util.ArrayList;
-import java.util.List;
 
 class EcgActivity : BaseDefaultTitleBarActivity() {
 

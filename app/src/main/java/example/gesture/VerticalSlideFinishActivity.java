@@ -9,11 +9,9 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.app.AppManager;
-import com.style.base.BaseActivity;
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
-import com.style.utils.AppInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 

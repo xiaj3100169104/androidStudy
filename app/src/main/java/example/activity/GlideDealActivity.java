@@ -16,7 +16,7 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.app.FileDirConfig;
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.data.glide.GlideCircleTransform;
 import com.style.data.glide.CornerRectTransform;
 import com.style.data.glide.GlideRoundTransform;

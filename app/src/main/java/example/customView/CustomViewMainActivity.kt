@@ -3,7 +3,7 @@ package example.customView
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import example.customView.fragment.*
 import kotlinx.android.synthetic.main.custom_view_main.*

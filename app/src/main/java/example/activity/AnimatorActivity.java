@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.BounceInterpolator;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySecondBinding;
 

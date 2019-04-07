@@ -2,7 +2,6 @@ package example.album;
 
 import android.Manifest;
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent;
 import android.net.Uri
 import android.os.Build;
@@ -18,7 +17,7 @@ import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.app.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;

@@ -1,7 +1,7 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseDefaultTitleBarActivity
 import com.style.framework.R
 import com.style.view.healthy.SleepDetailView
 import com.style.view.healthy.SleepWeekHistogram

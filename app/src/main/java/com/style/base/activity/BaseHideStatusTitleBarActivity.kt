@@ -1,8 +1,7 @@
-package com.style.base
+package com.style.base.activity
 
 import android.os.Build
 import android.view.View
-import android.view.WindowManager
 
 /**
  * 如果有编辑框布局在界面底部时设置fitsSystemWindows = false，弹出键盘布局不会调整,

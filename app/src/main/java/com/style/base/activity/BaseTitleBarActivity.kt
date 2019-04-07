@@ -1,13 +1,18 @@
-package com.style.base
+package com.style.base.activity
 
-import android.os.Build
+import android.content.Context
+import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
-import android.text.Html
+import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.style.framework.R
+import com.style.utils.DeviceInfoUtil
 
 
 abstract class BaseTitleBarActivity : BaseActivity() {
@@ -44,4 +49,27 @@ abstract class BaseTitleBarActivity : BaseActivity() {
     fun setToolbarTitle(@StringRes resId: Int) {
         tvTitleBase.text = getContext().getString(resId)
     }
+
+    fun addRightTextMenu(@StringRes textRes: Int, @ColorRes colorRes: Int, onClickListener: View.OnClickListener): TextView {
+        val tv = TextView(getContext())
+        tv.text = resources.getString(textRes)
+        tv.setTextColor(resources.getColor(colorRes))
+        val flowTextSize = DeviceInfoUtil.sp2px(getContext(),17)
+        tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, flowTextSize)
+        tv.setSingleLine(true)
+        tv.ellipsize = TextUtils.TruncateAt.END
+        tv.maxWidth = dp2px(80f)
+        tv.gravity = Gravity.CENTER
+        tv.setOnClickListener(onClickListener)
+        var lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        lp.addRule(RelativeLayout.ALIGN_PARENT_END)
+        addRightMenu(tv, lp)
+        return tv
+    }
+
+    private fun addRightMenu(menu: View, lp: RelativeLayout.LayoutParams) {
+        titleBar.addView(menu, lp)
+    }
+
+
 }

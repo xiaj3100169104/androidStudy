@@ -2,10 +2,9 @@ package example.viewPagerCards.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsFragmentsActivityBinding;
 

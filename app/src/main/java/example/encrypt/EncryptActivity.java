@@ -2,9 +2,8 @@ package example.encrypt;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
 
-import com.style.base.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
 import com.style.utils.BytesHexStrTranslate;

@@ -4,6 +4,9 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 
+/**
+ * 状态栏自定义布局，状态栏字体颜色风格为深色
+ */
 abstract class BaseLightStatusBarActivity : BaseTitleBarActivity() {
 
     override fun setContentView(contentView: View) {

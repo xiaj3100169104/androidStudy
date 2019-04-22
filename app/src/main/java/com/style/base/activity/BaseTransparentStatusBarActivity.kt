@@ -3,6 +3,9 @@ package com.style.base.activity
 import android.os.Build
 import android.view.View
 
+/**
+ * 状态栏自定义布局，状态栏字体颜色风格为深色
+ */
 abstract class BaseTransparentStatusBarActivity : BaseActivity() {
 
     override fun setContentView(contentView: View) {

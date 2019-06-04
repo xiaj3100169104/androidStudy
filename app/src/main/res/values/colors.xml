@@ -2,9 +2,7 @@
 <resources>
     <color name="windowBackground_translucent">#30000000</color>
     <color name="black_full">#FE000000</color>
-    <color name="windows_color">#FFF5F5F5</color>
-
-    <color name="windowBackground">@color/windows_color</color>
+    <color name="windowBackground">#FFF5F5F5</color>
     <!-- appbar颜色 -->
     <color name="colorPrimary">#FF00B2EE</color>
     <!-- 状态栏颜色 -->
@@ -22,7 +20,7 @@
     <color name="colorButtonPressed">#337523</color>
     <color name="textColorHint">@color/gray_light</color>
 
-    <color name="bg_refresh_view">@color/windows_color</color>
+    <color name="bg_refresh_view">@color/windowBackground</color>
     <!-- font color -->
     <color name="text_color_white">#FFFFFF</color>
     <color name="text_color_black_light">@color/textColorPrimary</color>
@@ -40,7 +38,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#ff9a9b9c</color>
 
-    <color name="divider_color">@color/windows_color</color>
+    <color name="divider_color">@color/windowBackground</color>
     <!-- 粉色 -->
     <color name="pink">#ff88b7</color>
     <!-- 主题红色 -->

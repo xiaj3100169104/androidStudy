@@ -60,6 +60,7 @@ public class AidlActivity extends BaseDefaultTitleBarActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClassName("com.wifidemo.example.xiajun.myapplication.default", "com.example.MainActivity");
+        intent.putExtra("name", "xiajun");
         startActivity(intent);
         /*Intent intent = getContext().getPackageManager().getLaunchIntentForPackage("com.wifidemo.example.xiajun.myapplication");
         startActivity(intent);*/

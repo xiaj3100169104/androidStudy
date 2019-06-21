@@ -9,17 +9,18 @@ import com.style.framework.databinding.ActivityWebserviceBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class WebServiceActivity extends BaseDefaultTitleBarActivity {
+public class WebServiceActivity extends BaseDefaultTitleBarActivity implements WebServiceView {
 
     ActivityWebserviceBinding bd;
     WebServiceViewModel presenter;
-
+    WebServicePresenter mPresenter;
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_webservice);
         bd = getBinding();
         presenter = getViewModel(WebServiceViewModel.class);
+        mPresenter = new WebServicePresenter(this);
         presenter.content.observe(this, s -> setContent(s));
     }
 
@@ -36,7 +37,7 @@ public class WebServiceActivity extends BaseDefaultTitleBarActivity {
 
     public void responseString(View v) {
         final String code = bd.etCityCode.getText().toString();
-        presenter.getWeather(code);
+        mPresenter.getWeather(code);
     }
 
     public void responseGeneralData(View v) {
@@ -49,6 +50,17 @@ public class WebServiceActivity extends BaseDefaultTitleBarActivity {
     }
 
     public void setContent(String s) {
+        logE(getTAG(), s.toString());
+        bd.tvResult.setText(s.toString());
+    }
+
+    @Override
+    public void setPhone(String s) {
+
+    }
+
+    @Override
+    public void setWeather(String s) {
         logE(getTAG(), s.toString());
         bd.tvResult.setText(s.toString());
     }

@@ -2,25 +2,29 @@ package com.style.view.refresh;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.xiajun.xxrefreshview.R;
 
 public class MyAppRefreshLayout extends SmartRefreshLayout {
     public static void init() {
-        // 指定全局的下拉Header
+        // 指定全局的Header
         setDefaultRefreshHeaderCreator((context, layout) -> {
             layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
             return new SimpleRefreshHeader(context);
         });
+        // 指定全局的footer
+        setDefaultRefreshFooterCreator((context, layout) -> {
+            layout.setPrimaryColorsId(R.color.pull_refresh_bg, R.color.pull_refresh_text);//全局设置主题颜色
+            return new SimpleRefreshFooter(context);
+        });
 
-        // 指定全局的上拉Footer
-        setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context));
+        // 默认刷新加载布局
+        //setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context));
+        //setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context));
     }
 
     public MyAppRefreshLayout(Context context) {

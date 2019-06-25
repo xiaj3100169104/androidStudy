@@ -36,7 +36,7 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
                 showToast(position.toString() + "")
             }
         })
-        refreshLayout.isEnableLoadMore = false
+        refreshLayout.isEnableLoadMore = true
         refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
         refreshLayout.setOnRefreshListener { refreshLayout ->
             refreshLayout.layout.postDelayed({

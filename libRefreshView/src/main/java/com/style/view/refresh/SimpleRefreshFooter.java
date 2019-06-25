@@ -13,54 +13,62 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.xiajun.xxrefreshview.R;
 import com.xiajun.xxrefreshview.header.RefreshCircleAProgressBar;
 
 /**
- * 自定义简洁下拉刷新头
+ * 自定义简洁上拉加载布局
  * Created by xiajun on 2018/11/13.
  */
 
 @SuppressLint("RestrictedApi")
-public class SimpleRefreshHeader extends RelativeLayout implements RefreshHeader {
-    protected final String TAG = getClass().getSimpleName();
-    private TextView mTextView;
-    private RefreshCircleAProgressBar progressBar;
-    //假设旋转一度需要下拉的距离，单位：px
-    int distanceOfAngle = 1;
-    private int mStartAngle;
-    private boolean isShowText = true;
+public class SimpleRefreshFooter extends RelativeLayout implements RefreshFooter {
 
-    public SimpleRefreshHeader(Context context) {
+    public static String REFRESH_FOOTER_PULLUP = "上拉加载更多";
+    public static String REFRESH_FOOTER_RELEASE = "释放立即加载";
+    public static String REFRESH_FOOTER_LOADING = "-------------------- 正在加载数据 --------------------";
+    public static String REFRESH_FOOTER_REFRESHING = "正在刷新...";
+    public static String REFRESH_FOOTER_FINISH = "加载完成";
+    public static String REFRESH_FOOTER_FAILED = "加载失败";
+    public static String REFRESH_FOOTER_ALLLOADED = "-------------------- 已经到底了 --------------------";
+
+    protected final String TAG = getClass().getSimpleName();
+    private TextView mTitleText;
+    private boolean isShowText = true;
+    protected int mFinishDuration = 500;
+    protected boolean mNoMoreData = false;
+
+    public SimpleRefreshFooter(Context context) {
         super(context);
         initView(context);
     }
 
-    public SimpleRefreshHeader(Context context, AttributeSet attrs) {
+    public SimpleRefreshFooter(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public SimpleRefreshHeader(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SimpleRefreshFooter(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SimpleRefreshHeader(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SimpleRefreshFooter(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context);
     }
 
     private void initView(Context context) {
-        RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(com.xiajun.xxrefreshview.R.layout.xxrefresh_default_header, null);
-        progressBar = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_default_progress_bar);
-        mTextView = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_default_header_tv);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 240);
+        RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.xxrefresh_simple_footer, null);
+        mTitleText = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_simple_footer_tv_load_more);
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 130);
         addView(popView, params);
     }
 
@@ -89,9 +97,6 @@ public class SimpleRefreshHeader extends RelativeLayout implements RefreshHeader
     @Override
     public void onPulling(float percent, int offset, int height, int extendHeight) {
         Log.e(TAG, "onPulling percent--" + percent + "  offset--" + offset);
-        progressBar.setmIndeterminate(false);
-        mStartAngle = -offset / distanceOfAngle % 360;
-        progressBar.setStartAngle(mStartAngle);
     }
 
     @Override
@@ -103,18 +108,24 @@ public class SimpleRefreshHeader extends RelativeLayout implements RefreshHeader
     @Override
     public void onReleased(RefreshLayout refreshLayout, int height, int extendHeight) {
         Log.e(TAG, "onReleased");
-
     }
 
     @Override
     public void onStartAnimator(@NonNull RefreshLayout refreshLayout, int height, int extendHeight) {
         Log.e(TAG, "onStartAnimator");
-
     }
 
     @Override
     public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
-        return 500;
+        if (!mNoMoreData) {
+            if (success) {
+                mTitleText.setText(REFRESH_FOOTER_FINISH);
+            } else {
+                mTitleText.setText(REFRESH_FOOTER_FAILED);
+            }
+            return mFinishDuration;
+        }
+        return 0;
     }
 
     @Override
@@ -129,25 +140,41 @@ public class SimpleRefreshHeader extends RelativeLayout implements RefreshHeader
 
     @Override
     public void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState, RefreshState newState) {
-        switch (newState) {
-            case None: // 无状态
-                break;
-            case PullDownToRefresh: // 下拉即可刷新
-                if (isShowText())
-                    mTextView.setText("");
-                break;
-            case Refreshing: // 刷新中状态
-                if (isShowText())
-                    mTextView.setText("正在刷新...");
-                progressBar.setmIndeterminate(true);
-                break;
-            case ReleaseToRefresh:  // 释放就开始刷新状态
-                if (isShowText())
-                    mTextView.setText("松开刷新");
-                break;
+        if (!mNoMoreData) {
+            switch (newState) {
+                case None:
+                case PullUpToLoad:
+                    mTitleText.setText(REFRESH_FOOTER_PULLUP);
+                    break;
+                case Loading:
+                case LoadReleased:
+                    mTitleText.setText(REFRESH_FOOTER_LOADING);
+                    break;
+                case ReleaseToLoad:
+                    mTitleText.setText(REFRESH_FOOTER_RELEASE);
+                    break;
+                case Refreshing:
+                    mTitleText.setText(REFRESH_FOOTER_REFRESHING);
+                    break;
+            }
         }
     }
 
+    /**
+     * 设置数据全部加载完成，将不能再次触发加载功能
+     */
+    @Override
+    public boolean setNoMoreData(boolean noMoreData) {
+        if (mNoMoreData != noMoreData) {
+            mNoMoreData = noMoreData;
+            if (noMoreData) {
+                mTitleText.setText(REFRESH_FOOTER_ALLLOADED);
+            } else {
+                mTitleText.setText(REFRESH_FOOTER_PULLUP);
+            }
+        }
+        return true;
+    }
 
     public boolean isShowText() {
         return isShowText;

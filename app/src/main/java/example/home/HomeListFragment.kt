@@ -81,6 +81,7 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
             refreshLayout.setNoMoreData(false)
         else
             refreshLayout.setNoMoreData(true)
+        refreshLayout.finishLoadMoreWithNoMoreData()
     }
 
     private fun getData() {

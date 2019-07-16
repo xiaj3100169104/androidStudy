@@ -70,8 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="登录"
-                android:textStyle="normal"
-                android:onClick="login"/>
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>

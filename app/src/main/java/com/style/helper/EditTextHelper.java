@@ -15,8 +15,8 @@ import com.style.framework.R;
 
 public class EditTextHelper {
     public static void setTransformationOnClick(View v, final EditText text) {
-        //String digits = v.getContext().getString(R.string.digits_password);
-        //text.setKeyListener(DigitsKeyListener.getInstance(digits));
+        String digits = v.getContext().getString(R.string.digits_password);
+        text.setKeyListener(DigitsKeyListener.getInstance(digits));
         text.setTransformationMethod(PasswordTransformationMethod.getInstance());
         v.setOnClickListener(new View.OnClickListener() {
             @Override

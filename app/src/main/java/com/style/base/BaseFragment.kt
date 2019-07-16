@@ -27,6 +27,10 @@ abstract class BaseFragment : Fragment() {
         return DataBindingUtil.bind(view)!!
     }
 
+    fun <T : ViewModel> getHostViewModel(modelClass: Class<T>): T {
+        return ViewModelProviders.of(this.activity!!).get(modelClass)
+    }
+
     fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
         return ViewModelProviders.of(this).get(modelClass)
     }

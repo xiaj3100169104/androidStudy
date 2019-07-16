@@ -1,20 +1,22 @@
-package example.home
+package example.home.contact
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
 import com.style.view.systemHelper.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home_2.*
 import java.util.*
+import example.home.MainViewModel
 
 
 class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
+    private lateinit var mViewModel: ContactViewModel
+    private lateinit var mHostViewModel: MainViewModel
     private lateinit var dataList: ArrayList<Int>
     private lateinit var adapter: FriendAdapter
 
@@ -24,6 +26,8 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mHostViewModel = getHostViewModel(MainViewModel::class.java)
+        mViewModel = getViewModel(ContactViewModel::class.java)
         dataList = ArrayList()
         adapter = FriendAdapter(context, dataList)
         val layoutManager = LinearLayoutManager(context)

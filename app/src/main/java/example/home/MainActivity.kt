@@ -24,12 +24,14 @@ import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.NetWorkUtil
+import example.home.contact.HomeListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 import org.simple.eventbus.EventBus
 
 
 class MainActivity : BaseDefaultTitleBarActivity() {
+    private lateinit var mViewModel: MainViewModel
     private lateinit var bd: ActivityMainBinding
 
     companion object {
@@ -78,6 +80,7 @@ class MainActivity : BaseDefaultTitleBarActivity() {
     private fun initData() {
         AppManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
+        mViewModel = getViewModel(MainViewModel::class.java)
         appStateReceiver = DeviceStateBroadcastReceiver()
         val filter = IntentFilter(NET_CHANGE)
         filter.addAction(Intent.ACTION_SCREEN_ON)//屏幕点亮

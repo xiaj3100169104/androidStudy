@@ -4,6 +4,8 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.Observable
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.DigitsKeyListener
 import android.view.View
 
 import com.style.base.activity.BaseTransparentStatusBarActivity
@@ -23,6 +25,10 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_login)
         bd = getBinding()
+        val digits = getContext().getString(R.string.digits_password)
+        bd.etPassword.keyListener = DigitsKeyListener.getInstance(digits)
+        //keyListener与inputType有冲突，先设置的会被覆盖
+        //bd.etPassword.inputType = InputType.TYPE_CLASS_TEXT
         loginModel = getViewModel(LoginModel::class.java)
         loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
@@ -59,20 +65,21 @@ class LoginActivity : BaseTransparentStatusBarActivity() {
         bd.btSignIn.setOnClickListener {}
         bd.btSignIn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-
+                login()
             }
         })
         bd.btSignIn.setOnClickListener { view ->
             view.visibility = View.VISIBLE
             view.visibility = View.VISIBLE
         }
-        loginModel.login()
+        login()
     }
 
-    fun login(v: View) {
+    fun login() {
         val userId = bd.etAccount.text.toString()
         val password = bd.etPassword.text.toString()
         //mPresenter.login(userId, password);
+        loginModel.login()
     }
 
     fun setUserView(user: UserInfo) {

@@ -1,4 +1,4 @@
-package example.home
+package example.home.contact
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

@@ -40,7 +40,7 @@ class LoginModel(application: Application) : BaseViewModel(application) {
         user.set(u)
         u.password = "123456"
         //loginSucceed.set(true);
-        //loginState.value = true
+        loginState.value = true
 
     }
 

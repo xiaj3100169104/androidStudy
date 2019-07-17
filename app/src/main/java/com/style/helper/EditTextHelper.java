@@ -14,6 +14,11 @@ import com.style.framework.R;
  */
 
 public class EditTextHelper {
+    /**
+     * 点击切换模式使密码可见
+     * @param v
+     * @param text
+     */
     public static void setTransformationOnClick(View v, final EditText text) {
         String digits = v.getContext().getString(R.string.digits_password);
         text.setKeyListener(DigitsKeyListener.getInstance(digits));
@@ -23,7 +28,7 @@ public class EditTextHelper {
             public void onClick(View v) {
                 v.setSelected(!v.isSelected());
                 if (v.isSelected()) {
-                    //显示密         码
+                    //显示密码
                     text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     text.setSelection(text.getText().length());
                 } else {
@@ -35,6 +40,11 @@ public class EditTextHelper {
         });
     }
 
+    /**
+     * Touch模式使密码可见
+     * @param v
+     * @param text
+     */
     public static void setTransformationOnTouch(View v, final EditText text) {
         text.setTransformationMethod(PasswordTransformationMethod.getInstance());
         v.setOnTouchListener(new View.OnTouchListener() {

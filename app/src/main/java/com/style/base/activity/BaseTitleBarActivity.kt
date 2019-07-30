@@ -1,6 +1,7 @@
 package com.style.base.activity
 
 import android.content.Context
+import android.graphics.Color
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.text.TextUtils
@@ -17,7 +18,6 @@ import com.style.utils.DeviceInfoUtil
 
 abstract class BaseTitleBarActivity : BaseActivity() {
 
-    private lateinit var statusBar: View
     private lateinit var tvTitleBase: TextView
     private lateinit var titleBar: LinearLayout
 
@@ -28,14 +28,9 @@ abstract class BaseTitleBarActivity : BaseActivity() {
 
     open fun initTitleBar(mContentView: View) {
         titleBar = mContentView.findViewById(R.id.title_bar)
-        statusBar = mContentView.findViewById(R.id.status_bar)
         val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
         ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
-    }
-
-    fun setTransparentStatusBarHeight(height: Int) {
-        statusBar.layoutParams.height = height
     }
 
     open fun onClickTitleBack() {
@@ -61,7 +56,7 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         tv.maxWidth = dp2px(80f)
         tv.gravity = Gravity.CENTER
         tv.setOnClickListener(onClickListener)
-        var lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
         lp.addRule(RelativeLayout.ALIGN_PARENT_END)
         addRightMenu(tv, lp)
         return tv

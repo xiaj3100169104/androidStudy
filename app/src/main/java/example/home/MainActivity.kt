@@ -19,7 +19,7 @@ import com.style.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.simple.eventbus.EventBus
 
 
-class MainActivity : BaseDefaultTitleBarActivity() {
+class MainActivity : BaseFullScreenStableActivity() {
     private lateinit var mViewModel: MainViewModel
     private lateinit var bd: ActivityMainBinding
 
@@ -69,10 +69,6 @@ class MainActivity : BaseDefaultTitleBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_main)
         initData()
-    }
-
-    override fun onClickTitleBack() {
-        //super.onClickTitleBack()
     }
 
     private var isRegisterBroadcastReceiver: Boolean = false
@@ -165,6 +161,10 @@ class MainActivity : BaseDefaultTitleBarActivity() {
 
     private fun startBleService() {
         //BleManager.getInstance().init(this);
+    }
+
+    private fun setToolbarTitle(s: String) {
+        bd.layoutTitleBar.tvBaseToolbarTitle.text = s
     }
 
     private fun changePage() {

@@ -6,12 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:background="@color/colorPrimary" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"

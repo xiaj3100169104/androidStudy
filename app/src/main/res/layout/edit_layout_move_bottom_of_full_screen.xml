@@ -6,13 +6,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/title_bar_white" />
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/home_banner_2"
+            android:scaleType="centerCrop"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title_bar" />
+            android:layout_below="@+id/iv_logo" />
 
 
         <example.editLayout.InsetRelativeLayout
@@ -36,6 +41,9 @@
                 android:layout_below="@+id/et_content"
                 android:text="如果需要不变的区域容器是相对布局也会产生变动" />
         </example.editLayout.InsetRelativeLayout>
+
+        <include layout="@layout/title_bar_transparent" />
+
     </RelativeLayout>
 </layout>
 

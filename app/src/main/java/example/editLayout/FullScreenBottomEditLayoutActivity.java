@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.activity.BaseLightStatusBarActivity;
+import com.style.base.activity.BaseFullScreenStableTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomOfFullScreenBinding;
 import com.style.helper.InputMethodStateListener;
@@ -17,12 +17,11 @@ import java.util.ArrayList;
 import example.adapter.StringAdapter;
 
 
-public class FullScreenBottomEditLayoutActivity extends BaseLightStatusBarActivity {
+public class FullScreenBottomEditLayoutActivity extends BaseFullScreenStableTitleBarActivity {
 
     EditLayoutMoveBottomOfFullScreenBinding bd;
 
     private ArrayList<String> dataList;
-    private LinearLayoutManager layoutManager;
     private StringAdapter adapter;
 
     @Override
@@ -38,7 +37,7 @@ public class FullScreenBottomEditLayoutActivity extends BaseLightStatusBarActivi
         super.onStart();
         dataList = new ArrayList<>();
         adapter = new StringAdapter(this, dataList);
-        layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         bd.recyclerView.setLayoutManager(layoutManager);
         bd.recyclerView.addItemDecoration(new DividerItemDecoration(this));
         bd.recyclerView.setAdapter(adapter);

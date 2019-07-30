@@ -19,7 +19,9 @@
                 android:layout_above="@+id/layout_bottom"
                 android:orientation="vertical">
 
-                <include layout="@layout/title_bar_main_activity" />
+                <include
+                    android:id="@+id/layout_title_bar"
+                    layout="@layout/title_bar_main_activity" />
 
                 <FrameLayout
                     android:id="@+id/content"
@@ -53,14 +55,14 @@
                     android:id="@+id/layout_home_tap_1"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="bottom">
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/view_home_tap_1"
                         style="@style/image_main_tap_size"
-                        android:layout_centerHorizontal="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginBottom="7.5dp"
                         android:background="@drawable/tab_chat_bg" />
 

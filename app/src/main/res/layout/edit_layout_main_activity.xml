@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:id="@+id/layout_root"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <include layout="@layout/title_bar_white" />
-
-        <Button
-            android:id="@+id/view_custom_color"
+        <LinearLayout
+            android:id="@+id/layout_root"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="整体上移" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/view_translucent_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="状态栏不可用调整编辑布局" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@mipmap/home_banner_2"/>
+            <Button
+                android:id="@+id/view_custom_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="整体上移" />
 
-        <Button
-            android:id="@+id/view_transparent_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="全透明状态栏调整编辑布局" />
+            <Button
+                android:id="@+id/view_translucent_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="状态栏不可用调整编辑布局" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/view_transparent_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="全透明状态栏调整编辑布局" />
+
+        </LinearLayout>
+
+        <include layout="@layout/title_bar_transparent" />
+    </RelativeLayout>
 </layout>

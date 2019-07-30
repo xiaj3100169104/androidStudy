@@ -11,11 +11,11 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.app.AppManager;
-import com.style.base.activity.BaseTransparentStatusBarActivity;
+import com.style.base.activity.BaseFullScreenStableActivity;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseVerticalSlideFinishActivity extends BaseTransparentStatusBarActivity {
+public abstract class BaseVerticalSlideFinishActivity extends BaseFullScreenStableActivity {
 
     private float xDown;
     private float yDown;

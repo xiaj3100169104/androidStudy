@@ -27,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private var toast: Toast? = null
 
     fun getContext(): Context {
-        return context;
+        return context
     }
 
     override fun onCreate(arg0: Bundle?) {

@@ -3,14 +3,19 @@ package example.editLayout;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.style.base.activity.BaseLightStatusBarActivity;
+import com.style.base.activity.BaseFullScreenStableTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMainActivityBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class EditLayoutChangeActivity extends BaseLightStatusBarActivity {
+public class EditLayoutChangeActivity extends BaseFullScreenStableTitleBarActivity {
     EditLayoutMainActivityBinding bd;
+
+    @Override
+    public boolean isLightStatusBar() {
+        return true;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {

@@ -2,14 +2,14 @@ package example.editLayout;
 
 import android.os.Bundle;
 
-import com.style.base.activity.BaseHideStatusTitleBarActivity;
+import com.style.base.activity.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomActivityBinding;
 
 import org.jetbrains.annotations.Nullable;
 
 
-public class HideStatusBarBottomEditLayoutActivity extends BaseHideStatusTitleBarActivity {
+public class HideStatusBarBottomEditLayoutActivity extends BaseWhiteTitleBarActivity {
 
     EditLayoutMoveBottomActivityBinding bd;
 

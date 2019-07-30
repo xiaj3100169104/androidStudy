@@ -25,11 +25,11 @@ package example.viewPagerBanner;
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import com.github.chrisbanes.photoview.PhotoView
-import com.style.base.activity.BaseTransparentStatusBarActivity
+import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.banner_activity.*
 
-class BannerActivity : BaseTransparentStatusBarActivity() {
+class BannerActivity : BaseFullScreenStableActivity() {
     private lateinit var bannerFrags: ArrayList<BannerFragment>
     private lateinit var fAdapter: BannerAdapter
     private var mPageIndex: Int = 0

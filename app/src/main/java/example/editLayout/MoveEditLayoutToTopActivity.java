@@ -2,13 +2,13 @@ package example.editLayout;
 
 import android.os.Bundle;
 
-import com.style.base.activity.BaseHideStatusTitleBarActivity;
+import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveTopActivityBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class MoveEditLayoutToTopActivity extends BaseHideStatusTitleBarActivity {
+public class MoveEditLayoutToTopActivity extends BaseDefaultTitleBarActivity {
 
     EditLayoutMoveTopActivityBinding bd;
 

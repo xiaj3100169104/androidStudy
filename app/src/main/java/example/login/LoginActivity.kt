@@ -4,18 +4,17 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.Observable
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.view.View
 
-import com.style.base.activity.BaseTransparentStatusBarActivity
+import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.entity.UserInfo
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
 
 import example.home.MainActivity
 
-class LoginActivity : BaseTransparentStatusBarActivity() {
+class LoginActivity : BaseFullScreenStableActivity() {
 
     private val userId: Long = 18
     private lateinit var bd: ActivityLoginBinding

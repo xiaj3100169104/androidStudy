@@ -1,6 +1,7 @@
 package example.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -8,11 +9,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.style.base.activity.BaseLightStatusBarActivity;
+import com.style.base.activity.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
 import com.xiajun.widget.libsafekeyboard.KeyboardPopupWindow;
 
-public class SafeKeyboardActivity extends BaseLightStatusBarActivity {
+public class SafeKeyboardActivity extends BaseWhiteTitleBarActivity {
     private static final String TAG = "MainActivity";
     private EditText numberEt;
     private KeyboardPopupWindow keyboardPopupWindow;

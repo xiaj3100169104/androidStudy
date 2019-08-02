@@ -149,6 +149,9 @@
             android:name="example.drag.ScrollingActivity"
             android:label="@string/title_activity_scrolling" />
         <activity
+            android:name="example.drag.ScrollingStopTopActivity"
+            android:label="@string/title_activity_scrolling" />
+        <activity
             android:name="example.drag.ScrollingParallaxActivity"
             android:label="@string/title_activity_scrolling" />
         <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />

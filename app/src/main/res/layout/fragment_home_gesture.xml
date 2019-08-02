@@ -53,6 +53,11 @@
                 android:text="垂直滚动显示隐藏标题栏" />
 
             <TextView
+                android:id="@+id/btn_collapseMode_top"
+                style="@style/text_home_item"
+                android:text="垂直滚动顶部悬停部分view" />
+
+            <TextView
                 android:id="@+id/btn_collapseMode_parallax"
                 style="@style/text_home_item"
                 android:text="缩放标题栏" />

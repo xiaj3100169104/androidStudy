@@ -21,13 +21,13 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_load_dialog"
+        android:id="@+id/tv_load_dialog_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:text="@string/loading"
-        android:textColor="#9a9b98"
+        android:textColor="#ffffff"
         android:textSize="12sp" />
 
 </LinearLayout>

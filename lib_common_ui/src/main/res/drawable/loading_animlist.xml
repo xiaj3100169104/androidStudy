@@ -1,0 +1,19 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item
+        android:drawable="@drawable/icon_loading_1"
+        android:duration="@integer/animation_loading" />
+    <item
+        android:drawable="@drawable/icon_loading_2"
+        android:duration="@integer/animation_loading" />
+    <item
+        android:drawable="@drawable/icon_loading_3"
+        android:duration="@integer/animation_loading" />
+    <item
+        android:drawable="@drawable/icon_loading_4"
+        android:duration="@integer/animation_loading" />
+    <item
+        android:drawable="@drawable/icon_loading_5"
+        android:duration="@integer/animation_loading" />
+
+</animation-list>

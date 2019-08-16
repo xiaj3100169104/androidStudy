@@ -1,7 +1,6 @@
 .gradle/
 .idea/
-/build
-/publish
+build
 *.iml
 .externalNativeBuild
 local.properties

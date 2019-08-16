@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class EncryptActivity extends BaseDefaultTitleBarActivity {
 
     ActivityEncryptBinding bd;
-    EncryptViewModel presenter;
+    EncryptViewModel mViewModel;
     private byte[] b22;
 
     @Override
@@ -21,7 +21,7 @@ public class EncryptActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_encrypt);
         bd = getBinding();
-        presenter = getViewModel(EncryptViewModel.class);
+        mViewModel = getViewModel(EncryptViewModel.class);
         String textStr = "本月已成功邀请 <strong><font color=\"#FF0000\">" + 100 + "</font></strong>人";
         bd.tvHtml.setText(Html.fromHtml(textStr));
         bd.btnAesEncrypt.setOnClickListener(v -> AESEncrypt());
@@ -36,11 +36,11 @@ public class EncryptActivity extends BaseDefaultTitleBarActivity {
     }
 
     public void AESEncrypt() {
-        presenter.saveUser();
+        mViewModel.saveUser();
     }
 
     public void AESDecrypt() {
-        presenter.getUser();
+        mViewModel.getUser();
     }
 
 }

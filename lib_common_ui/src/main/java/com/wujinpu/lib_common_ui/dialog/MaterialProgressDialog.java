@@ -1,15 +1,16 @@
-package com.style.dialog;
+package com.wujinpu.lib_common_ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.AttributeSet;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.style.framework.R;
+import com.style.lib.common_ui.R;
+
 
 /**
  * Created by xiajun on 2018/6/8.
@@ -37,10 +38,8 @@ public class MaterialProgressDialog extends Dialog {
     }
 
     private void init(Context context) {
-        //设置不可取消，点击其他区域不能取消，实际中可以抽出去封装供外包设置
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
-
+        /*setCancelable(true);
+        setCanceledOnTouchOutside(true);*/
         setContentView(R.layout.progress_dialog_material);
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -51,5 +50,10 @@ public class MaterialProgressDialog extends Dialog {
     @Override
     public void show() {
         super.show();
+    }
+
+    public void setContent(String s) {
+        TextView tv = findViewById(R.id.tv_load_dialog_content);
+        tv.setText(s);
     }
 }

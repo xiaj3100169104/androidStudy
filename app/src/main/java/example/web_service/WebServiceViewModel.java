@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.style.base.BaseViewModel;
+import com.style.data.http.core.HttpExceptionConsumer;
 import com.style.data.http.exception.ResultErrorException;
 
 import io.reactivex.disposables.Disposable;
@@ -25,13 +26,11 @@ public class WebServiceViewModel extends BaseViewModel {
     }
 
     public void searchWeather(String code) {
-        Disposable d = getHttpApi().getWeather(code).subscribe(s -> {
+        Disposable d = getHttpApi().getWeather(code)
+                .subscribe(s -> {
                     showToast("查询天气成功");
                     content.postValue(s);
-                }, throwable -> {
-                    handleHttpError(throwable);
-                    showToast("查询天气失败");
-                }
+                }, new HttpExceptionConsumer()
         );
         addTask(d);
     }

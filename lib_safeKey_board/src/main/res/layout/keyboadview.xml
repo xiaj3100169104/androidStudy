@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:id="@+id/dropdownLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_keyboard_click"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_arrow_dropdown" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_keyboard_vertical"
+        android:orientation="vertical"
+        android:showDividers="end|beginning|middle"
+        android:stretchColumns="0,1,2">
+
+        <TableRow
+            android:divider="@drawable/divider_keyboard_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="end|beginning|middle">
+
+            <Button
+                android:id="@+id/button01"
+                style="@style/KeyboardNumberText"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/button02"
+                style="@style/KeyboardNumberText"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/button03"
+                style="@style/KeyboardNumberText"
+                android:text="3"/>
+        </TableRow>
+
+        <TableRow
+            android:divider="@drawable/divider_keyboard_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="end|beginning|middle">
+
+            <Button
+                android:id="@+id/button04"
+                style="@style/KeyboardNumberText"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/button05"
+                style="@style/KeyboardNumberText"
+                android:text="5"/>
+
+            <Button
+                android:id="@+id/button06"
+                style="@style/KeyboardNumberText"
+                android:text="6" />
+        </TableRow>
+
+        <TableRow
+            android:divider="@drawable/divider_keyboard_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="end|beginning|middle">
+
+            <Button
+                android:id="@+id/button07"
+                style="@style/KeyboardNumberText"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/button08"
+                style="@style/KeyboardNumberText"
+                android:text="8"/>
+
+            <Button
+                android:id="@+id/button09"
+                style="@style/KeyboardNumberText"
+                android:text="9"/>
+        </TableRow>
+
+        <TableRow
+            android:divider="@drawable/divider_keyboard_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="end|beginning|middle">
+
+            <Button
+                android:id="@+id/buttonDot"
+                style="@style/KeyboardNumberText"
+                android:background="@drawable/selector_keyboard_click_dark"
+                android:text="."/>
+
+            <Button
+                android:id="@+id/button00"
+                style="@style/KeyboardNumberText"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/buttonCross"
+                style="@style/KeyboardNumberText"
+                android:background="@drawable/selector_keyboard_click_dark"
+                android:text="×"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

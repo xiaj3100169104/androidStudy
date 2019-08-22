@@ -5,15 +5,13 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.StringRes
 import android.util.Log
-import com.style.app.LogManager
 import com.style.app.ToastManager
+import com.style.data.app.LogManager
 import com.style.data.db.AppDatabase
-import com.style.data.http.core.RetrofitImpl
-import com.style.data.http.exception.HttpThrowableUtil
 import com.style.data.prefs.AppPrefsManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by xiajun on 2018/7/13.
@@ -28,10 +26,6 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     protected fun getPreferences(): AppPrefsManager {
         return AppPrefsManager.getInstance()
-    }
-
-    protected fun getHttpApi(): RetrofitImpl {
-        return RetrofitImpl.getInstance()
     }
 
     protected fun getDataBase(): AppDatabase {
@@ -88,9 +82,5 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     protected fun logE(tag: String, msg: String) {
         LogManager.logE(tag, msg)
-    }
-
-    fun handleHttpError(e: Throwable) {
-        HttpThrowableUtil.handleHttpError(getApplication(), e)
     }
 }

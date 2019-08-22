@@ -1,12 +1,8 @@
 package com.style.base;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +10,6 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.style.framework.R;
-import com.style.utils.DeviceInfoUtil;
 
 /**
  * Created by xiajun on 2018/6/8.

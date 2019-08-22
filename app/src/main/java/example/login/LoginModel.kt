@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.style.base.BaseViewModel
+import com.style.data.http.function.impl.UserFunctionImpl
 import com.style.entity.UserInfo
 import com.style.data.prefs.AppPrefsManager
 import java.net.URL
@@ -52,7 +53,7 @@ class LoginModel(application: Application) : BaseViewModel(application) {
         val user = UserInfo(userName, password)
         AppPrefsManager.getInstance().setCurrentUser(user)
         synData()
-        val d = getHttpApi().login(userName, password).subscribe({
+        val d = UserFunctionImpl.login(userName, password).subscribe({
             //getActivity().loginSuccess();
         }) {
             //getActivity().loginFailed();

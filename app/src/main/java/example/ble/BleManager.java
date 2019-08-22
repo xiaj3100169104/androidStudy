@@ -7,7 +7,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.style.app.LogManager;
+import com.style.data.app.LogManager;
 
 import example.home.MainActivity;
 import com.style.service.ble.BleService;

@@ -23,9 +23,8 @@ import org.simple.eventbus.ThreadMode
 import java.io.File
 import java.util.ArrayList
 import android.support.v7.widget.SimpleItemAnimator
-import com.style.data.http.exception.CustomRuntimeException
 import com.style.data.fileDown.CustomFileDownloadManager
-import com.style.entity.CustomFileBean
+import com.style.data.fileDown.entity.CustomFileBean
 import com.style.service.fileDownload.FileDownloadService
 
 
@@ -78,8 +77,8 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
                         //文件存在
                         if (file.parentFile.exists() && file.exists()) {
                             try {
-                                OpenFileUtil.openFile(getContext(), file)
-                            } catch (e: CustomRuntimeException) {
+                                OpenFileUtil.openFile(getContext(), FileDirConfig.FILE_PROVIDER_AUTHORITY, file)
+                            } catch (e: Exception) {
                                 showToast(e.message!!)
                             }
                         } else {

@@ -15,7 +15,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Display
-import com.style.app.AppManager
+import com.style.data.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager

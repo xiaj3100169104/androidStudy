@@ -2,13 +2,11 @@ package example.queue
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import com.style.data.singlePriorityTask.PrioritizedTask
 import com.style.data.singlePriorityTask.SinglePriorityTaskManager
 
 import com.style.framework.R
-import com.style.utils.BytesHexStrTranslate
 import kotlinx.android.synthetic.main.activity_queue_test.*
 import java.util.*
 

@@ -1,9 +1,7 @@
 package com.style.base
 
-import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -11,7 +9,7 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.View
-import com.style.app.LogManager
+import com.style.data.app.LogManager
 import com.style.app.ToastManager
 import org.simple.eventbus.EventBus
 

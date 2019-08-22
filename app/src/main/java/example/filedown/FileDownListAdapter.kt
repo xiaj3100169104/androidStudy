@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
-import com.style.entity.CustomFileBean
+import com.style.data.fileDown.entity.CustomFileBean
 import com.style.framework.R
 import com.style.framework.databinding.FileDownListAdapterBinding
 import java.util.*

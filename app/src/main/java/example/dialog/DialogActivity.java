@@ -15,7 +15,7 @@ import com.style.dialog.LoadingDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
-import com.wujinpu.lib_common_ui.dialog.MaterialProgressDialog;
+import com.style.lib_common_ui.dialog.MaterialProgressDialog;
 
 import org.jetbrains.annotations.Nullable;
 

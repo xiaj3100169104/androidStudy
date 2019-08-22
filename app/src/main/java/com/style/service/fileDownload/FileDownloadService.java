@@ -8,7 +8,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 
-import com.style.entity.CustomFileBean;
+import com.style.data.fileDown.entity.CustomFileBean;
 
 import static com.style.data.fileDown.CustomFileDownloadManager.FLAG_BATCH_DOWNLOAD;
 import static com.style.data.fileDown.CustomFileDownloadManager.FLAG_CONTINUE_DOWNLOAD;

@@ -3,15 +3,10 @@ package com.style.service.appNewVersion;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.app.DownloadManager;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.style.base.BaseServiceModel;
-import com.style.utils.OpenFileUtil;
 
 import java.io.File;
 

@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.style.data.prefs.AppPrefsManager;
-import com.style.app.LogManager;
+import com.style.data.app.LogManager;
 
 import org.simple.eventbus.EventBus;
 

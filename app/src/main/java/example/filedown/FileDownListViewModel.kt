@@ -6,7 +6,7 @@ import com.style.app.FileDirConfig
 import com.style.base.BaseViewModel
 import com.style.data.fileDown.SingleFileDownloadTask
 import com.style.data.fileDown.CustomFileDownloadManager
-import com.style.entity.CustomFileBean
+import com.style.data.fileDown.entity.CustomFileBean
 
 class FileDownListViewModel(application: Application) : BaseViewModel(application) {
     private val urls = arrayListOf("http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.exe"

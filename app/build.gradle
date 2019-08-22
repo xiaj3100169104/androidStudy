@@ -150,41 +150,31 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.4'
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation('com.squareup.retrofit2:retrofit:2.3.0', {
-        exclude module: 'okhttp'
-    })
-    //compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
-    implementation 'org.simple:androideventbus:1.0.5.1'
     //java注解
     implementation 'org.glassfish:javax.annotation:10.0-b28'
-    //implementation 'com.google.dagger:dagger:2.12'
-    //kapt 'com.google.dagger:dagger-compiler:2.12'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.2'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
     //implementation 'com.nineoldandroids:library:2.4.0'
     //compile fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('libs/pinyin4j-2.5.0.jar')
     // optional - RxJava support for Room
     //implementation "android.arch.persistence.room:rxjava2:$room_version"
     // optional - Guava support for Room, including Optional and ListenableFuture
     //implementation "android.arch.persistence.room:guava:$room_version"
     // Test helpers
     //testImplementation "android.arch.persistence.room:testing:$room_version"
+    implementation project(':lib_common')
     implementation project(':lib_common_ui')
-    implementation project(':libImageCrop')
-    implementation project(':libMediaPicker')
-    implementation project(':libRefreshView')
-    implementation project(':libSafeKeyboard')
-    implementation project(':libVideoRecord')
-    implementation project(':libWheelPicker')
-    implementation project(':libWheelView')
-    implementation project(':libZxing')
+    implementation project(':lib_network')
+    implementation project(':lib_image_crop')
+    implementation project(':lib_media_picker')
+    implementation project(':lib_refresh_view')
+    implementation project(':lib_safeKey_board')
+    implementation project(':lib_video_record')
+    implementation project(':lib_wheel_picker')
+    implementation project(':lib_wheel_view')
+    implementation project(':lib_zxing')
+    api project(':module_common_data')
 
 }

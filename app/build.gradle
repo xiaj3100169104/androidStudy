@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
 //def config = rootProject.extensions.getByName("ext")
 //打包时间
 static def releaseTime() {
@@ -42,11 +43,11 @@ android {
         _sharp_s3 {
             dimension "model"
         }
-        _9_0_0 {
+        _9_0_0_ {
             dimension = "version"
             manifestPlaceholders = [ENVIRONMENT: "豌豆荚"]
         }
-        _8_1_0 {
+        _8_1_0_ {
             dimension = "version"
             manifestPlaceholders = [ENVIRONMENT: "360"]
         }
@@ -115,18 +116,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-/*
-configurations.all {
+/*configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested
         if (requested.group == 'com.squareup.okhttp3') {
             if (!requested.name.startsWith("okhttp")) {
-                details.useVersion '3.8.1'
+                details.useVersion '3.12.0'
             }
         }
     }
-}
-*/
+}*/
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -146,14 +145,13 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
-    implementation 'com.alibaba:fastjson:1.2.58'
-    implementation 'com.google.code.gson:gson:2.8.4'
+    implementation "com.google.code.gson:gson:$gson_version"
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     //java注解
     implementation 'org.glassfish:javax.annotation:10.0-b28'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation 'com.aliyun.ams:alicloud-android-hotfix:3.2.2'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
     //implementation 'com.nineoldandroids:library:2.4.0'

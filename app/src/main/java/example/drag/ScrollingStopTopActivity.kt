@@ -1,14 +1,13 @@
 package example.drag
 
 import android.os.Bundle
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.*
 import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityScrollingStopTopBinding
-import com.style.view.systemHelper.DividerItemDecoration
+import com.style.view.diviver.DividerItemDecoration
 import example.home.contact.FriendAdapter
 import java.util.*
 

@@ -11,6 +11,7 @@ import android.view.View;
 import com.style.framework.R;
 
 /**
+ * 等间距网格分割线
  * Created by xiajun on 2018/8/30.
  */
 

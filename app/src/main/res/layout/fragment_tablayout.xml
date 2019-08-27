@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar_normal"/>
+            <include layout="@layout/title_bar_white_text"/>
 
             <Button
                 android:id="@+id/tv_content"

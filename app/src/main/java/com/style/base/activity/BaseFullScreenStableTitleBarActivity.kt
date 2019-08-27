@@ -5,7 +5,8 @@ import android.view.View
 import com.style.framework.R
 
 /**
- * 一般样式标题栏，状态栏区域可用并且状态栏背景色为透明,状态栏字体颜色是否为深色
+ * 一般样式标题栏，状态栏区域可用并且状态栏背景色为透明,状态栏字体颜色是否为深色。
+ * 一般用在标题栏背景、状态栏背景为透明时。
  */
 abstract class BaseFullScreenStableTitleBarActivity : BaseTitleBarActivity() {
 

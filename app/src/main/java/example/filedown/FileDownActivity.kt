@@ -15,7 +15,7 @@ import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
 import com.style.data.fileDown.multiBlock.MultiThreadDownloadManager
 import com.style.framework.R
 import com.style.utils.OpenFileUtil
-import com.style.view.systemHelper.DividerItemDecoration
+import com.style.view.diviver.DividerItemDecoration
 import kotlinx.android.synthetic.main.file_down_list_activity.*
 import org.simple.eventbus.EventBus
 import org.simple.eventbus.Subscriber

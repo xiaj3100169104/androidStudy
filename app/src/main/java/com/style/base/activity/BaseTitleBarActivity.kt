@@ -1,5 +1,6 @@
 package com.style.base.activity
 
+import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.text.TextUtils
@@ -29,6 +30,10 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
         ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
+    }
+
+    fun setTitleBarColor(@ColorInt color: Int) {
+        titleBar.setBackgroundColor(color)
     }
 
     open fun onClickTitleBack() {

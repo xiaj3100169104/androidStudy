@@ -8,7 +8,7 @@ import com.style.base.activity.BaseFullScreenStableTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomOfFullScreenBinding;
 import com.style.helper.InputMethodStateListener;
-import com.style.view.systemHelper.DividerItemDecoration;
+import com.style.view.diviver.DividerItemDecoration;
 
 import org.jetbrains.annotations.Nullable;
 

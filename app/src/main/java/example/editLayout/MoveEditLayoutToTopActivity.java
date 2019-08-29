@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveTopActivityBinding;
+import com.style.utils.DeviceInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -18,6 +19,7 @@ public class MoveEditLayoutToTopActivity extends BaseDefaultTitleBarActivity {
         setContentView(R.layout.edit_layout_move_top_activity);
         bd = getBinding();
         setToolbarTitle("整体上移");
+
     }
 
 }

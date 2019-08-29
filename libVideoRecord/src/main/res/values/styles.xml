@@ -1,8 +1,0 @@
-<resources>
-
-    <!-- Application theme. -->
-    <style name="LibVideoRecordTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
-    </style>
-
-</resources>

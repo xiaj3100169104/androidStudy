@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.SwipeMenuActivityBinding;
-import com.style.view.systemHelper.DividerItemDecoration;
+import com.style.view.diviver.DividerItemDecoration;
 
 import org.jetbrains.annotations.Nullable;
 

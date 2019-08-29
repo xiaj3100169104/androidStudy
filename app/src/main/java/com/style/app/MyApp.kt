@@ -13,6 +13,7 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
+import com.style.data.app.AppManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
 import com.style.view.refresh.MyAppRefreshLayout

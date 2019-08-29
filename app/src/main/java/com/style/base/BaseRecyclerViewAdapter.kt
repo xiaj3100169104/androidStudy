@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.style.app.LogManager
+import com.style.data.app.LogManager
 import com.style.base.activity.BaseActivity
 import com.style.utils.DeviceInfoUtil
 

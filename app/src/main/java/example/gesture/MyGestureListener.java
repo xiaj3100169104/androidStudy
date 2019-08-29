@@ -5,7 +5,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import static com.style.app.LogManager.logE;
+import static com.style.data.app.LogManager.logE;
 
 /**
  * Created by xiajun on 2018/6/18.

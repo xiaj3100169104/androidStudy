@@ -1,30 +1,20 @@
 package com.style.data.http.core;
 
-import com.style.data.http.converter.CustomConverterFactory;
-import com.style.entity.KuaiDi;
-import com.style.data.http.request.LoginRequest;
-import com.style.data.http.response.BaseResult;
-import com.style.data.http.response.TokenResponse;
-import com.style.entity.UserInfo;
-import com.style.app.HttpConfig;
+import android.text.TextUtils;
+import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.style.AssembleConfig;
+import com.style.data.prefs.AppPrefsManager;
+import com.style.http.converter.CustomConverterFactory;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import com.style.data.http.response.LoginBean;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -34,13 +24,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public final class RetrofitImpl {
     protected String TAG = this.getClass().getSimpleName();
-    public static final long HTTP_TIME_OUT = 5;
+    private static final long HTTP_TIME_OUT = 5;
 
-    private static String URL_BASE = HttpConfig.URL_BASE;
-
-    private static APIFunction mAPIFunction;
     private static final Object mLock = new Object();
     private static RetrofitImpl mInstance;
+    private final Retrofit mRetrofit;
+    private final Retrofit mRetrofit2;
 
     public static RetrofitImpl getInstance() {
         synchronized (mLock) {
@@ -56,64 +45,51 @@ public final class RetrofitImpl {
                 .connectTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
-                .addInterceptor(InterceptorUtil.LogInterceptor())
-                .addInterceptor(InterceptorUtil.HeaderInterceptor())
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(headerInterceptor)
                 .build();
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(URL_BASE)
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(AssembleConfig.URL_BASE)
                 .addConverterFactory(CustomConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
                 .client(mOkHttpClient)
                 .build();
-        mAPIFunction = mRetrofit.create(APIFunction.class);
+        mRetrofit2 = new Retrofit.Builder()
+                .baseUrl(AssembleConfig.URL_BASE2)
+                .addConverterFactory(CustomConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
+                .client(mOkHttpClient)
+                .build();
     }
 
-    private static ObservableTransformer transformer = new ObservableTransformer() {
+    public Retrofit getDefaultRetrofit() {
+        return mRetrofit;
+    }
+
+    public Retrofit getRetrofit2() {
+        return mRetrofit2;
+    }
+
+    //日志拦截器
+    public static HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
         @Override
-        public ObservableSource apply(@NonNull Observable upstream) {
-            return upstream.subscribeOn(Schedulers.io())
-                    .unsubscribeOn(Schedulers.io())// 取消网络请求放在io线程
-                    .observeOn(AndroidSchedulers.mainThread());
+        public void log(String message) {
+            if (AssembleConfig.LOG_ENABLE)
+                Log.e("okhttp", message);
+        }
+    }).setLevel(HttpLoggingInterceptor.Level.BODY);//设置打印数据的级别
+
+
+    public static Interceptor headerInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request original = chain.request();
+            Request.Builder newBuilder = original.newBuilder();
+            if (TextUtils.isEmpty(original.header("Authorization")))//这里没打印Authorization因为执行在日志拦截后
+                newBuilder.addHeader("Authorization", AppPrefsManager.Companion.getInstance().getSignKey());
+            //String language = Locale.getDefault().getLanguage();//服务器根据不同语言返回不同描述
+            Request newRequest = newBuilder.build();
+            return chain.proceed(newRequest);
         }
     };
-
-    public Observable<String> getPhoneInfo(String phone) {
-        return mAPIFunction.getMolileLocation(phone, "").compose(transformer);
-    }
-
-    public Observable<String> getWeather(String cityCode) {
-        return mAPIFunction.getWeatherInfo(cityCode, "").compose(transformer);
-    }
-
-    public Observable<BaseResult<LoginBean>> login(String userName, String password) {
-        Observable<BaseResult<LoginBean>> mObservable = mAPIFunction.login(userName, password);
-        return mObservable.compose(transformer);
-    }
-
-    public Observable<String> getKuaiDi(String userName, String password) {
-        return mAPIFunction.getKuaiDi("yuantong", "11111111111").compose(transformer);
-    }
-
-    public Observable<List<KuaiDi>> getPupil(String guardianId) {
-        JSONObject o = new JSONObject();
-        try {
-            o.put("GuardianId", guardianId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), o.toString());
-        return mAPIFunction.getPupil(requestBody);
-    }
-
-    public Observable<TokenResponse> getToken() {
-        return mAPIFunction.getToken("client_credentials").compose(transformer);
-    }
-
-    public Observable<UserInfo> login2(String userName, String passWord) {
-        return mAPIFunction.login2(new LoginRequest(userName, passWord)).compose(transformer);
-    }
-
-    public Observable<ResponseBody> test() {
-        return mAPIFunction.test().compose(transformer);
-    }
 }

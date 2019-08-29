@@ -9,7 +9,7 @@
         android:background="@color/windowBackground"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_normal" />
+        <include layout="@layout/title_bar_white_text" />
 
 
         <com.xiajun.xxrefreshview.XXRefreshView

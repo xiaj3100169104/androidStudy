@@ -5,10 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 
-import com.style.base.BaseRecyclerViewAdapter;
-import com.style.utils.DeviceInfoUtil;
-
-import java.util.ArrayList;
 import java.util.Collections;
 
 /**

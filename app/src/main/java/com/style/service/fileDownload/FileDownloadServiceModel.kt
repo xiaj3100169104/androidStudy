@@ -6,7 +6,7 @@ import com.style.base.BaseServiceModel
 import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
 import com.style.data.fileDown.SingleFileDownloadTask
 import com.style.data.fileDown.CustomFileDownloadManager
-import com.style.entity.CustomFileBean
+import com.style.data.fileDown.entity.CustomFileBean
 import java.io.File
 
 class FileDownloadServiceModel(application: Application) : BaseServiceModel() {

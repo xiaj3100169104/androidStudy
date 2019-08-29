@@ -7,9 +7,6 @@
     <string name="error_no_voice_or_sdcard_permission">please open record audio and sdcard permission</string>
     <string name="please_open_location_permission">please open location permission</string>
 
-    <string name="digits_password">abcdefghijklmnopqrstuvwxyz0123456789</string>
-
-
     <string name="action_settings">Settings</string>
     <string name="loading">加载中&#8230;</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_ui_bg_gray">#F6F6F6</color>
+    <color name="color_text_gray_light">#999999</color>
+    <color name="color_theme_main">#B68B48</color>
+</resources>

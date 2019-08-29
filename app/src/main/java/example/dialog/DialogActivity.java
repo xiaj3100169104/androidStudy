@@ -12,10 +12,10 @@ import android.view.View;
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
-import com.style.dialog.MaterialProgressDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogActivityDialogBinding;
+import com.style.lib_common_ui.dialog.MaterialProgressDialog;
 
 import org.jetbrains.annotations.Nullable;
 

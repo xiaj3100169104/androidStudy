@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
-import com.style.view.systemHelper.DividerItemDecoration
+import com.style.view.diviver.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home_2.*
 import java.util.*
 import example.home.MainViewModel

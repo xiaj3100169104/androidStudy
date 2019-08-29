@@ -5,9 +5,6 @@ import android.app.Application
 import android.util.Log
 import com.style.base.BaseViewModel
 import com.style.entity.UserBean
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
 import java.util.*
 import kotlin.collections.ArrayList
 

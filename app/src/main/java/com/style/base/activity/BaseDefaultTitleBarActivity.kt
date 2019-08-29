@@ -6,7 +6,7 @@ import android.view.View
 import com.style.framework.R
 
 /**
- * 一般标题栏样式，状态栏自定义颜色，状态栏字体颜色风格是否为深色(6.0以上支持)
+ * 一般标题栏样式，状态栏为自定义颜色，状态栏字体颜色风格是否为深色(6.0以上支持)
  */
 abstract class BaseDefaultTitleBarActivity : BaseTitleBarActivity() {
 

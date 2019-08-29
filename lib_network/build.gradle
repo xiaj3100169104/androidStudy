@@ -1,0 +1,23 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion ANDROID_COMPILE_SDK_VERSION
+    defaultConfig {
+        minSdkVersion ANDROID_MIN_SDK_VERSION
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+    api "com.alibaba:fastjson:$json_version"
+    api "com.google.code.gson:gson:$gson_version"
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    api "com.squareup.okhttp3:okhttp:3.12.0"
+    api 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+
+    api project(':module_common_data')
+
+}

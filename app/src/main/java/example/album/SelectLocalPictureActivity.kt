@@ -90,10 +90,10 @@ public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
         })
 
         bd.btnShareText.setOnClickListener({ v ->
-            SystemShareUtil.shareText(getContext(), "来自系统分享");
+            SystemShareUtil.shareText(getContext(), "文章", "来自系统分享");
         });
         bd.btnShareImage.setOnClickListener { v ->
-            SystemShareUtil.shareImage(getContext(), paths.get(0).path);
+            SystemShareUtil.shareImage(getContext(), FileDirConfig.FILE_PROVIDER_AUTHORITY, paths.get(0).path);
         }
     }
 

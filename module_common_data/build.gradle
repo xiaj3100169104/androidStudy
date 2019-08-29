@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion ANDROID_COMPILE_SDK_VERSION
+    defaultConfig {
+        minSdkVersion ANDROID_MIN_SDK_VERSION
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //这里必须用api
+    api "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
+    api "com.alibaba:fastjson:$json_version"
+    api 'org.simple:androideventbus:1.0.5.1'
+
+    api project(':lib_common')
+
+}

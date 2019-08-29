@@ -1,13 +1,16 @@
 package example.drag
 
-import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.view.View
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.*
 import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_scrolling.*
+import com.style.framework.databinding.ActivityScrollingStopTopBinding
+import com.style.view.diviver.DividerItemDecoration
+import example.home.contact.FriendAdapter
+import java.util.*
+
 
 /**
  * app:layout_scrollFlags，设置为：scroll|enterAlways|snap 便是指定标题栏随屏幕滚动实现的属性。
@@ -16,17 +19,40 @@ import kotlinx.android.synthetic.main.activity_scrolling.*
  * snap表示Toolbar没有完全显示或隐藏时，根据滚动距离，自动选择。
  */
 class ScrollingStopTopActivity : BaseFullScreenStableActivity() {
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var bd: ActivityScrollingStopTopBinding
+    private lateinit var dataList: ArrayList<Int>
+    private lateinit var adapter: FriendAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*var visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        window.decorView.systemUiVisibility = visibility
-        //设置状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = resources.getColor(android.R.color.transparent)
-        }*/
         setContentView(R.layout.activity_scrolling_stop_top)
-        //setSupportActionBar(toolbar)
+        bd = getBinding()
+        dataList = ArrayList()
+        adapter = FriendAdapter(this, dataList)
+        layoutManager = LinearLayoutManager(this)
+        bd.recyclerView.layoutManager = layoutManager
+        bd.recyclerView.addItemDecoration(DividerItemDecoration(this))
+        bd.recyclerView.adapter = adapter
+        for (i in 0 until 20) {
+            dataList.add(i)
+        }
+        adapter.notifyDataSetChanged()
 
+        //只适用于recyclerView外层没有嵌套嵌套滚动布局
+        bd.recyclerView.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                //获取最后一个可见view的位置
+                //val lastItemPosition = layoutManager.findLastVisibleItemPosition()
+                //获取第一个可见view的位置,只适用于recyclerView外层没有嵌套嵌套滚动布局才会正确返回
+                val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
+                logE("firstItemPosition", "$firstItemPosition")
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
     }
 }

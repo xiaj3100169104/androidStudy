@@ -1,0 +1,5 @@
+<resources>
+    <string name="zxing_scan_qr_code">QR Code</string>
+    <string name="scan_qrcode_tips">The QR code is put into the frame, that is, the scan is completed automatically.</string>
+
+</resources>

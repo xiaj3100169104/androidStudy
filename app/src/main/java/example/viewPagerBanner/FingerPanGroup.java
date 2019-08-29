@@ -8,14 +8,11 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.style.framework.R;
 import com.style.utils.DeviceInfoUtil;
 
 /**

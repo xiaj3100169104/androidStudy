@@ -15,7 +15,7 @@ import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
 import com.style.data.fileDown.multiBlock.MultiThreadDownloadManager
 import com.style.framework.R
 import com.style.utils.OpenFileUtil
-import com.style.view.systemHelper.DividerItemDecoration
+import com.style.view.diviver.DividerItemDecoration
 import kotlinx.android.synthetic.main.file_down_list_activity.*
 import org.simple.eventbus.EventBus
 import org.simple.eventbus.Subscriber
@@ -23,9 +23,8 @@ import org.simple.eventbus.ThreadMode
 import java.io.File
 import java.util.ArrayList
 import android.support.v7.widget.SimpleItemAnimator
-import com.style.data.http.exception.CustomRuntimeException
 import com.style.data.fileDown.CustomFileDownloadManager
-import com.style.entity.CustomFileBean
+import com.style.data.fileDown.entity.CustomFileBean
 import com.style.service.fileDownload.FileDownloadService
 
 
@@ -78,8 +77,8 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
                         //文件存在
                         if (file.parentFile.exists() && file.exists()) {
                             try {
-                                OpenFileUtil.openFile(getContext(), file)
-                            } catch (e: CustomRuntimeException) {
+                                OpenFileUtil.openFile(getContext(), FileDirConfig.FILE_PROVIDER_AUTHORITY, file)
+                            } catch (e: Exception) {
                                 showToast(e.message!!)
                             }
                         } else {

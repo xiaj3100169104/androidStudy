@@ -3,18 +3,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/layout_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@mipmap/home_banner_2"/>
+                android:src="@mipmap/home_banner_2" />
+
             <Button
                 android:id="@+id/view_custom_color"
                 android:layout_width="match_parent"
@@ -33,8 +34,26 @@
                 android:layout_height="wrap_content"
                 android:text="全透明状态栏调整编辑布局" />
 
+            <View
+                android:id="@+id/view_b"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#0f0" />
         </LinearLayout>
 
         <include layout="@layout/title_bar_transparent" />
+
+        <View
+            android:id="@+id/view_top"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000" />
+
+        <View
+            android:id="@+id/view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#f00" />
     </RelativeLayout>
 </layout>

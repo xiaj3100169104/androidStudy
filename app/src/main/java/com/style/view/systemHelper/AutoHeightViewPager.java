@@ -5,6 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * 自适应高度
+ */
 public class AutoHeightViewPager extends ViewPager {
 
     public AutoHeightViewPager(Context context) {

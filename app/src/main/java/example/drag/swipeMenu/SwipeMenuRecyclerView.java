@@ -1,4 +1,4 @@
-package example.drag;
+package example.drag.swipeMenu;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

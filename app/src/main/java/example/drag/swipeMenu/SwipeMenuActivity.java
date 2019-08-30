@@ -1,4 +1,4 @@
-package example.drag;
+package example.drag.swipeMenu;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

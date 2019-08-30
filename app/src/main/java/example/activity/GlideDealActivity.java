@@ -5,13 +5,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -52,7 +55,48 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
+        bd.btnCatchColor.setOnClickListener(v -> catchColor());
+    }
 
+    private void catchColor() {
+        //bd.ivAvatar.setImageResource(R.mipmap.home_banner_3);
+        bd.ivAvatar.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(bd.ivAvatar.getDrawingCache());
+        bd.ivAvatar.setDrawingCacheEnabled(false);
+        // 用来提取颜色的Bitmap
+        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.home_banner_3);
+        Palette.Builder pb = new Palette.Builder(bitmap);
+        pb.generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(@android.support.annotation.Nullable Palette palette) {
+                //暗、柔和
+                int darkMutedColor = palette.getDarkMutedColor(Color.BLACK);//如果分析不出来，则返回默认颜色
+                //亮、柔和
+                int lightMutedColor = palette.getLightMutedColor(Color.BLACK);
+                //暗、鲜艳
+                int darkVibrantColor = palette.getDarkVibrantColor(Color.BLACK);
+                //亮、鲜艳
+                int lightVibrantColor = palette.getLightVibrantColor(Color.BLACK);
+                //柔和
+                int mutedColor = palette.getMutedColor(Color.BLACK);
+                //鲜艳
+                int vibrantColor = palette.getVibrantColor(Color.BLACK);
+                bd.btnCatchColor.setBackgroundColor(vibrantColor);
+                //获取某种特性颜色的样品
+                //Palette.Swatch lightVibrantSwatch = palette.getLightVibrantSwatch();
+                Palette.Swatch lightVibrantSwatch = palette.getVibrantSwatch();
+                //谷歌推荐的：图片的整体的颜色rgb的混合值---主色调
+                int rgb = lightVibrantSwatch.getRgb();
+                //谷歌推荐：图片中间的文字颜色
+                int bodyTextColor = lightVibrantSwatch.getBodyTextColor();
+                //谷歌推荐：作为标题的颜色（有一定的和图片的对比度的颜色值）
+                int titleTextColor = lightVibrantSwatch.getTitleTextColor();
+                //颜色向量
+                float[] hsl = lightVibrantSwatch.getHsl();
+                //分析该颜色在图片中所占的像素多少值
+                int population = lightVibrantSwatch.getPopulation();
+            }
+        });
     }
 
     public void dealCircle() {
@@ -86,7 +130,6 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
         Log.e(getTAG(), "文件大小   " + f.length() / 1024);
         RequestOptions myOptions = new RequestOptions();
         Glide.with(this).load(targetPath).apply(myOptions).into(bd.ivAvatar);
-
     }
 
     protected void showSelPicPopupWindow() {

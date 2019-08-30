@@ -18,7 +18,7 @@ import com.style.utils.DeviceInfoUtil
 abstract class BaseTitleBarActivity : BaseActivity() {
 
     private lateinit var tvTitleBase: TextView
-    private lateinit var titleBar: LinearLayout
+    private lateinit var titleBar: RelativeLayout
 
     override fun setContentView(contentView: View) {
         super.setContentView(contentView)
@@ -52,7 +52,7 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         val tv = TextView(getContext())
         tv.text = resources.getString(textRes)
         tv.setTextColor(resources.getColor(colorRes))
-        val flowTextSize = DeviceInfoUtil.sp2px(getContext(),17)
+        val flowTextSize = DeviceInfoUtil.sp2px(getContext(), 17)
         tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, flowTextSize)
         tv.setSingleLine(true)
         tv.ellipsize = TextUtils.TruncateAt.END

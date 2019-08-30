@@ -8,6 +8,8 @@ import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.BottomSheetBehaviorActivity
 import example.drag.*
+import example.drag.scroll_stop.ScrollingStopTopActivity
+import example.drag.swipeMenu.SwipeMenuActivity
 import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
 import example.gesture.VerticalSlideFinishActivity

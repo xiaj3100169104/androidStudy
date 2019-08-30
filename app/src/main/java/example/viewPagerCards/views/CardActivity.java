@@ -1,7 +1,14 @@
 package example.viewPagerCards.views;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v7.graphics.Palette;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
@@ -37,6 +44,24 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
         bd.viewPager.setAdapter(mCardAdapter);
         bd.viewPager.setPageTransformer(false, mCardShadowTransformer);
         bd.viewPager.setOffscreenPageLimit(3);
+        bd.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                ViewGroup vg = mCardAdapter.getCardViewAt(i);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+
     }
 
     @Override

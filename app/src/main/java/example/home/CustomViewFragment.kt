@@ -14,7 +14,6 @@ import example.customView.*
 import example.dialog.DialogActivity
 import example.dialog.WheelActivity
 import example.gesture.XXRefreshActivity
-import kotlinx.android.synthetic.main.fragment_home_1.*
 
 class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
 
@@ -27,11 +26,11 @@ class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bd = getBinding(view)
-        btn_album.setOnClickListener { skip(SelectLocalPictureActivity::class.java) }
-        btn_address.setOnClickListener { skip(AddressActivity::class.java) }
-        btn_dialog.setOnClickListener { skip(DialogActivity::class.java) }
-        btn_wheel.setOnClickListener { skip(WheelActivity::class.java) }
-        view_suspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
+        bd.btnAlbum.setOnClickListener { skip(SelectLocalPictureActivity::class.java) }
+        bd.btnAddress.setOnClickListener { skip(AddressActivity::class.java) }
+        bd.btnDialog.setOnClickListener { skip(DialogActivity::class.java) }
+        bd.btnWheel.setOnClickListener { skip(WheelActivity::class.java) }
+        bd.viewSuspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(BannerActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }
         bd.btnCustomView.setOnClickListener { skip(CustomViewMainActivity::class.java) }

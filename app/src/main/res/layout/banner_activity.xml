@@ -3,45 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/layout_root"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-
-    <com.style.view.systemHelper.CustomSingleCheckLayout
-        android:id="@+id/banner_group"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="10dp" />
 
-        <View
-            android:id="@+id/banner_1"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@drawable/bg_banner_indicator" />
-
-        <View
-            android:id="@+id/banner_2"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_banner_indicator" />
-
-        <View
-            android:id="@+id/banner_3"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_banner_indicator" />
-
-    </com.style.view.systemHelper.CustomSingleCheckLayout>
 </RelativeLayout>

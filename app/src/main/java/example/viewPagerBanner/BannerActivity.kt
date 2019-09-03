@@ -24,6 +24,7 @@ package example.viewPagerBanner;
  */
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
 import com.github.chrisbanes.photoview.PhotoView
 import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.framework.R
@@ -56,12 +57,18 @@ class BannerActivity : BaseFullScreenStableActivity() {
         setContentView(R.layout.banner_activity)
         //不知为何启动时设置会造成后续改变窗口透明度异常,只有在主题配置里面初始化窗口背景颜色（无奈。。）
         //setWindowAlpha(255)
-        bannerFrags = ArrayList()
+        bannerFrags = arrayListOf()
         bannerFrags.add(BannerFragment.newInstance(R.mipmap.home_banner_1))
         bannerFrags.add(BannerFragment.newInstance(R.mipmap.home_banner_2))
         bannerFrags.add(BannerFragment.newInstance(R.mipmap.home_banner_3))
         fAdapter = BannerAdapter(this.supportFragmentManager, bannerFrags)
         viewPager.adapter = fAdapter
+        var list: ArrayList<Boolean> = arrayListOf()
+        bannerFrags.forEach { list.add(false) }
+        val mIndicatorAdapter = IndicatorAdapter(this, list)
+        rcv_indicator.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rcv_indicator.adapter = mIndicatorAdapter
+        mIndicatorAdapter.setSelected(0)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
 
@@ -73,14 +80,10 @@ class BannerActivity : BaseFullScreenStableActivity() {
 
             override fun onPageSelected(p0: Int) {
                 mPageIndex = p0
-                banner_group.changeSelected(mPageIndex)
+                mIndicatorAdapter.setSelected(p0)
                 resetPhotoView()
             }
         })
-        banner_group.changeSelected(mPageIndex)
-        banner_group.setOnClickChildListener { p ->
-            viewPager.setCurrentItem(p, false)
-        }
     }
 
     private fun resetPhotoView() {

@@ -18,16 +18,21 @@ import com.style.framework.R;
 public class GridFullDividerDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "GridFullDivider";
     private final int spanCount;
-    private int dividerHeight;
+    private int dividerHeight = 5;
     private Paint dividerPaint;
 
     public GridFullDividerDecoration(Context context, int spanCount) {
         this.spanCount = spanCount;
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(R.color.colorAccent));
-        dividerHeight = 50;
+        dividerPaint.setColor(context.getResources().getColor(R.color.divider_color));
     }
 
+    public GridFullDividerDecoration(Context context, int spanCount, int color, int dh) {
+        this.spanCount = spanCount;
+        dividerPaint = new Paint();
+        dividerPaint.setColor(color);
+        dividerHeight = dh;
+    }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

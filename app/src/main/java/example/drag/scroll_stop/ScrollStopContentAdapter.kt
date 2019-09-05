@@ -25,7 +25,7 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
         val s = "分类$f"
         holder.bd.tvTitle.text = s
         var dataList = ArrayList<String>()
-        for (i in 0 until 7) {
+        for (i in 0 until 5) {
             dataList.add("$i")
         }
         val adapter = ScrollStopSubAdapter(getContext(), dataList)

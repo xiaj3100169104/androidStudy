@@ -11,22 +11,22 @@ import android.view.View;
 import com.style.framework.R;
 
 /**
- * 等间距网格分割线
+ * 等间距网格分割线，有bug。。。。。。
  * Created by xiajun on 2018/8/30.
  */
 
 public class GridFullDividerDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "GridFullDivider";
     private final int spanCount;
-    private int dividerHeight = 5;
+    private int dividerHeight;
     private Paint dividerPaint;
 
     public GridFullDividerDecoration(Context context, int spanCount) {
-        this(context, spanCount, context.getResources().getColor(R.color.divider_color), 3);
+        this(context, spanCount, context.getResources().getColor(R.color.pink), 3);
     }
 
     public GridFullDividerDecoration(Context context, int spanCount, int dh) {
-        this(context, spanCount, context.getResources().getColor(R.color.divider_color), dh);
+        this(context, spanCount, context.getResources().getColor(R.color.pink), dh);
     }
 
     public GridFullDividerDecoration(Context context, int spanCount, int color, int dh) {

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
@@ -17,7 +19,15 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.style.app.FileDirConfig;
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.data.glide.GlideCircleTransform;
@@ -55,16 +65,18 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
-        bd.btnCatchColor.setOnClickListener(v -> catchColor());
+        bd.btnCatchColor.setOnClickListener(v -> {
+            //bd.ivAvatar.setImageResource(R.mipmap.home_banner_3);
+            bd.ivAvatar.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(bd.ivAvatar.getDrawingCache());
+            bd.ivAvatar.setDrawingCacheEnabled(false);
+            // 用来提取颜色的Bitmap
+            //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.home_banner_3);
+            catchColor(bitmap);
+        });
     }
 
-    private void catchColor() {
-        //bd.ivAvatar.setImageResource(R.mipmap.home_banner_3);
-        bd.ivAvatar.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(bd.ivAvatar.getDrawingCache());
-        bd.ivAvatar.setDrawingCacheEnabled(false);
-        // 用来提取颜色的Bitmap
-        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.home_banner_3);
+    private void catchColor(Bitmap bitmap) {
         Palette.Builder pb = new Palette.Builder(bitmap);
         pb.generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -82,7 +94,7 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
                 //鲜艳
                 int vibrantColor = palette.getVibrantColor(Color.BLACK);
                 bd.btnCatchColor.setBackgroundColor(vibrantColor);
-                //获取某种特性颜色的样品
+                /*//获取某种特性颜色的样品
                 //Palette.Swatch lightVibrantSwatch = palette.getLightVibrantSwatch();
                 Palette.Swatch lightVibrantSwatch = palette.getVibrantSwatch();
                 //谷歌推荐的：图片的整体的颜色rgb的混合值---主色调
@@ -94,7 +106,7 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
                 //颜色向量
                 float[] hsl = lightVibrantSwatch.getHsl();
                 //分析该颜色在图片中所占的像素多少值
-                int population = lightVibrantSwatch.getPopulation();
+                int population = lightVibrantSwatch.getPopulation();*/
             }
         });
     }
@@ -129,7 +141,18 @@ public class GlideDealActivity extends BaseDefaultTitleBarActivity {
         File f = new File(targetPath);
         Log.e(getTAG(), "文件大小   " + f.length() / 1024);
         RequestOptions myOptions = new RequestOptions();
-        Glide.with(this).load(targetPath).apply(myOptions).into(bd.ivAvatar);
+        Glide.with(this).asBitmap().load(targetPath).apply(myOptions).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @android.support.annotation.Nullable Transition<? super Bitmap> transition) {
+                catchColor(resource);
+                bd.ivAvatar.setImageBitmap(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@android.support.annotation.Nullable Drawable placeholder) {
+
+            }
+        });
     }
 
     protected void showSelPicPopupWindow() {

@@ -7,7 +7,6 @@
         <RelativeLayout
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:background="@drawable/bg_pressed_default"
             android:padding="2dp">
 
             <ImageView

@@ -22,9 +22,11 @@ public class GridFullDividerDecoration extends RecyclerView.ItemDecoration {
     private Paint dividerPaint;
 
     public GridFullDividerDecoration(Context context, int spanCount) {
-        this.spanCount = spanCount;
-        dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(R.color.divider_color));
+        this(context, spanCount, context.getResources().getColor(R.color.divider_color), 3);
+    }
+
+    public GridFullDividerDecoration(Context context, int spanCount, int dh) {
+        this(context, spanCount, context.getResources().getColor(R.color.divider_color), dh);
     }
 
     public GridFullDividerDecoration(Context context, int spanCount, int color, int dh) {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
 import com.style.framework.databinding.ScrollStopContentAdapterBinding
+import com.style.view.diviver.GridFullDividerDecoration
 import java.util.*
 
 class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
@@ -24,12 +25,13 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
         val s = "分类$f"
         holder.bd.tvTitle.text = s
         var dataList = ArrayList<String>()
-        for (i in 0 until 5) {
+        for (i in 0 until 7) {
             dataList.add("$i")
         }
         val adapter = ScrollStopSubAdapter(getContext(), dataList)
         val lm = GridLayoutManager(getContext(), 3)
         holder.bd.recyclerViewSub.layoutManager = lm
+        holder.bd.recyclerViewSub.addItemDecoration(GridFullDividerDecoration(getContext(), 3, 2))
         holder.bd.recyclerViewSub.adapter = adapter
         holder.bd.recyclerViewSub.isNestedScrollingEnabled = false
         //super.setOnItemClickListener(holder.itemView, position)

@@ -40,7 +40,7 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
                 showToast(position.toString() + "")
             }
         })
-        refreshLayout.isEnableLoadMore = true
+        refreshLayout.isEnableLoadMore = false
         refreshLayout.isEnableAutoLoadMore = true//开启自动加载功能（非必须）
         refreshLayout.setOnRefreshListener { refreshLayout ->
             refreshLayout.layout.postDelayed({
@@ -64,14 +64,14 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
         }
         adapter.notifyDataSetChanged()
         refreshLayout.complete()
-        if (dataList.size > 20)
+        if (dataList.size > 15)
             refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
         //列表为空的时候显示文字不太友好，使用一下方法
-       /* if (dataList.isEmpty()) {
-            bd.refreshLayout.isEnableLoadMore = false
-        } else {
-            bd.refreshLayout.isEnableLoadMore = true
-        }*/
+        /* if (dataList.isEmpty()) {
+             bd.refreshLayout.isEnableLoadMore = false
+         } else {
+             bd.refreshLayout.isEnableLoadMore = true
+         }*/
     }
 
     private fun refresh() {
@@ -81,11 +81,14 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
         }
         adapter.notifyDataSetChanged()
         refreshLayout.complete()
-        if (dataList.size > 0)
+        if (dataList.size > 0) {
+            refreshLayout.isEnableLoadMore = true
             refreshLayout.setNoMoreData(false)
-        else
-            refreshLayout.setNoMoreData(true)
-        refreshLayout.finishLoadMoreWithNoMoreData()
+        } else {
+            refreshLayout.isEnableLoadMore = false
+            //refreshLayout.setNoMoreData(true)
+        }
+        //refreshLayout.finishLoadMoreWithNoMoreData()
     }
 
     private fun getData() {

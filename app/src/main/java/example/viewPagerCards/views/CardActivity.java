@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardActivity extends BaseDefaultTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
+public class CardActivity extends BaseDefaultTitleBarActivity {
 
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
@@ -30,7 +30,6 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
         setContentView(R.layout.view_pager_cards_views_activity);
         setToolbarTitle("views");
         bd = getBinding();
-        bd.checkBox.setOnCheckedChangeListener(this);
         bd.cardTypeBtn.setOnClickListener(v -> {
             bd.viewPager.setCurrentItem(3);
         });
@@ -42,7 +41,7 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
         mCardAdapter.addCardItem(new CardItem("Ugly card", s));
         mCardShadowTransformer = new ShadowTransformer(bd.viewPager, mCardAdapter);
         bd.viewPager.setAdapter(mCardAdapter);
-        bd.viewPager.setPageTransformer(false, mCardShadowTransformer);
+        //bd.viewPager.setPageTransformer(false, mCardShadowTransformer);
         bd.viewPager.setOffscreenPageLimit(3);
         bd.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -62,10 +61,5 @@ public class CardActivity extends BaseDefaultTitleBarActivity implements Compoun
             }
         });
 
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        mCardShadowTransformer.enableScaling(b);
     }
 }

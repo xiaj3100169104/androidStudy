@@ -14,11 +14,10 @@ import java.util.List;
 
 import example.viewPagerCards.CardAdapter;
 
-public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
+public class CardPagerAdapter extends PagerAdapter {
 
-    private List<CardView> mViews;
+    private List<View> mViews;
     private List<CardItem> mData;
-    private float mBaseElevation;
 
     public CardPagerAdapter() {
         mData = new ArrayList<>();
@@ -28,15 +27,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     public void addCardItem(CardItem item) {
         mViews.add(null);
         mData.add(item);
-    }
-
-    public float getBaseElevation() {
-        return mBaseElevation;
-    }
-
-    @Override
-    public CardView getCardViewAt(int position) {
-        return mViews.get(position);
     }
 
     @Override
@@ -54,11 +44,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.view_pager_cards_views_adapter, container, false);
         container.addView(view);
         bind(mData.get(position), view);
-        CardView cardView = (CardView) view.findViewById(R.id.cardView);
-        if (mBaseElevation == 0) {
-            mBaseElevation = cardView.getCardElevation();
-        }
-        //cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
+        View cardView = view.findViewById(R.id.layout_root);
         mViews.set(position, cardView);
         return view;
     }

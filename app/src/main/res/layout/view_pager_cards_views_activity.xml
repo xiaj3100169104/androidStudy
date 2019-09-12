@@ -12,10 +12,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="true"
-            android:overScrollMode="never"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp" />
+            android:overScrollMode="never" />
 
         <Button
             android:id="@+id/cardTypeBtn"

@@ -21,7 +21,7 @@ import example.viewPagerCards.ShadowTransformer;
 public class CardActivity extends BaseDefaultTitleBarActivity {
 
     private CardPagerAdapter mCardAdapter;
-    private ShadowTransformer mCardShadowTransformer;
+    private ShadowTransformer2 mCardShadowTransformer;
     private ViewPagerCardsViewsActivityBinding bd;
 
     @Override
@@ -39,19 +39,27 @@ public class CardActivity extends BaseDefaultTitleBarActivity {
         mCardAdapter.addCardItem(new CardItem("Ok card", s));
         mCardAdapter.addCardItem(new CardItem("Bad card", s));
         mCardAdapter.addCardItem(new CardItem("Ugly card", s));
-        mCardShadowTransformer = new ShadowTransformer(bd.viewPager, mCardAdapter);
+        //mCardShadowTransformer = new ShadowTransformer2(bd.viewPager, mCardAdapter);
         bd.viewPager.setAdapter(mCardAdapter);
         //bd.viewPager.setPageTransformer(false, mCardShadowTransformer);
         bd.viewPager.setOffscreenPageLimit(3);
         bd.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            /**
+             *
+             * @param position  左滑时，当前页；右滑时，前一页；当positionOffsetPixels快达到边界值时，position改变.
+             * @param positionOffset positionOffsetPixels占viewpager宽度的百分比；
+             * @param positionOffsetPixels  左滑时，当前页的左边界到viewpager左边界的距离（如果有padding，不包括padding）；
+             *                              右滑时，前一页的左边界到viewpager左边界的距离（如果有padding，不包括padding）；
+             */
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                logE("onPageScrolled", "position=" + position + "  positionOffset=" + positionOffset + "   positionOffsetPixels=" + positionOffsetPixels);
 
             }
 
             @Override
             public void onPageSelected(int i) {
-                ViewGroup vg = mCardAdapter.getCardViewAt(i);
+                //ViewGroup vg = mCardAdapter.getCardViewAt(i);
 
             }
 

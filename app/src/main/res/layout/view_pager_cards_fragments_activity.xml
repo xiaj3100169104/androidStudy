@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
             android:paddingBottom="10dp" />
 
         <Button
@@ -24,11 +24,5 @@
             android:layout_height="wrap_content"
             android:text="最后一页" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Scale" />
     </LinearLayout>
 </layout>

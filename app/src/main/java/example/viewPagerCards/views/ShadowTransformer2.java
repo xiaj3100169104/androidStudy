@@ -26,7 +26,7 @@ public class ShadowTransformer2 implements ViewPager.OnPageChangeListener, ViewP
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        /*int realCurrentPosition;
+        int realCurrentPosition;
         int nextPosition;
         float baseElevation = mAdapter.getBaseElevation();
         float realOffset;
@@ -46,27 +46,21 @@ public class ShadowTransformer2 implements ViewPager.OnPageChangeListener, ViewP
         if (nextPosition > mAdapter.getCount() - 1 || realCurrentPosition > mAdapter.getCount() - 1) {
             return;
         }
-        CardView currentCard = mAdapter.getCardViewAt(realCurrentPosition);
+        View currentCard = mAdapter.getCardViewAt(realCurrentPosition);
         // This might be null if a fragment is being used
         // and the views weren't created yet
         if (currentCard != null) {
-            if (mScalingEnabled) {
-                currentCard.setScaleX((float) (1 + 0.1 * (1 - realOffset)));
-                currentCard.setScaleY((float) (1 + 0.1 * (1 - realOffset)));
-            }
-            currentCard.setCardElevation((baseElevation + baseElevation * (CardAdapter.MAX_ELEVATION_FACTOR - 1) * (1 - realOffset)));
+            currentCard.setScaleX((float) (1 + 0.1 * (1 - realOffset)));
+            currentCard.setScaleY((float) (1 + 0.1 * (1 - realOffset)));
         }
-        CardView nextCard = mAdapter.getCardViewAt(nextPosition);
+        View nextCard = mAdapter.getCardViewAt(nextPosition);
         // We might be scrolling fast enough so that the next (or previous) card
         // was already destroyed or a fragment might not have been created yet
         if (nextCard != null) {
-            if (mScalingEnabled) {
-                nextCard.setScaleX((float) (1 + 0.1 * (realOffset)));
-                nextCard.setScaleY((float) (1 + 0.1 * (realOffset)));
-            }
-            nextCard.setCardElevation((baseElevation + baseElevation * (CardAdapter.MAX_ELEVATION_FACTOR - 1) * (realOffset)));
+            nextCard.setScaleX((float) (1 + 0.1 * (realOffset)));
+            nextCard.setScaleY((float) (1 + 0.1 * (realOffset)));
         }
-        mLastOffset = positionOffset;*/
+        mLastOffset = positionOffset;
     }
 
     @Override

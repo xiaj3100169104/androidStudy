@@ -2,7 +2,6 @@ package example.viewPagerCards.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.CompoundButton;
 
 import com.style.base.activity.BaseDefaultTitleBarActivity;
 import com.style.framework.R;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements CompoundButton.OnCheckedChangeListener {
+public class CardFragmentActivity extends BaseDefaultTitleBarActivity {
 
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
@@ -28,8 +27,9 @@ public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements
         setContentView(R.layout.view_pager_cards_fragments_activity);
         setToolbarTitle("fragments");
         bd = getBinding();
-        bd.checkBox.setOnCheckedChangeListener(this);
-        bd.cardTypeBtn.setOnClickListener(v->{bd.viewPager.setCurrentItem(4, true);});
+        bd.cardTypeBtn.setOnClickListener(v -> {
+            bd.viewPager.setCurrentItem(4, true);
+        });
         mFragments = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             CardFragment f = new CardFragment();
@@ -47,10 +47,5 @@ public class CardFragmentActivity extends BaseDefaultTitleBarActivity implements
 
     public static float dpToPixels(int dp, Context context) {
         return dp * (context.getResources().getDisplayMetrics().density);
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        mFragmentCardShadowTransformer.enableScaling(b);
     }
 }

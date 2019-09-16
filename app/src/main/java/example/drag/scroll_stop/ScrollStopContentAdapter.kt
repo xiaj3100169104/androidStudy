@@ -1,13 +1,13 @@
 package example.drag.scroll_stop
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
 import com.style.framework.databinding.ScrollStopContentAdapterBinding
-import com.style.view.diviver.GridFullDividerDecoration
 import java.util.*
 
 class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
@@ -31,7 +31,6 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
         val adapter = ScrollStopSubAdapter(getContext(), dataList)
         val lm = GridLayoutManager(getContext(), 3)
         holder.bd.recyclerViewSub.layoutManager = lm
-        holder.bd.recyclerViewSub.addItemDecoration(GridFullDividerDecoration(getContext(), 3, 2))
         holder.bd.recyclerViewSub.adapter = adapter
         holder.bd.recyclerViewSub.isNestedScrollingEnabled = false
         //super.setOnItemClickListener(holder.itemView, position)

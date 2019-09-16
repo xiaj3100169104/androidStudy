@@ -13,6 +13,7 @@ abstract class BaseFullScreenStableActivity : BaseActivity() {
     }
 
     override fun setContentView(contentView: View) {
+        super.setContentView(contentView)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             var visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             if (isLightStatusBar() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -23,6 +24,5 @@ abstract class BaseFullScreenStableActivity : BaseActivity() {
         } else {
             contentView.fitsSystemWindows = true
         }
-        super.setContentView(contentView)
     }
 }

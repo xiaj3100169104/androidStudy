@@ -3,6 +3,7 @@ package example.album;
 import android.Manifest;
 import android.annotation.SuppressLint
 import android.content.Intent;
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build;
 import android.os.Bundle
@@ -23,7 +24,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.SystemShareUtil;
-import com.style.view.diviver.GridFullDividerDecoration;
+import com.style.view.diviver.GridDividerItemDecoration
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -60,7 +61,7 @@ public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
         var gridLayoutManager = GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
-        bd.recyclerView.addItemDecoration(GridFullDividerDecoration(getContext(), 4));
+        bd.recyclerView.addItemDecoration(GridDividerItemDecoration(20, Color.BLACK))
         bd.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Media> {
             override fun onItemClick(position: Int, data: Media) {

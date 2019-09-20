@@ -7,10 +7,13 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.ColorInt
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 
 import com.style.data.app.LogManager
@@ -45,6 +48,48 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun getContentView(): View {
         return mContentView
+    }
+
+    fun setDarkMode(dark: Boolean, @ColorInt statusBarColor: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = statusBarColor
+            var visibility = window.decorView.systemUiVisibility
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                visibility = if (dark)
+                    visibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                else
+                    visibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                window.decorView.systemUiVisibility = visibility
+            }
+        }
+    }
+
+    fun setFullScreenStableDarkMode(dark: Boolean) {
+        setFullScreenStableDarkMode(dark, resources.getColor(android.R.color.transparent))
+    }
+
+    /**
+     * 设置状态栏区域可用
+     * @param dark 状态栏字体是否为深色
+     * @param statusBarColor 状态栏背景颜色
+     */
+    open fun setFullScreenStableDarkMode(dark: Boolean, @ColorInt statusBarColor: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = statusBarColor
+            var visibility = window.decorView.systemUiVisibility
+            visibility = visibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                visibility = if (dark)
+                    visibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                else
+                    visibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                window.decorView.systemUiVisibility = visibility
+            }
+        }
     }
 
     fun <T : ViewDataBinding> getBinding(): T {

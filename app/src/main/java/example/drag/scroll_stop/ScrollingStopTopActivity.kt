@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.*
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.activity.BaseFullScreenStableActivity
+import com.style.base.activity.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityScrollingStopTopBinding
 import com.style.view.diviver.DividerItemDecoration
@@ -19,7 +19,7 @@ import java.util.*
  * enterAlways表示屏幕向下滑动时，标题栏同时向下活动并显示；
  * snap表示Toolbar没有完全显示或隐藏时，根据滚动距离，自动选择。
  */
-class ScrollingStopTopActivity : BaseFullScreenStableActivity() {
+class ScrollingStopTopActivity : BaseActivity() {
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var bd: ActivityScrollingStopTopBinding
     private lateinit var dataList: ArrayList<String>
@@ -29,6 +29,8 @@ class ScrollingStopTopActivity : BaseFullScreenStableActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scrolling_stop_top)
+        setFullScreenStableDarkMode(false)
+
         bd = getBinding()
         dataList = ArrayList()
         mTitleAdapter = ScrollStopTitleAdapter(this, dataList)
@@ -40,6 +42,10 @@ class ScrollingStopTopActivity : BaseFullScreenStableActivity() {
                 showToast(position.toString() + "")
                 //bd.recyclerView.scrollToPosition(position)
                 layoutManager.scrollToPositionWithOffset(position, 0)
+                if (position%2==0)
+                    setFullScreenStableDarkMode(true)
+                else
+                    setFullScreenStableDarkMode(false)
             }
         })
         for (i in 0 until 10) {

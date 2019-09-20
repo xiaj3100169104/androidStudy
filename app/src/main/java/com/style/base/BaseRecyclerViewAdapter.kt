@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.style.app.ToastManager
 
 import com.style.data.app.LogManager
-import com.style.base.activity.BaseActivity
 import com.style.utils.DeviceInfoUtil
 
 import java.util.ArrayList
@@ -126,13 +126,12 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun showToast(str: CharSequence) {
-        (context as BaseActivity).showToast(str)
+        ToastManager.showToast(context, str)
     }
 
     fun showToast(@StringRes resId: Int) {
         showToast(context.getText(resId))
     }
-
 
     fun logE(tag: String, msg: String) {
         LogManager.logE(tag, msg)

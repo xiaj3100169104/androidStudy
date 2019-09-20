@@ -1,5 +1,6 @@
 package com.style.base.activity
 
+import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
@@ -17,8 +18,9 @@ import com.style.utils.DeviceInfoUtil
 
 abstract class BaseTitleBarActivity : BaseActivity() {
 
-    private lateinit var tvTitleBase: TextView
     private lateinit var titleBar: RelativeLayout
+    private lateinit var tvTitleBase: TextView
+    private lateinit var statusBar: View
 
     override fun setContentView(contentView: View) {
         super.setContentView(contentView)
@@ -26,10 +28,19 @@ abstract class BaseTitleBarActivity : BaseActivity() {
     }
 
     open fun initTitleBar(mContentView: View) {
+        statusBar = mContentView.findViewById(R.id.status_bar)
         titleBar = mContentView.findViewById(R.id.title_bar)
         val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
         tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
         ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
+    }
+
+    open fun setStatusBarViewVisibility(visibility: Boolean) {
+        if (visibility) {
+            statusBar.layoutParams.height = getStatusHeight()
+        } else {
+            statusBar.layoutParams.height = 0
+        }
     }
 
     fun setTitleBarColor(@ColorInt color: Int) {

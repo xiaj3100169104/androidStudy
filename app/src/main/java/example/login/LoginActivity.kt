@@ -6,15 +6,15 @@ import android.databinding.Observable
 import android.os.Bundle
 import android.text.method.DigitsKeyListener
 import android.view.View
+import com.style.base.activity.BaseActivity
 
-import com.style.base.activity.BaseFullScreenStableActivity
 import com.style.entity.UserInfo
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
 
 import example.home.MainActivity
 
-class LoginActivity : BaseFullScreenStableActivity() {
+class LoginActivity : BaseActivity() {
 
     private val userId: Long = 18
     private lateinit var bd: ActivityLoginBinding
@@ -23,6 +23,8 @@ class LoginActivity : BaseFullScreenStableActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_login)
+        setFullScreenStableDarkMode(false)
+
         bd = getBinding()
         val digits = getContext().getString(R.string.digits_password)
         bd.etPassword.keyListener = DigitsKeyListener.getInstance(digits)

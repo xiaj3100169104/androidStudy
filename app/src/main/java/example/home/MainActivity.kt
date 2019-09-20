@@ -19,7 +19,7 @@ import com.style.data.app.AppManager
 
 import com.style.app.HotFixManager
 import com.style.app.ToastManager
-import com.style.base.activity.BaseFullScreenStableActivity
+import com.style.base.activity.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.simple.eventbus.EventBus
 
 
-class MainActivity : BaseFullScreenStableActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var mViewModel: MainViewModel
     private lateinit var bd: ActivityMainBinding
 
@@ -68,6 +68,8 @@ class MainActivity : BaseFullScreenStableActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_main)
+        setFullScreenStableDarkMode(false)
+
         initData()
     }
 

@@ -7,31 +7,20 @@
 
     <include layout="@layout/title_bar_black_text" />
 
-    <android.support.constraint.ConstraintLayout
+
+    <EditText
+        android:id="@+id/numberEt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:hint="数字键盘"
+        android:inputType="number" />
 
-        <EditText
-            android:id="@+id/numberEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:cursorVisible="true"
-            android:hint="数字键盘"
-            android:inputType="number"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+    <EditText
+        android:id="@+id/secondEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="普通键盘"
+        android:inputType="text" />
 
-        <EditText
-            android:id="@+id/secondEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="普通键盘"
-            android:inputType="text"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/numberEt" />
-
-    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

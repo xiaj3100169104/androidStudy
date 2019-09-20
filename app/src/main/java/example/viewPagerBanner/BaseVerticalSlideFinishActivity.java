@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
+import com.style.base.activity.BaseActivity;
 import com.style.data.app.AppManager;
-import com.style.base.activity.BaseFullScreenStableActivity;
 
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseVerticalSlideFinishActivity extends BaseFullScreenStableActivity {
+public abstract class BaseVerticalSlideFinishActivity extends BaseActivity {
 
     private float xDown;
     private float yDown;
@@ -39,6 +39,12 @@ public abstract class BaseVerticalSlideFinishActivity extends BaseFullScreenStab
 
         viewConfiguration = ViewConfiguration.get(getContext());
         AppManager.Companion.getInstance().setTestTaskId(getTaskId());
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        setFullScreenStableDarkMode(false);
     }
 
     @Override

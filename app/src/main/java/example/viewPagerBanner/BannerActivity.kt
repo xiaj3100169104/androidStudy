@@ -26,11 +26,11 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import com.github.chrisbanes.photoview.PhotoView
-import com.style.base.activity.BaseFullScreenStableActivity
+import com.style.base.activity.BaseActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.banner_activity.*
 
-class BannerActivity : BaseFullScreenStableActivity() {
+class BannerActivity : BaseActivity() {
     private lateinit var bannerFrags: ArrayList<BannerFragment>
     private lateinit var fAdapter: BannerAdapter
     private var mPageIndex: Int = 0
@@ -55,6 +55,8 @@ class BannerActivity : BaseFullScreenStableActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.banner_activity)
+        setFullScreenStableDarkMode(false)
+
         //不知为何启动时设置会造成后续改变窗口透明度异常,只有在主题配置里面初始化窗口背景颜色（无奈。。）
         //setWindowAlpha(255)
         bannerFrags = arrayListOf()

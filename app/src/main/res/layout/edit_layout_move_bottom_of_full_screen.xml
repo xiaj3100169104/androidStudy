@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/et_content"
-                android:text="如果需要不变的区域容器是相对布局也会产生变动" />
+                android:text="asfgsargtertgrtwretwre" />
         </example.editLayout.InsetRelativeLayout>
 
         <include layout="@layout/title_bar_transparent" />

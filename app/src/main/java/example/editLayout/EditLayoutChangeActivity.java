@@ -5,27 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.style.base.activity.BaseFullScreenStableTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMainActivityBinding;
 import com.style.utils.DeviceInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 
-public class EditLayoutChangeActivity extends BaseFullScreenStableTitleBarActivity {
+public class EditLayoutChangeActivity extends BaseTitleBarActivity {
     EditLayoutMainActivityBinding bd;
-
-    @Override
-    public boolean isLightStatusBar() {
-        return true;
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.edit_layout_main_activity);
+        setFullScreenStableDarkMode(true);
         bd = getBinding();
-        setToolbarTitle("编辑布局调整");
+        setTitleBarTitle("编辑布局调整");
         bd.viewCustomColor.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), MoveEditLayoutToTopActivity.class));
         });

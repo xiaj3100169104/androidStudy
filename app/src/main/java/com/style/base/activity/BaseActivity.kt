@@ -50,22 +50,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return mContentView
     }
 
-    fun setDarkMode(dark: Boolean, @ColorInt statusBarColor: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = statusBarColor
-            var visibility = window.decorView.systemUiVisibility
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                visibility = if (dark)
-                    visibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                else
-                    visibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-                window.decorView.systemUiVisibility = visibility
-            }
-        }
-    }
-
     fun setFullScreenStableDarkMode(dark: Boolean) {
         setFullScreenStableDarkMode(dark, resources.getColor(android.R.color.transparent))
     }

@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 
 import com.style.app.FileDirConfig
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.data.event.EventBusEvent
 import com.style.data.fileDown.FileDownloadStateBean
@@ -28,7 +28,7 @@ import com.style.data.fileDown.entity.CustomFileBean
 import com.style.service.fileDownload.FileDownloadService
 
 
-class FileDownActivity : BaseDefaultTitleBarActivity() {
+class FileDownActivity : BaseTitleBarActivity() {
 
     private val targetPath = FileDirConfig.DIR_APP_FILE + "/apache-tomcat-8.0.24_multi_thread.exe"
 
@@ -39,7 +39,7 @@ class FileDownActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.file_down_list_activity)
-        setToolbarTitle("文件下载")
+        setTitleBarTitle("文件下载")
         dataList = ArrayList()
         adapter = FileDownListAdapter(getContext(), dataList)
         val layoutManager = LinearLayoutManager(getContext())

@@ -3,14 +3,14 @@ package example.encrypt;
 import android.os.Bundle;
 import android.text.Html;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
 import com.style.utils.BytesHexStrTranslate;
 
 import org.jetbrains.annotations.Nullable;
 
-public class EncryptActivity extends BaseDefaultTitleBarActivity {
+public class EncryptActivity extends BaseTitleBarActivity {
 
     ActivityEncryptBinding bd;
     EncryptViewModel mViewModel;

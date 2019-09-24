@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.os.Handler;
 import android.os.Message;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMsgToSubBinding;
 import kotlinx.android.synthetic.main.activity_msg_to_sub.*
 
 
-public class MsgToSubActivity : BaseDefaultTitleBarActivity() {
+public class MsgToSubActivity : BaseTitleBarActivity() {
 
     lateinit var mHandler: Handler
     private lateinit var subThread: MyHandlerThread

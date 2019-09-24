@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsViewsActivityBinding;
 
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardActivity extends BaseDefaultTitleBarActivity {
+public class CardActivity extends BaseTitleBarActivity {
 
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer2 mCardShadowTransformer;
@@ -28,7 +28,7 @@ public class CardActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.view_pager_cards_views_activity);
-        setToolbarTitle("views");
+        setTitleBarTitle("views");
         bd = getBinding();
         bd.cardTypeBtn.setOnClickListener(v -> {
             bd.viewPager.setCurrentItem(3);

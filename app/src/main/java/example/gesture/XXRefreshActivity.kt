@@ -1,12 +1,12 @@
 package example.gesture
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 
 import com.style.framework.R
 import com.style.framework.databinding.XxrefreshActivityBinding
 
-class XXRefreshActivity : BaseDefaultTitleBarActivity() {
+class XXRefreshActivity : BaseTitleBarActivity() {
 
     lateinit var bd: XxrefreshActivityBinding
 

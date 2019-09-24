@@ -166,7 +166,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setToolbarTitle(s: String) {
-        bd.layoutTitleBar.tvBaseToolbarTitle.text = s
+        bd.layoutTitleBar.tvTitle.text = s
     }
 
     private fun changePage() {

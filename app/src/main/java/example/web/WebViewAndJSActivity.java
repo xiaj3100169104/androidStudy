@@ -9,14 +9,14 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
 import org.jetbrains.annotations.Nullable;
 
 
-public class WebViewAndJSActivity extends BaseDefaultTitleBarActivity {
+public class WebViewAndJSActivity extends BaseTitleBarActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
@@ -25,7 +25,7 @@ public class WebViewAndJSActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_web_view);
         bd = getBinding();
-        setToolbarTitle("与js交互测试");
+        setTitleBarTitle("与js交互测试");
         bd.webView.getSettings().setJavaScriptEnabled(true);
         bd.webView.addJavascriptInterface(new JsInterface(), "control");
 

@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.view.diviver.DividerItemDecoration;
@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 
-public class AddressActivity extends BaseDefaultTitleBarActivity {
+public class AddressActivity extends BaseTitleBarActivity {
 
     private static int REQUEST_READ_CONTACTS = 5;
     ActivityAddressBinding bd;
@@ -34,7 +34,7 @@ public class AddressActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.activity_address);
-        setToolbarTitle("通讯录");
+        setTitleBarTitle("通讯录");
         bd = getBinding();
         mPresenter = getViewModel(AddressViewModel.class);
         mPresenter.contacts.observe(this, uploadPhones -> {

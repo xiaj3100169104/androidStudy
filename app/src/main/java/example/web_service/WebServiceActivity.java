@@ -3,13 +3,13 @@ package example.web_service;
 import android.os.Bundle;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class WebServiceActivity extends BaseDefaultTitleBarActivity {
+public class WebServiceActivity extends BaseTitleBarActivity {
 
     ActivityWebserviceBinding bd;
     WebServiceViewModel mViewModel;

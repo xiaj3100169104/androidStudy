@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.activity.BaseFullScreenStableTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomOfFullScreenBinding;
 import com.style.helper.InputMethodStateListener;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import example.adapter.StringAdapter;
 
 
-public class FullScreenBottomEditLayoutActivity extends BaseFullScreenStableTitleBarActivity {
+public class FullScreenBottomEditLayoutActivity extends BaseTitleBarActivity {
 
     EditLayoutMoveBottomOfFullScreenBinding bd;
 
@@ -28,8 +28,9 @@ public class FullScreenBottomEditLayoutActivity extends BaseFullScreenStableTitl
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.edit_layout_move_bottom_of_full_screen);
+        setFullScreenStableDarkMode(true);
         bd = getBinding();
-        setToolbarTitle("调整编辑布局");
+        setTitleBarTitle("调整编辑布局");
     }
 
     @Override

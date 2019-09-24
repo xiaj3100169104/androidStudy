@@ -3,14 +3,14 @@ package example.customView;
 import android.os.Bundle;
 
 import com.style.app.FileDirConfig;
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException
 
-class EcgActivity : BaseDefaultTitleBarActivity() {
+class EcgActivity : BaseTitleBarActivity() {
 
     private val strings = arrayListOf<Int>()
     var max = 0

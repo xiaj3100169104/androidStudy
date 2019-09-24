@@ -29,7 +29,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.style.app.FileDirConfig;
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.data.glide.GlideCircleTransform;
 import com.style.data.glide.CornerRectTransform;
 import com.style.data.glide.GlideRoundTransform;
@@ -51,7 +51,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import tech.gaolinfeng.imagecrop.lib.ImageCropActivity;
 
 
-public class GlideDealActivity extends BaseDefaultTitleBarActivity {
+public class GlideDealActivity extends BaseTitleBarActivity {
 
     private ActivityGlideDealBinding bd;
     private SelAvatarDialog dialog;

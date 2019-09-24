@@ -11,7 +11,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.IRemotePlayService;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityRemoteServiceBinding;
@@ -19,7 +19,7 @@ import com.style.utils.AppInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 
-public class RemotePlayActivity extends BaseDefaultTitleBarActivity {
+public class RemotePlayActivity extends BaseTitleBarActivity {
 
     private IRemotePlayService remoteService;
     private ActivityRemoteServiceBinding bd;
@@ -28,7 +28,7 @@ public class RemotePlayActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_remote_service);
         bd = getBinding();
-        setToolbarTitle("另起进程开启服务");
+        setTitleBarTitle("另起进程开启服务");
         conn();
     }
 

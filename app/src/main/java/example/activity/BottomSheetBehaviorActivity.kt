@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.util.Log
 import android.view.View
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_tablayout.*
 
-class BottomSheetBehaviorActivity : BaseDefaultTitleBarActivity() {
+class BottomSheetBehaviorActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)

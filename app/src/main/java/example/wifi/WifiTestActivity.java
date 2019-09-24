@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.WifiActivityMainBinding;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WifiTestActivity extends BaseDefaultTitleBarActivity {
+public class WifiTestActivity extends BaseTitleBarActivity {
     private static int REQUEST_ENABLE_BT = 6;
     WifiActivityMainBinding bd;
 
@@ -42,7 +42,7 @@ public class WifiTestActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.wifi_activity_main);
         bd = getBinding();
-        setToolbarTitle("wifi");
+        setTitleBarTitle("wifi");
         dataList = new ArrayList<>();
         adapter = new WifiDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

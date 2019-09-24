@@ -3,12 +3,12 @@ package example.customView;
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_record_audio_view.*
 import java.util.*
 
-class RecordAudioViewActivity : BaseDefaultTitleBarActivity() {
+class RecordAudioViewActivity : BaseTitleBarActivity() {
 
     //实际情况一般在7000以内
     var max = 32767

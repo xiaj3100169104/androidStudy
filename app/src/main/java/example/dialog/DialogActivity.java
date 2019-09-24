@@ -9,7 +9,7 @@ import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.dialog.GeneralListPopup;
 import com.style.dialog.LoadingDialog;
 import com.style.dialog.SelAvatarDialog;
@@ -24,7 +24,7 @@ import example.activity.SafeKeyboardActivity;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class DialogActivity extends BaseDefaultTitleBarActivity {
+public class DialogActivity extends BaseTitleBarActivity {
     DialogActivityDialogBinding bd;
     private FragmentManager fm;
     private FragmentTransaction bt;
@@ -35,7 +35,7 @@ public class DialogActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.dialog_activity_dialog);
         bd = getBinding();
-        setToolbarTitle("弹出框");
+        setTitleBarTitle("弹出框");
         fm = getSupportFragmentManager();
         materialDialog = new MaterialProgressDialog(this);
         materialDialog.show();

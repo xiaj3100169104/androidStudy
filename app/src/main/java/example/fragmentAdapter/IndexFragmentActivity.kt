@@ -2,11 +2,11 @@ package example.fragmentAdapter;
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import com.style.base.activity.BaseWhiteTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
 
-class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
+class IndexFragmentActivity : BaseTitleBarActivity() {
     private lateinit var fAdapter: IndexFragmentAdapter
     private val fragments = ArrayList<IndexFragment>()
     private val titles = ArrayList<String>()
@@ -14,7 +14,8 @@ class IndexFragmentActivity : BaseWhiteTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.fragment_adapter_activity)
-        setToolbarTitle("fragmentPagerAdapter")
+        setFullScreenStableDarkMode(true)
+        setTitleBarTitle("fragmentPagerAdapter")
         for (i in 0..4) {
             titles.add(i.toString())
             fragments.add(IndexFragment.newInstance(i))

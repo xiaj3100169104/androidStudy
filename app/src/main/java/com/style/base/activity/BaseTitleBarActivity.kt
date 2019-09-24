@@ -18,66 +18,49 @@ import com.style.utils.DeviceInfoUtil
 
 abstract class BaseTitleBarActivity : BaseActivity() {
 
-    private lateinit var titleBar: RelativeLayout
-    private lateinit var tvTitleBase: TextView
+    private lateinit var layoutRoot: LinearLayout
     private lateinit var statusBar: View
+    private lateinit var layoutTitle: RelativeLayout
+    private lateinit var viewBack: ImageView
+    private lateinit var tvTitle: TextView
 
     override fun setContentView(contentView: View) {
         super.setContentView(contentView)
+        contentView.fitsSystemWindows = false
+        setFullScreenStableDarkMode(false)
         initTitleBar(contentView)
     }
 
     open fun initTitleBar(mContentView: View) {
-        statusBar = mContentView.findViewById(R.id.status_bar)
-        titleBar = mContentView.findViewById(R.id.title_bar)
-        val ivBaseToolbarReturn = mContentView.findViewById<ImageView>(R.id.iv_base_toolbar_Return)
-        tvTitleBase = mContentView.findViewById(R.id.tv_base_toolbar_title)
-        ivBaseToolbarReturn.setOnClickListener { v -> onClickTitleBack() }
-    }
-
-    open fun setStatusBarViewVisibility(visibility: Boolean) {
-        if (visibility) {
-            statusBar.layoutParams.height = getStatusHeight()
-        } else {
-            statusBar.layoutParams.height = 0
-        }
-    }
-
-    fun setTitleBarColor(@ColorInt color: Int) {
-        titleBar.setBackgroundColor(color)
+        layoutRoot = mContentView.findViewById(R.id.base_title_bar_layout_root)
+        statusBar = mContentView.findViewById(R.id.base_title_bar_status_bar)
+        layoutTitle = mContentView.findViewById(R.id.base_title_bar_layout_title)
+        viewBack = mContentView.findViewById(R.id.base_title_bar_iv_back)
+        tvTitle = mContentView.findViewById(R.id.base_title_bar_tv_title)
+        viewBack.setOnClickListener { v -> onClickTitleBack() }
+        statusBar.layoutParams.height = getStatusHeight()
     }
 
     open fun onClickTitleBack() {
         onBackPressed()
     }
 
-    fun setToolbarTitle(title: String) {
-        tvTitleBase.text = title
+    fun setTitleBarColor(@ColorInt color: Int) {
+        layoutRoot.setBackgroundColor(color)
     }
 
-    fun setToolbarTitle(@StringRes resId: Int) {
-        tvTitleBase.text = getContext().getString(resId)
+    fun setTitleBarTitle(title: String) {
+        tvTitle.text = title
     }
 
-    fun addRightTextMenu(@StringRes textRes: Int, @ColorRes colorRes: Int, onClickListener: View.OnClickListener): TextView {
-        val tv = TextView(getContext())
-        tv.text = resources.getString(textRes)
-        tv.setTextColor(resources.getColor(colorRes))
-        val flowTextSize = DeviceInfoUtil.sp2px(getContext(), 17)
-        tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, flowTextSize)
-        tv.setSingleLine(true)
-        tv.ellipsize = TextUtils.TruncateAt.END
-        tv.maxWidth = dp2px(80f)
-        tv.gravity = Gravity.CENTER
-        tv.setOnClickListener(onClickListener)
+    fun setTitleBarTitle(@StringRes resId: Int) {
+        tvTitle.text = getContext().getString(resId)
+    }
+
+    fun addRightMenu(menu: View) {
         val lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
         lp.addRule(RelativeLayout.ALIGN_PARENT_END)
-        addRightMenu(tv, lp)
-        return tv
-    }
-
-    private fun addRightMenu(menu: View, lp: RelativeLayout.LayoutParams) {
-        titleBar.addView(menu, lp)
+        layoutTitle.addView(menu, lp)
     }
 
 

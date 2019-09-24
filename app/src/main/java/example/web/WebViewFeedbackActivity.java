@@ -9,13 +9,13 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class WebViewFeedbackActivity extends BaseDefaultTitleBarActivity {
+public class WebViewFeedbackActivity extends BaseTitleBarActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/user_feedback.html";

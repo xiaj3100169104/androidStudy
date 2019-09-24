@@ -3,13 +3,13 @@ package example.customView
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import example.customView.fragment.*
 import kotlinx.android.synthetic.main.custom_view_main.*
 import java.util.*
 
-class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
+class CustomViewMainActivity : BaseTitleBarActivity() {
     private lateinit var fAdapter: CustomViewFragmentAdapter
     private val fragments = ArrayList<Fragment>()
     private val titles = ArrayList<String>()
@@ -17,7 +17,7 @@ class CustomViewMainActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.custom_view_main)
-        setToolbarTitle("tabLayout")
+        setTitleBarTitle("tabLayout")
         titles.add("自定义饼状图")
         fragments.add(PieChartFragment())
         titles.add("自定义通知小圆点")

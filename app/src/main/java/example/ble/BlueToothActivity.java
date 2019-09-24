@@ -22,7 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityBluetoothBinding;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class BlueToothActivity extends BaseDefaultTitleBarActivity {
+public class BlueToothActivity extends BaseTitleBarActivity {
     private static int REQUEST_ENABLE_BT = 6;
 
     ActivityBluetoothBinding bd;
@@ -54,7 +54,7 @@ public class BlueToothActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_bluetooth);
         bd = getBinding();
-        setToolbarTitle("蓝牙测试");
+        setTitleBarTitle("蓝牙测试");
         initData();
         openBluetooth();
     }

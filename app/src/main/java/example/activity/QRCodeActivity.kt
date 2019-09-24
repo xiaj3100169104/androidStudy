@@ -10,11 +10,11 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.google.zxing.activity.CaptureActivity
 import com.google.zxing.encoding.EncodingHandler
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_qr_code_scan.*
 
-class QRCodeActivity : BaseDefaultTitleBarActivity() {
+class QRCodeActivity : BaseTitleBarActivity() {
     val url = "https://github.com/xj913492952"
 
     override fun onCreate(arg0: Bundle?) {

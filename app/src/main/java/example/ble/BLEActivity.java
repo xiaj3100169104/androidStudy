@@ -11,7 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.data.prefs.AppPrefsManager;
 import com.style.framework.R;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import com.style.service.ble.BleService;
 
 
-public class BLEActivity extends BaseDefaultTitleBarActivity {
+public class BLEActivity extends BaseTitleBarActivity {
     public static final int REQUEST_ENABLE_BT = 6;
 
     BleActivityScanBinding bd;
@@ -41,7 +41,7 @@ public class BLEActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.ble_activity_scan);
-        setToolbarTitle("低功耗蓝牙连接测试");
+        setTitleBarTitle("低功耗蓝牙连接测试");
         bd = getBinding();
         EventBus.getDefault().register(this);
         dataList = new ArrayList<>();

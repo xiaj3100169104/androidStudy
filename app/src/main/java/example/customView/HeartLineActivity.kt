@@ -1,20 +1,20 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
 import com.style.view.healthy.HeartLineChart
 import java.util.*
 
-class HeartLineActivity : BaseDefaultTitleBarActivity() {
+class HeartLineActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityHeartLineBinding
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_heart_line)
-        setToolbarTitle("心率曲线图")
+        setTitleBarTitle("心率曲线图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
     }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.dialog.BaseDoubleWheelDialog;
 import com.style.dialog.BaseSingleWheelDialog;
 import com.style.dialog.ChangeAddressDialog;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class WheelActivity extends BaseDefaultTitleBarActivity {
+public class WheelActivity extends BaseTitleBarActivity {
 
     ActivityWheelBinding bd;
 
@@ -33,7 +33,7 @@ public class WheelActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_wheel);
         bd = getBinding();
-        setToolbarTitle("滚轮");
+        setTitleBarTitle("滚轮");
     }
 
     public void selOccupation(View v) {

@@ -1,13 +1,13 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
 import com.style.view.healthy.BloodPressureLine
 import java.util.*
 
-class BpActivity : BaseDefaultTitleBarActivity() {
+class BpActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityBpBinding
     internal var max: Float = 0.toFloat()
@@ -16,7 +16,7 @@ class BpActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_bp)
-        setToolbarTitle("血压曲线图")
+        setTitleBarTitle("血压曲线图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
     }

@@ -10,14 +10,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
 import org.jetbrains.annotations.Nullable;
 
 
-public class WebViewActivity extends BaseDefaultTitleBarActivity {
+public class WebViewActivity extends BaseTitleBarActivity {
 
     ActivityH5RemoteBinding bd;
     //private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";
@@ -72,7 +72,7 @@ public class WebViewActivity extends BaseDefaultTitleBarActivity {
 
             public void onPageFinished(WebView view, String url) {
                 Toast.makeText(WebViewActivity.this, "load finish", Toast.LENGTH_SHORT).show();
-                setToolbarTitle(view.getTitle());
+                setTitleBarTitle(view.getTitle());
                 if (Build.VERSION.SDK_INT >= 19) {
                     bd.webView.evaluateJavascript(js, new ValueCallback<String>() {
                         @Override

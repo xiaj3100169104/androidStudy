@@ -1,19 +1,19 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSportBinding
 import com.style.view.healthy.SportWeekHistogram
 import java.util.*
 
-class SportWeekActivity : BaseDefaultTitleBarActivity() {
+class SportWeekActivity : BaseTitleBarActivity() {
     lateinit var bd: ActivityWeekSportBinding
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_week_sport)
-        setToolbarTitle("运动柱状图")
+        setTitleBarTitle("运动柱状图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
         bd.mSportWeek.setOnSelectionChangeListener(object : SportWeekHistogram.OnSelectionChangeListener {

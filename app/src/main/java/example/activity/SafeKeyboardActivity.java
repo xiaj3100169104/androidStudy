@@ -1,7 +1,6 @@
 package example.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,7 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.style.base.activity.BaseTitleBarActivity;
-import com.style.base.activity.BaseWhiteTitleBarActivity;
 import com.style.framework.R;
 import com.xiajun.widget.libsafekeyboard.KeyboardPopupWindow;
 
@@ -24,7 +22,8 @@ public class SafeKeyboardActivity extends BaseTitleBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.safe_keyboard_activity);
-        setDarkMode(true, getResources().getColor(R.color.white));
+        setFullScreenStableDarkMode(true);
+
         initView();
     }
 

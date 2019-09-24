@@ -2,13 +2,13 @@ package example.gesture;
 
 import android.os.Bundle;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureDivideScrollBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class DispatchGestureActivity extends BaseDefaultTitleBarActivity {
+public class DispatchGestureActivity extends BaseTitleBarActivity {
 
     GestureDivideScrollBinding bd;
     private boolean isDeleteExitAnim;

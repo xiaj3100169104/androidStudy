@@ -1,13 +1,13 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityTempBinding
 import com.style.view.healthy.TemperatureLineNew
 import java.util.*
 
-class TempActivity : BaseDefaultTitleBarActivity() {
+class TempActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivityTempBinding
     internal var max: Float = 36.5.toFloat()
@@ -16,7 +16,7 @@ class TempActivity : BaseDefaultTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_temp)
-        setToolbarTitle("体温波动图")
+        setTitleBarTitle("体温波动图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
 

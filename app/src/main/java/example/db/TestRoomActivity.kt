@@ -1,17 +1,17 @@
 package example.db;
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_test_room.*
 
-class TestRoomActivity : BaseDefaultTitleBarActivity() {
+class TestRoomActivity : BaseTitleBarActivity() {
     private lateinit var mViewModel: TestRoomViewModel
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_room)
-        setToolbarTitle("room test")
+        setTitleBarTitle("room test")
         mViewModel = getViewModel(TestRoomViewModel::class.java)
         btn_room_insert_one.setOnClickListener { mViewModel.saveOne() }
         btn_room_insert_list.setOnClickListener { mViewModel.saveList() }

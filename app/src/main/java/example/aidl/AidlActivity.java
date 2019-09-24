@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import aidl.IRemoteService;
 
-public class AidlActivity extends BaseDefaultTitleBarActivity {
+public class AidlActivity extends BaseTitleBarActivity {
 
     private IRemoteService remoteService;
     private ActivityAidlBinding bd;

@@ -18,7 +18,7 @@ import android.view.View;
 
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityMusicListBinding;
@@ -39,7 +39,7 @@ import com.style.service.music.PlayMusicService;
  * Created by dmcBig on 2017/6/9.
  */
 
-public class MusicListActivity extends BaseDefaultTitleBarActivity implements MediaDataCallback {
+public class MusicListActivity extends BaseTitleBarActivity implements MediaDataCallback {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 5;
     ActivityMusicListBinding bd;
@@ -52,7 +52,7 @@ public class MusicListActivity extends BaseDefaultTitleBarActivity implements Me
         super.onCreate(arg0);
         setContentView(R.layout.activity_music_list);
         bd = getBinding();
-        setToolbarTitle("播放列表4");
+        setTitleBarTitle("播放列表4");
         dataList = new ArrayList<>();
         adapter = new AudioAdapter(this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

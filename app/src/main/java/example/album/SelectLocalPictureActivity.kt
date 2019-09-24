@@ -18,7 +18,7 @@ import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.app.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
@@ -36,7 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * Created by xiajun on 2016/10/8.
  */
-public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
+public class SelectLocalPictureActivity : BaseTitleBarActivity() {
 
     lateinit var bd: ActivitySelectLocalPictureBinding;
     private lateinit var TAG_ADD: Media;
@@ -52,7 +52,7 @@ public class SelectLocalPictureActivity : BaseDefaultTitleBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_select_local_picture)
         bd = getBinding();
-        setToolbarTitle("本地图片选择");
+        setTitleBarTitle("本地图片选择");
         paths = ArrayList();
         TAG_ADD = Media();
         TAG_ADD.name = "addTag";

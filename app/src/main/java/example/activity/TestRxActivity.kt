@@ -3,7 +3,7 @@ package example.activity;
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -13,14 +13,16 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test_rx.*
 
-class TestRxActivity : BaseDefaultTitleBarActivity() {
+class TestRxActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_rx)
-        val menu = addRightTextMenu(R.string.ok, R.color.white, View.OnClickListener {
+        val menu = layoutInflater.inflate(R.layout.title_bar_menu_single_text, null)
+        menu.setOnClickListener {
             logE(TAG, "123456")
-        } )
+        }
+        addRightMenu(menu)
         btn_just.setOnClickListener { testJust() }
         btn_map.setOnClickListener { testMap() }
         btn_flat_map.setOnClickListener { testFlatMap() }

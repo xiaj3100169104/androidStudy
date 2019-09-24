@@ -1,7 +1,7 @@
 package example.customView
 
 import android.os.Bundle
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.view.healthy.SleepDetailView
 import com.style.view.healthy.SleepWeekHistogram
@@ -9,14 +9,14 @@ import kotlinx.android.synthetic.main.activity_week_sleep.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SleepWeekActivity : BaseDefaultTitleBarActivity() {
+class SleepWeekActivity : BaseTitleBarActivity() {
 
     private var mWeeks: Array<String>? = null
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_week_sleep)
-        setToolbarTitle("睡眠图")
+        setTitleBarTitle("睡眠图")
         btn_refresh.setOnClickListener { v -> refresh() }
         mWeeks = resources.getStringArray(R.array.week_array)
         sleep_histogram.setOnSelectionChangeListener(object : SleepWeekHistogram.OnSelectionChangeListener {

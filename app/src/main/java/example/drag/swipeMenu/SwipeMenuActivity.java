@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.SwipeMenuActivityBinding;
 import com.style.view.diviver.DividerItemDecoration;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 
-public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
+public class SwipeMenuActivity extends BaseTitleBarActivity {
     SwipeMenuActivityBinding bd;
     private ArrayList<String> dataList;
     private LinearLayoutManager layoutManager;
@@ -27,7 +27,7 @@ public class SwipeMenuActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.swipe_menu_activity);
-        setToolbarTitle("左滑菜单测试");
+        setTitleBarTitle("左滑菜单测试");
         bd = getBinding();
         xOffset = -dp2px(50);
         dataList = new ArrayList<>();

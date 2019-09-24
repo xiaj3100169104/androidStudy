@@ -7,7 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import com.style.base.activity.BaseDefaultTitleBarActivity
+import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.service.suspendWindow.CallInSuspendService
 import com.style.service.suspendWindow.VideoSuspendService
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_suspend_window.*
 /**
  * Created by xiajun on 2017/8/1.
  */
-class SuspendWindowActivity : BaseDefaultTitleBarActivity() {
+class SuspendWindowActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)

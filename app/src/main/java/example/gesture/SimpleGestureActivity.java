@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GestureSimpleTestBinding;
 
 import org.jetbrains.annotations.Nullable;
 
-public class SimpleGestureActivity extends BaseDefaultTitleBarActivity {
+public class SimpleGestureActivity extends BaseTitleBarActivity {
 
     GestureSimpleTestBinding bd;
     private GestureDetector mGestureDetector;
@@ -20,7 +20,7 @@ public class SimpleGestureActivity extends BaseDefaultTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.gesture_simple_test);
         bd = getBinding();
-        setToolbarTitle("区分上、下、左、右滑动");
+        setTitleBarTitle("区分上、下、左、右滑动");
         bd.textView3.setOnClickListener(v -> logE(getTAG(), "textView3"));
         bd.textView4.setOnClickListener(v -> logE(getTAG(), "textView4"));
 

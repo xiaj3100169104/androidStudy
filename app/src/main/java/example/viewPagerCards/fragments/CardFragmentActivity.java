@@ -3,7 +3,7 @@ package example.viewPagerCards.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.style.base.activity.BaseDefaultTitleBarActivity;
+import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsFragmentsActivityBinding;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 import example.viewPagerCards.ShadowTransformer;
 
-public class CardFragmentActivity extends BaseDefaultTitleBarActivity {
+public class CardFragmentActivity extends BaseTitleBarActivity {
 
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
@@ -25,7 +25,7 @@ public class CardFragmentActivity extends BaseDefaultTitleBarActivity {
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.view_pager_cards_fragments_activity);
-        setToolbarTitle("fragments");
+        setTitleBarTitle("fragments");
         bd = getBinding();
         bd.cardTypeBtn.setOnClickListener(v -> {
             bd.viewPager.setCurrentItem(4, true);

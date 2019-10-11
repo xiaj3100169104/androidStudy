@@ -12,9 +12,11 @@ import com.style.view.diviver.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home_2.*
 import java.util.*
 import example.home.MainViewModel
+import kotlin.collections.ArrayList
 
 
 class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
+    private var pageNo: Int = 1
     private lateinit var mViewModel: ContactViewModel
     private lateinit var mHostViewModel: MainViewModel
     private lateinit var dataList: ArrayList<Int>
@@ -54,51 +56,48 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
         }
         //触发自动刷新
         //bd.refreshLayout.autoRefresh()
-        //getData();
+        refresh()
     }
 
     private fun loadMore() {
-        val k = dataList.size
-        for (i in k until k + 5) {
-            dataList.add(i)
-        }
-        adapter.notifyDataSetChanged()
+        pageNo++
+        val t= getData()
         refreshLayout.complete()
-        if (dataList.size > 15)
-            refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
-        //列表为空的时候显示文字不太友好，使用一下方法
-        /* if (dataList.isEmpty()) {
-             bd.refreshLayout.isEnableLoadMore = false
-         } else {
-             bd.refreshLayout.isEnableLoadMore = true
-         }*/
+        onDataResult(t)
     }
 
     private fun refresh() {
-        dataList.clear()
-        for (i in 0..4) {
-            dataList.add(i)
-        }
-        adapter.notifyDataSetChanged()
+        pageNo = 1
+        val t= getData()
         refreshLayout.complete()
-        if (dataList.size > 0) {
-            refreshLayout.isEnableLoadMore = true
-            refreshLayout.setNoMoreData(false)
-        } else {
-            refreshLayout.isEnableLoadMore = false
-            //refreshLayout.setNoMoreData(true)
-        }
-        //refreshLayout.finishLoadMoreWithNoMoreData()
+        onDataResult(t)
     }
 
-    private fun getData() {
-        /* List<Friend> list = myTableManager.getAllFriend(curUser.getUserId());
-        if (list != null) {
-            dataList.clear();
-            dataList.addAll(list);
-            adapter.notifyDataSetChanged();
-        }*/
+    private fun onDataResult(t: ArrayList<Int>) {
+        if (pageNo == 1)
+            dataList.clear()
+        dataList.addAll(t)
+        adapter.notifyDataSetChanged()
+        if (t.isNullOrEmpty()) {
+            if (pageNo == 1)
+                refreshLayout.setEnableLoadMore(false)
+            else
+                refreshLayout.finishLoadMoreWithNoMoreData()//将不会再次触发加载更多事件并显示提示文字,不需显示使用setEnableLoadMore
+        } else {//还可以加载更多
+            refreshLayout.setEnableLoadMore(true)
+            refreshLayout.setNoMoreData(false)
+        }
 
+    }
+
+    private fun getData(): ArrayList<Int> {
+        val list = arrayListOf<Int>()
+        if (pageNo == 4)
+            return list
+        for (i in 0 until 5) {
+            list.add(i)
+        }
+        return list
     }
 
 }

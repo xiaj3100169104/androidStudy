@@ -3,6 +3,7 @@ package com.style.lib_common_ui.loading;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.style.lib.common_ui.R;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * 界面通用数据加载状态布局
@@ -61,6 +60,15 @@ public class CommonLoadingLayout extends RelativeLayout {
         if (getChildCount() != 1)
             throw new RuntimeException("有且只能有一个子view(mContentView)");
         mContentView = getChildAt(0);
+    }
+
+    public View setEmptyView(@LayoutRes int layoutResId){
+        mEmptyView = LayoutInflater.from(getContext()).inflate(layoutResId, null, false);
+        return mEmptyView;
+    }
+
+    public View getEmptyView() {
+        return mEmptyView;
     }
 
     protected ViewGroup.LayoutParams getDefaultLayoutParams() {

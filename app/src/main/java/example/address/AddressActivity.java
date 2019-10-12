@@ -1,7 +1,10 @@
 package example.address;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -50,8 +53,8 @@ public class AddressActivity extends BaseTitleBarActivity {
         bd.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((position, data) -> {
-            UploadPhone up = (UploadPhone) data;
             //AppDataHelper.openEditSms(PhoneActivity.this, up.getTelephone());
+            call(data.getTelephone());
         });
         // 设置右侧触摸监听
         bd.indexBar.setOnTouchingLetterChangedListener(new IndexBar.OnTouchingLetterChangeListener() {
@@ -101,6 +104,8 @@ public class AddressActivity extends BaseTitleBarActivity {
         } else {
             getData();
         }
+        View v2 = bd.commonLoadingLayout.setEmptyView(R.layout.common_loading_layout_empty_2);
+        v2.findViewById(R.id.common_loading_layout_tv_empty_2).setOnClickListener(v -> bd.commonLoadingLayout.showLoading());
         bd.btn1.setOnClickListener(v -> bd.commonLoadingLayout.showLoading());
         bd.btn2.setOnClickListener(v -> bd.commonLoadingLayout.showContent());
         bd.btn3.setOnClickListener(v -> bd.commonLoadingLayout.showEmpty());
@@ -162,5 +167,24 @@ public class AddressActivity extends BaseTitleBarActivity {
     protected void onPause() {
         super.onPause();
         mPresenter.stopPlay();
+    }
+
+    private void call(String number) {
+        new android.support.v7.app.AlertDialog.Builder(getContext())
+                .setTitle("拨号")
+                .setMessage("拨打客服电话" + number)
+                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                    dialog.dismiss();
+                    openDial(number);
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                }).create().show();
+
+    }
+
+    private void openDial(String number) {
+        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));//跳转到拨号界面，同时传递电话号码
+        startActivity(dialIntent);
     }
 }

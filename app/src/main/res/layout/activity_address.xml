@@ -9,38 +9,78 @@
 
         <include layout="@layout/title_bar_white_text" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/gray_light">
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="显示加载" />
 
-            <TextView
-                android:id="@+id/tv_dialog"
-                android:layout_width="80.0dip"
-                android:layout_height="80.0dip"
-                android:layout_centerInParent="true"
-                android:background="@drawable/show_head_toast_bg"
-                android:gravity="center"
-                android:textColor="#ffffffff"
-                android:textSize="30.0dip"
-                android:visibility="invisible" />
+            <Button
+                android:id="@+id/btn_2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="显示内容" />
 
-            <example.address.IndexBar
-                android:id="@+id/index_bar"
-                android:layout_width="16dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                app:focusLetterColor="#7F000000"
-                app:letterColor="#7F000000"
-                app:letterSize="10sp"
-                app:letterSpacingExtra="1.4" />
-        </RelativeLayout>
+            <Button
+                android:id="@+id/btn_3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="空数据" />
+
+            <Button
+                android:id="@+id/btn_4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="网络错误" />
+        </LinearLayout>
+
+        <com.style.lib_common_ui.loading.CommonLoadingLayout
+            android:id="@+id/common_loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_light">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_dialog"
+                    android:layout_width="80.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/show_head_toast_bg"
+                    android:gravity="center"
+                    android:textColor="#ffffffff"
+                    android:textSize="30.0dip"
+                    android:visibility="invisible" />
+
+                <example.address.IndexBar
+                    android:id="@+id/index_bar"
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:focusLetterColor="#7F000000"
+                    app:letterColor="#7F000000"
+                    app:letterSize="10sp"
+                    app:letterSpacingExtra="1.4" />
+            </RelativeLayout>
+        </com.style.lib_common_ui.loading.CommonLoadingLayout>
 
     </LinearLayout>
 </layout>

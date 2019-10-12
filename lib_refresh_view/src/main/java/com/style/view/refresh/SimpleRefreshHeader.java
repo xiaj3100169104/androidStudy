@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.xiajun.xxrefreshview.R;
 import com.xiajun.xxrefreshview.header.RefreshCircleAProgressBar;
 
 /**
@@ -57,9 +58,9 @@ public class SimpleRefreshHeader extends RelativeLayout implements RefreshHeader
     }
 
     private void initView(Context context) {
-        RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(com.xiajun.xxrefreshview.R.layout.xxrefresh_default_header, null);
-        progressBar = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_default_progress_bar);
-        mTextView = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_default_header_tv);
+        RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.xxrefresh_default_header, null);
+        progressBar = popView.findViewById(R.id.xxrefresh_default_progress_bar);
+        mTextView = popView.findViewById(R.id.xxrefresh_default_header_tv);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 240);
         addView(popView, params);
     }

@@ -11,6 +11,7 @@ import android.view.View;
 import com.style.base.activity.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
+import com.style.lib_common_ui.loading.CommonLoadingLayout;
 import com.style.view.diviver.DividerItemDecoration;
 
 import org.jetbrains.annotations.Nullable;
@@ -100,6 +101,12 @@ public class AddressActivity extends BaseTitleBarActivity {
         } else {
             getData();
         }
+        bd.btn1.setOnClickListener(v -> bd.commonLoadingLayout.showLoading());
+        bd.btn2.setOnClickListener(v -> bd.commonLoadingLayout.showContent());
+        bd.btn3.setOnClickListener(v -> bd.commonLoadingLayout.showEmpty());
+        bd.btn4.setOnClickListener(v -> bd.commonLoadingLayout.showNetworkError());
+        bd.commonLoadingLayout.setOnClickRetryListener(() -> bd.commonLoadingLayout.showContent());
+        bd.commonLoadingLayout.showLoading();
     }
 
     private void hideLetterHint() {

@@ -32,11 +32,11 @@ public class SimpleRefreshFooter extends RelativeLayout implements RefreshFooter
 
     public static String REFRESH_FOOTER_PULLUP = "上拉加载更多";
     public static String REFRESH_FOOTER_RELEASE = "释放立即加载";
-    public static String REFRESH_FOOTER_LOADING = "-------------------- 正在加载数据 --------------------";
+    public static String REFRESH_FOOTER_LOADING = "-------- 正在加载数据 --------";
     public static String REFRESH_FOOTER_REFRESHING = "正在刷新...";
     public static String REFRESH_FOOTER_FINISH = "加载完成";
     public static String REFRESH_FOOTER_FAILED = "加载失败";
-    public static String REFRESH_FOOTER_ALLLOADED = "-------------------- 已经到底了 --------------------";
+    public static String REFRESH_FOOTER_ALLLOADED = "-------- 已经到底了 --------";
 
     protected final String TAG = getClass().getSimpleName();
     private TextView mTitleText;
@@ -67,7 +67,7 @@ public class SimpleRefreshFooter extends RelativeLayout implements RefreshFooter
 
     private void initView(Context context) {
         RelativeLayout popView = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.xxrefresh_simple_footer, null);
-        mTitleText = popView.findViewById(com.xiajun.xxrefreshview.R.id.xxrefresh_simple_footer_tv_load_more);
+        mTitleText = popView.findViewById(R.id.xxrefresh_simple_footer_tv_load_more);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 130);
         addView(popView, params);
     }

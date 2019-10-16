@@ -1,14 +1,19 @@
 package example.address;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 
 import com.style.base.activity.BaseTitleBarActivity;
@@ -16,12 +21,17 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.lib_common_ui.loading.CommonLoadingLayout;
 import com.style.view.diviver.DividerItemDecoration;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 public class AddressActivity extends BaseTitleBarActivity {
@@ -112,6 +122,46 @@ public class AddressActivity extends BaseTitleBarActivity {
         bd.btn4.setOnClickListener(v -> bd.commonLoadingLayout.showNetworkError());
         bd.commonLoadingLayout.setOnClickRetryListener(() -> bd.commonLoadingLayout.showContent());
         bd.commonLoadingLayout.showLoading();
+        getImei(this);
+    }
+
+    @SuppressLint("CheckResult")
+    private void getImei(Context context) {
+        //64位数字（表示为十六进制字符串）是在用户首次设置设备时随机生成的
+        //如果在设备上执行恢复出厂设置或APK签名密钥更改，则该值可能会更改。
+        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        //实例化TelephonyManager对象
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        Class clazz = telephonyManager.getClass();
+        Method getImei = null;
+        try {
+            getImei = clazz.getDeclaredMethod("getImei", int.class);//(int slotId)
+            String m = (String) getImei.invoke(telephonyManager, 0); //卡1
+            getImei.invoke(telephonyManager, 1); // 卡2
+            //Log.e(TAG, "IMEI1 : "+getImei.invoke(telephonyManager, 0)); //卡1
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(grated -> {
+                        if (grated) {
+                            String deviceId = telephonyManager.getDeviceId();
+                            String imei = telephonyManager.getImei();
+                            bd.btnImei.setText(imei);
+                        } else {
+                            showToast(R.string.error_no_external_storage_permission);
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });
+        }
     }
 
     private void hideLetterHint() {

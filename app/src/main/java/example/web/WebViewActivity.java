@@ -21,10 +21,11 @@ public class WebViewActivity extends BaseTitleBarActivity {
 
     ActivityH5RemoteBinding bd;
     //private String url = "http://192.168.1.200:8082/content/app/#/healthknowledge?id=5160&name=test";
-    private String url = "http://wap.gd.10086.cn/nwap/wlw/wlwrealName/index.jsps";
+    //private String url = "http://wap.gd.10086.cn/nwap/wlw/wlwrealName/index.jsps";
+    private String url = "file:///android_asset/person-machine-slide.html";
 
-    //private String urlLocal = "file:///android_asset/useragree.html";
-    private String urlLocal = "https://watch.lemonnc.com/Content/wap-guardian";
+    private String urlLocal = "file:///android_asset/useragree.html";
+    //private String urlLocal = "https://watch.lemonnc.com/Content/wap-guardian";
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {

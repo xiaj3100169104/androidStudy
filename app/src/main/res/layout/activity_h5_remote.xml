@@ -14,7 +14,8 @@
             android:id="@+id/btn_local"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="本地网页"/>
+            android:text="本地网页" />
+
         <include
             android:id="@+id/progress"
             layout="@layout/webview_progress" />
@@ -22,7 +23,8 @@
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:padding="20dp" />
     </LinearLayout>
 </layout>
 

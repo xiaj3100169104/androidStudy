@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.telephony.TelephonyManager;
@@ -91,29 +93,7 @@ public class AddressActivity extends BaseTitleBarActivity {
                 hideLetterHint();
             }
         });
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            logE(getTAG(), "检查权限");
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)) {
-                logE(getTAG(), "上次拒绝");
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
-
-            } else {
-                logE(getTAG(), "请求权限");
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_READ_CONTACTS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            getData();
-        }
+        requestReadContactsPermissions();
         View v2 = bd.commonLoadingLayout.setEmptyView(R.layout.common_loading_layout_empty_2);
         v2.findViewById(R.id.common_loading_layout_tv_empty_2).setOnClickListener(v -> bd.commonLoadingLayout.showLoading());
         bd.btn1.setOnClickListener(v -> bd.commonLoadingLayout.showLoading());
@@ -122,46 +102,15 @@ public class AddressActivity extends BaseTitleBarActivity {
         bd.btn4.setOnClickListener(v -> bd.commonLoadingLayout.showNetworkError());
         bd.commonLoadingLayout.setOnClickRetryListener(() -> bd.commonLoadingLayout.showContent());
         bd.commonLoadingLayout.showLoading();
+
+        bd.btnImei.setOnClickListener(v -> isNotificationEnabled());
         getImei(this);
     }
 
-    @SuppressLint("CheckResult")
-    private void getImei(Context context) {
-        //64位数字（表示为十六进制字符串）是在用户首次设置设备时随机生成的
-        //如果在设备上执行恢复出厂设置或APK签名密钥更改，则该值可能会更改。
-        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        //实例化TelephonyManager对象
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        Class clazz = telephonyManager.getClass();
-        Method getImei = null;
-        try {
-            getImei = clazz.getDeclaredMethod("getImei", int.class);//(int slotId)
-            String m = (String) getImei.invoke(telephonyManager, 0); //卡1
-            getImei.invoke(telephonyManager, 1); // 卡2
-            //Log.e(TAG, "IMEI1 : "+getImei.invoke(telephonyManager, 0)); //卡1
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            RxPermissions rxPermissions = new RxPermissions(this);
-            rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(grated -> {
-                        if (grated) {
-                            String deviceId = telephonyManager.getDeviceId();
-                            String imei = telephonyManager.getImei();
-                            bd.btnImei.setText(imei);
-                        } else {
-                            showToast(R.string.error_no_external_storage_permission);
-                        }
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                    });
-        }
+    private void isNotificationEnabled() {
+        boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
+        if (!is)
+            requestNotify(this);
     }
 
     private void hideLetterHint() {
@@ -173,26 +122,28 @@ public class AddressActivity extends BaseTitleBarActivity {
         bd.tvDialog.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                logE(getTAG(), "权限允许");
-                getData();
-            } else {
-                logE(getTAG(), "权限拒绝");
-                // Permission Denied
-                showToast("Permission Denied");
-            }
-            return;
+    @SuppressLint("CheckResult")
+    public void requestReadContactsPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.READ_CONTACTS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(grated -> {
+                        if (grated) {
+                            getData();
+                        } else {
+                            showToast(R.string.please_open_contacts_permission);
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });
+        } else {
+            getData();
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     public void getData() {
         mPresenter.getData();
-        //getData2();
     }
 
     public void setData(List<UploadPhone> data) {
@@ -237,4 +188,68 @@ public class AddressActivity extends BaseTitleBarActivity {
         Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));//跳转到拨号界面，同时传递电话号码
         startActivity(dialIntent);
     }
+
+    /**
+     * 跳到通知栏设置界面
+     *
+     * @param context
+     */
+    public static void requestNotify(Context context) {
+        Intent localIntent = new Intent();
+        //跳转到应用通知设置的代码
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            localIntent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            localIntent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        } else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            localIntent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            localIntent.putExtra("app_package", context.getPackageName());
+            localIntent.putExtra("app_uid", context.getApplicationInfo().uid);
+        } else {
+            localIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            localIntent.addCategory(Intent.CATEGORY_DEFAULT);
+            localIntent.setData(Uri.parse("package:" + context.getPackageName()));
+        }
+        context.startActivity(localIntent);
+    }
+
+
+    @SuppressLint("CheckResult")
+    private void getImei(Context context) {
+        //64位数字（表示为十六进制字符串）是在用户首次设置设备时随机生成的
+        //如果在设备上执行恢复出厂设置或APK签名密钥更改，则该值可能会更改。
+        String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        //实例化TelephonyManager对象
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        Class clazz = telephonyManager.getClass();
+        Method getImei = null;
+        try {
+            getImei = clazz.getDeclaredMethod("getImei", int.class);//(int slotId)
+            String m = (String) getImei.invoke(telephonyManager, 0); //卡1
+            getImei.invoke(telephonyManager, 1); // 卡2
+            //Log.e(TAG, "IMEI1 : "+getImei.invoke(telephonyManager, 0)); //卡1
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(grated -> {
+                        if (grated) {
+                            String deviceId = telephonyManager.getDeviceId();
+                            String imei = telephonyManager.getImei();
+                            //bd.btnImei.setText(imei);
+                        } else {
+                            showToast(R.string.error_no_external_storage_permission);
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                    });
+        }
+    }
+
 }

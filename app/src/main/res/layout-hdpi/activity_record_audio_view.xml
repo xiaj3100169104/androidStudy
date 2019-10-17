@@ -9,13 +9,12 @@
         android:background="@color/windowBackground"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_white_text" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title_bar"
             android:orientation="vertical">
+
+            <include layout="@layout/title_bar_white_text" />
 
             <com.style.view.other.CustomTagsLayout
                 android:id="@+id/tags_container"
@@ -29,49 +28,65 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_custom_tag"
-                    android:text="111111"
-                    android:textSize="16sp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
+                    android:layout_height="25dp"
                     android:paddingStart="5dp"
-                    android:paddingEnd="5dp"/>
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
+                    android:text="111111" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="22222" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="333333" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="4444444" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="55555555555" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="6666" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorAccent"
+                    android:layout_height="25dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:background="@drawable/bg_custom_tag"
+                    android:gravity="center"
                     android:text="777" />
             </com.style.view.other.CustomTagsLayout>
 

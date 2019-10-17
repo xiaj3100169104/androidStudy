@@ -12,6 +12,10 @@ import com.style.framework.R;
 
 import java.util.ArrayList;
 
+/**
+ * 自定义标签容器
+ * note：如果子标签高度不一致，容器高度也会有问题
+ */
 public class CustomTagsLayout extends ViewGroup {
     //标签间垂直间距
     private int mTagMarginVertical;

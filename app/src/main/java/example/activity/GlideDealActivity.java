@@ -16,23 +16,17 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.CustomViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.style.app.FileDirConfig;
 import com.style.base.activity.BaseTitleBarActivity;
-import com.style.data.glide.GlideCircleTransform;
-import com.style.data.glide.CornerRectTransform;
-import com.style.data.glide.GlideRoundTransform;
+import com.style.data.glide.RectTopCornerTransform;
+import com.style.data.glide.RoundTransform;
+import com.style.data.glide.RoundRectTransform;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGlideDealBinding;
@@ -62,8 +56,11 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         setContentView(R.layout.activity_glide_deal);
         bd = getBinding();
         bd.btnCircle.setOnClickListener(v -> dealCircle());
+        bd.btnCircleBorder.setOnClickListener(v -> dealCircleBorder());
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
+        bd.btnRectTop.setOnClickListener(v -> dealRectTop());
+
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
         bd.btnCatchColor.setOnClickListener(v -> {
             //bd.ivAvatar.setImageResource(R.mipmap.home_banner_3);
@@ -75,6 +72,32 @@ public class GlideDealActivity extends BaseTitleBarActivity {
             catchColor(bitmap);
         });
     }
+
+    private void dealRectTop() {
+        RequestOptions myOptions = new RequestOptions().transform(new RectTopCornerTransform(8f)).diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv3);
+    }
+
+    public void dealCircle() {
+        RequestOptions myOptions = new RequestOptions().transform(new RoundTransform()).diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
+    }
+
+    public void dealCircleBorder() {
+        RequestOptions myOptions = new RequestOptions().transform(new RoundTransform(1.5f, 0xFFFFAEB9)).diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
+    }
+
+    public void dealRound() {
+        RequestOptions myOptions = new RequestOptions().transform(new RoundRectTransform(8f)).diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv2);
+    }
+
+    public void dealRectStroke() {
+        RequestOptions myOptions = new RequestOptions().transform(new RoundRectTransform(8f, 4f, 0xFFFF6347)).diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv2);
+    }
+
 
     private void catchColor(Bitmap bitmap) {
         Palette.Builder pb = new Palette.Builder(bitmap);
@@ -109,22 +132,6 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                 int population = lightVibrantSwatch.getPopulation();*/
             }
         });
-    }
-
-    public void dealCircle() {
-        //第一个是上下文，第二个是圆角的弧度
-        RequestOptions myOptions = new RequestOptions().transform(new GlideCircleTransform(2, 0xFFFFAEB9));
-        Glide.with(this).load(R.mipmap.image_fail).apply(myOptions).into(bd.iv1);
-    }
-
-    public void dealRound() {
-        RequestOptions myOptions = new RequestOptions().transform(new GlideRoundTransform(5)).skipMemoryCache(true);
-        Glide.with(this).load(R.mipmap.ic_add_photo).apply(myOptions).into(bd.iv2);
-    }
-
-    public void dealRectStroke() {
-        RequestOptions myOptions = new RequestOptions().transform(new CornerRectTransform(4, 0xFFFF6347)).skipMemoryCache(true);
-        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv3);
     }
 
     @Override

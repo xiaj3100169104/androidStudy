@@ -23,8 +23,8 @@ public class ImageLoader {
         if (!TextUtils.isEmpty(url)) {
             RequestOptions options = new RequestOptions()
                     //.circleCrop()
-                    //.transform(new GlideCircleTransform(10,0xFFFFAEB9))
-                    .transform(new GlideCircleTransform(DeviceInfoUtil.dp2px(context, 3), 0xFFFFAEB9))
+                    //.transform(new RoundTransform(10,0xFFFFAEB9))
+                    .transform(new RoundTransform(DeviceInfoUtil.dp2px(context, 3), 0xFFFFAEB9))
                     .placeholder(R.mipmap.empty_photo)
                     .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);

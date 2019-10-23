@@ -134,7 +134,8 @@ public class WaterPoloProgress extends View {
         //裁剪成圆区域
         path.reset();
         path.addCircle(mWidth / 2, mHeight / 2, radius, Path.Direction.CCW);
-        canvas.clipPath(path, Region.Op.REPLACE);
+        //9.0只允许Region.Op.INTERSECT && op != Region.Op.DIFFERENCE
+        canvas.clipPath(path);
 
         canvas.drawCircle(mWidth / 2, mHeight / 2, mWidth / 2, circlePaint);
 

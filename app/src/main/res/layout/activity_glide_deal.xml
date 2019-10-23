@@ -10,23 +10,44 @@
 
         <include layout="@layout/title_bar_white_text" />
 
-        <Button
-            android:id="@+id/btn_circle"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/fbl_brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="处理圆形" />
+            android:layout_marginStart="6dp"
+            app:flexWrap="wrap"
+            app:showDivider="middle">
 
-        <Button
-            android:id="@+id/btn_round"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="处理圆角" />
+            <Button
+                android:id="@+id/btn_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理圆形" />
 
-        <Button
-            android:id="@+id/btn_rect_stroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="处理矩形边框" />
+            <Button
+                android:id="@+id/btn_circle_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理圆形带边框" />
+
+            <Button
+                android:id="@+id/btn_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理圆角矩形" />
+
+            <Button
+                android:id="@+id/btn_rect_stroke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理矩形带边框" />
+
+            <Button
+                android:id="@+id/btn_rect_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="处理矩形顶部圆角" />
+        </com.google.android.flexbox.FlexboxLayout>
 
         <Button
             android:id="@+id/btn_avatar"
@@ -44,6 +65,7 @@
                 android:id="@+id/iv_1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:background="@color/color_theme_main"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/image_fail" />
 

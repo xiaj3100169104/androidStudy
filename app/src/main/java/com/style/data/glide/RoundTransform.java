@@ -49,8 +49,8 @@ public class RoundTransform extends BitmapTransformation {
         int y = (source.getHeight() - size) / 2;
         //以矩形短的一边为边长截取bitmap的居中正方形区域
         Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
-        Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
 
+        Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
         paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));

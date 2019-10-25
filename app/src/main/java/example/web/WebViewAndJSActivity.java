@@ -20,6 +20,8 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
 
     ActivityWebViewBinding bd;
     private String url = "file:///android_asset/interact.html";
+    private String url_feedback = "file:///android_asset/user_feedback.html";
+
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
@@ -58,14 +60,30 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
                 return true;//拦截log
             }
         });
-
+        bd.webView.loadUrl(url);
         bd.btnJavaToJs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bd.webView.loadUrl("javascript:javaCallJavascript('javacalljs参数')");
             }
         });
-        bd.webView.loadUrl(url);
+        bd.btnFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bd.webView.loadUrl(url_feedback);
+            }
+        });
+        bd.btnDialogWebview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showWebViewDialog();
+            }
+        });
+    }
+
+    private void showWebViewDialog() {
+        WebViewDialog dialog = new WebViewDialog(this);
+        dialog.show();
     }
 
     @Override
@@ -77,6 +95,15 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bd.webView.clearHistory();
+        bd.webView.clearCache(true);
+        bd.webView.removeAllViews();
+        bd.webView.destroy();
+    }
+
     public class JsInterface {
 
         @JavascriptInterface
@@ -84,5 +111,9 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
             showToast(toast);
         }
 
+        @JavascriptInterface
+        public void JavaCommitFeedback(String toast) {
+            showToast(toast);
+        }
     }
 }

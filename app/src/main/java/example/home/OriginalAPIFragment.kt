@@ -18,7 +18,6 @@ import com.style.service.remote.RemotePlayActivity
 import example.ndk.JniTestActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity
-import example.web.WebViewFeedbackActivity
 import kotlinx.android.synthetic.main.fragment_home_3.*
 
 
@@ -35,7 +34,6 @@ class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
         view_animator.setOnClickListener { skip(AnimatorActivity::class.java) }
         view_remote_web.setOnClickListener { skip(WebViewActivity::class.java) }
         view_web_with_js.setOnClickListener { skip(WebViewAndJSActivity::class.java) }
-        view_feedback.setOnClickListener { skip(WebViewFeedbackActivity::class.java) }
         view_jni.setOnClickListener { skip(JniTestActivity::class.java) }
         view_aidl.setOnClickListener { skip(AidlActivity::class.java) }
         view_read_assets.setOnClickListener { skip(ReadAssetsActivity::class.java) }

@@ -94,7 +94,6 @@
         <activity android:name="example.dialog.WheelActivity" />
         <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
-        <activity android:name="example.web.WebViewFeedbackActivity" />
         <activity android:name="example.web.WebViewAndJSActivity" />
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
@@ -130,6 +129,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />
+        <activity android:name="example.customView.DrawViewActivity" />
         <activity android:name="example.customView.SuspendWindowActivity" />
         <activity android:name="example.customView.HeartLineActivity" />
         <activity android:name="example.customView.TempActivity" />

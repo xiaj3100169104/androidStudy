@@ -6,6 +6,9 @@
 
     <com.style.view.other.DrawView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="500dp" />
 
+    <com.style.view.other.BezierCurve
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

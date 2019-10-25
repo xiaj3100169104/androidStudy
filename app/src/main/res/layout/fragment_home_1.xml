@@ -46,6 +46,11 @@
                 android:text="banner" />
 
             <TextView
+                android:id="@+id/view_draw"
+                style="@style/text_home_item"
+                android:text="画图测试" />
+
+            <TextView
                 android:id="@+id/view_write_word"
                 style="@style/text_home_item"
                 android:text="写字板" />

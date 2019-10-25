@@ -1,4 +1,4 @@
-package example.activity
+package example.customView
 
 import android.app.Activity
 import android.os.Bundle

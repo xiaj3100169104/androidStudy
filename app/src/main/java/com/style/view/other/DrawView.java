@@ -136,6 +136,7 @@ public class DrawView extends View {
 
         //画图片，就是贴图
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        canvas.drawBitmap(bitmap, 60, 920, p);
+        canvas.drawBitmap(bitmap, 60, 1320, p);
     }
+
 }

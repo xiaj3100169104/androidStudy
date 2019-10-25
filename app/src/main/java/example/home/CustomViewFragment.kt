@@ -32,6 +32,7 @@ class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
         bd.btnWheel.setOnClickListener { skip(WheelActivity::class.java) }
         bd.viewSuspend.setOnClickListener { skip(SuspendWindowActivity::class.java) }
         bd.btnRadioGroup.setOnClickListener { skip(BannerActivity::class.java) }
+        bd.viewDraw.setOnClickListener { skip(DrawViewActivity::class.java) }
         bd.viewWriteWord.setOnClickListener { skip(WriteWordActivity::class.java) }
         bd.btnCustomView.setOnClickListener { skip(CustomViewMainActivity::class.java) }
         bd.btnHeart.setOnClickListener { skip(HeartLineActivity::class.java) }

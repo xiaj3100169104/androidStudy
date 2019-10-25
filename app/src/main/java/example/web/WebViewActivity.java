@@ -70,7 +70,6 @@ public class WebViewActivity extends BaseTitleBarActivity {
         final String js = "javascript:document.getElementById('iccid').value = '" + name + "';document.getElementById('puk').value='" + number + "';";
         //设置WebViewClient就不会调用系统浏览器
         bd.webView.setWebViewClient(new WebViewClient() {
-
             public void onPageFinished(WebView view, String url) {
                 Toast.makeText(WebViewActivity.this, "load finish", Toast.LENGTH_SHORT).show();
                 setTitleBarTitle(view.getTitle());

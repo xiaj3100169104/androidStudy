@@ -74,8 +74,11 @@ public class GlideDealActivity extends BaseTitleBarActivity {
     }
 
     private void dealRectTop() {
-        RequestOptions myOptions = new RequestOptions().transform(new RectTopCornerTransform(8f)).diskCacheStrategy(DiskCacheStrategy.NONE);
-        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv3);
+        String url = "http://test-assets.wujinpu.cn/goods/goodsInfoImg/1a8e3067505640458199991ead4ee66e/4811568189101270.jpg?x-oss-process=style/280";
+        RequestOptions myOptions = new RequestOptions().transform(new RectTopCornerTransform(8f))
+                .error(R.mipmap.empty_photo)
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).load(url).apply(myOptions).into(bd.iv3);
     }
 
     public void dealCircle() {

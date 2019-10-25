@@ -38,11 +38,6 @@
             android:text="与js交互" />
 
         <TextView
-            android:id="@+id/view_feedback"
-            style="@style/text_home_item"
-            android:text="用户反馈" />
-
-        <TextView
             android:id="@+id/view_jni"
             style="@style/text_home_item"
             android:text="jni测试" />

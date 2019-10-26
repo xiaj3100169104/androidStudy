@@ -12,6 +12,8 @@ import android.graphics.Shader;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.security.MessageDigest;
 
 /**
@@ -29,7 +31,7 @@ public class RectTopCornerTransform extends BitmapTransformation {
     }
 
     @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+    protected Bitmap transform(@NotNull BitmapPool pool, @NotNull Bitmap toTransform, int outWidth, int outHeight) {
         return roundCrop(pool, toTransform, outWidth, outHeight);
     }
 
@@ -38,30 +40,27 @@ public class RectTopCornerTransform extends BitmapTransformation {
             return null;
         //裁剪bitmap使其宽高比与imageview保持一致
         float scale;
-        float dx = 0, dy = 0;
+        int x = 0, y = 0;
+        int dx = source.getWidth(), dy = source.getHeight();
         //源bitmap宽高比大于imageview的宽高比,以imageview的宽高比裁剪bitmap宽度中心dx区域，反之裁剪高度中心dy区域。
         if ((float) source.getWidth() / source.getHeight() > (float) outWidth / outHeight) {
             scale = (float) outWidth / (float) outHeight;
-            dx = source.getHeight() * scale;
-            int x = (int) ((source.getWidth() - dx) / 2);
-            int y = (source.getHeight() - size) / 2;
-            //以矩形短的一边为边长截取bitmap的居中正方形区域
-            Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
+            dx = (int) (source.getHeight() * scale);
+            x = (source.getWidth() - dx) / 2;
         } else if ((float) source.getWidth() / source.getHeight() < (float) outWidth / outHeight) {
             scale = (float) outHeight / (float) outWidth;
-            dy = source.getWidth() * scale;
-        } else {
-
+            dy = (int) (source.getWidth() * scale);
+            y = (source.getHeight() - dy) / 2;
         }
+        Bitmap sourceNew = Bitmap.createBitmap(source, x, y, dx, dy);
 
-        Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap result = pool.get(sourceNew.getWidth(), sourceNew.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
-        paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
+        paint.setShader(new BitmapShader(sourceNew, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
-        //RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
-
-        canvas.drawPath(drawTopRect(0, 0, source.getWidth(), source.getHeight(), (int) corner), paint);
+        //实际需要根据bitmap大小计算圆角大小或者把bitmap缩放到图片大小,这儿glide已经缩放到了最佳尺寸
+        canvas.drawPath(drawTopRect(0, 0, sourceNew.getWidth(), sourceNew.getHeight(), (int) corner), paint);
         return result;
     }
 

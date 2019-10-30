@@ -30,7 +30,7 @@ public class UploadPhoneAdapter extends BaseRecyclerViewAdapter<UploadPhone> {
 		UploadPhone up = getData(position);
 		logE(String.valueOf(position), up.getTelephone() + "--" + up.getName() + "--" + up.getSortLetters() + "--" + up.isUploaded());
 		String name = up.getName();
-		holder.bd.tvFirstName.setText(name.substring(name.length() - 1, name.length()));
+		holder.bd.tvFirstName.setText(name.substring(name.length() - 1));
 		holder.bd.tvName.setText(up.getName());
 		super.setOnItemClickListener(holder.itemView, position);
 		holder.bd.executePendingBindings();

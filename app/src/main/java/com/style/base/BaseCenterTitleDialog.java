@@ -39,7 +39,7 @@ public abstract class BaseCenterTitleDialog extends BaseDialog {
         super.onCreate(savedInstanceState);
         Window window = getWindow();
         window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setLayout(getDefaultDialogWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(getDefaultWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
     }
 

@@ -1,5 +1,6 @@
 package example.db;
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R

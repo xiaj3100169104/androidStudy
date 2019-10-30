@@ -1,5 +1,6 @@
 package example.web;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -83,6 +84,13 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
 
     private void showWebViewDialog() {
         WebViewDialog dialog = new WebViewDialog(this);
+        dialog.setOnResultListener(new WebViewDialog.OnResultListener() {
+
+            @Override
+            public void onResult(String token, String sessionId, String sig, String scene) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 

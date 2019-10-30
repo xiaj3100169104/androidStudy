@@ -1,5 +1,6 @@
 package example.customView
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.style.base.activity.BaseTitleBarActivity
 import com.style.framework.R

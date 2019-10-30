@@ -21,7 +21,14 @@ import com.style.dialog.LoadingDialog
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.InputMethodUtil
 
-
+/**
+ * FirstActivity->onPause()
+ *SecondActivity->onCreate()
+ *SecondActivity->onStart()
+ *SecondActivity->onResume()
+ *FirstActivity->onStop()
+ *如果SecondActivity的主题是Dialog或Translucent时，FirstActivity会调用onPause()而不调用onStop()
+ */
 abstract class BaseActivity : AppCompatActivity() {
     protected val TAG = javaClass.simpleName
     private lateinit var context: Context
@@ -50,6 +57,14 @@ abstract class BaseActivity : AppCompatActivity() {
         return mContentView
     }
 
+    fun <T : ViewDataBinding> getBinding(): T {
+        return DataBindingUtil.bind(getContentView())!!
+    }
+
+    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
+        return ViewModelProviders.of(this).get(modelClass)
+    }
+
     fun setFullScreenStableDarkMode(dark: Boolean) {
         setFullScreenStableDarkMode(dark, resources.getColor(android.R.color.transparent))
     }
@@ -74,14 +89,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 window.decorView.systemUiVisibility = visibility
             }
         }
-    }
-
-    fun <T : ViewDataBinding> getBinding(): T {
-        return DataBindingUtil.bind(getContentView())!!
-    }
-
-    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
-        return ViewModelProviders.of(this).get(modelClass)
     }
 
     /**

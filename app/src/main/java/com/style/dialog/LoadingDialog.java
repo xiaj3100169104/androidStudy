@@ -2,27 +2,29 @@ package com.style.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.style.base.BaseDialog;
 import com.style.framework.R;
 
-public class LoadingDialog extends Dialog {
+public class LoadingDialog extends BaseDialog {
 
     public LoadingDialog(Context context) {
         super(context, R.style.Dialog_General);
-        init();
     }
 
     public LoadingDialog(Context context, int theme) {
         super(context, theme);
-        init();
     }
 
-    private void init() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_loading);
         Window window = getWindow();
         WindowManager.LayoutParams wmlp = window.getAttributes();

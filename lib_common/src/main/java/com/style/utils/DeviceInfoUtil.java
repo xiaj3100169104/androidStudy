@@ -40,20 +40,12 @@ public class DeviceInfoUtil {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
     }
 
-    public static int getScreenWidth(Context context) {
-        return getMetrics(context).widthPixels;
-    }
-
-    public static int getScreenHeight(Context context) {
-        return getMetrics(context).heightPixels;
-    }
-
     public static Display getDisplay(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay();
     }
 
-    public static DisplayMetrics getMetrics(Context context) {
+    public static DisplayMetrics getDisplayMetrics(Context context) {
         DisplayMetrics metric = new DisplayMetrics();
         getDisplay(context).getMetrics(metric);
         int width = metric.widthPixels;     // 屏幕宽度（像素）

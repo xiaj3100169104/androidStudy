@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -68,12 +71,12 @@ public class WebViewActivity extends BaseTitleBarActivity {
         String name = "25225272";
         String number = "1111";
         final String js = "javascript:document.getElementById('iccid').value = '" + name + "';document.getElementById('puk').value='" + number + "';";
-        //设置WebViewClient就不会调用系统浏览器
+        //设置WebViewClient就不会调用系统浏览器，网络链接断开不会回调错误
         bd.webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 Toast.makeText(WebViewActivity.this, "load finish", Toast.LENGTH_SHORT).show();
                 setTitleBarTitle(view.getTitle());
-                if (Build.VERSION.SDK_INT >= 19) {
+               /* if (Build.VERSION.SDK_INT >= 19) {
                     bd.webView.evaluateJavascript(js, new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String s) {
@@ -82,12 +85,36 @@ public class WebViewActivity extends BaseTitleBarActivity {
                     });
                 } else {
                     bd.webView.loadUrl(js);
-                }
+                }*/
             }
 
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 Toast.makeText(WebViewActivity.this, "start load", Toast.LENGTH_SHORT).show();
-                super.onPageStarted(view, url, favicon);
+                //super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                logE("onReceivedError 4.4", errorCode + "");
+
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    logE("onReceivedError", error.getErrorCode() + "");
+                }
+            }
+
+            @Override
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                super.onReceivedHttpError(view, request, errorResponse);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    logE("onReceivedHttpError", errorResponse.getStatusCode() + "");
+                }
+
             }
         });
         bd.webView.loadUrl(url);

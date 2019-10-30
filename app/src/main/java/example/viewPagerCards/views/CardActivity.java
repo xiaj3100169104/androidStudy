@@ -1,5 +1,6 @@
 package example.viewPagerCards.views;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;

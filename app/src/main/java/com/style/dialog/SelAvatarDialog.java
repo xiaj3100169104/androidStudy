@@ -3,35 +3,39 @@ package com.style.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
+import com.style.base.BaseDialog;
 import com.style.framework.R;
+import com.style.utils.DeviceInfoUtil;
 
-public class SelAvatarDialog extends Dialog {
+public class SelAvatarDialog extends BaseDialog {
 
     private Button bt_takePhoto;
     private Button bt_selPhoto;
     private OnItemClickListener mListener;
     private Button bt_selCancel;
 
-    public SelAvatarDialog(Context context, int theme) {
-        super(context, theme);
-        setOwnerActivity((Activity) context);
-        init(context);
-    }
-
     public SelAvatarDialog(Context context) {
         super(context, R.style.Dialog_General);
-        setOwnerActivity((Activity) context);
-        init(context);
     }
 
-    public void init(Context context) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.dlg_sel_avatar);
+        Window window = getWindow();
+        //默认对话框会有边距，宽度不能占满屏幕
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        window.setGravity(Gravity.BOTTOM);
+        window.setLayout(getScreenWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
         bt_takePhoto = (Button) this.findViewById(R.id.item_camera);
         bt_selPhoto = (Button) this.findViewById(R.id.item_photo);
         bt_selCancel = (Button) this.findViewById(R.id.item_cancel);
@@ -59,14 +63,6 @@ public class SelAvatarDialog extends Dialog {
                 dismiss();
             }
         });
-        Window window = getWindow();
-        //默认对话框会有边距，宽度不能占满屏幕
-        window.getDecorView().setPadding(0, 0, 0, 0);
-        window.setGravity(Gravity.BOTTOM);
-        DisplayMetrics dm = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(dm.widthPixels, window.getAttributes().height);
-        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
     }
 
     public void setOnItemClickListener(OnItemClickListener mListener) {

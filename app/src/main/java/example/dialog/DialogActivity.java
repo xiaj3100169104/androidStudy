@@ -35,7 +35,7 @@ public class DialogActivity extends BaseTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.dialog_activity_dialog);
         bd = getBinding();
-        setTitleBarTitle("弹出框");
+        setTitleBarTitle("弹窗");
         fm = getSupportFragmentManager();
         materialDialog = new MaterialProgressDialog(this);
         materialDialog.show();

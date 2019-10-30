@@ -42,7 +42,7 @@ public class SmartToast extends Toast {
         messageTx = root.findViewById(R.id.smart_toast_message);
         //参照物，用来填充宽高
         View anchor = root.findViewById(R.id.anchor);
-        anchor.getLayoutParams().width = DeviceInfoUtil.getScreenWidth(context);
+        anchor.getLayoutParams().width = DeviceInfoUtil.getDisplayMetrics(context).widthPixels;
         anchor.getLayoutParams().height = DeviceInfoUtil.dp2px(context, 48);
         setView(root);
         setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, DeviceInfoUtil.dp2px(context, 48));

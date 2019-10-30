@@ -28,7 +28,7 @@
             <TextView
                 android:id="@+id/btn_dialog"
                 style="@style/text_home_item"
-                android:text="弹出框" />
+                android:text="弹窗" />
 
             <TextView
                 android:id="@+id/btn_wheel"

@@ -1,5 +1,6 @@
 package example.encrypt;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Html;
 

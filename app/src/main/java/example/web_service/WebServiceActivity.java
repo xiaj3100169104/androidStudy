@@ -1,5 +1,6 @@
 package example.web_service;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 

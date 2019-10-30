@@ -21,34 +21,13 @@ public class MaterialProgressDialog extends Dialog {
         super(context, R.style.MaterialProgressDialog);
     }
 
-    public MaterialProgressDialog(@NonNull Context context, int themeResId) {
-        super(context, themeResId);
-    }
-
-    protected MaterialProgressDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        init(getContext());
-    }
-
-    private void init(Context context) {
         /*setCancelable(true);
         setCanceledOnTouchOutside(true);*/
         setContentView(R.layout.progress_dialog_material);
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        getWindow().setAttributes(params);
-    }
-
-    @Override
-    public void show() {
-        super.show();
+        getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
     public void setContent(String s) {

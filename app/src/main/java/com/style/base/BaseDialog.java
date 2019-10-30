@@ -29,7 +29,6 @@ public abstract class BaseDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    //调用show才会执行，所以在此之前获取控件为null
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +39,10 @@ public abstract class BaseDialog extends Dialog {
     }
 
     protected int getScreenWidth() {
-        return DeviceInfoUtil.getScreenWidth(getContext());
+        return DeviceInfoUtil.getDisplayMetrics(getContext()).widthPixels;
     }
 
-    protected int getDefaultDialogWidth() {
+    protected int getDefaultWidth() {
         return (int) (getScreenWidth() * 0.8);
     }
 

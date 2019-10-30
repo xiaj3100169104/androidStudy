@@ -44,7 +44,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     }
 
     fun <T : ViewDataBinding> getBinding(@LayoutRes layoutId: Int, parent: ViewGroup?): T {
-        return DataBindingUtil.inflate(mInflater, layoutId, parent, false)
+        return DataBindingUtil.bind(mInflater.inflate(layoutId, parent, false))!!
     }
 
     fun setData(list: ArrayList<T>) {

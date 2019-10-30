@@ -1,4 +1,6 @@
-package example.ndk;
+package com.ndk;
+
+import example.activity.JniTestActivity;
 
 /**
  * Created by xiajun on 2017/6/7.

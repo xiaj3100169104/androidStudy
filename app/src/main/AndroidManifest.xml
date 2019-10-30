@@ -106,7 +106,7 @@
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.db.TestRoomActivity" />
         <activity android:name="example.subThreadLooper.MsgToSubActivity" />
-        <activity android:name="example.ndk.JniTestActivity" />
+        <activity android:name="example.activity.JniTestActivity" />
         <activity android:name="example.aidl.AidlActivity" />
         <activity android:name="example.encrypt.EncryptActivity" />
         <activity android:name="example.web_service.WebServiceActivity" />

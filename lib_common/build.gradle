@@ -6,6 +6,18 @@ android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
         minSdkVersion ANDROID_MIN_SDK_VERSION
+
+        ndk {
+            //moduleName "helloNDK"
+            abiFilters "armeabi-v7a"//, "armeabi", "arm64-v8a"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+            //cppFlags "-frtti -fexceptions"
+        }
     }
 }
 

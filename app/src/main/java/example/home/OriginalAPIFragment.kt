@@ -15,7 +15,7 @@ import example.encrypt.EncryptActivity
 import example.filedown.FileDownActivity
 import example.music.MusicListActivity
 import com.style.service.remote.RemotePlayActivity
-import example.ndk.JniTestActivity
+import example.activity.JniTestActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity
 import kotlinx.android.synthetic.main.fragment_home_3.*

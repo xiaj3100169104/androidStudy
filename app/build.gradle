@@ -24,23 +24,28 @@ android {
         versionName '1.1.7'
         multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        /*externalNativeBuild {
-            cmake {
-                cppFlags "-frtti -fexceptions"
-            }
-        }*/
-        /*  ndk {
-            moduleName "helloNDK"
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-        }*/
+
+        ndk {
+            //moduleName "helloNDK"
+            abiFilters "armeabi-v7a"//, "armeabi", "arm64-v8a"
+        }
+    }
+    //-frtti支持 RTTI,,-fexceptions启用对 C++ 异常处理的支持
+    //菜单build下make project会生成so文件，在app/build/intermediates/cmake目录下
+    //原理：通过读取CMakeLists.txt文件编译cpp生成so再加载到apk里面
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+            //cppFlags "-frtti -fexceptions"
+        }
     }
     //多维度
     flavorDimensions "model", "version"
     productFlavors {
-        _sharp_s2 {
+        _sharp_S2 {
             dimension "model"
         }
-        _sharp_s3 {
+        _sharp_R3 {
             dimension "model"
         }
         _9_0_0_ {
@@ -106,11 +111,6 @@ android {
     dataBinding {
         enabled = true
     }
-/*  externalNativeBuild {
-      cmake {
-          path 'CMakeLists.txt'
-      }
-  }*/
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

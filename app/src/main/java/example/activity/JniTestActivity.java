@@ -1,9 +1,11 @@
-package example.ndk;
+package example.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.ndk.JniCommon;
+import com.ndk.JniTest;
 import com.style.framework.R;
 
 public class JniTestActivity extends AppCompatActivity {
@@ -17,7 +19,9 @@ public class JniTestActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(JniTest.stringFromJNI());
+        String tt = JniCommon.stringFromJNI();
+        tv.setText(tt);
+        String kk = tt;
         String obj = "obj";
         short s = 1;
         long l = 20;

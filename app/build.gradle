@@ -79,6 +79,10 @@ android {
             keyAlias properties.getProperty("KEY_ALIAS")
             keyPassword properties.getProperty("KEY_PASSWORD")
             v2SigningEnabled false*/
+            storeFile file("../app/wujinpu.jks")
+            storePassword "wujinpu_android"
+            keyAlias "wujinpu"
+            keyPassword "wujinpu"
         }
     }
     buildTypes {
@@ -90,23 +94,26 @@ android {
             zipAlignEnabled false
             //慎用，导致很多未知错误
             shrinkResources false
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
         release {
             buildConfigField("boolean", "LOG_ENABLE", "false")
             debuggable false
             jniDebuggable false
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled false
+            //慎用，导致很多未知错误
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
     }
     lintOptions {
         //  true--所有正式版构建执行规则生成崩溃的lint检查，如果有崩溃问题将停止构建
-        checkReleaseBuilds true
+        checkReleaseBuilds false
         // true--错误发生后停止gradle构建
-        abortOnError true
+        abortOnError false
     }
     dataBinding {
         enabled = true

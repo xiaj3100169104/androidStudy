@@ -89,6 +89,7 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
             @Override
             public void onResult(String token, String sessionId, String sig, String scene) {
                 dialog.dismiss();
+                showToast(scene);
             }
         });
         dialog.show();

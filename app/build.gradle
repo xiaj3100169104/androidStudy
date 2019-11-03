@@ -73,16 +73,10 @@ android {
             //v2SigningEnabled false
         }
         release {
-            //郁闷手写就报错，在工程结构里配置就没问题，一模一样的写法
-            /*storeFile file(properties.getProperty("STORE_FILE"))
-            storePassword properties.getProperty("STORE_PASSWORD")
-            keyAlias properties.getProperty("KEY_ALIAS")
-            keyPassword properties.getProperty("KEY_PASSWORD")
-            v2SigningEnabled false*/
-            storeFile file("../app/wujinpu.jks")
-            storePassword "wujinpu_android"
-            keyAlias "wujinpu"
-            keyPassword "wujinpu"
+            storeFile file("../app/release.jks")
+            storePassword "dmc19910809"
+            keyAlias "keyname"
+            keyPassword "dmc19910809"
         }
     }
     buildTypes {

@@ -8,6 +8,6 @@ local.properties
 .cxx
 app/proguardMapping.txt
 app/proguardLog
-*.jks
+#*.jks
 *.apk
 *.keystore

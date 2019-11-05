@@ -33,7 +33,7 @@ import com.style.framework.databinding.ActivityGlideDealBinding;
 import com.style.utils.BitmapUtil;
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.FileUtil;
-import com.style.utils.PictureUtils;
+import com.style.utils.PictureUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
@@ -263,7 +263,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                             String mCopyFilePath = getCopyFilePath();
                             //取出目标路径
                             cropImagePath = getTargetFilePath();
-                            int degree = PictureUtils.readPictureDegree(photoFile.getAbsolutePath());
+                            int degree = PictureUtil.readPictureDegree(photoFile.getAbsolutePath());
                             logE(getTAG(), "拍照后的角度：" + degree);
                             if (degree != 0) {// 旋转图片,保存
                                 Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath());

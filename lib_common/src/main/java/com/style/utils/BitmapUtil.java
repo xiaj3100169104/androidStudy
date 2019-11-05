@@ -6,6 +6,11 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LruCache;
@@ -68,7 +73,7 @@ public class BitmapUtil {
         return mMemoryCache.get(key);
     }
 
-    public static void displayBmp(final Activity act, final ImageView imageView, final String path, final int reqWidth, final int reqHeight, final int maxResolution) {
+    public static void displayBmp(final Activity act, final ImageView imageView, final String path, final int reqWidth, final int reqHeight) {
         if (null != imageView) {
             if (imageCache.containsKey(path)) {
                 SoftReference<Bitmap> reference = imageCache.get(path);
@@ -88,7 +93,7 @@ public class BitmapUtil {
 
                 public void run() {
                     try {
-                        thumb = BitmapUtil.revitionImageSize(path, reqHeight, reqHeight, maxResolution);
+                        thumb = BitmapUtil.getThumbnail(path, reqHeight, reqHeight);
                     } catch (Exception e) {
                     }
                     if (null != thumb) {
@@ -106,9 +111,9 @@ public class BitmapUtil {
         }
     }
 
-    public static Bitmap revitionImageSize(String path, int reqWidth, int reqHeight, int maxResolution) {
+    public static Bitmap getThumbnail(String path, int vWidth, int vHeight, int maxResolution) {
         try {
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(path)));
+            FileInputStream in = new FileInputStream(new File(path));
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(in, null, options);
@@ -117,9 +122,9 @@ public class BitmapUtil {
             Bitmap bitmap = null;
             // Log.e("options.outWidth", String.valueOf(options.outWidth));
             // Log.e("options.outHeight", String.valueOf(options.outHeight));
-            in = new BufferedInputStream(new FileInputStream(new File(path)));
-            // 计算 inSampleSize 的值
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+            in = new FileInputStream(new File(path));
+            // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
+            options.inSampleSize = calculateInSampleSize(options, vWidth, vHeight);
             // Log.e("options.inSampleSize", String.valueOf(options.inSampleSize));
             /*
              * ALPHA_8：每个像素占用1byte内存 ARGB_4444：每个像素占用2byte内存 ARGB_8888：每个像素占用4byte内存
@@ -135,7 +140,7 @@ public class BitmapUtil {
             bitmap = BitmapFactory.decodeStream(in, null, options);
             // Log.e("options.outWidth", String.valueOf(bitmap.getWidth()));
             // Log.e("options.outWidth", String.valueOf(bitmap.getHeight()));
-            Bitmap newBmp = BitmapUtil.changeResolution(bitmap, maxResolution);
+            Bitmap newBmp = changeResolution(bitmap, maxResolution);
             return newBmp;
         } catch (IOException e) {
             return null;
@@ -264,5 +269,98 @@ public class BitmapUtil {
         ByteBuffer buffer = ByteBuffer.allocate(size);
         bitmap.copyPixelsToBuffer(buffer);
         return new ByteArrayInputStream(buffer.array());
+    }
+
+
+    /**
+     * 将图片变为圆角
+     *
+     * @param bitmap 原Bitmap图片
+     * @param pixels 图片圆角的弧度(单位:像素(px))
+     * @return 带有圆角的图片(Bitmap 类型)
+     */
+    public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+    /**
+     * 将图片转化为圆形头像
+     *
+     * @throws
+     * @Title: toRoundBitmap
+     */
+    public static Bitmap toRoundBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float roundPx;
+        float left, top, right, bottom, dst_left, dst_top, dst_right, dst_bottom;
+        if (width <= height) {
+            roundPx = width / 2;
+
+            left = 0;
+            top = 0;
+            right = width;
+            bottom = width;
+
+            height = width;
+
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = width;
+            dst_bottom = width;
+        } else {
+            roundPx = height / 2;
+
+            float clip = (width - height) / 2;
+
+            left = clip;
+            right = width - clip;
+            top = 0;
+            bottom = height;
+            width = height;
+
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = height;
+            dst_bottom = height;
+        }
+
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        final Rect src = new Rect((int) left, (int) top, (int) right, (int) bottom);
+        final Rect dst = new Rect((int) dst_left, (int) dst_top, (int) dst_right, (int) dst_bottom);
+        final RectF rectF = new RectF(dst);
+
+        paint.setAntiAlias(true);// 设置画笔无锯齿
+
+        canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
+
+        // 以下有两种方法画圆,drawRounRect和drawCircle
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
+        // canvas.drawCircle(roundPx, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
+        canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
+
+        return output;
     }
 }

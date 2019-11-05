@@ -20,6 +20,10 @@
         <!--EditText 输入框中字体的颜色-->
         <item name="editTextColor">@color/textColorPrimary</item>
     </style>
+    <!--启动页windowBackground需与启动页背景图一致，否则会导致再启动时显示windowBackground几秒-->
+    <style name="AppTheme.Splash" parent="BaseAppTheme">
+        <item name="android:windowBackground">@color/windowBackground_translucent</item>
+    </style>
     <!--activity的Window窗口背景透明-->
     <style name="AppTheme.Translucent" parent="BaseAppTheme">
         <item name="android:windowBackground">@color/windowBackground_translucent</item>

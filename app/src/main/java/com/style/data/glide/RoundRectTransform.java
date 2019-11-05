@@ -40,6 +40,15 @@ public class RoundRectTransform extends BitmapTransformation {
         return roundCrop(pool, toTransform);
     }
 
+    /**
+     *BitmapShader：
+     * 重复：就是横向、纵向不断重复这个bitmap
+     * 镜像：横向不断翻转重复，纵向不断翻转重复；
+     * 拉伸：这个和电脑屏保的模式应该有些不同，这个拉伸的是图片最后的那一个像素；横向的最后一个横行像素，不断的重复，纵项的那一列像素，不断的重复；
+     * @param pool
+     * @param source
+     * @return
+     */
     private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
         if (source == null)
             return null;

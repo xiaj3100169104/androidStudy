@@ -1,11 +1,8 @@
 package com.style.base.activity
 
-import android.os.Build
 import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
+import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
-import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -13,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.style.framework.R
-import com.style.utils.DeviceInfoUtil
 
 
 abstract class BaseTitleBarActivity : BaseActivity() {
@@ -57,10 +53,12 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         tvTitle.text = getContext().getString(resId)
     }
 
-    fun addRightMenu(menu: View) {
+    fun addRightMenu(@LayoutRes resId: Int): View {
+        val menu = layoutInflater.inflate(resId, null)
         val lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
         lp.addRule(RelativeLayout.ALIGN_PARENT_END)
         layoutTitle.addView(menu, lp)
+        return menu
     }
 
 

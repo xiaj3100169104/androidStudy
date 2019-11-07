@@ -111,7 +111,7 @@ public class BitmapUtil {
         }
     }
 
-    public static Bitmap getThumbnail(String path, int vWidth, int vHeight, int maxResolution) {
+    public static Bitmap getThumbnail(String path, int vWidth, int vHeight) {
         try {
             FileInputStream in = new FileInputStream(new File(path));
             BitmapFactory.Options options = new BitmapFactory.Options();
@@ -140,7 +140,7 @@ public class BitmapUtil {
             bitmap = BitmapFactory.decodeStream(in, null, options);
             // Log.e("options.outWidth", String.valueOf(bitmap.getWidth()));
             // Log.e("options.outWidth", String.valueOf(bitmap.getHeight()));
-            Bitmap newBmp = changeResolution(bitmap, maxResolution);
+            Bitmap newBmp = changeResolution(bitmap, 640);
             return newBmp;
         } catch (IOException e) {
             return null;
@@ -276,26 +276,25 @@ public class BitmapUtil {
      * 将图片变为圆角
      *
      * @param bitmap 原Bitmap图片
-     * @param pixels 图片圆角的弧度(单位:像素(px))
+     * @param corner 图片圆角的弧度(单位:像素(px))
      * @return 带有圆角的图片(Bitmap 类型)
      */
-    public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
+    public static Bitmap toRoundCorner(Bitmap bitmap, int corner) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
 
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = pixels;
+        final Rect dst = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(src);
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
+        canvas.drawRoundRect(rectF, corner, corner, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
+        canvas.drawBitmap(bitmap, src, dst, paint);
 
         return output;
     }

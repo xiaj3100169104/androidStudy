@@ -5,6 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -31,6 +34,7 @@ public class BezierCurve extends View {
 
     public BezierCurve(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);//关掉硬件加速
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(Color.BLUE);
@@ -58,8 +62,28 @@ public class BezierCurve extends View {
         //mPath.lineTo(0, mHeight / 2);
         //mPath.close();
         //canvas.drawPath(mPath, mPaint);
-        canvas.drawPath(drawTopRect(40, 40, 400, 400, 40), mPaint);
+        //canvas.drawPath(drawTopRect(40, 40, 400, 400, 40), mPaint);
+       /* 多层叠加
+        canvas.translate(30, 30);
+        canvas.drawColor(Color.GRAY);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.RED);
+        canvas.drawRect(0, 0, 200, 200, mPaint);
+        int saveCount = canvas.saveLayerAlpha(0, 0, 300, 300, 0x88, Canvas.ALL_SAVE_FLAG);
+        mPaint.setColor(Color.BLUE);
+        canvas.drawCircle(200, 200, 100, mPaint);
+        canvas.restoreToCount(saveCount);*/
 
+        canvas.translate(30, 30);
+        canvas.drawColor(Color.GRAY);
+        int saveCount = canvas.saveLayerAlpha(0, 0, 300, 300, 0x88, Canvas.ALL_SAVE_FLAG);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.RED);
+        canvas.drawRect(0, 0, 200, 200, mPaint);
+        mPaint.setColor(Color.BLUE);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawCircle(200, 200, 100, mPaint);
+        canvas.restoreToCount(saveCount);
     }
 
     //画顶部圆角矩形

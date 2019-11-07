@@ -42,7 +42,7 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
     private void setImageResource(File f, ImageView imageView) {
         String path = FileDirConfig.DIR_CACHE + "/" + f.getName() + ".thumbnail";
 
-        Bitmap b = BitmapUtil.revitionImageSize(path, 1080, 640, 640);
+        Bitmap b = BitmapUtil.getThumbnail(path, 1080, 640);
         if (b == null) {
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             retriever.setDataSource(f.getAbsolutePath());

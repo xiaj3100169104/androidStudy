@@ -6,7 +6,7 @@ import java.io.Serializable
 
 @Entity(tableName = "user_info_table",
         foreignKeys = [ForeignKey(entity = UserBean::class, parentColumns = arrayOf("id"), childColumns = arrayOf("user_id"), onDelete = CASCADE)])
-data class UserInfo(var sex: String) : Serializable {
+open class UserInfo(var sex: String?) : Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "user_id")
@@ -20,11 +20,15 @@ data class UserInfo(var sex: String) : Serializable {
     @Ignore
     var signKey: String? = null
 
-    constructor() : this("vfv")
+    constructor() : this(null)
 
     constructor(userId: String, password: String) : this() {
         this.userId = userId
         this.password = password
     }
+
+}
+
+data class SubUserInfo(var weight: String) : UserInfo("") {
 
 }

@@ -33,6 +33,15 @@ abstract class BaseNoPagerLazyRefreshFragment : BaseFragment() {
         isViewCreated = true
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (isViewCreated && !isHidden) {
+            logE(TAG, "第${showCount}次显示")
+            onViewVisible(showCount)
+            showCount++
+        }
+    }
+
     open fun onViewVisible(showCount: Int) {
     }
 }

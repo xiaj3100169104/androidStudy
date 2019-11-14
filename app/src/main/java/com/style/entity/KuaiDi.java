@@ -6,6 +6,13 @@ public class KuaiDi {
     public String context;
     public String location;
 
+    public KuaiDi() {
+    }
+
+    protected KuaiDi(String k){
+
+    }
+
     @Override
     public String toString() {
         return "KuaiDi{" +

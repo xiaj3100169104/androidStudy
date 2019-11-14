@@ -5,7 +5,10 @@ android {
     defaultConfig {
         minSdkVersion ANDROID_MIN_SDK_VERSION
     }
-
+    buildTypes {
+        preview {
+        }
+    }
     dependencies {
         implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
     }

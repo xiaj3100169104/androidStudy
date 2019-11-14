@@ -71,6 +71,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
             //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.home_banner_3);
             catchColor(bitmap);
         });
+        downImage();
     }
 
     private void dealRectTop() {
@@ -78,35 +79,51 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         RequestOptions myOptions = new RequestOptions().transform(new RectTopCornerTransform(8f))
                 .error(R.mipmap.empty_photo)
                 .diskCacheStrategy(DiskCacheStrategy.NONE);
-        Glide.with(this).load(url).apply(myOptions).into(bd.iv3);
+        Glide.with(this).load(url).apply(myOptions).into(bd.iv1);
     }
 
-    public void dealCircle() {
+    private void dealCircle() {
         RequestOptions myOptions = new RequestOptions().transform(new RoundTransform()).diskCacheStrategy(DiskCacheStrategy.NONE);
         Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
     }
 
-    public void dealCircleBorder() {
+    private void dealCircleBorder() {
         RequestOptions myOptions = new RequestOptions().transform(new RoundTransform(1.5f, 0xFFFFAEB9)).diskCacheStrategy(DiskCacheStrategy.NONE);
         Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
     }
 
-    public void dealRound() {
+    private void dealRound() {
         RequestOptions myOptions = new RequestOptions().transform(new RoundRectTransform(8f)).diskCacheStrategy(DiskCacheStrategy.NONE);
-        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv2);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
     }
 
-    public void dealRectStroke() {
+    private void dealRectStroke() {
         RequestOptions myOptions = new RequestOptions().transform(new RoundRectTransform(8f, 4f, 0xFFFF6347)).diskCacheStrategy(DiskCacheStrategy.NONE);
-        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv2);
+        Glide.with(this).load(R.mipmap.empty_photo).apply(myOptions).into(bd.iv1);
     }
 
+    private void downImage() {
+        String url = "https://test-assets.wujinpu.cn/back/banner/8881573630042201.jpg";
+        RequestOptions myOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE);
+        Glide.with(this).asBitmap().load(url).apply(myOptions).into(new CustomTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                Bitmap b = BitmapUtil.scaleCrop(resource, bd.iv2.getWidth(), bd.iv2.getHeight());
+                bd.iv2.setImageBitmap(b);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
+    }
 
     private void catchColor(Bitmap bitmap) {
         Palette.Builder pb = new Palette.Builder(bitmap);
         pb.generate(new Palette.PaletteAsyncListener() {
             @Override
-            public void onGenerated(@android.support.annotation.Nullable Palette palette) {
+            public void onGenerated(@Nullable Palette palette) {
                 //暗、柔和
                 int darkMutedColor = palette.getDarkMutedColor(Color.BLACK);//如果分析不出来，则返回默认颜色
                 //亮、柔和
@@ -153,13 +170,13 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         RequestOptions myOptions = new RequestOptions();
         Glide.with(this).asBitmap().load(targetPath).apply(myOptions).into(new CustomTarget<Bitmap>() {
             @Override
-            public void onResourceReady(@NonNull Bitmap resource, @android.support.annotation.Nullable Transition<? super Bitmap> transition) {
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 catchColor(resource);
                 bd.ivAvatar.setImageBitmap(resource);
             }
 
             @Override
-            public void onLoadCleared(@android.support.annotation.Nullable Drawable placeholder) {
+            public void onLoadCleared(@Nullable Drawable placeholder) {
 
             }
         });
@@ -245,6 +262,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
     }
 
     private File photoFile;
+    //裁剪后图片输出路径
     private String cropImagePath;
 
     public static final int CODE_TAKE_CAMERA = 997;// 拍照
@@ -262,7 +280,6 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                             //需要把原文件复制一份，否则会在原文件上操作
                             String mCopyFilePath = getCopyFilePath();
                             //取出目标路径
-                            cropImagePath = getTargetFilePath();
                             int degree = PictureUtil.readPictureDegree(photoFile.getAbsolutePath());
                             logE(getTAG(), "拍照后的角度：" + degree);
                             if (degree != 0) {// 旋转图片,保存
@@ -273,9 +290,10 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                             } else {
                                 isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
                             }
-                            if (isSucceed)
+                            if (isSucceed) {
+                                cropImagePath = getTargetFilePath();
                                 dealPictureCrop(mCopyFilePath, cropImagePath);
-                            else
+                            } else
                                 showToast("图片创建失败");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -291,12 +309,11 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                         photoFile = FileUtil.UriToFile(this, uri);
                         //需要把原文件复制一份，否则会在原文件上操作
                         String mCopyFilePath = getCopyFilePath();
-                        //取出目标路径
-                        cropImagePath = getTargetFilePath();
                         boolean isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
-                        if (isSucceed)
+                        if (isSucceed) {
+                            cropImagePath = getTargetFilePath();
                             dealPictureCrop(mCopyFilePath, cropImagePath);
-                        else
+                        } else
                             showToast("图片创建失败");
                     } else {
                         showToast(R.string.file_does_not_exist);
@@ -314,6 +331,8 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         logE(getTAG(), "裁剪后图片路径-->" + targetPath);
         Intent intent = ImageCropActivity.createIntent(this, originalFilePath, targetPath, getCropAreaStr(), false, getMaxCropSize());
         startActivityForResult(intent, CODE_PHOTO_CROP);
+        Bitmap b = BitmapUtil.getThumbnail(originalFilePath, bd.iv3.getWidth(), bd.iv3.getHeight());
+        bd.iv3.setImageBitmap(b);
     }
 
     protected String getCropAreaStr() {

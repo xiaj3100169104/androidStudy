@@ -19,11 +19,16 @@ android {
             //cppFlags "-frtti -fexceptions"
         }
     }
+    buildTypes {
+        preview {
+        }
+    }
 }
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "com.alibaba:fastjson:$json_version"
     implementation files('libs/pinyin4j-2.5.0.jar')
 
 }

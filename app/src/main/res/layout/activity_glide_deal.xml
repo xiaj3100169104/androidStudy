@@ -22,31 +22,31 @@
                 android:id="@+id/btn_circle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="处理圆形" />
+                android:text="圆形" />
 
             <Button
                 android:id="@+id/btn_circle_border"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="处理圆形带边框" />
+                android:text="圆形带边框" />
 
             <Button
                 android:id="@+id/btn_round"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="处理圆角矩形" />
+                android:text="圆角矩形" />
 
             <Button
                 android:id="@+id/btn_rect_stroke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="处理矩形带边框" />
+                android:text="矩形带边框" />
 
             <Button
                 android:id="@+id/btn_rect_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="处理矩形顶部圆角" />
+                android:text="矩形顶部圆角" />
         </com.google.android.flexbox.FlexboxLayout>
 
         <Button

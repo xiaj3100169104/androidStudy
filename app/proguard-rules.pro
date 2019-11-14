@@ -75,6 +75,6 @@ public static java.lang.String TABLENAME;
 -keepclassmembers class * {
     @org.simple.eventbus.Subscriber <methods>;
 }
-#混淆第三方jar包，其中xxx为jar包名
+#混淆第三方jar包，其中xxx为jar包名,注意保持依赖库中的不混淆
 #-libraryjars libs/pinyin4j-2.5.0.jar #这个会与build.gradle里面重复
 -keep class com.style.bean.**{*;}       #不混淆某个包内的所有文件

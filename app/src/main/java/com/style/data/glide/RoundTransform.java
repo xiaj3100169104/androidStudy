@@ -75,13 +75,13 @@ public class RoundTransform extends BitmapTransformation {
         return o instanceof RoundTransform;
     }
 
-    @Override
+    /*@Override
     public int hashCode() {
         return ID.hashCode();
-    }
+    }*/
 
     @Override
     public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-        messageDigest.update(ID_BYTES);
+        //messageDigest.update(ID_BYTES);
     }
 }

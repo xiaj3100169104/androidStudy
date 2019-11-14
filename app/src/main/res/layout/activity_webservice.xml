@@ -15,7 +15,7 @@
             android:hint="电话号码"
             android:inputType="number"
             android:text="18202823096"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/btn_search"
@@ -31,7 +31,7 @@
             android:hint="城市ID"
             android:inputType="number"
             android:text="1117"
-            android:textStyle="normal"/>
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/btn_search_weather"
@@ -40,6 +40,12 @@
             android:onClick="searchWeather"
             android:text="查询天气情况" />
 
+        <Button
+            android:id="@+id/btn_parse_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="parseList"
+            android:text="json转list" />
 
         <Button
             android:id="@+id/btn_request_string"
@@ -68,7 +74,7 @@
             android:layout_height="match_parent"
             android:hint="msg"
             android:textStyle="bold"
-            android:text=""/>
+            android:text="" />
 
     </LinearLayout>
 </layout>

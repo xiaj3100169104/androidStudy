@@ -86,7 +86,16 @@ android {
             jniDebuggable true
             minifyEnabled false
             zipAlignEnabled false
-            //慎用，导致很多未知错误
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        preview {
+            buildConfigField("boolean", "LOG_ENABLE", "true")
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            zipAlignEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
@@ -96,7 +105,7 @@ android {
             debuggable false
             jniDebuggable false
             minifyEnabled true
-            zipAlignEnabled false
+            zipAlignEnabled true
             //慎用，导致很多未知错误
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

@@ -4,7 +4,10 @@ android {
     defaultConfig {
         minSdkVersion ANDROID_MIN_SDK_VERSION
     }
-
+    buildTypes {
+        preview {
+        }
+    }
     dependencies {
         implementation "com.google.code.gson:gson:$gson_version"
     }

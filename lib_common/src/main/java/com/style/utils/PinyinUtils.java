@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.address;
+package com.style.utils;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-public class ContactsUtils {
+public class PinyinUtils {
     private static int BEGIN = 45217;
     private static int END = 63486;
 

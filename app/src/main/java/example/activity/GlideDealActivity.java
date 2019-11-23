@@ -38,6 +38,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -60,6 +62,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
         bd.btnRectTop.setOnClickListener(v -> dealRectTop());
+        bd.btnImageSize.setOnClickListener(v -> getImageSize());
 
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
         bd.btnCatchColor.setOnClickListener(v -> {
@@ -72,6 +75,25 @@ public class GlideDealActivity extends BaseTitleBarActivity {
             catchColor(bitmap);
         });
         downImage();
+    }
+
+    private void getImageSize() {
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.home_banner_1);
+        Log.e("getImageSize", "压缩前大小  " + b.getWidth() + "x" + b.getHeight());
+        Log.e("getByteCount", "压缩前大小  " + b.getAllocationByteCount() / 1024 + " kb");
+        //BitmapUtil.compressImage(b, 10);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //TODO 实际存储后的图片占用空间大小比原来大更多why？？？？
+        b.compress(Bitmap.CompressFormat.JPEG, 90, baos);//质量压缩方法，这里100表示最大质量压缩，把压缩后的数据存放到baos中
+        Log.e("compressImage", "压缩后大小  " + baos.toByteArray().length / 1024 + " kb");
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap r = BitmapFactory.decodeStream(isBm, null, null);
+        String path = FileDirConfig.DIR_CACHE + File.separatorChar + "quality100" + ".image";
+        try {
+            BitmapUtil.saveBitmap(path, r, 100);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void dealRectTop() {
@@ -311,7 +333,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                         String mCopyFilePath = getCopyFilePath();
                         boolean isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
                         if (isSucceed) {
-                            cropImagePath = getTargetFilePath();
+                              cropImagePath = getTargetFilePath();
                             dealPictureCrop(mCopyFilePath, cropImagePath);
                         } else
                             showToast("图片创建失败");

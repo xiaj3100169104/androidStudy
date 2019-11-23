@@ -31,6 +31,50 @@ import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
+/**
+ * ALPHA_8：只有一个alpha通道每个像素占用1byte内存
+ * * ARGB_4444：每个像素占用2byte内存，已经被官方嫌弃
+ * * ARGB_8888：每个像素ARGB四个通道，每个通道8bit，占用4byte内存
+ * * （默认） RGB_565：每个像素占2Byte，其中红色占5bit，绿色占6bit，蓝色占5bit
+ * * 深度与色深这两个概念。
+ * 1、位深度指的是存储每个像素所用的位数，主要用于存储
+ * 2、色深指的是每一个像素点用多少bit存储颜色，属于图片自身的一种属性
+ * <p>
+ * Android Bitmap中的Config参数其实指的就是色深
+ * <p>
+ * Bitmap.Config ARGB_4444：每个像素占四位，即A=4，R=4，G=4，B=4，那么一个像素点占4+4+4+4=16位
+ * Bitmap.Config ARGB_8888：每个像素占四位，即A=8，R=8，G=8，B=8，那么一个像素点占8+8+8+8=32位
+ * Bitmap.Config RGB_565：每个像素占四位，即R=5，G=6，B=5，没有透明度，那么一个像素点占5+6+5=16位
+ * Bitmap.Config ALPHA_8：每个像素占四位，只有透明度，没有颜色
+ * <p>
+ * 举个例子：
+ * 100像素*100像素 色深32位(ARGB_8888) 保存时位深度为24位 的图片
+ * 在内存中所占大小为：100 * 100 * (32 / 8)Byte
+ * 在文件中所占大小为 100 * 100 * ( 24/ 8 ) * 压缩效率 Byte
+ * ————————————————
+ * <p>
+ * * dp/dip  : 与密度无关的象素，一种基于屏幕密度的抽象单位。在每英寸160点的显示器上，1dp = 1px。但dp和px的比例会随着屏幕密度的变化而改变，不同设备有不同的显示效果。
+ * * 总结下：上面话就是想表达放在drawable的图片会对不适用真机屏幕密度的资源进行移除，启动图标放大可能会变模糊；放在mipmap依然会保留下各个密度的图片，
+ * * 所以为了保证桌面图标的显示质量因此放在mipmap下面，其他的图标建议都放在drawable文件夹下面吧。
+ * *
+ * 内存是根据图片的像素数量来给图片分配内存大小的：
+ * * 如果图片所在目录dpi低于匹配目录，那么该图片被认为是为低密度设备需要的，现在要显示在高密度设备上，图片会被放大。内存会成倍数增长（确实是这样）,而且效果也会模糊。
+ * * 如果图片所在目录dpi高于匹配目录，那么该图片被认为是为高密度设备需要的，现在要显示在低密度设备上，图片会被缩小。
+ * * 如果图片所在目录为匹配目录，则无论设备dpi为多少，保留原图片大小，不进行缩放。
+ * 图片有以下存在形式：
+ * 1.文件形式(即以二进制形式存在于硬盘上)
+ * 2.流的形式(即以二进制形式存在于内存中)
+ * 3.Bitmap形式
+ *
+ * 这三种形式的区别: 文件形式和流的形式对图片体积大小并没有影响,也就是说,如果你手机SD卡上的如果是100K,那么通过流的形式读到内存中,也一定是占100K的内存,
+ * 注意是流的形式,不是Bitmap的形式,当图片以Bitmap的形式存在时,其占用的内存会瞬间变大,
+ * 我试过500K文件形式的图片加载到内存,以Bitmap形式存在时,占用内存将近10M,当然这个增大的倍数并不是固定的（原因在下面提到）。
+ *
+ * 检测图片三种形式大小的方法:
+ * 文件形式: file.length()
+ * 流的形式: 讲图片文件读到内存输入流中,看它的byte数
+ * Bitmap:    bitmap.getByteCount()
+ */
 public class BitmapUtil {
     public final static String TAG = "BitmapCache";
     private static HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<String, SoftReference<Bitmap>>();
@@ -123,12 +167,6 @@ public class BitmapUtil {
             in = new FileInputStream(new File(path));
             // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
             options.inSampleSize = calculateInSampleSize(options, vWidth, vHeight);
-            /*
-             * ALPHA_8：只有一个alpha通道每个像素占用1byte内存
-             * ARGB_4444：每个像素占用2byte内存，已经被官方嫌弃
-             * ARGB_8888：每个像素ARGB四个通道，每个通道8bit，占用4byte内存
-             * （默认） RGB_565：每个像素占2Byte，其中红色占5bit，绿色占6bit，蓝色占5bit
-             */
             options.inPreferredConfig = null;    // 让解码器基于屏幕以最佳方式解码
             options.inJustDecodeBounds = false;  // 是否只读取边界
             options.inDither = false;            // 不进行图片抖动处理
@@ -261,7 +299,8 @@ public class BitmapUtil {
     }
 
     /**
-     * 因为png图片是无损的，不能进行压缩。
+     * png图片不能进行压缩。
+     *CompressFormat.PNG可以用来保持透明图片
      * @param b
      * @param maxSize 单位kb
      * @return
@@ -269,7 +308,7 @@ public class BitmapUtil {
     public static Bitmap compressImage(Bitmap b, int maxSize) {
         if (b != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            b.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+            b.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示最大质量压缩，把压缩后的数据存放到baos中
             Log.e("compressImage", "压缩前大小  " + baos.toByteArray().length / 1024 + " kb");
             Bitmap mSrcBitmap = b;
             if (baos.toByteArray().length > 1024 * 100) {
@@ -299,6 +338,36 @@ public class BitmapUtil {
             return r;
         }
         return null;
+    }
+
+    /**
+     * 压缩图片
+     *
+     * @param image
+     * @return
+     */
+    public static byte[] compressImage(int maxSize, Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        int options = 90;
+        byte[] bytes = baos.toByteArray().clone();
+        Bitmap temp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+        int size = bytes.length;
+        while (size / 1024 > maxSize) {
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            temp.compress(Bitmap.CompressFormat.JPEG, options, bao);
+
+            byte[] buf = bao.toByteArray().clone();
+            size = buf.length;
+            Bitmap bitmap = BitmapFactory.decodeByteArray(buf, 0, buf.length);
+            options -= 5;
+            if (options <= 0) options = 90;
+            temp = bitmap;
+            bytes = buf.clone();
+        }
+        return bytes;
     }
 
     /**

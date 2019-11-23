@@ -47,6 +47,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="矩形顶部圆角" />
+
+            <Button
+                android:id="@+id/btn_image_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取图片大小" />
         </com.google.android.flexbox.FlexboxLayout>
 
         <Button

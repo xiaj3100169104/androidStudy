@@ -13,13 +13,11 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -65,11 +63,12 @@ import java.util.HashMap;
  * 1.文件形式(即以二进制形式存在于硬盘上)
  * 2.流的形式(即以二进制形式存在于内存中)
  * 3.Bitmap形式
- *
- * 这三种形式的区别: 文件形式和流的形式对图片体积大小并没有影响,也就是说,如果你手机SD卡上的如果是100K,那么通过流的形式读到内存中,也一定是占100K的内存,
- * 注意是流的形式,不是Bitmap的形式,当图片以Bitmap的形式存在时,其占用的内存会瞬间变大,
+ * <p>
+ * 这三种形式的区别: 
+ * 文件形式和流的形式对图片体积大小并没有影响,也就是说,如果你手机SD卡上的如果是100K,那么通过流的形式读到内存中,也一定是占100K的内存,注意是流的形式,不是Bitmap的形式,
+ * 当图片以Bitmap的形式存在时,其占用的内存会瞬间变大,
  * 我试过500K文件形式的图片加载到内存,以Bitmap形式存在时,占用内存将近10M,当然这个增大的倍数并不是固定的（原因在下面提到）。
- *
+ * <p>
  * 检测图片三种形式大小的方法:
  * 文件形式: file.length()
  * 流的形式: 讲图片文件读到内存输入流中,看它的byte数
@@ -267,6 +266,23 @@ public class BitmapUtil {
         recycle(bitmap);
     }
 
+    public static void saveByte(String path, byte[] bitmap) throws IOException {
+        FileOutputStream out;
+        File f = new File(path);
+        if (f.exists()) {
+            f.delete();
+        }
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+        out = new FileOutputStream(f);//JPEG:以什么格式压缩
+        if (bitmap.length > 0) {
+            out.write(bitmap);
+            out.flush();
+        }
+        out.close();
+    }
+
     public static void recycle(Bitmap bitmap) {
         if (bitmap != null && bitmap.isRecycled()) {
             bitmap.recycle();
@@ -299,75 +315,38 @@ public class BitmapUtil {
     }
 
     /**
-     * png图片不能进行压缩。
-     *CompressFormat.PNG可以用来保持透明图片
+     * note：处理decode后的小图片压缩并直接存储、传输，因为大图片Bitmap已经oom了。
+     * CompressFormat.PNG处理图片无效；
+     * Bitmap.CompressFormat.JPEG压缩png图片会自动忽略quality属性，bytes.length减少。图片会失去透明度，透明处变黑.
+     * TODO 压缩后图片拍摄方向信息丢失？？？？
+     * 如果图片太大最好先缩小图片再质量压缩效果更好。参考：主流屏幕尺寸1080x1920
+     *
      * @param b
      * @param maxSize 单位kb
      * @return
      */
-    public static Bitmap compressImage(Bitmap b, int maxSize) {
+    public static byte[] compress(Bitmap b, int maxSize) {
         if (b != null) {
+            int quality = 100;//必须大于0
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            b.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示最大质量压缩，把压缩后的数据存放到baos中
-            Log.e("compressImage", "压缩前大小  " + baos.toByteArray().length / 1024 + " kb");
-            Bitmap mSrcBitmap = b;
-            if (baos.toByteArray().length > 1024 * 100) {
-                mSrcBitmap = Bitmap.createScaledBitmap(b, b.getWidth() / 2, b.getHeight() / 2, true);
-            }
-            int quality = 95;//必须大于0
-            while (baos.toByteArray().length > 1024 * maxSize && quality > 15) {  //循环判断如果压缩后图片是否大于2048kb,大于继续压缩
+            b.compress(Bitmap.CompressFormat.JPEG, quality, baos);//把压缩后的数据存放到baos中
+            Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
+            quality -= 10;//必须大于0
+            //大于max继续压缩
+            while (quality > 0 && baos.toByteArray().length > 1024 * maxSize) {
                 baos.reset();//重置baos即清空baos
-                mSrcBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);//这里压缩options%，把压缩后的数据存放到baos中
-                Log.e("compressImage", "压缩后大小  ByteArray  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
+                b.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+                Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
                 quality -= 10;
-            }
-            //二次压缩：当quality=10时依然超过maxsize
-            if (baos.toByteArray().length > 1024 * maxSize) {
-                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
-                Bitmap imageNew = BitmapFactory.decodeStream(bais, null, null);
-                while (baos.toByteArray().length > 1024 * maxSize && quality > 0) {
-                    baos.reset();
-                    imageNew.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-                    Log.e("compressImage", "二次压缩后大小  ByteArray  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
-                    quality -= 1;
+                //缩小尺寸再压缩,缩小2倍效果不太好
+                if (quality <= 0 && baos.toByteArray().length > maxSize * 1024) {
+                    quality = 100;
+                    b = Bitmap.createScaledBitmap(b, b.getWidth() / 4, b.getHeight() / 4, true);
                 }
             }
-
-            ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
-            Bitmap r = BitmapFactory.decodeStream(isBm, null, null);
-            return r;
+            return baos.toByteArray();
         }
         return null;
-    }
-
-    /**
-     * 压缩图片
-     *
-     * @param image
-     * @return
-     */
-    public static byte[] compressImage(int maxSize, Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-
-        int options = 90;
-        byte[] bytes = baos.toByteArray().clone();
-        Bitmap temp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-        int size = bytes.length;
-        while (size / 1024 > maxSize) {
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            temp.compress(Bitmap.CompressFormat.JPEG, options, bao);
-
-            byte[] buf = bao.toByteArray().clone();
-            size = buf.length;
-            Bitmap bitmap = BitmapFactory.decodeByteArray(buf, 0, buf.length);
-            options -= 5;
-            if (options <= 0) options = 90;
-            temp = bitmap;
-            bytes = buf.clone();
-        }
-        return bytes;
     }
 
     /**

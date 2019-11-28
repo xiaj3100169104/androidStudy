@@ -173,8 +173,7 @@ public class BitmapUtil {
             options.inJustDecodeBounds = false;  // 是否只读取边界
             options.inDither = false;            // 不进行图片抖动处理
             bitmap = BitmapFactory.decodeStream(in, null, options);
-            Bitmap newBmp = scaleCrop(bitmap, vWidth, vHeight);
-            return newBmp;
+            return bitmap;
         } catch (IOException e) {
             return null;
         }
@@ -204,7 +203,7 @@ public class BitmapUtil {
      * @param outHeight
      * @return
      */
-    public static Bitmap scaleCrop(Bitmap source, int outWidth, int outHeight) {
+    public static Bitmap centerCrop(Bitmap source, int outWidth, int outHeight) {
         if (source == null)
             return null;
         //裁剪bitmap使其宽高比与imageview保持一致

@@ -79,16 +79,11 @@ public class GlideDealActivity extends BaseTitleBarActivity {
     }
 
     private void compressImage() {
-        //String file = "/storage/emulated/0/aaaaStyle/cache/1574660481789.jpg";
-        //String path = FileDirConfig.DIR_CACHE + File.separatorChar + "yashua" + ".jpg";
-        String file = "/storage/emulated/0/aaaaStyle/cache/1574493622274.jpg";
-        String path = FileDirConfig.DIR_CACHE + File.separatorChar + "yamaha" + ".jpg";
-        byte[] bytes = BitmapUtil.compress(file, 200);
-        try {
-            BitmapUtil.saveByte(path, bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //String path = "/storage/emulated/0/aaaaStyle/cache/1574660481789.jpg";
+        String path = "/storage/emulated/0/aaaaStyle/cache/1574493622274.jpg";
+        Bitmap b = BitmapUtil.getThumbnail(path, bd.iv3.getWidth(), bd.iv3.getHeight());
+        Bitmap b2 = BitmapUtil.centerCrop(b, bd.iv3.getWidth(), bd.iv3.getHeight());
+        bd.iv3.setImageBitmap(b2);
     }
 
     private void dealRectTop() {
@@ -125,7 +120,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         Glide.with(this).asBitmap().load(url).apply(myOptions).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap b = BitmapUtil.scaleCrop(resource, bd.iv2.getWidth(), bd.iv2.getHeight());
+                Bitmap b = BitmapUtil.centerCrop(resource, bd.iv2.getWidth(), bd.iv2.getHeight());
                 bd.iv2.setImageBitmap(b);
             }
 

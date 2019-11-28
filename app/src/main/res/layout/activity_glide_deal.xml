@@ -52,7 +52,7 @@
                 android:id="@+id/btn_image_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="获取图片大小" />
+                android:text="缩略图" />
         </com.google.android.flexbox.FlexboxLayout>
 
         <Button

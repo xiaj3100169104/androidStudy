@@ -19,12 +19,9 @@ public class ImageLoader {
         }
     }
 
-    public static void loadNormalPicture(Activity context, ImageView imageView, String url) {
+    public static void loadPicture(Activity context, ImageView imageView, String url) {
         if (!TextUtils.isEmpty(url)) {
             RequestOptions options = new RequestOptions()
-                    //.circleCrop()
-                    //.transform(new RoundTransform(10,0xFFFFAEB9))
-                    .transform(new RoundTransform(DeviceInfoUtil.dp2px(context, 3), 0xFFFFAEB9))
                     .placeholder(R.mipmap.empty_photo)
                     .error(R.mipmap.image_fail)
                     .priority(Priority.HIGH);

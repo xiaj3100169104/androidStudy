@@ -29,6 +29,8 @@ import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
+import kotlin.math.MathKt;
+
 /**
  * ALPHA_8：只有一个alpha通道每个像素占用1byte内存
  * * ARGB_4444：每个像素占用2byte内存，已经被官方嫌弃
@@ -165,13 +167,11 @@ public class BitmapUtil {
             Bitmap bitmap = null;
             in = new FileInputStream(new File(path));
             // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
+            // 解码后的宽高页变成原来的1/inSampleSize
             options.inSampleSize = calculateInSampleSize(options, vWidth, vHeight);
             options.inPreferredConfig = null;    // 让解码器基于屏幕以最佳方式解码
             options.inJustDecodeBounds = false;  // 是否只读取边界
             options.inDither = false;            // 不进行图片抖动处理
-            /* 下面两个字段需要组合使用 */
-            options.inPurgeable = true;
-            options.inInputShareable = true;
             bitmap = BitmapFactory.decodeStream(in, null, options);
             Bitmap newBmp = scaleCrop(bitmap, vWidth, vHeight);
             return newBmp;
@@ -275,7 +275,7 @@ public class BitmapUtil {
         if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
         }
-        out = new FileOutputStream(f);//JPEG:以什么格式压缩
+        out = new FileOutputStream(f);
         if (bitmap.length > 0) {
             out.write(bitmap);
             out.flush();
@@ -316,37 +316,109 @@ public class BitmapUtil {
 
     /**
      * note：处理decode后的小图片压缩并直接存储、传输，因为大图片Bitmap已经oom了。
-     * CompressFormat.PNG处理图片无效；
+     * CompressFormat.PNG处理图片无效；如果outMimeType图片类型不是image/jpeg可以跳过压缩步骤
      * Bitmap.CompressFormat.JPEG压缩png图片会自动忽略quality属性，bytes.length减少。图片会失去透明度，透明处变黑.
-     * TODO 压缩后图片拍摄方向信息丢失？？？？
-     * 如果图片太大最好先缩小图片再质量压缩效果更好。参考：主流屏幕尺寸1080x1920
+     * 如果图片太大最好先缩小图片再质量压缩效果更好。
+     * 参考：
+     * 1.主流屏幕尺寸1080x1920   此尺寸图片以ARGB_8888解码时占内存为：1080*1920*4/1024=8100kb=8M；
+     * 2.quality=60以上,如果quality到了60图片大小还是超过了maxSize（说明图片色彩比较丰富），最好不要再压缩了；
+     * 3.如果原图片大小小于maxSize不管尺寸大小：不压缩且不缩放；
+     * 4.如果原图片大小大于maxSize但尺寸小于1080x1920(说明图片色彩比较丰富)：只压缩不缩放(这种处理处理的图片占用空间最大)。
+     * 实际测试:微信就是以1080p，quality=60压缩的，png也用jpg处理，
      *
-     * @param b
+     * @param path    图片路径
      * @param maxSize 单位kb
-     * @return
+     * @return 压缩后的字节数据
      */
-    public static byte[] compress(Bitmap b, int maxSize) {
-        if (b != null) {
+    public static byte[] compress(String path, int maxSize) {
+        try {
+            FileInputStream in = new FileInputStream(new File(path));
+            int size = in.available();
+            byte[] b = new byte[size];
+            in.read(b);
+            in.close();
+            //小于maxSize直接返回（会跳过旋转：但小尺寸一般不是拍照的照片，不存在照片角度问题）
+            if (size <= maxSize * 1024)
+                return b;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(b, 0, b.length, options);
+            in = new FileInputStream(new File(path));
+            // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
+            // 解码后的宽高变成原来的1/inSampleSize
+            options.inSampleSize = getCompressInSampleSize(options.outWidth, options.outHeight);
+            options.inPreferredConfig = null;    // 让解码器基于屏幕以最佳方式解码
+            options.inJustDecodeBounds = false;  // 是否只读取边界
+            options.inDither = false;            // 不进行图片抖动处理
+            Bitmap bm = BitmapFactory.decodeStream(in, null, options);
+            int degree = PictureUtil.readPictureDegree(path);
+            // 旋转图片
+            if (degree != 0) {
+                bm = BitmapUtil.rotateImageView(bm, degree);
+            }
+            //当尺寸大于1080且空间存储大小大于maxSize时才缩放到1080p
+            final int width = bm.getWidth();
+            final int height = bm.getHeight();
+            if (width * height > 1080 * 1920 && size > maxSize * 1024) {
+                Matrix m = new Matrix();
+                if (width >= height) {
+                    int newh = 1080;
+                    float sx = (float) newh / height;
+                    m.setScale(sx, sx);
+                } else {
+                    int neww = 1080;
+                    float sy = (float) neww / width;
+                    m.setScale(sy, sy);
+                }
+                bm = Bitmap.createBitmap(bm, 0, 0, width, height, m, true);
+            }
+            //质量压缩
             int quality = 100;//必须大于0
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            b.compress(Bitmap.CompressFormat.JPEG, quality, baos);//把压缩后的数据存放到baos中
+            bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);//把压缩后的数据存放到baos中
             Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
+            //png同样处理：因为有些png图片其实并没有透明度像素
+            //if ("image/jpeg".equals(options.outMimeType)) {
             quality -= 10;//必须大于0
-            //大于max继续压缩
-            while (quality > 0 && baos.toByteArray().length > 1024 * maxSize) {
+            //大于max继续压缩到quality=60
+            while (quality >= 60 && baos.toByteArray().length > 1024 * maxSize) {
                 baos.reset();//重置baos即清空baos
-                b.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+                bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);
                 Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
                 quality -= 10;
-                //缩小尺寸再压缩,缩小2倍效果不太好
-                if (quality <= 0 && baos.toByteArray().length > maxSize * 1024) {
-                    quality = 100;
-                    b = Bitmap.createScaledBitmap(b, b.getWidth() / 4, b.getHeight() / 4, true);
-                }
             }
+            //}
             return baos.toByteArray();
+        } catch (IOException e) {
+            return null;
         }
-        return null;
+    }
+
+    /**
+     * 获取用于图片压缩的最佳inSampleSize值，以1080x1920的乘积为基数计算2的指数值：
+     * 尺寸1080x1920以ARGB_8888解码时占内存为：1080*1920*4/1024=8100kb=8M
+     * 目前小米最高摄像头像素为12032*9024是1080*1920的52倍接近2的6次方
+     * 1080*1920=1440*1440=2072600
+     *
+     * @param outWidth  图片原始宽度
+     * @param outHeight 图片原始高度
+     * @return
+     */
+    private static int getCompressInSampleSize(int outWidth, int outHeight) {
+        final int reqWidth = 1080;
+        final int reqHeight = 1920;
+        int inSampleSize = 1;
+        float scale = (float) outWidth * outHeight / (reqWidth * reqHeight);
+        //计算以2为底scale的对数
+        double k = Math.log(scale) / Math.log(2);
+        if (k > 8)
+            inSampleSize = 8;
+        else if (k > 4)
+            inSampleSize = 4;
+        else if (k > 2)
+            inSampleSize = 2;
+        Log.e("inSampleSize", "scale=" + scale + "  k=" + k + "  inSampleSize=" + inSampleSize);
+        return inSampleSize;
     }
 
     /**

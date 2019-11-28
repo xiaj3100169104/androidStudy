@@ -127,17 +127,22 @@ abstract class BaseActivity : AppCompatActivity() {
         toast?.cancel()
     }
 
-    fun showProgressDialog(@StringRes msgId: Int) {
-        showProgressDialog(getString(msgId))
+    fun showProgressDialog(@StringRes msgId: Int): LoadingDialog {
+        return showProgressDialog(getString(msgId))
     }
 
+    /**
+     * 使用注意后面不能在主线程执行耗时操作，会被阻塞延迟显示
+     */
     @JvmOverloads
-    fun showProgressDialog(msg: CharSequence = "") {
+    fun showProgressDialog(msg: CharSequence = ""): LoadingDialog {
         if (progressDialog == null)
             progressDialog = LoadingDialog(context)
         progressDialog?.setCanceledOnTouchOutside(false)
-        progressDialog?.setMessage(msg)
+        progressDialog?.setCancelable(false)
         progressDialog?.show()
+        progressDialog?.setMessage(msg)
+        return progressDialog!!
     }
 
     fun dismissProgressDialog() {

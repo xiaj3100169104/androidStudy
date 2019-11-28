@@ -33,12 +33,12 @@ android {
     //-frtti支持 RTTI,,-fexceptions启用对 C++ 异常处理的支持
     //菜单build下make project会生成so文件，在app/build/intermediates/cmake目录下
     //原理：通过读取CMakeLists.txt文件编译cpp生成so再加载到apk里面
-    externalNativeBuild {
+    /*externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
             //cppFlags "-frtti -fexceptions"
         }
-    }
+    }*/
     //多维度
     flavorDimensions "model", "version"
     productFlavors {

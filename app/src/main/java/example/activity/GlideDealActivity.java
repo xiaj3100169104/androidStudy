@@ -27,6 +27,7 @@ import com.style.base.activity.BaseTitleBarActivity;
 import com.style.data.glide.RectTopCornerTransform;
 import com.style.data.glide.RoundTransform;
 import com.style.data.glide.RoundRectTransform;
+import com.style.dialog.LoadingDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGlideDealBinding;
@@ -62,7 +63,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
         bd.btnRectTop.setOnClickListener(v -> dealRectTop());
-        bd.btnImageSize.setOnClickListener(v -> getImageSize());
+        bd.btnImageSize.setOnClickListener(v -> compressImage());
 
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
         bd.btnCatchColor.setOnClickListener(v -> {
@@ -77,15 +78,13 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         downImage();
     }
 
-    private void getImageSize() {
-        String file = "/storage/emulated/0/DCIM/100SHARP/DSC_0005.JPG";
-        Bitmap b = BitmapFactory.decodeFile(file);
-        //Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        Log.e("getImageSize", "解码后  " + b.getWidth() + "x" + b.getHeight());
-        Log.e("getByteCount", "解码后  " + b.getAllocationByteCount() / 1024 + " kb");
-        byte[] bytes = BitmapUtil.compress(b, 200);
+    private void compressImage() {
+        //String file = "/storage/emulated/0/aaaaStyle/cache/1574660481789.jpg";
+        //String path = FileDirConfig.DIR_CACHE + File.separatorChar + "yashua" + ".jpg";
+        String file = "/storage/emulated/0/aaaaStyle/cache/1574493622274.jpg";
+        String path = FileDirConfig.DIR_CACHE + File.separatorChar + "yamaha" + ".jpg";
+        byte[] bytes = BitmapUtil.compress(file, 200);
         try {
-            String path = FileDirConfig.DIR_CACHE + File.separatorChar + "yashua" + ".jpg";
             BitmapUtil.saveByte(path, bytes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -349,8 +348,6 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         logE(getTAG(), "裁剪后图片路径-->" + targetPath);
         Intent intent = ImageCropActivity.createIntent(this, originalFilePath, targetPath, getCropAreaStr(), false, getMaxCropSize());
         startActivityForResult(intent, CODE_PHOTO_CROP);
-        Bitmap b = BitmapUtil.getThumbnail(originalFilePath, bd.iv3.getWidth(), bd.iv3.getHeight());
-        bd.iv3.setImageBitmap(b);
     }
 
     protected String getCropAreaStr() {

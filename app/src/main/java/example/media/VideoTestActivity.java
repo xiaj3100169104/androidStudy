@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.framework.R;
 import com.style.lib.media.camera2video.Camera2Activity;
 import com.style.lib.media.video.PlayVideoActivity;

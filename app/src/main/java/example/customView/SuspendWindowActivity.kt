@@ -7,7 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.service.suspendWindow.CallInSuspendService
 import com.style.service.suspendWindow.VideoSuspendService

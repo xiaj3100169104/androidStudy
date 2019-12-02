@@ -1,7 +1,7 @@
 package com.style.service.fileDownload;
 
 import android.app.Application
-import com.style.app.FileDirConfig
+import com.style.config.FileDirConfig
 import com.style.base.BaseServiceModel
 import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
 import com.style.data.fileDown.SingleFileDownloadTask

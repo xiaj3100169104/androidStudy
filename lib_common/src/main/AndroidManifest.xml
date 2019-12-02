@@ -1,1 +1,17 @@
-<manifest package="com.style.lib.common" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.style.lib.common">
+
+    <application>
+        <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.style.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+</manifest>

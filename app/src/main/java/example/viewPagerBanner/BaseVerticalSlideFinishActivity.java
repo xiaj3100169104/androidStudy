@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
-import com.style.base.activity.BaseActivity;
+import com.style.base.BaseActivity;
 import com.style.data.app.AppManager;
 
 import org.jetbrains.annotations.Nullable;

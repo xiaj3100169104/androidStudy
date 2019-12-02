@@ -1,8 +1,7 @@
 package example.customView
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityWeekSportBinding
 import com.style.view.healthy.SportWeekHistogram

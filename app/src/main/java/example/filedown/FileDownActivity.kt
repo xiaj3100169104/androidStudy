@@ -1,14 +1,13 @@
 package example.filedown
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 
-import com.style.app.FileDirConfig
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.config.FileDirConfig
+import com.style.base.BaseTitleBarActivity
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.data.event.EventBusEvent
 import com.style.data.fileDown.FileDownloadStateBean

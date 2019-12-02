@@ -1,13 +1,11 @@
 package example.home
 
 import android.Manifest
-import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -19,9 +17,8 @@ import android.util.Log
 import android.view.Display
 import com.style.data.app.AppManager
 
-import com.style.app.HotFixManager
-import com.style.app.ToastManager
-import com.style.base.activity.BaseActivity
+import com.style.toast.ToastManager
+import com.style.base.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
@@ -94,7 +91,7 @@ class MainActivity : BaseActivity() {
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
-        HotFixManager.getInstance().query()
+        //HotFixManager.getInstance().query()
         val permissions = arrayOf(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
 
         if (ContextCompat.checkSelfPermission(this.application, permissions[0]) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this.application, permissions[1]) != PackageManager.PERMISSION_GRANTED) {

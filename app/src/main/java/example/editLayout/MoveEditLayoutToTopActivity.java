@@ -2,10 +2,9 @@ package example.editLayout;
 
 import android.os.Bundle;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveTopActivityBinding;
-import com.style.utils.DeviceInfoUtil;
 
 import org.jetbrains.annotations.Nullable;
 

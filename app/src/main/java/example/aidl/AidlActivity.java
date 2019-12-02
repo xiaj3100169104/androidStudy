@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAidlBinding;
 

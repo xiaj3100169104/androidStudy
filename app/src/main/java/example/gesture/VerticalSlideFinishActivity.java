@@ -9,7 +9,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.style.data.app.AppManager;
-import com.style.base.activity.BaseActivity;
+import com.style.base.BaseActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityTestGestureBinding;
 

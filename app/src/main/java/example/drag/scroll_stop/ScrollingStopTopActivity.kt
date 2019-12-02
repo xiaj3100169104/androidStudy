@@ -1,16 +1,14 @@
 package example.drag.scroll_stop
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.*
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.activity.BaseActivity
+import com.style.base.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityScrollingStopTopBinding
 import com.style.view.diviver.DividerItemDecoration
-import example.home.contact.FriendAdapter
 import java.util.*
 
 

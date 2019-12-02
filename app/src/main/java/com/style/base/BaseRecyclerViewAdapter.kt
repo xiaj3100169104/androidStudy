@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.style.app.ToastManager
+import com.style.toast.ToastManager
 
-import com.style.data.app.LogManager
+import com.style.utils.LogManager
 import com.style.utils.DeviceInfoUtil
 
 import java.util.ArrayList

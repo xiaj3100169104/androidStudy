@@ -2,7 +2,7 @@ package example.fragmentAdapter;
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
 

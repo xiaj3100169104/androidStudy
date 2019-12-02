@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.util.Log
 import android.view.View
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_tablayout.*
 

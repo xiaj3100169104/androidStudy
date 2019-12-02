@@ -22,12 +22,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.style.app.FileDirConfig;
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.config.FileDirConfig;
+import com.style.base.BaseTitleBarActivity;
 import com.style.data.glide.RectTopCornerTransform;
 import com.style.data.glide.RoundTransform;
 import com.style.data.glide.RoundRectTransform;
-import com.style.dialog.LoadingDialog;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityGlideDealBinding;
@@ -39,8 +38,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 

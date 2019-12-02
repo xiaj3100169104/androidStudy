@@ -3,8 +3,6 @@ package example.album;
 import android.Manifest;
 import android.annotation.SuppressLint
 import android.content.Intent;
-import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build;
 import android.os.Bundle
@@ -18,16 +16,15 @@ import android.view.View;
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.BitmapUtil
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.SystemShareUtil;
-import com.style.view.diviver.GridDividerItemDecoration
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
@@ -36,9 +33,7 @@ import java.util.ArrayList;
 import example.viewPager.ImageScanActivity;
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
 
 /**
  * Created by xiajun on 2016/10/8.

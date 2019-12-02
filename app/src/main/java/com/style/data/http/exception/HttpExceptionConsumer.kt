@@ -1,7 +1,7 @@
 package com.style.data.http.exception
 
 import com.style.data.app.AppManager
-import com.style.app.ToastManager
+import com.style.toast.ToastManager
 import com.style.http.exception.HttpResultException
 import com.style.http.exception.HttpThrowableUtil
 import io.reactivex.functions.Consumer

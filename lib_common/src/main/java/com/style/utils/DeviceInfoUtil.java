@@ -19,6 +19,27 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
+ * private void getMetricsWithSize(DisplayMetrics outMetrics, CompatibilityInfo compatInfo,
+ *             Configuration configuration, int width, int height) {
+ *         outMetrics.densityDpi = outMetrics.noncompatDensityDpi = logicalDensityDpi;
+ *         outMetrics.density = outMetrics.noncompatDensity =
+ *                 logicalDensityDpi * DisplayMetrics.DENSITY_DEFAULT_SCALE;
+ *         outMetrics.scaledDensity = outMetrics.noncompatScaledDensity = outMetrics.density;
+ *         outMetrics.xdpi = outMetrics.noncompatXdpi = physicalXDpi;
+ *         outMetrics.ydpi = outMetrics.noncompatYdpi = physicalYDpi;
+ *
+ *         final Rect appBounds = configuration != null
+ *                 ? configuration.windowConfiguration.getAppBounds() : null;
+ *         width = appBounds != null ? appBounds.width() : width;
+ *         height = appBounds != null ? appBounds.height() : height;
+ *
+ *         outMetrics.noncompatWidthPixels  = outMetrics.widthPixels = width;
+ *         outMetrics.noncompatHeightPixels = outMetrics.heightPixels = height;
+ *
+ *         if (!compatInfo.equals(CompatibilityInfo.DEFAULT_COMPATIBILITY_INFO)) {
+ *             compatInfo.applyToDisplayMetrics(outMetrics);
+ *         }
+ *     }
  * Created by xiajun on 2017/1/9.
  * 设备信息工具类
  */
@@ -45,13 +66,32 @@ public class DeviceInfoUtil {
         return wm.getDefaultDisplay();
     }
 
+    /**
+     * dp：也是dip(device independent pixels)设备独立像素，在不同的设备显示效果不同，dp可以自适应屏幕的密度。
+     * Density Independent Pixels的缩写，以160dpi为基准。
+     * 在160dpi设备上1dp=1px，在240dpi设备上1dp=1.5px,以此类推
+     * PPI和DPI的区别：
+     * 理论上对于屏幕而言，点就是像素，像素就是点，ppi和dpi应该没有区别才对，但是对于图里的屏幕，已经计算过ppi=293，跑分软件却显示dpi=320。
+     * 为什么dpi和ppi会不同？其实这是人为规定的结果，估计是谷歌只考虑了屏幕分辨率没有考虑屏幕尺寸设计的。
+     * 在开发中使用的dot也就是dpi中的d，如果有一个640d*360d的东西，显示在上述1280*720的屏幕上，严格点对点显示，将正好占据1/4个屏幕，
+     * 但是在640*360的屏幕上就是占满了整块屏幕。
+     * 生活中的屏幕分辨率五花八门，点对点显示肯定是行不通的，所以需要按比例显示。先规定基准dpi为160（安卓早期谷歌规定的基准值），
+     * 还是严格按照定义，1280*720的5寸屏幕ppi=dpi=293，假设有一条80d的线段，
+     * 那么在这块屏幕上实际点数应该是293/160*80=146.5？？？出现了半个像素的情况！！！这让屏幕左右为男，显示也不对，不显示也不对。
+     * 为了避免这种问题，谷歌又规定了几种标准dpi分别为240、320等等，和160dpi的比例分别为1.5、2，293与320最为相近（没有研究具体什么是最为相近），
+     * 所以规定此屏幕dpi为320。这样只要确保开发中使用的大小即点数必须为偶数，这样再乘以比例就不会出现半个点的情况。
+     *
+     * @param context
+     * @return
+     */
     public static DisplayMetrics getDisplayMetrics(Context context) {
         DisplayMetrics metric = new DisplayMetrics();
         getDisplay(context).getMetrics(metric);
-        int width = metric.widthPixels;     // 屏幕宽度（像素）
-        int height = metric.heightPixels;   // 屏幕高度（像素）
-        float density = metric.density;      // 屏幕密度（0.75 / 1.0 / 1.5）
-        int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
+        int width = metric.widthPixels;      // 屏幕宽度（像素）
+        int height = metric.heightPixels;    // 屏幕高度（像素）
+        float density = metric.density;      // densityDpi/160的比值 sharpR3:4
+        int densityDpi = metric.densityDpi;  // 屏幕密度The screen density expressed as dots-per-inchDPI(根据屏幕分辨率认为规定的一个值)(160像素/英寸) sharpR3:640
+        float scaledDensity = metric.scaledDensity;  // 系统设置里面的字体大小缩放值
         return metric;
     }
 

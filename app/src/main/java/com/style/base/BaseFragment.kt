@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.View
-import com.style.data.app.LogManager
-import com.style.app.ToastManager
+import com.style.utils.LogManager
+import com.style.toast.ToastManager
 import org.simple.eventbus.EventBus
 
 abstract class BaseFragment : Fragment() {

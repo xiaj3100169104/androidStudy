@@ -2,7 +2,7 @@ package example.activity;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import io.reactivex.Flowable
 import io.reactivex.Observable

@@ -2,26 +2,20 @@ package example.address;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
-import com.style.lib_common_ui.loading.CommonLoadingLayout;
 import com.style.view.diviver.DividerItemDecoration;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 

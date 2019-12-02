@@ -23,11 +23,19 @@ android {
         preview {
         }
     }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'android.arch.lifecycle:extensions:1.1.1'
     api "com.alibaba:fastjson:$json_version"
     implementation files('libs/pinyin4j-2.5.0.jar')
 

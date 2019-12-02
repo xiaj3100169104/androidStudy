@@ -1,23 +1,13 @@
 package example.viewPagerCards.views;
 
-import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ViewPagerCardsViewsActivityBinding;
 
 import org.jetbrains.annotations.Nullable;
-
-import example.viewPagerCards.ShadowTransformer;
 
 public class CardActivity extends BaseTitleBarActivity {
 

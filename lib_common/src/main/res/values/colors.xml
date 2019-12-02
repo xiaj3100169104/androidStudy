@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="windowBackground_translucent">#30000000</color>
+    <color name="black_full">#FE000000</color>
+    <color name="windowBackground">#FFF5F5F5</color>
+    <!-- appbar颜色 -->
+    <color name="colorPrimary">#FF00B2EE</color>
+    <!-- 状态栏颜色 -->
+    <color name="colorPrimaryDark">#FF1C86EE</color>
+    <!-- 主要字体颜色 -->
+    <color name="textColorPrimary">#333333</color>
+    <color name="divider_color">@color/windowBackground</color>
+    <!-- 深灰色 -->
+    <color name="title_bar_common_title">#343434</color>
+
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="color_ui_bg_gray">#F6F6F6</color>
+    <color name="color_text_gray_light">#999999</color>
+    <color name="color_theme_main">#B68B48</color>
+</resources>

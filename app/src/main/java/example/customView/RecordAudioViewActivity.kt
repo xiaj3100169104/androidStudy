@@ -3,7 +3,7 @@ package example.customView;
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_record_audio_view.*
 import java.util.*

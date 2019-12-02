@@ -4,8 +4,8 @@ import android.app.Application
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.StringRes
 import android.util.Log
-import com.style.app.ToastManager
-import com.style.data.app.LogManager
+import com.style.toast.ToastManager
+import com.style.utils.LogManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
 import io.reactivex.disposables.CompositeDisposable

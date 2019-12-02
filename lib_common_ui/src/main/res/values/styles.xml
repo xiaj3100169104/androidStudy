@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="MaterialProgressDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--使用colorAccent兼容低版本，而不是android:colorAccent-->
-        <item name="colorAccent">#FFB68B48</item>
-    </style>
-</resources>

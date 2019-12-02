@@ -9,6 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
@@ -19,6 +21,11 @@ import com.style.data.prefs.AppPrefsManager
 import com.style.view.refresh.MyAppRefreshLayout
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
+import com.style.utils.DeviceInfoUtil.getDisplayMetrics
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
+
 
 class MyApp : MultiDexApplication() {
     val TAG = javaClass.simpleName
@@ -27,7 +34,7 @@ class MyApp : MultiDexApplication() {
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        initHotfix()
+        //initHotfix()
     }
 
     override fun onCreate() {
@@ -45,35 +52,35 @@ class MyApp : MultiDexApplication() {
     }
 
     private fun initHotfix() {
-         var appVersion = "1.0.0"
-         try {
-             appVersion = this.packageManager.getPackageInfo(this.packageName, 0).versionName
-         } catch (e: PackageManager.NameNotFoundException) {
-             e.printStackTrace()
-         }
+        var appVersion = "1.0.0"
+        try {
+            appVersion = this.packageManager.getPackageInfo(this.packageName, 0).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
 
-         SophixManager.getInstance().setContext(this)
-                 .setAppVersion(appVersion)
-                 .setAesKey(null)
-                 .setEnableDebug(true)
-                 .setSecretMetaData(null, null, rsaSecret)
-                 .setPatchLoadStatusStub { mode, code, info, handlePatchVersion ->
-                     val msg = StringBuilder("").append("Mode:").append(mode)
-                             .append(" Code:").append(code)
-                             .append(" Info:").append(info)
-                             .append(" HandlePatchVersion:").append(handlePatchVersion).toString()
-                     Log.e(TAG, "onLoad->$msg")
-                     // 补丁加载回调通知
-                     if (code == PatchStatus.CODE_LOAD_SUCCESS) {
-                         // 表明补丁加载成功
-                     } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
-                         // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
-                         // 建议: 用户可以监听进入后台事件, 然后调用killProcessSafely自杀，以此加快应用补丁，详见1.3.2.3
-                         SophixManager.getInstance().killProcessSafely()
-                     } else {
-                         // 其它错误信息, 查看PatchStatus类说明
-                     }
-                 }.initialize()
+        SophixManager.getInstance().setContext(this)
+                .setAppVersion(appVersion)
+                .setAesKey(null)
+                .setEnableDebug(true)
+                .setSecretMetaData(null, null, rsaSecret)
+                .setPatchLoadStatusStub { mode, code, info, handlePatchVersion ->
+                    val msg = StringBuilder("").append("Mode:").append(mode)
+                            .append(" Code:").append(code)
+                            .append(" Info:").append(info)
+                            .append(" HandlePatchVersion:").append(handlePatchVersion).toString()
+                    Log.e(TAG, "onLoad->$msg")
+                    // 补丁加载回调通知
+                    if (code == PatchStatus.CODE_LOAD_SUCCESS) {
+                        // 表明补丁加载成功
+                    } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
+                        // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
+                        // 建议: 用户可以监听进入后台事件, 然后调用killProcessSafely自杀，以此加快应用补丁，详见1.3.2.3
+                        SophixManager.getInstance().killProcessSafely()
+                    } else {
+                        // 其它错误信息, 查看PatchStatus类说明
+                    }
+                }.initialize()
     }
 
 

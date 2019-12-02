@@ -1,6 +1,5 @@
 include ':app'
 include ':lib_common'
-include ':lib_common_ui'
 include ':lib_network'
 include ':lib_image_crop'
 include ':lib_media_picker'

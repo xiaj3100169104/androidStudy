@@ -16,7 +16,7 @@ import android.util.Log
 import com.style.data.app.AppManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
-import com.style.view.refresh.MyAppRefreshLayout
+import com.style.common_ui.refresh.MyAppRefreshLayout
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 

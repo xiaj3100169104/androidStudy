@@ -174,7 +174,6 @@ dependencies {
     //testImplementation "android.arch.persistence.room:testing:$room_version"
     implementation project(':lib_common')
     implementation project(':lib_media_picker')
-    implementation project(':lib_refresh_view')
     implementation project(':lib_video_record')
     implementation project(':lib_wheel_picker')
     implementation project(':lib_zxing')

@@ -3,6 +3,10 @@
     package="com.style.lib.common">
 
     <application>
+        <activity
+            android:name="tech.gaolinfeng.imagecrop.lib.ImageCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

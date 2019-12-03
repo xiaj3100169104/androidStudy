@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="white">#ffffff</color>
-    <color name="custom_keyboard_text">#000000</color>
-    <color name="divider">#D1D1D1</color>
-    <color name="click_bg_dark">#BFBFBF</color>
-    <color name="click_bg_dark_light">#E0E0E0</color>
-</resources>

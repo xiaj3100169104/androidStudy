@@ -9,8 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
@@ -21,10 +19,6 @@ import com.style.data.prefs.AppPrefsManager
 import com.style.view.refresh.MyAppRefreshLayout
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
-import com.style.utils.DeviceInfoUtil.getDisplayMetrics
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.os.Build
 
 
 class MyApp : MultiDexApplication() {

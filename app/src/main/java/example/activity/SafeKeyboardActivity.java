@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
-import com.xiajun.widget.libsafekeyboard.KeyboardPopupWindow;
+import com.style.common_ui.KeyboardPopupWindow;
 
 public class SafeKeyboardActivity extends BaseTitleBarActivity {
     private static final String TAG = "MainActivity";

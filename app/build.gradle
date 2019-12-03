@@ -158,7 +158,6 @@ dependencies {
 
     implementation "com.google.code.gson:gson:$gson_version"
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     //java注解
     implementation 'org.glassfish:javax.annotation:10.0-b28'
     implementation "com.github.bumptech.glide:glide:$glide_version"
@@ -174,15 +173,9 @@ dependencies {
     // Test helpers
     //testImplementation "android.arch.persistence.room:testing:$room_version"
     implementation project(':lib_common')
-    implementation project(':lib_network')
-    implementation project(':lib_image_crop')
     implementation project(':lib_media_picker')
     implementation project(':lib_refresh_view')
-    implementation project(':lib_safeKey_board')
     implementation project(':lib_video_record')
     implementation project(':lib_wheel_picker')
-    implementation project(':lib_wheel_view')
     implementation project(':lib_zxing')
-    api project(':module_common_data')
-
 }

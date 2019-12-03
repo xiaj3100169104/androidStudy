@@ -19,4 +19,9 @@
     <color name="color_ui_bg_gray">#F6F6F6</color>
     <color name="color_text_gray_light">#999999</color>
     <color name="color_theme_main">#B68B48</color>
+
+    <color name="custom_keyboard_text">#000000</color>
+    <color name="divider">#D1D1D1</color>
+    <color name="click_bg_dark">#BFBFBF</color>
+    <color name="click_bg_dark_light">#E0E0E0</color>
 </resources>

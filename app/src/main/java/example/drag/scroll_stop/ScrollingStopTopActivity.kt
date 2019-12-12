@@ -40,11 +40,8 @@ class ScrollingStopTopActivity : BaseActivity() {
             override fun onItemClick(position: Int, data: String) {
                 showToast(position.toString() + "")
                 //bd.recyclerView.scrollToPosition(position)
+                //注意会导致RecyclerView回调onScrolled
                 layoutManager.scrollToPositionWithOffset(position, 0)
-                if (position%2==0)
-                    setFullScreenStableDarkMode(true)
-                else
-                    setFullScreenStableDarkMode(false)
             }
         })
         for (i in 0 until 10) {
@@ -61,8 +58,19 @@ class ScrollingStopTopActivity : BaseActivity() {
 
         //只适用于recyclerView外层没有嵌套滚动布局
         bd.recyclerView.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                logE("onScrollStateChanged", "$newState")
+            }
+
+            /**
+             * 执行顺序：state(拖动：1)--onScrolled--state(惯性：2)--onScrolled--state(静止：0)
+             */
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                //未拖动RecyclerView时不执行滚动逻辑
+                if (bd.recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE)
+                    return
                 //获取最后一个可见view的位置
                 //val lastItemPosition = layoutManager.findLastVisibleItemPosition()
                 //获取第一个可见view的位置,只适用于recyclerView外层没有嵌套嵌套滚动布局才会正确返回
@@ -70,10 +78,6 @@ class ScrollingStopTopActivity : BaseActivity() {
                 logE("firstItemPosition", "$firstItemPosition")
                 bd.recyclerViewTitle.scrollToPosition(firstItemPosition)
 
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
             }
         })
     }

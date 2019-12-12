@@ -96,7 +96,7 @@
         <activity android:name="example.dialog.WheelActivity" />
         <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
-        <activity android:name="example.web.WebViewAndJSActivity" />
+        <activity android:name="example.web.WebViewAndJSActivity"/>
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />

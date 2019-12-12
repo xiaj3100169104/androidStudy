@@ -36,8 +36,7 @@ class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
         view_glide_deal.setOnClickListener { skip(GlideDealActivity::class.java) }
         view_app_crash.setOnClickListener {
             val test: String? = null
-            if (test == null)
-                logE(TAG, test!!.toString())
+            logE(TAG, test!!.toString())
         }
         view_video_record.setOnClickListener { skip(VideoTestActivity::class.java) }
         view_voice_record.setOnClickListener { skip(AudioRecordActivity::class.java) }

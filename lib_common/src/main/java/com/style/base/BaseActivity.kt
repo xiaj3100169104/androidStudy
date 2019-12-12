@@ -66,6 +66,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun setContentView(layoutResID: Int) {
+        //<merge /> can be used only with a valid ViewGroup root and attachToRoot=true
         mContentView = layoutInflater.inflate(layoutResID, null)
         setContentView(mContentView)
     }

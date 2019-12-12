@@ -13,5 +13,6 @@ android {
     dependencies {
         implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
         api "com.google.zxing:core:3.3.0"
+        implementation project(':lib_common')
     }
 }

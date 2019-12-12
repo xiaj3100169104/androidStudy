@@ -12,10 +12,12 @@
         <item name="android:backgroundDimAmount">0.3</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <!--去掉默认布局区域背景图-->
+        <item name="android:windowBackground">@drawable/bg_window_transparent</item>
     </style>
 
-    <!--布局外区域全透明-->
-    <style name="Dialog_Transparent" parent="@style/Dialog_General">
+    <!--布局外区域不变暗-->
+    <style name="Dialog_OutSide_Transparent" parent="@style/Dialog_General">
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 

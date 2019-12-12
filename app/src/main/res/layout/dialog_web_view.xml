@@ -10,8 +10,9 @@
 
         <WebView
             android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_width="270dp"
+            android:layout_height="155dp"
+            android:background="#05ff0000"/>
 
     </LinearLayout>
 </layout>

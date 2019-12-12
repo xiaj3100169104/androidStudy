@@ -24,8 +24,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.google.zxing.R;
@@ -51,8 +53,8 @@ public final class ViewfinderView extends View {
 
     private static final int SCANNER_LINE_MOVE_DISTANCE = 16;
     private static final int SCANNER_LINE_HEIGHT = 6;
-    private static final int CORNER_RECT_WIDTH = 8;
-    private static final int CORNER_RECT_HEIGHT = 40;
+    private static final int CORNER_RECT_WIDTH = 13;
+    private static final int CORNER_RECT_HEIGHT = 80;
 
     private static final boolean DEBUG = false;
 
@@ -96,7 +98,8 @@ public final class ViewfinderView extends View {
         resultColor = array.getColor(R.styleable.ViewfinderView_result_color, 0xB0000000);
         labelTextColor = array.getColor(R.styleable.ViewfinderView_label_text_color, 0x90FFFFFF);
         labelText = array.getString(R.styleable.ViewfinderView_label_text);
-        labelTextSize = array.getFloat(R.styleable.ViewfinderView_label_text_size, 36f);
+        int def = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
+        labelTextSize = array.getDimensionPixelSize(R.styleable.ViewfinderView_label_text_size, def);
 
         possibleResultPoints = new ArrayList<>(5);
         lastPossibleResultPoints = null;
@@ -119,14 +122,15 @@ public final class ViewfinderView extends View {
             return;
         }
 
-        if(scannerStart == 0 || scannerEnd == 0) {
+        if (scannerStart == 0 || scannerEnd == 0) {
             scannerStart = frame.top;
             scannerEnd = frame.bottom;
         }
 
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
+        int width = getWidth();
+        int height = getHeight();
 
+        paint.setStyle(Paint.Style.FILL);
         // Draw the exterior (i.e. outside the framing rect) darkened
         paint.setColor(resultBitmap != null ? resultColor : maskColor);
         canvas.drawRect(0, 0, width, frame.top, paint);
@@ -161,10 +165,21 @@ public final class ViewfinderView extends View {
     }
 
     private void drawTextInfo(Canvas canvas, Rect frame) {
+
         paint.setColor(labelTextColor);
         paint.setTextSize(labelTextSize);
         paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(labelText, frame.left + frame.width() / 2, frame.bottom + CORNER_RECT_HEIGHT * 2, paint);
+        paint.setStyle(Paint.Style.STROKE);  //绘制空心
+        float mYTextWidth = paint.measureText(labelText) + 60;
+        float left = (getWidth() - mYTextWidth) / 2;
+        float right = left + mYTextWidth;
+        float top = frame.bottom + 60;
+        float bottom = top + 120;
+        RectF rectF = new RectF(left, top, right, bottom);
+        paint.setStrokeWidth(3);
+        canvas.drawRoundRect(rectF, 60, 60, paint);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawText(labelText, frame.left + frame.width() / 2, top + 80, paint);
     }
 
     private void drawFrame(Canvas canvas, Rect frame) {
@@ -194,8 +209,8 @@ public final class ViewfinderView extends View {
 
     private void drawScanLine(Canvas canvas, Rect frame) {
         Shader shader = new RadialGradient(
-                (float)(frame.left + frame.width() / 2),
-                (float)(scannerStart + SCANNER_LINE_HEIGHT / 2),
+                (float) (frame.left + frame.width() / 2),
+                (float) (scannerStart + SCANNER_LINE_HEIGHT / 2),
                 360f,
                 laserColor,
                 shadeColor(laserColor),
@@ -213,7 +228,7 @@ public final class ViewfinderView extends View {
 
     private int shadeColor(int color) {
         String hax = Integer.toHexString(color);
-        String result = "20"+hax.substring(2);
+        String result = "20" + hax.substring(2);
         return Integer.valueOf(result, 16);
     }
 

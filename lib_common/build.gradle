@@ -14,12 +14,12 @@ android {
         }
     }
 
-    externalNativeBuild {
+    /*externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
             //cppFlags "-frtti -fexceptions"
         }
-    }
+    }*/
     buildTypes {
         preview {
         }

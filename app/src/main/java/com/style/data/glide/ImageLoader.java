@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
 import com.style.framework.R;
-import com.style.utils.DeviceInfoUtil;
 
 public class ImageLoader {
     public static void loadNormalAvatar(Context context, ImageView imageView, String url) {

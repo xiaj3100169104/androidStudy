@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -47,7 +48,7 @@ public class SwipeMenuRecyclerView extends RecyclerView {
         ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
         mTouchSlop = viewConfiguration.getScaledTouchSlop();
         screenWidth = ScreenUtils.getScreenWidth(context);
-        xMaxOffset = -DeviceInfoUtil.dp2px(context, 200);
+        xMaxOffset = (int) -TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, context.getResources().getDisplayMetrics());
     }
 
     public void setMenuMaxOffset(int xMaxOffset) {

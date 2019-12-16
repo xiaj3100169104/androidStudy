@@ -28,7 +28,7 @@ public class EditLayoutChangeActivity extends BaseTitleBarActivity {
         bd.viewTranslucentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), HideStatusBarBottomEditLayoutActivity.class)));
         bd.viewTransparentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), FullScreenBottomEditLayoutActivity.class)));
         bd.viewB.setOnClickListener(v -> {
-            int h = DeviceInfoUtil.getDisplayMetrics(this).heightPixels;
+            int h = getResources().getDisplayMetrics().heightPixels;
             int h0 = getStatusHeight();
             int y1 = getLocation(bd.viewTop);
             int y2 = getLocation(bd.viewB);

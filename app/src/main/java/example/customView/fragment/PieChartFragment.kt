@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.style.base.BaseFragment
 import com.style.framework.R
 import com.style.framework.databinding.ActivityPieChartBinding
-import com.style.view.other.PieChartView
 import java.util.*
 
 
@@ -31,7 +30,7 @@ class PieChartFragment : BaseFragment() {
 
     }
 
-    fun getTestData(): List<PieChartView.PartItem> {
+    fun getTestData(): List<com.style.view.other.PieChartView.PartItem> {
         val colors = intArrayOf(Color.parseColor("#C0FF3E"), Color.parseColor("#FFF68F"), Color.parseColor("#FFDAB9"), Color.parseColor("#97FFFF"))
         val percents = intArrayOf(15, 25, 35, 25)
         val random = Random()
@@ -39,10 +38,10 @@ class PieChartFragment : BaseFragment() {
         percents[1] = random.nextInt(80 - percents[0]) + 5
         percents[2] = random.nextInt(80 - percents[0] - percents[1]) + 5
         percents[3] = 100 - percents[0] - percents[1] - percents[2]*/
-        val list = ArrayList<PieChartView.PartItem>()
-        var item: PieChartView.PartItem
+        val list = ArrayList<com.style.view.other.PieChartView.PartItem>()
+        var item: com.style.view.other.PieChartView.PartItem
         for (i in 0..3) {
-            item = PieChartView.PartItem(colors[i], percents[i])
+            item = com.style.view.other.PieChartView.PartItem(colors[i], percents[i])
             list.add(item)
         }
         return list

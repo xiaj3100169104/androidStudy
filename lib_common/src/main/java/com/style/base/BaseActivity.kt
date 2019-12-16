@@ -13,6 +13,7 @@ import android.support.annotation.ColorInt
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -172,7 +173,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun dp2px(dpValue: Float): Int {
-        return DeviceInfoUtil.dp2px(context, dpValue)
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, resources.displayMetrics).toInt();
     }
 
     fun logI(tag: String, msg: String) {

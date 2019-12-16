@@ -14,12 +14,12 @@ android {
         }
     }
 
-   /* externalNativeBuild {
+    externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
             //cppFlags "-frtti -fexceptions"
         }
-    }*/
+    }
     buildTypes {
         preview {
         }
@@ -35,7 +35,8 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
+    implementation "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_VERSION"
     api 'android.arch.lifecycle:extensions:1.1.1'
     api "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1" // use kapt for Kotlin
@@ -50,5 +51,7 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:3.14.1'
     //如果主Module的布局文件里面使用了库工程依赖的自定义view，必须用api方式，否则报databinding错误且不会指明具体错误
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation project(':lib_custom_view')
+
 }
 

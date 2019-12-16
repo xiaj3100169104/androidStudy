@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.style.framework.R;
@@ -36,7 +37,7 @@ public class FloatingBarItemDecoration extends RecyclerView.ItemDecoration {
         this.mContext = context;
         Resources resources = mContext.getResources();
         this.mList = list;
-        this.mTitleHeight = DeviceInfoUtil.dp2px(context, 20);
+        this.mTitleHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, context.getResources().getDisplayMetrics());
 
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(ContextCompat.getColor(mContext, R.color.white));
@@ -44,12 +45,12 @@ public class FloatingBarItemDecoration extends RecyclerView.ItemDecoration {
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(ContextCompat.getColor(mContext, R.color.bar_color));
-        mTextPaint.setTextSize(DeviceInfoUtil.sp2px(context, 14));
+        mTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, context.getResources().getDisplayMetrics()));
 
         Paint.FontMetrics fm = mTextPaint.getFontMetrics();
         mTextHeight = (int) (fm.bottom - fm.top);
         mTextBaselineOffset = (int) fm.bottom;
-        mTextStartMargin = DeviceInfoUtil.dp2px(context, 12);
+        mTextStartMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
     }
 
     @Override

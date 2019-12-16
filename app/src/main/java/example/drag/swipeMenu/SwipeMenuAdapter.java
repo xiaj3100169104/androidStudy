@@ -2,13 +2,13 @@ package example.drag.swipeMenu;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.ViewGroup;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
 import com.style.framework.databinding.SwipeMenuAdapterBinding;
-import com.style.utils.DeviceInfoUtil;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class SwipeMenuAdapter extends BaseRecyclerViewAdapter<String> {
         super(context, dataList);
         this.recyclerView = recyclerView;
         screenWidth = ScreenUtils.getScreenWidth(context);
-        int menuWidth = DeviceInfoUtil.dp2px(getContext(), 200);
+        int menuWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, context.getResources().getDisplayMetrics());
         width = screenWidth + menuWidth;
         this.recyclerView.setMenuMaxOffset(menuWidth);
     }

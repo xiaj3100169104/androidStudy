@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import example.activity.GlideDealActivity
 import example.activity.TestRxActivity
 
-import com.style.base.BaseFragment
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.QRCodeActivity

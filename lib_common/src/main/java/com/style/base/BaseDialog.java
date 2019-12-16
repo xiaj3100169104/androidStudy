@@ -39,7 +39,7 @@ public abstract class BaseDialog extends Dialog {
     }
 
     protected int getScreenWidth() {
-        return DeviceInfoUtil.getDisplayMetrics(getContext()).widthPixels;
+        return getContext().getResources().getDisplayMetrics().widthPixels;
     }
 
     protected int getDefaultWidth() {

@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':lib_custom_view'
 include ':lib_common'
 include ':lib_media_picker'
 include ':lib_video_record'

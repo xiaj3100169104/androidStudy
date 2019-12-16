@@ -177,4 +177,5 @@ dependencies {
     implementation project(':lib_video_record')
     implementation project(':lib_wheel_picker')
     implementation project(':lib_zxing')
+    implementation project(':lib_custom_view')
 }

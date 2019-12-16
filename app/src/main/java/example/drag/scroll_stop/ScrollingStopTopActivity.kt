@@ -8,7 +8,6 @@ import com.style.base.BaseRecyclerViewAdapter
 import com.style.base.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityScrollingStopTopBinding
-import com.style.view.diviver.DividerItemDecoration
 import java.util.*
 
 
@@ -34,7 +33,7 @@ class ScrollingStopTopActivity : BaseActivity() {
         dataList = ArrayList()
         mTitleAdapter = ScrollStopTitleAdapter(this, dataList)
         bd.recyclerViewTitle.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        bd.recyclerViewTitle.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL))
+        bd.recyclerViewTitle.addItemDecoration(com.style.view.diviver.DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL))
         bd.recyclerViewTitle.adapter = mTitleAdapter
         mTitleAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<String> {
             override fun onItemClick(position: Int, data: String) {
@@ -52,7 +51,7 @@ class ScrollingStopTopActivity : BaseActivity() {
         mContentAdapter = ScrollStopContentAdapter(this, dataList)
         layoutManager = LinearLayoutManager(this)
         bd.recyclerView.layoutManager = layoutManager
-        bd.recyclerView.addItemDecoration(DividerItemDecoration(this))
+        bd.recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(this))
         bd.recyclerView.adapter = mContentAdapter
         mContentAdapter.notifyDataSetChanged()
 

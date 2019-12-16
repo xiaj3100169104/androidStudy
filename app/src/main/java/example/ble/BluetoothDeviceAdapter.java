@@ -1,12 +1,7 @@
 package example.ble;
 
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothProfile;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;

@@ -16,7 +16,7 @@ class SportWeekActivity : BaseTitleBarActivity() {
         setTitleBarTitle("运动柱状图")
         bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
-        bd.mSportWeek.setOnSelectionChangeListener(object : SportWeekHistogram.OnSelectionChangeListener {
+        bd.mSportWeek.setOnSelectionChangeListener(object : com.style.view.healthy.SportWeekHistogram.OnSelectionChangeListener {
             override fun onSelectionChanged(selected: Int) {
                 //showToast(selected.toString())
                 setStepsProgress(selected)
@@ -45,14 +45,14 @@ class SportWeekActivity : BaseTitleBarActivity() {
         }
     }
 
-    private var weekSportData: ArrayList<SportWeekHistogram.PointItem>? = null
+    private var weekSportData: ArrayList<com.style.view.healthy.SportWeekHistogram.PointItem>? = null
 
-    private fun getData(): List<SportWeekHistogram.PointItem> {
-        val list = ArrayList<SportWeekHistogram.PointItem>()
-        var item: SportWeekHistogram.PointItem
+    private fun getData(): List<com.style.view.healthy.SportWeekHistogram.PointItem> {
+        val list = ArrayList<com.style.view.healthy.SportWeekHistogram.PointItem>()
+        var item: com.style.view.healthy.SportWeekHistogram.PointItem
         val random = Random()
         for (i in 0..6) {
-            item = SportWeekHistogram.PointItem("", random.nextInt(3500) + 1000)
+            item = com.style.view.healthy.SportWeekHistogram.PointItem("", random.nextInt(3500) + 1000)
             list.add(item)
         }
         weekSportData = list

@@ -16,6 +16,7 @@ import example.gesture.VerticalSlideFinishActivity
 import example.editLayout.EditLayoutChangeActivity
 import example.fragmentAdapter.IndexFragmentActivity
 import example.fragmentAdapter.StateFragmentActivity
+import example.fragmentAdapter.test.FragmentTestActivity
 import example.viewPagerCards.fragments.CardFragmentActivity
 import example.viewPagerCards.views.CardActivity
 import kotlinx.android.synthetic.main.fragment_home_gesture.*
@@ -44,6 +45,7 @@ class GestureFragment : BaseNoPagerLazyRefreshFragment() {
         btn_view_pager_card_fragments.setOnClickListener { skip(CardFragmentActivity::class.java) }
         view_fragment_adapter.setOnClickListener{ skip(IndexFragmentActivity::class.java) }
         view_fragment_state_adapter.setOnClickListener{ skip(StateFragmentActivity::class.java) }
+        view_fragment_test.setOnClickListener{ skip(FragmentTestActivity::class.java) }
 
     }
 }

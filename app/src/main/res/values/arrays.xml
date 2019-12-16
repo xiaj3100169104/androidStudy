@@ -131,7 +131,7 @@
         <item>@color/purple_dark</item>
         <item>@color/blue_single</item>
     </integer-array>
-    <array name="week_array">
+    <array name="week_array2">
         <item>SUN</item>
         <item>MON</item>
         <item>TUE</item>

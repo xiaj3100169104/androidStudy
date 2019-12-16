@@ -3,6 +3,7 @@ package com.style.toast;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +43,11 @@ public class SmartToast extends Toast {
         messageTx = root.findViewById(R.id.smart_toast_message);
         //参照物，用来填充宽高
         View anchor = root.findViewById(R.id.anchor);
-        anchor.getLayoutParams().width = DeviceInfoUtil.getDisplayMetrics(context).widthPixels;
-        anchor.getLayoutParams().height = DeviceInfoUtil.dp2px(context, 48);
+        anchor.getLayoutParams().width = context.getResources().getDisplayMetrics().widthPixels;
+        anchor.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, context.getResources().getDisplayMetrics());
         setView(root);
-        setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, DeviceInfoUtil.dp2px(context, 48));
+        int y = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, context.getResources().getDisplayMetrics());
+        setGravity(Gravity.TOP | Gravity.FILL_HORIZONTAL, 0, y);
         setDuration(Toast.LENGTH_SHORT);
     }
 

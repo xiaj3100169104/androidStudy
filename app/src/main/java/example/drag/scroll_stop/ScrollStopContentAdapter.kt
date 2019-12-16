@@ -1,7 +1,6 @@
 package example.drag.scroll_stop
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

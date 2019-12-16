@@ -8,7 +8,6 @@ import android.view.ViewGroup
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.view.other.SoundWaveView
 import kotlinx.android.synthetic.main.activity_sound_wave.*
 
 class SoundWaveFragment : BaseFragment() {

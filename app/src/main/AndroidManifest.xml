@@ -123,6 +123,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.fragmentAdapter.IndexFragmentActivity" />
         <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.test.FragmentTestActivity" />
         <activity
             android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />

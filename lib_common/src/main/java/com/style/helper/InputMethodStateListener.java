@@ -23,7 +23,7 @@ public abstract class InputMethodStateListener implements ViewTreeObserver.OnGlo
 
     public InputMethodStateListener(View root) {
         this.target = root;
-        screenHeight = DeviceInfoUtil.getDisplayMetrics(target.getContext()).heightPixels;
+        screenHeight = target.getContext().getResources().getDisplayMetrics().heightPixels;
         statusBarHeight = DeviceInfoUtil.getStatusHeight(target.getContext());
         //阀值设置为屏幕高度的1/3
         keyHeight = screenHeight / 3;

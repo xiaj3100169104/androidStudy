@@ -139,9 +139,9 @@ public class WebViewActivity extends BaseTitleBarActivity {
     }
 
     public void setWebViewProgress(int progress) {
-        bd.progress.MaterialProgressBar.setProgress(progress);
+        bd.progress.setProgress(progress);
         // 当加载到100%的时候 进度条自动消失
         if (progress == 100)
-            bd.progress.MaterialProgressBar.setVisibility(View.GONE);
+            bd.progress.setVisibility(View.GONE);
     }
 }

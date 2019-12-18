@@ -2,7 +2,7 @@ package com.style.data.fileDown;
 
 import android.util.Log;
 
-import com.style.data.app.AppManager;
+import com.style.data.app.AppActivityManager;
 import com.style.data.db.AppDatabase;
 import com.style.data.db.FileDownloadStateDao;
 import com.style.data.event.EventBusEvent;
@@ -109,7 +109,7 @@ public class SingleFileDownloadTask implements Runnable {
     }
 
     private FileDownloadStateDao getFileDownloadDao() {
-        return AppDatabase.getInstance(AppManager.Companion.getInstance().getContext()).getFileDownloadDao();
+        return AppDatabase.getInstance(AppActivityManager.Companion.getInstance().getContext()).getFileDownloadDao();
     }
 
     /**

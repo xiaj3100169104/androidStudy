@@ -1,6 +1,7 @@
 package example.home
 
 import android.Manifest
+import android.app.ActivityManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -15,7 +17,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Display
-import com.style.data.app.AppManager
+import com.style.data.app.AppActivityManager
 
 import com.style.toast.ToastManager
 import com.style.base.BaseActivity
@@ -27,6 +29,7 @@ import example.home.contact.HomeListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 import org.simple.eventbus.EventBus
+import kotlin.system.exitProcess
 
 
 class MainActivity : BaseActivity() {
@@ -75,7 +78,7 @@ class MainActivity : BaseActivity() {
     private var isRegisterBroadcastReceiver: Boolean = false
 
     private fun initData() {
-        AppManager.getInstance().setMainTaskId(taskId)
+        AppActivityManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
         mViewModel = getViewModel(MainViewModel::class.java)
         appStateReceiver = DeviceStateBroadcastReceiver()
@@ -220,6 +223,13 @@ class MainActivity : BaseActivity() {
         //updateUnreadMsg();
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val a = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        a.killBackgroundProcesses(packageName)
+        Process.killProcess(Process.myPid())
+    }
+
     override fun onDestroy() {
         //取消事件注册
         EventBus.getDefault().unregister(this)
@@ -230,7 +240,7 @@ class MainActivity : BaseActivity() {
             appStateReceiver = null
         }
         super.onDestroy()
-        AppManager.getInstance().setMainTaskId(-1)
+        AppActivityManager.getInstance().setMainTaskId(-1)
     }
 
     inner class DeviceStateBroadcastReceiver : BroadcastReceiver() {

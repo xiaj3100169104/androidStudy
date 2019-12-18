@@ -1,7 +1,6 @@
 package com.style.data.http.exception
 
-import com.style.app.MyApp
-import com.style.data.app.AppManager
+import com.style.data.app.AppActivityManager
 import com.style.toast.ToastManager
 import com.style.http.exception.HttpResultException
 import com.style.http.exception.HttpThrowableUtil
@@ -31,6 +30,6 @@ class HttpExceptionConsumer : Consumer<Throwable> {
     }
 
     private fun showToast(str: CharSequence) {
-        ToastManager.showToast(AppManager.getInstance().getContext(), str)
+        ToastManager.showToast(AppActivityManager.getInstance().getContext(), str)
     }
 }

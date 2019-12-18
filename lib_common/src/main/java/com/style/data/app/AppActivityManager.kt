@@ -12,9 +12,9 @@ import com.style.utils.LogManager
  * Created by xiajun on 2018/8/7.
  */
 
-class AppManager {
+class AppActivityManager {
 
-    val TAG = "AppManager"
+    val TAG = "AppActivityManager"
     private var activityCount: Int = 0
     private var isRunInBackground: Boolean = false
     private var app: Application? = null
@@ -23,14 +23,14 @@ class AppManager {
 
     companion object {
         private val mLock = Any()
-        private var mInstance: AppManager? = null
+        private var mInstance: AppActivityManager? = null
 
-        fun getInstance(): AppManager {
+        fun getInstance(): AppActivityManager {
             synchronized(mLock) {
                 if (mInstance == null) {
-                    mInstance = AppManager()
+                    mInstance = AppActivityManager()
                 }
-                return mInstance as AppManager
+                return mInstance as AppActivityManager
             }
         }
 

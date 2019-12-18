@@ -21,7 +21,7 @@ import example.music.entity.MediaBean;
  * 例如：一 个后台播放音乐服务可以通过startService(intend)对象来播放音乐。
  * 可能用户在播放过程中要执行一些操作比如获取歌曲的一些信息，
  * 此时 activity可以通过调用bindServices()方法与Service建立连接(不同进程需要ServiceConnection对象)。更加方便通信。
- * 这种情况下，stopServices()方法实际上不会停止 服务，直到最后一次绑定关闭。
+ * 这种情况下，stopServices()方法实际上不会停止服务，除非所有绑定的客户端都unbind。
  * onBind(一个activity只能一次，不可多次绑定，且销毁时必须手动unBind)。
  */
 

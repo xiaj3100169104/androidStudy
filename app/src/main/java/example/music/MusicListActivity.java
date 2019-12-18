@@ -32,6 +32,7 @@ import example.music.data.AudioLoader;
 import example.music.data.MediaDataCallback;
 import example.music.entity.MediaBean;
 import example.music.entity.MediaFolder;
+
 import com.style.service.music.PlayMusicService;
 
 
@@ -144,26 +145,38 @@ public class MusicListActivity extends BaseTitleBarActivity implements MediaData
 
     }
 
-    public void bind(View v) {
-        Intent i = new Intent(new Intent(this, PlayMusicService.class));
-        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
-
-    }
-
-    public void unbind(View v) {
-        unbindService(mConnection);
-
-    }
-
     public void stop(View v) {
         Intent i = new Intent(new Intent(this, PlayMusicService.class));
         stopService(i);
     }
 
+    Boolean isBind = false;
+
+    public void bind(View v) {
+        Intent i = new Intent(new Intent(this, PlayMusicService.class));
+        bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+        isBind = true;
+    }
+
+    public void unbind(View v) {
+        unbind2();
+    }
+
+    public void unbind2() {
+        if (isBind) {
+            try {
+                //绑定了才调用此方法，不然会报错
+                unbindService(mConnection);
+                isBind = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     protected void onDestroy() {
-        //绑定了才调用此方法，不然会报错
-        unbindService(mConnection);
+        unbind2();
         super.onDestroy();
     }
 

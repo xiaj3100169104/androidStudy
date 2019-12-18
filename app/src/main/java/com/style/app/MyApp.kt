@@ -13,10 +13,11 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
-import com.style.data.app.AppManager
+import com.style.data.app.AppActivityManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
 import com.style.common_ui.refresh.MyAppRefreshLayout
+import com.style.toast.ToastManager
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 
@@ -33,11 +34,14 @@ class MyApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        AppManager.getInstance().init(this)
+        Thread.setDefaultUncaughtExceptionHandler(AppCrashHandler())
+        AppActivityManager.getInstance().init(this)
         AppPrefsManager.getInstance().init(this)
         //room不会自动检查数据库版本升级，所以需要手动操作一次
         AppDatabase.getInstance(this).testRoomDao.getCount()
         initRefreshView()
+        //目前杀掉进程都会导致Application重建
+        ToastManager.showToast(this, "重启")
     }
 
     private fun initRefreshView() {

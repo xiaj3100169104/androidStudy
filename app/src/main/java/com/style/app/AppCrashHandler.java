@@ -1,18 +1,12 @@
 package com.style.app;
 
+import android.os.Process;
 import android.util.Log;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 
 /**
  * Created by xiajun on 2017/12/22.
- * 注意：自定义处理时就不能再主动退出app时执行
- * Process.killProcess(Process.myPid());
- * System.exit(0);
- * 默认崩溃会执行Process.killProcess(Process.myPid());
- * 向底层发送信号Sending signal. PID: 8561 SIG: 9
+ * 由于 ActivityManager 时刻监听着进程，一旦发现进程被非正常Kill(不拦截崩溃时)，它将会试图去重启这个进程。
+ * 注意：自定义异常崩溃拦截会导致应用卡死，需要手动杀掉进程
  */
 
 public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
@@ -21,16 +15,8 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         Log.e(TAG, "uncaughtException");
-
-        //读取stacktrace信息
-        final Writer result = new StringWriter();
-        final PrintWriter printWriter = new PrintWriter(result);
-        ex.printStackTrace(printWriter);
-        String errorReport = result.toString();
-        Log.e(TAG, errorReport);
-        //重启app
-        //AppManager.getInstance().exitApp();
-        //AppManager.getInstance().reStartApp();
-
+        ex.printStackTrace();
+        //System.exit(0);         //停止当前程序的虚拟机
+        Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);  //使用给定的PID终止进程
     }
 }

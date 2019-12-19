@@ -40,8 +40,6 @@ class MyApp : MultiDexApplication() {
         //room不会自动检查数据库版本升级，所以需要手动操作一次
         AppDatabase.getInstance(this).testRoomDao.getCount()
         initRefreshView()
-        //目前杀掉进程都会导致Application重建
-        ToastManager.showToast(this, "重启")
     }
 
     private fun initRefreshView() {

@@ -225,8 +225,14 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+
         val a = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        a.killBackgroundProcesses(packageName)
+        val mList = a.runningAppProcesses
+        mList.forEach {
+            if (it.pid != Process.myPid()) {
+                Process.killProcess(it.pid)
+            }
+        }
         Process.killProcess(Process.myPid())
     }
 

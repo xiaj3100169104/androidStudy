@@ -31,7 +31,7 @@ public class CardPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -43,16 +43,17 @@ public class CardPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.view_pager_cards_views_adapter, container, false);
         container.addView(view);
-        bind(mData.get(position), view);
-        View cardView = view.findViewById(R.id.layout_root);
-        mViews.set(position, cardView);
+        int p = position % mData.size();
+        bind(mData.get(p), view);
+        //View cardView = view.findViewById(R.id.layout_root);
+        //mViews.set(position, cardView);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
-        mViews.set(position, null);
+        //mViews.set(position, null);
     }
 
     private void bind(CardItem item, View view) {

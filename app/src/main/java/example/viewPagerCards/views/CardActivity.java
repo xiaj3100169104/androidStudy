@@ -34,6 +34,7 @@ public class CardActivity extends BaseTitleBarActivity {
         bd.viewPager.setAdapter(mCardAdapter);
         //bd.viewPager.setPageTransformer(false, mCardShadowTransformer);
         bd.viewPager.setOffscreenPageLimit(3);
+        bd.viewPager.setCurrentItem(Integer.MAX_VALUE / 2, false);
         bd.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             /**
              *

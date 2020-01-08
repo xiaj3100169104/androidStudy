@@ -48,10 +48,11 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
             val random = Random()
             while (true) {
                 try {
-                    Thread.sleep(100)
+                    Thread.sleep(60)
                     val v = random.nextInt(7000).toFloat() / 7000
                     logE("RecordAudioViewActivity", v.toString())
-                    record_audio_view.postValue(v)
+                    //record_audio_view.postValue(v)
+                    record_audio_view2.postValue(v)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                     break

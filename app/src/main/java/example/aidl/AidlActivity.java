@@ -32,14 +32,15 @@ public class AidlActivity extends BaseTitleBarActivity {
         bd.tvOpenActivityWithMimeType.setOnClickListener(v -> openActivityWithMimeType());
         bd.tvOpenOtherAppActivity.setOnClickListener(v -> openOtherAppActivity());
         bd.tvLaunch.setOnClickListener(v -> launchOtherApp());
+        bd.tvScheme.setOnClickListener(v -> schemeSkip());
         bd.tvSendToOtherApp.setOnClickListener(v -> sendMsgToOtherApp());
     }
 
     private void openActivityWithMimeType() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.putExtra("other", "other");
         intent.setDataAndType(Uri.parse("content://www.google.com"), "application/pdf");
+        intent.putExtra("other", "other");
         startActivity(intent);
     }
 
@@ -49,6 +50,14 @@ public class AidlActivity extends BaseTitleBarActivity {
         intent.setComponent(new ComponentName("com.wifidemo.example.xiajun.myapplication.default", "com.example.WebViewActivity"));
         intent.putExtra("other", "other");
         intent.setData(Uri.parse("http://www.google.com"));
+        startActivity(intent);
+    }
+
+    public void schemeSkip() {
+        String url = "rong://com.wujinpu.android/push_message";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(url);
+        intent.setData(uri);
         startActivity(intent);
     }
 

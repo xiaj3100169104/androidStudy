@@ -29,7 +29,12 @@
         <item name="android:windowBackground">@color/windowBackground_translucent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    <!--activity的Window窗口背景透明-->
+    <!--activity的Window窗口全屏,目前只是让状态栏不可以变黑不知为何-->
+    <style name="AppTheme.Fullscreen" parent="BaseAppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <!--activity的Window窗口背景半透明-->
     <style name="AppTheme.Translucent.ImageScan" parent="BaseAppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/windowBackground_translucent</item>

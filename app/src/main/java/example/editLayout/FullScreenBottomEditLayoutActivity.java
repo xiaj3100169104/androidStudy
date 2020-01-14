@@ -54,7 +54,7 @@ public class FullScreenBottomEditLayoutActivity extends BaseTitleBarActivity {
     }
 
     private void addListener() {
-        bd.layoutRoot.getViewTreeObserver().addOnGlobalLayoutListener(new InputMethodStateListener(bd.layoutRoot) {
+        bd.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new InputMethodStateListener(bd.layoutRoot) {
             @Override
             protected void onInputMethodClosed() {
 

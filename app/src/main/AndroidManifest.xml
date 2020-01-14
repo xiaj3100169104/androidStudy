@@ -126,10 +126,10 @@
         <activity android:name="example.fragmentAdapter.test.FragmentTestActivity" />
         <activity
             android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />
         <activity android:name="example.customView.DrawViewActivity" />

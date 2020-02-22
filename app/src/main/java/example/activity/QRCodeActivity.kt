@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.google.zxing.activity.CaptureActivity
 import com.google.zxing.encoding.EncodingHandler
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_qr_code_scan.*
 

@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rela_dialog"
+    android:layout_width="300dp"
+    android:layout_height="70dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <com.style.view.progressbar.CircleArcProgressBar
+        android:id="@+id/indeterminate_progress"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        app:arc_finished_color="#FF45CE7B"
+        app:arc_finished_start_angle="90"
+        app:arc_stroke_width="5dp"
+        app:arc_unfinished_color="#ffe5e5e5" />
+
+    <TextView
+        android:id="@+id/tv_loading_info"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="" />
+</LinearLayout>

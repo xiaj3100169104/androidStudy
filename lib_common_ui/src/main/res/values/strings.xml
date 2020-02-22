@@ -1,7 +1,0 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="loading">加载中&#8230;</string>
-    <string name="text_status_loading" tools:ignore="ExtraTranslation">努力加载中…</string>
-    <string name="text_state_empty_common">数据为空</string>
-    <string name="text_refresh">刷新</string>
-    <string name="text_status_net_error">网络错误</string>
-</resources>

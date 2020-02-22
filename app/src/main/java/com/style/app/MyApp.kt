@@ -13,12 +13,14 @@ import android.support.multidex.MultiDexApplication
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
-import com.style.data.app.AppManager
+import com.style.data.app.AppActivityManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
-import com.style.view.refresh.MyAppRefreshLayout
+import com.style.common_ui.refresh.MyAppRefreshLayout
+import com.style.toast.ToastManager
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
+
 
 class MyApp : MultiDexApplication() {
     val TAG = javaClass.simpleName
@@ -27,12 +29,13 @@ class MyApp : MultiDexApplication() {
     //dex文件估计和版本有关，如果是5.1版本以上，不用加这个，如果5.1以下不加，会报类找不到（其实类一直在）
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        initHotfix()
+        //initHotfix()
     }
 
     override fun onCreate() {
         super.onCreate()
-        AppManager.getInstance().init(this)
+        Thread.setDefaultUncaughtExceptionHandler(AppCrashHandler())
+        AppActivityManager.getInstance().init(this)
         AppPrefsManager.getInstance().init(this)
         //room不会自动检查数据库版本升级，所以需要手动操作一次
         AppDatabase.getInstance(this).testRoomDao.getCount()
@@ -45,35 +48,35 @@ class MyApp : MultiDexApplication() {
     }
 
     private fun initHotfix() {
-         var appVersion = "1.0.0"
-         try {
-             appVersion = this.packageManager.getPackageInfo(this.packageName, 0).versionName
-         } catch (e: PackageManager.NameNotFoundException) {
-             e.printStackTrace()
-         }
+        var appVersion = "1.0.0"
+        try {
+            appVersion = this.packageManager.getPackageInfo(this.packageName, 0).versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
 
-         SophixManager.getInstance().setContext(this)
-                 .setAppVersion(appVersion)
-                 .setAesKey(null)
-                 .setEnableDebug(true)
-                 .setSecretMetaData(null, null, rsaSecret)
-                 .setPatchLoadStatusStub { mode, code, info, handlePatchVersion ->
-                     val msg = StringBuilder("").append("Mode:").append(mode)
-                             .append(" Code:").append(code)
-                             .append(" Info:").append(info)
-                             .append(" HandlePatchVersion:").append(handlePatchVersion).toString()
-                     Log.e(TAG, "onLoad->$msg")
-                     // 补丁加载回调通知
-                     if (code == PatchStatus.CODE_LOAD_SUCCESS) {
-                         // 表明补丁加载成功
-                     } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
-                         // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
-                         // 建议: 用户可以监听进入后台事件, 然后调用killProcessSafely自杀，以此加快应用补丁，详见1.3.2.3
-                         SophixManager.getInstance().killProcessSafely()
-                     } else {
-                         // 其它错误信息, 查看PatchStatus类说明
-                     }
-                 }.initialize()
+        SophixManager.getInstance().setContext(this)
+                .setAppVersion(appVersion)
+                .setAesKey(null)
+                .setEnableDebug(true)
+                .setSecretMetaData(null, null, rsaSecret)
+                .setPatchLoadStatusStub { mode, code, info, handlePatchVersion ->
+                    val msg = StringBuilder("").append("Mode:").append(mode)
+                            .append(" Code:").append(code)
+                            .append(" Info:").append(info)
+                            .append(" HandlePatchVersion:").append(handlePatchVersion).toString()
+                    Log.e(TAG, "onLoad->$msg")
+                    // 补丁加载回调通知
+                    if (code == PatchStatus.CODE_LOAD_SUCCESS) {
+                        // 表明补丁加载成功
+                    } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
+                        // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
+                        // 建议: 用户可以监听进入后台事件, 然后调用killProcessSafely自杀，以此加快应用补丁，详见1.3.2.3
+                        SophixManager.getInstance().killProcessSafely()
+                    } else {
+                        // 其它错误信息, 查看PatchStatus类说明
+                    }
+                }.initialize()
     }
 
 

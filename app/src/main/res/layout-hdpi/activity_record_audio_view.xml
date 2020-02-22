@@ -111,6 +111,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
 
+            <com.style.view.other.RecordAudioView2
+                android:id="@+id/record_audio_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
             <Button
                 android:id="@+id/btn_start_record"
                 android:layout_width="match_parent"

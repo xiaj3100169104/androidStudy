@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_state_size">14sp</dimen>
+    <integer name="animation_loading">150</integer>
+
+</resources>

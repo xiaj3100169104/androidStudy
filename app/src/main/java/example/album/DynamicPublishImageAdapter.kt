@@ -31,7 +31,7 @@ public class DynamicPublishImageAdapter : BaseRecyclerViewAdapter<Media> {
         var media = getData(position);
         if (position != getItemCount() - 1) {
             holder.bd.ivDelete.setVisibility(View.VISIBLE);
-            ImageLoader.loadNormalPicture(getContext() as Activity, holder.bd.ivActiveImages, media.path);
+            ImageLoader.loadPicture(getContext() as Activity, holder.bd.ivActiveImages, media.path);
         } else {
             holder.bd.ivDelete.setVisibility(View.GONE);
             holder.bd.ivActiveImages.setImageResource(R.mipmap.ic_add_photo);

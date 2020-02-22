@@ -13,13 +13,11 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +29,53 @@ import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
+import kotlin.math.MathKt;
+
+/**
+ * ALPHA_8：只有一个alpha通道每个像素占用1byte内存
+ * * ARGB_4444：每个像素占用2byte内存，已经被官方嫌弃
+ * * ARGB_8888：每个像素ARGB四个通道，每个通道8bit，占用4byte内存
+ * * （默认） RGB_565：每个像素占2Byte，其中红色占5bit，绿色占6bit，蓝色占5bit
+ * * 深度与色深这两个概念。
+ * 1、位深度指的是存储每个像素所用的位数，主要用于存储
+ * 2、色深指的是每一个像素点用多少bit存储颜色，属于图片自身的一种属性
+ * <p>
+ * Android Bitmap中的Config参数其实指的就是色深
+ * <p>
+ * Bitmap.Config ARGB_4444：每个像素占四位，即A=4，R=4，G=4，B=4，那么一个像素点占4+4+4+4=16位
+ * Bitmap.Config ARGB_8888：每个像素占四位，即A=8，R=8，G=8，B=8，那么一个像素点占8+8+8+8=32位
+ * Bitmap.Config RGB_565：每个像素占四位，即R=5，G=6，B=5，没有透明度，那么一个像素点占5+6+5=16位
+ * Bitmap.Config ALPHA_8：每个像素占四位，只有透明度，没有颜色
+ * <p>
+ * 举个例子：
+ * 100像素*100像素 色深32位(ARGB_8888) 保存时位深度为24位 的图片
+ * 在内存中所占大小为：100 * 100 * (32 / 8)Byte
+ * 在文件中所占大小为 100 * 100 * ( 24/ 8 ) * 压缩效率 Byte
+ * ————————————————
+ * <p>
+ * * dp/dip  : 与密度无关的象素，一种基于屏幕密度的抽象单位。在每英寸160点的显示器上，1dp = 1px。但dp和px的比例会随着屏幕密度的变化而改变，不同设备有不同的显示效果。
+ * * 总结下：上面话就是想表达放在drawable的图片会对不适用真机屏幕密度的资源进行移除，启动图标放大可能会变模糊；放在mipmap依然会保留下各个密度的图片，
+ * * 所以为了保证桌面图标的显示质量因此放在mipmap下面，其他的图标建议都放在drawable文件夹下面吧。
+ * *
+ * 内存是根据图片的像素数量来给图片分配内存大小的：
+ * * 如果图片所在目录dpi低于匹配目录，那么该图片被认为是为低密度设备需要的，现在要显示在高密度设备上，图片会被放大。内存会成倍数增长（确实是这样）,而且效果也会模糊。
+ * * 如果图片所在目录dpi高于匹配目录，那么该图片被认为是为高密度设备需要的，现在要显示在低密度设备上，图片会被缩小。
+ * * 如果图片所在目录为匹配目录，则无论设备dpi为多少，保留原图片大小，不进行缩放。
+ * 图片有以下存在形式：
+ * 1.文件形式(即以二进制形式存在于硬盘上)
+ * 2.流的形式(即以二进制形式存在于内存中)
+ * 3.Bitmap形式
+ * <p>
+ * 这三种形式的区别: 
+ * 文件形式和流的形式对图片体积大小并没有影响,也就是说,如果你手机SD卡上的如果是100K,那么通过流的形式读到内存中,也一定是占100K的内存,注意是流的形式,不是Bitmap的形式,
+ * 当图片以Bitmap的形式存在时,其占用的内存会瞬间变大,
+ * 我试过500K文件形式的图片加载到内存,以Bitmap形式存在时,占用内存将近10M,当然这个增大的倍数并不是固定的（原因在下面提到）。
+ * <p>
+ * 检测图片三种形式大小的方法:
+ * 文件形式: file.length()
+ * 流的形式: 讲图片文件读到内存输入流中,看它的byte数
+ * Bitmap:    bitmap.getByteCount()
+ */
 public class BitmapUtil {
     public final static String TAG = "BitmapCache";
     private static HashMap<String, SoftReference<Bitmap>> imageCache = new HashMap<String, SoftReference<Bitmap>>();
@@ -122,22 +167,13 @@ public class BitmapUtil {
             Bitmap bitmap = null;
             in = new FileInputStream(new File(path));
             // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
+            // 解码后的宽高页变成原来的1/inSampleSize
             options.inSampleSize = calculateInSampleSize(options, vWidth, vHeight);
-            /*
-             * ALPHA_8：只有一个alpha通道每个像素占用1byte内存
-             * ARGB_4444：每个像素占用2byte内存，已经被官方嫌弃
-             * ARGB_8888：每个像素ARGB四个通道，每个通道8bit，占用4byte内存
-             * （默认） RGB_565：每个像素占2Byte，其中红色占5bit，绿色占6bit，蓝色占5bit
-             */
             options.inPreferredConfig = null;    // 让解码器基于屏幕以最佳方式解码
             options.inJustDecodeBounds = false;  // 是否只读取边界
             options.inDither = false;            // 不进行图片抖动处理
-            /* 下面两个字段需要组合使用 */
-            options.inPurgeable = true;
-            options.inInputShareable = true;
             bitmap = BitmapFactory.decodeStream(in, null, options);
-            Bitmap newBmp = scaleCrop(bitmap, vWidth, vHeight);
-            return newBmp;
+            return bitmap;
         } catch (IOException e) {
             return null;
         }
@@ -167,7 +203,7 @@ public class BitmapUtil {
      * @param outHeight
      * @return
      */
-    public static Bitmap scaleCrop(Bitmap source, int outWidth, int outHeight) {
+    public static Bitmap centerCrop(Bitmap source, int outWidth, int outHeight) {
         if (source == null)
             return null;
         //裁剪bitmap使其宽高比与imageview保持一致
@@ -229,6 +265,23 @@ public class BitmapUtil {
         recycle(bitmap);
     }
 
+    public static void saveByte(String path, byte[] bitmap) throws IOException {
+        FileOutputStream out;
+        File f = new File(path);
+        if (f.exists()) {
+            f.delete();
+        }
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+        out = new FileOutputStream(f);
+        if (bitmap.length > 0) {
+            out.write(bitmap);
+            out.flush();
+        }
+        out.close();
+    }
+
     public static void recycle(Bitmap bitmap) {
         if (bitmap != null && bitmap.isRecycled()) {
             bitmap.recycle();
@@ -261,44 +314,110 @@ public class BitmapUtil {
     }
 
     /**
-     * 因为png图片是无损的，不能进行压缩。
-     * @param b
+     * note：处理decode后的小图片压缩并直接存储、传输，因为大图片Bitmap已经oom了。
+     * CompressFormat.PNG处理图片无效；如果outMimeType图片类型不是image/jpeg可以跳过压缩步骤
+     * Bitmap.CompressFormat.JPEG压缩png图片会自动忽略quality属性，bytes.length减少。图片会失去透明度，透明处变黑.
+     * 如果图片太大最好先缩小图片再质量压缩效果更好。
+     * 参考：
+     * 1.主流屏幕尺寸1080x1920   此尺寸图片以ARGB_8888解码时占内存为：1080*1920*4/1024=8100kb=8M；
+     * 2.quality=60以上,如果quality到了60图片大小还是超过了maxSize（说明图片色彩比较丰富），最好不要再压缩了；
+     * 3.如果原图片大小小于maxSize不管尺寸大小：不压缩且不缩放；
+     * 4.如果原图片大小大于maxSize但尺寸小于1080x1920(说明图片色彩比较丰富)：只压缩不缩放(这种处理处理的图片占用空间最大)。
+     * 实际测试:微信就是以1080p，quality=60压缩的，png也用jpg处理，
+     *
+     * @param path    图片路径
      * @param maxSize 单位kb
-     * @return
+     * @return 压缩后的字节数据
      */
-    public static Bitmap compressImage(Bitmap b, int maxSize) {
-        if (b != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            b.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-            Log.e("compressImage", "压缩前大小  " + baos.toByteArray().length / 1024 + " kb");
-            Bitmap mSrcBitmap = b;
-            if (baos.toByteArray().length > 1024 * 100) {
-                mSrcBitmap = Bitmap.createScaledBitmap(b, b.getWidth() / 2, b.getHeight() / 2, true);
+    public static byte[] compress(String path, int maxSize) {
+        try {
+            FileInputStream in = new FileInputStream(new File(path));
+            int size = in.available();
+            byte[] b = new byte[size];
+            in.read(b);
+            in.close();
+            //小于maxSize直接返回（会跳过旋转：但小尺寸一般不是拍照的照片，不存在照片角度问题）
+            if (size <= maxSize * 1024)
+                return b;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(b, 0, b.length, options);
+            in = new FileInputStream(new File(path));
+            // 计算 inSampleSize 的值，解析器使用的inSampleSize都是2的指数倍，如果inSampleSize是其他值，则找一个离这个值最近的2的指数值。
+            // 解码后的宽高变成原来的1/inSampleSize
+            options.inSampleSize = getCompressInSampleSize(options.outWidth, options.outHeight);
+            options.inPreferredConfig = null;    // 让解码器基于屏幕以最佳方式解码
+            options.inJustDecodeBounds = false;  // 是否只读取边界
+            options.inDither = false;            // 不进行图片抖动处理
+            Bitmap bm = BitmapFactory.decodeStream(in, null, options);
+            int degree = PictureUtil.readPictureDegree(path);
+            // 旋转图片
+            if (degree != 0) {
+                bm = BitmapUtil.rotateImageView(bm, degree);
             }
-            int quality = 95;//必须大于0
-            while (baos.toByteArray().length > 1024 * maxSize && quality > 15) {  //循环判断如果压缩后图片是否大于2048kb,大于继续压缩
+            //当尺寸大于1080且空间存储大小大于maxSize时才缩放到1080p
+            final int width = bm.getWidth();
+            final int height = bm.getHeight();
+            if (width * height > 1080 * 1920 && size > maxSize * 1024) {
+                Matrix m = new Matrix();
+                if (width >= height) {
+                    int newh = 1080;
+                    float sx = (float) newh / height;
+                    m.setScale(sx, sx);
+                } else {
+                    int neww = 1080;
+                    float sy = (float) neww / width;
+                    m.setScale(sy, sy);
+                }
+                bm = Bitmap.createBitmap(bm, 0, 0, width, height, m, true);
+            }
+            //质量压缩
+            int quality = 100;//必须大于0
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);//把压缩后的数据存放到baos中
+            Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
+            //png同样处理：因为有些png图片其实并没有透明度像素
+            //if ("image/jpeg".equals(options.outMimeType)) {
+            quality -= 10;//必须大于0
+            //大于max继续压缩到quality=60
+            while (quality >= 60 && baos.toByteArray().length > 1024 * maxSize) {
                 baos.reset();//重置baos即清空baos
-                mSrcBitmap.compress(Bitmap.CompressFormat.JPEG, quality, baos);//这里压缩options%，把压缩后的数据存放到baos中
-                Log.e("compressImage", "压缩后大小  ByteArray  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
+                bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+                Log.e("compress", "quality=" + quality + "  压缩后  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
                 quality -= 10;
             }
-            //二次压缩：当quality=10时依然超过maxsize
-            if (baos.toByteArray().length > 1024 * maxSize) {
-                ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
-                Bitmap imageNew = BitmapFactory.decodeStream(bais, null, null);
-                while (baos.toByteArray().length > 1024 * maxSize && quality > 0) {
-                    baos.reset();
-                    imageNew.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-                    Log.e("compressImage", "二次压缩后大小  ByteArray  " + baos.toByteArray().length / 1024 + " kb" + " size " + baos.size());
-                    quality -= 1;
-                }
-            }
-
-            ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
-            Bitmap r = BitmapFactory.decodeStream(isBm, null, null);
-            return r;
+            //}
+            return baos.toByteArray();
+        } catch (IOException e) {
+            return null;
         }
-        return null;
+    }
+
+    /**
+     * 获取用于图片压缩的最佳inSampleSize值，以1080x1920的乘积为基数计算2的指数值：
+     * 尺寸1080x1920以ARGB_8888解码时占内存为：1080*1920*4/1024=8100kb=8M
+     * 目前小米最高摄像头像素为12032*9024是1080*1920的52倍接近2的6次方
+     * 1080*1920=1440*1440=2072600
+     *
+     * @param outWidth  图片原始宽度
+     * @param outHeight 图片原始高度
+     * @return
+     */
+    private static int getCompressInSampleSize(int outWidth, int outHeight) {
+        final int reqWidth = 1080;
+        final int reqHeight = 1920;
+        int inSampleSize = 1;
+        float scale = (float) outWidth * outHeight / (reqWidth * reqHeight);
+        //计算以2为底scale的对数
+        double k = Math.log(scale) / Math.log(2);
+        if (k > 8)
+            inSampleSize = 8;
+        else if (k > 4)
+            inSampleSize = 4;
+        else if (k > 2)
+            inSampleSize = 2;
+        Log.e("inSampleSize", "scale=" + scale + "  k=" + k + "  inSampleSize=" + inSampleSize);
+        return inSampleSize;
     }
 
     /**

@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.framework.R;
 import com.style.lib.media.video.PlayVideoActivity;
 

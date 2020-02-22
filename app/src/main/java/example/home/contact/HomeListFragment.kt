@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
-import com.style.view.diviver.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home_2.*
-import java.util.*
 import example.home.MainViewModel
 import kotlin.collections.ArrayList
 
@@ -34,7 +32,7 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
         adapter = FriendAdapter(context, dataList)
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(DividerItemDecoration(context))
+        recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(context))
         recyclerView.adapter = adapter
         //bd.refreshLayout.setRefreshHeader( SimpleRefreshHeader(context))
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Int> {

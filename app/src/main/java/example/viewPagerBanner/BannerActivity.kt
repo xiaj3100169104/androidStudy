@@ -26,7 +26,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import com.github.chrisbanes.photoview.PhotoView
-import com.style.base.activity.BaseActivity
+import com.style.base.BaseActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.banner_activity.*
 

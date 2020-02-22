@@ -1,4 +1,4 @@
-<com.style.view.refresh.MyAppRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.style.common_ui.refresh.MyAppRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -86,7 +86,12 @@
                 android:id="@+id/view_fragment_state_adapter"
                 style="@style/text_home_item"
                 android:text="FragmentStatePagerAdapter" />
+
+            <TextView
+                android:id="@+id/view_fragment_test"
+                style="@style/text_home_item"
+                android:text="Fragment测试" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</com.style.view.refresh.MyAppRefreshLayout>
+</com.style.common_ui.refresh.MyAppRefreshLayout>
 

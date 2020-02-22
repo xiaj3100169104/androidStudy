@@ -3,7 +3,7 @@ package example.customView;
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.activity_record_audio_view.*
 import java.util.*
@@ -48,10 +48,11 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
             val random = Random()
             while (true) {
                 try {
-                    Thread.sleep(100)
+                    Thread.sleep(60)
                     val v = random.nextInt(7000).toFloat() / 7000
                     logE("RecordAudioViewActivity", v.toString())
-                    record_audio_view.postValue(v)
+                    //record_audio_view.postValue(v)
+                    record_audio_view2.postValue(v)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                     break

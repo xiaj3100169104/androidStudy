@@ -3,6 +3,7 @@ package com.style.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.style.base.BaseBottomDialog;
@@ -10,9 +11,6 @@ import com.style.framework.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.dmcbig.mediapicker.utils.ScreenUtils.sp2px;
-import static com.style.utils.DeviceInfoUtil.dp2px;
 
 /**
  * 单条列表选择对话框
@@ -42,9 +40,9 @@ public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
         wheelCenter.setItemTextColor(0xffcccccc);
         wheelCenter.setSelectedItemTextColor(0xff666666);
         wheelCenter.setIndicator(true);
-        wheelCenter.setIndicatorSize(dp2px(getContext(), 1));
+        wheelCenter.setIndicatorSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics()));
         wheelCenter.setIndicatorColor(0xFFe3e3e3);
-        wheelCenter.setItemTextSize(sp2px(getContext(), 21));
+        wheelCenter.setItemTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 21, getContext().getResources().getDisplayMetrics()));
         wheelCenter.setCurved(false);
         wheelCenter.setCyclic(false);
         wheelCenter.setVisibleItemCount(5);

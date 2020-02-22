@@ -22,8 +22,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.style.app.FileDirConfig;
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.config.FileDirConfig;
+import com.style.base.BaseTitleBarActivity;
 import com.style.data.glide.RectTopCornerTransform;
 import com.style.data.glide.RoundTransform;
 import com.style.data.glide.RoundRectTransform;
@@ -60,6 +60,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         bd.btnRound.setOnClickListener(v -> dealRound());
         bd.btnRectStroke.setOnClickListener(v -> dealRectStroke());
         bd.btnRectTop.setOnClickListener(v -> dealRectTop());
+        bd.btnImageSize.setOnClickListener(v -> compressImage());
 
         bd.btnAvatar.setOnClickListener(v -> selAvatar());
         bd.btnCatchColor.setOnClickListener(v -> {
@@ -72,6 +73,14 @@ public class GlideDealActivity extends BaseTitleBarActivity {
             catchColor(bitmap);
         });
         downImage();
+    }
+
+    private void compressImage() {
+        //String path = "/storage/emulated/0/aaaaStyle/cache/1574660481789.jpg";
+        String path = "/storage/emulated/0/aaaaStyle/cache/1574493622274.jpg";
+        Bitmap b = BitmapUtil.getThumbnail(path, bd.iv3.getWidth(), bd.iv3.getHeight());
+        Bitmap b2 = BitmapUtil.centerCrop(b, bd.iv3.getWidth(), bd.iv3.getHeight());
+        bd.iv3.setImageBitmap(b2);
     }
 
     private void dealRectTop() {
@@ -108,7 +117,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         Glide.with(this).asBitmap().load(url).apply(myOptions).into(new CustomTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap b = BitmapUtil.scaleCrop(resource, bd.iv2.getWidth(), bd.iv2.getHeight());
+                Bitmap b = BitmapUtil.centerCrop(resource, bd.iv2.getWidth(), bd.iv2.getHeight());
                 bd.iv2.setImageBitmap(b);
             }
 
@@ -331,8 +340,6 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         logE(getTAG(), "裁剪后图片路径-->" + targetPath);
         Intent intent = ImageCropActivity.createIntent(this, originalFilePath, targetPath, getCropAreaStr(), false, getMaxCropSize());
         startActivityForResult(intent, CODE_PHOTO_CROP);
-        Bitmap b = BitmapUtil.getThumbnail(originalFilePath, bd.iv3.getWidth(), bd.iv3.getHeight());
-        bd.iv3.setImageBitmap(b);
     }
 
     protected String getCropAreaStr() {

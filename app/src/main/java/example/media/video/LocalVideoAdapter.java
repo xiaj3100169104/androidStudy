@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.framework.R;
 import com.style.framework.databinding.AdapterLocalVideoBinding;
 import com.style.utils.BitmapUtil;

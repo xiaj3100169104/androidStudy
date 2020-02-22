@@ -36,7 +36,6 @@ ext {
     ANDROID_SUPPORT_VERSION = '28.0.0'
 
     glide_version = "4.9.0"
-    room_version = "1.1.1"
     gson_version = "2.8.4"
     json_version = "1.2.58"
     rxjava_version = "2.2.8"

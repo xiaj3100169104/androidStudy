@@ -2,8 +2,8 @@ package example.customView;
 
 import android.os.Bundle;
 
-import com.style.app.FileDirConfig;
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.config.FileDirConfig;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 
 import java.io.BufferedReader;

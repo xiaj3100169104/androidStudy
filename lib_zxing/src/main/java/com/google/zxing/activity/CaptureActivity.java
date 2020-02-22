@@ -46,6 +46,7 @@ import com.google.zxing.R;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.camera.CameraManager;
+import com.style.base.BaseTitleBarActivity;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -60,7 +61,7 @@ import java.util.Map;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends AppCompatActivity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends BaseTitleBarActivity implements SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
 
@@ -95,18 +96,10 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_capturer);
-
-        View toolbar = findViewById(R.id.title_back);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        setTitleBarTitle(R.string.zxing_scan_qr_code);
 
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
@@ -131,7 +124,7 @@ public final class CaptureActivity extends AppCompatActivity implements SurfaceH
         // off screen.
         cameraManager = new CameraManager(getApplication());
 
-        viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+        viewfinderView = findViewById(R.id.viewfinder_view);
         viewfinderView.setCameraManager(cameraManager);
 
         handler = null;

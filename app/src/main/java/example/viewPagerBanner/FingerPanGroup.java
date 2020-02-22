@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.animation.LinearInterpolator;
@@ -50,8 +51,8 @@ public class FingerPanGroup extends LinearLayout {
     public FingerPanGroup(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        MAX_ALPHA_Y_OFFSET = DeviceInfoUtil.dp2px(context, 240);
-        MAX_EXIT_Y_OFFSET = DeviceInfoUtil.dp2px(context, 100);
+        MAX_ALPHA_Y_OFFSET = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240, context.getResources().getDisplayMetrics());
+        MAX_EXIT_Y_OFFSET = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
     }
 
     @Override

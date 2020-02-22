@@ -10,7 +10,13 @@
 
         <include layout="@layout/title_bar_white_text" />
 
-        <include layout="@layout/webview_progress" />
+        <com.style.view.progressbar.HorizontalProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"
+            app:horizontalProgress="30"
+            app:horizontalProgressColor="@color/blue_dark" />
 
         <WebView
             android:id="@+id/webView"

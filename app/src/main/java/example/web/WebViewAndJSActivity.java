@@ -1,6 +1,5 @@
 package example.web;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -10,7 +9,7 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebViewBinding;
 
@@ -35,14 +34,15 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
         bd.webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int progress) {
-                // Activity和Webview根据加载程度决定进度条的进度大小
+                setWebViewProgress(progress);
             }
 
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                showToast("onJsAlert");
-                result.confirm();
-                return true;
+                showToast(message);
+                return super.onJsAlert(view, url, message, result);
+                //result.confirm();
+                //return true;
             }
 
             @Override
@@ -111,6 +111,13 @@ public class WebViewAndJSActivity extends BaseTitleBarActivity {
         bd.webView.clearCache(true);
         bd.webView.removeAllViews();
         bd.webView.destroy();
+    }
+
+    public void setWebViewProgress(int progress) {
+        bd.progress.setProgress(progress);
+        // 当加载到100%的时候 进度条自动消失
+        if (progress == 100)
+            bd.progress.setVisibility(View.GONE);
     }
 
     public class JsInterface {

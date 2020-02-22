@@ -6,7 +6,6 @@ import android.view.ViewGroup
 
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
-import com.style.framework.databinding.AdapterFriendBinding
 import com.style.framework.databinding.ScrollStopContentSubAdapterBinding
 
 import java.util.ArrayList

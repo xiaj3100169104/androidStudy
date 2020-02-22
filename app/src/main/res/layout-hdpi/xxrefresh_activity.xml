@@ -12,7 +12,7 @@
         <include layout="@layout/title_bar_white_text" />
 
 
-        <com.xiajun.xxrefreshview.XXRefreshView
+        <com.style.common_ui.xxrefreshview.XXRefreshView
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +36,6 @@
                         android:text="content" />
                 </LinearLayout>
             </ScrollView>
-        </com.xiajun.xxrefreshview.XXRefreshView>
+        </com.style.common_ui.xxrefreshview.XXRefreshView>
     </LinearLayout>
 </layout>

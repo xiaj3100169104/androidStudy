@@ -1,14 +1,12 @@
 package example.web_service;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.TypeReference;
-import com.style.base.activity.BaseTitleBarActivity;
-import com.style.entity.KuaiDi;
+import com.style.base.BaseTitleBarActivity;
 import com.style.entity.UserInfo;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityWebserviceBinding;

@@ -15,7 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.framework.R;
 
 import java.util.Collections;

@@ -3,8 +3,6 @@ package example.album;
 import android.Manifest;
 import android.annotation.SuppressLint
 import android.content.Intent;
-import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build;
 import android.os.Bundle
@@ -12,27 +10,30 @@ import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils
 import android.view.View;
 
 import com.dmcbig.mediapicker.PickerActivity;
 import com.dmcbig.mediapicker.PickerConfig;
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.app.FileDirConfig;
+import com.style.config.FileDirConfig;
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.dialog.SelAvatarDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
+import com.style.utils.BitmapUtil
 import com.style.utils.DeviceInfoUtil;
 import com.style.utils.SystemShareUtil;
-import com.style.view.diviver.GridDividerItemDecoration
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import example.viewPager.ImageScanActivity;
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -62,7 +63,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         var gridLayoutManager = GridLayoutManager(getContext(), 4);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
-        bd.recyclerView.addItemDecoration(GridDividerItemDecoration(20, Color.BLACK))
+        //bd.recyclerView.addItemDecoration(GridDividerItemDecoration(20, Color.BLACK))
         bd.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Media> {
             override fun onItemClick(position: Int, data: Media) {
@@ -90,13 +91,41 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                 setHaveDynamic();
             }
         })
-
+        bd.btnCompress.setOnClickListener { compressImage() }
         bd.btnShareText.setOnClickListener({ v ->
             SystemShareUtil.shareText(getContext(), "文章", "来自系统分享");
         });
         bd.btnShareImage.setOnClickListener { v ->
             SystemShareUtil.shareImage(getContext(), FileDirConfig.FILE_PROVIDER_AUTHORITY, paths.get(0).path);
         }
+    }
+
+    @SuppressLint("CheckResult")
+    fun compressImage() {
+        showProgressDialog("压缩中···")
+        val disposable = Observable.just(paths).subscribeOn(Schedulers.io())
+                .map {
+                    val list = ArrayList<String>()
+                    it.forEach {
+                        if (!TextUtils.isEmpty(it.path)) {
+                            val path = FileDirConfig.DIR_CACHE + File.separatorChar + System.currentTimeMillis() + ".jpg"
+                            val bytes = BitmapUtil.compress(it.path, 200)
+                            BitmapUtil.saveByte(path, bytes)
+                            list.add(path)
+                        }
+                    }
+                    return@map list
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    dismissProgressDialog()
+                    it.forEach {
+                        logE("compressImage", it)
+                    }
+                }, {
+                    dismissProgressDialog()
+                    logE("compressImage", "压缩出错")
+                })
     }
 
     fun selAvatar(v: View) {

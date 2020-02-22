@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,20 +45,23 @@ public class WebViewDialog extends BaseDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("WebViewDialog", "onCreate");
-        int w = getScreenWidth();
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_web_view, null, false);
         bd = DataBindingUtil.bind(contentView);
         setContentView(bd.getRoot());
+        bd.webView.setBackgroundColor(0);
+        bd.webView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
         bd.webView.getSettings().setJavaScriptEnabled(true);
         bd.webView.addJavascriptInterface(new JsInterface(), "control");
         bd.webView.setWebViewClient(new WebViewClient());
         bd.webView.loadUrl(url);
 
         Window window = getWindow();
+        //window.setBackgroundDrawableResource(android.R.color.transparent);// 一句话搞定
         //默认对话框会有边距，宽度不能占满屏幕
         window.getDecorView().setPadding(0, 0, 0, 0);
         window.setGravity(Gravity.CENTER);
-        window.setLayout((int) (w * 0.8), ViewGroup.LayoutParams.WRAP_CONTENT);
+        int w = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 270, getContext().getResources().getDisplayMetrics());
+        window.setLayout(w, ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
     }
 

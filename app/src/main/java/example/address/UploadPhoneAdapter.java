@@ -1,11 +1,8 @@
 package example.address;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;

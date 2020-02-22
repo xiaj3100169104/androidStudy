@@ -16,9 +16,13 @@
             android:layout_height="wrap_content"
             android:text="本地网页" />
 
-        <include
+        <com.style.view.progressbar.HorizontalProgressBar
             android:id="@+id/progress"
-            layout="@layout/webview_progress" />
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"
+            app:horizontalProgress="30"
+            app:horizontalProgressColor="@color/blue_dark" />
 
         <WebView
             android:id="@+id/webView"

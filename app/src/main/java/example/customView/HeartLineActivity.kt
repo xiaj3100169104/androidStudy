@@ -1,8 +1,7 @@
 package example.customView
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import com.style.base.activity.BaseTitleBarActivity
+import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityHeartLineBinding
 import com.style.view.healthy.HeartLineChart
@@ -24,11 +23,11 @@ class HeartLineActivity : BaseTitleBarActivity() {
         bd.heartLine.setData(getData())
     }
 
-    private fun getData(): List<HeartLineChart.HeartLineItem> {
-        val list = ArrayList<HeartLineChart.HeartLineItem>(100)
+    private fun getData(): List<com.style.view.healthy.HeartLineChart.HeartLineItem> {
+        val list = ArrayList<com.style.view.healthy.HeartLineChart.HeartLineItem>(100)
         val random = Random()
         for (i in 0..99) {
-            val b = HeartLineChart.HeartLineItem(random.nextInt(40) + 60, "00:00")
+            val b = com.style.view.healthy.HeartLineChart.HeartLineItem(random.nextInt(40) + 60, "00:00")
             list.add(b)
         }
         return list

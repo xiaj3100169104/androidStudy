@@ -2,7 +2,7 @@ package example.activity;
 
 import android.os.Bundle
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.utils.AssetsUtil;
 import kotlinx.android.synthetic.main.activity_user_agree.*

@@ -1,15 +1,15 @@
 package example.home
 
 import android.Manifest
-import android.arch.lifecycle.ViewModelProviders
+import android.app.ActivityManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
 import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -17,11 +17,10 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Display
-import com.style.data.app.AppManager
+import com.style.data.app.AppActivityManager
 
-import com.style.app.HotFixManager
-import com.style.app.ToastManager
-import com.style.base.activity.BaseActivity
+import com.style.toast.ToastManager
+import com.style.base.BaseActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
 import com.style.utils.DeviceInfoUtil
@@ -30,6 +29,7 @@ import example.home.contact.HomeListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 import org.simple.eventbus.EventBus
+import kotlin.system.exitProcess
 
 
 class MainActivity : BaseActivity() {
@@ -78,7 +78,7 @@ class MainActivity : BaseActivity() {
     private var isRegisterBroadcastReceiver: Boolean = false
 
     private fun initData() {
-        AppManager.getInstance().setMainTaskId(taskId)
+        AppActivityManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
         mViewModel = getViewModel(MainViewModel::class.java)
         appStateReceiver = DeviceStateBroadcastReceiver()
@@ -94,7 +94,7 @@ class MainActivity : BaseActivity() {
         i.setAction(MQTTService.ACTION_LOGIN);
         ComponentName componentName0 = startService(i);
         componentName0.getClassName();*/
-        HotFixManager.getInstance().query()
+        //HotFixManager.getInstance().query()
         val permissions = arrayOf(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
 
         if (ContextCompat.checkSelfPermission(this.application, permissions[0]) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this.application, permissions[1]) != PackageManager.PERMISSION_GRANTED) {
@@ -223,6 +223,19 @@ class MainActivity : BaseActivity() {
         //updateUnreadMsg();
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val a = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val mList = a.runningAppProcesses
+        mList.forEach {
+            if (it.pid != Process.myPid()) {
+                Process.killProcess(it.pid)
+            }
+        }
+        Process.killProcess(Process.myPid())
+    }
+
     override fun onDestroy() {
         //取消事件注册
         EventBus.getDefault().unregister(this)
@@ -233,7 +246,7 @@ class MainActivity : BaseActivity() {
             appStateReceiver = null
         }
         super.onDestroy()
-        AppManager.getInstance().setMainTaskId(-1)
+        AppActivityManager.getInstance().setMainTaskId(-1)
     }
 
     inner class DeviceStateBroadcastReceiver : BroadcastReceiver() {

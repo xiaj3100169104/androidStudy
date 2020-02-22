@@ -1,6 +1,6 @@
 package com.style.data.http.function.impl;
 
-import com.style.data.http.core.RetrofitImpl;
+import com.style.http.core.RetrofitImpl;
 import com.style.http.core.RxSchedulers;
 
 import io.reactivex.ObservableTransformer;

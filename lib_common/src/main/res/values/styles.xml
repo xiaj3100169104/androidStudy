@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Dialog_General" parent="android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--背景是否变暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--控制灰度的值，当为1时dialog以外的区域是黑色-->
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <!--去掉默认布局区域背景图-->
+        <item name="android:windowBackground">@drawable/bg_window_transparent</item>
+    </style>
+
+    <!--布局外区域不变暗-->
+    <style name="Dialog_OutSide_Transparent" parent="@style/Dialog_General">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="MaterialProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--使用colorAccent兼容低版本，而不是android:colorAccent-->
+        <item name="colorAccent">#FFB68B48</item>
+    </style>
+
+    <style name="KeyboardNumberText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:background">@drawable/selector_keyboard_click</item>
+        <item name="android:textColor">@color/custom_keyboard_text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+</resources>

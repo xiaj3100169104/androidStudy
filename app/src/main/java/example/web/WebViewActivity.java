@@ -1,11 +1,9 @@
 package example.web;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -14,7 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityH5RemoteBinding;
 
@@ -141,9 +139,9 @@ public class WebViewActivity extends BaseTitleBarActivity {
     }
 
     public void setWebViewProgress(int progress) {
-        bd.progress.MaterialProgressBar.setProgress(progress);
+        bd.progress.setProgress(progress);
         // 当加载到100%的时候 进度条自动消失
         if (progress == 100)
-            bd.progress.MaterialProgressBar.setVisibility(View.GONE);
+            bd.progress.setVisibility(View.GONE);
     }
 }

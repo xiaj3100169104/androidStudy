@@ -8,7 +8,6 @@ import android.widget.Button
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.view.progressbar.WaterPoloProgress
 
 class WaterPoloFragment : BaseFragment() {
 
@@ -21,7 +20,7 @@ class WaterPoloFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sineCurve = view!!.findViewById<View>(R.id.custom_view) as WaterPoloProgress
+        val sineCurve = view!!.findViewById<View>(R.id.custom_view) as com.style.view.progressbar.WaterPoloProgress
 
         mButton = view!!.findViewById<View>(R.id.button) as Button
         mButton!!.setOnClickListener {

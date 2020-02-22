@@ -11,7 +11,6 @@ import android.view.ViewGroup
 
 import com.style.base.BaseFragment
 import com.style.framework.R
-import com.style.view.progressbar.HorizontalProgressBar
 import kotlinx.android.synthetic.main.activity_horizontal_progress.*
 
 

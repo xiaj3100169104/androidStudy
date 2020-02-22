@@ -5,8 +5,8 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.support.annotation.StringRes
 import android.util.Log
-import com.style.app.ToastManager
-import com.style.data.app.LogManager
+import com.style.toast.ToastManager
+import com.style.utils.LogManager
 import com.style.data.db.AppDatabase
 import com.style.data.prefs.AppPrefsManager
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +19,8 @@ import java.util.*
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     protected val TAG = this.javaClass.simpleName
-
+    //请求状态：错误和成功都设为true
+    val requestState = MutableLiveData<Boolean>()
     val generalFinish = MutableLiveData<Boolean>()
     private val tasks = CompositeDisposable()
     private var singleTasks: MutableList<Disposable>? = null

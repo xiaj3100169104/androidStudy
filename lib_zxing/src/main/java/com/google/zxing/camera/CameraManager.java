@@ -75,7 +75,6 @@ public final class CameraManager {
      * Opens the camera driver and initializes the hardware parameters.
      *
      * @param holder The surface object which the camera will draw preview frames into.
-     *
      * @throws IOException Indicates the camera driver failed to open.
      */
     public synchronized void openDriver(SurfaceHolder holder) throws IOException {
@@ -237,12 +236,13 @@ public final class CameraManager {
 //            height
             int height = findDesiredDimensionInRange(screenResolution.y, MIN_FRAME_HEIGHT,
                     MAX_FRAME_HEIGHT);
-            int min = width > height ? height : width ;
-            Log.i(TAG, "findDesiredDimensionInRange: width" + width + " height "+height);
+            //int min = width > height ? height : width ;
+            int min = (int) (screenResolution.x * 0.68);
+            Log.i(TAG, "findDesiredDimensionInRange: width" + width + " height " + height);
             int leftOffset = (screenResolution.x - min) / 2;
             int topOffset = (screenResolution.y - min) / 2;
             framingRect = new Rect(leftOffset, topOffset, leftOffset + min, topOffset + min);
-            Log.i(TAG, "getFramingRect: "+framingRect);
+            Log.i(TAG, "getFramingRect: " + framingRect.toString());
             if (DEBUG)
                 Log.d(TAG, "Calculated framing rect: " + framingRect + ", w: " + framingRect.width() + ", h: " + framingRect.height());
         }
@@ -283,7 +283,7 @@ public final class CameraManager {
 //      rect.right = rect.right * cameraResolution.x / screenResolution.x;
 //      rect.top = rect.top * cameraResolution.y / screenResolution.y;
 //      rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
-            if(screenResolution.x < screenResolution.y){
+            if (screenResolution.x < screenResolution.y) {
                 // portrait
                 rect.left = rect.left * cameraResolution.y / screenResolution.x;
                 rect.right = rect.right * cameraResolution.y / screenResolution.x;
@@ -346,7 +346,6 @@ public final class CameraManager {
      * @param data   A preview frame.
      * @param width  The width of the image.
      * @param height The height of the image.
-     *
      * @return A PlanarYUVLuminanceSource instance.
      */
     public PlanarYUVLuminanceSource buildLuminanceSource(byte[] data, int width, int height) {

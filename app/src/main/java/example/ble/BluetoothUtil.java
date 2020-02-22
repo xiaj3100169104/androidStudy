@@ -3,13 +3,6 @@ package example.ble;
 import android.bluetooth.BluetoothDevice;
 import android.util.Log;
 
-import com.style.app.FileDirConfig;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;

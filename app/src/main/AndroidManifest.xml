@@ -96,7 +96,7 @@
         <activity android:name="example.dialog.WheelActivity" />
         <activity android:name="example.filedown.FileDownActivity" />
         <activity android:name="example.web.WebViewActivity" />
-        <activity android:name="example.web.WebViewAndJSActivity" />
+        <activity android:name="example.web.WebViewAndJSActivity"/>
         <activity android:name="example.media.VideoTestActivity" />
         <activity android:name="example.media.AudioRecordActivity" />
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
@@ -123,12 +123,13 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.fragmentAdapter.IndexFragmentActivity" />
         <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.test.FragmentTestActivity" />
         <activity
             android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name="example.customView.CustomViewMainActivity" />
         <activity android:name="example.customView.WriteWordActivity" />
         <activity android:name="example.customView.DrawViewActivity" />
@@ -161,16 +162,7 @@
         <activity android:name="example.viewPagerCards.views.CardActivity" />
 
         <!--Service及其他-->
-        <!-- 自定义FileProvider来避免冲突, 对应的resource也要保证唯一 -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.file.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
+
         <!-- APP新版本下载服务 -->
         <service
             android:name="com.style.service.appNewVersion.DownNewAppService"
@@ -183,7 +175,7 @@
             android:name="com.style.service.fileDownload.FileDownloadService"
             android:enabled="true">
             <intent-filter android:priority="1000">
-                <action android:name="com.style.file.download." />
+                <action android:name="com.style.file.download" />
             </intent-filter>
         </service>
         <!-- exported：是否允许外部应用程序访问，版本为16或者更低时他的默认值是true。如果是17和以上的版本默认值是false。 -->

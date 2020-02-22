@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
-import com.style.base.activity.BaseTitleBarActivity;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.EditLayoutMoveBottomOfFullScreenBinding;
 import com.style.helper.InputMethodStateListener;
@@ -54,7 +54,7 @@ public class FullScreenBottomEditLayoutActivity extends BaseTitleBarActivity {
     }
 
     private void addListener() {
-        bd.layoutRoot.getViewTreeObserver().addOnGlobalLayoutListener(new InputMethodStateListener(bd.layoutRoot) {
+        bd.getRoot().getViewTreeObserver().addOnGlobalLayoutListener(new InputMethodStateListener(bd.layoutRoot) {
             @Override
             protected void onInputMethodClosed() {
 

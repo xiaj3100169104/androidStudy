@@ -1,7 +1,7 @@
 package com.style.data.http.exception
 
-import com.style.data.app.AppManager
-import com.style.app.ToastManager
+import com.style.data.app.AppActivityManager
+import com.style.toast.ToastManager
 import com.style.http.exception.HttpResultException
 import com.style.http.exception.HttpThrowableUtil
 import io.reactivex.functions.Consumer
@@ -9,28 +9,27 @@ import io.reactivex.functions.Consumer
 class HttpExceptionConsumer : Consumer<Throwable> {
     override fun accept(e: Throwable) {
         val t = HttpThrowableUtil.handleHttpError(e)
-        showToast(t.msg)
         when {
-            HttpResultException.TOKEN_INVALID == t.errorCode -> onTokenError()
-            HttpResultException.NETWORK_ERROR == t.errorCode -> onNetworkError()
+            HttpResultException.TOKEN_INVALID == t.errorCode -> onTokenError(t)
+            HttpResultException.NETWORK_ERROR == t.errorCode -> onNetworkError(t)
             else -> onOtherError(t)
         }
     }
 
-    private fun onOtherError(t: HttpResultException?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun onOtherError(t: HttpResultException) {
+        showToast(t.msg)
     }
 
-
-    open fun onNetworkError() {
-
+    open fun onNetworkError(t: HttpResultException) {
+        showToast(t.msg)
     }
 
-    open fun onTokenError() {
-        //LApplication.skip2login()
+    open fun onTokenError(t: HttpResultException) {
+        showToast(t.msg)
+        //MyApp.onTokenError()
     }
 
     private fun showToast(str: CharSequence) {
-        ToastManager.showToast(AppManager.getInstance().getContext(), str)
+        ToastManager.showToast(AppActivityManager.getInstance().getContext(), str)
     }
 }

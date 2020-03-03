@@ -112,6 +112,7 @@
         <activity android:name="example.aidl.AidlActivity" />
         <activity android:name="example.encrypt.EncryptActivity" />
         <activity android:name="example.web_service.WebServiceActivity" />
+        <activity android:name="example.web_service.CoroutineActivity" />
         <activity android:name="example.activity.GlideDealActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity android:name="example.activity.QRCodeActivity" />

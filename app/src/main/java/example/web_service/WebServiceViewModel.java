@@ -10,8 +10,8 @@ import android.util.Log;
 
 import com.style.base.BaseViewModel;
 import com.style.data.http.exception.HttpExceptionConsumer;
-import com.style.data.http.function.impl.UserFunctionImpl;
-import com.style.data.http.function.impl.WebFunctionImpl;
+import com.style.data.http.function.impl.UserNetSourceImpl;
+import com.style.data.http.function.impl.WebNetSourceImpl;
 import com.style.http.exception.HttpResultException;
 
 import io.reactivex.disposables.Disposable;
@@ -28,7 +28,7 @@ public class WebServiceViewModel extends BaseViewModel {
     }
 
     public void searchWeather(String code) {
-        Disposable d = WebFunctionImpl.getWeather(code)
+        Disposable d = WebNetSourceImpl.getWeather(code)
                 .subscribe(s -> {
                             showToast("查询天气成功");
                             content.postValue(s);
@@ -39,7 +39,7 @@ public class WebServiceViewModel extends BaseViewModel {
 
     @SuppressLint("CheckResult")
     public void getPhoneInfo(String phone) {
-        UserFunctionImpl.test().subscribe(new Consumer<ResponseBody>() {
+        UserNetSourceImpl.test().subscribe(new Consumer<ResponseBody>() {
             @Override
             public void accept(ResponseBody responseBody) throws Exception {
                 long code = responseBody.contentLength();
@@ -50,13 +50,13 @@ public class WebServiceViewModel extends BaseViewModel {
     }
 
     public void getWeather(String code) {
-        Disposable d = WebFunctionImpl.getWeather(code).subscribe(s -> content.postValue(s));
+        Disposable d = WebNetSourceImpl.getWeather(code).subscribe(s -> content.postValue(s));
         addTask(d);
     }
 
     public void getKuaiDi(String s, String s1) {
-        Disposable d = WebFunctionImpl.getKuaiDi("", "")
-                .flatMap(kuaiDis -> WebFunctionImpl.getKuaiDi("", ""))
+        Disposable d = WebNetSourceImpl.getKuaiDi("", "")
+                .flatMap(kuaiDis -> WebNetSourceImpl.getKuaiDi("", ""))
                 .subscribe(s2 ->
                                 content.postValue(s2)
                         , new HttpExceptionConsumer());
@@ -64,12 +64,12 @@ public class WebServiceViewModel extends BaseViewModel {
     }
 
     public void login(final String userName, final String pass) {
-        Disposable d = UserFunctionImpl.getToken().flatMap(r -> {
+        Disposable d = UserNetSourceImpl.getToken().flatMap(r -> {
             if (TextUtils.isEmpty(r.data.access_token))
                 throw HttpResultException.serverError();
             Log.e(getTAG(), r.data.access_token);
             getPreferences().setSignKey(r.data.access_token);
-            return UserFunctionImpl.login2(userName, pass);
+            return UserNetSourceImpl.login2(userName, pass);
         }).subscribe(userInfo ->
                         Log.e(getTAG(), userInfo.toString())
                 , new HttpExceptionConsumer()

@@ -19,7 +19,7 @@ public class CustomConverterFactory extends Converter.Factory {
         if (type == String.class) {
             return new OriginalStringConverter();
         }
-        if (type == RequestBody.class) {
+        if (type == ResponseBody.class) {
             return new ResponseBodyConverter();
         }
         return new DefaultResponseConverter<>(type);

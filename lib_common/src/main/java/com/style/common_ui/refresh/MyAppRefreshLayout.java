@@ -53,6 +53,12 @@ public class MyAppRefreshLayout extends SmartRefreshLayout {
 
     }
 
+    //还有更多数据
+    public void setHasMoreData() {
+        setEnableLoadMore(true);
+        setNoMoreData(false);
+    }
+
     // 下拉/上拉完成
     public void complete() {
         if (mState == RefreshState.Loading) {
@@ -62,4 +68,25 @@ public class MyAppRefreshLayout extends SmartRefreshLayout {
         }
     }
 
+    /**
+     * 完成刷新
+     *
+     * @return SmartRefreshLayout
+     */
+    @Override
+    public SmartRefreshLayout finishRefresh() {
+        long passTime = System.currentTimeMillis() - mLastRefreshingTime;
+        return finishRefresh(Math.max(0, 500 - (int) passTime));//保证刷新动画有1000毫秒的时间
+    }
+
+    /**
+     * 完成加载
+     *
+     * @return SmartRefreshLayout
+     */
+    @Override
+    public SmartRefreshLayout finishLoadMore() {
+        long passTime = System.currentTimeMillis() - mLastLoadingTime;
+        return finishLoadMore(Math.max(0, 500 - (int) passTime));//保证加载动画有1000毫秒的时间
+    }
 }

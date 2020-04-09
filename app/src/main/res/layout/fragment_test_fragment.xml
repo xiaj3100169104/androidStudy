@@ -13,6 +13,6 @@
             android:layout_height="@dimen/status_bar_height"
             android:background="@color/colorPrimary" />
 
-        <include layout="@layout/title_bar_black_text"/>
+        <include layout="@layout/title_bar_white"/>
     </LinearLayout>
 </layout>

@@ -9,7 +9,7 @@
         android:background="@color/windowBackground"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_white_text" />
+        <include layout="@layout/title_bar_red" />
 
         <Button
             android:id="@+id/btn_refresh"

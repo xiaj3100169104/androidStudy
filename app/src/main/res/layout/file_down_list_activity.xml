@@ -5,7 +5,7 @@
     android:background="@color/gray_light"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_white_text" />
+    <include layout="@layout/title_bar_red" />
 
     <TextView
         android:id="@+id/view_batch_download"

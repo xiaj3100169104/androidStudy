@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/title_bar_white_text" />
+            <include layout="@layout/title_bar_red" />
 
             <com.style.view.other.CustomTagsLayout
                 android:id="@+id/tags_container"

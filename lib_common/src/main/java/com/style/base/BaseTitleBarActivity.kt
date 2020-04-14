@@ -1,5 +1,6 @@
 package com.style.base
 
+import android.graphics.Color
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
@@ -14,11 +15,11 @@ import com.style.lib.common.R
 
 abstract class BaseTitleBarActivity : BaseActivity() {
 
-    private lateinit var layoutRoot: LinearLayout
-    private lateinit var statusBar: View
-    private lateinit var layoutTitle: RelativeLayout
-    private lateinit var viewBack: ImageView
-    private lateinit var tvTitle: TextView
+    lateinit var layoutRoot: LinearLayout
+    lateinit var statusBar: View
+    lateinit var layoutTitle: RelativeLayout
+    lateinit var viewBack: ImageView
+    lateinit var tvTitle: TextView
 
     override fun setContentView(contentView: View) {
         super.setContentView(contentView)
@@ -41,10 +42,6 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         onBackPressed()
     }
 
-    fun setTitleBarColor(@ColorInt color: Int) {
-        layoutRoot.setBackgroundColor(color)
-    }
-
     fun setTitleBarTitle(title: String) {
         tvTitle.text = title
     }
@@ -53,13 +50,26 @@ abstract class BaseTitleBarActivity : BaseActivity() {
         tvTitle.text = getContext().getString(resId)
     }
 
-    fun addRightMenu(@LayoutRes resId: Int): View {
-        val menu = layoutInflater.inflate(resId, null)
-        val lp = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+    fun addRightMenu(text: String, whiteText: Boolean): TextView {
+        val menu: TextView = layoutInflater.inflate(R.layout.title_bar_menu_single_text, null) as TextView
+        menu.text = text
+        if (whiteText)
+            menu.setTextColor(Color.WHITE)
+        else
+            menu.setTextColor(Color.GRAY)
+        val mlp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp2px(40f))
+        mlp.marginEnd = dp2px(6f)
+        val lp = RelativeLayout.LayoutParams(mlp)
         lp.addRule(RelativeLayout.ALIGN_PARENT_END)
+        lp.addRule(RelativeLayout.CENTER_VERTICAL)
         layoutTitle.addView(menu, lp)
+        menu.setOnClickListener {
+            onClickTitleOption()
+        }
         return menu
     }
 
+    open fun onClickTitleOption() {
 
+    }
 }

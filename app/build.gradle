@@ -72,7 +72,7 @@ android {
             //v2SigningEnabled false
         }
         release {
-            storeFile file("../app/release.jks")
+            storeFile file("D:/AndroidStudioProjects/androidStudy/app/signingConfig/release.jks")
             storePassword "dmc19910809"
             keyAlias "keyname"
             keyPassword "dmc19910809"

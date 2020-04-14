@@ -2,6 +2,9 @@ package example.activity;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import io.reactivex.Flowable
@@ -17,13 +20,17 @@ class TestRxActivity : BaseTitleBarActivity() {
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_rx)
-        val menu = addRightMenu(R.layout.title_bar_menu_single_text)
-        menu.setOnClickListener {
-            logE(TAG, "menu")
-        }
+        val menu = addRightMenu("menu", true)
+
         btn_just.setOnClickListener { testJust() }
         btn_map.setOnClickListener { testMap() }
         btn_flat_map.setOnClickListener { testFlatMap() }
+    }
+
+    override fun onClickTitleOption() {
+        super.onClickTitleOption()
+        logE(TAG, "menu")
+
     }
 
     @SuppressLint("CheckResult")

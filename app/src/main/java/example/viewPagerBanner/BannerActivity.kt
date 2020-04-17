@@ -22,6 +22,7 @@ package example.viewPagerBanner;
  *^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *         佛祖保佑       永无BUG
  */
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
@@ -39,7 +40,9 @@ class BannerActivity : BaseActivity() {
     private val fadeOut = R.anim.fade_out
 
     override fun setRequestedOrientation(requestedOrientation: Int) {
-        return
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O)
+            return
+        super.setRequestedOrientation(requestedOrientation)
     }
 
     override fun onStart() {

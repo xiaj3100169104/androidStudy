@@ -1,6 +1,7 @@
 package example.gesture;
 
 import android.animation.ValueAnimator;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -31,7 +32,9 @@ public class VerticalSlideFinishActivity extends BaseActivity {
 
     @Override
     public void setRequestedOrientation(int requestedOrientation) {
-        return;
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O)
+            return;
+        super.setRequestedOrientation(requestedOrientation);
     }
 
     @Override

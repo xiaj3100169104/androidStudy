@@ -1,5 +1,6 @@
 package example.gesture;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import com.style.base.BaseTitleBarActivity;
@@ -15,7 +16,9 @@ public class DispatchGestureActivity extends BaseTitleBarActivity {
 
     @Override
     public void setRequestedOrientation(int requestedOrientation) {
-        return;
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O)
+            return;
+        super.setRequestedOrientation(requestedOrientation);
     }
 
     @Override

@@ -26,11 +26,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 public final class RetrofitImpl {
     protected String TAG = this.getClass().getSimpleName();
     private static final long HTTP_TIME_OUT = 5;
+    private final OkHttpClient mOkHttpClient;
 
     private static final Object mLock = new Object();
     private static RetrofitImpl mInstance;
-    private final Retrofit mRetrofit;
-    private final Retrofit mRetrofit2;
 
     public static RetrofitImpl getInstance() {
         synchronized (mLock) {
@@ -42,33 +41,23 @@ public final class RetrofitImpl {
     }
 
     private RetrofitImpl() {
-        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
+        mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(HTTP_TIME_OUT, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(headerInterceptor)
                 .build();
-        mRetrofit = new Retrofit.Builder()
+    }
+
+    public Retrofit getDefaultRetrofit() {
+        Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(AssembleConfig.URL_BASE)
                 .addConverterFactory(CustomConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
                 .client(mOkHttpClient)
                 .build();
-        mRetrofit2 = new Retrofit.Builder()
-                .baseUrl(AssembleConfig.URL_BASE2)
-                .addConverterFactory(CustomConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//添加rxjava转换器
-                .client(mOkHttpClient)
-                .build();
-    }
-
-    public Retrofit getDefaultRetrofit() {
         return mRetrofit;
-    }
-
-    public Retrofit getRetrofit2() {
-        return mRetrofit2;
     }
 
     //日志拦截器

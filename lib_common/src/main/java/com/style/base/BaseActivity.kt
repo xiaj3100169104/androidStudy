@@ -121,8 +121,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         logI(TAG, "onPause-------------")
-        cancelToast()
-        hideKeyboard()
+        InputMethodUtil.hiddenSoftInput(this)
     }
 
     override fun onDestroy() {
@@ -168,10 +167,6 @@ abstract class BaseActivity : AppCompatActivity() {
         progressDialog?.dismiss()
     }
 
-    fun hideKeyboard() {
-        InputMethodUtil.hiddenSoftInput(this)
-    }
-
     fun dp2px(dpValue: Float): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, resources.displayMetrics).toInt();
     }
@@ -188,9 +183,5 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun getStatusHeight(): Int {
         val statusBarHeight: Int = DeviceInfoUtil.getStatusHeight(this)
         return statusBarHeight
-    }
-
-    fun skip(cls: Class<*>) {
-        startActivity(Intent(this, cls))
     }
 }

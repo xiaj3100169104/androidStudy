@@ -1,5 +1,6 @@
 package example.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.FragmentManager;
@@ -47,7 +48,7 @@ public class DialogActivity extends BaseTitleBarActivity {
         bd.viewListPopupWindow.setOnClickListener(v -> showListPopup(v));
         bd.viewSpinner.setOnClickListener(v -> showSpinner());
         bd.viewBottomSheetDialog.setOnClickListener(v -> showBottomSheetDialog());
-        bd.viewNumberSafeKeyboard.setOnClickListener(v -> skip(SafeKeyboardActivity.class));
+        bd.viewNumberSafeKeyboard.setOnClickListener(v -> startActivity(new Intent(this, SafeKeyboardActivity.class)));
         bd.ivLogo.setOnClickListener(v -> showPopupWindow(v));
     }
 

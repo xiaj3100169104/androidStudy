@@ -1,5 +1,6 @@
 package example.web_service;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,7 +26,7 @@ public class WebServiceActivity extends BaseTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_webservice);
         bd = getBinding();
-        mViewModel = getViewModel(WebServiceViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(WebServiceViewModel.class);
         mViewModel.content.observe(this, s -> setContent(s));
     }
 

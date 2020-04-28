@@ -1,5 +1,6 @@
 package example.home.contact
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -26,8 +27,8 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mHostViewModel = getHostViewModel(MainViewModel::class.java)
-        mViewModel = getViewModel(ContactViewModel::class.java)
+        mHostViewModel = ViewModelProviders.of(this.activity!!).get(MainViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
         dataList = ArrayList()
         adapter = FriendAdapter(context, dataList)
         val layoutManager = LinearLayoutManager(context)

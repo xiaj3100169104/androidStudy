@@ -2,6 +2,7 @@ package example.home
 
 import android.Manifest
 import android.app.ActivityManager
+import android.arch.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -80,7 +81,7 @@ class MainActivity : BaseActivity() {
     private fun initData() {
         AppActivityManager.getInstance().setMainTaskId(taskId)
         bd = getBinding()
-        mViewModel = getViewModel(MainViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         appStateReceiver = DeviceStateBroadcastReceiver()
         val filter = IntentFilter(NET_CHANGE)
         filter.addAction(Intent.ACTION_SCREEN_ON)//屏幕点亮

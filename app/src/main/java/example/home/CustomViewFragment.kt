@@ -1,5 +1,6 @@
 package example.home
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,7 @@ class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bd = getBinding(view)
+        bd = DataBindingUtil.bind(view)!!
         bd.btnAlbum.setOnClickListener { skip(SelectLocalPictureActivity::class.java) }
         bd.btnAddress.setOnClickListener { skip(AddressActivity::class.java) }
         bd.btnDialog.setOnClickListener { skip(DialogActivity::class.java) }

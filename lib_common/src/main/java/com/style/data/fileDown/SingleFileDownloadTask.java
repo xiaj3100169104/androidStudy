@@ -109,7 +109,7 @@ public class SingleFileDownloadTask implements Runnable {
     }
 
     private FileDownloadStateDao getFileDownloadDao() {
-        return AppDatabase.getInstance(AppActivityManager.Companion.getInstance().getContext()).getFileDownloadDao();
+        return AppDatabase.getInstance(AppActivityManager.Companion.getInstance().getApp()).getFileDownloadDao();
     }
 
     /**

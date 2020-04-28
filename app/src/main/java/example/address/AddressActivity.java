@@ -2,6 +2,7 @@ package example.address;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -46,7 +47,7 @@ public class AddressActivity extends BaseTitleBarActivity {
         setContentView(R.layout.activity_address);
         setTitleBarTitle("通讯录");
         bd = getBinding();
-        mPresenter = getViewModel(AddressViewModel.class);
+        mPresenter = ViewModelProviders.of(this).get(AddressViewModel.class);
         mPresenter.contacts.observe(this, uploadPhones -> {
             setData(uploadPhones);
         });

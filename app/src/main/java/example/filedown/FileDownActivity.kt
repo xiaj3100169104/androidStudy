@@ -1,6 +1,7 @@
 package example.filedown
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -92,7 +93,7 @@ class FileDownActivity : BaseTitleBarActivity() {
         })
         view_batch_download.setOnClickListener { batchDownload() }
         EventBus.getDefault().register(this)
-        mViewModel = getViewModel(FileDownListViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(FileDownListViewModel::class.java)
         mViewModel.files.observe(this, Observer<ArrayList<CustomFileBean>> { t ->
             refreshData(t)
         })

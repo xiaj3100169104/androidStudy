@@ -52,33 +52,8 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged()
     }
 
-    fun addData(e: T) {
-        this.list.add(e)
-        notifyDataSetChanged()
-    }
-
-    fun addData(list: ArrayList<T>) {
-        this.list.addAll(list)
-        notifyDataSetChanged()
-    }
-
     fun getData(position: Int): T {
         return list[position]
-    }
-
-    fun removeData(position: Int) {
-        this.list.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun removeData(e: T) {
-        this.list.remove(e)
-        notifyDataSetChanged()
-    }
-
-    fun updateData(position: Int, e: T) {
-        list[position] = e
-        notifyItemChanged(position)
     }
 
     fun clearData() {
@@ -123,14 +98,6 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
 
     interface OnItemLongClickListener<T> {
         fun onItemLongClick(itemView: View, position: Int, data: T)
-    }
-
-    fun showToast(str: CharSequence) {
-        ToastManager.showToast(context, str)
-    }
-
-    fun showToast(@StringRes resId: Int) {
-        showToast(context.getText(resId))
     }
 
     fun logE(tag: String, msg: String) {

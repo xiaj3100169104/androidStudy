@@ -1,5 +1,6 @@
 package example.db;
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
@@ -12,7 +13,7 @@ class TestRoomActivity : BaseTitleBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_test_room)
         setTitleBarTitle("room test")
-        mViewModel = getViewModel(TestRoomViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(TestRoomViewModel::class.java)
         btn_room_insert_one.setOnClickListener { mViewModel.saveOne() }
         btn_room_insert_list.setOnClickListener { mViewModel.saveList() }
         btn_room_query_all.setOnClickListener { mViewModel.queryAll() }

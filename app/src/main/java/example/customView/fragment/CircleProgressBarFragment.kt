@@ -1,5 +1,6 @@
 package example.customView.fragment
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ class CircleProgressBarFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bd = getBinding(view)
+        bd = DataBindingUtil.bind(view)!!
 
         bd.button.setOnClickListener { v ->
             val n = (Math.random() * 100).toInt()

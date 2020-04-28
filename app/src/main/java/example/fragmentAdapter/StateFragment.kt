@@ -33,7 +33,7 @@ class StateFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = arguments?.getString("title")!!
-        mViewModel = getViewModel(StateFragmentViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(StateFragmentViewModel::class.java)
         mViewModel.data.observe(this, Observer<ArrayList<String>> { d ->
             if (d != null) {
                 this.dataList.addAll(d)

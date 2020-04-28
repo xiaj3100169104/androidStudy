@@ -1,5 +1,6 @@
 package example.fragmentAdapter;
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import com.style.base.BaseTitleBarActivity
@@ -22,7 +23,7 @@ class StateFragmentActivity : BaseTitleBarActivity() {
 
     fun initData() {
         setTitleBarTitle("fragmentStatePagerAdapter")
-        mViewModel = getViewModel(StateFragmentActivityViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(StateFragmentActivityViewModel::class.java)
         val titles = mViewModel.getTitleData()
         val data = mViewModel.datas
         titles.forEachIndexed { index, s ->

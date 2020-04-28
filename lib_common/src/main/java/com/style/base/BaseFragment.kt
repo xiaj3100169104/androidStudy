@@ -1,17 +1,12 @@
 package com.style.base
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
-import android.view.View
-import com.style.utils.LogManager
 import com.style.toast.ToastManager
 import com.style.utils.DeviceInfoUtil
+import com.style.utils.LogManager
 import org.simple.eventbus.EventBus
 
 abstract class BaseFragment : Fragment() {
@@ -20,18 +15,6 @@ abstract class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
-    }
-
-    fun <T : ViewDataBinding> getBinding(view: View): T {
-        return DataBindingUtil.bind(view)!!
-    }
-
-    fun <T : ViewModel> getHostViewModel(modelClass: Class<T>): T {
-        return ViewModelProviders.of(this.activity!!).get(modelClass)
-    }
-
-    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
-        return ViewModelProviders.of(this).get(modelClass)
     }
 
     override fun onDestroy() {

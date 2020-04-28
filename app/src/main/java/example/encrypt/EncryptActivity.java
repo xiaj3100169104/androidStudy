@@ -1,5 +1,6 @@
 package example.encrypt;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.text.Html;
 
@@ -21,7 +22,7 @@ public class EncryptActivity extends BaseTitleBarActivity {
         super.onCreate(arg0);
         setContentView(R.layout.activity_encrypt);
         bd = getBinding();
-        mViewModel = getViewModel(EncryptViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(EncryptViewModel.class);
         String textStr = "本月已成功邀请 <strong><font color=\"#FF0000\">" + 100 + "</font></strong>人";
         bd.tvHtml.setText(Html.fromHtml(textStr));
         bd.btnAesEncrypt.setOnClickListener(v -> AESEncrypt());

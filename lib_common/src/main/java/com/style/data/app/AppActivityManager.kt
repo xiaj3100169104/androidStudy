@@ -17,7 +17,7 @@ class AppActivityManager {
     val TAG = "AppActivityManager"
     private var activityCount: Int = 0
     private var isRunInBackground: Boolean = false
-    private var app: Application? = null
+    private lateinit var app: Application
     private var taskId: Int? = null
     private var mainTaskId: Int? = null
 
@@ -44,8 +44,8 @@ class AppActivityManager {
         initBackgroundCallBack(this.app)
     }
 
-    fun getContext(): Context {
-        return app as Context
+    fun getApp(): Application {
+        return app
     }
 
     private fun initBackgroundCallBack(app: Application?) {

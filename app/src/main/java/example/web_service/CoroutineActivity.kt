@@ -1,6 +1,7 @@
 package example.web_service
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 
@@ -26,7 +27,7 @@ class CoroutineActivity : BaseTitleBarActivity() {
         super.onCreate(arg0)
         setContentView(R.layout.activity_coroutine)
         bd = getBinding()
-        mViewModel = getViewModel(WebServiceViewModel::class.java)
+        mViewModel = ViewModelProviders.of(this).get(WebServiceViewModel::class.java)
         mViewModel.content.observe(this, Observer<String> { s -> setContent(s!!) })
     }
 

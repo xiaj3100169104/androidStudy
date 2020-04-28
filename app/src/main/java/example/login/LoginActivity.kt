@@ -1,6 +1,7 @@
 package example.login
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.Observable
 import android.os.Bundle
@@ -30,7 +31,7 @@ class LoginActivity : BaseActivity() {
         bd.etPassword.keyListener = DigitsKeyListener.getInstance(digits)
         //keyListener与inputType有冲突，先设置的会被覆盖
         //bd.etPassword.inputType = InputType.TYPE_CLASS_TEXT
-        loginModel = getViewModel(LoginModel::class.java)
+        loginModel = ViewModelProviders.of(this).get(LoginModel::class.java)
         loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable, i: Int) {
                 if (loginModel.loginSucceed.get()) {

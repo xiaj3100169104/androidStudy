@@ -14,6 +14,8 @@ import com.style.data.http.function.impl.UserNetSourceImpl;
 import com.style.data.http.function.impl.WebNetSourceImpl;
 import com.style.http.exception.HttpResultException;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.ResponseBody;
@@ -59,7 +61,17 @@ public class WebServiceViewModel extends BaseViewModel {
                 .flatMap(kuaiDis -> WebNetSourceImpl.getKuaiDi("", ""))
                 .subscribe(s2 ->
                                 content.postValue(s2)
-                        , new HttpExceptionConsumer());
+                        , new HttpExceptionConsumer() {
+                            @Override
+                            public void accept(@NotNull Throwable e) {
+                                super.accept(e);
+                            }
+
+                            @Override
+                            public void onOtherError(@NotNull HttpResultException t) {
+                                super.onOtherError(t);
+                            }
+                        });
         addTask(d);
     }
 

@@ -6,30 +6,25 @@ import com.style.http.exception.HttpResultException
 import com.style.http.exception.HttpThrowableUtil
 import io.reactivex.functions.Consumer
 
-class HttpExceptionConsumer : Consumer<Throwable> {
+open class HttpExceptionConsumer : Consumer<Throwable> {
     override fun accept(e: Throwable) {
         val t = HttpThrowableUtil.handleHttpError(e)
-        when {
-            HttpResultException.TOKEN_INVALID == t.errorCode -> onTokenError(t)
-            HttpResultException.NETWORK_ERROR == t.errorCode -> onNetworkError(t)
+        when (t.errorCode) {
+            HttpResultException.TOKEN_INVALID -> onTokenError(t)
+            HttpResultException.NETWORK_ERROR -> onNetworkError(t)
             else -> onOtherError(t)
         }
     }
 
-    private fun onOtherError(t: HttpResultException) {
-        showToast(t.msg)
+    open fun onOtherError(t: HttpResultException) {
+        ToastManager.showToast(AppActivityManager.getInstance().getApp(), t.msg)
     }
 
     open fun onNetworkError(t: HttpResultException) {
-        showToast(t.msg)
+        ToastManager.showToast(AppActivityManager.getInstance().getApp(), t.msg)
     }
 
     open fun onTokenError(t: HttpResultException) {
-        showToast(t.msg)
-        //MyApp.onTokenError()
-    }
-
-    private fun showToast(str: CharSequence) {
-        ToastManager.showToast(AppActivityManager.getInstance().getContext(), str)
+        ToastManager.showToast(AppActivityManager.getInstance().getApp(), t.msg)
     }
 }

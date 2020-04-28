@@ -80,10 +80,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return DataBindingUtil.bind(getContentView())!!
     }
 
-    fun <T : ViewModel> getViewModel(modelClass: Class<T>): T {
-        return ViewModelProviders.of(this).get(modelClass)
-    }
-
     fun setFullScreenStableDarkMode(dark: Boolean) {
         setFullScreenStableDarkMode(dark, resources.getColor(android.R.color.transparent))
     }

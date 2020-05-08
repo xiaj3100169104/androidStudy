@@ -81,7 +81,7 @@ public class WheelActivity extends BaseTitleBarActivity {
         if (twoChoiceDialog == null) {
             twoChoiceDialog = new AgeScreenDialog(this);
         }
-        twoChoiceDialog.setAddresskListener(new BaseDoubleWheelDialog.OnAddressCListener() {
+        twoChoiceDialog.setAddresskListener(new AgeScreenDialog.OnAddressCListener() {
             @Override
             public void onClick(String province, String city) {
                 logE("city", province + " - " + city);

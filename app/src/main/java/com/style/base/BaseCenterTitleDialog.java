@@ -17,7 +17,6 @@ import com.style.framework.R;
 
 public abstract class BaseCenterTitleDialog extends BaseDialog {
     private TextView tv_title;
-
     private TextView btnSure;
     private TextView btnCancel;
 

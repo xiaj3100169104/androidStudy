@@ -4,12 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
 
 import com.aigestudio.wheelpicker.WheelPicker;
-import com.style.base.BaseBottomDialog;
+import com.style.base.BaseDialog;
 import com.style.framework.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,14 +21,15 @@ import java.util.List;
  *
  * @author ywl
  */
-public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
+public abstract class BaseSingleWheelDialog extends BaseDialog {
+    private TextView btnSure;
     private WheelPicker wheelCenter;
-    private List<String> dataList = new ArrayList<>();
+    private List<String> dataList;
     private OnSureClickListener listener;
     private String currentItem;
 
     public BaseSingleWheelDialog(Context context, List<String> list) {
-        super(context);
+        super(context, R.style.Dialog_General);
         dataList = list;
     }
 
@@ -32,6 +37,11 @@ public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_single_wheel_dialog);
+        Window window = getWindow();
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        window.setLayout(getScreenWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setWindowAnimations(R.style.Animations_SlideInFromBottom_OutToBottom);
+        window.setGravity(Gravity.BOTTOM);
         initView();
     }
 
@@ -65,6 +75,17 @@ public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
 
             }
         });
+
+        btnSure = (TextView) findViewById(R.id.btn_ok);
+        btnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(currentItem);
+                }
+                dismiss();
+            }
+        });
     }
 
     public void setCurrentItem(String str) {
@@ -78,14 +99,6 @@ public abstract class BaseSingleWheelDialog extends BaseBottomDialog {
 
     public void setOnSureClickListener(OnSureClickListener listener) {
         this.listener = listener;
-    }
-
-    @Override
-    public void onClickSure() {
-        if (listener != null) {
-            listener.onClick(currentItem);
-        }
-        super.onClickSure();
     }
 
     public interface OnSureClickListener {

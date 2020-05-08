@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.view.ContextThemeWrapper;
 
-import com.style.utils.DeviceInfoUtil;
 import com.style.toast.SmartToast;
 
 /**

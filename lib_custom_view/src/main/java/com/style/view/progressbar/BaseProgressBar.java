@@ -18,7 +18,7 @@ public abstract class BaseProgressBar extends View {
     private int max = DEFAULT_MAX;
     //进度
     private int progress = 0;
-    private PercentThread percentThread;
+    private AnimationThread percentThread;
 
     public BaseProgressBar(Context context) {
         super(context);
@@ -58,16 +58,20 @@ public abstract class BaseProgressBar extends View {
             percentThread.setStop();
             percentThread.interrupt();
         }
-        percentThread = new PercentThread(progress);
+        percentThread = new AnimationThread(progress);
         percentThread.start();
     }
 
-    private class PercentThread extends Thread {
-        private int percent;
+    private class AnimationThread extends Thread {
+        private int maxValue;
         private boolean canContinue = true;
 
-        public PercentThread(int percent) {
-            this.percent = percent;
+        public AnimationThread(int v) {
+            this.maxValue = v;
+        }
+
+        public void setMaxValue(int V) {
+            this.maxValue = V;
         }
 
         @Override
@@ -75,7 +79,7 @@ public abstract class BaseProgressBar extends View {
             try {
                 //间隔时间太短根本看不出动画效果
                 int sleepTime = 0;
-                for (int i = 0; i <= percent; i++) {
+                for (int i = 0; i <= maxValue; i++) {
                     if (canContinue) {
                         if (i % 20 == 0) {
                             sleepTime += 2;

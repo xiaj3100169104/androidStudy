@@ -78,5 +78,6 @@
         <attr name="pie_chart_finished_start_angle" format="float" />
         <attr name="pie_chart_stroke_width" format="dimension" />
         <attr name="pie_chart_max" format="integer" />
+        <attr name="pie_chart_arc_offset" format="dimension" />
     </declare-styleable>
 </resources>

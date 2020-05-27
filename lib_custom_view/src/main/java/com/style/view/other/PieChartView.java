@@ -22,14 +22,18 @@ import java.util.List;
 public class PieChartView extends BaseProgressBar {
 
     private final float default_stroke_width;
+    private final float default_src_offset = 0f;
     private Paint paint;
     protected Paint textPaint;
     private RectF rectF = new RectF();
 
     private float strokeWidth;
+    private float srcOffset;
     private int interval;
     private float arcFinishedStartAngle = 0;
     private List<PartItem> items;
+    private int mViewWidth;
+    private int mViewHeight;
 
     public PieChartView(Context context) {
         this(context, null);
@@ -46,6 +50,7 @@ public class PieChartView extends BaseProgressBar {
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PieChart, defStyleAttr, 0);
         strokeWidth = attributes.getDimension(R.styleable.PieChart_pie_chart_stroke_width, default_stroke_width);
         arcFinishedStartAngle = attributes.getFloat(R.styleable.PieChart_pie_chart_finished_start_angle, arcFinishedStartAngle);
+        srcOffset = attributes.getDimension(R.styleable.PieChart_pie_chart_arc_offset, default_src_offset);
         attributes.recycle();
         initPainters();
         setItems(getTestData());
@@ -64,10 +69,8 @@ public class PieChartView extends BaseProgressBar {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        //饼状图矩形区域,注意这里的矩形边界是指矩形边框的中间位置
-        rectF.set(strokeWidth / 1f, strokeWidth / 1f, width - strokeWidth / 1f, height - strokeWidth / 1f);
+        mViewWidth = MeasureSpec.getSize(widthMeasureSpec);
+        mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
     }
 
     @Override
@@ -82,11 +85,28 @@ public class PieChartView extends BaseProgressBar {
         paint.setStrokeWidth(strokeWidth);
         paint.setStyle(Paint.Style.STROKE);
         int startAngle = 0;
+        int totalAngle = 0;
         for (int i = 0; i < data.size(); i++) {
             PartItem item = data.get(i);
             paint.setColor(item.color);
             float itemSweepAngle = item.progress / (float) getMax() * 360;
             float progressAngle = getProgress() / (float) getMax() * 360;
+
+            //饼状图矩形区域,注意这里的矩形边界是指矩形边框的中间位置
+            rectF.set(strokeWidth / 1f, strokeWidth / 1f, mViewWidth - strokeWidth / 1f, mViewHeight - strokeWidth / 1f);
+            float a;
+            if (i == 0)
+                a = itemSweepAngle / 2;
+            else
+                a = totalAngle + itemSweepAngle / 2;
+            totalAngle += itemSweepAngle;
+
+            float xOffset = 0.0f, yOffset = 0.0f;
+            if (srcOffset > 0) {
+                xOffset = (float) (srcOffset * Math.cos(Math.toRadians(a)));
+                yOffset = (float) (srcOffset * Math.sin(Math.toRadians(a)));
+            }
+            rectF.offset(xOffset, yOffset);
             //有动画时
             if (startAngle + itemSweepAngle > progressAngle) {
                 itemSweepAngle = progressAngle - startAngle;
@@ -115,7 +135,7 @@ public class PieChartView extends BaseProgressBar {
     }
 
     public List<PartItem> getTestData() {
-        int[] colors = {Color.parseColor("#C0FF3E"), Color.parseColor("#FFF68F"), Color.parseColor("#FFDAB9"), Color.parseColor("#97FFFF")};
+        int[] colors = {Color.parseColor("#FF0000"), Color.parseColor("#0000FF"), Color.parseColor("#EE3B3B"), Color.parseColor("#696969")};
         int[] percents = {15, 25, 35, 25};
         List<PartItem> list = new ArrayList<>();
         PartItem item;

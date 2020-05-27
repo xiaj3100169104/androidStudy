@@ -24,7 +24,7 @@ public class SineCurve extends View {
 
     //波峰、波谷拉长倍数
     private float amplitude = 50;//振幅
-    //同一时刻显示多少个波长
+    //指定宽度内绘制多少个完整波
     private float frequency = 2;//频率
     //开始角度
     private double startAngle = 0.00;
@@ -58,8 +58,10 @@ public class SineCurve extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        double startRadians = Math.toRadians(startAngle);
+        double scale = (2 * Math.PI * frequency) / mWidth;
         for (double i = 0; i < mWidth; i++) {
-            double y1 = amplitude * Math.sin(i / mWidth * (2 * Math.PI * frequency) - startAngle);
+            double y1 = amplitude * Math.sin(i * scale - startRadians);
             float x = (float) i;
             float y = waveHeight - (float) y1;
             //Log.e(TAG, "x=" + x + "   y=" + y);

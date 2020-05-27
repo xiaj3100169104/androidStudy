@@ -99,10 +99,8 @@ public class SportDayCircleView extends BaseProgressBar {
         canvas.drawArc(rectF, 0, finishedSweepAngle, false, paint);
 
         canvas.translate(getWidth() / 2f, getWidth() / 2f);
-        //弧度，单位π
-        double radian = finishedSweepAngle / 180f * Math.PI;
-        float x = (float) (radius * Math.cos(radian));
-        float y = (float) (radius * Math.sin(radian));
+        float x = (float) (radius * Math.cos(Math.toRadians(finishedSweepAngle)));
+        float y = (float) (radius * Math.sin(Math.toRadians(finishedSweepAngle)));
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(smallCircleColor);
         canvas.drawCircle(x, y, smallCircleRasius, paint);

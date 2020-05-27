@@ -143,13 +143,12 @@ public class WaterPoloProgress extends View {
         wavePath.reset();
         //注意百分比越大，y应该越小
         float waveHeight = mCurPercent / 100 * mHeight;
-        //降角度值转化为Math.PI形式,
-        //特别注意startAngle要转化为小数形式，不然结果会有问题
-        double startAnglePI = ((double) startAngle / 360.00) * Math.PI * 2;
+        double startRadians = Math.toRadians(startAngle);
         float startX = 0;
         float startY = 0;
+        double scale = (2 * Math.PI * frequency) / mWidth;
         for (double i = 0; i < mWidth; i++) {
-            float y1 = (float) (amplitude * Math.sin(i / mWidth * (2 * Math.PI * frequency) + startAnglePI));
+            float y1 = (float) (amplitude * Math.sin(i * scale + startRadians));
             //横坐标
             float x = (float) i;
             //纵坐标

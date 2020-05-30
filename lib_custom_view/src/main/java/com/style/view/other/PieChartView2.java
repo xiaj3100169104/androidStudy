@@ -91,6 +91,9 @@ public class PieChartView2 extends BaseProgressBar {
             PartItem item = data.get(i);
             piepaint.setColor(item.color);
             float itemSweepAngle = item.progress / (float) getMax() * 360;
+            //最后一条数据特殊处理
+            if (i == data.size() - 1)
+                itemSweepAngle = 360 - startAngle;
             float progressAngle = getProgress() / (float) getMax() * 360;
             //有动画时
             if (startAngle + itemSweepAngle > progressAngle) {

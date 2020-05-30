@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -19,45 +18,52 @@ import java.util.List;
 /**
  * 饼状图
  */
-public class PieChartView extends BaseProgressBar {
+public class PieChartView2 extends BaseProgressBar {
 
     private final float default_stroke_width;
     private final float default_src_offset = 0f;
-    private Paint paint;
+    private Paint piepaint;
+    private Paint outerLinePaint;
     private RectF rectF = new RectF();
 
-    private float strokeWidth;
+    private float srcRadius;
     private float srcOffset;
+    private float strokeWidth;
     private float arcFinishedStartAngle = 0;
     private List<PartItem> items;
     private int mViewWidth;
     private int mViewHeight;
 
-    public PieChartView(Context context) {
+    public PieChartView2(Context context) {
         this(context, null);
     }
 
-    public PieChartView(Context context, AttributeSet attrs) {
+    public PieChartView2(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PieChartView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PieChartView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         default_stroke_width = dp2px(context, 4);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PieChart, defStyleAttr, 0);
-        strokeWidth = attributes.getDimension(R.styleable.PieChart_pie_chart_stroke_width, default_stroke_width);
         arcFinishedStartAngle = attributes.getFloat(R.styleable.PieChart_pie_chart_finished_start_angle, arcFinishedStartAngle);
+        srcRadius = attributes.getDimension(R.styleable.PieChart_pie_chart_arc_radius, 0);
         srcOffset = attributes.getDimension(R.styleable.PieChart_pie_chart_arc_offset, default_src_offset);
+        strokeWidth = attributes.getDimension(R.styleable.PieChart_pie_chart_stroke_width, default_stroke_width);
         attributes.recycle();
         initPainters();
         setItems(getTestData());
     }
 
     protected void initPainters() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        //paint.setStrokeWidth(strokeWidth);
-        //paint.setStyle(Paint.Style.STROKE);
+        piepaint = new Paint();
+        piepaint.setAntiAlias(true);
+        piepaint.setStyle(Paint.Style.FILL);
+        outerLinePaint = new Paint();
+        outerLinePaint.setAntiAlias(true);
+        outerLinePaint.setStyle(Paint.Style.STROKE);
+        outerLinePaint.setStrokeWidth(srcOffset);
+        outerLinePaint.setColor(Color.WHITE);
     }
 
     @Override
@@ -76,42 +82,31 @@ public class PieChartView extends BaseProgressBar {
         canvas.save();
         //以画布中心点旋转坐标系
         canvas.rotate(arcFinishedStartAngle, getWidth() / 2, getHeight() / 2);
-        paint.setStyle(Paint.Style.FILL);
+        //饼状图矩形区域,注意这里的矩形边界是指矩形边框的中间位置
+        //rectF.set(strokeWidth / 1f, strokeWidth / 1f, mViewWidth - strokeWidth / 1f, mViewHeight - strokeWidth / 1f);
+        rectF.set((mViewWidth - srcRadius * 2) / 2, (mViewHeight - srcRadius * 2) / 2, (mViewWidth - srcRadius * 2) / 2 + srcRadius * 2, (mViewHeight - srcRadius * 2) / 2 + srcRadius * 2);
+
         int startAngle = 0;
-        int totalAngle = 0;
         for (int i = 0; i < data.size(); i++) {
             PartItem item = data.get(i);
-            paint.setColor(item.color);
+            piepaint.setColor(item.color);
             float itemSweepAngle = item.progress / (float) getMax() * 360;
             float progressAngle = getProgress() / (float) getMax() * 360;
-
-            //饼状图矩形区域,注意这里的矩形边界是指矩形边框的中间位置
-            rectF.set(strokeWidth / 1f, strokeWidth / 1f, mViewWidth - strokeWidth / 1f, mViewHeight - strokeWidth / 1f);
-            float a;
-            if (i == 0)
-                a = itemSweepAngle / 2;
-            else
-                a = totalAngle + itemSweepAngle / 2;
-            totalAngle += itemSweepAngle;
-
-            float xOffset = 0.0f, yOffset = 0.0f;
-            if (srcOffset > 0) {
-                xOffset = (float) (srcOffset * Math.cos(Math.toRadians(a)));
-                yOffset = (float) (srcOffset * Math.sin(Math.toRadians(a)));
-            }
-            rectF.offset(xOffset, yOffset);
             //有动画时
             if (startAngle + itemSweepAngle > progressAngle) {
                 itemSweepAngle = progressAngle - startAngle;
-                canvas.drawArc(rectF, startAngle, itemSweepAngle, false, paint);
+                canvas.drawArc(rectF, startAngle, itemSweepAngle, true, piepaint);
                 break;
             }
-            canvas.drawArc(rectF, startAngle, itemSweepAngle, true, paint);
+            canvas.drawArc(rectF, startAngle, itemSweepAngle, true, piepaint);
+            outerLinePaint.setStyle(Paint.Style.FILL);
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, strokeWidth, outerLinePaint);
+            if (srcOffset > 0) {
+                outerLinePaint.setStyle(Paint.Style.STROKE);
+                outerLinePaint.setStrokeWidth(srcOffset);
+                canvas.drawArc(rectF, startAngle, itemSweepAngle, true, outerLinePaint);
+            }
             startAngle += itemSweepAngle;
-        }
-        if (srcOffset > 0) {
-            paint.setStyle(Paint.Style.STROKE);
-            canvas.drawCircle(mViewWidth / 2, mViewHeight / 2, srcOffset, paint);
         }
         canvas.restore();
     }

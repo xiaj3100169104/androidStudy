@@ -86,6 +86,7 @@ public class PieChartView2 extends BaseProgressBar {
         //rectF.set(strokeWidth / 1f, strokeWidth / 1f, mViewWidth - strokeWidth / 1f, mViewHeight - strokeWidth / 1f);
         rectF.set((mViewWidth - srcRadius * 2) / 2, (mViewHeight - srcRadius * 2) / 2, (mViewWidth - srcRadius * 2) / 2 + srcRadius * 2, (mViewHeight - srcRadius * 2) / 2 + srcRadius * 2);
 
+        float innerRadius = srcRadius - strokeWidth;
         int startAngle = 0;
         for (int i = 0; i < data.size(); i++) {
             PartItem item = data.get(i);
@@ -103,7 +104,7 @@ public class PieChartView2 extends BaseProgressBar {
             }
             canvas.drawArc(rectF, startAngle, itemSweepAngle, true, piepaint);
             outerLinePaint.setStyle(Paint.Style.FILL);
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, strokeWidth, outerLinePaint);
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, innerRadius, outerLinePaint);
             if (srcOffset > 0) {
                 outerLinePaint.setStyle(Paint.Style.STROKE);
                 outerLinePaint.setStrokeWidth(srcOffset);

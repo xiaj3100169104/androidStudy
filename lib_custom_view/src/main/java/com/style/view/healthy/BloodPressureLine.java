@@ -146,7 +146,6 @@ public class BloodPressureLine extends View {
         canvas.save();
         canvas.translate(xStartOffset, yStartOffset + mYaxisHeight);
 
-        //内部边距，防止柱子与y轴左右边界线重合
         BloodItem item;
         //LinearGradient gradient;
         for (int i = 0; i < mItemList.size(); i++) {

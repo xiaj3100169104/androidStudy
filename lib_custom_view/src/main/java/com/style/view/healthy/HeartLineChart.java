@@ -204,7 +204,7 @@ public class HeartLineChart extends View {
                         canvas.drawLine(nowX, nowY, nextX, nextY, mChartPaint);
                     }
                     if (i % 5 == 0)
-                        canvas.drawText(item.xLabel, nowX, getBaseLine(0, (int) (labelXHeight + mPadding), mLabelXPaint.getFontMetricsInt()), mLabelXPaint);
+                        canvas.drawText(item.xLabel, nowX, (labelXHeight + mPadding) / 2 + getBaseLine2CenterY(mLabelXPaint.getFontMetrics()), mLabelXPaint);
                 }
             }
         }
@@ -212,13 +212,13 @@ public class HeartLineChart extends View {
     }
 
     /**
-     * 根据矩形区域换算文字的BaseLine
-     * 绘制在top与bottom中间的文字
+     * 计算绘制文字时的基线到中轴线的距离
      *
-     * @return
+     * @param fontMetrics
+     * @return 基线和centerY的距离
      */
-    private int getBaseLine(int top, int bottom, Paint.FontMetricsInt metricsInt) {
-        return (top + bottom - metricsInt.bottom - metricsInt.top) / 2;
+    public static float getBaseLine2CenterY(Paint.FontMetrics fontMetrics) {
+        return (fontMetrics.descent - fontMetrics.ascent) / 2 - fontMetrics.descent;
     }
 
     public void setData(List<HeartLineItem> list) {

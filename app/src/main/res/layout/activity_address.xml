@@ -75,7 +75,7 @@
                     android:textSize="30.0dip"
                     android:visibility="invisible" />
 
-                <example.address.IndexBar
+                <com.style.view.sort.IndexBar
                     android:id="@+id/index_bar"
                     android:layout_width="16dp"
                     android:layout_height="wrap_content"

@@ -18,6 +18,8 @@ import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivityAddressBinding;
 import com.style.view.diviver.DividerItemDecoration;
+import com.style.view.sort.FloatingBarItemDecoration;
+import com.style.view.sort.IndexBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.jetbrains.annotations.Nullable;

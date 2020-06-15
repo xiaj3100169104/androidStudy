@@ -1,8 +1,9 @@
-package example.address;
+package com.style.view.sort;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
@@ -10,9 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
-
-import com.style.framework.R;
-import com.style.utils.DeviceInfoUtil;
 
 import java.util.Map;
 
@@ -34,17 +32,20 @@ public class FloatingBarItemDecoration extends RecyclerView.ItemDecoration {
     private Map<Integer, String> mList;
 
     public FloatingBarItemDecoration(Context context, Map<Integer, String> list) {
+        this(context, list, Color.parseColor("#FFF5F5F5"), Color.parseColor("#474747"));
+    }
+
+    public FloatingBarItemDecoration(Context context, Map<Integer, String> list, int bgColor, int textColor) {
         this.mContext = context;
-        Resources resources = mContext.getResources();
         this.mList = list;
         this.mTitleHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, context.getResources().getDisplayMetrics());
 
         mBackgroundPaint = new Paint();
-        mBackgroundPaint.setColor(ContextCompat.getColor(mContext, R.color.white));
+        mBackgroundPaint.setColor(bgColor);
 
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
-        mTextPaint.setColor(ContextCompat.getColor(mContext, R.color.bar_color));
+        mTextPaint.setColor(textColor);
         mTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, context.getResources().getDisplayMetrics()));
 
         Paint.FontMetrics fm = mTextPaint.getFontMetrics();

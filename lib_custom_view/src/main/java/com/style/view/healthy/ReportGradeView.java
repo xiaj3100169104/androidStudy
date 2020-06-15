@@ -2,6 +2,7 @@ package com.style.view.healthy;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -27,35 +28,33 @@ public class ReportGradeView extends View {
     private Path mShaderAreaPath;
     private Path mLinePath;
 
-    private Paint bgPaint;
     private Paint linePaint;
     private Paint shaderAreaPaint;
     private TextPaint axisTextPaint;
+    private TextPaint touchTextPaint;
 
+    //曲线、竖线宽度
+    private float mLineWidth;
     //颜色
     private int lineColor = 0xFF61A5E8;
     private int rectHighColor = 0xFFCDEAFF;
     private int rectLowColor = 0x47FCF6FC;
     private int whiteColor = 0xFFffffff;
     private int axisTextColor = 0xFFB3B3B3;
-    private int touchTextColor = 0xFFA8A7B4;
+    private int touchTextColor = 0xFF242424;
 
-    //曲线、竖线宽度
-    private float mLineWidth;
-    //坐标文本高度
-    private float labelHeight;
-    //点击文本高度
-    private float touchLabelHeight;
-    //坐标文本宽度
-    private float labelYWidth;
-    //点击文本宽度
-    private float touchLabelWidth;
     //控件宽高
     private int mViewWidth, mViewHeight;
+    //边距
+    private float paddingX, paddingY;
+    //坐标文本宽高
+    private float labelYWidth, labelHeight;
     //XY轴宽高
     private float mAxisWidth, mAxisHeight;
-    //数据x轴间隔
-    private float paddingX, paddingY;
+    //数据项间距
+    private float mIntervalWidth;
+    //点击文本
+    private float touchLabelHeight, touchLabelWidth;
     private ArrayList<PointItem> dataList = new ArrayList<>();
     private ArrayList<String> mXlabelList = new ArrayList<>();
     private ArrayList<PointF> mControlPointList = new ArrayList<>();
@@ -65,9 +64,11 @@ public class ReportGradeView extends View {
     public ReportGradeView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        mLineWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
         paddingY = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
         paddingX = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
-        mLineWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+        touchLabelWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+        touchLabelHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         mShaderAreaPath = new Path();
         mLinePath = new Path();
         init(context);
@@ -75,10 +76,6 @@ public class ReportGradeView extends View {
     }
 
     private void init(Context context) {
-        bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        bgPaint.setStrokeWidth(mLineWidth);
-        bgPaint.setStyle(Paint.Style.FILL);
-
         linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         linePaint.setStrokeJoin(Paint.Join.ROUND);// 笔刷图形样式
         linePaint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔转弯的连接风格
@@ -98,6 +95,9 @@ public class ReportGradeView extends View {
         axisTextPaint.setColor(axisTextColor);
         labelHeight = axisTextPaint.getFontMetrics().bottom - axisTextPaint.getFontMetrics().top;
         labelYWidth = axisTextPaint.measureText("100");
+
+        touchTextPaint = new TextPaint(axisTextPaint);
+        touchTextPaint.setColor(touchTextColor);
     }
 
     @Override
@@ -133,9 +133,6 @@ public class ReportGradeView extends View {
         drawXLabel(canvas);
         drawLineAndShaderArea(canvas);
         drawDataCircle(canvas);
-        if (mSpot >= 0 && mSpot < dataList.size()) {
-            //drawTouchData(canvas);
-        }
     }
 
     private void drawYLabel(Canvas canvas) {
@@ -203,12 +200,35 @@ public class ReportGradeView extends View {
                 linePaint.setStyle(Paint.Style.FILL);
                 linePaint.setColor(whiteColor);
                 canvas.drawCircle(x, y, mLineWidth * 7, linePaint);
-                linePaint.setColor(lineColor);
+                if (mSpot >= 0 && mSpot < dataList.size() && mSpot == i) {
+                    linePaint.setColor(Color.parseColor("#00ff00"));
+                } else
+                    linePaint.setColor(lineColor);
                 canvas.drawCircle(x, y, mLineWidth * 4, linePaint);
                 linePaint.setStyle(Paint.Style.STROKE);
                 linePaint.setStrokeWidth(mLineWidth);
                 canvas.drawCircle(x, y, mLineWidth * 7, linePaint);
 
+            }
+            for (int i = 0; i < dataList.size(); i++) {
+                if (mSpot >= 0 && mSpot < dataList.size() && mSpot == i) {
+                    PointItem item = dataList.get(i);
+                    float x = item.x;
+                    float y = item.y;                    //画点中点数据
+                    if (x < mAxisWidth + paddingX - touchLabelWidth - 50) {
+                        touchTextPaint.setStyle(Paint.Style.STROKE);
+                        canvas.drawRoundRect(x + 50, y - touchLabelHeight / 2, x + 50 + touchLabelWidth, y + touchLabelHeight / 2, 20, 20, touchTextPaint);
+                        touchTextPaint.setStyle(Paint.Style.FILL);
+                        canvas.drawText("05-06", x + 50 + touchLabelWidth / 2, y - touchLabelHeight / 2 + labelHeight, touchTextPaint);
+                        canvas.drawText((int) item.yValue + "分", x + 50 + touchLabelWidth / 2, y + touchLabelHeight / 2 - labelHeight / 2, touchTextPaint);
+                    } else {
+                        touchTextPaint.setStyle(Paint.Style.STROKE);
+                        canvas.drawRoundRect(x - 50 - touchLabelWidth, y - touchLabelHeight / 2, x - 50, y + touchLabelHeight / 2, 20, 20, touchTextPaint);
+                        touchTextPaint.setStyle(Paint.Style.FILL);
+                        canvas.drawText("05-06", x - 50 - touchLabelWidth / 2, y - touchLabelHeight / 2 + labelHeight, touchTextPaint);
+                        canvas.drawText((int) item.yValue + "分", x - 50 - touchLabelWidth / 2, y + touchLabelHeight / 2 - labelHeight / 2, touchTextPaint);
+                    }
+                }
             }
             canvas.restore();
         }
@@ -296,15 +316,13 @@ public class ReportGradeView extends View {
     }
 
     private int mSpot = -1;
-    private float mIntervalWidth;
-    private int touchCircleRadius = 5;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (dataList.size() > 0 && ignoreTouch(event.getX(), event.getY())) {
+                if (dataList.size() > 0 && isValidTouch(event.getX(), event.getY())) {
                     mSpot = getTouchSpot(event.getX());
                     invalidate();
                     return true;
@@ -333,7 +351,7 @@ public class ReportGradeView extends View {
     }
 
     //判断当前点击的范围是否需要处理
-    private boolean ignoreTouch(float x, float y) {
+    private boolean isValidTouch(float x, float y) {
         boolean ignore = false;
         if ((x >= (paddingX + labelYWidth - mIntervalWidth / 2) && x <= (paddingX + labelYWidth + dataList.get(dataList.size() - 1).x + mIntervalWidth / 2)) && (y >= 0 && y <= paddingY + mAxisHeight)) {
             ignore = true;

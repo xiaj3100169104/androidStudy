@@ -17,6 +17,7 @@ import example.filedown.FileDownActivity
 import example.music.MusicListActivity
 import com.style.service.remote.RemotePlayActivity
 import example.activity.JniTestActivity
+import example.location.LocationActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity
 import kotlinx.android.synthetic.main.fragment_home_3.*
@@ -42,6 +43,7 @@ class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
         view_web_with_js.setOnClickListener { skip(WebViewAndJSActivity::class.java) }
         view_jni.setOnClickListener { skip(JniTestActivity::class.java) }
         view_aidl.setOnClickListener { skip(AidlActivity::class.java) }
+        view_location.setOnClickListener { skip(LocationActivity::class.java) }
         view_read_assets.setOnClickListener { skip(ReadAssetsActivity::class.java) }
         view_encrypt.setOnClickListener { skip(EncryptActivity::class.java) }
         view_file_down.setOnClickListener { skip(FileDownActivity::class.java) }

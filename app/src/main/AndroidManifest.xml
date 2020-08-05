@@ -161,6 +161,7 @@
             android:label="@string/title_activity_scrolling" />
         <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
         <activity android:name="example.viewPagerCards.views.CardActivity" />
+        <activity android:name="example.location.LocationActivity" />
 
         <!--Service及其他-->
 

@@ -15,19 +15,27 @@ public class SoundWaveView extends View {
     private static final String TAG = "SoundWaveView";
     private int mWidth;
     private int mHeight;
-    //波浪画笔
     private Paint wavePaint;
     //圆心坐标
     private float cx;
     private float cy;
-    //外圆半径
+    //最外圆半径
     private int changeRadius;
-    //波浪宽度
-    private int waveWidth = 40;
-    private int waveColor = 0x10FF3030;
+    //最小半径圆颜色
+    private int waveColor = 0xFFFF3030;
+    //最大半径圆颜色透明度
+    private int maxRadiusAlpha = 10;
+    //每像素所占透明度
+    private float alphaScale;
     //最大半径
     private int maxRadius;
+    //最小半径
+    private int minRadius = 10;
+    //圆间距
+    private int circlePadding = 150;
+
     Thread animationThread;
+    private boolean isStart;
 
     public SoundWaveView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -42,7 +50,8 @@ public class SoundWaveView extends View {
         wavePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         wavePaint.setAntiAlias(true);
         wavePaint.setDither(true);
-        wavePaint.setStyle(Paint.Style.FILL);
+        wavePaint.setStyle(Paint.Style.STROKE);
+        wavePaint.setStrokeWidth(2);
         wavePaint.setColor(waveColor);
     }
 
@@ -55,41 +64,46 @@ public class SoundWaveView extends View {
         cx = mWidth / 2;
         cy = mHeight / 2;
         maxRadius = mWidth / 2;
-        changeRadius = maxRadius - waveWidth;
+        changeRadius = minRadius;
+        alphaScale = (256 - 30 + 0.0f) / (maxRadius - minRadius);
         setMeasuredDimension(mWidth, mHeight);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
-        Log.e(TAG, "onDraw maxRadius==" + maxRadius);
-        wavePaint.setColor(waveColor);
-        canvas.drawCircle(cx, cy, maxRadius, wavePaint);
-        int changeColor = waveColor;
-        for (int i = changeRadius; i > 0; i -= waveWidth) {
-            changeColor += 0x08000000;
-            wavePaint.setColor(changeColor);
-            canvas.drawCircle(cx, cy, i, wavePaint);
+        if (!isStart) {
+            wavePaint.setColor(waveColor);
+            canvas.drawCircle(cx, cy, minRadius, wavePaint);
+        } else {
+            Log.e(TAG, "---------------------------------");
+            int alpha = maxRadiusAlpha;
+            for (int r = changeRadius; r > 0; r -= circlePadding) {
+                Log.e(TAG, "changeRadius = " + r);
+                if (r >= minRadius) {
+                    //计算不同半径下的圆透明度
+                    alpha = (int) (maxRadiusAlpha + alphaScale * (maxRadius - r));
+                    alpha = Math.min(alpha, 256);
+                    wavePaint.setColor(alpha << 24 | (0x00FFFFFF & waveColor));
+                    canvas.drawCircle(cx, cy, r, wavePaint);
+                }
+            }
         }
-
     }
 
-    public void startAnimation() {
+    public void start() {
+        isStart = true;
         animationThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //注意：此时可能view还没绘制出来，宽度为0，所以需要延迟一下,除非界面延迟执行
-                    //Thread.sleep(1000);
-                    int minR = maxRadius - waveWidth;
-                    Log.e(TAG, "run mWidth==" + mWidth);
-                    for (int i = minR; i <= maxRadius; i+=5) {
-                        changeRadius = i;
-                        postInvalidate();
-                        Thread.sleep(100);
-                        if (i >= maxRadius) {
-                            i = minR;
+                    while (true) {
+                        changeRadius += 8;
+                        if (changeRadius > maxRadius) {
+                            changeRadius = maxRadius - circlePadding;
                         }
+                        postInvalidate();
+                        Thread.sleep(80);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -97,6 +111,19 @@ public class SoundWaveView extends View {
             }
         });
         animationThread.start();
+    }
+
+    public void pause() {
+        if (animationThread != null && animationThread.isAlive()) {
+            animationThread.interrupt();
+        }
+    }
+
+    public void reset() {
+        pause();
+        isStart = false;
+        invalidate();
+        changeRadius = minRadius;
     }
 
     @Override
@@ -109,8 +136,6 @@ public class SoundWaveView extends View {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         Log.e(TAG, "onDetachedFromWindow");
-        if (animationThread != null && animationThread.isAlive()) {
-            animationThread.interrupt();
-        }
+        reset();
     }
 }

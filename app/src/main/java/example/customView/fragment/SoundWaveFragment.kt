@@ -18,7 +18,10 @@ class SoundWaveFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Handler().postDelayed({ custom_view2.startAnimation() }, 1000)
+        btn_start.setOnClickListener { custom_view2.start() }
+        btn_pause.setOnClickListener { custom_view2.pause() }
+        btn_reset.setOnClickListener { custom_view2.reset() }
+
     }
 
 }

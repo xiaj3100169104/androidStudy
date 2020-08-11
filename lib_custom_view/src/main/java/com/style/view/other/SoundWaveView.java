@@ -2,6 +2,7 @@ package com.style.view.other;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -53,6 +54,8 @@ public class SoundWaveView extends View {
         wavePaint.setStyle(Paint.Style.STROKE);
         wavePaint.setStrokeWidth(2);
         wavePaint.setColor(waveColor);
+        wavePaint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
+
     }
 
     @Override
@@ -76,10 +79,10 @@ public class SoundWaveView extends View {
             wavePaint.setColor(waveColor);
             canvas.drawCircle(cx, cy, minRadius, wavePaint);
         } else {
-            Log.e(TAG, "---------------------------------");
+            //Log.e(TAG, "---------------------------------");
             int alpha = maxRadiusAlpha;
             for (int r = changeRadius; r > 0; r -= circlePadding) {
-                Log.e(TAG, "changeRadius = " + r);
+                //Log.e(TAG, "changeRadius = " + r);
                 if (r >= minRadius) {
                     //计算不同半径下的圆透明度
                     alpha = (int) (maxRadiusAlpha + alphaScale * (maxRadius - r));

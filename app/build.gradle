@@ -24,6 +24,7 @@ android {
         versionName '1.1.7'
         multiDexEnabled true //突破应用方法数65535的一个限制
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //不配置会根据连接手机加载对应cpu类型so库
         ndk {
             //moduleName "helloNDK"
             abiFilters "armeabi-v7a"//, "armeabi", "arm64-v8a"

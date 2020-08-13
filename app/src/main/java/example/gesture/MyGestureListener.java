@@ -1,6 +1,6 @@
 package example.gesture;
 
-import android.support.v4.widget.NestedScrollView;
+import androidx.core.widget.NestedScrollView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;

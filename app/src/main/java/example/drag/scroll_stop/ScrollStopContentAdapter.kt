@@ -1,8 +1,8 @@
 package example.drag.scroll_stop
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.framework.R
@@ -13,12 +13,12 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
 
     constructor(context: Context?, dataList: ArrayList<String>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         val bd: ScrollStopContentAdapterBinding = getBinding(R.layout.scroll_stop_content_adapter, parent)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
         val s = "分类$f"
@@ -28,7 +28,7 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
             dataList.add("$i")
         }
         val adapter = ScrollStopSubAdapter(getContext(), dataList)
-        val lm = GridLayoutManager(getContext(), 3)
+        val lm = androidx.recyclerview.widget.GridLayoutManager(getContext(), 3)
         holder.bd.recyclerViewSub.layoutManager = lm
         holder.bd.recyclerViewSub.adapter = adapter
         holder.bd.recyclerViewSub.isNestedScrollingEnabled = false
@@ -36,7 +36,7 @@ class ScrollStopContentAdapter : BaseRecyclerViewAdapter<String> {
         holder.bd.executePendingBindings()
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: ScrollStopContentAdapterBinding
 
         constructor(bd: ScrollStopContentAdapterBinding) : super(bd.root) {

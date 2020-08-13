@@ -1,9 +1,9 @@
 package example.fragmentAdapter
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,7 +84,7 @@ class StateFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mActivityViewModel = ViewModelProviders.of(context as FragmentActivity).get(StateFragmentActivityViewModel::class.java)
+        mActivityViewModel = ViewModelProviders.of(context as androidx.fragment.app.FragmentActivity).get(StateFragmentActivityViewModel::class.java)
     }
 
 }

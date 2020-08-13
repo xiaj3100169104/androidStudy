@@ -8,7 +8,7 @@
 
     <include layout="@layout/title_bar_red" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,10 +44,10 @@
                 <com.style.view.healthy.SleepDetailView
                     android:id="@+id/sleep_detail_view"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:background="@color/white"
                     android:padding="10dp" />
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

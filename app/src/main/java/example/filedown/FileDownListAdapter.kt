@@ -1,7 +1,7 @@
 package example.filedown
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
@@ -17,12 +17,12 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
 
     constructor(context: Context?, dataList: ArrayList<CustomFileBean>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         val bd: FileDownListAdapterBinding = getBinding(R.layout.file_down_list_adapter, parent)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
         holder.bd.progressBarDownSize.visibility = View.INVISIBLE
@@ -56,7 +56,7 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
         holder.bd.executePendingBindings()
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: FileDownListAdapterBinding
 
         constructor(bd: FileDownListAdapterBinding) : super(bd.root) {

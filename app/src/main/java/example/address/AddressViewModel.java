@@ -1,9 +1,9 @@
 package example.address;
 
 import android.app.Application;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.style.base.BaseViewModel;
 import com.style.utils.PinyinUtils;

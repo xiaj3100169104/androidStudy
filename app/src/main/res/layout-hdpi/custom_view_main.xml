@@ -9,7 +9,7 @@
 
         <include layout="@layout/title_bar_red" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -20,7 +20,7 @@
             app:tabSelectedTextColor="#0ff"
             app:tabTextColor="#000" />
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"

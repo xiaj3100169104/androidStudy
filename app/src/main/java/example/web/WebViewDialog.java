@@ -1,13 +1,10 @@
 package example.web;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.graphics.Color;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -17,14 +14,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.base.BaseDialog;
 import com.style.framework.R;
 import com.style.framework.databinding.DialogWebViewBinding;
-import com.style.utils.DeviceInfoUtil;
 
 public class WebViewDialog extends BaseDialog {
 

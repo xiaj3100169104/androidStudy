@@ -2,7 +2,7 @@ package example.album;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,12 +20,12 @@ public class DynamicPublishImageAdapter : BaseRecyclerViewAdapter<Media> {
 
     constructor(context: Context, list: ArrayList<Media>) : super(context, list)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: AdapterPublishDynamicPictureBinding = getBinding(R.layout.adapter_publish_dynamic_picture, parent);
         return ViewHolder(bd);
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val index = position;
         var holder: ViewHolder = holder as ViewHolder
         var media = getData(position);
@@ -46,7 +46,7 @@ public class DynamicPublishImageAdapter : BaseRecyclerViewAdapter<Media> {
         holder.bd.executePendingBindings();
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: AdapterPublishDynamicPictureBinding
 
         constructor(bd: AdapterPublishDynamicPictureBinding) : super(bd.root) {

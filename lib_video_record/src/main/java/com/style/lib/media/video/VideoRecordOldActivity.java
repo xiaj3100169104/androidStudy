@@ -5,7 +5,7 @@ import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.SurfaceHolder;

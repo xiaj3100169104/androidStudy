@@ -1,7 +1,7 @@
 package example.filedown
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.style.config.FileDirConfig
 import com.style.base.BaseViewModel
 import com.style.data.fileDown.SingleFileDownloadTask

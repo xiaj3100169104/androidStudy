@@ -1,7 +1,7 @@
 package example.editLayout;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.base.BaseTitleBarActivity;

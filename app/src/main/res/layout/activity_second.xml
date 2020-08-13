@@ -8,7 +8,7 @@
 
         <include layout="@layout/title_bar_red" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_value_animator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

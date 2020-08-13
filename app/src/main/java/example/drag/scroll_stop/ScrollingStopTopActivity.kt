@@ -1,9 +1,9 @@
 package example.drag.scroll_stop
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.*
 import com.style.base.BaseRecyclerViewAdapter
 import com.style.base.BaseActivity
 import com.style.framework.R
@@ -18,7 +18,7 @@ import java.util.*
  * snap表示Toolbar没有完全显示或隐藏时，根据滚动距离，自动选择。
  */
 class ScrollingStopTopActivity : BaseActivity() {
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var layoutManager: androidx.recyclerview.widget.LinearLayoutManager
     private lateinit var bd: ActivityScrollingStopTopBinding
     private lateinit var dataList: ArrayList<String>
     private lateinit var mTitleAdapter: ScrollStopTitleAdapter
@@ -32,8 +32,8 @@ class ScrollingStopTopActivity : BaseActivity() {
         bd = getBinding()
         dataList = ArrayList()
         mTitleAdapter = ScrollStopTitleAdapter(this, dataList)
-        bd.recyclerViewTitle.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        bd.recyclerViewTitle.addItemDecoration(com.style.view.diviver.DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL))
+        bd.recyclerViewTitle.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
+        bd.recyclerViewTitle.addItemDecoration(com.style.view.diviver.DividerItemDecoration(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL))
         bd.recyclerViewTitle.adapter = mTitleAdapter
         mTitleAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<String> {
             override fun onItemClick(position: Int, data: String) {
@@ -49,7 +49,7 @@ class ScrollingStopTopActivity : BaseActivity() {
         mTitleAdapter.notifyDataSetChanged()
 
         mContentAdapter = ScrollStopContentAdapter(this, dataList)
-        layoutManager = LinearLayoutManager(this)
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         bd.recyclerView.layoutManager = layoutManager
         bd.recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(this))
         bd.recyclerView.adapter = mContentAdapter
@@ -57,7 +57,7 @@ class ScrollingStopTopActivity : BaseActivity() {
 
         //只适用于recyclerView外层没有嵌套滚动布局
         bd.recyclerView.addOnScrollListener(object : OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 logE("onScrollStateChanged", "$newState")
             }
@@ -65,10 +65,10 @@ class ScrollingStopTopActivity : BaseActivity() {
             /**
              * 执行顺序：state(拖动：1)--onScrolled--state(惯性：2)--onScrolled--state(静止：0)
              */
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 //未拖动RecyclerView时不执行滚动逻辑
-                if (bd.recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE)
+                if (bd.recyclerView.scrollState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE)
                     return
                 //获取最后一个可见view的位置
                 //val lastItemPosition = layoutManager.findLastVisibleItemPosition()

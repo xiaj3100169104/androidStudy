@@ -2,20 +2,18 @@ package com.dmcbig.mediapicker;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import android.widget.Toast;
 
 import com.dmcbig.mediapicker.entity.Media;
-import com.dmcbig.mediapicker.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

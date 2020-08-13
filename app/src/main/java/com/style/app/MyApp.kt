@@ -9,9 +9,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.support.multidex.MultiDexApplication
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AppCompatDelegate
+import androidx.multidex.MultiDexApplication
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.appcompat.app.AppCompatDelegate
 import android.util.Log
 import com.style.data.app.AppActivityManager
 import com.style.data.db.AppDatabase
@@ -34,7 +34,7 @@ class MyApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        Thread.setDefaultUncaughtExceptionHandler(AppCrashHandler())
+        //Thread.setDefaultUncaughtExceptionHandler(AppCrashHandler())
         AppActivityManager.getInstance().init(this)
         AppPrefsManager.getInstance().init(this)
         //room不会自动检查数据库版本升级，所以需要手动操作一次
@@ -82,16 +82,16 @@ class MyApp : MultiDexApplication() {
 
     //在application中使用//不让其他应用接收到广播
     fun sendLocalBroadcast(intent: Intent) {
-        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent)
     }
 
     fun registerLocalReceiver(receiver: BroadcastReceiver, filter: IntentFilter) {
         //只能接收到LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(bIntent);发送的广播。接收不到系统广播或其他app的广播
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter)
     }
 
     fun unregisterLocalReceiver(receiver: BroadcastReceiver) {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver)
     }
 
 

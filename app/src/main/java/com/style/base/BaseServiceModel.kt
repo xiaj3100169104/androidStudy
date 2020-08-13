@@ -1,8 +1,8 @@
 package com.style.base;
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import android.support.annotation.StringRes
+import androidx.lifecycle.MutableLiveData
+import androidx.annotation.StringRes
 import android.util.Log
 import com.style.toast.ToastManager
 import com.style.utils.LogManager

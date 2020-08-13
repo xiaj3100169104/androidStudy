@@ -1,6 +1,6 @@
 package com.style.data.db
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.style.entity.UserBean
 import java.util.*
 

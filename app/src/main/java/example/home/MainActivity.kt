@@ -2,7 +2,7 @@ package example.home
 
 import android.Manifest
 import android.app.ActivityManager
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,11 +11,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import android.util.Log
 import android.view.Display
 import com.style.data.app.AppActivityManager
@@ -50,11 +50,11 @@ class MainActivity : BaseActivity() {
     private lateinit var homeFragment2: HomeListFragment
     private lateinit var homeFragment3: OriginalAPIFragment
     private lateinit var homeFragment4: OtherFrameworkFragment
-    private lateinit var fm: FragmentManager
-    private lateinit var bt: FragmentTransaction
+    private lateinit var fm: androidx.fragment.app.FragmentManager
+    private lateinit var bt: androidx.fragment.app.FragmentTransaction
     //private lateinit var mTabs: Array<TextView>
     private var currentTabIndex = 0
-    lateinit var fragments: Array<Fragment>
+    lateinit var fragments: Array<androidx.fragment.app.Fragment>
     private var appStateReceiver: DeviceStateBroadcastReceiver? = null
     //默认屏幕处于解锁状态
     private var isLocked = false

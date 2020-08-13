@@ -3,8 +3,8 @@ package com.style.service.appNewVersion;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import androidx.annotation.NonNull;
 
 import com.style.base.BaseServiceModel;
 

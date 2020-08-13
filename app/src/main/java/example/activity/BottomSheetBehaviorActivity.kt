@@ -1,7 +1,7 @@
 package example.activity
 
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import android.util.Log
 import android.view.View
 import com.style.base.BaseTitleBarActivity

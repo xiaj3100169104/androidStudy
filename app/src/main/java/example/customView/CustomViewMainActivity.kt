@@ -1,8 +1,8 @@
 package example.customView
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
+import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.Fragment
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import example.customView.fragment.*
@@ -11,7 +11,7 @@ import java.util.*
 
 class CustomViewMainActivity : BaseTitleBarActivity() {
     private lateinit var fAdapter: CustomViewFragmentAdapter
-    private val fragments = ArrayList<Fragment>()
+    private val fragments = ArrayList<androidx.fragment.app.Fragment>()
     private val titles = ArrayList<String>()
 
     override fun onCreate(arg0: Bundle?) {

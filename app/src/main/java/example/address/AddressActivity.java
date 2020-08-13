@@ -2,15 +2,15 @@ package example.address;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.telephony.TelephonyManager;
 import android.view.View;
 
@@ -168,7 +168,7 @@ public class AddressActivity extends BaseTitleBarActivity {
     }
 
     private void call(String number) {
-        new android.support.v7.app.AlertDialog.Builder(getContext())
+        new androidx.appcompat.app.AlertDialog.Builder(getContext())
                 .setTitle("拨号")
                 .setMessage("拨打客服电话" + number)
                 .setPositiveButton(R.string.ok, (dialog, which) -> {

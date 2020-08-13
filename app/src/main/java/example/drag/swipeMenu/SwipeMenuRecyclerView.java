@@ -2,7 +2,7 @@ package example.drag.swipeMenu;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -12,7 +12,6 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.dmcbig.mediapicker.utils.ScreenUtils;
-import com.style.utils.DeviceInfoUtil;
 
 /**
  * 左滑菜单RecyclerView：

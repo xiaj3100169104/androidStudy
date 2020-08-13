@@ -1,8 +1,8 @@
 package example.home.contact
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +31,7 @@ class HomeListFragment : BaseNoPagerLazyRefreshFragment() {
         mViewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
         dataList = ArrayList()
         adapter = FriendAdapter(context, dataList)
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(context))
         recyclerView.adapter = adapter

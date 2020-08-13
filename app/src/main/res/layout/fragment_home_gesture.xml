@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/windowBackground">
@@ -70,7 +70,7 @@
             <TextView
                 android:id="@+id/btn_view_pager_card_views"
                 style="@style/text_home_item"
-                android:text="ViewPager views卡片" />
+                android:text="ViewPager无限轮播" />
 
             <TextView
                 android:id="@+id/btn_view_pager_card_fragments"
@@ -92,6 +92,6 @@
                 style="@style/text_home_item"
                 android:text="Fragment测试" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </com.style.common_ui.refresh.MyAppRefreshLayout>
 

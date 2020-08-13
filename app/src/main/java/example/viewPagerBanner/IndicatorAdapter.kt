@@ -1,7 +1,7 @@
 package example.viewPagerBanner
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 
 import com.style.base.BaseRecyclerViewAdapter
@@ -14,12 +14,12 @@ class IndicatorAdapter : BaseRecyclerViewAdapter<Boolean> {
 
     constructor(context: Context?, dataList: ArrayList<Boolean>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         val bd: AdapterIndicatorBinding = getBinding(R.layout.adapter_indicator, parent)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
         holder.bd.viewIndicator.isSelected = f
@@ -33,7 +33,7 @@ class IndicatorAdapter : BaseRecyclerViewAdapter<Boolean> {
         notifyDataSetChanged()
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: AdapterIndicatorBinding
 
         constructor(bd: AdapterIndicatorBinding) : super(bd.root) {

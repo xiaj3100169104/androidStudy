@@ -26,8 +26,5 @@ public class CustomNotifyViewFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Random random = new Random();
-        CustomNotifyView customNotifyView = getView().findViewById(R.id.custom);
-        customNotifyView.setOnClickListener(v -> customNotifyView.setNotifyCount(random.nextInt(99)));
     }
 }

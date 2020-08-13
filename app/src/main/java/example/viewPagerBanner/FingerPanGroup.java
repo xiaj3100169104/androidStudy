@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -14,7 +14,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.style.utils.DeviceInfoUtil;
 
 /**
  * 处理viewPager左右滑动浏览图片时可以上下滑动finish activity.

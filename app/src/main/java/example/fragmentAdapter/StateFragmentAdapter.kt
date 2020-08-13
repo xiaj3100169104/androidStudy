@@ -1,18 +1,18 @@
 package example.fragmentAdapter
 
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import android.view.ViewGroup
 
 /**
  *保存fragment数据状态（实际指arguments中的数据），对limit外的page进行回收，会销毁fragment实例(视图也肯定销毁了)，节约内存。
  * 适用场景：大量占内存fragment(比如视图中有图片),不适用于setArguments之外传递数据。
  */
-class StateFragmentAdapter : FragmentStatePagerAdapter {
+class StateFragmentAdapter : androidx.fragment.app.FragmentStatePagerAdapter {
     private val titles: ArrayList<String>
     private var fragments: ArrayList<StateFragment>
 
-    constructor(fm: FragmentManager, fragments: ArrayList<StateFragment>, titles: ArrayList<String>) : super(fm) {
+    constructor(fm: androidx.fragment.app.FragmentManager, fragments: ArrayList<StateFragment>, titles: ArrayList<String>) : super(fm) {
         this.titles = titles
         this.fragments = fragments
     }

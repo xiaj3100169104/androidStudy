@@ -1,10 +1,10 @@
 package example.filedown
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 
 import com.style.config.FileDirConfig
@@ -22,7 +22,7 @@ import org.simple.eventbus.Subscriber
 import org.simple.eventbus.ThreadMode
 import java.io.File
 import java.util.ArrayList
-import android.support.v7.widget.SimpleItemAnimator
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.style.data.fileDown.CustomFileDownloadManager
 import com.style.data.fileDown.entity.CustomFileBean
 import com.style.service.fileDownload.FileDownloadService
@@ -42,11 +42,11 @@ class FileDownActivity : BaseTitleBarActivity() {
         setTitleBarTitle("文件下载")
         dataList = ArrayList()
         adapter = FileDownListAdapter(getContext(), dataList)
-        val layoutManager = LinearLayoutManager(getContext())
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(getContext())
         recyclerView.layoutManager = layoutManager
         recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(getContext()))
         //解决默认动画造成的itemView闪烁
-        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        (recyclerView.itemAnimator as androidx.recyclerview.widget.SimpleItemAnimator).supportsChangeAnimations = false
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<CustomFileBean> {
             override fun onItemClick(position: Int, data: CustomFileBean) {

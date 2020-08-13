@@ -15,10 +15,28 @@
             android:overScrollMode="never" />
 
         <Button
-            android:id="@+id/cardTypeBtn"
+            android:id="@+id/cardTypeBtn0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最后一页" />
+            android:text="第一页" />
+
+        <Button
+            android:id="@+id/cardTypeBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第二页" />
+
+        <Button
+            android:id="@+id/cardTypeBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第三页" />
+
+        <Button
+            android:id="@+id/cardTypeBtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第四页" />
 
     </LinearLayout>
 </layout>

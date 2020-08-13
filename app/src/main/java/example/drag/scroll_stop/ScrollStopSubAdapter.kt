@@ -1,7 +1,7 @@
 package example.drag.scroll_stop
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 
 import com.style.base.BaseRecyclerViewAdapter
@@ -14,12 +14,12 @@ class ScrollStopSubAdapter : BaseRecyclerViewAdapter<String> {
 
     constructor(context: Context?, dataList: ArrayList<String>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         val bd: ScrollStopContentSubAdapterBinding = getBinding(R.layout.scroll_stop_content_sub_adapter, parent)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
         val f = getData(position)
         val s = "数据$f"
@@ -28,7 +28,7 @@ class ScrollStopSubAdapter : BaseRecyclerViewAdapter<String> {
         holder.bd.executePendingBindings()
     }
 
-    class ViewHolder : RecyclerView.ViewHolder {
+    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
         var bd: ScrollStopContentSubAdapterBinding
 
         constructor(bd: ScrollStopContentSubAdapterBinding) : super(bd.root) {

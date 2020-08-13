@@ -1,8 +1,8 @@
 package example.fragmentAdapter;
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
@@ -32,7 +32,7 @@ class StateFragmentActivity : BaseTitleBarActivity() {
         fAdapter = StateFragmentAdapter(supportFragmentManager, fragments, titles)
         viewPager.adapter = fAdapter
         tabLayout.setupWithViewPager(viewPager, true)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
 

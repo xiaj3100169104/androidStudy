@@ -14,7 +14,7 @@
 
             <include layout="@layout/title_bar_red" />
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -42,7 +42,7 @@
                         android:gravity="bottom"
                         android:text="视图2" />
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </example.gesture.HorizontalSlideFinishActivityView>
 </layout>

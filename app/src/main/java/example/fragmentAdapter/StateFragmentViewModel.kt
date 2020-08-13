@@ -1,7 +1,7 @@
 package example.fragmentAdapter
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.style.base.BaseViewModel
 
 class StateFragmentViewModel : BaseViewModel {

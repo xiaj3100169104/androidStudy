@@ -24,8 +24,8 @@ package example.viewPagerBanner;
  */
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.chrisbanes.photoview.PhotoView
 import com.style.base.BaseActivity
 import com.style.framework.R
@@ -71,10 +71,10 @@ class BannerActivity : BaseActivity() {
         var list: ArrayList<Boolean> = arrayListOf()
         bannerFrags.forEach { list.add(false) }
         val mIndicatorAdapter = IndicatorAdapter(this, list)
-        rcv_indicator.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rcv_indicator.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
         rcv_indicator.adapter = mIndicatorAdapter
         mIndicatorAdapter.setSelected(0)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
 
             }

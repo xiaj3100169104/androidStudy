@@ -1,19 +1,19 @@
 package example.customView
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
-class CustomViewFragmentAdapter : FragmentPagerAdapter {
-    private val fragments: List<Fragment>
+class CustomViewFragmentAdapter : androidx.fragment.app.FragmentPagerAdapter {
+    private val fragments: List<androidx.fragment.app.Fragment>
     private val titles: List<String>
 
-    constructor(fm: FragmentManager, fragments: List<Fragment>, titles: List<String>) : super(fm) {
+    constructor(fm: androidx.fragment.app.FragmentManager, fragments: List<androidx.fragment.app.Fragment>, titles: List<String>) : super(fm) {
         this.fragments = fragments
         this.titles = titles
     }
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
         return fragments[position]
     }
 

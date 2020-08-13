@@ -7,9 +7,9 @@ import android.net.Uri
 import android.os.Build;
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.TextUtils
 import android.view.View;
 
@@ -60,8 +60,8 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         TAG_ADD.name = "addTag";
         paths.add(TAG_ADD);
         adapter = DynamicPublishImageAdapter(getContext(), paths);
-        var gridLayoutManager = GridLayoutManager(getContext(), 4);
-        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        var gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(getContext(), 4);
+        gridLayoutManager.setOrientation(androidx.recyclerview.widget.LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
         //bd.recyclerView.addItemDecoration(GridDividerItemDecoration(20, Color.BLACK))
         bd.recyclerView.setAdapter(adapter);

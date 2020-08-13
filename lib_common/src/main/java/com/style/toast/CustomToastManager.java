@@ -3,7 +3,7 @@ package com.style.toast;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 
 public class CustomToastManager {

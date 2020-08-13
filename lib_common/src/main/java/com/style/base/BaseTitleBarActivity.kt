@@ -1,9 +1,9 @@
 package com.style.base
 
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
+import androidx.annotation.ColorInt
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView

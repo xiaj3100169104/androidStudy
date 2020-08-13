@@ -1,7 +1,8 @@
 package example.viewPagerCards.views;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.CardView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,31 +13,38 @@ import com.style.framework.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.viewPagerCards.CardAdapter;
-
 public class CardPagerAdapter extends PagerAdapter {
 
-    private List<View> mViews;
-    private List<CardItem> mData;
+    private ArrayList<CardItem> mData;
 
-    public CardPagerAdapter() {
-        mData = new ArrayList<>();
-        mViews = new ArrayList<>();
-    }
-
-    public void addCardItem(CardItem item) {
-        mViews.add(null);
-        mData.add(item);
+    public CardPagerAdapter(ArrayList<CardItem> list) {
+        mData = list;
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return mData.size() * 500 + mData.size() + mData.size() * 500;
+    }
+
+    public int getNearPosition(int currentItem, int next) {
+        int p = currentItem % mData.size();
+        if (next == p)
+            return currentItem;
+        //当前为最后一页，需要滑到第一页
+        if (p == mData.size() - 1 && next == 0)
+            return currentItem + 1;
+        return currentItem - p + next;
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    //无论是创建view添加到容器中还是销毁view,都是在此方法结束之后执行的
+    @Override
+    public void finishUpdate(ViewGroup container) {
+        super.finishUpdate(container);
     }
 
     @Override
@@ -45,15 +53,12 @@ public class CardPagerAdapter extends PagerAdapter {
         container.addView(view);
         int p = position % mData.size();
         bind(mData.get(p), view);
-        //View cardView = view.findViewById(R.id.layout_root);
-        //mViews.set(position, cardView);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
-        //mViews.set(position, null);
     }
 
     private void bind(CardItem item, View view) {

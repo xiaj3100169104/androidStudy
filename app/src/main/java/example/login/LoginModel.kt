@@ -1,9 +1,9 @@
 package example.login
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import com.style.base.BaseViewModel
 import com.style.data.http.function.impl.UserNetSourceImpl
 import com.style.entity.UserInfo

@@ -1,8 +1,7 @@
 package com.style.view.systemHelper;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 public class NoScrollGridLayoutManager extends GridLayoutManager {
     private boolean isScrollEnabled = true;

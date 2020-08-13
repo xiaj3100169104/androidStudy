@@ -1,7 +1,7 @@
 package example.viewPagerCards.views;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.View;
 
 import example.viewPagerCards.CardAdapter;

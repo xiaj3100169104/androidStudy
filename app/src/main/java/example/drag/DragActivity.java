@@ -1,8 +1,8 @@
 package example.drag;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;

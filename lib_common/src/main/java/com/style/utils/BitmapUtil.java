@@ -13,7 +13,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.util.LruCache;
+import androidx.collection.LruCache;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -28,8 +28,6 @@ import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
-
-import kotlin.math.MathKt;
 
 /**
  * ALPHA_8：只有一个alpha通道每个像素占用1byte内存

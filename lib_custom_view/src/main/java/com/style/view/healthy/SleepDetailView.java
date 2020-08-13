@@ -6,7 +6,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -29,20 +29,17 @@ public class SleepDetailView extends View {
     private final int xAxisPaddingLeft, xAxisPaddingRight;
     //y轴线最大刻度值与顶部内容区边界距离，因为此时的y刻度值只是y标签与矩形的中点，所以需要一些额外的空间
     private int yContentTopOffset;
-    private int mTextPadding;//想走标签到x轴线距离，底部矩形实例到下方文字距离，以及下方文字到下方文字间距
-    private final int yLegend2xAxisDistance;
+    //x轴标签  区域所需高度
+    private int xLabelAreaHeight;
+    //x轴标签到x轴线距离
+    private int mTextPadding;
     private int mAxisWidth, mAxisHeight;
     //睡眠端矩形高度，圆角大小
     private int mRectHeight, mRectRadius;
-    //x轴线下半部分内容区的高度
-    private int mXAxisBottomContentHeight;
     private String[] mAxisYLabels;
-    //底部矩形实例宽高
-    private int mLegendRectWidth, mLegendRectHeight;
     private int yLabelWidth;
     private int yLabelTextSize = 13;
     private float yLabelHeight;
-    private static final int mLegendTextColor = 0xff666666;
     private static final int mXAxisLineColor = 0xff808080;
     private float mLineWidth = 0;
 
@@ -57,12 +54,10 @@ public class SleepDetailView extends View {
     public SleepDetailView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         yContentTopOffset = dp2px(10);
+        xLabelAreaHeight = dp2px(20);
         xAxisPaddingLeft = dp2px(10);
         xAxisPaddingRight = dp2px(10);
         mTextPadding = dp2px(5);
-        yLegend2xAxisDistance = dp2px(10);
-        mLegendRectWidth = dp2px(25);
-        mLegendRectHeight = dp2px(8);
         mRectHeight = dp2px(8);
         mRectRadius = dp2px(2.7f);
         yLabelTextSize = sp2px(yLabelTextSize);
@@ -86,7 +81,6 @@ public class SleepDetailView extends View {
         mPaint.setTextSize(yLabelTextSize);
         yLabelWidth = (int) mPaint.measureText(mAxisYLabels[0]);
         yLabelHeight = getTextHeight(mPaint.getFontMetrics());
-        mXAxisBottomContentHeight = (int) (mTextPadding * 3 + yLabelHeight * 3 + yLegend2xAxisDistance + mLegendRectHeight);
     }
 
     @Override
@@ -95,7 +89,7 @@ public class SleepDetailView extends View {
         mViewHeight = measureHeight(heightMeasureSpec);
         setMeasuredDimension(mViewWidth, mViewHeight);
         mAxisWidth = mViewWidth - getPaddingLeft() - getPaddingRight() - yLabelWidth - xAxisPaddingLeft - xAxisPaddingRight;
-        mAxisHeight = mViewHeight - getPaddingTop() - getPaddingBottom() - yContentTopOffset - mXAxisBottomContentHeight;
+        mAxisHeight = mViewHeight - getPaddingTop() - getPaddingBottom() - yContentTopOffset - xLabelAreaHeight;
         calculateData();
     }
 
@@ -103,33 +97,6 @@ public class SleepDetailView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //画睡眠图例
-        canvas.save();
-        canvas.translate(getPaddingLeft(), getPaddingTop() + yContentTopOffset + mAxisHeight + mTextPadding + yLabelHeight + yLegend2xAxisDistance);
-        String legendName = null, legendPercent = null, legendTime = null;
-        mChartPaint.setShader(null);
-        for (int i = 0; i < 4; i++) {
-            mChartPaint.setColor(mSleepColor[i]);
-            int legendRectXCenter = (mViewWidth - getPaddingLeft() - getPaddingRight()) / 8 * (i * 2 + 1);
-            canvas.drawRect(legendRectXCenter - mLegendRectWidth / 2, 0, legendRectXCenter + mLegendRectWidth / 2, mLegendRectHeight, mChartPaint);
-
-            mPaint.setColor(mLegendTextColor);
-            legendName = mAxisYLabels[i];
-            /*if (resultBean != null) {
-                legendPercent = String.valueOf(resultBean.mSleepTime[i] * 60 * 100.0f / resultBean.totalSleepTimeLength);
-                legendName = legendName + " " + legendPercent + "%";
-            }*/
-            int baseLine = (int) (mLegendRectHeight + mTextPadding + Math.abs(mPaint.getFontMetrics().top));
-            canvas.drawText(legendName, legendRectXCenter, baseLine, mPaint);
-            //跳过画时间文本
-            if (resultBean == null) {
-                continue;
-            }
-            legendTime = getTimeStr(resultBean.mSleepTime[i]);
-            int baseLine2 = (int) (mLegendRectHeight + mTextPadding + yLabelHeight + mTextPadding + Math.abs(mPaint.getFontMetrics().top));
-            canvas.drawText(legendTime, legendRectXCenter, baseLine2, mPaint);
-        }
-        canvas.restore();
         //画x轴线
         canvas.save();
         canvas.translate(getPaddingLeft() + yLabelWidth + xAxisPaddingLeft, getPaddingTop() + yContentTopOffset + mAxisHeight);

@@ -2,14 +2,14 @@ package com.style.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.style.toast.ToastManager
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.LogManager
 import org.simple.eventbus.EventBus
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : androidx.fragment.app.Fragment() {
     protected var TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,7 @@
 package example.fragmentAdapter;
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import kotlinx.android.synthetic.main.fragment_adapter_activity.*
@@ -24,7 +24,7 @@ class IndexFragmentActivity : BaseTitleBarActivity() {
         viewPager.adapter = fAdapter
         tabLayout.setupWithViewPager(viewPager, true)
         viewPager.offscreenPageLimit = fragments.size - 1
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
             }
 

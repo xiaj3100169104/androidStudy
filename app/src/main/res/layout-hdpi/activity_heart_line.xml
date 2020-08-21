@@ -18,10 +18,23 @@
             android:text="刷新"
             android:textStyle="bold" />
 
-        <com.style.view.healthy.HeartLineChart
-            android:id="@+id/heart_line"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp">
+
+            <com.style.view.healthy.HeartLineChartBg
+                android:id="@+id/heart_line_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.style.view.healthy.HeartLineChart
+                android:id="@+id/heart_line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="15dp"/>
+        </RelativeLayout>
+
 
         <com.style.view.healthy.GradeTrendView
             android:id="@+id/gradeTrendView"

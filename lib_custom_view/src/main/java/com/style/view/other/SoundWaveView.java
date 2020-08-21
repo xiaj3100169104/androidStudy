@@ -95,6 +95,9 @@ public class SoundWaveView extends View {
     }
 
     public void start() {
+        if (animationThread != null && animationThread.isAlive()) {
+            return;
+        }
         isStart = true;
         animationThread = new Thread(new Runnable() {
             @Override

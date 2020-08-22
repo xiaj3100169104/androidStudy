@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import com.style.framework.databinding.ActivityBpBinding
-import com.style.view.healthy.BloodPressureLine
+import com.style.view.healthy.BloodPressureLine.BloodItem
 import java.util.*
 
 class BpActivity : BaseTitleBarActivity() {
@@ -26,11 +26,11 @@ class BpActivity : BaseTitleBarActivity() {
         bd.bpLine.setData(getData())
     }
 
-    private fun getData(): List<com.style.view.healthy.BloodPressureLine.BloodItem> {
-        val list = ArrayList<com.style.view.healthy.BloodPressureLine.BloodItem>(100)
+    private fun getData(): List<BloodItem> {
+        val list = ArrayList<BloodItem>(100)
         val random = Random()
         for (i in 0..99) {
-            val b = com.style.view.healthy.BloodPressureLine.BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, "00:00")
+            val b = BloodItem(random.nextInt(30) + 50, random.nextInt(30) + 90, "00:00")
             list.add(b)
         }
         return list

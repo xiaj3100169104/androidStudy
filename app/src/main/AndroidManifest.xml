@@ -138,6 +138,7 @@
         <activity android:name="example.customView.HeartLineActivity" />
         <activity android:name="example.customView.TempActivity" />
         <activity android:name="example.customView.BpActivity" />
+        <activity android:name="example.customView.ReportTrendActivity" />
         <activity android:name="example.customView.SleepWeekActivity" />
         <activity android:name="example.customView.SportWeekActivity" />
         <activity

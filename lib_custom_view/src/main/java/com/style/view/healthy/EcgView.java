@@ -80,6 +80,7 @@ public class EcgView extends View {
         mXDataIntervalWidth = smallHorizontalGridWidth;
         leftDrawOffset = -smallHorizontalGridWidth * 2;
         rightDrawOffset = mViewWidth + smallHorizontalGridWidth * 2;
+        mMaxOffset = (int) (mViewWidth + mXDataIntervalWidth * (dataList.size() - 1));
         setMeasuredDimension(mViewWidth, mViewHeight);
     }
 
@@ -152,7 +153,6 @@ public class EcgView extends View {
             dataList.addAll(data);
         }
         mXOffset = 0;
-        mMaxOffset = (int) (mViewWidth + mXDataIntervalWidth * (dataList.size() - 1));
     }
 
     public void reset() {

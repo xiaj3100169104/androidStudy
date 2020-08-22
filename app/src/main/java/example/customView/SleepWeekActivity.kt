@@ -3,8 +3,6 @@ package example.customView
 import android.os.Bundle
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
-import com.style.view.healthy.SleepDetailView
-import com.style.view.healthy.SleepWeekHistogram
 import kotlinx.android.synthetic.main.activity_week_sleep.*
 import java.text.SimpleDateFormat
 import java.util.*

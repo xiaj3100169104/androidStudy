@@ -19,12 +19,11 @@
 
         <ImageView
             android:id="@+id/base_title_bar_iv_back"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="7dp"
-            android:src="@drawable/ic_back_gray" />
+            android:padding="10dp"
+            android:src="@drawable/ic_menu_back_black" />
 
         <TextView
             android:id="@+id/base_title_bar_tv_title"
@@ -32,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:maxLines="1"
+            android:maxLength="30"
             tools:text="@string/app_name"
             android:textColor="@color/title_bar_common_title"
             android:textSize="18sp"/>

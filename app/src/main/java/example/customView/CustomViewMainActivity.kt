@@ -2,7 +2,6 @@ package example.customView
 
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
-import androidx.fragment.app.Fragment
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
 import example.customView.fragment.*

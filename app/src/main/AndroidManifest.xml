@@ -62,8 +62,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:icon,android:label,android:supportsRtl,android:theme">
         <activity
-            android:name="example.login.LoginActivity"
-            android:theme="@style/AppTheme.Splash">
+            android:name="example.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="example.home.MainActivity"
+            android:name="example.login.LoginActivity"
             android:launchMode="singleTask" />
         <activity
             android:name="example.viewPagerBanner.BannerActivity"

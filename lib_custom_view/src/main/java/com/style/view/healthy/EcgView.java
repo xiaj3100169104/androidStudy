@@ -77,7 +77,7 @@ public class EcgView extends View {
         mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
         smallHorizontalGridWidth = mViewWidth / (5f * bigHorizontalGridNum);
         smallVerticalGridHeight = mViewHeight / (5f * bigVerticalGridNum);
-        mXDataIntervalWidth = smallHorizontalGridWidth;
+        mXDataIntervalWidth = 2;
         leftDrawOffset = -smallHorizontalGridWidth * 2;
         rightDrawOffset = mViewWidth + smallHorizontalGridWidth * 2;
         mMaxOffset = (int) (mViewWidth + mXDataIntervalWidth * (dataList.size() - 1));
@@ -153,6 +153,7 @@ public class EcgView extends View {
             dataList.addAll(data);
         }
         mXOffset = 0;
+        requestLayout();
     }
 
     public void reset() {

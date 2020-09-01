@@ -19,8 +19,8 @@ public class EcgView extends View {
     private final String TAG = this.getClass().getSimpleName();
     //拐角处弧度半径
     private float cornerRadius = 10f;
-    private int bigHorizontalGridNum = 8;
-    private int bigVerticalGridNum = 4;
+    private int bigHorizontalGridNum = 16;
+    private int bigVerticalGridNum = 8;
     private float smallHorizontalGridWidth;
     private float smallVerticalGridHeight;
     private int mLineWidth;
@@ -77,9 +77,9 @@ public class EcgView extends View {
         mViewHeight = MeasureSpec.getSize(heightMeasureSpec);
         smallHorizontalGridWidth = mViewWidth / (5f * bigHorizontalGridNum);
         smallVerticalGridHeight = mViewHeight / (5f * bigVerticalGridNum);
-        mXDataIntervalWidth = 2;
-        leftDrawOffset = -smallHorizontalGridWidth * 2;
-        rightDrawOffset = mViewWidth + smallHorizontalGridWidth * 2;
+        mXDataIntervalWidth = smallHorizontalGridWidth * 4;
+        leftDrawOffset = -mXDataIntervalWidth * 2;
+        rightDrawOffset = mViewWidth + mXDataIntervalWidth * 2;
         mMaxOffset = (int) (mViewWidth + mXDataIntervalWidth * (dataList.size() - 1));
         setMeasuredDimension(mViewWidth, mViewHeight);
     }

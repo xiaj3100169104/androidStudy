@@ -56,7 +56,7 @@ public class EcgActivity extends BaseTitleBarActivity {
 
     private void getData() {
         Random random = new Random(1);
-        for (int i = 0; i < 30000; i++) {
+        for (int i = 0; i < 3000; i++) {
             int k = random.nextInt(160) - 80;
             dataList.add(k);
         }

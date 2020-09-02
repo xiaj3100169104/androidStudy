@@ -11,8 +11,6 @@ import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
 import example.activity.QRCodeActivity
 
-import example.ble.BLEActivity
-import example.ble.BlueToothActivity
 import example.media.socket.chat.SocketTestActivity
 import example.media.AudioRecordActivity
 import example.queue.QueueTestActivity
@@ -41,8 +39,6 @@ class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
         view_voice_record.setOnClickListener { skip(AudioRecordActivity::class.java) }
         view_socket.setOnClickListener { skip(SocketTestActivity::class.java) }
         view_event_manager.setOnClickListener { skip(QueueTestActivity::class.java) }
-        view_blue_tooth.setOnClickListener { skip(BlueToothActivity::class.java) }
-        view_ble.setOnClickListener { skip(BLEActivity::class.java) }
         view_wifi.setOnClickListener { skip(WifiTestActivity::class.java) }
         view_webservice.setOnClickListener { skip(WebServiceActivity::class.java) }
 

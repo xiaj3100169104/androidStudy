@@ -56,16 +56,6 @@
             android:text="事件管理" />
 
         <TextView
-            android:id="@+id/view_blue_tooth"
-            style="@style/View.normal_item_horizontal"
-            android:text="蓝牙开发" />
-
-        <TextView
-            android:id="@+id/view_ble"
-            style="@style/View.normal_item_horizontal"
-            android:text="低功耗蓝牙开发" />
-
-        <TextView
             android:id="@+id/view_wifi"
             style="@style/View.normal_item_horizontal"
             android:text="wifi扫描" />

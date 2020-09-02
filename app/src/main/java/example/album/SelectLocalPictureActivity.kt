@@ -1,39 +1,35 @@
 package example.album;
 
-import android.Manifest;
+import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent;
+import android.content.Intent
 import android.net.Uri
-import android.os.Build;
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.core.content.FileProvider
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.text.TextUtils
-import android.view.View;
-
-import com.dmcbig.mediapicker.PickerActivity;
-import com.dmcbig.mediapicker.PickerConfig;
-import com.dmcbig.mediapicker.entity.Media;
-import com.style.config.FileDirConfig;
+import android.view.View
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dmcbig.mediapicker.PickerActivity
+import com.dmcbig.mediapicker.PickerConfig
+import com.dmcbig.mediapicker.entity.Media
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.base.BaseTitleBarActivity;
-import com.style.dialog.SelAvatarDialog;
-import com.style.framework.R;
-import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
+import com.style.base.BaseTitleBarActivity
+import com.style.config.FileDirConfig
+import com.style.dialog.SelAvatarDialog
+import com.style.framework.R
+import com.style.framework.databinding.ActivitySelectLocalPictureBinding
 import com.style.utils.BitmapUtil
-import com.style.utils.DeviceInfoUtil;
-import com.style.utils.SystemShareUtil;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import java.io.File;
-import java.util.ArrayList;
-
-import example.viewPager.ImageScanActivity;
+import com.style.utils.DeviceInfoUtil
+import com.style.utils.SystemShareUtil
+import com.tbruyelle.rxpermissions2.RxPermissions
+import example.viewPager.ImageScanActivity
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
+import java.util.*
 
 /**
  * Created by xiajun on 2016/10/8.
@@ -181,11 +177,11 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
             dialog = SelAvatarDialog(getContext());
             dialog?.setOnItemClickListener(object : SelAvatarDialog.OnItemClickListener {
                 override fun OnClickCamera() {
-                    initPermission();
+                    checkCameraAndExternalStoragePermission();
                 }
 
                 override fun OnClickPhoto() {
-                    selectPhotos();
+                    checkExternalStoragePermission();
                 }
 
                 override fun OnClickCancel() {
@@ -214,7 +210,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
     }
 
     @SuppressLint("CheckResult")
-    private fun initPermission() {
+    private fun checkCameraAndExternalStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var rxPermissions = RxPermissions(this);
             //拍照之前首先需要读写SD卡权限
@@ -231,6 +227,24 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                     });
         } else {
             takePhoto();
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    protected fun checkExternalStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val rxPermissions = RxPermissions(this)
+            rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ grated: Boolean ->
+                        if (grated) {
+                            selectPhotos()
+                        } else {
+                            showToast(R.string.error_no_external_storage_permission)
+                        }
+                    }) { throwable: Throwable -> throwable.printStackTrace() }
+        } else {
+            selectPhotos()
         }
     }
 

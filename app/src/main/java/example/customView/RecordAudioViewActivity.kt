@@ -44,6 +44,8 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
     private var mThread: Thread? = null
 
     private fun startRecord() {
+        if (mThread != null && mThread?.isAlive!!)
+            return
         mThread = Thread {
             val random = Random()
             while (true) {

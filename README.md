@@ -6,7 +6,7 @@
 
 ## 进度指示View
   -------------
-<img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/progress.gif" height="400" alt="Screenshot"/> <img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/line_progress.gif" height="400" alt="Screenshot"/> <img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/water_pelo.gif" height="400" alt="Screenshot"/> 
+<img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/progress.gif" height="400" alt="Screenshot"/> <img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/water_pelo.gif" height="400" alt="Screenshot"/> <img src="https://raw.github.com/xj913492952/androidStudy/master/screenshots/line_progress.gif" height="400" alt="Screenshot"/> 
 
 ## 折线、曲线图
   -------------

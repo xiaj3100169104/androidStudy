@@ -22,10 +22,6 @@ public class EditLayoutChangeActivity extends BaseTitleBarActivity {
         setFullScreenStableDarkMode(true);
         bd = getBinding();
         setTitleBarTitle("编辑布局调整");
-        bd.viewCustomColor.setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), MoveEditLayoutToTopActivity.class));
-        });
-        bd.viewTranslucentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), HideStatusBarBottomEditLayoutActivity.class)));
         bd.viewTransparentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), FullScreenBottomEditLayoutActivity.class)));
         bd.viewB.setOnClickListener(v -> {
             int h = getResources().getDisplayMetrics().heightPixels;

@@ -1,6 +1,7 @@
 package com.style.utils;
 
 import android.media.ExifInterface;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class PictureUtil {
         try {
             ExifInterface exifInterface = new ExifInterface(path);
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            Log.e("orientation", orientation + "");
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     degree = 90;

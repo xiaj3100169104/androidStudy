@@ -7,13 +7,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.palette.graphics.Palette;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -189,6 +192,19 @@ public class GlideDealActivity extends BaseTitleBarActivity {
 
             }
         });
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        Bitmap b = BitmapFactory.decodeFile(targetPath, options);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //如果已知，则解码后的位图将具有配置。
+            if (options.outConfig != null) {
+                Log.e("outConfig", options.outConfig + "");
+            }
+        }
+        FaceDetector faceDet = new FaceDetector(b.getWidth(), b.getHeight(), 1);
+        FaceDetector.Face[] faceList = new FaceDetector.Face[1];
+        int n = faceDet.findFaces(b, faceList);
+        Log.e("人脸数", n + "");
     }
 
     protected void showSelPicPopupWindow() {
@@ -283,31 +299,8 @@ public class GlideDealActivity extends BaseTitleBarActivity {
             switch (requestCode) {
                 case CODE_TAKE_CAMERA:// 拍照
                     if (null != photoFile && photoFile.exists()) {
-                        try {
-                            DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
-                            boolean isSucceed;
-                            //需要把原文件复制一份，否则会在原文件上操作
-                            String mCopyFilePath = getCopyFilePath();
-                            //取出目标路径
-                            int degree = PictureUtil.readPictureDegree(photoFile.getAbsolutePath());
-                            logE(getTAG(), "拍照后的角度：" + degree);
-                            if (degree != 0) {// 旋转图片,保存
-                                Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath());
-                                bitmap = BitmapUtil.rotateImageView(bitmap, degree);
-                                BitmapUtil.saveBitmap(mCopyFilePath, bitmap, 100);
-                                isSucceed = true;
-                            } else {
-                                isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
-                            }
-                            if (isSucceed) {
-                                cropImagePath = getTargetFilePath();
-                                dealPictureCrop(mCopyFilePath, cropImagePath);
-                            } else
-                                showToast("图片创建失败");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            showToast("图片创建失败");
-                        }
+                        DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
+                        dealPictureFile(photoFile);
                     } else {
                         showToast(R.string.file_does_not_exist);
                     }
@@ -316,14 +309,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                     if (data != null) {
                         Uri uri = data.getData();
                         photoFile = FileUtil.UriToFile(this, uri);
-                        //需要把原文件复制一份，否则会在原文件上操作
-                        String mCopyFilePath = getCopyFilePath();
-                        boolean isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
-                        if (isSucceed) {
-                            cropImagePath = getTargetFilePath();
-                            dealPictureCrop(mCopyFilePath, cropImagePath);
-                        } else
-                            showToast("图片创建失败");
+                        dealPictureFile(photoFile);
                     } else {
                         showToast(R.string.file_does_not_exist);
                     }
@@ -335,7 +321,45 @@ public class GlideDealActivity extends BaseTitleBarActivity {
         }
     }
 
-    protected void dealPictureCrop(String originalFilePath, String targetPath) {
+    /**
+     * 旋转、复制图片
+     *
+     * @param photoFile
+     */
+    private void dealPictureFile(File photoFile) {
+        try {
+            //读取图片拍摄角度
+            int degree = PictureUtil.readPictureDegree(photoFile.getAbsolutePath());
+            logE(getTAG(), "拍照后的角度：" + degree);
+            boolean isSucceed;
+            //需要把原文件复制一份，否则会在原文件上操作
+            String mCopyFilePath = getCopyFilePath();
+            if (degree != 0) {// 旋转图片,保存
+                Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getPath());
+                bitmap = BitmapUtil.rotateImageView(bitmap, degree);
+                BitmapUtil.saveBitmap(mCopyFilePath, bitmap, 100);
+                isSucceed = true;
+            } else {
+                isSucceed = FileUtil.copyFile(photoFile, mCopyFilePath);
+            }
+            if (isSucceed) {
+                cropImagePath = getTargetFilePath();
+                skipToCrop(mCopyFilePath, cropImagePath);
+            } else
+                showToast("图片创建失败");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showToast("图片创建失败");
+        }
+    }
+
+    /**
+     * 跳转到图片裁剪界面
+     *
+     * @param originalFilePath
+     * @param targetPath
+     */
+    protected void skipToCrop(String originalFilePath, String targetPath) {
         logE(getTAG(), "待裁剪图片路径-->" + originalFilePath);
         logE(getTAG(), "裁剪后图片路径-->" + targetPath);
         Intent intent = ImageCropActivity.createIntent(this, originalFilePath, targetPath, getCropAreaStr(), false, getMaxCropSize());

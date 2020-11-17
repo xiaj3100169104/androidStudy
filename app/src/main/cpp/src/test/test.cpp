@@ -1,6 +1,6 @@
 #include <jni.h>
 #include <string>
-#include<Android/log.h>
+#include<android/log.h>
 #include <string.h>
 #include "logUtil.cpp"
 

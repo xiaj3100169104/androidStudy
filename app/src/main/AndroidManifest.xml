@@ -113,6 +113,7 @@
         <activity android:name="example.activity.GlideDealActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity android:name="example.activity.QRCodeActivity" />
+        <activity android:name="example.activity.PreviewActivity" />
         <activity
             android:name="example.editLayout.EditLayoutChangeActivity"
             android:launchMode="singleTop" />

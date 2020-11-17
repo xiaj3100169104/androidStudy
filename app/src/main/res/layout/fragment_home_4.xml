@@ -35,9 +35,14 @@
             android:text="模拟app崩溃" />
 
         <TextView
-            android:id="@+id/view_video_record"
+            android:id="@+id/view_camera2"
             style="@style/View.normal_item_horizontal"
             android:layout_marginTop="20dp"
+            android:text="camera2" />
+
+        <TextView
+            android:id="@+id/view_video_record"
+            style="@style/View.normal_item_horizontal"
             android:text="VideoRecord" />
 
         <TextView

@@ -9,6 +9,7 @@ import example.activity.TestRxActivity
 
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.framework.R
+import example.activity.PreviewActivity
 import example.activity.QRCodeActivity
 
 import example.media.socket.chat.SocketTestActivity
@@ -35,6 +36,7 @@ class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
             val test: String? = null
             logE(TAG, test!!.toString())
         }
+        view_camera2.setOnClickListener { skip(PreviewActivity::class.java) }
         view_video_record.setOnClickListener { skip(VideoTestActivity::class.java) }
         view_voice_record.setOnClickListener { skip(AudioRecordActivity::class.java) }
         view_socket.setOnClickListener { skip(SocketTestActivity::class.java) }

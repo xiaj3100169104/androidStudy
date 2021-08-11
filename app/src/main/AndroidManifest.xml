@@ -101,8 +101,6 @@
         <activity android:name="example.media.socket.chat.SocketTestActivity" />
         <activity android:name="example.media.video.LocalVideoActivity" />
         <activity android:name="example.media.video.VideoRecorderActivity" />
-        <activity android:name="example.ble.BlueToothActivity" />
-        <activity android:name="example.ble.BLEActivity" />
         <activity android:name="example.wifi.WifiTestActivity" />
         <activity android:name="example.queue.QueueTestActivity" />
         <activity android:name="example.db.TestRoomActivity" />
@@ -115,18 +113,13 @@
         <activity android:name="example.activity.GlideDealActivity" />
         <activity android:name="example.activity.TestRxActivity" />
         <activity android:name="example.activity.QRCodeActivity" />
+        <activity android:name="example.activity.PreviewActivity" />
         <activity
             android:name="example.editLayout.EditLayoutChangeActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name="example.editLayout.MoveEditLayoutToTopActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name="example.fragmentAdapter.IndexFragmentActivity" />
         <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
         <activity android:name="example.fragmentAdapter.test.FragmentTestActivity" />
-        <activity
-            android:name="example.editLayout.HideStatusBarBottomEditLayoutActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -188,14 +181,6 @@
             android:exported="false">
             <intent-filter android:priority="998">
                 <action android:name="music.play.service" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name="com.style.service.ble.BleService"
-            android:enabled="true">
-            <intent-filter android:priority="1000">
-                <action android:name="com.style.ble.connect" />
             </intent-filter>
         </service>
         <!-- 语音悬浮服务 -->

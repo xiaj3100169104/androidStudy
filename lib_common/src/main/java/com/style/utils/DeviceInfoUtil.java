@@ -131,7 +131,7 @@ public class DeviceInfoUtil {
         context.startActivity(intent);
     }
 
-    public static void notifyUpdateGallary(Context context, String authority, File photoFile) {
+    public static void notifyUpdateGallary(Context context, File photoFile) {
         /*Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

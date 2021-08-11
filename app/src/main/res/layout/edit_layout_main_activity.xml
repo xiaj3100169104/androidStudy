@@ -11,28 +11,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@mipmap/home_banner_2" />
-
-            <Button
-                android:id="@+id/view_custom_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="整体上移" />
-
-            <Button
-                android:id="@+id/view_translucent_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="状态栏不可用调整编辑布局" />
+            <include layout="@layout/title_bar_white" />
 
             <Button
                 android:id="@+id/view_transparent_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="全透明状态栏调整编辑布局" />
+                android:text="状态栏可用调整编辑布局" />
 
             <View
                 android:id="@+id/view_b"
@@ -40,8 +25,6 @@
                 android:layout_height="40dp"
                 android:background="#0f0" />
         </LinearLayout>
-
-        <include layout="@layout/title_bar_transparent" />
 
         <View
             android:id="@+id/view_top"

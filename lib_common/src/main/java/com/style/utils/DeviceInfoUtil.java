@@ -1,8 +1,11 @@
 package com.style.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -11,6 +14,10 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.core.content.FileProvider;
+
+import com.style.config.FileDirConfig;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -103,6 +110,7 @@ public class DeviceInfoUtil {
         return statusBarHeight;
     }
 
+    @SuppressLint("MissingPermission")
     public static String getIMEI(Context context) {
         try {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -123,11 +131,24 @@ public class DeviceInfoUtil {
         context.startActivity(intent);
     }
 
-    public static void notifyUpdateGallary(Context context, File photoFile) {
-        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        Uri uri = Uri.fromFile(photoFile);
+    public static void notifyUpdateGallary(Context context, String authority, File photoFile) {
+        /*Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(context, authority, photoFile);
+        } else {
+            uri = Uri.fromFile(photoFile);
+        }
         intent.setData(uri);
-        context.sendBroadcast(intent);
+        context.sendBroadcast(intent);*/
+        MediaScannerConnection.scanFile(context, new String[]{photoFile.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+            @Override
+            public void onScanCompleted(String path, Uri uri) {
+                Log.e("onScanCompleted", path);
+                Log.e("onScanCompleted", "" + uri);
+
+            }
+        });
     }
 
     public static int[] getViewLocationOnScreen(View view) {

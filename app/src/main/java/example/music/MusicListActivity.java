@@ -9,15 +9,16 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.util.Log;
 import android.view.View;
 
 import com.dmcbig.mediapicker.PickerConfig;
-import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseTitleBarActivity;
 import com.style.base.BaseRecyclerViewAdapter;
 import com.style.framework.R;
@@ -119,19 +120,10 @@ public class MusicListActivity extends BaseTitleBarActivity implements MediaData
         adapter.notifyDataSetChanged();
     }
 
-    public void done(ArrayList<Media> selects) {
-        Intent intent = new Intent();
-        intent.putParcelableArrayListExtra(PickerConfig.EXTRA_RESULT, selects);
-        setResult(PickerConfig.RESULT_CODE, intent);
-        finish();
-    }
-
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

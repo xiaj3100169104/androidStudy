@@ -24,6 +24,7 @@ import com.style.framework.R;
 import com.style.framework.databinding.ActivitySelectLocalPictureBinding;
 import com.style.utils.BitmapUtil
 import com.style.utils.DeviceInfoUtil;
+import com.style.utils.FileUtil
 import com.style.utils.SystemShareUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -148,7 +149,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                     }
                 CODE_TAKE_CAMERA ->
                     if (photoFile!!.exists()) {
-                        DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
+                        DeviceInfoUtil.notifyUpdateGallary(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile);// 通知系统更新相册
                         var filePath = photoFile?.getAbsolutePath();// 获取相片的保存路径
                         var size = paths.size;
                         if (size >= 10) {
@@ -181,11 +182,11 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
             dialog = SelAvatarDialog(getContext());
             dialog?.setOnItemClickListener(object : SelAvatarDialog.OnItemClickListener {
                 override fun OnClickCamera() {
-                    initPermission();
+                    checkSDcardAndCameraPermission();
                 }
 
                 override fun OnClickPhoto() {
-                    selectPhotos();
+                    checkSDcardPermission();
                 }
 
                 override fun OnClickCancel() {
@@ -213,8 +214,23 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         this.startActivityForResult(intent, PickerConfig.CODE_TAKE_ALBUM);
     }
 
+    private fun takePhoto() {
+        photoFile = File(FileDirConfig.DIR_APP_IMAGE_CAMERA, "${System.currentTimeMillis()}.jpg")
+        if (FileUtil.isNewFileCanWrite(photoFile)) {
+            val uri: Uri
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                uri = FileProvider.getUriForFile(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile!!)
+            } else {
+                uri = Uri.fromFile(photoFile)
+            }
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+            startActivityForResult(intent, CODE_TAKE_CAMERA)
+        }
+    }
+
     @SuppressLint("CheckResult")
-    private fun initPermission() {
+    private fun checkSDcardAndCameraPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var rxPermissions = RxPermissions(this);
             //拍照之前首先需要读写SD卡权限
@@ -224,7 +240,7 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
                         if (grated) {
                             takePhoto();
                         } else {
-                            //onError("请开启相机权限");
+                            showToast("请开启相机权限与存储卡读写权限");
                         }
                     }, { throwable ->
                         throwable.printStackTrace();
@@ -234,16 +250,24 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         }
     }
 
-    private fun takePhoto() {
-        photoFile = File(FileDirConfig.DIR_APP_IMAGE_CAMERA, "${System.currentTimeMillis()}.jpg")
-        val uri: Uri
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile!!)
+    @SuppressLint("CheckResult")
+    private fun checkSDcardPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var rxPermissions = RxPermissions(this);
+            //需要读写SD卡权限
+            rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ grated ->
+                        if (grated) {
+                            selectPhotos();
+                        } else {
+                            showToast("请开启存储卡读写权限");
+                        }
+                    }, { throwable ->
+                        throwable.printStackTrace();
+                    });
         } else {
-            uri = Uri.fromFile(photoFile)
+            selectPhotos();
         }
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-        startActivityForResult(intent, CODE_TAKE_CAMERA)
     }
 }

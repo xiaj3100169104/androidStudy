@@ -284,7 +284,7 @@ public class GlideDealActivity extends BaseTitleBarActivity {
                 case CODE_TAKE_CAMERA:// 拍照
                     if (null != photoFile && photoFile.exists()) {
                         try {
-                            DeviceInfoUtil.notifyUpdateGallary(this, photoFile);// 通知系统更新相册
+                            DeviceInfoUtil.notifyUpdateGallary(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile);// 通知系统更新相册
                             boolean isSucceed;
                             //需要把原文件复制一份，否则会在原文件上操作
                             String mCopyFilePath = getCopyFilePath();

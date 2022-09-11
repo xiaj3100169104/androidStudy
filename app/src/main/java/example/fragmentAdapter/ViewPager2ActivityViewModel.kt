@@ -3,7 +3,7 @@ package example.fragmentAdapter
 import android.app.Application
 import com.style.base.BaseViewModel
 
-class StateFragmentActivityViewModel : BaseViewModel {
+class ViewPager2ActivityViewModel : BaseViewModel {
 
     constructor(application: Application) : super(application)
 

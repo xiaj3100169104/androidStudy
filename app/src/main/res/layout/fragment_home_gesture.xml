@@ -78,14 +78,15 @@
                 android:text="ViewPager fragments卡片" />
 
             <TextView
-                android:id="@+id/tabLayoutWithFragment"
-                style="@style/text_home_item"
-                android:text="TabLayoutWithFragment" />
-
-            <TextView
                 android:id="@+id/viewPager2WithView"
                 style="@style/text_home_item"
                 android:text="ViewPager2WithView" />
+
+            <TextView
+                android:id="@+id/tabLayoutWithFragment"
+                style="@style/text_home_item"
+                android:text="TabLayoutWithViewPager2" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </com.style.common_ui.refresh.MyAppRefreshLayout>

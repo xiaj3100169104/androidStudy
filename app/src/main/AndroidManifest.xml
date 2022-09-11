@@ -118,7 +118,7 @@
             android:name="example.editLayout.EditLayoutChangeActivity"
             android:launchMode="singleTop" />
         <activity android:name="example.fragmentAdapter.TabViewPager2Activity" />
-        <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.ViewPager2Activity" />
         <activity
             android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />

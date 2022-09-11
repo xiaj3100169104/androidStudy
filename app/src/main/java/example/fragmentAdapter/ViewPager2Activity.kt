@@ -10,10 +10,10 @@ import com.style.base.BaseTitleBarActivity
 import com.style.framework.databinding.Viewpager2WithViewActivityBinding
 import com.style.framework.databinding.Viewpager2WithViewAdapterBinding
 
-class StateFragmentActivity : BaseTitleBarActivity() {
+class ViewPager2Activity : BaseTitleBarActivity() {
 
     private lateinit var bd: Viewpager2WithViewActivityBinding
-    private lateinit var mViewModel: StateFragmentActivityViewModel
+    private lateinit var mViewModel: ViewPager2ActivityViewModel
     private lateinit var fAdapter: StateAdapter
     private val mData = ArrayList<String>()
 
@@ -24,7 +24,7 @@ class StateFragmentActivity : BaseTitleBarActivity() {
         setFullScreenStableDarkMode(true)
         setTitleBarTitle("ViewPager2WithView")
 
-        mViewModel = ViewModelProvider(this).get(StateFragmentActivityViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(ViewPager2ActivityViewModel::class.java)
         mData.addAll(mViewModel.getData())
         fAdapter = StateAdapter(this, mData)
         bd.viewPager2.adapter = fAdapter

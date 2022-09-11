@@ -14,7 +14,7 @@ import example.scroll.scroll_stop.ScrollingStopTopActivity
 import example.scroll.swipeMenu.SwipeMenuActivity
 import example.editLayout.EditLayoutChangeActivity
 import example.fragmentAdapter.TabViewPager2Activity
-import example.fragmentAdapter.StateFragmentActivity
+import example.fragmentAdapter.ViewPager2Activity
 import example.gesture.DispatchGestureActivity
 import example.gesture.SimpleGestureActivity
 import example.gesture.VerticalSlideFinishActivity
@@ -46,8 +46,8 @@ class GestureFragment : BaseNoPagerLazyRefreshFragment() {
 
         bd.btnViewPagerCardViews.setOnClickListener { skip(CardActivity::class.java) }
         bd.btnViewPagerCardFragments.setOnClickListener { skip(CardFragmentActivity::class.java) }
+        bd.viewPager2WithView.setOnClickListener{ skip(ViewPager2Activity::class.java) }
         bd.tabLayoutWithFragment.setOnClickListener{ skip(TabViewPager2Activity::class.java) }
-        bd.viewPager2WithView.setOnClickListener{ skip(StateFragmentActivity::class.java) }
 
     }
 }

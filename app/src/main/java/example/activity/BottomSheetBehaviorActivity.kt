@@ -1,21 +1,21 @@
 package example.activity
 
 import android.os.Bundle
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import android.util.Log
 import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
-import kotlinx.android.synthetic.main.fragment_tablayout.*
+import com.style.framework.databinding.FragmentTablayoutBinding
 
 class BottomSheetBehaviorActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.fragment_tablayout)
-        val behavior = BottomSheetBehavior.from(scroll)
+        var bd = FragmentTablayoutBinding.inflate(layoutInflater)
+        setContentView(bd.root)
+        val behavior = BottomSheetBehavior.from(bd.scroll)
         behavior.peekHeight = 50
-        tv_content.setOnClickListener {
+        bd.tvContent.setOnClickListener {
             if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED)
             } else {

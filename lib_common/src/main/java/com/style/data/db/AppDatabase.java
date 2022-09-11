@@ -12,9 +12,6 @@ import android.util.Log;
 import com.style.data.fileDown.FileDownloadStateBean;
 import com.style.entity.UserBean;
 
-/**
- * 单例和静态常量不用kotlin，写法麻烦
- */
 @Database(entities = {UserBean.class, FileDownloadStateBean.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "TestRoomDataBase";

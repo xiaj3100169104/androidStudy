@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/title_bar_red" />
+
+    <com.style.view.progressbar.HorizontalProgressBar
+        android:id="@+id/progress"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:orientation="vertical">
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"
+        app:horizontalProgress="30"
+        app:horizontalProgressColor="@color/blue_dark" />
 
-        <include layout="@layout/title_bar_red" />
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
-        <com.style.view.progressbar.HorizontalProgressBar
-            android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"
-            app:horizontalProgress="30"
-            app:horizontalProgressColor="@color/blue_dark" />
+    <Button
+        android:id="@+id/btn_java_to_js"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="java调js" />
 
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
+    <Button
+        android:id="@+id/btn_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户反馈页面" />
 
-        <Button
-            android:id="@+id/btn_java_to_js"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="java调js" />
+    <Button
+        android:id="@+id/btn_dialog_webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="对话框加载webview" />
 
-        <Button
-            android:id="@+id/btn_feedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="用户反馈页面" />
-
-        <Button
-            android:id="@+id/btn_dialog_webview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="对话框加载webview" />
-    </LinearLayout>
-</layout>
+</LinearLayout>
 

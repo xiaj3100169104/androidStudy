@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
@@ -51,6 +50,4 @@
             android:src="@drawable/ic_bookmark_24dp" />
 
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>
-</layout>

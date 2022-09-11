@@ -2,14 +2,11 @@ package example.web;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
@@ -38,9 +35,7 @@ public class WebViewDialog extends BaseDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("WebViewDialog", "onCreate");
-        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_web_view, null, false);
-        bd = DataBindingUtil.bind(contentView);
+        bd = DialogWebViewBinding.inflate(LayoutInflater.from(getContext()));
         setContentView(bd.getRoot());
         bd.webView.setBackgroundColor(0);
         bd.webView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
@@ -60,15 +55,8 @@ public class WebViewDialog extends BaseDialog {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e("WebViewDialog", "onStart");
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
-        Log.e("WebViewDialog", "onStop");
         bd.webView.clearHistory();
         bd.webView.clearCache(true);
         bd.webView.removeAllViews();

@@ -28,8 +28,9 @@ public class EcgActivity extends BaseTitleBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_ecg);
-        bd = getBinding();
+        bd = ActivityEcgBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+
         bd.view.setListener(new EcgView.PlayListener() {
             @Override
             public void onStarted() {

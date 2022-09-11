@@ -1,17 +1,17 @@
 package example.media.socket.chat;
 
 
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Environment;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.ActivitySocketTestBinding;
 
-public class SocketTestActivity extends AppCompatActivity {
+public class SocketTestActivity extends BaseTitleBarActivity {
 
     private ChatSocketClient chatSocketClient;
     private ActivitySocketTestBinding bd;
@@ -19,7 +19,10 @@ public class SocketTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_socket_test);
+        bd = ActivitySocketTestBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+        setTitleBarTitle("socket测试");
+
         bd.btConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

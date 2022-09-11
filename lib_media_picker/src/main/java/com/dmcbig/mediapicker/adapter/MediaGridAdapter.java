@@ -27,9 +27,6 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 
 import java.util.ArrayList;
 
-/**
- * Created by dmcBig on 2017/7/5.
- */
 
 public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.MyViewHolder> {
 

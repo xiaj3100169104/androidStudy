@@ -18,8 +18,8 @@ public class SimpleGestureActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.gesture_simple_test);
-        bd = getBinding();
+        bd = GestureSimpleTestBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("区分上、下、左、右滑动");
         bd.textView3.setOnClickListener(v -> logE(getTAG(), "textView3"));
         bd.textView4.setOnClickListener(v -> logE(getTAG(), "textView4"));

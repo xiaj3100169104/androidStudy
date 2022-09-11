@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF000000"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FF000000"
-        android:orientation="vertical">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:background="@color/white">
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:layout_centerVertical="true"
-            android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="500dp"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:scaleType="fitXY"
+                android:src="@mipmap/empty_photo" />
 
-                <ImageView
-                    android:id="@+id/iv"
-                    android:layout_width="500dp"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/empty_photo" />
+        </LinearLayout>
 
-            </LinearLayout>
-
-        </HorizontalScrollView>
-    </RelativeLayout>
-
-</layout>
+    </HorizontalScrollView>
+</RelativeLayout>

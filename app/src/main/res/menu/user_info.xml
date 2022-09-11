@@ -8,12 +8,12 @@
     <item
         android:id="@+id/raise_close"
         android:orderInCategory="0"
-        android:title="提升为熟识圈好友"
+        android:title="删除这条数据"
         app:showAsAction="never" />
     <item
         android:id="@+id/del_friend"
         android:orderInCategory="0"
-        android:title="解除好友关系"
+        android:title="提示"
         app:showAsAction="never" />
     <item
         android:id="@+id/report"

@@ -21,7 +21,6 @@ public class VerticalSlideFinishActivity extends BaseActivity {
     ActivityTestGestureBinding bd;
     private float xDown;
     private float yDown;
-    private boolean isShouldFinish;
     private ViewConfiguration viewConfiguration;
     private View rootView;
     private boolean isStartSlide;
@@ -40,15 +39,15 @@ public class VerticalSlideFinishActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_test_gesture);
-        bd = getBinding();
+        bd = ActivityTestGestureBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         rootView = bd.getRoot();
         viewConfiguration = ViewConfiguration.get(getContext());
 
         bd.iv.setOnClickListener(v -> {
             logE(getTAG(), "iv");
         });
-        AppActivityManager.Companion.getInstance().setTestTaskId(getTaskId());
+        AppActivityManager.getInstance().setTestTaskId(getTaskId());
     }
 
     @Override
@@ -60,7 +59,7 @@ public class VerticalSlideFinishActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppActivityManager.Companion.getInstance().setTestTaskId(-1);
+        AppActivityManager.getInstance().setTestTaskId(-1);
     }
 
     //除非是顶级拖拽事件（不管ziview处于睡眠状态都拦截），否则不予轻易在此方法中拦截事件

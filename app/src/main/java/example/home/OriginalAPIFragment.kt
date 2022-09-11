@@ -6,51 +6,52 @@ import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseNoPagerLazyRefreshFragment
 import com.style.entity.KuaiDi
-import com.style.framework.R
+import com.style.framework.databinding.FragmentHome3Binding
+import com.style.service.remote.RemotePlayActivity
 import example.activity.AnimatorActivity
-import example.subThreadLooper.MsgToSubActivity
+import example.activity.JniTestActivity
 import example.activity.ReadAssetsActivity
 import example.aidl.AidlActivity
 import example.db.TestRoomActivity
 import example.encrypt.EncryptActivity
 import example.filedown.FileDownActivity
-import example.music.MusicListActivity
-import com.style.service.remote.RemotePlayActivity
-import example.activity.JniTestActivity
 import example.location.LocationActivity
+import example.music.MusicListActivity
+import example.subThreadLooper.MsgToSubActivity
 import example.web.WebViewActivity
 import example.web.WebViewAndJSActivity
-import kotlinx.android.synthetic.main.fragment_home_3.*
 import kotlin.concurrent.thread
 
 
 class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
 
+    private lateinit var bd: FragmentHome3Binding
     lateinit var blank: KuaiDi
     lateinit var blank2: KuaiDi
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home_3, container, false)
+        bd = FragmentHome3Binding.inflate(inflater, container, false)
+        return bd.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view_main_msg_to_sub.setOnClickListener { skip(MsgToSubActivity::class.java) }
-        view_test_room.setOnClickListener { skip(TestRoomActivity::class.java) }
-        view_animator.setOnClickListener { skip(AnimatorActivity::class.java) }
-        view_remote_web.setOnClickListener { skip(WebViewActivity::class.java) }
-        view_web_with_js.setOnClickListener { skip(WebViewAndJSActivity::class.java) }
-        view_jni.setOnClickListener { skip(JniTestActivity::class.java) }
-        view_aidl.setOnClickListener { skip(AidlActivity::class.java) }
-        view_location.setOnClickListener { skip(LocationActivity::class.java) }
-        view_read_assets.setOnClickListener { skip(ReadAssetsActivity::class.java) }
-        view_encrypt.setOnClickListener { skip(EncryptActivity::class.java) }
-        view_file_down.setOnClickListener { skip(FileDownActivity::class.java) }
-        view_voice.setOnClickListener { skip(MusicListActivity::class.java) }
-        view_other_process.setOnClickListener { skip(RemotePlayActivity::class.java) }
-        view_save_money.setOnClickListener { saveMoney() }
-        view_take_money.setOnClickListener { takeMoney() }
+        bd.viewMainMsgToSub.setOnClickListener { skip(MsgToSubActivity::class.java) }
+        bd.viewTestRoom.setOnClickListener { skip(TestRoomActivity::class.java) }
+        bd.viewAnimator.setOnClickListener { skip(AnimatorActivity::class.java) }
+        bd.viewRemoteWeb.setOnClickListener { skip(WebViewActivity::class.java) }
+        bd.viewWebWithJs.setOnClickListener { skip(WebViewAndJSActivity::class.java) }
+        bd.viewJni.setOnClickListener { skip(JniTestActivity::class.java) }
+        bd.viewAidl.setOnClickListener { skip(AidlActivity::class.java) }
+        bd.viewLocation.setOnClickListener { skip(LocationActivity::class.java) }
+        bd.viewReadAssets.setOnClickListener { skip(ReadAssetsActivity::class.java) }
+        bd.viewEncrypt.setOnClickListener { skip(EncryptActivity::class.java) }
+        bd.viewFileDown.setOnClickListener { skip(FileDownActivity::class.java) }
+        bd.viewVoice.setOnClickListener { skip(MusicListActivity::class.java) }
+        bd.viewOtherProcess.setOnClickListener { skip(RemotePlayActivity::class.java) }
+        bd.viewSaveMoney.setOnClickListener { saveMoney() }
+        bd.viewTakeMoney.setOnClickListener { takeMoney() }
         blank = KuaiDi()
         blank2 = KuaiDi()
     }

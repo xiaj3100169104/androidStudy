@@ -2,14 +2,14 @@
 <resources>
 
     <!-- 控件选中后的颜色 -->
-    <color name="colorAccent">@color/pink</color>
+    <color name="colorAccent">@color/colorPrimary</color>
     <!-- 表示控件默认时的色调 -->
     <color name="colorControlNormal">@color/gray</color>
     <!-- 表示控件激活时候的色调 -->
     <color name="colorControlActivated">@color/red_single</color>
     <!-- Button按钮正常状态颜色 -->
-    <color name="colorButtonNormal">#44BF1A</color>
-    <color name="colorButtonPressed">#337523</color>
+    <color name="colorButtonNormal">#004B97</color>
+    <color name="colorButtonPressed">#003D79</color>
     <color name="textColorHint">@color/gray_light</color>
 
     <color name="bg_refresh_view">@color/windowBackground</color>

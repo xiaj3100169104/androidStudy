@@ -12,7 +12,7 @@
         android:layout_above="@+id/xxrefresh_default_header_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        app:arc_finished_color="#FF45CE7B"
+        app:arc_finished_color="#FF003D79"
         app:arc_finished_start_angle="270"
         app:arc_stroke_width="3dp"
         app:arc_unfinished_color="#ffe5e5e5"

@@ -27,15 +27,11 @@ public class FullScreenBottomEditLayoutActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.edit_layout_move_bottom_of_full_screen);
+        bd = EditLayoutMoveBottomOfFullScreenBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setFullScreenStableDarkMode(true);
-        bd = getBinding();
         setTitleBarTitle("调整编辑布局");
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         dataList = new ArrayList<>();
         adapter = new StringAdapter(this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

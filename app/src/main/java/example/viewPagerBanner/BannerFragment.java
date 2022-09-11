@@ -1,6 +1,5 @@
 package example.viewPagerBanner;
 
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +37,7 @@ public class BannerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        bd = DataBindingUtil.inflate(inflater, R.layout.banner_fragment, container, false);
+        bd = BannerFragmentBinding.inflate(inflater, container, false);
         return bd.getRoot();
     }
 
@@ -46,7 +45,7 @@ public class BannerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //bd.ivBanner.setImageResource(imageResId);
-        ImageLoader.load(this, getActivity().getResources().getDrawable(imageResId), bd.ivBanner);
+        ImageLoader.load(this, getContext().getResources().getDrawable(imageResId), bd.ivBanner);
         bd.ivBanner.setOnClickListener(v -> Log.e(String.valueOf(imageResId), "OnClick"));
         bd.ivBanner.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override

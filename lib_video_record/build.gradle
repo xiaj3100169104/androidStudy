@@ -9,7 +9,8 @@ android {
         preview {
         }
     }
-    dependencies {
-        implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
-    }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
 }

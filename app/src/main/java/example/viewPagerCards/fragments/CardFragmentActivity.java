@@ -24,9 +24,10 @@ public class CardFragmentActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.view_pager_cards_fragments_activity);
+        bd = ViewPagerCardsFragmentsActivityBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("fragments");
-        bd = getBinding();
+
         bd.cardTypeBtn.setOnClickListener(v -> {
             bd.viewPager.setCurrentItem(4, true);
         });

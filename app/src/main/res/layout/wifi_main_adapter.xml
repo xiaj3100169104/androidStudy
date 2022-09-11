@@ -1,99 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_pressed_default"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingStart="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_pressed_default"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingStart="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="名称:" />
 
-            <TextView
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="名称:" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:singleLine="true"
-                android:text="" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:text="" />
 
-            <TextView
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="地址:" />
-
-            <TextView
-                android:id="@+id/tv_address"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:singleLine="true"
-                android:text="" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="信号强度:" />
-
-            <TextView
-                android:id="@+id/tv_level"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加密类型:" />
-
-            <TextView
-                android:id="@+id/encrypt_type"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="" />
-        </LinearLayout>
     </LinearLayout>
-</layout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="地址:" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:text="" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信号强度:" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加密类型:" />
+
+        <TextView
+            android:id="@+id/encrypt_type"
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="" />
+    </LinearLayout>
+</LinearLayout>

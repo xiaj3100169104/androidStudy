@@ -14,7 +14,7 @@ import com.dmcbig.mediapicker.utils.ScreenUtils;
 import com.style.base.BaseTitleBarActivity;
 
 /**
- * 右滑销毁activity基类，操作体验更好
+ * 右滑销毁activity基类，操作体验比较方便。
  * Created by xiajun on 2018/8/1.
  * 注意：主题窗口背景设置半透明，滑动销毁时要去掉activity退出动画
  */
@@ -151,6 +151,12 @@ public abstract class BaseRightSlideFinishActivity extends BaseTitleBarActivity 
         });
         autoMove.start();
     }
+
+    /**
+     * 子类需实现此方法并返回根布局。
+     * @return
+     */
+    protected abstract View getContentView();
 
     private void onViewSlideToScreen() {
         finish();

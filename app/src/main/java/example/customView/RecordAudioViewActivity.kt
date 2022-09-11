@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.widget.TextView
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_record_audio_view.*
+import com.style.framework.databinding.ActivityRecordAudioViewBinding
 import java.util.*
 
 class RecordAudioViewActivity : BaseTitleBarActivity() {
+
+    private lateinit var bd: ActivityRecordAudioViewBinding
 
     //实际情况一般在7000以内
     var max = 32767
@@ -16,13 +18,14 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_record_audio_view)
-        tags_container.setOnClickChildListener { v ->
+        bd = ActivityRecordAudioViewBinding.inflate(layoutInflater)
+        setContentView(bd.root)
+        bd.tagsContainer.setOnClickChildListener { v ->
             val tagView = v as TextView
             showToast(tagView.text)
         }
-        btn_start_record.setOnClickListener { startRecord() }
-        btn_update_tags.setOnClickListener { updateTags() }
+        bd.btnStartRecord.setOnClickListener { startRecord() }
+        bd.btnUpdateTags.setOnClickListener { updateTags() }
     }
 
     private fun updateTags() {
@@ -38,7 +41,7 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
             tagView.setPadding(20, 5, 20, 5)
             tags.add(tagView)
         }
-        tags_container.setTags(tags)
+        bd.tagsContainer.setTags(tags)
     }
 
     private var mThread: Thread? = null
@@ -53,8 +56,7 @@ class RecordAudioViewActivity : BaseTitleBarActivity() {
                     Thread.sleep(60)
                     val v = random.nextInt(7000).toFloat() / 7000
                     logE("RecordAudioViewActivity", v.toString())
-                    //record_audio_view.postValue(v)
-                    record_audio_view2.postValue(v)
+                    bd.recordAudioView.postValue(v)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                     break

@@ -1,104 +1,101 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:clipChildren="false">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/windowBackground"
-        android:clipChildren="false">
+        android:background="@color/white"
+        android:divider="@drawable/divider_gray_horizontal"
+        android:dividerPadding="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:divider="@drawable/divider_gray_horizontal"
-            android:dividerPadding="@dimen/activity_horizontal_margin"
-            android:orientation="vertical"
-            android:showDividers="middle">
+        <TextView
+            android:id="@+id/btn_address"
+            style="@style/text_home_item"
+            android:text="address" />
 
-            <TextView
-                android:id="@+id/btn_address"
-                style="@style/text_home_item"
-                android:text="address" />
+        <TextView
+            android:id="@+id/btn_album"
+            style="@style/text_home_item"
+            android:text="album" />
 
-            <TextView
-                android:id="@+id/btn_album"
-                style="@style/text_home_item"
-                android:text="album" />
+        <TextView
+            android:id="@+id/btn_dialog"
+            style="@style/text_home_item"
+            android:text="弹窗" />
 
-            <TextView
-                android:id="@+id/btn_dialog"
-                style="@style/text_home_item"
-                android:text="弹窗" />
+        <TextView
+            android:id="@+id/btn_wheel"
+            style="@style/text_home_item"
+            android:text="wheel" />
 
-            <TextView
-                android:id="@+id/btn_wheel"
-                style="@style/text_home_item"
-                android:text="wheel" />
+        <TextView
+            android:id="@+id/view_suspend"
+            style="@style/text_home_item"
+            android:text="悬浮窗" />
 
-            <TextView
-                android:id="@+id/view_suspend"
-                style="@style/text_home_item"
-                android:text="悬浮窗" />
+        <TextView
+            android:id="@+id/btn_radio_group"
+            style="@style/text_home_item"
+            android:text="banner" />
 
-            <TextView
-                android:id="@+id/btn_radio_group"
-                style="@style/text_home_item"
-                android:text="banner" />
+        <TextView
+            android:id="@+id/view_draw"
+            style="@style/text_home_item"
+            android:text="画图测试" />
 
-            <TextView
-                android:id="@+id/view_draw"
-                style="@style/text_home_item"
-                android:text="画图测试" />
+        <TextView
+            android:id="@+id/view_write_word"
+            style="@style/text_home_item"
+            android:text="写字板" />
 
-            <TextView
-                android:id="@+id/view_write_word"
-                style="@style/text_home_item"
-                android:text="写字板" />
+        <TextView
+            android:id="@+id/btn_custom_view"
+            style="@style/text_home_item"
+            android:text="自定义view" />
 
-            <TextView
-                android:id="@+id/btn_custom_view"
-                style="@style/text_home_item"
-                android:text="自定义view" />
+        <TextView
+            android:id="@+id/btn_heart"
+            style="@style/text_home_item"
+            android:text="心率图" />
 
-            <TextView
-                android:id="@+id/btn_heart"
-                style="@style/text_home_item"
-                android:text="心率图" />
+        <TextView
+            android:id="@+id/btn_temp"
+            style="@style/text_home_item"
+            android:text="体温图" />
 
-            <TextView
-                android:id="@+id/btn_temp"
-                style="@style/text_home_item"
-                android:text="体温图" />
+        <TextView
+            android:id="@+id/btn_bp"
+            style="@style/text_home_item"
+            android:text="血压图" />
 
-            <TextView
-                android:id="@+id/btn_bp"
-                style="@style/text_home_item"
-                android:text="血压图" />
+        <TextView
+            android:id="@+id/btn_sleep"
+            style="@style/text_home_item"
+            android:text="睡眠图" />
 
-            <TextView
-                android:id="@+id/btn_sleep"
-                style="@style/text_home_item"
-                android:text="睡眠图" />
+        <TextView
+            android:id="@+id/btn_sport"
+            style="@style/text_home_item"
+            android:text="运动图" />
 
-            <TextView
-                android:id="@+id/btn_sport"
-                style="@style/text_home_item"
-                android:text="运动图" />
+        <TextView
+            android:id="@+id/btn_ecg"
+            style="@style/text_home_item"
+            android:text="心电图" />
 
-            <TextView
-                android:id="@+id/btn_ecg"
-                style="@style/text_home_item"
-                android:text="心电图" />
+        <TextView
+            android:id="@+id/btn_record_audio_view"
+            style="@style/text_home_item"
+            android:text="录音动画图" />
 
-            <TextView
-                android:id="@+id/btn_record_audio_view"
-                style="@style/text_home_item"
-                android:text="录音动画图" />
-
-            <TextView
-                android:id="@+id/btn_expandable_text"
-                style="@style/text_home_item"
-                android:text="自定义下拉刷新" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-</layout>
+        <TextView
+            android:id="@+id/btn_expandable_text"
+            style="@style/text_home_item"
+            android:text="自定义下拉刷新" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

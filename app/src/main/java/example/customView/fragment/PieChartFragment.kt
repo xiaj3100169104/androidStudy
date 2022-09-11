@@ -1,6 +1,5 @@
 package example.customView.fragment
 
-import androidx.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,12 +17,13 @@ class PieChartFragment : BaseFragment() {
     private lateinit var bd: ActivityPieChartBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_pie_chart, container, false)
+        bd = ActivityPieChartBinding.inflate(inflater, container, false)
+        return bd.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bd = DataBindingUtil.bind(view)!!
+
         bd.button.setOnClickListener { v ->
             bd.pieChart.setItems(getTestData2())
         }

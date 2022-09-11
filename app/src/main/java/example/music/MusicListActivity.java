@@ -37,10 +37,6 @@ import example.music.entity.MediaFolder;
 import com.style.service.music.PlayMusicService;
 
 
-/**
- * Created by dmcBig on 2017/6/9.
- */
-
 public class MusicListActivity extends BaseTitleBarActivity implements MediaDataCallback {
 
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 5;
@@ -52,9 +48,10 @@ public class MusicListActivity extends BaseTitleBarActivity implements MediaData
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_music_list);
-        bd = getBinding();
+        bd = ActivityMusicListBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("播放列表4");
+
         dataList = new ArrayList<>();
         adapter = new AudioAdapter(this, dataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

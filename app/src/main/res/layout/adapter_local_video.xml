@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="10dp"
+        android:text="title" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="title" />
+    <ImageView
+        android:id="@+id/iv_video_preview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#000" />
 
-        <ImageView
-            android:id="@+id/iv_video_preview"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#000" />
-    </LinearLayout>
-</layout>
+</LinearLayout>

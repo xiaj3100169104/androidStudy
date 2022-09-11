@@ -63,7 +63,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        //菜单字体颜色
+        <!-- 菜单字体颜色 -->
         <item name="android:textColorPrimary">@color/white</item>
 
     </style>

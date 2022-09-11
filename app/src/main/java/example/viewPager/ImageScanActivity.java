@@ -1,41 +1,39 @@
 package example.viewPager;
 
-
-import androidx.databinding.DataBindingUtil;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.dmcbig.mediapicker.entity.Media;
-import com.style.framework.R;
+import com.style.base.BaseRecyclerViewAdapter;
+import com.style.data.glide.ImageLoader;
 import com.style.framework.databinding.ActivityImageScanBinding;
+import com.style.framework.databinding.FragmentImageScanBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by dmcBig on 2017/8/9.
- */
 
-public class ImageScanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class ImageScanActivity extends AppCompatActivity {
 
     ActivityImageScanBinding bd;
     ArrayList<Media> preRawList;
-    private ArrayList<ScanFragment> fragmentArrayList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        bd = DataBindingUtil.setContentView(this, R.layout.activity_image_scan);
+        bd = ActivityImageScanBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         preRawList = getIntent().getParcelableArrayListExtra("list");
-        setView(preRawList);
+        setView();
     }
 
     @Override
@@ -44,46 +42,56 @@ public class ImageScanActivity extends AppCompatActivity implements ViewPager.On
         super.onPause();
     }
 
-    void setView(ArrayList<Media> default_list) {
+    private void setView() {
         bd.tvIndex.setText(1 + "/" + preRawList.size());
-        fragmentArrayList = new ArrayList<>();
-        for (Media media : default_list) {
-            fragmentArrayList.add(ScanFragment.newInstance(media, ""));
-        }
-        AdapterFragment adapterFragment = new AdapterFragment(getSupportFragmentManager(), fragmentArrayList);
-        bd.viewpager.setAdapter(adapterFragment);
-        bd.viewpager.addOnPageChangeListener(this);
+        ImageScanAdapter adapter = new ImageScanAdapter(this, preRawList);
+        bd.viewpager2.setAdapter(adapter);
+        bd.viewpager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                bd.tvIndex.setText((position + 1) + "/" + preRawList.size());
+            }
+        });
     }
 
-    public class AdapterFragment extends FragmentStatePagerAdapter {
-        private List<ScanFragment> mFragments;
+    public static class ImageScanAdapter extends BaseRecyclerViewAdapter<Media> {
 
-        public AdapterFragment(FragmentManager fm, ArrayList<ScanFragment> mFragments) {
-            super(fm);
-            this.mFragments = mFragments;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
+        public ImageScanAdapter(Context context, ArrayList<Media> list) {
+            super(context, list);
         }
 
         @Override
-        public int getCount() {
-            return mFragments.size();
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            FragmentImageScanBinding bd = FragmentImageScanBinding.inflate(getLayoutInflater(), parent, false);
+            return new ViewHolder(bd);
         }
-    }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+            ViewHolder h = (ViewHolder) viewHolder;
+            Media m = getList().get(position);
+            //jvm能申请的最大内存
+            Log.e("maxMemory", Runtime.getRuntime().maxMemory() / 1024 / 1024 + "M");
+            //jvm已经申请到的内存
+            Log.e("totalMemory", Runtime.getRuntime().totalMemory() / 1024 / 1024 + "M");
+            //jvm剩余空闲内存
+            Log.e("freeMemory", Runtime.getRuntime().freeMemory() / 1024 / 1024 + "M");
+            //Glide.get(getContext()).clearMemory();
+            ImageLoader.load((Activity) this.getContext(), m.path, h.bd.iv);
+            //skipMemoryCache(true) ，跳过内存缓存。
+            //diskCacheStrategy(DiskCacheStrategy.NONE) ，不要在disk硬盘中缓存。
 
-    @Override
-    public void onPageSelected(int position) {
-        bd.tvIndex.setText((position + 1) + "/" + preRawList.size());
-    }
+            // 这两个函数同时联合使用，使得Glide针对这一次的资源加载放弃内存缓存和硬盘缓存，相当于一次全新的请求。这样就迫使Glide从给定的资源地址发起全新的数据加载，而非从旧有的缓存中取缓存使用。
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
+        }
+
+        public static class ViewHolder extends RecyclerView.ViewHolder {
+            FragmentImageScanBinding bd;
+
+            ViewHolder(FragmentImageScanBinding bd) {
+                super(bd.getRoot());
+                this.bd = bd;
+            }
+        }
     }
 }

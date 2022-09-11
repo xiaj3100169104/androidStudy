@@ -20,15 +20,15 @@ public class DynamicPublishImageAdapter : BaseRecyclerViewAdapter<Media> {
 
     constructor(context: Context, list: ArrayList<Media>) : super(context, list)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        var bd: AdapterPublishDynamicPictureBinding = getBinding(R.layout.adapter_publish_dynamic_picture, parent);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        var bd: AdapterPublishDynamicPictureBinding = AdapterPublishDynamicPictureBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(bd);
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val index = position;
         var holder: ViewHolder = holder as ViewHolder
-        var media = getData(position);
+        var media = list[position];
         if (position != getItemCount() - 1) {
             holder.bd.ivDelete.setVisibility(View.VISIBLE);
             ImageLoader.loadPicture(getContext() as Activity, holder.bd.ivActiveImages, media.path);
@@ -43,10 +43,9 @@ public class DynamicPublishImageAdapter : BaseRecyclerViewAdapter<Media> {
                 listener?.onItemClickDelete(index);
             }
         });
-        holder.bd.executePendingBindings();
     }
 
-    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    class ViewHolder : RecyclerView.ViewHolder {
         var bd: AdapterPublishDynamicPictureBinding
 
         constructor(bd: AdapterPublishDynamicPictureBinding) : super(bd.root) {

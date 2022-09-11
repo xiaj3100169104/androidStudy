@@ -88,8 +88,8 @@
             android:name="example.gesture.DispatchGestureActivity"
             android:theme="@style/AppTheme.Translucent" />
         <activity android:name="example.gesture.SimpleGestureActivity" />
-        <activity android:name="example.drag.DragActivity" />
-        <activity android:name="example.drag.swipeMenu.SwipeMenuActivity" />
+        <activity android:name="example.scroll.drag.DragActivity" />
+        <activity android:name="example.scroll.swipeMenu.SwipeMenuActivity" />
         <activity android:name="example.activity.AnimatorActivity" />
         <activity android:name="example.activity.ReadAssetsActivity" />
         <activity android:name="example.dialog.WheelActivity" />
@@ -117,9 +117,8 @@
         <activity
             android:name="example.editLayout.EditLayoutChangeActivity"
             android:launchMode="singleTop" />
-        <activity android:name="example.fragmentAdapter.IndexFragmentActivity" />
+        <activity android:name="example.fragmentAdapter.TabViewPager2Activity" />
         <activity android:name="example.fragmentAdapter.StateFragmentActivity" />
-        <activity android:name="example.fragmentAdapter.test.FragmentTestActivity" />
         <activity
             android:name="example.editLayout.FullScreenBottomEditLayoutActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -145,13 +144,13 @@
         <activity android:name="example.music.MusicListActivity" />
         <activity android:name="com.style.service.remote.RemotePlayActivity" />
         <activity
-            android:name="example.drag.ScrollingActivity"
+            android:name="example.scroll.ScrollingActivity"
             android:label="@string/title_activity_scrolling" />
         <activity
-            android:name="example.drag.scroll_stop.ScrollingStopTopActivity"
+            android:name="example.scroll.scroll_stop.ScrollingStopTopActivity"
             android:label="@string/title_activity_scrolling" />
         <activity
-            android:name="example.drag.ScrollingParallaxActivity"
+            android:name="example.scroll.ScrollingParallaxActivity"
             android:label="@string/title_activity_scrolling" />
         <activity android:name="example.viewPagerCards.fragments.CardFragmentActivity" />
         <activity android:name="example.viewPagerCards.views.CardActivity" />

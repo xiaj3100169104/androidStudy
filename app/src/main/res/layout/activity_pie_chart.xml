@@ -1,40 +1,38 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="change" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change with 动画" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="change with 动画" />
+    <com.style.view.other.PieChartView
+        android:id="@+id/pie_chart"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        app:pie_chart_arc_offset="5dp"
+        app:pie_chart_finished_start_angle="0"
+        app:pie_chart_stroke_width="30dp" />
 
-        <com.style.view.other.PieChartView
-            android:id="@+id/pie_chart"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_gravity="center_horizontal"
-            app:pie_chart_arc_offset="5dp"
-            app:pie_chart_finished_start_angle="0"
-            app:pie_chart_stroke_width="30dp" />
+    <com.style.view.other.PieChartView2
+        android:id="@+id/pie_chart2"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        app:pie_chart_arc_offset="2dp"
+        app:pie_chart_arc_radius="70dp"
+        app:pie_chart_finished_start_angle="0"
+        app:pie_chart_stroke_width="30dp" />
 
-        <com.style.view.other.PieChartView2
-            android:id="@+id/pie_chart2"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_gravity="center_horizontal"
-            app:pie_chart_arc_offset="2dp"
-            app:pie_chart_finished_start_angle="0"
-            app:pie_chart_arc_radius="70dp"
-            app:pie_chart_stroke_width="30dp"/>
-    </LinearLayout>
-</layout>
+</LinearLayout>

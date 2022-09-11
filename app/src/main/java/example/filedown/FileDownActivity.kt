@@ -1,35 +1,34 @@
 package example.filedown
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
-
-import com.style.config.FileDirConfig
-import com.style.base.BaseTitleBarActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.style.base.BaseRecyclerViewAdapter
+import com.style.base.BaseTitleBarActivity
+import com.style.config.FileDirConfig
 import com.style.data.event.EventBusEvent
+import com.style.data.fileDown.CustomFileDownloadManager
 import com.style.data.fileDown.FileDownloadStateBean
-import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
+import com.style.data.fileDown.FileDownloadStateBean.DownStatus
+import com.style.data.fileDown.entity.CustomFileBean
 import com.style.data.fileDown.multiBlock.MultiThreadDownloadManager
-import com.style.framework.R
+import com.style.framework.databinding.FileDownListActivityBinding
+import com.style.service.fileDownload.FileDownloadService
 import com.style.utils.OpenFileUtil
-import kotlinx.android.synthetic.main.file_down_list_activity.*
+import com.style.view.diviver.DividerItemDecoration
 import org.simple.eventbus.EventBus
 import org.simple.eventbus.Subscriber
 import org.simple.eventbus.ThreadMode
 import java.io.File
-import java.util.ArrayList
-import androidx.recyclerview.widget.SimpleItemAnimator
-import com.style.data.fileDown.CustomFileDownloadManager
-import com.style.data.fileDown.entity.CustomFileBean
-import com.style.service.fileDownload.FileDownloadService
 
 
 class FileDownActivity : BaseTitleBarActivity() {
 
+    private lateinit var bd: FileDownListActivityBinding
     private val targetPath = FileDirConfig.DIR_APP_FILE + "/apache-tomcat-8.0.24_multi_thread.exe"
 
     private lateinit var dataList: ArrayList<CustomFileBean>
@@ -38,16 +37,17 @@ class FileDownActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.file_down_list_activity)
+        bd = FileDownListActivityBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setTitleBarTitle("文件下载")
         dataList = ArrayList()
         adapter = FileDownListAdapter(getContext(), dataList)
-        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(getContext())
-        recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(com.style.view.diviver.DividerItemDecoration(getContext()))
+        val layoutManager = LinearLayoutManager(getContext())
+        bd.recyclerView.layoutManager = layoutManager
+        bd.recyclerView.addItemDecoration(DividerItemDecoration(getContext()))
         //解决默认动画造成的itemView闪烁
-        (recyclerView.itemAnimator as androidx.recyclerview.widget.SimpleItemAnimator).supportsChangeAnimations = false
-        recyclerView.adapter = adapter
+        (bd.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        bd.recyclerView.adapter = adapter
         adapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<CustomFileBean> {
             override fun onItemClick(position: Int, data: CustomFileBean) {
                 logE("onItemClick", position.toString())
@@ -91,9 +91,9 @@ class FileDownActivity : BaseTitleBarActivity() {
                 }
             }
         })
-        view_batch_download.setOnClickListener { batchDownload() }
+        bd.viewBatchDownload.setOnClickListener { batchDownload() }
         EventBus.getDefault().register(this)
-        mViewModel = ViewModelProviders.of(this).get(FileDownListViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(FileDownListViewModel::class.java)
         mViewModel.files.observe(this, Observer<ArrayList<CustomFileBean>> { t ->
             refreshData(t)
         })

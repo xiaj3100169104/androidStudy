@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.View
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dmcbig.mediapicker.PickerActivity
 import com.dmcbig.mediapicker.PickerConfig
@@ -49,16 +50,17 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_select_local_picture)
-        bd = getBinding();
+        bd = ActivitySelectLocalPictureBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setTitleBarTitle("本地图片选择");
+
         paths = ArrayList();
         TAG_ADD = Media();
         TAG_ADD.name = "addTag";
         paths.add(TAG_ADD);
         adapter = DynamicPublishImageAdapter(getContext(), paths);
-        var gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(getContext(), 4);
-        gridLayoutManager.setOrientation(androidx.recyclerview.widget.LinearLayoutManager.VERTICAL);
+        var gridLayoutManager = GridLayoutManager(getContext(), 4);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         bd.recyclerView.setLayoutManager(gridLayoutManager);
         //bd.recyclerView.addItemDecoration(GridDividerItemDecoration(20, Color.BLACK))
         bd.recyclerView.setAdapter(adapter);
@@ -93,7 +95,11 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
             SystemShareUtil.shareText(getContext(), "文章", "来自系统分享");
         });
         bd.btnShareImage.setOnClickListener { v ->
-            SystemShareUtil.shareImage(getContext(), FileDirConfig.FILE_PROVIDER_AUTHORITY, paths.get(0).path);
+            SystemShareUtil.shareImage(
+                getContext(),
+                FileDirConfig.FILE_PROVIDER_AUTHORITY,
+                paths.get(0).path
+            );
         }
     }
 
@@ -101,28 +107,29 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
     fun compressImage() {
         showProgressDialog("压缩中···")
         val disposable = Observable.just(paths).subscribeOn(Schedulers.io())
-                .map {
-                    val list = ArrayList<String>()
-                    it.forEach {
-                        if (!TextUtils.isEmpty(it.path)) {
-                            val path = FileDirConfig.DIR_CACHE + File.separatorChar + System.currentTimeMillis() + ".jpg"
-                            val bytes = BitmapUtil.compress(it.path, 200)
-                            BitmapUtil.saveByte(path, bytes)
-                            list.add(path)
-                        }
+            .map {
+                val list = ArrayList<String>()
+                it.forEach {
+                    if (!TextUtils.isEmpty(it.path)) {
+                        val path =
+                            FileDirConfig.DIR_CACHE + File.separatorChar + System.currentTimeMillis() + ".jpg"
+                        val bytes = BitmapUtil.compress(it.path, 200)
+                        BitmapUtil.saveByte(path, bytes)
+                        list.add(path)
                     }
-                    return@map list
                 }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    dismissProgressDialog()
-                    it.forEach {
-                        logE("compressImage", it)
-                    }
-                }, {
-                    dismissProgressDialog()
-                    logE("compressImage", "压缩出错")
-                })
+                return@map list
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                dismissProgressDialog()
+                it.forEach {
+                    logE("compressImage", it)
+                }
+            }, {
+                dismissProgressDialog()
+                logE("compressImage", "压缩出错")
+            })
     }
 
     fun selAvatar(v: View) {
@@ -137,7 +144,8 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
             when (requestCode) {
                 PickerConfig.CODE_TAKE_ALBUM ->
                     if (data != null) {
-                        var newPaths: ArrayList<Media> = data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT);
+                        var newPaths: ArrayList<Media> =
+                            data.getParcelableArrayListExtra(PickerConfig.EXTRA_RESULT)!!;
                         paths.clear();
                         paths.addAll(newPaths);
                         paths.add(TAG_ADD);
@@ -202,7 +210,10 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         }
 
         var intent = Intent(getContext(), PickerActivity::class.java);
-        intent.putExtra(PickerConfig.SELECT_MODE, PickerConfig.PICKER_IMAGE);//default image and video (Optional)
+        intent.putExtra(
+            PickerConfig.SELECT_MODE,
+            PickerConfig.PICKER_IMAGE
+        );//default image and video (Optional)
         var maxSize = 188743680L;//long long long
         intent.putExtra(PickerConfig.MAX_SELECT_SIZE, maxSize); //default 180MB (Optional)
         intent.putExtra(PickerConfig.MAX_SELECT_COUNT, 40);  //default 40 (Optional)
@@ -215,7 +226,11 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         if (FileUtil.isNewFileCanWrite(photoFile)) {
             val uri: Uri
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(this, FileDirConfig.FILE_PROVIDER_AUTHORITY, photoFile!!)
+                uri = FileProvider.getUriForFile(
+                    this,
+                    FileDirConfig.FILE_PROVIDER_AUTHORITY,
+                    photoFile!!
+                )
             } else {
                 uri = Uri.fromFile(photoFile)
             }
@@ -230,17 +245,21 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var rxPermissions = RxPermissions(this);
             //拍照之前首先需要读写SD卡权限
-            rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ grated ->
-                        if (grated) {
-                            takePhoto();
-                        } else {
-                            showToast(R.string.error_no_camera_and_external_storage_permission);
-                        }
-                    }, { throwable ->
-                        throwable.printStackTrace();
-                    });
+            rxPermissions.request(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+            )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ grated ->
+                    if (grated) {
+                        takePhoto();
+                    } else {
+                        showToast(R.string.error_no_camera_and_external_storage_permission);
+                    }
+                }, { throwable ->
+                    throwable.printStackTrace();
+                });
         } else {
             takePhoto();
         }
@@ -251,17 +270,20 @@ public class SelectLocalPictureActivity : BaseTitleBarActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var rxPermissions = RxPermissions(this);
             //需要读写SD卡权限
-            rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ grated ->
-                        if (grated) {
-                            selectPhotos();
-                        } else {
-                            showToast(R.string.error_no_external_storage_permission);
-                        }
-                    }, { throwable ->
-                        throwable.printStackTrace();
-                    });
+            rxPermissions.request(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ grated ->
+                    if (grated) {
+                        selectPhotos();
+                    } else {
+                        showToast(R.string.error_no_external_storage_permission);
+                    }
+                }, { throwable ->
+                    throwable.printStackTrace();
+                });
         } else {
             selectPhotos();
         }

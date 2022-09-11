@@ -22,14 +22,14 @@ public class GlideListAdapter extends BaseRecyclerViewAdapter<Media> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterGlideListBinding bd = getBinding(R.layout.adapter_glide_list, parent);
+        AdapterGlideListBinding bd = AdapterGlideListBinding.inflate(getLayoutInflater(), parent, false);
         return new ViewHolder(bd);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        Media f = (Media) getData(position);
+        Media f = (Media) getList().get(position);
         //jvm能申请的最大内存
         Log.e("maxMemory", Runtime.getRuntime().maxMemory() / 1024 / 1024 + "M");
         //jvm已经申请到的内存
@@ -39,7 +39,6 @@ public class GlideListAdapter extends BaseRecyclerViewAdapter<Media> {
         //Glide.get(getContext()).clearMemory();
         ImageLoader.load((Activity) getContext(), f.path, holder.bd.iv);
         super.setOnItemClickListener(holder.itemView, position);
-        holder.bd.executePendingBindings();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

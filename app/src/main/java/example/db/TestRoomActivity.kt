@@ -1,24 +1,26 @@
 package example.db;
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_test_room.*
+import com.style.framework.databinding.ActivityTestRoomBinding
 
 class TestRoomActivity : BaseTitleBarActivity() {
+
+    private lateinit var bd: ActivityTestRoomBinding
     private lateinit var mViewModel: TestRoomViewModel
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_test_room)
+        bd = ActivityTestRoomBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setTitleBarTitle("room test")
-        mViewModel = ViewModelProviders.of(this).get(TestRoomViewModel::class.java)
-        btn_room_insert_one.setOnClickListener { mViewModel.saveOne() }
-        btn_room_insert_list.setOnClickListener { mViewModel.saveList() }
-        btn_room_query_all.setOnClickListener { mViewModel.queryAll() }
-        btn_room_clear_table.setOnClickListener { mViewModel.deleteAll() }
-        btn_room_query_by_id.setOnClickListener { mViewModel.findById() }
+        mViewModel = ViewModelProvider(this).get(TestRoomViewModel::class.java)
+        bd.btnRoomInsertOne.setOnClickListener { mViewModel.saveOne() }
+        bd.btnRoomInsertList.setOnClickListener { mViewModel.saveList() }
+        bd.btnRoomQueryAll.setOnClickListener { mViewModel.queryAll() }
+        bd.btnRoomClearTable.setOnClickListener { mViewModel.deleteAll() }
+        bd.btnRoomQueryById.setOnClickListener { mViewModel.findById() }
     }
 
 

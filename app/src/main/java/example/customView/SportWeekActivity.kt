@@ -8,13 +8,14 @@ import com.style.view.healthy.SportWeekHistogram
 import java.util.*
 
 class SportWeekActivity : BaseTitleBarActivity() {
+
     lateinit var bd: ActivityWeekSportBinding
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_week_sport)
+        bd = ActivityWeekSportBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setTitleBarTitle("运动柱状图")
-        bd = getBinding()
         bd.btnRefresh.setOnClickListener { v -> refresh() }
         bd.mSportWeek.setOnSelectionChangeListener(object : com.style.view.healthy.SportWeekHistogram.OnSelectionChangeListener {
             override fun onSelectionChanged(selected: Int) {

@@ -40,7 +40,7 @@
             <TextView
                 android:id="@+id/view_drag_recycler_view"
                 style="@style/text_home_item"
-                android:text="recyclerView拖拽测试" />
+                android:text="recyclerView拖拽移除" />
 
             <TextView
                 android:id="@+id/btn_swipe_menu"
@@ -78,19 +78,14 @@
                 android:text="ViewPager fragments卡片" />
 
             <TextView
-                android:id="@+id/view_fragment_adapter"
+                android:id="@+id/tabLayoutWithFragment"
                 style="@style/text_home_item"
-                android:text="FragmentPagerAdapter" />
+                android:text="TabLayoutWithFragment" />
 
             <TextView
-                android:id="@+id/view_fragment_state_adapter"
+                android:id="@+id/viewPager2WithView"
                 style="@style/text_home_item"
-                android:text="FragmentStatePagerAdapter" />
-
-            <TextView
-                android:id="@+id/view_fragment_test"
-                style="@style/text_home_item"
-                android:text="Fragment测试" />
+                android:text="ViewPager2WithView" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </com.style.common_ui.refresh.MyAppRefreshLayout>

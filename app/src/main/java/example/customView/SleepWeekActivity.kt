@@ -2,20 +2,21 @@ package example.customView
 
 import android.os.Bundle
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_week_sleep.*
+import com.style.framework.databinding.ActivityWeekSleepBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SleepWeekActivity : BaseTitleBarActivity() {
 
+    private lateinit var bd: ActivityWeekSleepBinding
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_week_sleep)
+        bd = ActivityWeekSleepBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setTitleBarTitle("睡眠图")
-        btn_refresh.setOnClickListener { v -> refresh() }
-        sleep_histogram.setOnSelectionChangeListener(object : com.style.view.healthy.SleepWeekHistogram.OnSelectionChangeListener {
+        bd.btnRefresh.setOnClickListener { v -> refresh() }
+        bd.sleepHistogram.setOnSelectionChangeListener(object : com.style.view.healthy.SleepWeekHistogram.OnSelectionChangeListener {
             override fun onSelectionChanged(selected: Int) {
                 showToast(selected.toString())
             }
@@ -28,12 +29,12 @@ class SleepWeekActivity : BaseTitleBarActivity() {
                 refresh()
             }
         })
-        sleep_histogram.setData(null, false)
+        bd.sleepHistogram.setData(null, false)
     }
 
     fun refresh() {
-        sleep_histogram.setData(getData(), true)
-        sleep_detail_view.setData(getSleepDetail())
+        bd.sleepHistogram.setData(getData(), true)
+        bd.sleepDetailView.setData(getSleepDetail())
     }
 
     fun getData(): List<com.style.view.healthy.SleepWeekHistogram.PointItem> {

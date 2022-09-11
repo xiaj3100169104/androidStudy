@@ -1,107 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_red" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/fbl_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:flexWrap="wrap"
+        app:showDivider="middle">
+
+        <Button
+            android:id="@+id/btn_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="圆形" />
+
+        <Button
+            android:id="@+id/btn_circle_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="圆形带边框" />
+
+        <Button
+            android:id="@+id/btn_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="圆角矩形" />
+
+        <Button
+            android:id="@+id/btn_rect_stroke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="矩形带边框" />
+
+        <Button
+            android:id="@+id/btn_rect_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="矩形顶部圆角" />
+
+        <Button
+            android:id="@+id/btn_image_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="缩略图" />
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <Button
+        android:id="@+id/btn_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择头像" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/title_bar_red" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/fbl_brand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            app:flexWrap="wrap"
-            app:showDivider="middle">
-
-            <Button
-                android:id="@+id/btn_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="圆形" />
-
-            <Button
-                android:id="@+id/btn_circle_border"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="圆形带边框" />
-
-            <Button
-                android:id="@+id/btn_round"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="圆角矩形" />
-
-            <Button
-                android:id="@+id/btn_rect_stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="矩形带边框" />
-
-            <Button
-                android:id="@+id/btn_rect_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="矩形顶部圆角" />
-
-            <Button
-                android:id="@+id/btn_image_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="缩略图" />
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <Button
-            android:id="@+id/btn_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="选择头像" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/iv_1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@color/color_theme_main"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/image_fail" />
-
-            <ImageView
-                android:id="@+id/iv_2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_add_photo" />
-
-            <ImageView
-                android:id="@+id/iv_3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/empty_photo" />
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:id="@+id/iv_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/color_theme_main"
             android:scaleType="centerCrop"
-            android:src="@mipmap/empty_photo" />
+            android:src="@mipmap/image_fail" />
 
-        <Button
-            android:id="@+id/btn_catch_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="颜色拾取" />
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_add_photo" />
+
+        <ImageView
+            android:id="@+id/iv_3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/empty_photo" />
     </LinearLayout>
-</layout>
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/empty_photo" />
+
+    <Button
+        android:id="@+id/btn_catch_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="颜色拾取" />
+</LinearLayout>

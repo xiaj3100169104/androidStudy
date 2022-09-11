@@ -1,11 +1,11 @@
 package example.encrypt;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.text.Html;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.style.base.BaseTitleBarActivity;
-import com.style.framework.R;
 import com.style.framework.databinding.ActivityEncryptBinding;
 import com.style.utils.BytesHexStrTranslate;
 
@@ -20,9 +20,10 @@ public class EncryptActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_encrypt);
-        bd = getBinding();
-        mViewModel = ViewModelProviders.of(this).get(EncryptViewModel.class);
+        bd = ActivityEncryptBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+
+        mViewModel = new ViewModelProvider(this).get(EncryptViewModel.class);
         String textStr = "本月已成功邀请 <strong><font color=\"#FF0000\">" + 100 + "</font></strong>人";
         bd.tvHtml.setText(Html.fromHtml(textStr));
         bd.btnAesEncrypt.setOnClickListener(v -> AESEncrypt());

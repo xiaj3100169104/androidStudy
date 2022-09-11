@@ -33,8 +33,8 @@ public class LocationActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.location_activity);
-        bd = getBinding();
+        bd = LocationActivityBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         bd.btnStartLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

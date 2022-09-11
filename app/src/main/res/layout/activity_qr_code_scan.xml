@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <include layout="@layout/title_bar_red" />
+
+    <Button
+        android:id="@+id/btnScaner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="scaner" />
 
-        <include layout="@layout/title_bar_red" />
-
-        <Button
-            android:id="@+id/btnScaner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="scaner" />
-
-        <TextView
-            android:id="@+id/tvReuslt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tvReuslt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textStyle="bold" />
 
 
-        <ImageView
-            android:id="@+id/iamge1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/iamge2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    </LinearLayout>
-</layout>
+</LinearLayout>
+

@@ -14,22 +14,21 @@ class FriendAdapter : BaseRecyclerViewAdapter<Int> {
 
     constructor(context: Context?, dataList: ArrayList<Int>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        val bd: AdapterFriendBinding = getBinding(R.layout.adapter_friend, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val bd: AdapterFriendBinding = AdapterFriendBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
-        val f = getData(position)
+        val f = list[position]
         val s = "数据$f"
         holder.bd.viewMark.text = s
         //holder.bd.viewNick.setText(f.getUser().getUserName());
         super.setOnItemClickListener(holder.itemView, position)
-        holder.bd.executePendingBindings()
     }
 
-    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    class ViewHolder : RecyclerView.ViewHolder {
         var bd: AdapterFriendBinding
 
         constructor(bd: AdapterFriendBinding) : super(bd.root) {

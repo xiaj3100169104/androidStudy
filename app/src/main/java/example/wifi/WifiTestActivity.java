@@ -40,9 +40,10 @@ public class WifiTestActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.wifi_activity_main);
-        bd = getBinding();
+        bd = WifiActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("wifi");
+
         dataList = new ArrayList<>();
         adapter = new WifiDeviceAdapter(getContext(), dataList);
         layoutManager = new LinearLayoutManager(getContext());

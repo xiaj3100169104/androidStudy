@@ -5,9 +5,9 @@
     <color name="black_full">#FE000000</color>
     <color name="windowBackground">#FFF5F5F5</color>
     <!-- appbar颜色 -->
-    <color name="colorPrimary">#44BF1A</color>
+    <color name="colorPrimary">#003D79</color>
     <!-- 状态栏颜色 -->
-    <color name="colorPrimaryDark">#44BF1A</color>
+    <color name="colorPrimaryDark">#003D79</color>
     <!-- 主要字体颜色 -->
     <color name="textColorPrimary">#333333</color>
     <color name="divider_color">@color/windowBackground</color>

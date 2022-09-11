@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
@@ -8,7 +9,8 @@ android {
         preview {
         }
     }
-    dependencies {
-        implementation "com.google.code.gson:gson:$gson_version"
-    }
+}
+
+dependencies {
+    implementation "com.google.code.gson:gson:$gson_version"
 }

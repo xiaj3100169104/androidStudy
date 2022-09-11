@@ -1,6 +1,5 @@
 package example.viewPager;
 
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.dmcbig.mediapicker.entity.Media;
 import com.style.base.BaseRecyclerViewAdapter;
+import com.style.base.BaseTitleBarActivity;
 import com.style.framework.R;
 import com.style.framework.databinding.GlideListTestBinding;
 import com.style.view.diviver.DividerItemDecoration;
@@ -15,11 +15,7 @@ import com.style.view.diviver.DividerItemDecoration;
 import java.util.ArrayList;
 
 
-/**
- * Created by dmcBig on 2017/6/9.
- */
-
-public class GlideListActivity extends AppCompatActivity {
+public class GlideListActivity extends BaseTitleBarActivity {
 
     GlideListTestBinding bd;
     private ArrayList<Media> dataList;
@@ -28,7 +24,9 @@ public class GlideListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bd = DataBindingUtil.setContentView(this, R.layout.glide_list_test);
+        bd = GlideListTestBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+        setTitleBarTitle("glide测试");
 
         dataList = new ArrayList<>();
         dataList = getIntent().getParcelableArrayListExtra("list");

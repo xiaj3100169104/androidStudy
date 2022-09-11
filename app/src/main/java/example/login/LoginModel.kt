@@ -2,12 +2,10 @@ package example.login
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
 import com.style.base.BaseViewModel
 import com.style.data.http.function.impl.UserNetSourceImpl
-import com.style.entity.UserInfo
 import com.style.data.prefs.AppPrefsManager
+import com.style.entity.UserInfo
 import java.net.URL
 import java.security.MessageDigest
 import java.security.cert.X509Certificate
@@ -20,8 +18,7 @@ import kotlin.experimental.and
 
 class LoginModel(application: Application) : BaseViewModel(application) {
 
-    internal var loginSucceed = ObservableBoolean(false)
-    internal var user = ObservableField<UserInfo>()
+    var user = MutableLiveData<UserInfo>()
     var loginState = MutableLiveData<Boolean>()
 
     fun login() {
@@ -38,7 +35,7 @@ class LoginModel(application: Application) : BaseViewModel(application) {
             }).start();*/
 
         val u = UserInfo("sfsf", "fasfgasfg")
-        user.set(u)
+        user.value = u
         u.password = "123456"
         //loginSucceed.set(true);
         loginState.value = true

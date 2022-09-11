@@ -1,52 +1,57 @@
 package example.fragmentAdapter;
 
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.style.base.BaseRecyclerViewAdapter
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
-import kotlinx.android.synthetic.main.fragment_adapter_activity.*
+import com.style.framework.databinding.Viewpager2WithViewActivityBinding
+import com.style.framework.databinding.Viewpager2WithViewAdapterBinding
 
 class StateFragmentActivity : BaseTitleBarActivity() {
-    private lateinit var fAdapter: StateFragmentAdapter
-    private val fragments = ArrayList<StateFragment>()
+
+    private lateinit var bd: Viewpager2WithViewActivityBinding
+    private lateinit var mViewModel: StateFragmentActivityViewModel
+    private lateinit var fAdapter: StateAdapter
+    private val mData = ArrayList<String>()
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.fragment_adapter_activity)
+        bd = Viewpager2WithViewActivityBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setFullScreenStableDarkMode(true)
+        setTitleBarTitle("ViewPager2WithView")
 
-        initData()
+        mViewModel = ViewModelProvider(this).get(StateFragmentActivityViewModel::class.java)
+        mData.addAll(mViewModel.getData())
+        fAdapter = StateAdapter(this, mData)
+        bd.viewPager2.adapter = fAdapter
     }
 
-    private lateinit var mViewModel: StateFragmentActivityViewModel
+    class StateAdapter : BaseRecyclerViewAdapter<String> {
 
-    fun initData() {
-        setTitleBarTitle("fragmentStatePagerAdapter")
-        mViewModel = ViewModelProviders.of(this).get(StateFragmentActivityViewModel::class.java)
-        val titles = mViewModel.getTitleData()
-        val data = mViewModel.datas
-        titles.forEachIndexed { index, s ->
-            fragments.add(StateFragment.newInstance("title".plus(data[s].toString())))
+        constructor(context: Context?, dataList: ArrayList<String>) : super(context, dataList)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val bd = Viewpager2WithViewAdapterBinding.inflate(layoutInflater, parent, false)
+            return MyViewHolder(bd)
         }
-        fAdapter = StateFragmentAdapter(supportFragmentManager, fragments, titles)
-        viewPager.adapter = fAdapter
-        tabLayout.setupWithViewPager(viewPager, true)
-        viewPager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-            }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-            }
-
-            override fun onPageSelected(p0: Int) {
-
-            }
-
-        })
-        btn_change_fragment_index.setOnClickListener {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val h = holder as MyViewHolder
+            val f = list[position]
+            h.bd.tvIndex.text = f
+            super.setOnItemClickListener(holder.itemView, position)
         }
-        btn_change_fragment_next.setOnClickListener {
+
+        class MyViewHolder internal constructor(bd: Viewpager2WithViewAdapterBinding) : RecyclerView.ViewHolder(bd.getRoot()) {
+            val bd: Viewpager2WithViewAdapterBinding
+
+            init {
+                this.bd = bd
+            }
         }
     }
 }

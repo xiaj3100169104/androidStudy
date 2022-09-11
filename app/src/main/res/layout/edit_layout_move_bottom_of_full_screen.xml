@@ -1,44 +1,40 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/layout_root"
+    <include layout="@layout/title_bar_white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/title_bar_white" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@+id/iv_logo"
-            android:layout_weight="1" />
+        android:layout_height="0dp"
+        android:layout_below="@+id/iv_logo"
+        android:layout_weight="1" />
 
 
-        <example.editLayout.InsetRelativeLayout
-            android:id="@+id/layout_bottom"
+    <example.editLayout.InsetRelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#3000ff00"
+        android:fitsSystemWindows="true"
+        android:paddingTop="10dp">
+
+        <EditText
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#3000ff00"
-            android:fitsSystemWindows="true"
-            android:paddingTop="10dp">
+            android:hint="密码" />
 
-            <EditText
-                android:id="@+id/et_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="密码" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/et_content"
-                android:text="跟随布局" />
-        </example.editLayout.InsetRelativeLayout>
-
-    </LinearLayout>
-</layout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/et_content"
+            android:text="跟随布局" />
+    </example.editLayout.InsetRelativeLayout>
+</LinearLayout>
 

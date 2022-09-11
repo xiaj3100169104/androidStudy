@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:orientation="vertical">
+        android:layout_height="50dip"
+        android:layout_marginTop="100dp"
+        android:background="#2196f3"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="50dip"
-            android:layout_marginTop="100dp"
-            android:background="#2196f3"
-            android:orientation="horizontal">
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="70dip"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="50dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="90dip"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="70dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="110dip"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="90dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="130dip"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="110dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="130dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dip"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_launcher" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dip"
-            android:background="#4dd0e1" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="150dip"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_launcher" />
 
     </LinearLayout>
-</layout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:background="#4dd0e1" />
+</LinearLayout>

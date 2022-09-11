@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseRecyclerViewAdapter
-import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus
+import com.style.data.fileDown.FileDownloadStateBean
 import com.style.data.fileDown.entity.CustomFileBean
 import com.style.framework.R
 import com.style.framework.databinding.FileDownListAdapterBinding
@@ -17,34 +17,34 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
 
     constructor(context: Context?, dataList: ArrayList<CustomFileBean>) : super(context, dataList)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        val bd: FileDownListAdapterBinding = getBinding(R.layout.file_down_list_adapter, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val bd: FileDownListAdapterBinding = FileDownListAdapterBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(bd)
     }
 
-    override fun onBindViewHolder(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as ViewHolder
-        val f = getData(position)
+        val f = list[position]
         holder.bd.progressBarDownSize.visibility = View.INVISIBLE
         holder.bd.viewName.text = f.title
         val state = f.fileStatus
         var btnDescribe = "下载"
         if (state != null) {
             when (state.status) {
-                DownStatus.NOT_DOWNLOAD -> btnDescribe = "下载"
-                DownStatus.DOWNLOADING -> {
+                FileDownloadStateBean.DownStatus.NOT_DOWNLOAD -> btnDescribe = "下载"
+                FileDownloadStateBean.DownStatus.DOWNLOADING -> {
                     btnDescribe = "暂停"
                     holder.bd.progressBarDownSize.visibility = View.VISIBLE
                     val progress = (state.downloadSize.toFloat() / state.totalSize.toFloat() * 100).toInt()
                     holder.bd.progressBarDownSize.setProgress(progress)
                 }
-                DownStatus.DOWNLOAD_PAUSE -> {
+                FileDownloadStateBean.DownStatus.DOWNLOAD_PAUSE -> {
                     btnDescribe = "继续"
                     holder.bd.progressBarDownSize.visibility = View.VISIBLE
                     val progress = (state.downloadSize.toFloat() / state.totalSize.toFloat() * 100).toInt()
                     holder.bd.progressBarDownSize.setProgress(progress)
                 }
-                DownStatus.DOWNLOAD_COMPLETED -> btnDescribe = "打开"
+                FileDownloadStateBean.DownStatus.DOWNLOAD_COMPLETED -> btnDescribe = "打开"
             }
         }
         holder.bd.btnOption.text = btnDescribe
@@ -53,10 +53,9 @@ class FileDownListAdapter : BaseRecyclerViewAdapter<CustomFileBean> {
         }
         super.setOnItemClickListener(holder.itemView, position)
         super.setOnItemLongClickListener(holder.itemView, position)
-        holder.bd.executePendingBindings()
     }
 
-    class ViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    class ViewHolder : RecyclerView.ViewHolder {
         var bd: FileDownListAdapterBinding
 
         constructor(bd: FileDownListAdapterBinding) : super(bd.root) {

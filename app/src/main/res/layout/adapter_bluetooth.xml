@@ -1,74 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_pressed_default"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_light"
+        android:paddingLeft="@dimen/paddingLeft_normal"
+        android:text="name"
+        android:textColor="#0000ff" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_pressed_default"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_type"
+            style="@style/text_black_15sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/gray_light"
+            android:layout_weight="3"
             android:paddingLeft="@dimen/paddingLeft_normal"
-            android:text="name"
-            android:textColor="#0000ff" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_type"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:paddingLeft="@dimen/paddingLeft_normal"
-                android:singleLine="true"
-                android:text="type"
-                android:textColor="#ff0000" />
-
-            <Button
-                android:id="@+id/tv_bondState"
-                style="@style/text_black_15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="state" />
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/tv_address"
-            style="@style/text_black_15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
             android:singleLine="true"
-            android:text="address" />
+            android:text="type"
+            android:textColor="#ff0000" />
 
-
-        <TextView
-            android:id="@+id/tv_rssi"
+        <Button
+            android:id="@+id/tv_bondState"
             style="@style/text_black_15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:text="rssi" />
-
-        <TextView
-            android:id="@+id/tv_profile_state"
-            style="@style/text_black_15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="未连接" />
+            android:text="state" />
     </LinearLayout>
-</layout>
+
+
+    <TextView
+        android:id="@+id/tv_address"
+        style="@style/text_black_15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:singleLine="true"
+        android:text="address" />
+
+
+    <TextView
+        android:id="@+id/tv_rssi"
+        style="@style/text_black_15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="rssi" />
+
+    <TextView
+        android:id="@+id/tv_profile_state"
+        style="@style/text_black_15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="未连接" />
+</LinearLayout>

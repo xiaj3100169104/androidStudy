@@ -4,22 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.style.base.BaseFragment
-import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_sound_wave.*
+import com.style.framework.databinding.ActivitySoundWaveBinding
 
 class SoundWaveFragment : BaseFragment() {
 
+    private lateinit var bd: ActivitySoundWaveBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_sound_wave, container, false)
+        bd = ActivitySoundWaveBinding.inflate(inflater, container, false)
+        return bd.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_start.setOnClickListener { custom_view2.start() }
-        btn_pause.setOnClickListener { custom_view2.pause() }
-        btn_reset.setOnClickListener { custom_view2.reset() }
+        bd.btnStart.setOnClickListener { bd.customView2.start() }
+        bd.btnPause.setOnClickListener { bd.customView2.pause() }
+        bd.btnReset.setOnClickListener { bd.customView2.reset() }
 
     }
 

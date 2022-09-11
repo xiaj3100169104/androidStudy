@@ -1,18 +1,15 @@
 package example.login
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import androidx.databinding.Observable
 import android.os.Bundle
 import android.text.method.DigitsKeyListener
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.style.base.BaseActivity
-
 import com.style.entity.UserInfo
 import com.style.framework.R
 import com.style.framework.databinding.ActivityLoginBinding
-
 import example.home.MainActivity
 
 class LoginActivity : BaseActivity() {
@@ -23,34 +20,22 @@ class LoginActivity : BaseActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_login)
+        bd = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setFullScreenStableDarkMode(false)
 
-        bd = getBinding()
         val digits = getContext().getString(R.string.digits_password)
         bd.etPassword.keyListener = DigitsKeyListener.getInstance(digits)
         //keyListener与inputType有冲突，先设置的会被覆盖
         //bd.etPassword.inputType = InputType.TYPE_CLASS_TEXT
-        loginModel = ViewModelProviders.of(this).get(LoginModel::class.java)
-        loginModel.loginSucceed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(observable: Observable, i: Int) {
-                if (loginModel.loginSucceed.get()) {
-                    startActivity(Intent(getContext(), MainActivity::class.java))
-                    finish()
-                }
+        loginModel = ViewModelProvider(this).get(LoginModel::class.java)
+
+        loginModel.user.observe(this, object : Observer<UserInfo> {
+            override fun onChanged(t: UserInfo?) {
+
+                setUserView(loginModel.user.value!!)
             }
         })
-        loginModel.user.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(observable: Observable, i: Int) {
-                setUserView(loginModel.user.get()!!)
-            }
-        })
-        /*loginModel.loginState.observe(this, object : Observer<Boolean> {
-            override fun onChanged(t: Boolean?) {
-                startActivity(Intent(getContext(), MainActivity::class.java))
-                finish()
-            }
-        })*/
         loginModel.loginState.observe(this, Observer<Boolean> { t ->
             if (t!!) {
                 startActivity(Intent(getContext(), MainActivity::class.java))
@@ -59,10 +44,6 @@ class LoginActivity : BaseActivity() {
 
             }
         })
-       /* loginModel.loginState.observe(this, Observer<Boolean> {
-            startActivity(Intent(getContext(), MainActivity::class.java))
-            finish()
-        })*/
 
         bd.btSignIn.setOnClickListener {}
         bd.btSignIn.setOnClickListener(object : View.OnClickListener {

@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layout_root"
+        <include layout="@layout/title_bar_white" />
+
+        <Button
+            android:id="@+id/view_transparent_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/title_bar_white" />
-
-            <Button
-                android:id="@+id/view_transparent_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="状态栏可用调整编辑布局" />
-
-            <View
-                android:id="@+id/view_b"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#0f0" />
-        </LinearLayout>
+            android:text="状态栏可用调整编辑布局" />
 
         <View
-            android:id="@+id/view_top"
+            android:id="@+id/view_b"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#000" />
+            android:layout_height="40dp"
+            android:background="#0f0" />
+    </LinearLayout>
 
-        <View
-            android:id="@+id/view_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentBottom="true"
-            android:background="#f00" />
-    </RelativeLayout>
-</layout>
+    <View
+        android:id="@+id/view_top"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#000" />
+
+    <View
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="#f00" />
+</RelativeLayout>

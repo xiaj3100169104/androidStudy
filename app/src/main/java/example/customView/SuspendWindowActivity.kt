@@ -8,29 +8,31 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
+import com.style.framework.databinding.ActivitySuspendWindowBinding
 import com.style.service.suspendWindow.CallInSuspendService
 import com.style.service.suspendWindow.VideoSuspendService
 import com.style.service.suspendWindow.VoiceSuspendService
-import kotlinx.android.synthetic.main.activity_suspend_window.*
 
 /**
  * Created by xiajun on 2017/8/1.
  */
 class SuspendWindowActivity : BaseTitleBarActivity() {
 
+    private lateinit var bd: ActivitySuspendWindowBinding
+
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_suspend_window)
+        bd = ActivitySuspendWindowBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         requestDrawOverLays()
-        btn_voice_suspend.setOnClickListener {
+        bd.btnVoiceSuspend.setOnClickListener {
             openService(VoiceSuspendService::class.java);
             //sendBroadcast(Intent(Constants.ACTION_CALL_TIME_UPDATE));
         }
-        btn_video_suspend.setOnClickListener {
+        bd.btnVideoSuspend.setOnClickListener {
             openService(VideoSuspendService::class.java);
         }
-        btn_incoming_calling.setOnClickListener {
+        bd.btnIncomingCalling.setOnClickListener {
             openService(CallInSuspendService::class.java);
         }
     }

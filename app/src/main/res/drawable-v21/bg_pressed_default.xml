@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#5521272B">
-    <item>
+    android:color="#FFFFFF">
+    <item android:state_pressed="false">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF" />
         </shape>
     </item>
-    <item android:drawable="@drawable/rounded_corners" />
+    <item
+        android:drawable="@drawable/rounded_corners"
+        android:state_pressed="true" />
 </ripple>

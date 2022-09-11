@@ -79,7 +79,7 @@ class MyHandlerThread : Thread() {
     @NonNull
     fun getThreadHandler(): Handler {
         if (mHandler == null) {
-            mHandler = Handler(getLooper())
+            mHandler = Handler(getLooper()!!)
         }
         return mHandler as Handler
     }

@@ -32,8 +32,9 @@ public class WebViewActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_h5_remote);
-        bd = getBinding();
+        bd = ActivityH5RemoteBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+
         bd.btnLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

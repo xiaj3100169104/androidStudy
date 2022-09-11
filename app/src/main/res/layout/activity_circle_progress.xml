@@ -1,70 +1,68 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change with 动画" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="change" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="change with 动画" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <com.style.view.progressbar.CircleArcProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                app:arc_indeterminate="false"
-                app:arc_finished_color="#FF45CE7B"
-                app:arc_finished_start_angle="90"
-                app:arc_stroke_width="15dp"
-                app:arc_unfinished_color="#ffe5e5e5" />
-
-
-            <com.style.view.progressbar.CircleProgress
-                android:id="@+id/circle_progress"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                app:circle_progress="10" />
-
-            <com.style.view.progressbar.CircleArcProgressBar
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                app:arc_finished_color="#FF45CE7B"
-                app:arc_finished_start_angle="270"
-                app:arc_stroke_width="5dp"
-                app:arc_unfinished_color="#ffe5e5e5" />
-
-        </LinearLayout>
-
-        <com.style.view.progressbar.ArcEnergyBar
-            android:id="@+id/arc_energy"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
+        <com.style.view.progressbar.CircleArcProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
             app:arc_finished_color="#FF45CE7B"
-            app:arc_total_sweep_angle="280"
-            app:arc_finished_start_angle="130"
-            app:arc_progress="80"
-            app:arc_stroke_width="10dp"
+            app:arc_finished_start_angle="90"
+            app:arc_indeterminate="false"
+            app:arc_stroke_width="15dp"
             app:arc_unfinished_color="#ffe5e5e5" />
+
+
+        <com.style.view.progressbar.CircleProgress
+            android:id="@+id/circle_progress"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            app:circle_progress="10" />
+
+        <com.style.view.progressbar.CircleArcProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            app:arc_finished_color="#FF45CE7B"
+            app:arc_finished_start_angle="270"
+            app:arc_stroke_width="5dp"
+            app:arc_unfinished_color="#ffe5e5e5" />
+
     </LinearLayout>
-</layout>
+
+    <com.style.view.progressbar.ArcEnergyBar
+        android:id="@+id/arc_energy"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        app:arc_finished_color="#FF45CE7B"
+        app:arc_finished_start_angle="130"
+        app:arc_progress="80"
+        app:arc_stroke_width="10dp"
+        app:arc_total_sweep_angle="280"
+        app:arc_unfinished_color="#ffe5e5e5" />
+
+</LinearLayout>

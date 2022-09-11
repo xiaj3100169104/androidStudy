@@ -1,139 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
+        android:id="@+id/layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false">
+        android:background="@color/windowBackground"
+        android:clipChildren="false">
 
-        <RelativeLayout
-            android:id="@+id/layout_root"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/windowBackground"
-            android:clipChildren="false">
+            android:layout_above="@+id/layout_bottom"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <include
+                android:id="@+id/layout_title_bar"
+                layout="@layout/title_bar_main_activity" />
+
+            <FrameLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/layout_bottom"
-                android:orientation="vertical">
+                android:orientation="vertical" />
+            <!-- <android.support.v4.view.ViewPager
+                 android:id="@+id/pager"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent" />-->
+        </LinearLayout>
 
-                <include
-                    android:id="@+id/layout_title_bar"
-                    layout="@layout/title_bar_main_activity" />
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_tap_holder">
 
-                <FrameLayout
-                    android:id="@+id/content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-                <!-- <android.support.v4.view.ViewPager
-                     android:id="@+id/pager"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent" />-->
-            </LinearLayout>
+            <View style="@style/divider_horizontal_transparent_black" />
+        </RelativeLayout>
+
+        <com.style.view.systemHelper.CustomSingleCheckLayout
+            android:id="@+id/bottom_tap_holder"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/layout_bottom"
+                android:id="@+id/layout_home_tap_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/bottom_tap_holder">
+                android:layout_height="65dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1">
 
-                <View style="@style/divider_horizontal_transparent_black" />
+                <TextView
+                    android:id="@+id/view_home_tap_1"
+                    style="@style/image_main_tap_size"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="7.5dp"
+                    android:background="@drawable/tab_chat_bg" />
+
+                <com.style.view.other.CustomNotifyView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    app:notifyText="99" />
             </RelativeLayout>
 
-            <com.style.view.systemHelper.CustomSingleCheckLayout
-                android:id="@+id/bottom_tap_holder"
+            <RelativeLayout
+                android:id="@+id/layout_home_tap_20"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/white"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:id="@+id/layout_home_tap_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1">
+                <TextView
+                    android:id="@+id/view_home_tap_20"
+                    style="@style/image_main_tap_size"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/tab_find_bg" />
 
-                    <TextView
-                        android:id="@+id/view_home_tap_1"
-                        style="@style/image_main_tap_size"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="7.5dp"
-                        android:background="@drawable/tab_chat_bg" />
+            </RelativeLayout>
 
-                    <com.style.view.other.CustomNotifyView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        app:notifyText="99" />
-                </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_home_tap_2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:id="@+id/layout_home_tap_20"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <TextView
+                    android:id="@+id/view_home_tap_2"
+                    style="@style/image_main_tap_size"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/tab_find_bg" />
 
-                    <TextView
-                        android:id="@+id/view_home_tap_20"
-                        style="@style/image_main_tap_size"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/tab_find_bg" />
+            </RelativeLayout>
 
-                </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_home_tap_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:id="@+id/layout_home_tap_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1">
+                <TextView
+                    android:id="@+id/view_home_tap_3"
+                    style="@style/image_main_tap_size"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/tab_active_bg" />
 
-                    <TextView
-                        android:id="@+id/view_home_tap_2"
-                        style="@style/image_main_tap_size"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/tab_find_bg" />
+            </RelativeLayout>
 
-                </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_home_tap_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <RelativeLayout
-                    android:id="@+id/layout_home_tap_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <TextView
+                    android:id="@+id/view_home_tap_4"
+                    style="@style/image_main_tap_size"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/tab_contact_list_bg" />
 
-                    <TextView
-                        android:id="@+id/view_home_tap_3"
-                        style="@style/image_main_tap_size"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/tab_active_bg" />
+            </RelativeLayout>
 
-                </RelativeLayout>
+        </com.style.view.systemHelper.CustomSingleCheckLayout>
 
-                <RelativeLayout
-                    android:id="@+id/layout_home_tap_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/view_home_tap_4"
-                        style="@style/image_main_tap_size"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/tab_contact_list_bg" />
-
-                </RelativeLayout>
-
-            </com.style.view.systemHelper.CustomSingleCheckLayout>
-
-        </RelativeLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

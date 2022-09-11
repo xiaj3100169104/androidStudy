@@ -7,20 +7,20 @@ import android.widget.TextView;
 import com.ndk.JniCommon;
 import com.ndk.JniTest;
 import com.style.framework.R;
+import com.style.framework.databinding.ActivityJniTestBinding;
 
 public class JniTestActivity extends AppCompatActivity {
 
-
+    private ActivityJniTestBinding bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jni_test);
+        bd = ActivityJniTestBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
 
-        // Example of a call to a native method
-        TextView tv = (TextView) findViewById(R.id.sample_text);
         String tt = JniCommon.stringFromJNI();
-        tv.setText(tt);
+        bd.sampleText.setText(tt);
         String kk = tt;
         String obj = "obj";
         short s = 1;

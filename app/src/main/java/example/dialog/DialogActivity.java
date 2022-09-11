@@ -34,8 +34,8 @@ public class DialogActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.dialog_activity_dialog);
-        bd = getBinding();
+        bd = DialogActivityDialogBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("弹窗");
         fm = getSupportFragmentManager();
         materialDialog = new MaterialProgressDialog(this);
@@ -77,7 +77,7 @@ public class DialogActivity extends BaseTitleBarActivity {
     }
 
     private void showPopupMenu(View v) {
-        //莫法设置相对位置偏移量
+        //不能设置相对位置偏移量
         PopupMenu pop = new PopupMenu(getContext(), v);
         pop.getMenuInflater().inflate(R.menu.user_info, pop.getMenu());
         pop.show();
@@ -96,7 +96,7 @@ public class DialogActivity extends BaseTitleBarActivity {
 
     public void showSystemPromptDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setTitle("系统默认风格")
+                .setTitle("系统默认样式")
                 .setMessage("这是提示信息")
                 .setPositiveButton(R.string.ok, (dialog, which) -> {
 

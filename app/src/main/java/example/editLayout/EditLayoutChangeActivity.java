@@ -18,10 +18,11 @@ public class EditLayoutChangeActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.edit_layout_main_activity);
+        bd = EditLayoutMainActivityBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setFullScreenStableDarkMode(true);
-        bd = getBinding();
         setTitleBarTitle("编辑布局调整");
+
         bd.viewTransparentColor.setOnClickListener(v -> startActivity(new Intent(getContext(), FullScreenBottomEditLayoutActivity.class)));
         bd.viewB.setOnClickListener(v -> {
             int h = getResources().getDisplayMetrics().heightPixels;

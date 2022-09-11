@@ -1,24 +1,21 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:layout_height="50dp"
+        android:background="#f00"
+        android:gravity="center"
+        android:text="分类" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#f00"
-            android:gravity="center"
-            android:text="分类" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_sub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-</layout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/title_bar_red" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp" />
 
-        <include layout="@layout/title_bar_red" />
+    <Button
+        android:id="@+id/btn_compress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="压缩图片" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+    <Button
+        android:id="@+id/btn_share_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分享文本" />
 
-        <Button
-            android:id="@+id/btn_compress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="压缩图片" />
-
-        <Button
-            android:id="@+id/btn_share_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="分享文本" />
-
-        <Button
-            android:id="@+id/btn_share_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="分享图片" />
-    </LinearLayout>
-</layout>
+    <Button
+        android:id="@+id/btn_share_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分享图片" />
+</LinearLayout>

@@ -9,10 +9,10 @@ android {
         preview {
         }
     }
+}
 
-    dependencies {
-        implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
-        api "com.google.zxing:core:3.3.0"
-        implementation project(':lib_common')
-    }
+dependencies {
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    api "com.google.zxing:core:3.3.0"
+    implementation project(':lib_common')
 }

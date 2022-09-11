@@ -1,32 +1,31 @@
 package example.home
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.style.base.BaseNoPagerLazyRefreshFragment
-import com.style.framework.R
 import com.style.framework.databinding.FragmentHome1Binding
 import example.address.AddressActivity
 import example.album.SelectLocalPictureActivity
-import example.viewPagerBanner.BannerActivity
 import example.customView.*
 import example.dialog.DialogActivity
 import example.dialog.WheelActivity
 import example.gesture.XXRefreshActivity
+import example.viewPagerBanner.BannerActivity
 
 class CustomViewFragment : BaseNoPagerLazyRefreshFragment() {
 
     private lateinit var bd: FragmentHome1Binding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home_1, container, false)
+        bd = FragmentHome1Binding.inflate(inflater, container, false)
+        return bd.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bd = DataBindingUtil.bind(view)!!
+
         bd.btnAlbum.setOnClickListener { skip(SelectLocalPictureActivity::class.java) }
         bd.btnAddress.setOnClickListener { skip(AddressActivity::class.java) }
         bd.btnDialog.setOnClickListener { skip(DialogActivity::class.java) }

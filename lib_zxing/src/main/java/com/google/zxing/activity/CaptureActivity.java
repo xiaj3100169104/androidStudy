@@ -97,15 +97,13 @@ public final class CaptureActivity extends BaseTitleBarActivity implements Surfa
         super.onCreate(icicle);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_capturer);
+        setContentView(getLayoutInflater().inflate(R.layout.activity_capturer, null));
         setTitleBarTitle(R.string.zxing_scan_qr_code);
 
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
         ambientLightManager = new AmbientLightManager(this);
-
-        //PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
     }
 
     @Override

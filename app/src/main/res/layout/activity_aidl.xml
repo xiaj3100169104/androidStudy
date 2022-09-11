@@ -1,54 +1,51 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_gray_horizontal"
+    android:dividerPadding="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:showDividers="middle">
 
-    <LinearLayout
+    <include layout="@layout/title_bar_red" />
+
+    <TextView
+        android:id="@+id/tv_open_activity_with_mime_type"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@drawable/divider_gray_horizontal"
-        android:dividerPadding="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        android:layout_height="50dp"
+        android:background="@drawable/bg_pressed_default"
+        android:gravity="center"
+        android:text="打开其他activity(mimeType)" />
 
-        <include layout="@layout/title_bar_red" />
+    <TextView
+        android:id="@+id/tv_open_other_app_activity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_pressed_default"
+        android:gravity="center"
+        android:text="打开其他app activity(ACTION_VIEW)" />
 
-        <TextView
-            android:id="@+id/tv_open_activity_with_mime_type"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pressed_default"
-            android:gravity="center"
-            android:text="打开其他activity(mimeType)" />
+    <TextView
+        android:id="@+id/tv_launch"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_pressed_default"
+        android:gravity="center"
+        android:text="打开app启动页" />
 
-        <TextView
-            android:id="@+id/tv_open_other_app_activity"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pressed_default"
-            android:gravity="center"
-            android:text="打开其他app activity(ACTION_VIEW)" />
+    <TextView
+        android:id="@+id/tv_scheme"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_pressed_default"
+        android:gravity="center"
+        android:text="scheme协议跳转" />
 
-        <TextView
-            android:id="@+id/tv_launch"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pressed_default"
-            android:gravity="center"
-            android:text="打开app启动页" />
-
-        <TextView
-            android:id="@+id/tv_scheme"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pressed_default"
-            android:gravity="center"
-            android:text="scheme协议跳转" />
-
-        <TextView
-            android:id="@+id/tv_send_to_other_app"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_pressed_default"
-            android:gravity="center"
-            android:text="发消息给其他app" />
-    </LinearLayout>
-</layout>
+    <TextView
+        android:id="@+id/tv_send_to_other_app"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_pressed_default"
+        android:gravity="center"
+        android:text="发消息给其他app" />
+</LinearLayout>

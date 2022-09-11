@@ -1,92 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_red" />
+
+    <Button
+        android:id="@+id/btn_imei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="判断通知权限" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/title_bar_red" />
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_imei"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="判断通知权限" />
+            android:id="@+id/btn_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="显示加载" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="显示内容" />
 
-            <Button
-                android:id="@+id/btn_1"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="显示加载" />
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="空数据" />
 
-            <Button
-                android:id="@+id/btn_2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="显示内容" />
-
-            <Button
-                android:id="@+id/btn_3"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="空数据" />
-
-            <Button
-                android:id="@+id/btn_4"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="网络错误" />
-        </LinearLayout>
-
-        <com.style.common_ui.CommonLoadingLayout
-            android:id="@+id/common_loading_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tv_dialog"
-                    android:layout_width="80.0dip"
-                    android:layout_height="80.0dip"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/show_head_toast_bg"
-                    android:gravity="center"
-                    android:textColor="#ffffffff"
-                    android:textSize="30.0dip"
-                    android:visibility="invisible" />
-
-                <com.style.view.sort.IndexBar
-                    android:id="@+id/index_bar"
-                    android:layout_width="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:focusLetterColor="#7F000000"
-                    app:letterColor="#7F000000"
-                    app:letterSize="10sp"
-                    app:letterSpacingExtra="1.4" />
-            </RelativeLayout>
-        </com.style.common_ui.CommonLoadingLayout>
-
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="网络错误" />
     </LinearLayout>
-</layout>
+
+    <com.style.common_ui.CommonLoadingLayout
+        android:id="@+id/common_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_light">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_dialog"
+                android:layout_width="80.0dip"
+                android:layout_height="80.0dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/show_head_toast_bg"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="30.0dip"
+                android:visibility="invisible" />
+
+            <com.style.view.sort.IndexBar
+                android:id="@+id/index_bar"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:focusLetterColor="#7F000000"
+                app:letterColor="#7F000000"
+                app:letterSize="10sp"
+                app:letterSpacingExtra="1.4" />
+        </RelativeLayout>
+    </com.style.common_ui.CommonLoadingLayout>
+</LinearLayout>

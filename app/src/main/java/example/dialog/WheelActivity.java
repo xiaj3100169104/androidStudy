@@ -31,8 +31,8 @@ public class WheelActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_wheel);
-        bd = getBinding();
+        bd = ActivityWheelBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("滚轮");
     }
 

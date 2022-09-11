@@ -22,9 +22,6 @@ import com.dmcbig.mediapicker.view.PreviewFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dmcBig on 2017/8/9.
- */
 
 public class PreviewActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener{
 

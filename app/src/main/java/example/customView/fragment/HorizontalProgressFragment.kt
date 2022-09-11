@@ -8,13 +8,13 @@ import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.style.base.BaseFragment
-import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_horizontal_progress.*
+import com.style.framework.databinding.ActivityHorizontalProgressBinding
 
 
 class HorizontalProgressFragment : BaseFragment() {
+
+    private lateinit var bd: ActivityHorizontalProgressBinding
 
     internal var handler: Handler = @SuppressLint("HandlerLeak")
     object : Handler() {
@@ -22,22 +22,23 @@ class HorizontalProgressFragment : BaseFragment() {
             super.handleMessage(msg)
             val p = msg.data.getInt("progress")
             when (msg.what) {
-                1 -> progress.setProgress(p)
-                2 -> progress2.setProgress(p)
-                3 -> progress3.setProgress(p)
-                4 -> progress4.setProgress(p)
+                1 -> bd.progress.setProgress(p)
+                2 -> bd.progress2.setProgress(p)
+                3 -> bd.progress3.setProgress(p)
+                4 -> bd.progress4.setProgress(p)
             }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_horizontal_progress, container, false)
+        bd = ActivityHorizontalProgressBinding.inflate(inflater, container, false)
+        return bd.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progress.setProgressColor(Color.BLACK)
-        progress.setProgress(100)
-        view!!.findViewById<View>(R.id.bt_download).setOnClickListener { down() }
+        bd.progress.setProgressColor(Color.BLACK)
+        bd.progress.setProgress(100)
+        bd.btDownload.setOnClickListener { down() }
 
     }
 

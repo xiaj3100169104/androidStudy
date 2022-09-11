@@ -1,8 +1,6 @@
 package example.home
 
 import android.Manifest
-import android.app.ActivityManager
-import androidx.lifecycle.ViewModelProviders
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,32 +8,29 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Process
+import android.util.Log
+import android.view.Display
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.core.content.ContextCompat
-import android.util.Log
-import android.view.Display
-import com.style.data.app.AppActivityManager
-
-import com.style.toast.ToastManager
+import androidx.lifecycle.ViewModelProvider
 import com.style.base.BaseActivity
+import com.style.data.app.AppActivityManager
 import com.style.framework.R
 import com.style.framework.databinding.ActivityMainBinding
+import com.style.toast.ToastManager
 import com.style.utils.DeviceInfoUtil
 import com.style.utils.NetWorkUtil
 import example.home.contact.HomeListFragment
-import kotlinx.android.synthetic.main.activity_main.*
-
 import org.simple.eventbus.EventBus
-import kotlin.system.exitProcess
 
 
 class MainActivity : BaseActivity() {
-    private lateinit var mViewModel: MainViewModel
+
     private lateinit var bd: ActivityMainBinding
+    private lateinit var mViewModel: MainViewModel
 
     companion object {
         const val REQUEST_ENABLE_BT = 6
@@ -50,29 +45,20 @@ class MainActivity : BaseActivity() {
     private lateinit var homeFragment2: HomeListFragment
     private lateinit var homeFragment3: OriginalAPIFragment
     private lateinit var homeFragment4: OtherFrameworkFragment
-    private lateinit var fm: androidx.fragment.app.FragmentManager
-    private lateinit var bt: androidx.fragment.app.FragmentTransaction
+    private lateinit var fm: FragmentManager
+    private lateinit var bt: FragmentTransaction
     //private lateinit var mTabs: Array<TextView>
     private var currentTabIndex = 0
-    lateinit var fragments: Array<androidx.fragment.app.Fragment>
+    lateinit var fragments: Array<Fragment>
     private var appStateReceiver: DeviceStateBroadcastReceiver? = null
     //默认屏幕处于解锁状态
     private var isLocked = false
 
-    /**
-     * 解决方案为以下两种：
-     * 方法1：在fragmentActivity里oncreate方法判断savedInstanceState==null才生成新Fragment，否则不做处理。
-     * 方法2：在fragmentActivity里重写onSaveInstanceState方法，但不做实现，也就是将super.onSaveInstanceState(outState)注释掉。
-     */
-    override fun onSaveInstanceState(outState: Bundle?) {
-        //super.onSaveInstanceState(outState);//将super调用取消即可，表明当意外(比如系统内存吃紧将应用杀死)发生我不需要保存Fragment状态和数据等,当activity销毁时不保存其内部的view的状态
-    }
-
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_main)
+        bd = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         setFullScreenStableDarkMode(false)
-
         initData()
     }
 
@@ -80,8 +66,7 @@ class MainActivity : BaseActivity() {
 
     private fun initData() {
         AppActivityManager.getInstance().setMainTaskId(taskId)
-        bd = getBinding()
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         appStateReceiver = DeviceStateBroadcastReceiver()
         val filter = IntentFilter(NET_CHANGE)
         filter.addAction(Intent.ACTION_SCREEN_ON)//屏幕点亮
@@ -130,7 +115,7 @@ class MainActivity : BaseActivity() {
         }
         bt.commit()
         changePage()
-        bottom_tap_holder.setOnClickChildListener { position ->
+        bd.bottomTapHolder.setOnClickChildListener { position ->
             onBottomTapChecked(position)
         }
         /*int num = fragments.length;
@@ -173,7 +158,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun changePage() {
-        bottom_tap_holder.changeSelected(currentTabIndex)
+        bd.bottomTapHolder.changeSelected(currentTabIndex)
         setToolbarTitle(titles[currentTabIndex])
 
         bt = fm.beginTransaction()

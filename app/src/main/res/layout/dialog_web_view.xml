@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="false"
-        android:orientation="vertical">
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="270dp"
-            android:layout_height="155dp"
-            android:background="#05ff0000"/>
-
-    </LinearLayout>
-</layout>
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="270dp"
+        android:layout_height="155dp"
+        android:background="#05ff0000"
+        tools:ignore="WebViewLayout" />
+</LinearLayout>
 

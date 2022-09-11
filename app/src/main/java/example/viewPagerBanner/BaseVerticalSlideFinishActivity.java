@@ -38,7 +38,7 @@ public abstract class BaseVerticalSlideFinishActivity extends BaseActivity {
         super.onCreate(arg0);
 
         viewConfiguration = ViewConfiguration.get(getContext());
-        AppActivityManager.Companion.getInstance().setTestTaskId(getTaskId());
+        AppActivityManager.getInstance().setTestTaskId(getTaskId());
     }
 
     @Override
@@ -56,7 +56,7 @@ public abstract class BaseVerticalSlideFinishActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppActivityManager.Companion.getInstance().setTestTaskId(-1);
+        AppActivityManager.getInstance().setTestTaskId(-1);
     }
 
     public View getRootView() {

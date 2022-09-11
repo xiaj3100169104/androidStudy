@@ -24,8 +24,9 @@ public class DispatchGestureActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.gesture_divide_scroll);
-        bd = getBinding();
+        bd = GestureDivideScrollBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+
         bd.tvContent1.setOnClickListener(v -> logE(getTAG(), "111111111111"));
         bd.tv2.setOnClickListener(v -> logE(getTAG(), "22222222222222"));
         bd.root.setOnSlideListener(() -> {

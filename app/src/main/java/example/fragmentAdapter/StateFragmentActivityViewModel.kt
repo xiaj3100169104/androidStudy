@@ -4,18 +4,16 @@ import android.app.Application
 import com.style.base.BaseViewModel
 
 class StateFragmentActivityViewModel : BaseViewModel {
-    val titles: ArrayList<String> = arrayListOf()
-    var datas = hashMapOf<String, Int>()
 
     constructor(application: Application) : super(application)
 
-    fun getTitleData(): ArrayList<String> {
+    fun getData(): ArrayList<String> {
+        var datas = arrayListOf<String>()
         for (i in 0 until 10) {
-            val title = i.toString()
-            titles.add(title)
-            datas[title] = i
+            val s = i.toString()
+            datas.add(s)
         }
-        return titles
+        return datas
     }
 
 

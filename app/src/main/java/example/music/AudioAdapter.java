@@ -13,24 +13,23 @@ import java.util.ArrayList;
 import example.music.entity.MediaBean;
 
 public class AudioAdapter extends BaseRecyclerViewAdapter<MediaBean> {
+
     public AudioAdapter(Context context, ArrayList<MediaBean> list) {
         super(context, list);
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterMusicBinding bd = getBinding(R.layout.adapter_music, parent);
+        AdapterMusicBinding bd = AdapterMusicBinding.inflate(getLayoutInflater(), parent, false);
         return new ViewHolder(bd);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        MediaBean f = (MediaBean) getData(position);
+        MediaBean f = (MediaBean) getList().get(position);
         holder.bd.name.setText(f.name);
         super.setOnItemClickListener(holder.itemView, position);
-        holder.bd.executePendingBindings();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

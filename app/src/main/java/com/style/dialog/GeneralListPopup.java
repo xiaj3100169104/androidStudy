@@ -42,8 +42,8 @@ public class GeneralListPopup extends PopupWindow {
     }
 
     private void initData() {
-        View contentView = LayoutInflater.from(context).inflate(R.layout.general_list_popup, null);
-        setContentView(contentView);
+        bd = GeneralListPopupBinding.inflate(LayoutInflater.from(context));
+        setContentView(bd.getRoot());
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);
@@ -58,7 +58,6 @@ public class GeneralListPopup extends PopupWindow {
         dataList.add("1");
         dataList.add("2");
         adapter = new SimpleStringAdapter(getContext(), dataList);
-        bd = DataBindingUtil.bind(contentView);
         bd.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //bd.recyclerView.addItemDecoration(new DividerItemDecoration(this));
         bd.recyclerView.setAdapter(adapter);
@@ -78,17 +77,16 @@ public class GeneralListPopup extends PopupWindow {
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            GeneralPopupWindowAdapterItemBinding bd = getBinding(R.layout.general_popup_window_adapter_item, parent);
+            GeneralPopupWindowAdapterItemBinding bd = GeneralPopupWindowAdapterItemBinding.inflate(getLayoutInflater(), parent, false);
             return new ViewHolder(bd);
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
             ViewHolder holder = (ViewHolder) viewHolder;
-            String s = getData(position);
+            String s = getList().get(position);
             holder.bd.name.setText(s);
             super.setOnItemClickListener(holder.itemView, position);
-            holder.bd.executePendingBindings();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

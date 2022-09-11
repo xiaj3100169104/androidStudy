@@ -12,8 +12,8 @@ class XXRefreshActivity : BaseTitleBarActivity() {
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.xxrefresh_activity)
-        bd = getBinding()
+        bd = XxrefreshActivityBinding.inflate(layoutInflater)
+        setContentView(bd.root)
 
     }
 

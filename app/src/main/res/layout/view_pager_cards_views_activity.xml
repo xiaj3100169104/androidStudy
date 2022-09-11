@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <include layout="@layout/title_bar_red" />
+
+    <com.style.view.systemHelper.AutoHeightViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:overScrollMode="never" />
 
-        <include layout="@layout/title_bar_red" />
+    <Button
+        android:id="@+id/cardTypeBtn0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第一页" />
 
-        <com.style.view.systemHelper.AutoHeightViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+    <Button
+        android:id="@+id/cardTypeBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第二页" />
 
-        <Button
-            android:id="@+id/cardTypeBtn0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="第一页" />
+    <Button
+        android:id="@+id/cardTypeBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第三页" />
 
-        <Button
-            android:id="@+id/cardTypeBtn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="第二页" />
-
-        <Button
-            android:id="@+id/cardTypeBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="第三页" />
-
-        <Button
-            android:id="@+id/cardTypeBtn3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="第四页" />
-
-    </LinearLayout>
-</layout>
+    <Button
+        android:id="@+id/cardTypeBtn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第四页" />
+</LinearLayout>

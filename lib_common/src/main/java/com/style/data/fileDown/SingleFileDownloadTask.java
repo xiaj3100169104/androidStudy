@@ -6,7 +6,7 @@ import com.style.data.app.AppActivityManager;
 import com.style.data.db.AppDatabase;
 import com.style.data.db.FileDownloadStateDao;
 import com.style.data.event.EventBusEvent;
-import com.style.data.fileDown.FileDownloadStateBean.Companion.DownStatus;
+import com.style.data.fileDown.FileDownloadStateBean.DownStatus;
 
 import org.simple.eventbus.EventBus;
 
@@ -109,7 +109,7 @@ public class SingleFileDownloadTask implements Runnable {
     }
 
     private FileDownloadStateDao getFileDownloadDao() {
-        return AppDatabase.getInstance(AppActivityManager.Companion.getInstance().getApp()).getFileDownloadDao();
+        return AppDatabase.getInstance(AppActivityManager.getInstance().getApp()).getFileDownloadDao();
     }
 
     /**

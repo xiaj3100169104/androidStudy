@@ -26,8 +26,8 @@ public class RemotePlayActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_remote_service);
-        bd = getBinding();
+        bd = ActivityRemoteServiceBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("另起进程开启服务");
         conn();
     }

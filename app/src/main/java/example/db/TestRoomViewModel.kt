@@ -33,7 +33,7 @@ class TestRoomViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun queryAll() {
-        val list = getDataBase().testRoomDao.getAll()
+        val list = getDataBase().testRoomDao.all
         for (i in list.indices)
             Log.e(TAG, list[i].toString())
     }
@@ -43,7 +43,7 @@ class TestRoomViewModel(application: Application) : BaseViewModel(application) {
     }
 
     fun findById() {
-        val list = getDataBase().testRoomDao.getAll()
+        val list = getDataBase().testRoomDao.all
         val b = getDataBase().testRoomDao.findById(list[list.lastIndex].id)
         Log.e(TAG, b.toString())
     }

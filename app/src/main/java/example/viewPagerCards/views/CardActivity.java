@@ -27,9 +27,10 @@ public class CardActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.view_pager_cards_views_activity);
+        bd = ViewPagerCardsViewsActivityBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
         setTitleBarTitle("views");
-        bd = getBinding();
+
         bd.cardTypeBtn0.setOnClickListener(v -> {
             setCurrentItem(0);
         });

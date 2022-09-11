@@ -2,29 +2,28 @@ package example.activity;
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import com.style.base.BaseTitleBarActivity
-import com.style.framework.R
+import com.style.framework.databinding.ActivityTestRxBinding
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_test_rx.*
 
 class TestRxActivity : BaseTitleBarActivity() {
 
+    private lateinit var bd: ActivityTestRxBinding
+
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_test_rx)
+        bd = ActivityTestRxBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         val menu = addRightMenu("menu", true)
 
-        btn_just.setOnClickListener { testJust() }
-        btn_map.setOnClickListener { testMap() }
-        btn_flat_map.setOnClickListener { testFlatMap() }
+        bd.btnJust.setOnClickListener { testJust() }
+        bd.btnMap.setOnClickListener { testMap() }
+        bd.btnFlatMap.setOnClickListener { testFlatMap() }
     }
 
     override fun onClickTitleOption() {

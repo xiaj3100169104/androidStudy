@@ -1,32 +1,32 @@
 package example.queue
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.style.data.singlePriorityTask.PrioritizedTask
 import com.style.data.singlePriorityTask.SinglePriorityTaskManager
-
-import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_queue_test.*
+import com.style.framework.databinding.ActivityQueueTestBinding
 import java.util.*
 
 class QueueTestActivity : AppCompatActivity(), EventReceiver {
 
+    private lateinit var bd: ActivityQueueTestBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_queue_test)
-        btn_register.setOnClickListener {
+        bd = ActivityQueueTestBinding.inflate(layoutInflater)
+        setContentView(bd.root)
+        bd.btnRegister.setOnClickListener {
             EventManager.getInstance().register(this, 1)
         }
-        btn_unregister.setOnClickListener {
+        bd.btnUnregister.setOnClickListener {
             EventManager.getInstance().unRegister(this)
         }
-        btn_send_event.setOnClickListener {
-            EventManager.getInstance().post(1, tv_content.text.toString())
+        bd.btnSendEvent.setOnClickListener {
+            EventManager.getInstance().post(1, bd.tvContent.text.toString())
         }
         val random = Random()
-        btn_priority_queue.setOnClickListener {
+        bd.btnPriorityQueue.setOnClickListener {
             for (i in 0..10) {
                 val t = PrioritizedTask(i.toString(), random.nextInt(50))
                 SinglePriorityTaskManager.getInstance().addTask(t.id, t)
@@ -38,7 +38,7 @@ class QueueTestActivity : AppCompatActivity(), EventReceiver {
         if (code == 1) {
             val s = data as String
             Log.e("data==", s + "")
-            tv_result.text = s
+            bd.tvResult.text = s
         }
     }
 

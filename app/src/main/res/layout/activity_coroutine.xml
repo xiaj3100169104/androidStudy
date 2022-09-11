@@ -1,87 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/title_bar_red" />
+
+    <Button
+        android:id="@+id/btn_coroutine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickCoroutine"
+        android:text="协程一般操作" />
+
+    <AutoCompleteTextView
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="电话号码"
+        android:inputType="number"
+        android:text="18202823096"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="searchMobile"
+        android:text="查询归属地" />
+
+    <AutoCompleteTextView
+        android:id="@+id/et_city_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="城市ID"
+        android:inputType="number"
+        android:text="1117"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_search_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="searchWeather"
+        android:text="查询天气情况" />
+
+    <Button
+        android:id="@+id/btn_parse_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="parseList"
+        android:text="json转list" />
+
+    <Button
+        android:id="@+id/btn_request_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="responseString"
+        android:text="返回解析string" />
+
+    <Button
+        android:id="@+id/btn_request_general_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="responseGeneralData"
+        android:text="通用返回解析bean" />
+
+    <Button
+        android:id="@+id/btn_request_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="responseGeneralNoData"
+        android:text="通用返回不解析data" />
+
+    <TextView
+        android:id="@+id/tv_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:hint="msg"
+        android:text=""
+        android:textStyle="bold" />
 
-        <include layout="@layout/title_bar_red" />
-
-        <Button
-            android:id="@+id/btn_coroutine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickCoroutine"
-            android:text="协程一般操作" />
-
-        <AutoCompleteTextView
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="电话号码"
-            android:inputType="number"
-            android:text="18202823096"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="searchMobile"
-            android:text="查询归属地" />
-
-        <AutoCompleteTextView
-            android:id="@+id/et_city_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="城市ID"
-            android:inputType="number"
-            android:text="1117"
-            android:textStyle="normal" />
-
-        <Button
-            android:id="@+id/btn_search_weather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="searchWeather"
-            android:text="查询天气情况" />
-
-        <Button
-            android:id="@+id/btn_parse_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="parseList"
-            android:text="json转list" />
-
-        <Button
-            android:id="@+id/btn_request_string"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="responseString"
-            android:text="返回解析string" />
-
-        <Button
-            android:id="@+id/btn_request_general_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="responseGeneralData"
-            android:text="通用返回解析bean" />
-
-        <Button
-            android:id="@+id/btn_request_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="responseGeneralNoData"
-            android:text="通用返回不解析data" />
-
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="msg"
-            android:text=""
-            android:textStyle="bold" />
-
-    </LinearLayout>
-</layout>
+</LinearLayout>

@@ -5,23 +5,25 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.widget.Toast
 import com.google.zxing.activity.CaptureActivity
 import com.google.zxing.encoding.EncodingHandler
 import com.style.base.BaseTitleBarActivity
 import com.style.framework.R
-import kotlinx.android.synthetic.main.activity_qr_code_scan.*
+import com.style.framework.databinding.ActivityQrCodeScanBinding
 
 class QRCodeActivity : BaseTitleBarActivity() {
+    private lateinit var bd: ActivityQrCodeScanBinding
     val url = "https://github.com/xj913492952"
 
     override fun onCreate(arg0: Bundle?) {
         super.onCreate(arg0)
-        setContentView(R.layout.activity_qr_code_scan)
+        bd = ActivityQrCodeScanBinding.inflate(layoutInflater)
+        setContentView(bd.root)
         init()
-        btnScaner.setOnClickListener {
+        bd.btnScaner.setOnClickListener {
             checkCameraPermission()
             //startActivity(Intent(getContext(), MainActivity::class.java))
         }
@@ -33,9 +35,9 @@ class QRCodeActivity : BaseTitleBarActivity() {
     }
 
     private fun init() {
-        iamge1.setImageBitmap(EncodingHandler.createQRCode(url, 500))
+        bd.image1.setImageBitmap(EncodingHandler.createQRCode(url, 500))
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.k)
-        iamge2.setImageBitmap(EncodingHandler.createQRCode(url, 500, 500, bitmap))
+        bd.image2.setImageBitmap(EncodingHandler.createQRCode(url, 500, 500, bitmap))
     }
 
     private fun checkCameraPermission() {
@@ -72,7 +74,7 @@ class QRCodeActivity : BaseTitleBarActivity() {
             if (result == null || result.isEmpty())
                 return
             val payCode = String(result)
-            tvReuslt.text = payCode
+            bd.tvReuslt.text = payCode
         }
     }
 

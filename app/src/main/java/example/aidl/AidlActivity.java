@@ -26,8 +26,9 @@ public class AidlActivity extends BaseTitleBarActivity {
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
         super.onCreate(arg0);
-        setContentView(R.layout.activity_aidl);
-        bd = getBinding();
+        bd = ActivityAidlBinding.inflate(getLayoutInflater());
+        setContentView(bd.getRoot());
+
         conn();
         bd.tvOpenActivityWithMimeType.setOnClickListener(v -> openActivityWithMimeType());
         bd.tvOpenOtherAppActivity.setOnClickListener(v -> openOtherAppActivity());

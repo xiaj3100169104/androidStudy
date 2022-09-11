@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/title_bar_red" />
+
+    <Button
+        android:id="@+id/btn_local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="本地网页" />
+
+    <com.style.view.progressbar.HorizontalProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"
+        app:horizontalProgress="30"
+        app:horizontalProgressColor="@color/blue_dark" />
+
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
-        android:orientation="vertical">
-
-        <include layout="@layout/title_bar_red" />
-
-        <Button
-            android:id="@+id/btn_local"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="本地网页" />
-
-        <com.style.view.progressbar.HorizontalProgressBar
-            android:id="@+id/progress"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"
-            app:horizontalProgress="30"
-            app:horizontalProgressColor="@color/blue_dark" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp" />
-    </LinearLayout>
-</layout>
+        android:padding="20dp" />
+</LinearLayout>
 

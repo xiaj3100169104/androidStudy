@@ -17,20 +17,20 @@
 
 
         <Button
-            android:visibility="visible"
             android:id="@+id/preview"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:minHeight="1dp"
-            android:text="@string/preview"
-            android:minWidth="1dp"
             android:background="@null"
+            android:minWidth="1dp"
+            android:minHeight="1dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/preview"
             android:textColor="@color/default_text_color"
             android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/category_btn"

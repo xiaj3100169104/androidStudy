@@ -24,19 +24,18 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        AdapterLocalVideoBinding bd = getBinding(R.layout.adapter_local_video, parent);
+        AdapterLocalVideoBinding bd = AdapterLocalVideoBinding.inflate(getLayoutInflater(), parent, false);
         return new ViewHolder(bd);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        File f = getData(position);
+        File f = getList().get(position);
         holder.bd.tvName.setText(f.getName());
 
         setImageResource(f, holder.bd.ivVideoPreview);
         super.setOnItemClickListener(holder.itemView, position);
-        holder.bd.executePendingBindings();
     }
 
     private void setImageResource(File f, ImageView imageView) {
@@ -63,7 +62,6 @@ public class LocalVideoAdapter extends BaseRecyclerViewAdapter<File> {
         ViewHolder(AdapterLocalVideoBinding bd) {
             super(bd.getRoot());
             this.bd = bd;
-
         }
     }
 }

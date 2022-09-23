@@ -9,11 +9,11 @@ import com.style.framework.databinding.FragmentHome4Binding
 import example.activity.GlideDealActivity
 import example.activity.PreviewActivity
 import example.activity.QRCodeActivity
-import example.activity.TestRxActivity
 import example.media.AudioRecordActivity
 import example.media.VideoTestActivity
 import example.media.socket.chat.SocketTestActivity
 import example.queue.QueueTestActivity
+import example.web_service.CoroutineActivity
 import example.web_service.WebServiceActivity
 import example.wifi.WifiTestActivity
 
@@ -30,7 +30,6 @@ class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bd.viewQrCode.setOnClickListener { skip(QRCodeActivity::class.java) }
-        bd.viewRxJava.setOnClickListener { skip(TestRxActivity::class.java) }
         bd.viewGlideDeal.setOnClickListener { skip(GlideDealActivity::class.java) }
         bd.viewAppCrash.setOnClickListener {
             val test: String? = null
@@ -43,6 +42,7 @@ class OtherFrameworkFragment : BaseNoPagerLazyRefreshFragment() {
         bd.viewEventManager.setOnClickListener { skip(QueueTestActivity::class.java) }
         bd.viewWifi.setOnClickListener { skip(WifiTestActivity::class.java) }
         bd.viewWebservice.setOnClickListener { skip(WebServiceActivity::class.java) }
+        bd.viewCoroutine.setOnClickListener { skip(CoroutineActivity::class.java) }
 
     }
 }

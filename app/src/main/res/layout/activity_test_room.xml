@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/title_bar_red"/>
+        <include layout="@layout/title_bar_default"/>
         <Button
             android:id="@+id/btn_room_insert_one"
             android:layout_width="match_parent"

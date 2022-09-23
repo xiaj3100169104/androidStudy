@@ -26,9 +26,6 @@ import kotlin.concurrent.thread
 class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
 
     private lateinit var bd: FragmentHome3Binding
-    lateinit var blank: KuaiDi
-    lateinit var blank2: KuaiDi
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bd = FragmentHome3Binding.inflate(inflater, container, false)
@@ -50,23 +47,5 @@ class OriginalAPIFragment : BaseNoPagerLazyRefreshFragment() {
         bd.viewFileDown.setOnClickListener { skip(FileDownActivity::class.java) }
         bd.viewVoice.setOnClickListener { skip(MusicListActivity::class.java) }
         bd.viewOtherProcess.setOnClickListener { skip(RemotePlayActivity::class.java) }
-        bd.viewSaveMoney.setOnClickListener { saveMoney() }
-        bd.viewTakeMoney.setOnClickListener { takeMoney() }
-        blank = KuaiDi()
-        blank2 = KuaiDi()
-    }
-
-    private fun saveMoney() {
-        thread { blank.saveMoney(1000) }
-        thread { blank.takeMoney(100) }
-
-        //thread { blank.takeMoney(100) }
-        //thread { blank.saveMoney(1000) }
-    }
-
-    private fun takeMoney() {
-
-        thread { blank.seeMoney() }
-        thread { blank2.seeMoney() }
     }
 }

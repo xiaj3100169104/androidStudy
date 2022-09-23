@@ -76,15 +76,5 @@
             android:id="@+id/view_other_process"
             style="@style/text_home_item"
             android:text="单独进程服务" />
-
-        <TextView
-            android:id="@+id/view_save_money"
-            style="@style/text_home_item"
-            android:text="存钱线程" />
-
-        <TextView
-            android:id="@+id/view_take_money"
-            style="@style/text_home_item"
-            android:text="取钱线程" />
     </LinearLayout>
 </ScrollView>

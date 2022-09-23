@@ -7,7 +7,7 @@
     android:background="@color/windowBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_red" />
+    <include layout="@layout/title_bar_default" />
 
     <com.style.common_ui.xxrefreshview.XXRefreshView
         android:id="@+id/refreshLayout"

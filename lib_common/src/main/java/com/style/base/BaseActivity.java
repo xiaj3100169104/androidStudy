@@ -98,10 +98,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * //如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建
-     * //finishAndRemoveTask()都不管用
+     * 如果该activity位于栈底并且启动模式不是singleTask,finish会导致该activity销毁了又重建，
+     * finishAndRemoveTask()也没有用，
      */
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -172,9 +171,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogManager.logE(tag, msg);
     }
 
-    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
+    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度要高一些
     protected int getStatusHeight() {
-        int statusBarHeight = DeviceInfoUtil.getStatusHeight(this);
-        return statusBarHeight;
+        return DeviceInfoUtil.getStatusHeight(this);
     }
 }

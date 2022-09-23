@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_red" />
+    <include layout="@layout/title_bar_default" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_value_animator"

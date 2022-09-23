@@ -97,7 +97,7 @@ public class DeviceInfoUtil {
         return metric;
     }
 
-    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度可能比较高
+    //获取状态栏高度(竖屏时),有的手机竖屏时状态栏高度要高一些
     public static int getStatusHeight(Context context) {
         int statusBarHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, context.getResources().getDisplayMetrics());
         //获取status_bar_height资源的ID

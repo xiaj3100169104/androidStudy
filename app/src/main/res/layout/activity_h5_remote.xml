@@ -6,7 +6,7 @@
     android:fitsSystemWindows="false"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_red" />
+    <include layout="@layout/title_bar_default" />
 
     <Button
         android:id="@+id/btn_local"

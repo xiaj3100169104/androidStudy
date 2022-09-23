@@ -20,11 +20,6 @@
             android:text="zxing扫描，生成二维码" />
 
         <TextView
-            android:id="@+id/view_rx_java"
-            style="@style/View.normal_item_horizontal"
-            android:text="rx测试" />
-
-        <TextView
             android:id="@+id/view_glide_deal"
             style="@style/View.normal_item_horizontal"
             android:text="Glide特殊处理" />
@@ -37,7 +32,6 @@
         <TextView
             android:id="@+id/view_camera2"
             style="@style/View.normal_item_horizontal"
-            android:layout_marginTop="20dp"
             android:text="camera2" />
 
         <TextView
@@ -69,6 +63,11 @@
             android:id="@+id/view_webservice"
             style="@style/View.normal_item_horizontal"
             android:text="http请求webservice" />
+
+        <TextView
+            android:id="@+id/view_coroutine"
+            style="@style/View.normal_item_horizontal"
+            android:text="Coroutine" />
 
     </LinearLayout>
 </ScrollView>

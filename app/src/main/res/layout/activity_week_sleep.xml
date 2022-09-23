@@ -6,7 +6,7 @@
     android:background="@color/windowBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_red" />
+    <include layout="@layout/title_bar_default" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

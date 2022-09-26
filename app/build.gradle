@@ -137,6 +137,7 @@ dependencies {
     implementation 'androidx.multidex:multidex-instrumentation:2.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'

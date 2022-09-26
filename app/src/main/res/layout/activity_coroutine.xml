@@ -6,6 +6,16 @@
 
     <include layout="@layout/title_bar_default" />
 
+    <TextView
+        android:id="@+id/view_get_contact"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorButtonNormal"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="5dp"
+        android:text="获取联系人"
+        android:gravity="center"/>
+
     <AutoCompleteTextView
         android:id="@+id/et_phone"
         android:layout_width="match_parent"

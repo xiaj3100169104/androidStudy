@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 public class CoroutineActivity extends BaseTitleBarActivity {
 
     ActivityCoroutineBinding bd;
-    WebServiceViewModel mViewModel;
+    CoroutineViewModel mViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle arg0) {
@@ -21,8 +21,15 @@ public class CoroutineActivity extends BaseTitleBarActivity {
         bd = ActivityCoroutineBinding.inflate(getLayoutInflater());
         setContentView(bd.getRoot());
         setTitleBarTitle("coroutine");
-        mViewModel = new ViewModelProvider(this).get(WebServiceViewModel.class);
-        mViewModel.content.observe(this, s -> setContent(s));
+        mViewModel = new ViewModelProvider(this).get(CoroutineViewModel.class);
+        mViewModel.getContent().observe(this, s -> setContent(s));
+
+        bd.viewGetContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewModel.getContact();
+            }
+        });
         bd.btnSearchMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,12 +46,12 @@ public class CoroutineActivity extends BaseTitleBarActivity {
 
     public void searchMobile() {
         final String phone = bd.etPhone.getText().toString();
-        mViewModel.getPhoneInfo(phone);
+        //mViewModel.getPhoneInfo(phone);
     }
 
     public void searchWeather() {
         final String code = bd.etCityCode.getText().toString();
-        mViewModel.searchWeather(code);
+        //mViewModel.searchWeather(code);
     }
 
     public void setContent(String s) {

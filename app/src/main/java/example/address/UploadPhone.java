@@ -105,4 +105,18 @@ public class UploadPhone implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	@Override
+	public String toString() {
+		return "UploadPhone{" +
+				"uploadId='" + uploadId + '\'' +
+				", account='" + account + '\'' +
+				", telephone='" + telephone + '\'' +
+				", name='" + name + '\'' +
+				", deleteFlag='" + deleteFlag + '\'' +
+				", createTime='" + createTime + '\'' +
+				", updateTime='" + updateTime + '\'' +
+				", sortLetters='" + sortLetters + '\'' +
+				", isUploaded=" + isUploaded +
+				'}';
+	}
 }

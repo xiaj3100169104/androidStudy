@@ -29,16 +29,6 @@ public class WebServiceViewModel extends BaseViewModel {
         super(application);
     }
 
-    public void searchWeather(String code) {
-        Disposable d = WebNetSourceImpl.getWeather(code)
-                .subscribe(s -> {
-                            showToast("查询天气成功");
-                            content.postValue(s);
-                        }, new HttpExceptionConsumer()
-                );
-        addTask(d);
-    }
-
     @SuppressLint("CheckResult")
     public void getPhoneInfo(String phone) {
         UserNetSourceImpl.test().subscribe(new Consumer<ResponseBody>() {
@@ -52,7 +42,12 @@ public class WebServiceViewModel extends BaseViewModel {
     }
 
     public void getWeather(String code) {
-        Disposable d = WebNetSourceImpl.getWeather(code).subscribe(s -> content.postValue(s));
+        Disposable d = WebNetSourceImpl.getWeather(code)
+                .subscribe(s -> {
+                            showToast("查询天气成功");
+                            content.postValue(s);
+                        }, new HttpExceptionConsumer()
+                );
         addTask(d);
     }
 

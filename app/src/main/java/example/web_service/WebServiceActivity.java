@@ -30,11 +30,6 @@ public class WebServiceActivity extends BaseTitleBarActivity {
         mViewModel.getPhoneInfo(phone);
     }
 
-    public void searchWeather(View v) {
-        final String code = bd.etCityCode.getText().toString();
-        mViewModel.searchWeather(code);
-    }
-
     public void responseString(View v) {
         final String code = bd.etCityCode.getText().toString();
         mViewModel.getWeather(code);

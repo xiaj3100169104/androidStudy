@@ -51,7 +51,7 @@ public class CoroutineActivity extends BaseTitleBarActivity {
 
     public void searchWeather() {
         final String code = bd.etCityCode.getText().toString();
-        //mViewModel.searchWeather(code);
+        mViewModel.getWeather(code);
     }
 
     public void setContent(String s) {
